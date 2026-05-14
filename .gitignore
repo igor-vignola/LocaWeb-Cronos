@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv/
+.ipynb_checkpoints/
+
+
+# Modelos treinados (ficam grandes)
+*.pkl
+*.h5
+*.joblib
+models/
+
+# Variáveis de ambiente e credenciais
+.env
+.env.local
+*.key
+secrets.json
+
+# IDEs e editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+
+# Logs e temporários
+*.log
+*.tmp
+tmp/
+.cache/
+
+# Docker (volumes locais)
+docker/volumes/
+
+# Django (vai aparecer na Sprint 3)
+*.sqlite3
+db.sqlite3
+staticfiles/
+media/
