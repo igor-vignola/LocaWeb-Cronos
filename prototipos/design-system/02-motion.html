@@ -345,40 +345,30 @@ section:nth-of-type(7) { animation-delay: 420ms; }
 }
 @keyframes pulseSubtle { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-/* Pattern · Cascata predicted (Apple ProgressView style — dashed border rotating) */
+/* Pattern · Cascata predicted (Apple-style — soft breathing fade, no dashed) */
 .demo-pred {
   width: 52px; height: 52px;
-  position: relative;
-  display: flex; align-items: center; justify-content: center;
-}
-.demo-pred-ring {
-  position: absolute; inset: 0;
   border-radius: 50%;
-  animation: predRotate 6s linear infinite;
-}
-.demo-pred-ring svg { width: 100%; height: 100%; }
-.demo-pred-ring circle {
-  fill: none;
-  stroke: var(--danger);
-  stroke-width: 2;
-  stroke-dasharray: 4 5;
-  stroke-linecap: round;
-  opacity: 0.85;
-}
-.demo-pred-inner {
+  background: var(--danger-soft);
+  border: 2px solid var(--danger);
+  display: flex; align-items: center; justify-content: center;
   font-size: var(--fs-12); font-weight: var(--fw-bold);
   color: var(--danger);
-  position: relative; z-index: 1;
+  position: relative;
+  animation: predBreathe 3s ease-in-out infinite;
 }
 .demo-pred-label {
   font-size: 9px; font-weight: var(--fw-bold);
   letter-spacing: var(--ls-uppercase); text-transform: uppercase;
   color: var(--label-quaternary);
-  position: absolute; bottom: -16px; left: 50%;
+  position: absolute; bottom: -18px; left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
 }
-@keyframes predRotate { to { transform: rotate(360deg); } }
+@keyframes predBreathe {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
 
 /* Pattern · Shimmer skeleton */
 .demo-shim {
@@ -820,23 +810,15 @@ section:nth-of-type(7) { animation-delay: 420ms; }
           </div>
         </div>
 
-        <!-- Cascata predicted — rotating dashed ring (no scale ping) -->
+        <!-- Cascata predicted — soft breathing fade (no dashed, no glow) -->
         <div class="pattern">
           <div class="pattern-h">
             <span class="pattern-name">Cascata predicted</span>
-            <span class="pattern-tag">6s linear · rotação contínua</span>
+            <span class="pattern-tag">3s ease-in-out · breathing</span>
           </div>
-          <p class="pattern-desc">Indicador de evento previsto (não confirmado). Dashed border rotaciona lentamente — sutil, sem outer glow, sem scale ping. Estilo Apple ProgressView. Signals "vai acontecer mas ainda não aconteceu".</p>
+          <p class="pattern-desc">Indicador de evento previsto. Opacity respira 0.55 → 1 → 0.55 em 3s. Sutil, sem outer glow, sem dashed, sem scale. Signals "vai acontecer mas ainda não aconteceu" — calmo, não alarme.</p>
           <div class="pattern-stage">
-            <div class="demo-pred">
-              <div class="demo-pred-ring">
-                <svg viewBox="0 0 52 52">
-                  <circle cx="26" cy="26" r="24"></circle>
-                </svg>
-              </div>
-              <div class="demo-pred-inner">P2</div>
-              <div class="demo-pred-label">previsto · ~17:20</div>
-            </div>
+            <div class="demo-pred">P2<div class="demo-pred-label">previsto · ~17:20</div></div>
           </div>
         </div>
 
