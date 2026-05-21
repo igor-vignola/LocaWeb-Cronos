@@ -1,0 +1,1158 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cronos DS · 06 Patterns</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tokens.css">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   GLASS CANVAS (mesmo da 05b)
+   ═══════════════════════════════════════════════════════════ */
+body { background: #EEF1F7; position: relative; overflow-x: hidden; }
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(1100px 800px at -200px -150px, rgba(37,99,235,0.22), transparent 55%),
+    radial-gradient(900px 700px at calc(100% + 100px) calc(100% + 100px), rgba(220,38,38,0.13), transparent 55%),
+    radial-gradient(800px 600px at 60% 40%, rgba(168,85,247,0.10), transparent 55%);
+  pointer-events: none;
+}
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.025 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply; opacity: 0.6;
+}
+
+.shell { position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; padding: var(--space-12) var(--space-8) var(--space-20); }
+
+/* Glass utility */
+.glass {
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.85);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(0,30,80,0.04), 0 12px 32px -14px rgba(0,30,80,0.12);
+}
+.glass-elev { box-shadow: inset 0 1px 0 rgba(255,255,255,0.95), 0 2px 6px rgba(0,30,80,0.06), 0 20px 48px -16px rgba(0,30,80,0.18); }
+
+/* Page header */
+.page-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 10.5px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--label-tertiary); margin-bottom: var(--space-4); }
+.page-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gray-5); }
+.page-h1 { font-size: var(--fs-48); font-weight: var(--fw-heavy); letter-spacing: var(--ls-display); line-height: var(--lh-tight); color: var(--label-primary); max-width: 22ch; }
+.page-h1 em { font-style: normal; color: var(--label-tertiary); }
+.page-lead { font-size: var(--fs-15); color: var(--label-secondary); line-height: var(--lh-relaxed); max-width: 64ch; margin-top: var(--space-4); }
+.page-lead code { font-family: var(--font-sans); background: rgba(0,0,0,0.05); padding: 2px 7px; border-radius: var(--r-xs); font-size: 12.5px; color: var(--label-primary); font-weight: var(--fw-semibold); }
+
+/* Pattern section */
+.pattern {
+  margin-top: var(--space-16);
+  opacity: 0; transform: translateY(10px);
+  animation: fadeUp 700ms var(--ease-out-strong) forwards;
+}
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+.pattern:nth-of-type(1) { animation-delay: 80ms; }
+.pattern:nth-of-type(2) { animation-delay: 160ms; }
+.pattern:nth-of-type(3) { animation-delay: 240ms; }
+.pattern:nth-of-type(4) { animation-delay: 320ms; }
+.pattern-h {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--space-5); margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.pattern-h-left .num { font-size: var(--fs-12); font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--accent); }
+.pattern-h-left h2 { font-size: var(--fs-28); font-weight: var(--fw-bold); letter-spacing: var(--ls-heading); color: var(--label-primary); margin-top: 4px; }
+.pattern-h-right { font-size: 13px; color: var(--label-tertiary); line-height: var(--lh-normal); max-width: 50ch; text-align: right; }
+.pattern-h-right strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
+
+/* ───────────────────────────────────────────────────────────
+   PATTERN 1 · MORNING BRIEF
+   ─────────────────────────────────────────────────────────── */
+.brief-frame {
+  border-radius: var(--r-2xl);
+  padding: var(--space-10) var(--space-8) var(--space-12);
+  max-width: 760px;
+  margin: 0 auto;
+}
+.brief-date {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px;
+  background: rgba(37,99,235,0.10);
+  border: 1px solid rgba(37,99,235,0.20);
+  border-radius: var(--r-pill);
+  font-size: 11.5px; font-weight: var(--fw-semibold);
+  color: var(--accent);
+  margin-bottom: var(--space-8);
+}
+.brief-date svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.brief-block { margin-bottom: var(--space-10); }
+.brief-eyebrow {
+  font-size: 10.5px; font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase;
+  color: var(--label-tertiary);
+  margin-bottom: var(--space-3);
+}
+.brief-h1 {
+  font-size: 30px; font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-heading); line-height: 1.18;
+  color: var(--label-primary);
+  max-width: 26ch;
+  margin-bottom: var(--space-4);
+}
+.brief-h1 .kw { color: var(--danger); }
+.brief-h1 .succ { color: var(--success); }
+
+.brief-stats {
+  display: flex; align-items: stretch;
+  margin: var(--space-5) 0;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.brief-stat {
+  flex: 1; padding: var(--space-4) var(--space-3);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.brief-stat + .brief-stat { border-left: 1px solid rgba(0,0,0,0.08); }
+.brief-stat .v { font-size: 22px; font-weight: var(--fw-heavy); letter-spacing: -0.025em; color: var(--label-primary); font-variant-numeric: tabular-nums; line-height: 1; }
+.brief-stat .l { font-size: 11px; font-weight: var(--fw-semibold); color: var(--label-tertiary); }
+
+.brief-prose { font-size: 15px; color: var(--label-secondary); line-height: 1.65; max-width: 60ch; }
+.brief-prose strong { color: var(--label-primary); font-weight: var(--fw-semibold); }
+
+.brief-list { display: flex; flex-direction: column; gap: var(--space-3); margin-top: var(--space-4); }
+.brief-item {
+  display: grid; grid-template-columns: 32px 1fr; gap: var(--space-3);
+  align-items: flex-start;
+}
+.brief-item-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #1E40AF);
+  color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: var(--fw-bold);
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 2px 6px rgba(37,99,235,0.25);
+  margin-top: 1px;
+}
+.brief-item-body { font-size: 14px; color: var(--label-secondary); line-height: 1.55; padding-top: 2px; }
+.brief-item-body strong { color: var(--label-primary); font-weight: var(--fw-semibold); }
+.brief-item-body code { font-family: ui-monospace, monospace; background: rgba(0,0,0,0.05); padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+
+/* Action card stack */
+.brief-actions { display: flex; flex-direction: column; gap: var(--space-3); margin-top: var(--space-4); }
+.brief-action {
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(255,255,255,0.85);
+  border-radius: var(--r-md);
+  padding: var(--space-4);
+  display: grid; grid-template-columns: 1fr auto; gap: var(--space-3); align-items: center;
+  transition: all var(--dur-quick) var(--ease-out);
+  cursor: pointer;
+}
+.brief-action:hover { background: rgba(255,255,255,0.85); transform: translateY(-1px); }
+.brief-action-title { font-size: 13.5px; font-weight: var(--fw-semibold); color: var(--label-primary); }
+.brief-action-meta { font-size: 11.5px; color: var(--label-tertiary); margin-top: 3px; }
+.brief-action-meta strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
+.brief-action-side { display: flex; align-items: center; gap: var(--space-3); }
+.brief-impact { font-size: 10.5px; font-weight: var(--fw-bold); padding: 3px 8px; border-radius: var(--r-pill); letter-spacing: 0.04em; text-transform: uppercase; }
+.brief-impact.alto { background: var(--danger-soft); color: var(--danger); }
+.brief-impact.medio { background: var(--warning-soft); color: var(--warning); }
+.brief-impact.baixo { background: var(--success-soft); color: var(--success); }
+.brief-action-cta { font-size: 12px; font-weight: var(--fw-semibold); color: var(--accent); display: inline-flex; align-items: center; gap: 4px; transition: transform var(--dur-quick) var(--ease-out); }
+.brief-action:hover .brief-action-cta { transform: translateX(2px); }
+.brief-action-cta svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2.4; stroke-linecap: round; }
+
+/* Decisões pendentes */
+.brief-decisions { display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-4); }
+.brief-decision {
+  display: grid; grid-template-columns: 24px 1fr auto; gap: var(--space-3); align-items: center;
+  padding: var(--space-3) var(--space-4);
+  background: rgba(255,255,255,0.45);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: background var(--dur-quick) var(--ease-out);
+}
+.brief-decision:hover { background: rgba(255,255,255,0.75); }
+.brief-check {
+  width: 20px; height: 20px;
+  border-radius: 6px;
+  border: 1.5px solid var(--gray-5);
+  background: var(--white);
+  transition: all var(--dur-quick) var(--ease-out);
+  flex-shrink: 0;
+}
+.brief-decision:hover .brief-check { border-color: var(--accent); }
+.brief-decision-text { font-size: 13.5px; color: var(--label-primary); }
+.brief-decision-text strong { font-weight: var(--fw-semibold); }
+.brief-pill { font-size: 10px; font-weight: var(--fw-bold); padding: 2px 8px; border-radius: var(--r-pill); letter-spacing: 0.04em; text-transform: uppercase; }
+.brief-pill.urgente { background: var(--danger); color: var(--white); }
+
+.brief-cta-strip {
+  display: flex; gap: var(--space-2); justify-content: center;
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); font-family: var(--font-sans); font-weight: var(--fw-semibold); letter-spacing: -0.005em; cursor: pointer; border: 1px solid transparent; transition: transform var(--dur-fast) var(--ease-out), background var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out); white-space: nowrap; height: var(--btn-h-md); padding: 0 18px; font-size: var(--fs-14); border-radius: var(--r-md); }
+.btn:active { transform: scale(0.97); }
+.btn svg { width: var(--icon-md); height: var(--icon-md); stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform var(--dur-quick) var(--ease-out); }
+.btn-primary { background: linear-gradient(135deg, var(--accent), #1E40AF); color: var(--white); box-shadow: inset 0 1px 0 rgba(255,255,255,0.20), 0 4px 14px -2px rgba(37,99,235,0.35); }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 8px 24px -2px rgba(37,99,235,0.45); }
+.btn-primary:hover svg { transform: translateX(2px); }
+.btn-glass { background: rgba(255,255,255,0.75); color: var(--label-primary); border-color: rgba(255,255,255,0.95); box-shadow: inset 0 1px 0 rgba(255,255,255,1), 0 1px 2px rgba(0,30,80,0.04), 0 4px 12px -4px rgba(0,30,80,0.08); }
+.btn-glass:hover { background: rgba(255,255,255,0.92); transform: translateY(-1px); }
+
+/* ───────────────────────────────────────────────────────────
+   PATTERN 2 · CASCATA DETALHE
+   ─────────────────────────────────────────────────────────── */
+.casc-frame { border-radius: var(--r-2xl); padding: var(--space-7); }
+.casc-hero {
+  background: rgba(255,255,255,0.65);
+  border: 1px solid rgba(255,255,255,0.85);
+  border-radius: var(--r-xl);
+  padding: var(--space-6) var(--space-7);
+  margin-bottom: var(--space-5);
+  position: relative; overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+}
+.casc-hero::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--danger), var(--warning), transparent 80%); }
+.casc-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-5); }
+.casc-left { display: flex; align-items: flex-start; gap: var(--space-3); }
+.casc-icon { width: 48px; height: 48px; border-radius: var(--r-md); background: linear-gradient(135deg, var(--danger), #991B1B); color: var(--white); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 12px -2px rgba(220,38,38,0.30), inset 0 1px 0 rgba(255,255,255,0.20); }
+.casc-icon svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.casc-meta { display: flex; flex-direction: column; gap: 3px; }
+.casc-eyebrow { font-size: 10.5px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--danger); display: inline-flex; align-items: center; gap: 6px; }
+.casc-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--danger); animation: livePulse 1.4s ease-in-out infinite; }
+@keyframes livePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+.casc-prod { font-size: 24px; font-weight: var(--fw-bold); letter-spacing: var(--ls-heading); color: var(--label-primary); line-height: 1.15; }
+.casc-prod span { color: var(--label-tertiary); font-weight: var(--fw-medium); font-size: 15px; }
+.casc-elapsed { text-align: right; font-size: 12px; color: var(--label-tertiary); line-height: 1.5; font-variant-numeric: tabular-nums; }
+.casc-elapsed strong { color: var(--label-primary); font-weight: var(--fw-bold); }
+
+/* Impact strip */
+.casc-impact-strip {
+  display: flex; align-items: stretch;
+  margin: var(--space-5) 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.casc-impact-cell { flex: 1; padding: 0 var(--space-3); display: flex; flex-direction: column; gap: 4px; }
+.casc-impact-cell + .casc-impact-cell { border-left: 1px solid rgba(0,0,0,0.06); }
+.casc-impact-cell .v { font-size: 20px; font-weight: var(--fw-heavy); letter-spacing: -0.025em; color: var(--label-primary); font-variant-numeric: tabular-nums; }
+.casc-impact-cell .v.crit { color: var(--danger); }
+.casc-impact-cell .l { font-size: 10.5px; font-weight: var(--fw-semibold); color: var(--label-tertiary); letter-spacing: 0.04em; text-transform: uppercase; }
+
+/* Flow (reused from dashboard) */
+.flow { display: flex; align-items: flex-start; padding: var(--space-2) 0; margin: var(--space-5) 0; }
+.fnode { display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; z-index: 2; }
+.fdot { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 2px solid; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; transition: transform var(--dur-base) var(--ease-out); position: relative; box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 6px rgba(0,30,80,0.06); }
+.fdot:hover { transform: translateY(-2px); }
+.fdot.p5 { border-color: var(--gray-5); color: var(--label-tertiary); }
+.fdot.p4 { border-color: var(--warning); color: var(--warning); background: rgba(254,243,199,0.85); }
+.fdot.p3 { border-color: var(--danger); color: var(--danger); background: rgba(254,226,226,0.85); }
+.fdot.pred { border-color: var(--danger); color: var(--danger); background: rgba(254,226,226,0.85); animation: predBreathe 3s ease-in-out infinite; }
+@keyframes predBreathe { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+.ftime { font-size: 10px; font-weight: var(--fw-semibold); color: var(--label-tertiary); font-variant-numeric: tabular-nums; }
+.ftime.bold { color: var(--label-primary); font-weight: var(--fw-bold); }
+.flink { flex: 1; height: 4px; margin: 18px -2px 0; background: rgba(212,212,212,0.6); border-radius: 2px; position: relative; overflow: hidden; }
+.flink.warn { background: var(--warning); opacity: 0.55; }
+.flink.crit { background: var(--danger); opacity: 0.75; }
+.flink.crit::after { content: ''; position: absolute; top: 0; bottom: 0; width: 40px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.85), transparent); animation: flowPush 1.6s linear infinite; }
+@keyframes flowPush { 0% { left: -40px; } 100% { left: 100%; } }
+
+/* Cascata SHAP block */
+.casc-shap-block {
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.casc-shap-h {
+  display: flex; align-items: center; gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+.casc-shap-pill { background: rgba(37,99,235,0.15); color: var(--accent); padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: var(--fw-bold); letter-spacing: 0.04em; text-transform: uppercase; }
+.casc-shap-h .lbl { font-size: 11.5px; font-weight: var(--fw-semibold); color: var(--label-secondary); }
+.casc-shap-list { display: flex; flex-direction: column; gap: var(--space-2); }
+.casc-shap-item {
+  display: grid; grid-template-columns: 60px 1fr auto; gap: var(--space-3); align-items: center;
+  padding: var(--space-2) 0;
+  font-size: 13px; color: var(--label-secondary);
+}
+.casc-shap-item .pct { font-size: 16px; font-weight: var(--fw-bold); color: var(--label-primary); font-variant-numeric: tabular-nums; }
+.casc-shap-item .bar { width: 120px; height: 6px; background: rgba(0,0,0,0.06); border-radius: var(--r-pill); overflow: hidden; }
+.casc-shap-item .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-hover)); border-radius: var(--r-pill); }
+
+/* 3-col grid pra detail */
+.casc-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-4); margin-top: var(--space-5); }
+.casc-col { background: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.8); border-radius: var(--r-lg); padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-3); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); }
+.casc-col-h { font-size: 12px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase); text-transform: uppercase; color: var(--label-tertiary); margin-bottom: var(--space-2); }
+
+/* Timeline */
+.timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+.timeline::before { content: ''; position: absolute; left: 11px; top: 12px; bottom: 12px; width: 2px; background: rgba(0,0,0,0.06); }
+.timeline-row { display: grid; grid-template-columns: 24px 1fr; gap: var(--space-3); align-items: flex-start; padding: var(--space-2) 0; position: relative; }
+.timeline-dot { width: 24px; height: 24px; border-radius: 50%; background: var(--bg-primary); border: 2px solid; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; z-index: 1; }
+.timeline-dot.p5 { border-color: var(--gray-5); color: var(--label-tertiary); }
+.timeline-dot.p4 { border-color: var(--warning); color: var(--warning); background: var(--warning-soft); }
+.timeline-dot.p3 { border-color: var(--danger); color: var(--danger); background: var(--danger-soft); }
+.timeline-body { display: flex; flex-direction: column; gap: 1px; padding-top: 2px; }
+.timeline-title { font-size: 12.5px; font-weight: var(--fw-semibold); color: var(--label-primary); line-height: 1.3; }
+.timeline-meta { font-size: 10.5px; color: var(--label-tertiary); font-variant-numeric: tabular-nums; }
+
+/* Produtos correlatos */
+.corr-row { display: grid; grid-template-columns: 22px 1fr auto; gap: var(--space-3); align-items: center; padding: var(--space-2) 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+.corr-row:last-child { border-bottom: none; }
+.corr-rnk { font-size: 10px; color: var(--label-tertiary); font-variant-numeric: tabular-nums; font-weight: var(--fw-semibold); }
+.corr-info { display: flex; flex-direction: column; gap: 1px; }
+.corr-name { font-size: 12.5px; font-weight: var(--fw-semibold); color: var(--label-primary); font-family: ui-monospace, monospace; }
+.corr-meta { font-size: 10.5px; color: var(--label-tertiary); }
+.corr-prob { font-size: 13px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; }
+.corr-prob.crit { color: var(--danger); }
+.corr-prob.warn { color: var(--warning); }
+.corr-prob.ok { color: var(--success); }
+
+/* Playbook accordion */
+.play { display: flex; flex-direction: column; gap: var(--space-2); }
+.play-step { background: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.7); border-radius: var(--r-md); padding: var(--space-3); cursor: pointer; transition: all var(--dur-quick) var(--ease-out); }
+.play-step:hover { background: rgba(255,255,255,0.7); }
+.play-step-head { display: flex; align-items: center; gap: var(--space-3); }
+.play-num { width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #1E40AF); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: var(--fw-bold); }
+.play-title { font-size: 12.5px; font-weight: var(--fw-semibold); color: var(--label-primary); flex: 1; }
+.play-time { font-size: 10.5px; color: var(--label-tertiary); font-variant-numeric: tabular-nums; }
+.play-meta { font-size: 10.5px; color: var(--label-tertiary); margin-top: 4px; padding-left: 32px; }
+.play-meta strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
+
+/* ───────────────────────────────────────────────────────────
+   PATTERN 3 · SCORE SAÚDE
+   ─────────────────────────────────────────────────────────── */
+.score-frame { border-radius: var(--r-2xl); padding: var(--space-6); display: grid; grid-template-columns: 240px 1fr; gap: var(--space-5); }
+
+.score-filter { display: flex; flex-direction: column; gap: var(--space-5); }
+.score-filter-group { display: flex; flex-direction: column; gap: var(--space-2); }
+.score-filter-h { font-size: 10.5px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase); text-transform: uppercase; color: var(--label-tertiary); }
+
+/* Segmented */
+.seg { display: inline-flex; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05); border-radius: var(--r-sm); padding: 3px; position: relative; }
+.seg-item { padding: 5px 11px; font-size: 12px; font-weight: var(--fw-semibold); color: var(--label-tertiary); cursor: pointer; border-radius: 5px; transition: color var(--dur-quick) var(--ease-out); position: relative; z-index: 2; }
+.seg-item:hover { color: var(--label-primary); }
+.seg-item.active { color: var(--label-primary); }
+.seg-indicator { position: absolute; top: 3px; bottom: 3px; background: var(--white); border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.06); z-index: 1; transition: left 360ms var(--ease-spring), width 360ms var(--ease-spring); }
+
+/* Checkbox list */
+.check-list { display: flex; flex-direction: column; gap: 6px; }
+.check-item { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: var(--r-xs); cursor: pointer; transition: background var(--dur-quick) var(--ease-out); }
+.check-item:hover { background: rgba(0,0,0,0.04); }
+.check-box { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--gray-5); background: var(--white); display: inline-flex; align-items: center; justify-content: center; transition: all var(--dur-quick) var(--ease-out); flex-shrink: 0; }
+.check-item.on .check-box { background: var(--accent); border-color: var(--accent); }
+.check-item.on .check-box::after { content: ''; width: 9px; height: 6px; border-left: 2px solid var(--white); border-bottom: 2px solid var(--white); transform: rotate(-45deg) translateY(-1px); }
+.check-label { font-size: 13px; color: var(--label-primary); flex: 1; }
+.check-count { font-size: 11px; color: var(--label-tertiary); font-variant-numeric: tabular-nums; }
+
+/* Score main */
+.score-main { display: flex; flex-direction: column; }
+.score-h {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.score-title { font-size: 17px; font-weight: var(--fw-bold); letter-spacing: var(--ls-heading); color: var(--label-primary); }
+.score-title .count { font-size: 12px; color: var(--label-tertiary); font-weight: var(--fw-medium); margin-left: 8px; font-variant-numeric: tabular-nums; }
+.score-actions { display: flex; gap: var(--space-2); }
+.score-action {
+  padding: 5px 11px;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: var(--r-sm);
+  font-size: 11.5px; font-weight: var(--fw-semibold);
+  color: var(--label-secondary);
+  cursor: pointer;
+  transition: all var(--dur-quick) var(--ease-out);
+}
+.score-action:hover { background: var(--white); color: var(--label-primary); }
+
+/* Score row (dense list, no cards) */
+.score-row {
+  display: grid;
+  grid-template-columns: 32px 1fr 200px 50px 100px;
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-3) var(--space-2);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  cursor: pointer;
+  transition: background var(--dur-quick) var(--ease-out);
+  border-radius: var(--r-sm);
+}
+.score-row:hover { background: rgba(255,255,255,0.6); }
+.score-rank { font-size: 13px; font-weight: var(--fw-bold); color: var(--label-quaternary); font-variant-numeric: tabular-nums; }
+.score-prod { display: flex; flex-direction: column; gap: 1px; }
+.score-prod .nm { font-size: 14px; font-weight: var(--fw-semibold); color: var(--label-primary); font-family: ui-monospace, monospace; }
+.score-prod .meta { font-size: 11px; color: var(--label-tertiary); font-variant-numeric: tabular-nums; }
+.score-bar-wrap { display: flex; align-items: center; gap: var(--space-2); }
+.score-bar { flex: 1; height: 8px; background: rgba(0,0,0,0.06); border-radius: var(--r-pill); overflow: hidden; }
+.score-bar i { display: block; height: 100%; border-radius: var(--r-pill); transition: width 600ms var(--ease-out-strong); }
+.score-bar.crit i { background: linear-gradient(90deg, var(--danger), #EC4899); }
+.score-bar.warn i { background: var(--warning); }
+.score-bar.ok i { background: var(--success); }
+.score-num { font-size: 20px; font-weight: var(--fw-heavy); letter-spacing: -0.025em; font-variant-numeric: tabular-nums; text-align: right; }
+.score-num.crit { background: linear-gradient(135deg, var(--danger), #EC4899); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.score-num.warn { color: var(--warning); }
+.score-num.ok { color: var(--success); }
+.score-trend { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 5px; font-size: 11px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; }
+.score-trend.down { background: var(--danger-soft); color: var(--danger); }
+.score-trend.up { background: var(--success-soft); color: var(--success); }
+.score-trend.flat { background: rgba(0,0,0,0.05); color: var(--label-tertiary); }
+
+/* ───────────────────────────────────────────────────────────
+   PATTERN 4 · PROBABILIDADE KPI
+   ─────────────────────────────────────────────────────────── */
+.kpi-frame { border-radius: var(--r-2xl); padding: var(--space-7); }
+.kpi-hero { display: grid; grid-template-columns: 1fr auto; gap: var(--space-6); align-items: center; padding-bottom: var(--space-5); border-bottom: 1px solid rgba(0,0,0,0.06); margin-bottom: var(--space-5); }
+.kpi-hero-left { display: flex; flex-direction: column; gap: var(--space-3); }
+.kpi-hero-eyebrow { font-size: 10.5px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--accent); }
+.kpi-hero-num { font-size: 104px; font-weight: var(--fw-heavy); letter-spacing: -0.05em; line-height: 0.9; color: var(--label-primary); display: flex; align-items: baseline; gap: 4px; font-variant-numeric: tabular-nums; }
+.kpi-hero-num .u { font-size: 42px; color: var(--label-tertiary); font-weight: var(--fw-medium); letter-spacing: -0.04em; }
+.kpi-hero-pill { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px; background: var(--danger-soft); border: 1px solid var(--danger-border); border-radius: var(--r-pill); font-size: 12px; font-weight: var(--fw-bold); color: var(--danger); letter-spacing: 0.04em; text-transform: uppercase; width: fit-content; }
+.kpi-hero-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--danger); animation: livePulse 1.4s ease-in-out infinite; }
+.kpi-hero-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.kpi-hero-meta { font-size: 11px; color: var(--label-tertiary); text-align: right; line-height: 1.5; }
+.kpi-hero-meta strong { color: var(--label-primary); font-weight: var(--fw-bold); }
+.kpi-hero-ci { font-size: 12px; color: var(--label-tertiary); font-variant-numeric: tabular-nums; }
+.kpi-hero-ci .pill { background: rgba(220,38,38,0.10); color: var(--danger); font-weight: var(--fw-bold); padding: 2px 7px; border-radius: 4px; font-size: 11px; }
+
+/* KPI chart layout: chart wide + scenarios sidebar */
+.kpi-row { display: grid; grid-template-columns: 1fr 320px; gap: var(--space-5); }
+.kpi-chart { background: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-lg); padding: var(--space-5); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); }
+.kpi-chart-h { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: var(--space-4); }
+.kpi-chart-title { font-size: 13px; font-weight: var(--fw-bold); letter-spacing: var(--ls-heading); color: var(--label-primary); }
+.kpi-chart-legend { display: flex; gap: var(--space-3); font-size: 10.5px; color: var(--label-tertiary); }
+.kpi-chart-legend-item { display: flex; align-items: center; gap: 5px; }
+.kpi-chart-legend-item .swatch { width: 8px; height: 8px; border-radius: 50%; }
+.kpi-chart-wrap { position: relative; }
+.kpi-chart-svg { width: 100%; height: 280px; display: block; }
+.kpi-chart-label { position: absolute; font-size: 10px; font-weight: var(--fw-bold); letter-spacing: 0.04em; background: rgba(255,255,255,0.85); padding: 1px 6px; pointer-events: none; border-radius: 3px; }
+.kpi-chart-label.meta { top: 6px; left: 12px; color: var(--success); }
+.kpi-chart-label.today { top: 6px; left: 60%; color: var(--label-secondary); }
+
+/* Scenarios sidebar */
+.scenarios { display: flex; flex-direction: column; gap: var(--space-3); }
+.scenario {
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(255,255,255,0.85);
+  border-left: 3px solid;
+  border-radius: var(--r-md);
+  padding: var(--space-4);
+  cursor: pointer;
+  transition: all var(--dur-quick) var(--ease-out);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+}
+.scenario:hover { background: rgba(255,255,255,0.85); transform: translateX(-2px); }
+.scenario.otimista { border-left-color: var(--success); }
+.scenario.atual { border-left-color: var(--accent); background: rgba(255,255,255,0.85); }
+.scenario.pessimista { border-left-color: var(--danger); }
+.scenario-eyebrow { font-size: 10px; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--label-tertiary); margin-bottom: 3px; }
+.scenario-title { font-size: 12px; font-weight: var(--fw-semibold); color: var(--label-primary); margin-bottom: var(--space-2); line-height: 1.3; }
+.scenario-pct { font-size: 32px; font-weight: var(--fw-heavy); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; line-height: 1; }
+.scenario.otimista .scenario-pct { color: var(--success); }
+.scenario.atual .scenario-pct { background: linear-gradient(135deg, var(--accent), #1E40AF); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.scenario.pessimista .scenario-pct { background: linear-gradient(135deg, var(--danger), #EC4899); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* Recommended actions */
+.kpi-actions { margin-top: var(--space-5); }
+.kpi-actions-h { font-size: 13px; font-weight: var(--fw-bold); letter-spacing: var(--ls-heading); color: var(--label-primary); margin-bottom: var(--space-3); }
+.kpi-action-list { display: flex; flex-direction: column; gap: var(--space-2); }
+.kpi-action {
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(255,255,255,0.85);
+  border-radius: var(--r-md);
+  padding: var(--space-3) var(--space-4);
+  display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-3); align-items: center;
+  cursor: pointer;
+  transition: all var(--dur-quick) var(--ease-out);
+}
+.kpi-action:hover { background: rgba(255,255,255,0.85); transform: translateY(-1px); }
+.kpi-action-impact { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: var(--r-pill); font-size: 12px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; background: var(--success-soft); color: var(--success); }
+.kpi-action-text { font-size: 13px; color: var(--label-primary); }
+.kpi-action-text strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
+.kpi-action-cta { font-size: 11.5px; color: var(--accent); font-weight: var(--fw-semibold); display: inline-flex; align-items: center; gap: 4px; }
+.kpi-action-cta svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 2.4; stroke-linecap: round; }
+
+@media (max-width: 1100px) {
+  .casc-grid { grid-template-columns: 1fr; }
+  .kpi-row { grid-template-columns: 1fr; }
+  .score-frame { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <header>
+    <span class="page-eyebrow">Cronos Design System · 06</span>
+    <h1 class="page-h1">Patterns.<br><em>As outras 4 telas.</em></h1>
+    <p class="page-lead">
+      Composições completas dos atoms + molecules nas 4 telas restantes do Cronos. Cada pattern usa os mesmos tokens e componentes do <code>05-cronos</code> — só muda a estrutura conforme o propósito da tela. Dados reais do <code>vocabulario-real.md</code>.
+    </p>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════
+       PATTERN 1 — MORNING BRIEF
+       ═══════════════════════════════════════════════════ -->
+  <section class="pattern">
+    <div class="pattern-h">
+      <div class="pattern-h-left">
+        <span class="num">01</span>
+        <h2>Morning Brief</h2>
+      </div>
+      <p class="pattern-h-right">
+        Resumo diário <strong>narrativo</strong> entregue às 06:00. Single column, leitura confortável. Ontem · Hoje · Ações sugeridas pela IA · Decisões pendentes pra você. NÃO é dashboard — é documento.
+      </p>
+    </div>
+
+    <div class="brief-frame glass">
+
+      <span class="brief-date">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Quinta · 21 maio · 06:00
+      </span>
+
+      <!-- Block: Ontem -->
+      <div class="brief-block">
+        <div class="brief-eyebrow">Ontem · 20 mai</div>
+        <h2 class="brief-h1">192 incidentes, <span class="succ">84% auto-resolvidos</span>.</h2>
+        <div class="brief-stats">
+          <div class="brief-stat"><span class="v">192</span><span class="l">Incidentes</span></div>
+          <div class="brief-stat"><span class="v">96.4%</span><span class="l">OLA</span></div>
+          <div class="brief-stat"><span class="v">16min</span><span class="l">MTTR mediano</span></div>
+          <div class="brief-stat"><span class="v">3</span><span class="l">Cascatas P3+</span></div>
+        </div>
+        <p class="brief-prose">
+          Dia dentro do baseline. <strong>Team14</strong> absorveu 78% do volume (lhco, lsin, lhvp). Pico entre <strong>09h-11h</strong> coincidiu com janela de backup do <strong>lcem</strong> — padrão recorrente que merece atenção.
+        </p>
+      </div>
+
+      <!-- Block: Hoje -->
+      <div class="brief-block">
+        <div class="brief-eyebrow">Hoje · 21 mai</div>
+        <h2 class="brief-h1">Probabilidade do KPI cair pra <span class="kw">73%</span>.</h2>
+        <p class="brief-prose" style="margin-bottom:var(--space-4);">
+          Queda de <strong>12pp em 7 dias</strong>. O detector identificou <strong>3 cascatas em formação</strong>. Para reverter, zero novas violações até 31/mai.
+        </p>
+        <div class="brief-list">
+          <div class="brief-item">
+            <div class="brief-item-num">1</div>
+            <div class="brief-item-body">Cascata <code>lhco · INC8643147</code> em formação há 2h14min. Probabilidade <strong>84%</strong> de escalar pra P2 nas próximas 2 horas. <strong>Team14</strong> está sobrecarregado.</div>
+          </div>
+          <div class="brief-item">
+            <div class="brief-item-num">2</div>
+            <div class="brief-item-body">Cascata <code>lhvp · INC8607139</code> sem owner há 18 minutos. <strong>62% de probabilidade</strong> de escalar — precisa de atribuição.</div>
+          </div>
+          <div class="brief-item">
+            <div class="brief-item-num">3</div>
+            <div class="brief-item-body">3 alertas <code>Apache Busy Workers</code> nas últimas 4 horas em <code>lhco</code>. Padrão similar à cascata histórica <code>INC8591143</code> (510 filhos).</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Block: Ações sugeridas IA -->
+      <div class="brief-block">
+        <div class="brief-eyebrow">Ações sugeridas · IA</div>
+        <div class="brief-actions">
+          <div class="brief-action">
+            <div>
+              <div class="brief-action-title">Redistribuir 2 incidentes P5 do Team14 pro Team09</div>
+              <div class="brief-action-meta"><strong>Team09</strong> tem expertise em <code style="font-family:ui-monospace,monospace;">lhco</code> (1.440 incidentes históricos) e está em 38% de capacidade</div>
+            </div>
+            <div class="brief-action-side">
+              <span class="brief-impact alto">impacto alto</span>
+              <span class="brief-action-cta">Aplicar <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+            </div>
+          </div>
+          <div class="brief-action">
+            <div>
+              <div class="brief-action-title">Acionar runbook preventivo · <code style="font-family:ui-monospace,monospace;">IC00014</code></div>
+              <div class="brief-action-meta">IC mais instável (6.069 incidentes históricos). Runbook de 4 passos, tempo estimado <strong>~12min</strong></div>
+            </div>
+            <div class="brief-action-side">
+              <span class="brief-impact alto">impacto alto</span>
+              <span class="brief-action-cta">Aplicar <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+            </div>
+          </div>
+          <div class="brief-action">
+            <div>
+              <div class="brief-action-title">Mover janela de backup do <code style="font-family:ui-monospace,monospace;">lcem</code> pra 03:00</div>
+              <div class="brief-action-meta">Backup atual conflita com pico 09h-11h. Histórico mostra <strong>+34% de incidentes</strong> nesses dias</div>
+            </div>
+            <div class="brief-action-side">
+              <span class="brief-impact medio">impacto médio</span>
+              <span class="brief-action-cta">Aplicar <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Block: Decisões pendentes -->
+      <div class="brief-block">
+        <div class="brief-eyebrow">Decisões pendentes · você</div>
+        <div class="brief-decisions">
+          <div class="brief-decision">
+            <div class="brief-check"></div>
+            <div class="brief-decision-text">Atribuir owner pra cascata <strong>lhvp · INC8607139</strong> (sem owner há 18min)</div>
+            <span class="brief-pill urgente">urgente</span>
+          </div>
+          <div class="brief-decision">
+            <div class="brief-check"></div>
+            <div class="brief-decision-text">Aprovar plano de mitigação proposto pelo Team14</div>
+          </div>
+          <div class="brief-decision">
+            <div class="brief-check"></div>
+            <div class="brief-decision-text">Validar mudança de janela de backup <code style="font-family:ui-monospace,monospace;background:rgba(0,0,0,0.05);padding:1px 5px;border-radius:4px;">lcem</code> pra 03:00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA strip -->
+      <div class="brief-cta-strip">
+        <button class="btn btn-primary">Ver relatório completo<svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <button class="btn btn-glass">Postar no #ops-status</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       PATTERN 2 — CASCATA DETALHE
+       ═══════════════════════════════════════════════════ -->
+  <section class="pattern">
+    <div class="pattern-h">
+      <div class="pattern-h-left">
+        <span class="num">02</span>
+        <h2>Cascata detalhe</h2>
+      </div>
+      <p class="pattern-h-right">
+        Drill-down de uma cascata específica. Hero <strong>full-width</strong> com flow + SHAP. Abaixo, 3 colunas: timeline dos eventos · produtos correlatos · playbook sugerido. Foco em <strong>ação</strong>, não contemplação.
+      </p>
+    </div>
+
+    <div class="casc-frame glass">
+
+      <!-- Hero: signature card -->
+      <div class="casc-hero">
+        <div class="casc-head">
+          <div class="casc-left">
+            <div class="casc-icon"><svg viewBox="0 0 24 24"><path d="M12 2L4 7v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V7l-8-5z"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <div class="casc-meta">
+              <span class="casc-eyebrow"><span class="dot"></span>Cascata em formação</span>
+              <div class="casc-prod">lhco <span>· IC00014 · INC8643147</span></div>
+            </div>
+          </div>
+          <div class="casc-elapsed">
+            Iniciada <strong>14:28</strong><br>
+            elapsed <strong>02h 14min</strong><br>
+            próximo em <strong>~38min</strong>
+          </div>
+        </div>
+
+        <div class="casc-impact-strip">
+          <div class="casc-impact-cell">
+            <span class="v crit">84%</span>
+            <span class="l">Prob. escalar 2h</span>
+          </div>
+          <div class="casc-impact-cell">
+            <span class="v">R$ 18.400</span>
+            <span class="l">SLA estimado</span>
+          </div>
+          <div class="casc-impact-cell">
+            <span class="v">~847</span>
+            <span class="l">Clientes no produto</span>
+          </div>
+          <div class="casc-impact-cell">
+            <span class="v">4</span>
+            <span class="l">Dependentes (lsin, lcem...)</span>
+          </div>
+        </div>
+
+        <div class="flow">
+          <div class="fnode"><div class="fdot p5">P5</div><span class="ftime">14:28</span></div>
+          <div class="flink"></div>
+          <div class="fnode"><div class="fdot p5">P5</div><span class="ftime">14:46</span></div>
+          <div class="flink"></div>
+          <div class="fnode"><div class="fdot p5">P5</div><span class="ftime">15:04</span></div>
+          <div class="flink warn"></div>
+          <div class="fnode"><div class="fdot p4">P4</div><span class="ftime">15:22</span></div>
+          <div class="flink warn"></div>
+          <div class="fnode"><div class="fdot p4">P4</div><span class="ftime">15:38</span></div>
+          <div class="flink crit"></div>
+          <div class="fnode"><div class="fdot p3">P3</div><span class="ftime">15:54</span></div>
+          <div class="flink crit"></div>
+          <div class="fnode"><div class="fdot p3">P3</div><span class="ftime">16:12</span></div>
+          <div class="flink crit"></div>
+          <div class="fnode"><div class="fdot pred">P2</div><span class="ftime bold">~17:20</span></div>
+        </div>
+
+        <div class="casc-shap-block">
+          <div class="casc-shap-h">
+            <span class="casc-shap-pill">SHAP</span>
+            <span class="lbl">O que o modelo identificou como gatilho:</span>
+          </div>
+          <div class="casc-shap-list">
+            <div class="casc-shap-item">
+              <span class="pct">42%</span>
+              <span><code style="font-family:ui-monospace,monospace;background:rgba(0,0,0,0.04);padding:1px 5px;border-radius:4px;">Apache Busy Workers</code> — alerta mais frequente no lhco (3.925 ocorrências históricas)</span>
+              <div class="bar"><i style="width:42%"></i></div>
+            </div>
+            <div class="casc-shap-item">
+              <span class="pct">31%</span>
+              <span>Pico de uso <strong>09h-11h</strong> coincide com janela de backup pesada</span>
+              <div class="bar"><i style="width:31%"></i></div>
+            </div>
+            <div class="casc-shap-item">
+              <span class="pct">27%</span>
+              <span>Padrão histórico: <strong>Team14</strong> teve cascata similar há 14 dias</span>
+              <div class="bar"><i style="width:27%"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 columns -->
+      <div class="casc-grid">
+
+        <div class="casc-col">
+          <h3 class="casc-col-h">Eventos do gatilho</h3>
+          <div class="timeline">
+            <div class="timeline-row">
+              <div class="timeline-dot p5">P5</div>
+              <div class="timeline-body">
+                <span class="timeline-title">Check Application Monitoring</span>
+                <span class="timeline-meta">14:28 · lhco</span>
+              </div>
+            </div>
+            <div class="timeline-row">
+              <div class="timeline-dot p5">P5</div>
+              <div class="timeline-body">
+                <span class="timeline-title">Lack of free swap space</span>
+                <span class="timeline-meta">14:46 · IC00014</span>
+              </div>
+            </div>
+            <div class="timeline-row">
+              <div class="timeline-dot p4">P4</div>
+              <div class="timeline-body">
+                <span class="timeline-title">Processor load too high P3</span>
+                <span class="timeline-meta">15:22 · IC00014</span>
+              </div>
+            </div>
+            <div class="timeline-row">
+              <div class="timeline-dot p4">P4</div>
+              <div class="timeline-body">
+                <span class="timeline-title">High bandwidth &gt;60%</span>
+                <span class="timeline-meta">15:38 · IC00014</span>
+              </div>
+            </div>
+            <div class="timeline-row">
+              <div class="timeline-dot p3">P3</div>
+              <div class="timeline-body">
+                <span class="timeline-title">Apache Busy Workers</span>
+                <span class="timeline-meta">15:54 · lhco</span>
+              </div>
+            </div>
+            <div class="timeline-row">
+              <div class="timeline-dot p3">P3</div>
+              <div class="timeline-body">
+                <span class="timeline-title">IOwait grown up CPU queue</span>
+                <span class="timeline-meta">16:12 · IC00014</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="casc-col">
+          <h3 class="casc-col-h">Produtos correlatos · risco de arrasto</h3>
+          <div class="corr-row">
+            <span class="corr-rnk">01</span>
+            <div class="corr-info">
+              <span class="corr-name">lsin</span>
+              <span class="corr-meta">7.342 incidentes históricos</span>
+            </div>
+            <span class="corr-prob crit">78%</span>
+          </div>
+          <div class="corr-row">
+            <span class="corr-rnk">02</span>
+            <div class="corr-info">
+              <span class="corr-name">lhvp</span>
+              <span class="corr-meta">4.454 incidentes históricos</span>
+            </div>
+            <span class="corr-prob crit">71%</span>
+          </div>
+          <div class="corr-row">
+            <span class="corr-rnk">03</span>
+            <div class="corr-info">
+              <span class="corr-name">lcem</span>
+              <span class="corr-meta">5.878 incidentes históricos</span>
+            </div>
+            <span class="corr-prob warn">58%</span>
+          </div>
+          <div class="corr-row">
+            <span class="corr-rnk">04</span>
+            <div class="corr-info">
+              <span class="corr-name">lrev</span>
+              <span class="corr-meta">3.784 incidentes históricos</span>
+            </div>
+            <span class="corr-prob warn">42%</span>
+          </div>
+          <div class="corr-row">
+            <span class="corr-rnk">05</span>
+            <div class="corr-info">
+              <span class="corr-name">lcho</span>
+              <span class="corr-meta">1.368 incidentes históricos</span>
+            </div>
+            <span class="corr-prob ok">21%</span>
+          </div>
+        </div>
+
+        <div class="casc-col">
+          <h3 class="casc-col-h">Playbook sugerido · 4 passos</h3>
+          <div class="play">
+            <div class="play-step">
+              <div class="play-step-head">
+                <span class="play-num">1</span>
+                <span class="play-title">Reduzir carga do Apache</span>
+                <span class="play-time">~3min</span>
+              </div>
+              <div class="play-meta"><strong>Aplicado em 8/12 casos similares</strong></div>
+            </div>
+            <div class="play-step">
+              <div class="play-step-head">
+                <span class="play-num">2</span>
+                <span class="play-title">Liberar swap em IC00014</span>
+                <span class="play-time">~2min</span>
+              </div>
+              <div class="play-meta">Comando automático · sem rollback</div>
+            </div>
+            <div class="play-step">
+              <div class="play-step-head">
+                <span class="play-num">3</span>
+                <span class="play-title">Redistribuir conexões pra lsin</span>
+                <span class="play-time">~5min</span>
+              </div>
+              <div class="play-meta">Manual · requer confirmação do Team14</div>
+            </div>
+            <div class="play-step">
+              <div class="play-step-head">
+                <span class="play-num">4</span>
+                <span class="play-title">Verificar replicação PostgreSQL</span>
+                <span class="play-time">~2min</span>
+              </div>
+              <div class="play-meta">Validação final · skip se passos 1-3 OK</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       PATTERN 3 — SCORE SAÚDE
+       ═══════════════════════════════════════════════════ -->
+  <section class="pattern">
+    <div class="pattern-h">
+      <div class="pattern-h-left">
+        <span class="num">03</span>
+        <h2>Score saúde · produtos</h2>
+      </div>
+      <p class="pattern-h-right">
+        Workspace pattern com filtros à esquerda + lista densa à direita. <strong>Sem cards</strong> nos produtos — só <code>divide-y</code> com hairlines. Score 0-100 calculado por modelo proprietário (incidentes / MTTR / OLA).
+      </p>
+    </div>
+
+    <div class="score-frame glass">
+
+      <aside class="score-filter">
+        <div class="score-filter-group">
+          <span class="score-filter-h">Período</span>
+          <div class="seg">
+            <span class="seg-indicator" style="left:46px; width:42px;"></span>
+            <span class="seg-item">24h</span>
+            <span class="seg-item active">7d</span>
+            <span class="seg-item">30d</span>
+            <span class="seg-item">90d</span>
+          </div>
+        </div>
+
+        <div class="score-filter-group">
+          <span class="score-filter-h">Grupos</span>
+          <div class="check-list">
+            <div class="check-item on"><span class="check-box"></span><span class="check-label">Team14</span><span class="check-count">92k</span></div>
+            <div class="check-item on"><span class="check-box"></span><span class="check-label">Team11</span><span class="check-count">9.8k</span></div>
+            <div class="check-item on"><span class="check-box"></span><span class="check-label">Team05</span><span class="check-count">9.3k</span></div>
+            <div class="check-item"><span class="check-box"></span><span class="check-label">Team09</span><span class="check-count">3.4k</span></div>
+            <div class="check-item"><span class="check-box"></span><span class="check-label">Team12</span><span class="check-count">2.2k</span></div>
+          </div>
+        </div>
+
+        <div class="score-filter-group">
+          <span class="score-filter-h">Severidade mínima</span>
+          <div class="check-list">
+            <div class="check-item on"><span class="check-box"></span><span class="check-label">P2 · Alta</span></div>
+            <div class="check-item on"><span class="check-box"></span><span class="check-label">P3 · Média</span></div>
+            <div class="check-item"><span class="check-box"></span><span class="check-label">P4 · Baixa</span></div>
+            <div class="check-item"><span class="check-box"></span><span class="check-label">P5 · Muito baixa</span></div>
+          </div>
+        </div>
+      </aside>
+
+      <div class="score-main">
+        <div class="score-h">
+          <h3 class="score-title">Score por produto<span class="count">10 de 51 produtos · 5 em crítico</span></h3>
+          <div class="score-actions">
+            <button class="score-action">Exportar</button>
+            <button class="score-action">Atualizar</button>
+          </div>
+        </div>
+
+        <div class="score-row">
+          <span class="score-rank">01</span>
+          <div class="score-prod"><span class="nm">lsin</span><span class="meta">7.342 incidentes · 63 quebras YTD</span></div>
+          <div class="score-bar-wrap"><div class="score-bar crit"><i style="width:38%"></i></div></div>
+          <span class="score-num crit">38</span>
+          <span class="score-trend down">↓ 12</span>
+        </div>
+        <div class="score-row">
+          <span class="score-rank">02</span>
+          <div class="score-prod"><span class="nm">lhco</span><span class="meta">12.835 incidentes · 55 quebras YTD</span></div>
+          <div class="score-bar-wrap"><div class="score-bar crit"><i style="width:42%"></i></div></div>
+          <span class="score-num crit">42</span>
+          <span class="score-trend down">↓ 8</span>
+        </div>
+        <div class="score-row">
+          <span class="score-rank">03</span>
+          <div class="score-prod"><span class="nm">lcem</span><span class="meta">5.878 incidentes · 25 quebras YTD</span></div>
+          <div class="score-bar-wrap"><div class="score-bar crit"><i style="width:56%"></i></div></div>
+          <span class="score-num crit">56</span>
+          <span class="score-trend down">↓ 4</span>
+        </div>
+        <div class="score-row">
+          <span class="score-rank">04</span>
+          <div class="score-prod"><span class="nm">lexc</span><span class="meta">196 incidentes · 14 quebras YTD</span></div>
+          <div class="score-bar-wrap"><div class="score-bar warn"><i style="width:64%"></i></div></div>
+          <span class="score-num warn">64</span>
+          <span class="score-trend down">↓ 2</span>
+        </div>
+        <div class="score-row">
+          <span class="score-rank">05</span>
+          <div class="score-prod"><span class="nm">lhvp</span><span class="meta">4.454 incidentes · 14 quebras YTD</span></div>
+          <div class="score-bar-wrap"><div class="score-bar warn"><i style="width:68%"></i></div></div>
+          <span class="score-num warn">68</span>
+          <span class="score-trend flat">→ 0</span>
+        </div>
+        <div class="score-row">
+          <span class="score-rank">06</span>
+          <div class="score-prod"><span class="nm">lvps</span><span class="meta">703 incidentes · 10 quebras YTD</span></div>
+          <div class="score-bar-wrap"><div class="score-bar warn"><i style="width:74%"></i></div></div>
+          <span class="score-num warn">74</span>
+          <span class="score-trend up">↑ 3</span>
+        </div>
+        <div class="score-row">
+          <span class="score-rank">07</span>
+          <div class="score-prod"><span class="nm">lrev</span><span class="meta">3.784 incidentes · 9 quebras YTD</span></div>
+          <div class="score-bar-wrap"><div class="score-bar ok"><i style="width:81%"></i></div></div>
+          <span class="score-num ok">81</span>
+          <span class="score-trend up">↑ 5</span>
+        </div>
+        <div class="score-row">
+          <span class="score-rank">08</span>
+          <div class="score-prod"><span class="nm">lssl</span><span class="meta">512 incidentes · 9 quebras YTD</span></div>
+          <div class="score-bar-wrap"><div class="score-bar ok"><i style="width:84%"></i></div></div>
+          <span class="score-num ok">84</span>
+          <span class="score-trend up">↑ 2</span>
+        </div>
+        <div class="score-row">
+          <span class="score-rank">09</span>
+          <div class="score-prod"><span class="nm">lsaa</span><span class="meta">919 incidentes · 8 quebras YTD</span></div>
+          <div class="score-bar-wrap"><div class="score-bar ok"><i style="width:87%"></i></div></div>
+          <span class="score-num ok">87</span>
+          <span class="score-trend up">↑ 4</span>
+        </div>
+        <div class="score-row">
+          <span class="score-rank">10</span>
+          <div class="score-prod"><span class="nm">lcho</span><span class="meta">1.368 incidentes · 3 quebras YTD</span></div>
+          <div class="score-bar-wrap"><div class="score-bar ok"><i style="width:91%"></i></div></div>
+          <span class="score-num ok">91</span>
+          <span class="score-trend up">↑ 7</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       PATTERN 4 — PROBABILIDADE KPI
+       ═══════════════════════════════════════════════════ -->
+  <section class="pattern">
+    <div class="pattern-h">
+      <div class="pattern-h-left">
+        <span class="num">04</span>
+        <h2>Probabilidade KPI</h2>
+      </div>
+      <p class="pattern-h-right">
+        Tela <strong>executiva</strong> com chart grande + 3 cenários laterais (Otimista / Atual / Pessimista). Click no cenário <strong>repinta o forecast</strong>. Recomendações acionáveis no rodapé. Foco em decisão estratégica.
+      </p>
+    </div>
+
+    <div class="kpi-frame glass">
+
+      <div class="kpi-hero">
+        <div class="kpi-hero-left">
+          <span class="kpi-hero-eyebrow">Probabilidade · meta OLA maio</span>
+          <span class="kpi-hero-num">73<span class="u">%</span></span>
+          <div class="kpi-hero-ci"><span class="pill">±8pp</span> 90% CI · Prophet+XGBoost · treinado em 122.543 incidentes</div>
+        </div>
+        <div class="kpi-hero-right">
+          <span class="kpi-hero-pill"><span class="dot"></span>caindo · -12pp em 7d</span>
+          <div class="kpi-hero-meta">Meta OLA <strong>99.5%</strong><br>11 dias restantes pra fechar o mês</div>
+        </div>
+      </div>
+
+      <div class="kpi-row">
+
+        <!-- Chart -->
+        <div class="kpi-chart">
+          <div class="kpi-chart-h">
+            <h3 class="kpi-chart-title">Projeção · 40 dias</h3>
+            <div class="kpi-chart-legend">
+              <span class="kpi-chart-legend-item"><span class="swatch" style="background:#111;"></span>Histórico</span>
+              <span class="kpi-chart-legend-item"><span class="swatch" style="background:var(--accent);"></span>Mediana</span>
+              <span class="kpi-chart-legend-item"><span class="swatch" style="background:rgba(37,99,235,0.20);"></span>CI 90%</span>
+            </div>
+          </div>
+          <div class="kpi-chart-wrap">
+            <svg class="kpi-chart-svg" viewBox="0 0 800 280" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="kgrad" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#2563EB" stop-opacity="0.10"/><stop offset="100%" stop-color="#2563EB" stop-opacity="0"/></linearGradient>
+              </defs>
+              <line x1="0" y1="14" x2="800" y2="14" stroke="#059669" stroke-width="1.5" stroke-dasharray="6 5" opacity="0.55" vector-effect="non-scaling-stroke"/>
+              <path d="M0,30 L80,32 L160,40 L240,50 L320,60 L400,70 L480,80 L520,90 L 520,280 L0,280 Z" fill="url(#kgrad)"/>
+              <path d="M520,90 L580,110 L640,134 L700,154 L760,170 L800,180 L 800,230 L760,222 L700,210 L640,194 L580,170 L520,140 Z" fill="rgba(37,99,235,0.18)"/>
+              <path d="M0,30 L80,32 L160,40 L240,50 L320,60 L400,70 L480,80 L520,90" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+              <path d="M520,90 L580,118 L640,158 L700,180 L760,196 L800,202" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="6 5" vector-effect="non-scaling-stroke"/>
+              <line x1="520" y1="10" x2="520" y2="280" stroke="#A3A3A3" stroke-width="1" stroke-dasharray="2 3" opacity="0.4" vector-effect="non-scaling-stroke"/>
+              <circle cx="520" cy="90" r="7" fill="#fff" stroke="#2563EB" stroke-width="2.5" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <span class="kpi-chart-label meta">99.5% META OLA</span>
+            <span class="kpi-chart-label today">HOJE 21/mai · 73%</span>
+          </div>
+        </div>
+
+        <!-- Scenarios -->
+        <div class="scenarios">
+          <div class="scenario otimista">
+            <div class="scenario-eyebrow">Cenário · otimista</div>
+            <div class="scenario-title">Zero violações até dia 31</div>
+            <div class="scenario-pct">94%</div>
+          </div>
+          <div class="scenario atual">
+            <div class="scenario-eyebrow">Cenário · atual</div>
+            <div class="scenario-title">Trajetória mantida</div>
+            <div class="scenario-pct">73%</div>
+          </div>
+          <div class="scenario pessimista">
+            <div class="scenario-eyebrow">Cenário · pessimista</div>
+            <div class="scenario-title">Mais 2 cascatas escalam</div>
+            <div class="scenario-pct">41%</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Recommended actions -->
+      <div class="kpi-actions">
+        <h3 class="kpi-actions-h">Ações recomendadas pra reverter</h3>
+        <div class="kpi-action-list">
+          <div class="kpi-action">
+            <span class="kpi-action-impact">+11pp</span>
+            <span class="kpi-action-text"><strong>Eliminar cascatas no Team14</strong> (lhco) até 25/mai — historicamente reduz quebras OLA em 18%</span>
+            <span class="kpi-action-cta">Abrir playbook <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </div>
+          <div class="kpi-action">
+            <span class="kpi-action-impact">+6pp</span>
+            <span class="kpi-action-text"><strong>Reduzir MTTR mediano</strong> do lcem de 16min pra 12min — Team05 tem ferramentas pra isso</span>
+            <span class="kpi-action-cta">Abrir playbook <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </div>
+          <div class="kpi-action">
+            <span class="kpi-action-impact">+4pp</span>
+            <span class="kpi-action-text"><strong>Promover 2 P5 do lhvp pra correção proativa</strong> — históricamente esses viram cascata em 31% dos casos</span>
+            <span class="kpi-action-cta">Abrir playbook <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div style="margin-top:var(--space-16); padding-top:var(--space-6); border-top:1px solid rgba(0,0,0,0.08); display:flex; justify-content:space-between; align-items:center;">
+    <div style="font-size:var(--fs-12); color:var(--label-tertiary);">
+      Cronos Design System · 06 Patterns · v0.1 · glass aesthetic
+    </div>
+    <div style="font-size:var(--fs-12); color:var(--label-tertiary);">
+      ◀ Anterior: <a href="05b-cronos-glass.html" style="color:var(--label-primary); font-weight:var(--fw-semibold); text-decoration:none;">05 Cronos Dashboard</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Segmented control
+document.querySelectorAll('.seg').forEach(seg => {
+  const items = seg.querySelectorAll('.seg-item');
+  const ind = seg.querySelector('.seg-indicator');
+  function update(t) {
+    const segBox = seg.getBoundingClientRect();
+    const tBox = t.getBoundingClientRect();
+    ind.style.left = (tBox.left - segBox.left) + 'px';
+    ind.style.width = tBox.width + 'px';
+  }
+  const initial = seg.querySelector('.seg-item.active') || items[0];
+  requestAnimationFrame(() => update(initial));
+  items.forEach(t => t.addEventListener('click', () => {
+    items.forEach(i => i.classList.remove('active'));
+    t.classList.add('active');
+    update(t);
+  }));
+});
+
+// Checkbox toggle
+document.querySelectorAll('.check-item').forEach(c => {
+  c.addEventListener('click', () => c.classList.toggle('on'));
+});
+
+// Decision checkboxes
+document.querySelectorAll('.brief-check').forEach(check => {
+  check.addEventListener('click', (e) => {
+    e.stopPropagation();
+    check.classList.toggle('on');
+    if (check.classList.contains('on')) {
+      check.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="position:relative; top:2px;"><polyline points="20 6 9 17 4 12"/></svg>';
+      check.style.background = 'var(--accent)';
+      check.style.borderColor = 'var(--accent)';
+    } else {
+      check.innerHTML = '';
+      check.style.background = 'var(--white)';
+      check.style.borderColor = 'var(--gray-5)';
+    }
+  });
+});
+</script>
+
+</body>
+</html>
