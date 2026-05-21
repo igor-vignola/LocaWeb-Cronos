@@ -1,0 +1,1116 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cronos DS · 02 Motion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tokens.css">
+<style>
+/* ─── Docs layout (shared pattern) ─── */
+.docs {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  max-width: 1480px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+.docs-nav {
+  position: sticky; top: 0;
+  align-self: start;
+  height: 100vh;
+  padding: var(--space-8) var(--space-6) var(--space-6);
+  border-right: 1px solid var(--hairline);
+  background: var(--bg-primary);
+  overflow-y: auto;
+}
+.docs-brand {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--hairline);
+  margin-bottom: var(--space-5);
+}
+.docs-logo { width: 34px; height: 34px; background: var(--dark); border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; }
+.docs-logo svg { width: 18px; height: 18px; }
+.docs-brand-txt { display: flex; flex-direction: column; line-height: 1; }
+.docs-brand-name { font-size: var(--fs-15); font-weight: var(--fw-bold); letter-spacing: var(--ls-heading); }
+.docs-brand-sub { font-size: 9px; font-weight: var(--fw-semibold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--label-quaternary); margin-top: 2px; }
+.docs-section-title {
+  font-size: var(--fs-10); font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase;
+  color: var(--label-tertiary);
+  padding: var(--space-3) var(--space-2) var(--space-1);
+  margin-top: var(--space-3);
+}
+.docs-link {
+  display: flex; align-items: center; gap: var(--space-2);
+  padding: 7px 10px;
+  border-radius: var(--r-sm);
+  font-size: var(--fs-13);
+  font-weight: var(--fw-medium);
+  color: var(--label-secondary);
+  text-decoration: none;
+  transition: background var(--dur-quick) var(--ease-out),
+              color var(--dur-quick) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+  margin-bottom: 1px;
+}
+.docs-link:hover { background: var(--fill-secondary); color: var(--label-primary); }
+.docs-link:active { transform: scale(0.98); }
+.docs-link.active { background: var(--accent-soft); color: var(--accent); font-weight: var(--fw-semibold); }
+.docs-link .dot { width: 4px; height: 4px; background: currentColor; border-radius: 50%; opacity: 0.4; }
+.docs-link.active .dot { opacity: 1; }
+
+.docs-main { padding: var(--space-12) var(--space-12) var(--space-20); min-width: 0; }
+
+.page-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: var(--fs-10); font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase;
+  color: var(--label-tertiary);
+  margin-bottom: var(--space-4);
+}
+.page-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gray-5); }
+.page-h1 {
+  font-size: var(--fs-48); font-weight: var(--fw-heavy);
+  letter-spacing: var(--ls-display); line-height: var(--lh-tight);
+  color: var(--label-primary); max-width: 22ch;
+}
+.page-h1 em { font-style: normal; color: var(--label-tertiary); }
+.page-lead {
+  font-size: var(--fs-15); color: var(--label-secondary);
+  line-height: var(--lh-relaxed); max-width: 64ch;
+  margin-top: var(--space-4);
+}
+.page-lead code {
+  font-family: var(--font-sans);
+  background: var(--fill-secondary);
+  padding: 2px 7px; border-radius: var(--r-xs);
+  font-size: 12.5px;
+  color: var(--label-primary); font-weight: var(--fw-semibold);
+}
+
+section {
+  margin-top: var(--space-16); padding-top: var(--space-8);
+  border-top: 1px solid var(--hairline);
+  opacity: 0; transform: translateY(8px);
+  animation: fadeUp 700ms var(--ease-out-strong) forwards;
+}
+section:first-of-type { border-top: none; margin-top: var(--space-12); }
+section:nth-of-type(1) { animation-delay: 60ms; }
+section:nth-of-type(2) { animation-delay: 120ms; }
+section:nth-of-type(3) { animation-delay: 180ms; }
+section:nth-of-type(4) { animation-delay: 240ms; }
+section:nth-of-type(5) { animation-delay: 300ms; }
+section:nth-of-type(6) { animation-delay: 360ms; }
+section:nth-of-type(7) { animation-delay: 420ms; }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+.sec-h {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--space-4); margin-bottom: var(--space-5);
+}
+.sec-num { font-size: var(--fs-12); font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--accent); }
+.sec-h h2 { font-size: var(--fs-28); font-weight: var(--fw-bold); letter-spacing: var(--ls-heading); margin-top: 4px; }
+.sec-h p { font-size: var(--fs-13); color: var(--label-tertiary); max-width: 50ch; line-height: var(--lh-normal); text-align: right; }
+
+.sub-h {
+  font-size: var(--fs-11); font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase;
+  color: var(--label-tertiary);
+  margin: var(--space-8) 0 var(--space-3);
+  display: flex; align-items: center; gap: var(--space-3);
+}
+.sub-h::after { content: ''; flex: 1; height: 1px; background: var(--hairline); }
+
+.note {
+  padding: var(--space-4) var(--space-5) var(--space-4) calc(var(--space-5) + 26px);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--r-md);
+  font-size: var(--fs-13);
+  color: var(--accent-text);
+  line-height: var(--lh-normal);
+  margin-top: var(--space-5);
+  position: relative;
+}
+.note::before {
+  content: 'i';
+  position: absolute;
+  left: var(--space-4); top: calc(var(--space-4) + 2px);
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--accent); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Times New Roman', serif;
+  font-size: 11px; font-weight: var(--fw-bold); font-style: italic;
+}
+.note strong { font-weight: var(--fw-bold); color: var(--accent); }
+.note code {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 11.5px;
+  background: rgba(37,99,235,0.10);
+  padding: 1px 5px;
+  border-radius: 4px;
+  color: var(--accent-text);
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   3 PRINCÍPIOS DE MOTION
+   ═══════════════════════════════════════════════════════════ */
+
+.principles {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+.principle {
+  background: var(--bg-primary);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-1);
+}
+.principle .lbl { font-size: var(--fs-10); font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--accent); }
+.principle h3 { font-size: var(--fs-17); font-weight: var(--fw-bold); letter-spacing: var(--ls-heading); margin: var(--space-2) 0 var(--space-2); }
+.principle p { font-size: var(--fs-13); color: var(--label-tertiary); line-height: var(--lh-normal); }
+
+/* ═══════════════════════════════════════════════════════════
+   EASING CURVES — interactive race
+   ═══════════════════════════════════════════════════════════ */
+
+.race-controls {
+  display: flex; align-items: center; gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+.race-btn {
+  padding: 10px 18px;
+  background: var(--dark); color: var(--white);
+  border-radius: var(--r-md);
+  font-size: var(--fs-13); font-weight: var(--fw-semibold);
+  transition: transform var(--dur-fast) var(--ease-out), background var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out);
+  box-shadow: var(--shadow-2);
+}
+.race-btn:hover { transform: translateY(-1px); background: var(--black); box-shadow: var(--shadow-3); }
+.race-btn:active { transform: scale(0.97); }
+.race-status { font-size: var(--fs-12); color: var(--label-tertiary); }
+
+.race-track {
+  background: var(--bg-primary);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  padding: var(--space-5);
+  display: flex; flex-direction: column; gap: var(--space-3);
+}
+.race-row {
+  display: grid; grid-template-columns: 200px 1fr 80px;
+  align-items: center; gap: var(--space-3);
+}
+.race-name { font-size: var(--fs-12); font-weight: var(--fw-semibold); color: var(--label-primary); display: flex; flex-direction: column; gap: 1px; }
+.race-name span { font-size: 10px; color: var(--label-quaternary); font-family: ui-monospace, monospace; font-weight: var(--fw-regular); }
+.race-lane {
+  height: 32px; background: var(--bg-secondary);
+  border-radius: var(--r-pill);
+  position: relative; overflow: hidden;
+  border: 1px solid var(--hairline);
+}
+.race-ball {
+  position: absolute; left: 8px; top: 50%; transform: translateY(-50%);
+  width: 24px; height: 24px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  box-shadow: var(--shadow-2);
+  transition: left 1200ms;
+}
+.race-ball.go { left: calc(100% - 32px); }
+.race-ball.eo { transition-timing-function: var(--ease-out); }
+.race-ball.eos { transition-timing-function: var(--ease-out-strong); }
+.race-ball.eio { transition-timing-function: var(--ease-in-out); }
+.race-ball.edr { transition-timing-function: var(--ease-drawer); }
+.race-ball.esp { transition-timing-function: var(--ease-spring); }
+.race-time { font-size: var(--fs-11); color: var(--label-tertiary); font-variant-numeric: tabular-nums; text-align: right; }
+
+/* ═══════════════════════════════════════════════════════════
+   DURATIONS — examples mapped
+   ═══════════════════════════════════════════════════════════ */
+
+.duration-examples {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+.dur-example {
+  background: var(--bg-primary);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  padding: var(--space-5);
+  text-align: center;
+  cursor: pointer;
+  transition: transform var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out), border-color var(--dur-quick) var(--ease-out);
+}
+.dur-example:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); border-color: var(--separator); }
+.dur-example .v {
+  font-size: var(--fs-28); font-weight: var(--fw-heavy);
+  color: var(--label-primary); letter-spacing: var(--ls-heading);
+  font-variant-numeric: tabular-nums;
+}
+.dur-example .t { font-size: var(--fs-10); font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase); text-transform: uppercase; color: var(--accent); margin-top: var(--space-1); font-family: ui-monospace, monospace; }
+.dur-example .use { font-size: var(--fs-11); color: var(--label-tertiary); margin-top: var(--space-2); line-height: var(--lh-normal); }
+
+/* ═══════════════════════════════════════════════════════════
+   PATTERNS — interactive demos
+   ═══════════════════════════════════════════════════════════ */
+
+.patterns {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4);
+}
+.pattern {
+  background: var(--bg-primary);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-1);
+  display: flex; flex-direction: column; gap: var(--space-3);
+  min-height: 240px;
+  position: relative;
+}
+.pattern-h { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); }
+.pattern-name { font-size: var(--fs-15); font-weight: var(--fw-bold); letter-spacing: var(--ls-heading); }
+.pattern-tag { font-size: var(--fs-10); font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase); text-transform: uppercase; color: var(--label-quaternary); font-family: ui-monospace, monospace; }
+.pattern-desc { font-size: var(--fs-12); color: var(--label-tertiary); line-height: var(--lh-normal); }
+.pattern-stage {
+  flex: 1;
+  background: var(--bg-base);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  padding: var(--space-4);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  min-height: 100px;
+}
+
+/* Pattern · Fade-up */
+.demo-fadeup {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); width: 100%;
+}
+.demo-fadeup-card {
+  height: 64px; background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-2);
+  opacity: 0;
+  transform: translateY(12px);
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--fs-12); font-weight: var(--fw-semibold); color: var(--label-tertiary);
+}
+.demo-fadeup.go .demo-fadeup-card {
+  animation: fadeUpDemo 600ms var(--ease-out-strong) forwards;
+}
+.demo-fadeup.go .demo-fadeup-card:nth-child(1) { animation-delay: 0ms; }
+.demo-fadeup.go .demo-fadeup-card:nth-child(2) { animation-delay: 80ms; }
+.demo-fadeup.go .demo-fadeup-card:nth-child(3) { animation-delay: 160ms; }
+@keyframes fadeUpDemo {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Pattern · Scale-in popover */
+.demo-pop {
+  background: var(--white);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-3);
+  font-size: var(--fs-12);
+  color: var(--label-primary);
+  border: 1px solid var(--hairline);
+  transform-origin: bottom center;
+}
+.demo-pop.in { animation: popIn 320ms var(--ease-spring) forwards; }
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.92) translateY(8px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Pattern · Pulse (controlled, subtle) */
+.demo-pulse {
+  display: flex; align-items: center; gap: var(--space-3);
+  font-size: var(--fs-12); color: var(--label-secondary); font-weight: var(--fw-medium);
+}
+.demo-pulse .d {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--success);
+  animation: pulseSubtle 1800ms ease-in-out infinite;
+}
+@keyframes pulseSubtle { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* Pattern · Cascata predicted (Apple ProgressView style — dashed border rotating) */
+.demo-pred {
+  width: 52px; height: 52px;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.demo-pred-ring {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  animation: predRotate 6s linear infinite;
+}
+.demo-pred-ring svg { width: 100%; height: 100%; }
+.demo-pred-ring circle {
+  fill: none;
+  stroke: var(--danger);
+  stroke-width: 2;
+  stroke-dasharray: 4 5;
+  stroke-linecap: round;
+  opacity: 0.85;
+}
+.demo-pred-inner {
+  font-size: var(--fs-12); font-weight: var(--fw-bold);
+  color: var(--danger);
+  position: relative; z-index: 1;
+}
+.demo-pred-label {
+  font-size: 9px; font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-uppercase); text-transform: uppercase;
+  color: var(--label-quaternary);
+  position: absolute; bottom: -16px; left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+@keyframes predRotate { to { transform: rotate(360deg); } }
+
+/* Pattern · Shimmer skeleton */
+.demo-shim {
+  display: flex; flex-direction: column; gap: var(--space-2); width: 100%;
+}
+.shim-line {
+  height: 12px; border-radius: 4px;
+  background: linear-gradient(90deg, var(--gray-7) 25%, var(--gray-6) 50%, var(--gray-7) 75%);
+  background-size: 200% 100%;
+  animation: shim 1600ms ease-in-out infinite;
+}
+.shim-line.long { width: 100%; }
+.shim-line.med { width: 75%; }
+.shim-line.short { width: 50%; }
+@keyframes shim {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+/* Pattern · Stagger */
+.demo-stag {
+  display: flex; flex-direction: column; gap: var(--space-2); width: 100%;
+}
+.stag-item {
+  height: 24px;
+  background: linear-gradient(90deg, var(--accent-soft), rgba(37,99,235,0.20));
+  border-radius: var(--r-xs);
+  border: 1px solid var(--accent-border);
+  opacity: 0;
+  transform: translateY(10px);
+}
+.demo-stag.go .stag-item {
+  animation: stagIn 500ms var(--ease-out-strong) forwards;
+}
+.demo-stag.go .stag-item:nth-child(1) { animation-delay: 0ms; }
+.demo-stag.go .stag-item:nth-child(2) { animation-delay: 80ms; }
+.demo-stag.go .stag-item:nth-child(3) { animation-delay: 160ms; }
+.demo-stag.go .stag-item:nth-child(4) { animation-delay: 240ms; }
+.demo-stag.go .stag-item:nth-child(5) { animation-delay: 320ms; }
+@keyframes stagIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Centered demo wrapper (compartilhado por toggle, hold, card press) */
+.demo-magnet-wrap { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
+
+/* Pattern · Apple-style Toggle (THE wow) */
+.demo-toggle-wrap { display: flex; align-items: center; justify-content: center; gap: var(--space-4); width: 100%; }
+.demo-toggle {
+  width: 52px; height: 31px;
+  background: var(--gray-5);
+  border-radius: var(--r-pill);
+  position: relative;
+  cursor: pointer;
+  transition: background 320ms var(--ease-out);
+  flex-shrink: 0;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
+}
+.demo-toggle::before {
+  content: ''; position: absolute;
+  top: 2px; left: 2px;
+  width: 27px; height: 27px;
+  background: var(--white);
+  border-radius: 50%;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.06),
+    0 3px 8px rgba(0,0,0,0.12),
+    0 0 0 0.5px rgba(0,0,0,0.04);
+  transition:
+    transform 400ms var(--ease-spring),
+    width 200ms var(--ease-out);
+}
+.demo-toggle:hover::before {
+  width: 32px; /* knob "estica" no hover */
+}
+.demo-toggle.on { background: var(--success); }
+.demo-toggle.on::before { transform: translateX(21px); }
+.demo-toggle.on:hover::before { transform: translateX(16px); width: 32px; } /* mantém esticado quando vai voltar */
+.demo-toggle:active::before {
+  width: 34px; /* knob "espreme" no click */
+}
+.demo-toggle-lbl { font-size: var(--fs-12); color: var(--label-secondary); font-weight: var(--fw-medium); }
+
+/* Pattern · Hold-to-confirm */
+.demo-hold-btn {
+  position: relative;
+  padding: 12px 24px;
+  background: var(--danger-soft);
+  border: 1px solid var(--danger-border);
+  border-radius: var(--r-md);
+  font-size: var(--fs-13); font-weight: var(--fw-semibold);
+  color: var(--danger);
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.demo-hold-btn:active { transform: scale(0.97); }
+.demo-hold-btn span { position: relative; z-index: 2; }
+.demo-hold-btn::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--danger);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 200ms var(--ease-out);
+  z-index: 1;
+}
+.demo-hold-btn.holding::before {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 1500ms linear;
+}
+.demo-hold-btn.holding { color: var(--white); }
+.demo-hold-btn.fired::before { clip-path: inset(0 0 0 0); background: var(--success); }
+.demo-hold-btn.fired { color: var(--white); border-color: var(--success); }
+
+/* Pattern · Card press depth */
+.demo-press-card {
+  width: 80%; padding: var(--space-4);
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-2);
+  text-align: center;
+  font-size: var(--fs-12);
+  color: var(--label-primary);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+.demo-press-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-3); }
+.demo-press-card:active { transform: scale(0.98) translateY(0); box-shadow: var(--shadow-1); }
+
+/* "Replay" button comum aos demos */
+.replay {
+  position: absolute; top: var(--space-3); right: var(--space-3);
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--fill-secondary);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--label-tertiary);
+  cursor: pointer;
+  transition: all var(--dur-quick) var(--ease-out);
+  z-index: 3;
+}
+.replay:hover { background: var(--accent-soft); color: var(--accent); transform: rotate(60deg); }
+.replay:active { transform: rotate(60deg) scale(0.9); }
+.replay svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+
+/* ═══════════════════════════════════════════════════════════
+   STATES (button) — hover · pressed · focus · disabled · loading
+   ═══════════════════════════════════════════════════════════ */
+
+.states {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+.state-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  padding: var(--space-4);
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-3);
+  min-height: 140px;
+}
+.state-card .lbl { font-size: var(--fs-10); font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase); text-transform: uppercase; color: var(--label-tertiary); }
+.state-card .btn {
+  padding: 10px 18px;
+  background: var(--dark); color: var(--white);
+  border-radius: var(--r-md);
+  font-size: var(--fs-13); font-weight: var(--fw-semibold);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.state-card .btn.hover { transform: translateY(-2px); box-shadow: var(--shadow-3); background: var(--black); }
+.state-card .btn.pressed { transform: scale(0.97); box-shadow: var(--shadow-1); }
+.state-card .btn.focused { box-shadow: var(--shadow-focus); outline: none; }
+.state-card .btn.disabled { background: var(--gray-5); color: var(--gray-3); cursor: not-allowed; }
+.state-card .btn.loading::before {
+  content: ''; width: 12px; height: 12px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: var(--white);
+  border-radius: 50%;
+  animation: spin 800ms linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.state-card .desc { font-size: var(--fs-11); color: var(--label-tertiary); text-align: center; }
+
+/* ═══════════════════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════════════════ */
+
+.reduced-demo {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+.reduced-side {
+  background: var(--bg-primary);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  padding: var(--space-5);
+}
+.reduced-side h4 { font-size: var(--fs-13); font-weight: var(--fw-bold); letter-spacing: var(--ls-heading); margin-bottom: var(--space-2); }
+.reduced-side p { font-size: var(--fs-12); color: var(--label-tertiary); line-height: var(--lh-normal); }
+.reduced-side code { background: var(--fill-secondary); padding: 2px 5px; border-radius: var(--r-xs); font-family: ui-monospace, monospace; font-size: 11px; color: var(--label-primary); }
+
+@media (max-width: 980px) {
+  .docs { grid-template-columns: 1fr; }
+  .docs-nav { position: static; height: auto; }
+  .patterns { grid-template-columns: 1fr; }
+  .states { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="docs">
+
+  <!-- ═══ Side nav ═══ -->
+  <nav class="docs-nav">
+    <div class="docs-brand">
+      <div class="docs-logo">
+        <svg viewBox="0 0 28 28" fill="none">
+          <path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+          <circle cx="22" cy="8" r="1.4" fill="#3B82F6"/>
+        </svg>
+      </div>
+      <div class="docs-brand-txt">
+        <div class="docs-brand-name">Cronos DS</div>
+        <div class="docs-brand-sub">Design system</div>
+      </div>
+    </div>
+
+    <div class="docs-section-title">02 Motion</div>
+    <a class="docs-link active" href="#intro"><span class="dot"></span>O que é motion</a>
+    <a class="docs-link" href="#principios"><span class="dot"></span>3 princípios</a>
+    <a class="docs-link" href="#easings"><span class="dot"></span>Easing curves</a>
+    <a class="docs-link" href="#durations"><span class="dot"></span>Durations</a>
+    <a class="docs-link" href="#patterns"><span class="dot"></span>Patterns</a>
+    <a class="docs-link" href="#states"><span class="dot"></span>Button states</a>
+    <a class="docs-link" href="#reduced"><span class="dot"></span>Reduced motion</a>
+
+    <div class="docs-section-title">Outros</div>
+    <a class="docs-link" href="01-foundations.html"><span class="dot"></span>01 Foundations</a>
+    <a class="docs-link" href="#" style="opacity:0.5; pointer-events:none;"><span class="dot"></span>03 Atoms</a>
+    <a class="docs-link" href="#" style="opacity:0.5; pointer-events:none;"><span class="dot"></span>04 Molecules</a>
+    <a class="docs-link" href="#" style="opacity:0.5; pointer-events:none;"><span class="dot"></span>05 Cronos</a>
+    <a class="docs-link" href="#" style="opacity:0.5; pointer-events:none;"><span class="dot"></span>06 Patterns</a>
+  </nav>
+
+  <!-- ═══ Main ═══ -->
+  <main class="docs-main">
+    <header id="intro">
+      <span class="page-eyebrow">Cronos Design System · 02</span>
+      <h1 class="page-h1">Motion.<br><em>O sentimento.</em></h1>
+      <p class="page-lead">
+        Motion é como cada elemento <strong>se move</strong> na tela. Botão respondendo ao toque, card entrando, tooltip abrindo, toggle flipando. Não é decoração — é o feedback que diz pro usuário "sua ação foi recebida". Tudo abaixo é interativo. <strong>Clica, passa o mouse, segura.</strong>
+      </p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- PRINCÍPIOS                                       -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section id="principios">
+      <div class="sec-h">
+        <div>
+          <span class="sec-num">01</span>
+          <h2>3 princípios</h2>
+        </div>
+        <p>Apple HIG aplicado ao Cronos. Toda decisão de animação responde a estas perguntas antes de existir.</p>
+      </div>
+
+      <div class="principles">
+        <div class="principle">
+          <span class="lbl">PROPÓSITO</span>
+          <h3>Anime com motivo</h3>
+          <p>Animação gratuita distrai. Se você não consegue explicar pra que serve, não anime. Bom: dar feedback de press. Ruim: animar tudo só pra "parecer dinâmico".</p>
+        </div>
+        <div class="principle">
+          <span class="lbl">BREVIDADE</span>
+          <h3>Curto e preciso</h3>
+          <p>Animação em UI dura abaixo de 300ms. Um botão press é 140ms. Tooltip 200ms. Se o usuário precisa esperar a animação acabar, ela é longa demais.</p>
+        </div>
+        <div class="principle">
+          <span class="lbl">RESPEITO</span>
+          <h3>Motion é opcional</h3>
+          <p>Alguns usuários têm sensibilidade a movimento (vestibular, enxaqueca). Respeitamos <code style="font-family:ui-monospace,monospace;font-size:11px;background:var(--fill-secondary);padding:2px 5px;border-radius:4px;">prefers-reduced-motion</code> em tudo — animações viram instantâneas, opacidade preservada.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- EASING                                            -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section id="easings">
+      <div class="sec-h">
+        <div>
+          <span class="sec-num">02</span>
+          <h2>Easing curves</h2>
+        </div>
+        <p>Cada curva tem uma "personalidade". Clica em <strong>Disparar corrida</strong> pra ver as 5 bolinhas correndo lado a lado — você sente a diferença.</p>
+      </div>
+
+      <div class="race-controls">
+        <button class="race-btn" id="raceBtn">Disparar corrida</button>
+        <span class="race-status" id="raceStatus">As 5 bolinhas correm a mesma distância, mesmo tempo (1200ms), com easings diferentes.</span>
+      </div>
+
+      <div class="race-track">
+        <div class="race-row">
+          <div class="race-name">ease-out <span>cubic-bezier(0.25, 1, 0.5, 1)</span></div>
+          <div class="race-lane"><div class="race-ball eo" data-lane></div></div>
+          <span class="race-time">UI default</span>
+        </div>
+        <div class="race-row">
+          <div class="race-name">ease-out-strong <span>cubic-bezier(0.16, 1, 0.3, 1)</span></div>
+          <div class="race-lane"><div class="race-ball eos" data-lane></div></div>
+          <span class="race-time">Enter anim</span>
+        </div>
+        <div class="race-row">
+          <div class="race-name">ease-in-out <span>cubic-bezier(0.76, 0, 0.24, 1)</span></div>
+          <div class="race-lane"><div class="race-ball eio" data-lane></div></div>
+          <span class="race-time">On-screen</span>
+        </div>
+        <div class="race-row">
+          <div class="race-name">ease-drawer <span>cubic-bezier(0.32, 0.72, 0, 1)</span></div>
+          <div class="race-lane"><div class="race-ball edr" data-lane></div></div>
+          <span class="race-time">iOS drawer</span>
+        </div>
+        <div class="race-row">
+          <div class="race-name">ease-spring <span>cubic-bezier(0.34, 1.56, 0.64, 1)</span></div>
+          <div class="race-lane"><div class="race-ball esp" data-lane></div></div>
+          <span class="race-time">Overshoot</span>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>Como interpretar:</strong> <code>ease-out</code> e <code>ease-out-strong</code> partem rápidas e desaceleram — feeling "snappy", perfeito pra entradas e hovers. <code>ease-in-out</code> acelera e desacelera — natural pra movimento on-screen. <code>ease-spring</code> ultrapassa o destino e volta — efeito "boing", reservado pra toggles e gestos. Built-in CSS (<code>ease</code>, <code>ease-out</code> CSS) é fraco demais — sempre use as 5 curves customizadas.
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- DURATIONS                                         -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section id="durations">
+      <div class="sec-h">
+        <div>
+          <span class="sec-num">03</span>
+          <h2>Durations</h2>
+        </div>
+        <p>Quanto tempo cada animação dura. Cada token tem um caso de uso bem definido — não improvise.</p>
+      </div>
+
+      <div class="duration-examples">
+        <div class="dur-example">
+          <div class="v">80<span style="font-size:14px;color:var(--label-tertiary);">ms</span></div>
+          <div class="t">--dur-instant</div>
+          <div class="use">Mudança de cor/borda em hover</div>
+        </div>
+        <div class="dur-example">
+          <div class="v">140<span style="font-size:14px;color:var(--label-tertiary);">ms</span></div>
+          <div class="t">--dur-fast</div>
+          <div class="use">Press de botão (scale 0.97)</div>
+        </div>
+        <div class="dur-example">
+          <div class="v">200<span style="font-size:14px;color:var(--label-tertiary);">ms</span></div>
+          <div class="t">--dur-quick</div>
+          <div class="use">Hover lift · tooltip enter</div>
+        </div>
+        <div class="dur-example">
+          <div class="v">280<span style="font-size:14px;color:var(--label-tertiary);">ms</span></div>
+          <div class="t">--dur-base</div>
+          <div class="use">Card enter · panel transition</div>
+        </div>
+        <div class="dur-example">
+          <div class="v">400<span style="font-size:14px;color:var(--label-tertiary);">ms</span></div>
+          <div class="t">--dur-slow</div>
+          <div class="use">Modal abrindo · drawer slide</div>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>Regra prática:</strong> se o usuário <strong>interage</strong> (press, hover), use <code>--dur-fast</code> ou <code>--dur-quick</code>. Se o <strong>sistema</strong> reage (card aparecendo, panel entrando), <code>--dur-base</code>. Se um <strong>contexto muda</strong> (modal abre, drawer desliza), <code>--dur-slow</code>. Acima de 400ms = lento demais pra UI.
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- PATTERNS                                          -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section id="patterns">
+      <div class="sec-h">
+        <div>
+          <span class="sec-num">04</span>
+          <h2>Patterns</h2>
+        </div>
+        <p>Cada pattern é uma demo interativa. Clique pra disparar/reset. Estes são os blocos de motion que o Cronos vai usar repetidamente.</p>
+      </div>
+
+      <div class="patterns">
+
+        <!-- Fade-up -->
+        <div class="pattern">
+          <div class="pattern-h">
+            <span class="pattern-name">Fade-up entrance</span>
+            <span class="pattern-tag">--dur-base · --ease-out-strong</span>
+          </div>
+          <p class="pattern-desc">Cards entram com leve subida + opacity. Usado em load de página, refresh de section. Translação curta (8px) — Apple não usa entrada exagerada.</p>
+          <button class="replay" data-replay="fadeup"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg></button>
+          <div class="pattern-stage">
+            <div class="demo-fadeup go" id="demoFadeup">
+              <div class="demo-fadeup-card">Bloco 1</div>
+              <div class="demo-fadeup-card">Bloco 2</div>
+              <div class="demo-fadeup-card">Bloco 3</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scale-in popover -->
+        <div class="pattern">
+          <div class="pattern-h">
+            <span class="pattern-name">Scale-in popover</span>
+            <span class="pattern-tag">--dur-quick · --ease-out-strong</span>
+          </div>
+          <p class="pattern-desc">Tooltips e popovers abrem da origem do trigger (não do centro). Scale 0.95 → 1 + opacity. <strong>transform-origin</strong> aponta pro trigger.</p>
+          <button class="replay" data-replay="pop"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg></button>
+          <div class="pattern-stage">
+            <div class="demo-pop in" id="demoPop">💡 Tooltip · enter from origin</div>
+          </div>
+        </div>
+
+        <!-- Pulse subtle -->
+        <div class="pattern">
+          <div class="pattern-h">
+            <span class="pattern-name">Pulse · live indicator</span>
+            <span class="pattern-tag">1800ms ease loop</span>
+          </div>
+          <p class="pattern-desc">Indicador "ao vivo". Pulse SÓ em opacity (não scale) — economiza repaint. Subtle, não invasivo. Reservado pra live status / monitor.</p>
+          <div class="pattern-stage">
+            <div class="demo-pulse"><span class="d"></span>Live · dados em tempo real</div>
+          </div>
+        </div>
+
+        <!-- Cascata predicted — rotating dashed ring (no scale ping) -->
+        <div class="pattern">
+          <div class="pattern-h">
+            <span class="pattern-name">Cascata predicted</span>
+            <span class="pattern-tag">6s linear · rotação contínua</span>
+          </div>
+          <p class="pattern-desc">Indicador de evento previsto (não confirmado). Dashed border rotaciona lentamente — sutil, sem outer glow, sem scale ping. Estilo Apple ProgressView. Signals "vai acontecer mas ainda não aconteceu".</p>
+          <div class="pattern-stage">
+            <div class="demo-pred">
+              <div class="demo-pred-ring">
+                <svg viewBox="0 0 52 52">
+                  <circle cx="26" cy="26" r="24"></circle>
+                </svg>
+              </div>
+              <div class="demo-pred-inner">P2</div>
+              <div class="demo-pred-label">previsto · ~17:20</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shimmer skeleton -->
+        <div class="pattern">
+          <div class="pattern-h">
+            <span class="pattern-name">Shimmer skeleton</span>
+            <span class="pattern-tag">1600ms ease-in-out loop</span>
+          </div>
+          <p class="pattern-desc">Placeholder enquanto dados carregam. Gradient sweep da esquerda pra direita. NÃO use spinner genérico — skeleton respeita o layout.</p>
+          <div class="pattern-stage">
+            <div class="demo-shim">
+              <div class="shim-line long"></div>
+              <div class="shim-line med"></div>
+              <div class="shim-line short"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stagger reveal -->
+        <div class="pattern">
+          <div class="pattern-h">
+            <span class="pattern-name">Stagger reveal</span>
+            <span class="pattern-tag">60ms gap · --ease-out-strong</span>
+          </div>
+          <p class="pattern-desc">Lista revela items em cascata (60ms entre cada). Cria sensação de fluidez sem ser exagerado. Usado em entrada de KPIs, alerts list, product list.</p>
+          <button class="replay" data-replay="stag"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg></button>
+          <div class="pattern-stage">
+            <div class="demo-stag go" id="demoStag">
+              <div class="stag-item"></div>
+              <div class="stag-item"></div>
+              <div class="stag-item"></div>
+              <div class="stag-item"></div>
+              <div class="stag-item"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Apple-style Toggle -->
+        <div class="pattern">
+          <div class="pattern-h">
+            <span class="pattern-name">Toggle iOS-style ★</span>
+            <span class="pattern-tag">400ms --ease-spring</span>
+          </div>
+          <p class="pattern-desc">Knob desliza com leve overshoot. <strong>Hover</strong>: knob estica horizontalmente. <strong>Press</strong>: estica mais. Clica pra ligar/desligar. Signature Apple.</p>
+          <div class="pattern-stage">
+            <div class="demo-toggle-wrap">
+              <span class="demo-toggle-lbl">Detector ativo</span>
+              <div class="demo-toggle" id="toggle1"></div>
+              <span class="demo-toggle-lbl">Cascata auto-resolve</span>
+              <div class="demo-toggle on" id="toggle2"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hold-to-confirm -->
+        <div class="pattern">
+          <div class="pattern-h">
+            <span class="pattern-name">Hold-to-confirm</span>
+            <span class="pattern-tag">clip-path · 1500ms hold</span>
+          </div>
+          <p class="pattern-desc">Para actions destrutivas. <strong>Segura</strong> 1.5s pra confirmar. Solta antes = cancela com snap rápido. Usado pra "Acknowledge cascata · 3 produtos", "Silenciar 24h".</p>
+          <div class="pattern-stage">
+            <div class="demo-magnet-wrap">
+              <button class="demo-hold-btn" id="holdBtn"><span>Segure pra silenciar 24h</span></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card press depth -->
+        <div class="pattern">
+          <div class="pattern-h">
+            <span class="pattern-name">Card press depth</span>
+            <span class="pattern-tag">140ms --ease-out</span>
+          </div>
+          <p class="pattern-desc">Card responde ao press com scale + shadow flatten. Sente que afundou. Usado em todo card clicável.</p>
+          <div class="pattern-stage">
+            <div class="demo-magnet-wrap">
+              <div class="demo-press-card">Clica aqui · feel the depth</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- BUTTON STATES                                     -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section id="states">
+      <div class="sec-h">
+        <div>
+          <span class="sec-num">05</span>
+          <h2>Button states</h2>
+        </div>
+        <p>Cada estado obrigatório, mostrado simultaneamente. Real-world: o button transiciona entre eles, não pula.</p>
+      </div>
+
+      <div class="states">
+        <div class="state-card">
+          <span class="lbl">Default</span>
+          <button class="btn">Submit</button>
+          <span class="desc">Estado de rest. Cursor neutro.</span>
+        </div>
+        <div class="state-card">
+          <span class="lbl">Hover</span>
+          <button class="btn hover">Submit</button>
+          <span class="desc">Lift -2px + shadow upgrade. 180ms.</span>
+        </div>
+        <div class="state-card">
+          <span class="lbl">Pressed</span>
+          <button class="btn pressed">Submit</button>
+          <span class="desc">Scale 0.97 + shadow flatten. 140ms.</span>
+        </div>
+        <div class="state-card">
+          <span class="lbl">Focused</span>
+          <button class="btn focused">Submit</button>
+          <span class="desc">4px halo accent. Para teclado.</span>
+        </div>
+        <div class="state-card">
+          <span class="lbl">Disabled</span>
+          <button class="btn disabled">Submit</button>
+          <span class="desc">Bg cinza. cursor: not-allowed.</span>
+        </div>
+        <div class="state-card" style="grid-column: span 2;">
+          <span class="lbl">Loading</span>
+          <button class="btn loading">Submetendo...</button>
+          <span class="desc">Spinner inline + texto alternativo. Bloqueia novos clicks.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- REDUCED MOTION                                    -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section id="reduced">
+      <div class="sec-h">
+        <div>
+          <span class="sec-num">06</span>
+          <h2>Reduced motion</h2>
+        </div>
+        <p>Acessibilidade não-negociável. Alguns usuários ativam "Reduce motion" no sistema operacional — temos que respeitar.</p>
+      </div>
+
+      <div class="reduced-demo">
+        <div class="reduced-side">
+          <h4>Como ativar pra testar</h4>
+          <p style="margin-bottom:var(--space-3);">
+            <strong>macOS:</strong> System Settings → Accessibility → Display → Reduce motion<br>
+            <strong>iOS:</strong> Settings → Accessibility → Motion → Reduce motion<br>
+            <strong>Windows:</strong> Settings → Accessibility → Visual effects → Animation effects (off)
+          </p>
+          <p>O sistema operacional propaga o setting via media query.</p>
+        </div>
+        <div class="reduced-side">
+          <h4>Como respeitamos no Cronos</h4>
+          <p style="margin-bottom:var(--space-3);">
+            Toda animação no tokens.css é wrapped em <code>@media (prefers-reduced-motion: reduce)</code>. Quando ativo:
+          </p>
+          <p>
+            • Animations viram <code>0.01ms</code> (instantâneas)<br>
+            • Transitions viram <code>0.01ms</code><br>
+            • Pulses e loops infinitos param<br>
+            • Opacity preservada (não é movimento)<br>
+            • Smooth scroll desativado
+          </p>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>Já tá implementado.</strong> Veja em <code>assets/tokens.css</code> o bloco <code>@media (prefers-reduced-motion: reduce)</code> no final do arquivo. Aplica globalmente em tudo que usar transitions ou animations CSS.
+      </div>
+    </section>
+
+    <div style="margin-top:var(--space-16); padding-top:var(--space-6); border-top:1px solid var(--hairline); display:flex; justify-content:space-between; align-items:center;">
+      <div style="font-size:var(--fs-12); color:var(--label-tertiary);">
+        Cronos Design System · 02 Motion · v0.1
+      </div>
+      <div style="font-size:var(--fs-12); color:var(--label-tertiary);">
+        Próximo: <strong style="color:var(--label-primary); font-weight:var(--fw-semibold);">03 Atoms →</strong>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+// Race
+const raceBtn = document.getElementById('raceBtn');
+const raceStatus = document.getElementById('raceStatus');
+raceBtn.addEventListener('click', () => {
+  const balls = document.querySelectorAll('[data-lane]');
+  balls.forEach(b => b.classList.remove('go'));
+  raceStatus.textContent = 'Reset...';
+  setTimeout(() => {
+    balls.forEach(b => b.classList.add('go'));
+    raceStatus.textContent = 'Correndo... (mesma distância, mesmo tempo, easings diferentes)';
+    setTimeout(() => {
+      balls.forEach(b => b.classList.remove('go'));
+      raceStatus.textContent = 'Pronto. Dispare de novo pra repetir.';
+    }, 1400);
+  }, 80);
+});
+
+// Replay buttons — clean restart pattern
+function restartAnimation(container) {
+  container.classList.remove('go');
+  // Force reflow pra resetar animations
+  void container.offsetWidth;
+  container.classList.add('go');
+}
+
+document.querySelectorAll('[data-replay]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.dataset.replay;
+    if (target === 'fadeup') restartAnimation(document.getElementById('demoFadeup'));
+    if (target === 'pop') {
+      const el = document.getElementById('demoPop');
+      el.classList.remove('in');
+      void el.offsetWidth;
+      el.classList.add('in');
+    }
+    if (target === 'stag') restartAnimation(document.getElementById('demoStag'));
+  });
+});
+
+// Toggles
+['toggle1', 'toggle2'].forEach(id => {
+  const t = document.getElementById(id);
+  t.addEventListener('click', () => t.classList.toggle('on'));
+});
+
+// Hold-to-confirm
+const holdBtn = document.getElementById('holdBtn');
+let holdTimer = null;
+const startHold = (e) => {
+  e.preventDefault();
+  holdBtn.classList.add('holding');
+  holdBtn.querySelector('span').textContent = 'Segurando... 1.5s';
+  holdTimer = setTimeout(() => {
+    holdBtn.classList.remove('holding');
+    holdBtn.classList.add('fired');
+    holdBtn.querySelector('span').textContent = '✓ Silenciado por 24h';
+    setTimeout(() => {
+      holdBtn.classList.remove('fired');
+      holdBtn.querySelector('span').textContent = 'Segure pra silenciar 24h';
+    }, 1800);
+  }, 1500);
+};
+const cancelHold = () => {
+  clearTimeout(holdTimer);
+  if (holdBtn.classList.contains('fired')) return;
+  holdBtn.classList.remove('holding');
+  holdBtn.querySelector('span').textContent = 'Segure pra silenciar 24h';
+};
+holdBtn.addEventListener('mousedown', startHold);
+holdBtn.addEventListener('touchstart', startHold);
+holdBtn.addEventListener('mouseup', cancelHold);
+holdBtn.addEventListener('mouseleave', cancelHold);
+holdBtn.addEventListener('touchend', cancelHold);
+
+// Side nav scrollspy
+const links = document.querySelectorAll('.docs-link[href^="#"]');
+const sections = Array.from(links).map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.docs-link[href="#${entry.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
