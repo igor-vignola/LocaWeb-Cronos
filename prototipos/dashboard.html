@@ -1342,9 +1342,9 @@ window.addEventListener('resize', () => {
 });
 
 // ═══════════════════════════════════════════════════════════
-// MORNING BRIEF MODAL
+// MORNING BRIEF MODAL — espera DOM completo (modal renderiza depois)
 // ═══════════════════════════════════════════════════════════
-(() => {
+document.addEventListener('DOMContentLoaded', () => {
   const backdrop = document.getElementById('mbBackdrop');
   const modal = document.getElementById('mbModal');
   const pill = document.getElementById('mbPill');
@@ -1369,7 +1369,7 @@ window.addEventListener('resize', () => {
 
   // Re-open via pill
   if (pill) pill.addEventListener('click', open);
-})();
+});
 </script>
 
 <!-- ═══ MORNING BRIEF MODAL ═══ -->
