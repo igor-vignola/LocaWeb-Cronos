@@ -811,6 +811,157 @@ body::after {
   .kpi-row { grid-template-columns: repeat(2, 1fr); }
   .team-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MORNING BRIEF MODAL (overlay com backdrop blur)
+   ═══════════════════════════════════════════════════════════ */
+.mb-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(10,10,15,0.20);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  z-index: var(--z-modal-backdrop);
+  opacity: 0; pointer-events: none;
+  transition: opacity 320ms var(--ease-out-strong);
+}
+.mb-backdrop.open { opacity: 1; pointer-events: auto; }
+
+.mb-modal {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.94);
+  width: 560px; max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 64px); overflow-y: auto;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.95);
+  border-radius: var(--r-2xl);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 8px 16px rgba(0,0,0,0.08),
+    0 32px 80px -16px rgba(0,30,80,0.30);
+  z-index: var(--z-modal);
+  opacity: 0; pointer-events: none;
+  transition: opacity 360ms var(--ease-out-strong), transform 360ms var(--ease-spring);
+}
+.mb-modal.open { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
+
+.mb-modal-inner { padding: var(--space-7) var(--space-7) var(--space-6); }
+
+.mb-close {
+  position: absolute;
+  top: var(--space-4); right: var(--space-4);
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.05);
+  border: none;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--label-secondary);
+  cursor: pointer;
+  transition: all var(--dur-quick) var(--ease-out);
+  z-index: 2;
+}
+.mb-close:hover { background: rgba(0,0,0,0.10); color: var(--label-primary); transform: scale(1.05); }
+.mb-close:active { transform: scale(0.94); }
+.mb-close svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.4; stroke-linecap: round; }
+
+.mb-date {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px;
+  background: rgba(37,99,235,0.10);
+  border: 1px solid rgba(37,99,235,0.20);
+  border-radius: var(--r-pill);
+  font-size: 11px; font-weight: var(--fw-semibold);
+  color: var(--accent);
+  margin-bottom: var(--space-5);
+}
+.mb-date svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.mb-block { margin-bottom: var(--space-5); }
+.mb-block:last-of-type { margin-bottom: 0; }
+.mb-eyebrow { font-size: 10px; font-weight: var(--fw-bold); letter-spacing: 0.12em; text-transform: uppercase; color: var(--label-tertiary); margin-bottom: var(--space-2); display: block; }
+.mb-h {
+  font-size: 22px; font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-heading); line-height: 1.2;
+  color: var(--label-primary);
+  margin-bottom: var(--space-3);
+}
+.mb-h .kw { color: var(--danger); }
+.mb-h .succ { color: var(--success); }
+
+.mb-stats {
+  display: flex; align-items: stretch;
+  padding: var(--space-3) 0;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.mb-stat { flex: 1; padding: 0 var(--space-3); display: flex; flex-direction: column; gap: 2px; }
+.mb-stat + .mb-stat { border-left: 1px solid rgba(0,0,0,0.06); }
+.mb-stat .v { font-size: 17px; font-weight: var(--fw-heavy); letter-spacing: -0.02em; color: var(--label-primary); font-variant-numeric: tabular-nums; line-height: 1; }
+.mb-stat .l { font-size: 10px; font-weight: var(--fw-semibold); color: var(--label-tertiary); }
+
+.mb-prose { font-size: 13.5px; color: var(--label-secondary); line-height: 1.55; }
+.mb-prose strong { color: var(--label-primary); font-weight: var(--fw-semibold); }
+.mb-prose code { font-family: ui-monospace, monospace; background: rgba(0,0,0,0.05); padding: 1px 5px; border-radius: 4px; font-size: 11.5px; }
+
+.mb-bullet {
+  display: grid; grid-template-columns: 18px 1fr;
+  gap: var(--space-2);
+  font-size: 13px; color: var(--label-secondary);
+  line-height: 1.5;
+  margin-top: var(--space-2);
+}
+.mb-bullet::before { content: '·'; color: var(--accent); font-weight: var(--fw-bold); font-size: 18px; line-height: 1.2; text-align: center; }
+.mb-bullet strong { color: var(--label-primary); font-weight: var(--fw-semibold); }
+.mb-bullet code { font-family: ui-monospace, monospace; background: rgba(0,0,0,0.05); padding: 1px 5px; border-radius: 4px; font-size: 11.5px; }
+
+.mb-action {
+  margin-top: var(--space-2);
+  padding: var(--space-3) var(--space-4) var(--space-3) calc(var(--space-3) + 28px);
+  background: rgba(37,99,235,0.06);
+  border: 1px solid rgba(37,99,235,0.18);
+  border-radius: var(--r-md);
+  position: relative;
+  font-size: 12.5px;
+  color: var(--accent-text);
+  line-height: 1.45;
+}
+.mb-action::before {
+  content: '★'; position: absolute;
+  left: var(--space-3); top: 50%; transform: translateY(-50%);
+  width: 18px; height: 18px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #1E40AF); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: var(--fw-bold);
+  box-shadow: 0 2px 6px rgba(37,99,235,0.30);
+}
+.mb-action strong { color: var(--accent); font-weight: var(--fw-bold); }
+.mb-action code { font-family: ui-monospace, monospace; background: rgba(255,255,255,0.6); padding: 1px 5px; border-radius: 4px; font-size: 11.5px; }
+
+.mb-modal-actions {
+  display: flex; gap: var(--space-2); justify-content: flex-end;
+  padding: var(--space-4) var(--space-7);
+  background: rgba(0,0,0,0.025);
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.mb-modal-actions .btn { text-decoration: none; }
+
+/* Re-open pill na topbar */
+.mb-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 34px; padding: 0 12px;
+  background: rgba(37,99,235,0.10);
+  border: 1px solid rgba(37,99,235,0.20);
+  border-radius: var(--r-pill);
+  font-size: 12px; font-weight: var(--fw-semibold);
+  color: var(--accent);
+  cursor: pointer;
+  transition: all var(--dur-quick) var(--ease-out);
+  margin: 0 var(--space-2);
+}
+.mb-pill:hover { background: rgba(37,99,235,0.16); transform: translateY(-1px); box-shadow: 0 4px 12px -2px rgba(37,99,235,0.20); }
+.mb-pill:active { transform: scale(0.97); }
+.mb-pill svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 </style>
 </head>
 <body>
@@ -877,6 +1028,10 @@ body::after {
       <div class="tb-crumb"><span>Operação</span><span class="sep">/</span><span class="here">Dashboard</span></div>
       <div class="tb-spacer"></div>
       <div class="tb-live"><span class="dot"></span><span>Live</span><span class="time" id="liveTime">16:42:08</span></div>
+      <button class="mb-pill" id="mbPill" title="Abrir morning brief">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Brief 06:00
+      </button>
       <div class="tb-search-trigger">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         <span class="ph">Buscar...</span><span class="kbd">⌘K</span>
@@ -1185,7 +1340,89 @@ window.addEventListener('resize', () => {
     }
   });
 });
+
+// ═══════════════════════════════════════════════════════════
+// MORNING BRIEF MODAL
+// ═══════════════════════════════════════════════════════════
+(() => {
+  const backdrop = document.getElementById('mbBackdrop');
+  const modal = document.getElementById('mbModal');
+  const pill = document.getElementById('mbPill');
+  if (!backdrop || !modal) return;
+
+  function open() {
+    backdrop.classList.add('open');
+    modal.classList.add('open');
+  }
+  function close() {
+    backdrop.classList.remove('open');
+    modal.classList.remove('open');
+  }
+
+  // Auto-show no load (delay pequeno pra stagger natural)
+  setTimeout(open, 600);
+
+  // Triggers de close
+  document.querySelectorAll('[data-mb-close]').forEach(el => el.addEventListener('click', close));
+  backdrop.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+
+  // Re-open via pill
+  if (pill) pill.addEventListener('click', open);
+})();
 </script>
+
+<!-- ═══ MORNING BRIEF MODAL ═══ -->
+<div class="mb-backdrop" id="mbBackdrop"></div>
+
+<div class="mb-modal" id="mbModal">
+  <button class="mb-close" data-mb-close aria-label="Fechar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+
+  <div class="mb-modal-inner">
+
+    <span class="mb-date">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Quinta · 21 maio · 06:00
+    </span>
+
+    <!-- Ontem -->
+    <div class="mb-block">
+      <span class="mb-eyebrow">Ontem · 20 mai</span>
+      <h3 class="mb-h">192 incidentes, <span class="succ">84% auto-resolvidos</span>.</h3>
+      <div class="mb-stats">
+        <div class="mb-stat"><span class="v">192</span><span class="l">Incidentes</span></div>
+        <div class="mb-stat"><span class="v">96.4%</span><span class="l">OLA</span></div>
+        <div class="mb-stat"><span class="v">16min</span><span class="l">MTTR</span></div>
+        <div class="mb-stat"><span class="v">3</span><span class="l">Cascatas P3+</span></div>
+      </div>
+    </div>
+
+    <!-- Hoje -->
+    <div class="mb-block">
+      <span class="mb-eyebrow">Hoje · 21 mai · atenção</span>
+      <h3 class="mb-h">3 cascatas em formação. KPI em <span class="kw">73%</span>.</h3>
+      <div class="mb-bullet"><span><code>lhco · INC8643147</code> escala em ~38min · <strong>84%</strong></span></div>
+      <div class="mb-bullet"><span><code>lhvp · INC8607139</code> sem owner há 18min · <strong>62%</strong></span></div>
+      <div class="mb-bullet"><span>3 alertas <code>Apache Busy Workers</code> nas últimas 4h</span></div>
+    </div>
+
+    <!-- Top ação sugerida -->
+    <div class="mb-block">
+      <span class="mb-eyebrow">Sugestão IA · prioritária</span>
+      <div class="mb-action">
+        <strong>Redistribuir 2 incidentes P5 do Team14 pro Team09.</strong> Team09 tem expertise em <code>lhco</code> (1.440 incidentes) e está em 38% de capacidade.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="mb-modal-actions">
+    <button class="btn btn-glass" data-mb-close>Fechar</button>
+    <a class="btn btn-primary" href="morning-brief.html">Ver completo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+  </div>
+</div>
 
 </body>
 </html>
