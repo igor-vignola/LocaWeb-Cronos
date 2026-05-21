@@ -1,35 +1,54 @@
 # Protótipos — Cronos
 
-## Estado atual (21/05/2026)
+## Estrutura
 
-🔄 **Reset.** A direção dark-glass via Claude Design foi descartada — o resultado ficou genérico, com termos inventados, e fugiu da identidade Cronos.
+```
+prototipos/
+├── telas/          ← Protótipos do produto Cronos (entrega final)
+├── slides/         ← HTMLs usados pra gerar slides do PPT da Sprint 2
+│   └── png/        ← Exports PNG dos slides
+├── variacoes/      ← Versões alternativas / experimentos não escolhidos
+└── docs/           ← Documentos auxiliares (vocabulário, refs)
+```
 
-Novo caminho:
-1. **Calibrar personalidade** via `personalidade.html` — 4 flavors do mesmo dashboard, todos light + brand canônico, variando o tom (operacional crisp · iOS-refined · editorial · tático).
-2. **Explorar `data/raw/LWDATASET.xlsx`** pra extrair vocabulário real da Locaweb (produtos, categorias, padrões) → vira input do protótipo, zero invenção.
-3. **Spec consolidado** com personalidade escolhida + vocabulário real.
-4. **Novo protótipo** uma tela por vez, HTML manual (mais controle, sem limite de cota).
-
-## Arquivos ativos
+## Telas ativas (`telas/`)
 
 | Arquivo | Função |
 |---|---|
-| `personalidade.html` | Showcase visual de 4 personalidades pra Igor escolher (passo 1) |
-| `README.md` | Este arquivo |
+| `dashboard.html` | Tela principal — KPI mensal, cascatas, saúde por produto, heatmap, equipes |
+| `morning-brief.html` | Briefing diário em formato editorial (jornal) — Cronos AI resume ontem/hoje + sugestões + decisões + horizonte 7d |
 
-## Arquivos arquivados / descartados
+Ambos consomem `../../brand/design-system/assets/tokens.css` como única fonte de tokens (cores, espaçamento, motion).
 
-A iteração dark-glass via Claude Design foi removida (`dashboard-v1-command.html`, `dashboard-v5-glass.html`, `preview-style.html`, `claude-design-prompt*.md`, `Claude Design/*`). Permanece em git history (commits `ceb729f`, `5ac1b88`) caso seja preciso revisitar.
+## Slides Sprint 2 (`slides/`)
+
+HTMLs usados para gerar os PNGs que entram no PPT. PNG exportado fica em `slides/png/` com mesmo nome base.
+
+- `capa-slide.html` → capa
+- `arquitetura-slide.html` → diagrama de arquitetura V2 (etapas + numeração)
+- `tecnologias-slide-v1.html` → stack de tecnologias
+
+## Variações (`variacoes/`)
+
+Versões alternativas que não foram escolhidas mas valem manter pra histórico/referência.
+
+- `arquitetura.html` — versão anterior do slide de arquitetura
+
+## Docs (`docs/`)
+
+- `vocabulario-real.md` — produtos, equipes, alertas e ICs extraídos do `LWDATASET.xlsx`. **Sempre consultar antes de inventar mock data nos protótipos.**
 
 ## Identidade visual ativa
 
-A canônica: `brand/design-system.html`.
+Design system canônico: `brand/design-system/` (foundations, motion, atoms, molecules, patterns).
 
 **Tokens-chave:**
 - Accent único: `#2563EB`
-- Neutros: escala `#000` → `#FFF` (11 cinzas)
-- Semânticas: `#DC2626` danger · `#059669` success · `#D97706` warning — **APENAS em badges, dots e barras de progresso**, nunca em números grandes ou títulos
-- Tipografia: `Outfit` (site/dashboard) + `Sora` (slides) + `JetBrains Mono` (números tabulares)
-- Radii: 14px panels, 10px small, 6px xs
+- Tipografia: `Outfit` Sans (com `font-variant-numeric: tabular-nums` para números)
+- Aesthetic: light glass (Apple HIG · Liquid Glass) — `backdrop-filter: blur(40px) saturate(180%)`
+- Cor semântica é informação, não decoração — números grandes e títulos sempre em preto/cinza
 
-> **Regra de ouro do brand:** Números grandes, títulos e textos são sempre preto/cinza. Cor semântica é informação, não decoração.
+## Próximas telas
+
+- [ ] `telas/saude-produto.html` — score 0-100 por produto, ranking, explicabilidade
+- [ ] `telas/cascata.html` — detalhe de cascata em formação, SHAP-style

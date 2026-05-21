@@ -124,8 +124,8 @@ Conclusão curta + agradecimentos (FIAP, Locaweb, Douglas).
 ## Entregáveis materiais
 
 - [ ] `EC_Sprint_2_2TSCOA_arqsolucao_Cronos_SuperDataBros.pptx`
-- [ ] `prototipos/dashboard.html` + 4 outras telas + `index.html`
-- [ ] `prototipos/assets/style.css` ✅ JÁ FEITO
+- [ ] `prototipos/telas/dashboard.html` + 4 outras telas + `index.html`
+- [ ] `brand/design-system/` (foundations, motion, atoms, molecules, patterns) ✅ JÁ FEITO
 - [ ] Diagrama de arquitetura (PNG via Mermaid)
 - [ ] `notebooks/01_eda.ipynb` (ativo interno, parcial — vai pro repo de qualquer jeito)
 - [ ] Plano de gestão ágil (no slide do PPT)
