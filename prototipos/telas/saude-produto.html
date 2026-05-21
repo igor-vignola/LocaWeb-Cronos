@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cronos · Saúde dos Produtos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../brand/design-system/assets/tokens.css">
+<style>
+body { background: #EEF1F7; position: relative; overflow: hidden; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; background: radial-gradient(1100px 800px at -200px -150px, rgba(37,99,235,0.22), transparent 55%), radial-gradient(900px 700px at calc(100% + 100px) calc(100% + 100px), rgba(220,38,38,0.13), transparent 55%), radial-gradient(800px 600px at 60% 40%, rgba(168,85,247,0.10), transparent 55%); pointer-events: none; }
+body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.025 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>"); mix-blend-mode: multiply; opacity: 0.6; }
+
+.app { position: relative; z-index: 2; display: grid; grid-template-columns: 244px 1fr; gap: var(--space-3); padding: var(--space-3); height: 100vh; }
+
+/* SIDEBAR (compartilhada) */
+.sb { background: rgba(255,255,255,0.72); backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-xl); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(0,30,80,0.04), 0 16px 40px -16px rgba(0,30,80,0.14); display: flex; flex-direction: column; overflow-y: auto; }
+.sb-brand { padding: var(--space-4) var(--space-5); display: flex; align-items: center; gap: var(--space-3); border-bottom: 1px solid rgba(0,0,0,0.05); }
+.sb-logo { width: 36px; height: 36px; background: var(--dark); border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.10); }
+.sb-logo svg { width: 19px; height: 19px; }
+.sb-brand-name { font-size: var(--fs-17); font-weight: var(--fw-bold); letter-spacing: -0.028em; background: linear-gradient(135deg, var(--dark), var(--gray-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.sb-brand-sub { font-size: 8.5px; font-weight: var(--fw-semibold); letter-spacing: 0.18em; color: var(--label-quaternary); text-transform: uppercase; margin-top: 3px; }
+.sb-search { margin: var(--space-3) var(--space-4); position: relative; }
+.sb-search input { width: 100%; height: 36px; padding: 0 38px 0 32px; background: rgba(0,0,0,0.04); border: 1px solid transparent; border-radius: var(--r-sm); font: inherit; font-size: 12.5px; color: var(--label-primary); outline: none; }
+.sb-search::before { content: ''; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 13px; height: 13px; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A3A3A3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><path d='m21 21-4.3-4.3'/></svg>") center/contain no-repeat; }
+.sb-search .kbd { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 9.5px; font-weight: var(--fw-semibold); color: var(--label-tertiary); padding: 2px 6px; background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; pointer-events: none; }
+.sb-nav { padding: var(--space-2) var(--space-3); flex: 1; display: flex; flex-direction: column; gap: 1px; }
+.sb-section { font-size: 9.5px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--label-quaternary); padding: var(--space-3) var(--space-2) 6px; }
+.sb-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: var(--r-sm); font-size: 13.5px; font-weight: var(--fw-medium); color: var(--label-secondary); cursor: pointer; transition: all var(--dur-quick) var(--ease-out); text-decoration: none; }
+.sb-item:hover { background: rgba(255,255,255,0.55); color: var(--label-primary); }
+.sb-item.active { background: linear-gradient(135deg, rgba(37,99,235,0.16), rgba(37,99,235,0.08)); color: var(--accent); font-weight: var(--fw-semibold); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 1px 2px rgba(37,99,235,0.10); }
+.sb-item svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: 0.85; flex-shrink: 0; }
+.sb-item.active svg { opacity: 1; }
+.sb-item .lbl { flex: 1; }
+.sb-item .badge { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; padding: 0 5px; background: var(--danger); color: var(--white); border-radius: 9px; font-size: 9.5px; font-weight: var(--fw-bold); }
+.sb-item .badge.neutral { background: rgba(37,99,235,0.16); color: var(--accent); }
+.sb-item .badge.warning { background: var(--warning); }
+.sb-foot { padding: var(--space-3) var(--space-4); border-top: 1px solid rgba(0,0,0,0.05); display: flex; align-items: center; gap: var(--space-3); }
+.sb-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #1E40AF); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 11px; font-weight: var(--fw-bold); flex-shrink: 0; box-shadow: 0 4px 12px rgba(37,99,235,0.25), inset 0 1px 0 rgba(255,255,255,0.2); }
+.sb-user-name { font-size: 12.5px; font-weight: var(--fw-semibold); }
+.sb-user-role { font-size: 10.5px; color: var(--label-tertiary); }
+.sb-foot-more { width: 26px; height: 26px; border-radius: var(--r-xs); background: transparent; border: none; color: var(--label-tertiary); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+/* MAIN + TOPBAR */
+.main { display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+.tb { height: 60px; padding: 0 var(--space-6); display: flex; align-items: center; gap: var(--space-3); background: rgba(255,255,255,0.72); backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-md); margin-bottom: var(--space-3); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(0,30,80,0.04); }
+.tb-crumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--label-tertiary); }
+.tb-crumb .here { color: var(--label-primary); font-weight: var(--fw-semibold); }
+.tb-spacer { flex: 1; }
+.tb-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: rgba(37,99,235,0.10); color: var(--accent); border: 1px solid rgba(37,99,235,0.20); border-radius: var(--r-pill); font-size: 11.5px; font-weight: var(--fw-semibold); }
+.tb-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: livePulse 1.6s ease-in-out infinite; }
+@keyframes livePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE
+   ═══════════════════════════════════════════════════════════ */
+.content { flex: 1; overflow-y: auto; padding: var(--space-5) 0 var(--space-8); display: flex; justify-content: center; }
+.page { width: 100%; max-width: 1080px; padding: 0 var(--space-5); opacity: 0; transform: translateY(8px); animation: fadeUp 700ms var(--ease-out-strong) forwards; }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* Header — direto, sem masthead jornal */
+.page-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: var(--space-5);
+  padding-bottom: var(--space-5);
+  margin-bottom: var(--space-5);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.page-head-left h1 {
+  font-size: 32px; font-weight: var(--fw-heavy);
+  letter-spacing: -0.03em; line-height: 1;
+  color: var(--label-primary);
+  margin-bottom: 6px;
+}
+.page-head-left p {
+  font-size: 13.5px; color: var(--label-tertiary);
+  line-height: 1.45;
+}
+.page-head-left p strong { color: var(--label-primary); font-weight: var(--fw-semibold); }
+
+/* Segmented control com pill animada */
+.segment {
+  position: relative;
+  display: inline-flex;
+  background: rgba(0,0,0,0.05);
+  border-radius: var(--r-sm);
+  padding: 3px;
+  flex-shrink: 0;
+}
+.segment-pill {
+  position: absolute;
+  top: 3px; bottom: 3px;
+  background: var(--white);
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.02);
+  transition: transform 320ms var(--ease-out-strong), width 320ms var(--ease-out-strong);
+  z-index: 0;
+}
+.segment-btn {
+  position: relative; z-index: 1;
+  padding: 7px 16px;
+  font-family: var(--font-sans);
+  font-size: 12.5px; font-weight: var(--fw-semibold);
+  color: var(--label-tertiary);
+  background: transparent; border: none;
+  cursor: pointer;
+  transition: color var(--dur-quick) var(--ease-out), transform 120ms var(--ease-out);
+  border-radius: 5px;
+}
+.segment-btn:hover { color: var(--label-primary); }
+.segment-btn:active { transform: scale(0.97); }
+.segment-btn.active { color: var(--label-primary); }
+
+/* Mini stats inline */
+.stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-5);
+  padding: var(--space-4) var(--space-5);
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.85);
+  border-radius: var(--r-lg);
+  margin-bottom: var(--space-5);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+}
+.stat { display: flex; flex-direction: column; gap: 4px; position: relative; }
+.stat + .stat::before { content: ''; position: absolute; left: calc(-1 * var(--space-5) / 2 - 0.5px); top: 4px; bottom: 4px; width: 1px; background: rgba(0,0,0,0.06); }
+.stat .v { font-size: 28px; font-weight: var(--fw-heavy); letter-spacing: -0.03em; color: var(--label-primary); font-variant-numeric: tabular-nums; line-height: 1; }
+.stat .v.crit { color: var(--danger); }
+.stat .v.good { color: var(--success); }
+.stat .l { font-size: 11px; font-weight: var(--fw-semibold); color: var(--label-tertiary); letter-spacing: 0.02em; }
+.stat .delta { font-size: 11px; color: var(--label-tertiary); font-variant-numeric: tabular-nums; margin-top: 2px; }
+.stat .delta.neg { color: var(--danger); }
+.stat .delta.pos { color: var(--success); }
+
+/* List of produtos */
+.list {
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.85);
+  border-radius: var(--r-lg);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+  overflow: hidden;
+}
+.list-headers {
+  display: grid; grid-template-columns: 28px 110px 1fr 90px 70px 70px 22px;
+  gap: var(--space-4); align-items: center;
+  padding: var(--space-3) var(--space-5);
+  font-size: 9.5px; font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase;
+  color: var(--label-quaternary);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  background: rgba(255,255,255,0.4);
+}
+
+.row {
+  display: grid; grid-template-columns: 28px 110px 1fr 90px 70px 70px 22px;
+  gap: var(--space-4); align-items: center;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: background var(--dur-quick) var(--ease-out);
+}
+.row:last-child { border-bottom: none; }
+.row:hover { background: rgba(255,255,255,0.55); }
+.row.open { background: rgba(255,255,255,0.7); }
+
+.r-pos { font-family: ui-monospace, monospace; font-size: 13px; font-weight: var(--fw-bold); color: var(--label-tertiary); font-variant-numeric: tabular-nums; }
+.r-prod { display: flex; align-items: center; gap: var(--space-2); }
+.r-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.r-dot.crit { background: var(--danger); }
+.r-dot.warn { background: var(--warning); }
+.r-dot.good { background: var(--success); }
+.r-dot.neu { background: var(--gray-4); }
+.r-tag { font-family: ui-monospace, monospace; font-size: 12px; font-weight: var(--fw-bold); padding: 3px 8px; background: rgba(0,0,0,0.06); color: var(--label-primary); border-radius: var(--r-sm); letter-spacing: 0.05em; }
+.r-fator { font-size: 13px; color: var(--label-secondary); line-height: 1.4; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.r-fator strong { color: var(--label-primary); font-weight: var(--fw-semibold); }
+.r-spark { width: 100%; height: 32px; }
+.r-spark path.stroke { fill: none; stroke-width: 1.6; }
+.r-spark path.fill { stroke: none; opacity: 0.15; }
+.r-spark .neg .stroke { stroke: var(--danger); }
+.r-spark .neg .fill { fill: var(--danger); }
+.r-spark .pos .stroke { stroke: var(--success); }
+.r-spark .pos .fill { fill: var(--success); }
+.r-spark .neu .stroke { stroke: var(--label-tertiary); }
+.r-spark .neu .fill { fill: var(--label-tertiary); }
+.r-delta { font-size: 11.5px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; padding: 3px 8px; border-radius: var(--r-pill); text-align: center; }
+.r-delta.neg { background: var(--danger-soft); color: var(--danger); }
+.r-delta.pos { background: var(--success-soft); color: var(--success); }
+.r-delta.neu { background: rgba(0,0,0,0.05); color: var(--label-tertiary); }
+.r-score { font-size: 22px; font-weight: var(--fw-heavy); font-variant-numeric: tabular-nums; letter-spacing: -0.025em; color: var(--label-primary); text-align: right; }
+.r-score.crit { color: var(--danger); }
+.r-score.warn { color: var(--warning); }
+.r-score.good { color: var(--success); }
+.r-chev {
+  width: 22px; height: 22px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--label-tertiary);
+  transition: transform 280ms var(--ease-out-strong), color var(--dur-quick) var(--ease-out);
+}
+.row.open .r-chev { transform: rotate(180deg); color: var(--label-primary); }
+.r-chev svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Detail (expanded inline) */
+.detail-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 320ms var(--ease-out-strong);
+  background: rgba(255,255,255,0.35);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.detail-wrap.open { grid-template-rows: 1fr; }
+.detail-wrap:last-of-type { border-bottom: none; }
+.detail {
+  overflow: hidden;
+  min-height: 0;
+}
+.detail-inner {
+  padding: var(--space-5) var(--space-7) var(--space-6) calc(var(--space-5) + 28px + var(--space-4) + 110px + var(--space-4));
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--space-7);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 280ms var(--ease-out-strong) 100ms, transform 280ms var(--ease-out-strong) 100ms;
+}
+.detail-wrap.open .detail-inner { opacity: 1; transform: translateY(0); }
+
+.detail-h {
+  font-size: 9.5px; font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase;
+  color: var(--label-quaternary);
+  margin-bottom: var(--space-3);
+}
+
+/* Fatores SHAP-style (mais simples) */
+.factors { display: flex; flex-direction: column; gap: var(--space-3); }
+.factor { display: grid; grid-template-columns: 1fr 50px; gap: var(--space-3); align-items: center; }
+.factor-body { display: flex; flex-direction: column; gap: 6px; }
+.factor-label { font-size: 13px; color: var(--label-primary); line-height: 1.4; }
+.factor-label strong { font-weight: var(--fw-semibold); }
+.factor-label code { font-family: ui-monospace, monospace; background: rgba(0,0,0,0.05); padding: 1px 5px; border-radius: 4px; font-size: 11.5px; }
+.factor-bar-wrap { position: relative; height: 5px; background: rgba(0,0,0,0.05); border-radius: 3px; overflow: hidden; }
+.factor-bar { position: absolute; top: 0; bottom: 0; left: 0; border-radius: 3px; }
+.factor-bar.neg { background: var(--danger); }
+.factor-bar.pos { background: var(--success); }
+.factor-impact { font-size: 13px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; text-align: right; }
+.factor-impact.neg { color: var(--danger); }
+.factor-impact.pos { color: var(--success); }
+
+/* Actions (sugestões) */
+.actions { display: flex; flex-direction: column; gap: var(--space-2); }
+.action {
+  display: grid; grid-template-columns: 1fr auto; align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(255,255,255,0.65);
+  border: 1px solid rgba(255,255,255,0.9);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: all var(--dur-quick) var(--ease-out);
+}
+.action:hover { background: var(--white); transform: translateX(2px); }
+.action:active { transform: scale(0.98); }
+.action-text { font-size: 12.5px; color: var(--label-primary); line-height: 1.4; }
+.action-text strong { font-weight: var(--fw-semibold); }
+.action-text code { font-family: ui-monospace, monospace; background: rgba(0,0,0,0.05); padding: 1px 4px; border-radius: 4px; font-size: 11px; }
+.action-impact { font-size: 11px; font-weight: var(--fw-bold); padding: 3px 8px; border-radius: var(--r-pill); background: var(--accent-soft); color: var(--accent); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* Detail footer (cta link) */
+.detail-foot {
+  grid-column: 1 / -1;
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  display: flex; gap: var(--space-3);
+}
+.link-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px; font-weight: var(--fw-semibold);
+  color: var(--accent);
+  background: transparent; border: none;
+  cursor: pointer;
+  transition: gap 200ms var(--ease-out);
+}
+.link-btn:hover { gap: 8px; }
+.link-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.link-btn.muted { color: var(--label-tertiary); }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sb">
+    <div class="sb-brand">
+      <div class="sb-logo"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.4" fill="#3B82F6"/></svg></div>
+      <div><div class="sb-brand-name">Cronos</div><div class="sb-brand-sub">Veja antes · aja antes</div></div>
+    </div>
+    <div class="sb-search"><input placeholder="Buscar produto, alerta..."><span class="kbd">⌘K</span></div>
+    <nav class="sb-nav">
+      <div class="sb-section">Operação</div>
+      <a class="sb-item" href="dashboard.html"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span class="lbl">Dashboard</span></a>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="lbl">Previsões</span></a>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><path d="M12 2L4 7v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V7l-8-5z"/></svg><span class="lbl">Cascatas</span><span class="badge">3</span></a>
+      <a class="sb-item active" href="saude-produto.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg><span class="lbl">Saúde · Produto</span></a>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><span class="lbl">Probabilidade KPI</span></a>
+      <div class="sb-section">Diferenciais</div>
+      <a class="sb-item" href="morning-brief.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg><span class="lbl">Morning brief</span><span class="badge neutral">06:00</span></a>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/></svg><span class="lbl">Alertas</span><span class="badge warning">8</span></a>
+      <div class="sb-section">Análise</div>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/></svg><span class="lbl">Produtos</span></a>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/></svg><span class="lbl">Equipes</span></a>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg><span class="lbl">Configurações</span></a>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-avatar">IV</div>
+      <div style="flex:1;"><div class="sb-user-name">Igor Vignola</div><div class="sb-user-role">Operações · Locaweb</div></div>
+      <button class="sb-foot-more"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <div class="tb">
+      <div class="tb-crumb"><span>Operação</span><span style="color:var(--label-quaternary);">/</span><span class="here">Saúde · Produto</span></div>
+      <div class="tb-spacer"></div>
+      <div class="tb-pill"><span class="dot"></span>Atualizado 06:00</div>
+    </div>
+
+    <div class="content">
+      <div class="page">
+
+        <!-- Header simples -->
+        <header class="page-head">
+          <div class="page-head-left">
+            <h1>Saúde dos produtos</h1>
+            <p>Score 0–100 calculado pelo XGBoost · <strong>21</strong> produtos monitorados · <strong>4</strong> em alerta</p>
+          </div>
+
+          <div class="segment" id="segment">
+            <div class="segment-pill" id="segment-pill"></div>
+            <button class="segment-btn active" data-period="24h">24 h</button>
+            <button class="segment-btn" data-period="7d">7 dias</button>
+            <button class="segment-btn" data-period="30d">30 dias</button>
+          </div>
+        </header>
+
+        <!-- Mini stats -->
+        <div class="stats">
+          <div class="stat"><span class="v">81</span><span class="l">Score médio</span><span class="delta neg">−4 vs 7d</span></div>
+          <div class="stat"><span class="v crit">4</span><span class="l">Em alerta</span><span class="delta">score &lt; 70</span></div>
+          <div class="stat"><span class="v good">17</span><span class="l">Saudáveis</span><span class="delta">score ≥ 70</span></div>
+          <div class="stat"><span class="v">lrev</span><span class="l">Melhor score</span><span class="delta pos">94 · +5 pp</span></div>
+        </div>
+
+        <!-- Lista de produtos -->
+        <div class="list">
+          <div class="list-headers">
+            <span>#</span>
+            <span>Produto</span>
+            <span>Top fator</span>
+            <span>7 dias</span>
+            <span>Δ 7d</span>
+            <span style="text-align:right;">Score</span>
+            <span></span>
+          </div>
+
+          <!-- lhco -->
+          <div class="row" data-row>
+            <span class="r-pos">01</span>
+            <div class="r-prod"><span class="r-dot crit"></span><span class="r-tag">lhco</span></div>
+            <span class="r-fator"><strong>Volume</strong> · 3 cascatas em formação</span>
+            <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="neg"><path class="fill" d="M0,8 L14,10 L28,14 L42,16 L57,18 L71,22 L85,24 L100,28 L100,32 L0,32 Z"/><path class="stroke" d="M0,8 L14,10 L28,14 L42,16 L57,18 L71,22 L85,24 L100,28"/></g></svg>
+            <span class="r-delta neg">−18</span>
+            <span class="r-score crit">62</span>
+            <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </div>
+          <div class="detail-wrap" data-detail>
+            <div class="detail">
+              <div class="detail-inner">
+                <div>
+                  <h4 class="detail-h">Por que a nota é 62</h4>
+                  <div class="factors">
+                    <div class="factor"><div class="factor-body"><span class="factor-label"><strong>Volume de incidentes</strong> · 3 cascatas em formação esta semana</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 80%;"></div></div></div><span class="factor-impact neg">−7,4</span></div>
+                    <div class="factor"><div class="factor-body"><span class="factor-label"><strong>MTTR acima da média</strong> · 24min vs 16min · Team14 sobrecarregado</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 62%;"></div></div></div><span class="factor-impact neg">−5,8</span></div>
+                    <div class="factor"><div class="factor-body"><span class="factor-label">Recorrência <code>Apache Busy Workers</code> · 3 ocorrências em 4h</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 50%;"></div></div></div><span class="factor-impact neg">−4,6</span></div>
+                    <div class="factor"><div class="factor-body"><span class="factor-label">Backup do <code>lcem</code> conflitando com pico 09h-11h</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 24%;"></div></div></div><span class="factor-impact neg">−2,3</span></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="detail-h">O que fazer agora</h4>
+                  <div class="actions">
+                    <div class="action"><span class="action-text">Acionar runbook <strong>IC00014</strong> · 4 passos · 12min</span><span class="action-impact">+9 pp</span></div>
+                    <div class="action"><span class="action-text">Mover backup do <code>lcem</code> pra 03:00</span><span class="action-impact">+4 pp</span></div>
+                    <div class="action"><span class="action-text">Redistribuir 2 P5 · <strong>Team14 → Team09</strong></span><span class="action-impact">+3 pp</span></div>
+                  </div>
+                </div>
+                <div class="detail-foot">
+                  <button class="link-btn">Ver detalhe completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+                  <button class="link-btn muted">Histórico do produto</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- lcem -->
+          <div class="row" data-row>
+            <span class="r-pos">02</span>
+            <div class="r-prod"><span class="r-dot warn"></span><span class="r-tag">lcem</span></div>
+            <span class="r-fator"><strong>Janela de backup</strong> · conflito com pico 09h</span>
+            <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="neg"><path class="fill" d="M0,10 L14,11 L28,12 L42,14 L57,15 L71,18 L85,19 L100,20 L100,32 L0,32 Z"/><path class="stroke" d="M0,10 L14,11 L28,12 L42,14 L57,15 L71,18 L85,19 L100,20"/></g></svg>
+            <span class="r-delta neg">−9</span>
+            <span class="r-score warn">71</span>
+            <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </div>
+          <div class="detail-wrap" data-detail>
+            <div class="detail">
+              <div class="detail-inner">
+                <div>
+                  <h4 class="detail-h">Por que a nota é 71</h4>
+                  <div class="factors">
+                    <div class="factor"><div class="factor-body"><span class="factor-label"><strong>Janela de backup às 09h</strong> · conflita com pico operacional</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 68%;"></div></div></div><span class="factor-impact neg">−5,2</span></div>
+                    <div class="factor"><div class="factor-body"><span class="factor-label">Volume +18% acima da média de maio</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 42%;"></div></div></div><span class="factor-impact neg">−3,1</span></div>
+                    <div class="factor"><div class="factor-body"><span class="factor-label">Auto-resolução caiu de 87% pra 78%</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 22%;"></div></div></div><span class="factor-impact neg">−1,8</span></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="detail-h">O que fazer agora</h4>
+                  <div class="actions">
+                    <div class="action"><span class="action-text">Mover backup pra <strong>03:00</strong> · libera janela 09h</span><span class="action-impact">+5 pp</span></div>
+                    <div class="action"><span class="action-text">Validar runbook do <code>IC00021</code> com Team09</span><span class="action-impact">+2 pp</span></div>
+                  </div>
+                </div>
+                <div class="detail-foot">
+                  <button class="link-btn">Ver detalhe completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+                  <button class="link-btn muted">Histórico do produto</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- lhvp -->
+          <div class="row" data-row>
+            <span class="r-pos">03</span>
+            <div class="r-prod"><span class="r-dot warn"></span><span class="r-tag">lhvp</span></div>
+            <span class="r-fator"><strong>Cascata sem owner</strong> · INC8607139</span>
+            <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="neg"><path class="fill" d="M0,11 L14,11 L28,13 L42,14 L57,15 L71,16 L85,16 L100,17 L100,32 L0,32 Z"/><path class="stroke" d="M0,11 L14,11 L28,13 L42,14 L57,15 L71,16 L85,16 L100,17"/></g></svg>
+            <span class="r-delta neg">−6</span>
+            <span class="r-score warn">74</span>
+            <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </div>
+          <div class="detail-wrap" data-detail>
+            <div class="detail">
+              <div class="detail-inner">
+                <div>
+                  <h4 class="detail-h">Por que a nota é 74</h4>
+                  <div class="factors">
+                    <div class="factor"><div class="factor-body"><span class="factor-label"><strong>Cascata sem owner</strong> · <code>INC8607139</code> há 18min</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 56%;"></div></div></div><span class="factor-impact neg">−4,0</span></div>
+                    <div class="factor"><div class="factor-body"><span class="factor-label">MTTR levemente acima da média (19min vs 16min)</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 28%;"></div></div></div><span class="factor-impact neg">−2,0</span></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="detail-h">O que fazer agora</h4>
+                  <div class="actions">
+                    <div class="action"><span class="action-text">Atribuir owner pra <code>INC8607139</code> · sugestão: <strong>Team09</strong></span><span class="action-impact">+4 pp</span></div>
+                  </div>
+                </div>
+                <div class="detail-foot">
+                  <button class="link-btn">Ver detalhe completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+                  <button class="link-btn muted">Histórico do produto</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- lsin -->
+          <div class="row" data-row>
+            <span class="r-pos">04</span>
+            <div class="r-prod"><span class="r-dot warn"></span><span class="r-tag">lsin</span></div>
+            <span class="r-fator">MTTR levemente acima da média</span>
+            <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="neg"><path class="fill" d="M0,12 L14,12 L28,13 L42,14 L57,14 L71,15 L85,15 L100,15 L100,32 L0,32 Z"/><path class="stroke" d="M0,12 L14,12 L28,13 L42,14 L57,14 L71,15 L85,15 L100,15"/></g></svg>
+            <span class="r-delta neg">−2</span>
+            <span class="r-score warn">78</span>
+            <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </div>
+          <div class="detail-wrap" data-detail>
+            <div class="detail">
+              <div class="detail-inner">
+                <div>
+                  <h4 class="detail-h">Por que a nota é 78</h4>
+                  <div class="factors">
+                    <div class="factor"><div class="factor-body"><span class="factor-label">MTTR ~18min vs 16min mediano</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 30%;"></div></div></div><span class="factor-impact neg">−2,1</span></div>
+                    <div class="factor"><div class="factor-body"><span class="factor-label">Auto-resolução estável em 82%</span><div class="factor-bar-wrap"><div class="factor-bar pos" style="width: 18%;"></div></div></div><span class="factor-impact pos">+0,8</span></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="detail-h">O que fazer agora</h4>
+                  <div class="actions">
+                    <div class="action"><span class="action-text">Sem ação urgente · monitorar tendência</span><span class="action-impact" style="background:rgba(0,0,0,0.05);color:var(--label-tertiary);">obs.</span></div>
+                  </div>
+                </div>
+                <div class="detail-foot">
+                  <button class="link-btn">Ver detalhe completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+                  <button class="link-btn muted">Histórico do produto</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- lhvi -->
+          <div class="row" data-row>
+            <span class="r-pos">05</span>
+            <div class="r-prod"><span class="r-dot good"></span><span class="r-tag">lhvi</span></div>
+            <span class="r-fator">Estável dentro do baseline</span>
+            <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="neu"><path class="fill" d="M0,12 L14,11 L28,12 L42,12 L57,11 L71,12 L85,11 L100,11 L100,32 L0,32 Z"/><path class="stroke" d="M0,12 L14,11 L28,12 L42,12 L57,11 L71,12 L85,11 L100,11"/></g></svg>
+            <span class="r-delta neu">±0</span>
+            <span class="r-score good">82</span>
+            <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </div>
+          <div class="detail-wrap" data-detail>
+            <div class="detail">
+              <div class="detail-inner">
+                <div>
+                  <h4 class="detail-h">Por que a nota é 82</h4>
+                  <div class="factors">
+                    <div class="factor"><div class="factor-body"><span class="factor-label">Volume e MTTR dentro da faixa esperada</span><div class="factor-bar-wrap"><div class="factor-bar pos" style="width: 14%;"></div></div></div><span class="factor-impact pos">+0,5</span></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="detail-h">O que fazer agora</h4>
+                  <div class="actions">
+                    <div class="action"><span class="action-text">Nenhuma ação necessária</span><span class="action-impact" style="background:rgba(0,0,0,0.05);color:var(--label-tertiary);">ok</span></div>
+                  </div>
+                </div>
+                <div class="detail-foot">
+                  <button class="link-btn">Ver detalhe completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+                  <button class="link-btn muted">Histórico do produto</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- lstn -->
+          <div class="row" data-row>
+            <span class="r-pos">06</span>
+            <div class="r-prod"><span class="r-dot good"></span><span class="r-tag">lstn</span></div>
+            <span class="r-fator">Volume abaixo da média (período tranquilo)</span>
+            <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="pos"><path class="fill" d="M0,12 L14,12 L28,11 L42,10 L57,9 L71,9 L85,8 L100,8 L100,32 L0,32 Z"/><path class="stroke" d="M0,12 L14,12 L28,11 L42,10 L57,9 L71,9 L85,8 L100,8"/></g></svg>
+            <span class="r-delta pos">+2</span>
+            <span class="r-score good">85</span>
+            <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </div>
+          <div class="detail-wrap" data-detail>
+            <div class="detail">
+              <div class="detail-inner">
+                <div>
+                  <h4 class="detail-h">Por que a nota é 85</h4>
+                  <div class="factors">
+                    <div class="factor"><div class="factor-body"><span class="factor-label">Volume 24% abaixo da média mensal</span><div class="factor-bar-wrap"><div class="factor-bar pos" style="width: 38%;"></div></div></div><span class="factor-impact pos">+2,4</span></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="detail-h">O que fazer agora</h4>
+                  <div class="actions">
+                    <div class="action"><span class="action-text">Manter monitoramento padrão</span><span class="action-impact" style="background:rgba(0,0,0,0.05);color:var(--label-tertiary);">ok</span></div>
+                  </div>
+                </div>
+                <div class="detail-foot">
+                  <button class="link-btn">Ver detalhe completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+                  <button class="link-btn muted">Histórico do produto</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- lwms -->
+          <div class="row" data-row>
+            <span class="r-pos">07</span>
+            <div class="r-prod"><span class="r-dot good"></span><span class="r-tag">lwms</span></div>
+            <span class="r-fator">Auto-resolução acima de 90% · estável</span>
+            <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="pos"><path class="fill" d="M0,12 L14,11 L28,10 L42,10 L57,9 L71,8 L85,8 L100,7 L100,32 L0,32 Z"/><path class="stroke" d="M0,12 L14,11 L28,10 L42,10 L57,9 L71,8 L85,8 L100,7"/></g></svg>
+            <span class="r-delta pos">+2</span>
+            <span class="r-score good">88</span>
+            <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </div>
+          <div class="detail-wrap" data-detail>
+            <div class="detail">
+              <div class="detail-inner">
+                <div>
+                  <h4 class="detail-h">Por que a nota é 88</h4>
+                  <div class="factors">
+                    <div class="factor"><div class="factor-body"><span class="factor-label">Auto-resolução em 91% · pico histórico</span><div class="factor-bar-wrap"><div class="factor-bar pos" style="width: 46%;"></div></div></div><span class="factor-impact pos">+3,2</span></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="detail-h">O que fazer agora</h4>
+                  <div class="actions">
+                    <div class="action"><span class="action-text">Capturar os runbooks que funcionaram e replicar</span><span class="action-impact">+1 pp</span></div>
+                  </div>
+                </div>
+                <div class="detail-foot">
+                  <button class="link-btn">Ver detalhe completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+                  <button class="link-btn muted">Histórico do produto</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- lcrm -->
+          <div class="row" data-row>
+            <span class="r-pos">08</span>
+            <div class="r-prod"><span class="r-dot good"></span><span class="r-tag">lcrm</span></div>
+            <span class="r-fator">Sem incidentes P2+ há 12 dias</span>
+            <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="pos"><path class="fill" d="M0,10 L14,9 L28,8 L42,8 L57,7 L71,7 L85,6 L100,6 L100,32 L0,32 Z"/><path class="stroke" d="M0,10 L14,9 L28,8 L42,8 L57,7 L71,7 L85,6 L100,6"/></g></svg>
+            <span class="r-delta pos">+3</span>
+            <span class="r-score good">89</span>
+            <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </div>
+          <div class="detail-wrap" data-detail>
+            <div class="detail">
+              <div class="detail-inner">
+                <div>
+                  <h4 class="detail-h">Por que a nota é 89</h4>
+                  <div class="factors">
+                    <div class="factor"><div class="factor-body"><span class="factor-label">Zero incidentes P2+ nos últimos 12 dias</span><div class="factor-bar-wrap"><div class="factor-bar pos" style="width: 52%;"></div></div></div><span class="factor-impact pos">+3,8</span></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="detail-h">O que fazer agora</h4>
+                  <div class="actions">
+                    <div class="action"><span class="action-text">Nada · manter operação atual</span><span class="action-impact" style="background:rgba(0,0,0,0.05);color:var(--label-tertiary);">ok</span></div>
+                  </div>
+                </div>
+                <div class="detail-foot">
+                  <button class="link-btn">Ver detalhe completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+                  <button class="link-btn muted">Histórico do produto</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- lrev -->
+          <div class="row" data-row>
+            <span class="r-pos">09</span>
+            <div class="r-prod"><span class="r-dot good"></span><span class="r-tag">lrev</span></div>
+            <span class="r-fator">Melhor score do mês · padrão estável</span>
+            <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="pos"><path class="fill" d="M0,9 L14,8 L28,7 L42,6 L57,6 L71,5 L85,4 L100,4 L100,32 L0,32 Z"/><path class="stroke" d="M0,9 L14,8 L28,7 L42,6 L57,6 L71,5 L85,4 L100,4"/></g></svg>
+            <span class="r-delta pos">+5</span>
+            <span class="r-score good">94</span>
+            <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </div>
+          <div class="detail-wrap" data-detail>
+            <div class="detail">
+              <div class="detail-inner">
+                <div>
+                  <h4 class="detail-h">Por que a nota é 94</h4>
+                  <div class="factors">
+                    <div class="factor"><div class="factor-body"><span class="factor-label">MTTR mediano em 11min · 30% abaixo da média geral</span><div class="factor-bar-wrap"><div class="factor-bar pos" style="width: 64%;"></div></div></div><span class="factor-impact pos">+4,1</span></div>
+                    <div class="factor"><div class="factor-body"><span class="factor-label">Auto-resolução em 93%</span><div class="factor-bar-wrap"><div class="factor-bar pos" style="width: 38%;"></div></div></div><span class="factor-impact pos">+2,6</span></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="detail-h">O que fazer agora</h4>
+                  <div class="actions">
+                    <div class="action"><span class="action-text">Documentar prática como referência interna</span><span class="action-impact" style="background:rgba(0,0,0,0.05);color:var(--label-tertiary);">ok</span></div>
+                  </div>
+                </div>
+                <div class="detail-foot">
+                  <button class="link-btn">Ver detalhe completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+                  <button class="link-btn muted">Histórico do produto</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// Segmented control com pill animada
+(function() {
+  const seg = document.getElementById('segment');
+  const pill = document.getElementById('segment-pill');
+  const btns = seg.querySelectorAll('.segment-btn');
+
+  function movePill(target) {
+    const segRect = seg.getBoundingClientRect();
+    const tRect = target.getBoundingClientRect();
+    pill.style.width = tRect.width + 'px';
+    pill.style.transform = `translateX(${tRect.left - segRect.left - 3}px)`;
+  }
+
+  // Posição inicial
+  const initial = seg.querySelector('.segment-btn.active');
+  requestAnimationFrame(() => movePill(initial));
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      movePill(btn);
+    });
+  });
+
+  window.addEventListener('resize', () => {
+    const active = seg.querySelector('.segment-btn.active');
+    movePill(active);
+  });
+})();
+
+// Expand/collapse rows
+document.querySelectorAll('[data-row]').forEach(row => {
+  row.addEventListener('click', () => {
+    const detail = row.nextElementSibling;
+    const isOpen = row.classList.toggle('open');
+    detail.classList.toggle('open', isOpen);
+  });
+});
+</script>
+
+</body>
+</html>
