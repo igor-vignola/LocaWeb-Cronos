@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Cronos · 05 · Agradecimentos · V3 (dark glass)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #000000;
+  --white: #FFFFFF;
+  --accent: #2563EB;
+  --font: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  background: #2a2a2a; font-family: var(--font); color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+}
+.slide {
+  width: 1600px; height: 900px;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(37, 99, 235, 0.40), transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(37, 99, 235, 0.32), transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(37, 99, 235, 0.08), transparent 70%),
+    #0A0A0A;
+  position: relative; overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  display: flex; flex-direction: column;
+}
+.blob { position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none; }
+.blob-1 { width: 620px; height: 620px; background: rgba(37, 99, 235, 0.60); top: -200px; left: -150px; }
+.blob-2 { width: 480px; height: 480px; background: rgba(37, 99, 235, 0.50); bottom: -140px; right: -100px; }
+.blob-3 { width: 360px; height: 360px; background: rgba(96, 165, 250, 0.20); top: 55%; left: 10%; }
+.slide::before {
+  content: ""; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+.s-header, .body, .foot { position: relative; z-index: 2; }
+
+/* HEADER */
+.s-header { padding: 26px 56px 12px; flex-shrink: 0; }
+.h-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.h-brand-icon { width: 32px; height: 32px; background: var(--white); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+.h-brand-icon svg { width: 18px; height: 18px; }
+.h-brand-icon svg path { stroke: var(--black); }
+.h-brand-name { font-size: 17px; font-weight: 800; letter-spacing: -0.3px; color: var(--white); line-height: 1; }
+.h-section { font-size: 11px; font-weight: 700; letter-spacing: 2.4px; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 6px; }
+.h-section .sep { color: rgba(255,255,255,0.30); margin: 0 4px; }
+.h-title { font-size: 28px; font-weight: 800; letter-spacing: -1px; color: var(--white); line-height: 1.1; }
+
+/* BODY */
+.body {
+  flex: 1;
+  padding: 16px 80px 24px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 32px;
+}
+.thanks-block { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 32px; }
+.thanks-word {
+  font-size: 200px; font-weight: 900;
+  letter-spacing: -10px; line-height: 1;
+  color: var(--white);
+  padding-bottom: 10px;
+}
+.thanks-line {
+  font-size: 22px; font-weight: 500;
+  letter-spacing: -0.3px;
+  color: rgba(255,255,255,0.70);
+  line-height: 1.3; max-width: 720px;
+}
+.thanks-line strong { color: var(--white); font-weight: 700; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 1280px;
+}
+.card {
+  background: rgba(20, 22, 30, 0.55);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(180%);
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 22px 24px;
+  display: flex; flex-direction: column; gap: 10px;
+  position: relative;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.12) inset,
+    0 12px 32px -8px rgba(0, 0, 0, 0.5),
+    0 6px 18px -4px rgba(37, 99, 235, 0.25);
+}
+.card::before {
+  content: ""; position: absolute;
+  top: 0; left: 18%; right: 18%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.50), transparent);
+  border-radius: inherit;
+}
+.card-label {
+  font-family: var(--font-mono);
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+.card-name {
+  font-size: 22px; font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--white);
+  line-height: 1.1;
+}
+.card-role {
+  font-size: 13px; font-weight: 500;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.4;
+}
+.card-msg {
+  font-size: 14px; font-weight: 400;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.5;
+  margin-top: 6px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+
+/* FOOTER */
+.foot {
+  padding: 0 56px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.foot-tag {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; font-weight: 600;
+  color: var(--white); letter-spacing: -0.2px;
+}
+.foot-tag .dot { width: 8px; height: 8px; background: #60A5FA; border-radius: 50%; }
+.foot-tag em { font-style: normal; color: rgba(255,255,255,0.55); font-weight: 500; }
+.foot-next {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 1.6px; text-transform: uppercase;
+  color: #60A5FA;
+  padding: 7px 14px;
+  background: rgba(37, 99, 235, 0.20);
+  border: 1px solid rgba(96, 165, 250, 0.40);
+  border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.foot-next svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+</style>
+</head>
+<body>
+
+<div class="slide">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <header class="s-header">
+    <div class="h-brand">
+      <div class="h-brand-icon">
+        <svg viewBox="0 0 28 28" fill="none">
+          <path d="M6 22L12 14L16 17L22 8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+          <circle cx="22" cy="8" r="1.2" fill="#3B82F6"/>
+        </svg>
+      </div>
+      <div class="h-brand-name">Cronos</div>
+    </div>
+    <div class="h-section">05<span class="sep">·</span>Agradecimentos</div>
+    <div class="h-title">Quem fez essa sprint acontecer</div>
+  </header>
+
+  <div class="body">
+    <div class="thanks-block">
+      <div class="thanks-word">Obrigado.</div>
+      <div class="thanks-line">Por confiar no <strong>Cronos</strong>, compartilhar a operação real e torcer junto.</div>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">Empresa parceira</div>
+        <div class="card-name">Locaweb</div>
+        <div class="card-role">Douglas Gouveia · Gerente Executivo de Operações</div>
+        <div class="card-msg">Pelo dataset, pela mentoria e pelos insights que viraram diferenciais do produto.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Instituição</div>
+        <div class="card-name">FIAP</div>
+        <div class="card-role">Tecnólogo Data Science · Turma 2TSCOA</div>
+        <div class="card-msg">Pela estrutura, pelos professores tutores e pelo formato que aproxima a faculdade do mercado.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Equipe</div>
+        <div class="card-name">Super Data Bros</div>
+        <div class="card-role">Ana Beatriz · Hygor Abrantes · Igor Vignola</div>
+        <div class="card-msg">Pela parceria desde a Sprint 1 e pelo trabalho dividido sem peso.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="foot-tag">
+      <span class="dot"></span>
+      <span><strong>Veja antes. Aja antes.</strong> <em>· Cronos</em></span>
+    </div>
+    <div class="foot-next">
+      Próxima parada · Sprint 03
+      <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
