@@ -11,109 +11,103 @@
 
 ---
 
-## Entregáveis obrigatórios (do briefing oficial)
+## ⚠️ Estratégia revisada em 20/05 (LER ANTES DE TUDO)
 
-1. **Problema, público-alvo e solução** — apresentação atualizada da Sprint 1 + indicação do que mudou
-2. **Arquitetura e desenho inicial** — representação visual + delineamento das tecnologias e suas conexões
-3. **Descrição da arquitetura** — papel de cada tecnologia
-4. **Protótipos** — wireframes/mockups com descrição
-5. **Análise Exploratória de Dados** — padrões, oportunidades, desafios
-6. **Gerenciamento ágil** — framework + cronograma + divisão de tarefas
-7. **Finalização e agradecimentos**
+Lemos o **template oficial** (`assets/Templates/02Template_Arquitetura_Challenge_2026_01_locaweb_v1.pptx`) e descobrimos que ele tem APENAS 5 blocos — sem AED, sem modelagem, sem "problema/público-alvo".
 
-> Detalhe item por item na skill `sprint-checklist`.
+### Os 5 blocos do template oficial
+
+| # | Bloco | Slides | Foco |
+|---|---|---|---|
+| 1 | Arquitetura de Solução | 3-4 | Diagrama + justificativa de cada elemento + fontes de dados |
+| 2 | Tecnologias utilizadas | 5 | Lista das tecnologias com porquê |
+| 3 | **Protótipos da Solução** | **6-10 (5 slides!)** | Mockups das telas — **BLOCO MAIOR** |
+| 4 | Planejamento e Gestão | 11-12 | Kanban, cronograma, acompanhamento ágil |
+| 5 | Formalização + Agradecimentos | 13 | Conclusão + agradecimentos |
+
+### Sugestões do template a IGNORAR por decisão técnica do projeto
+- ❌ Streamlit / Dash (regra do projeto: Django mandatório)
+- ❌ Microsoft Azure (regra: agnóstico de cloud)
+
+---
+
+## Trilha A — cobertura mínima viável (ordem revisada)
+
+### A.1 PROTÓTIPOS (PRIMEIRA FRENTE — bloco maior) 🔴
+
+5 telas em **HTML/CSS/JS** dentro de `prototipos/`. Cada uma vira screenshot pro slide do PPT.
+
+**Estado atual:**
+- ✅ `prototipos/assets/style.css` — paleta Cronos + componentes base prontos (KPIs, cards, tabelas, sparklines, alertas, badges, score bars)
+- ⏳ HTMLs das 5 telas: a fazer
+
+**Telas:**
+1. `dashboard.html` — Dashboard Geral (KPIs + chart 30d + alertas + tabela top produtos)
+2. `morning-brief.html` — Resumo Ontem/Hoje/Ações + botão "ver detalhes" (mentoria pediu)
+3. `cascata.html` — Detector de cascata P4/P5 → P3/P2 (padrão validado pelo Douglas)
+4. `saude-produto.html` — Score de saúde por produto (ranking + drilldown)
+5. `kpi-probabilidade.html` — Probabilidade de atingir KPI (projeção condicional do mês)
+6. `index.html` — landing simples com links pras 5 telas (vira o "home" do protótipo)
+
+**Identidade visual:** paleta Cronos (azul `#2563EB`, cinzas neutros, vermelho `#DC2626` só pra perigo), tipografia Inter, layout limpo estilo TIM/Unifique.
+
+> **Igor instalou skills/agentes de design.** Usar elas pra elevar a qualidade visual. Validar nomes na próxima sessão.
+
+### A.2 ARQUITETURA + TECNOLOGIAS
+
+**Arquitetura (2 slides):**
+- Diagrama de camadas: dados → modelos → app Django → Claude API → Docker
+- Tudo agnóstico de cloud
+- Descrição do papel de cada camada
+- Ferramentas pra gerar: Mermaid → PNG (sem precisar de Figma)
+
+**Tecnologias (1 slide):**
+- Tabela: Django, Pandas, Prophet, XGBoost, tslearn, SHAP, Plotly, Claude API, Docker, holidays BR
+- Cada uma com o porquê em 1 linha
+- O **plano de modelagem entra aqui** (não precisa de slide próprio)
+
+### A.3 GESTÃO ÁGIL (1-2 slides)
+
+- Framework: **Scrum**
+- Ferramenta visual: Kanban (Trello/Notion/PowerPoint mesmo)
+- Cronograma macro até Sprint 4
+- Divisão de tarefas entre Ana, Hygor e Igor
+
+### A.4 FINALIZAÇÃO E AGRADECIMENTOS (1 slide)
+
+Conclusão curta + agradecimentos (FIAP, Locaweb, Douglas).
+
+---
+
+## AED — agora é BÔNUS
+
+**Decisão de 20/05:** AED não está no template oficial. Vai para o sábado, e só entra no PPT se sobrar tempo (1-2 slides).
+
+**O que já existe:**
+- `notebooks/01_eda.ipynb` com Seções 1 e 2 (Setup + Carga) rodando + Seção 3 (Visão geral) parcial
+- Achados consolidados: 122.543 incidentes, 75,7% no Team14, 85% Monitoramento, 65,6% Sem Intervenção, 3 patamares de NaN, distribuição concentrada em 2025
+
+**Se entrar no PPT:** vira 1-2 slides "Caracterização do dataset" antes da arquitetura. Justifica escolhas técnicas.
+
+**Vai pro repo de qualquer jeito:** o notebook é ativo da Sprint 3 (MVP precisa da AED feita).
 
 ---
 
 ## Cobranças extras do professor (feedback Sprint 1)
 
-- **Impacto com números/gráficos** — toda menção de benefício deve ter métrica concreta
-- **AED de verdade** (pedido explícito também)
-- **Modelagem** detalhada (pedido explícito também)
+- **Impacto com números/gráficos** — toda menção de benefício deve ter métrica concreta. Aplicar nos slides de arquitetura/protótipos (não só na AED).
+- "AED de verdade" e "modelagem detalhada" — endereçar parcialmente no slide de tecnologias (mostrando que pensamos no approach) e no notebook do repo.
 
 ---
 
-## As 8 frentes de trabalho mapeadas
+## Cronograma realista (4 dias)
 
-### 1. Atualização da Sprint 1 *(rápido)*
-Retomar problema/público/solução da Sprint 1. Marcar o que mudou após a mentoria Locaweb:
-- Morning brief agora é "resumo + relatório completo"
-- Cascata confirmada (não é mais hipótese)
-- KPI só pai
-- Agnóstico de cloud + Docker
-
-### 2. AED — Análise Exploratória de Dados *(maior bloco)*
-
-**Slides previstos (6-8 no PPT):**
-- Visão geral do dataset (122k incidentes, 19 colunas, jan/23 a dez/25)
-- Distribuição temporal dos incidentes
-- **Anomalia de setembro/2025** — investigação + hipótese (slide especial)
-- Sazonalidade real (feriados + fins de semana)
-- Top produtos/categorias mais críticos
-- Análise de OLA (filtrando pais)
-- Padrão de cascata P4/P5 → P3/P2
-- Slide-síntese: "o que essa AED nos diz sobre como modelar"
-
-**Operação:** Claude roda a AED em Python (ou no Claude Code), Igor revisa cada descoberta, melhores achados viram slide. Código final consolidado em `notebooks/01_eda.ipynb`.
-
-**Investigação obrigatória:** anomalia de setembro/2025 (pedido explícito da Locaweb).
-
-### 3. Plano de modelagem *(cobrança do professor)*
-
-Não é treinar modelo agora — é **explicar approach com base na AED**.
-
-- Prophet para tendência + sazonalidade
-- XGBoost com features temporais (lag, rolling, dia_semana, is_feriado)
-- tslearn + DTW para clusterização
-- SHAP para explicabilidade
-- Cada escolha justificada pelos achados da AED
-
-### 4. Arquitetura e desenho da solução
-
-Diagrama visual mostrando:
-- Camada de dados → camada de modelos → camada de aplicação Django → integração Claude API → entrega Docker
-- Tudo agnóstico de cloud
-
-### 5. Stack técnica
-
-Lista das tecnologias com o porquê de cada uma:
-- Django, Pandas, Prophet, XGBoost, tslearn, SHAP, Plotly, Claude API, Docker, holidays BR
-
-### 6. Protótipos da interface
-
-Mockups das telas principais:
-- Dashboard geral (estilo TIM/Unifique, 2-3 abas)
-- Morning brief (resumo + botão "ver detalhes" + relatório completo)
-- Detector de cascata
-- Score de saúde por produto
-- Probabilidade de atingir KPI
-
-### 7. Gestão ágil
-
-- Framework: **Scrum** (faz sentido pelo formato de sprints)
-- Ferramenta: Jira/Trello/Notion (definir)
-- Cronograma até Sprint 3 e Sprint 4
-- Divisão de tarefas entre Ana, Hygor e Igor
-
-### 8. Finalização e agradecimentos
-Slide de fechamento.
-
----
-
-## Cronograma sugerido nos 11 dias
-
-A AED termina antes de tudo (porque informa todos os outros blocos). Trabalho técnico depois em paralelo. Gestão e PPT nos dias finais.
-
-```
-13/05 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 24/05
-       AED + setembro ▒▒▒▒▒▒▒
-                   Modelagem  ▒▒▒
-                   Arquitetura  ▒▒▒▒
-                       Protótipos  ▒▒▒▒▒
-                          Gestão + recap S1  ▒▒▒
-                             Montagem PPT  ▒▒▒▒
-                                              ENTREGA ▲
-```
+| Quando | Bloco | Saída esperada |
+|---|---|---|
+| **Qui 21 (2-3h)** | Construir Dashboard Geral + Morning Brief em HTML | 2 telas prontas |
+| **Sex 22 (2-3h)** | Construir Cascata + Saúde + KPI Probabilidade + index | 5 telas + nav |
+| **Sáb 23 manhã (3-4h)** | Diagrama de arquitetura + tabela de tecnologias + slide de gestão + montar PPT a partir do template + (se sobrar) 1-2 slides de AED | PPT entregável |
+| **Dom 24** | — | Submit |
 
 ---
 
@@ -121,20 +115,20 @@ A AED termina antes de tudo (porque informa todos os outros blocos). Trabalho t�
 
 | Risco | Mitigação |
 |-------|-----------|
-| Fins de semana podem reduzir disponibilidade do time (4 dias de 11) | Alinhar com Ana e Hygor; ter buffer |
-| Investigação de setembro pode virar rabbit hole | Budget máximo de 2 dias; fechar com hipótese mais provável |
-| Tentação de já treinar modelo agora | Sprint 2 é só PLANO de modelagem. Treinamento real fica para Sprint 3 |
-| Falta de números/gráficos no impacto (feedback S1) | Calcular tudo do dataset durante a AED |
+| 4 dias com 2 fins de semana | Foco em trilha A — não tentar trilha B antes de fechar o essencial |
+| Mockups serem o gargalo (5 telas é muito) | CSS base já pronto, design system definido → cada tela é só compor componentes |
+| Falta de números/gráficos no impacto (feedback S1) | Usar achados do notebook 01_eda nos slides de arquitetura ("122k incidentes em 17 grupos justifica X") |
 
 ---
 
 ## Entregáveis materiais
 
 - [ ] `EC_Sprint_2_2TSCOA_arqsolucao_Cronos_SuperDataBros.pptx`
-- [ ] `notebooks/01_eda.ipynb` (ativo interno, vai para o repo)
-- [ ] Diagrama de arquitetura (PNG/SVG)
-- [ ] Mockups dos protótipos (PNG/SVG ou nos próprios slides)
-- [ ] Plano de gestão ágil (no PPT ou em ferramenta linkada)
+- [ ] `prototipos/dashboard.html` + 4 outras telas + `index.html`
+- [ ] `prototipos/assets/style.css` ✅ JÁ FEITO
+- [ ] Diagrama de arquitetura (PNG via Mermaid)
+- [ ] `notebooks/01_eda.ipynb` (ativo interno, parcial — vai pro repo de qualquer jeito)
+- [ ] Plano de gestão ágil (no slide do PPT)
 
 ---
 

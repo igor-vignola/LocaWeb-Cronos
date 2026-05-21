@@ -1,0 +1,26 @@
+# Cronos — Challenge FIAP 2026 com Locaweb
+# Dependências Python para a AED (Sprint 2)
+#
+# Instalar:  pip install -r requirements.txt
+# Python:    3.11+
+#
+# À medida que avançarmos para features, modelagem e Django,
+# este arquivo será ampliado (Prophet, XGBoost, tslearn, SHAP, Django, etc.).
+
+# --- Manipulação de dados ---
+pandas==2.2.3
+numpy==2.2.4
+openpyxl==3.1.5
+
+# --- Visualização ---
+matplotlib==3.10.1
+seaborn==0.13.2
+plotly==6.0.1
+kaleido==0.2.1   # export estático de figuras Plotly (PNG/SVG p/ PPT)
+
+# --- Calendário / sazonalidade ---
+holidays==0.97   # feriados BR para a análise de sazonalidade
+
+# --- Jupyter ---
+jupyter
+nbformat==5.10.4

@@ -1,0 +1,1897 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cronos · Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────────────────
+   CRONOS · V1 — COMMAND CENTER
+   Inspiração: Datadog · Honeycomb · AppDynamics
+   ───────────────────────────────────────────────────────── */
+
+:root {
+  --black:#000; --ink:#0A0A0A; --dark:#111; --dark-2:#1A1A1A; --dark-3:#252525;
+  --gray-1:#2F2F2F; --gray-2:#525252; --gray-3:#737373; --gray-4:#A3A3A3; --gray-5:#D4D4D4;
+  --gray-6:#E5E5E5; --gray-7:#F0F0F0; --gray-8:#F7F7F7; --white:#FFF;
+
+  --accent:#2563EB; --accent-2:#1D4ED8; --accent-soft:#EFF6FF;
+  --danger:#DC2626; --danger-soft:#FEF2F2;
+  --success:#059669; --success-soft:#ECFDF5;
+  --warning:#D97706; --warning-soft:#FFFBEB;
+  --purple:#8B5CF6; --purple-soft:#F5F3FF;
+  --cyan:#06B6D4; --cyan-soft:#ECFEFF;
+  --pink:#EC4899; --pink-soft:#FDF2F8;
+  --lime:#84CC16; --lime-soft:#F7FEE7;
+
+  --bg:var(--gray-8); --surface:var(--white); --surface-2:var(--gray-8);
+  --border:var(--gray-6); --border-2:var(--gray-7);
+  --text:var(--dark); --text-2:var(--gray-2); --text-3:var(--gray-3); --text-4:var(--gray-4);
+
+  --radius:14px; --radius-sm:10px; --radius-xs:6px; --radius-pill:999px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.04);
+  --shadow:0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lg:0 10px 30px -10px rgba(0,0,0,0.12), 0 4px 12px -4px rgba(0,0,0,0.06);
+  --shadow-pop:0 24px 60px -20px rgba(0,0,0,0.20);
+  --shadow-glow:0 0 0 3px rgba(37,99,235,0.10);
+
+  --ease:cubic-bezier(0.23,1,0.32,1);
+  --ease-soft:cubic-bezier(0.16,1,0.3,1);
+  --ease-bz:cubic-bezier(0.77,0,0.175,1);
+
+  --sidebar-w:248px;
+  --topbar-h:60px;
+  --filterbar-h:52px;
+}
+
+[data-theme="dark"] {
+  --bg:#0A0A0B; --surface:#131316; --surface-2:#1A1A1E;
+  --border:#26262B; --border-2:#1F1F23;
+  --text:#F5F5F7; --text-2:#B8B8BD; --text-3:#86868B; --text-4:#5F5F65;
+
+  --gray-6:#26262B; --gray-7:#1F1F23; --gray-8:#131316;
+  --accent-soft:rgba(37,99,235,0.16);
+  --danger-soft:rgba(220,38,38,0.16);
+  --success-soft:rgba(5,150,105,0.16);
+  --warning-soft:rgba(217,119,6,0.16);
+  --purple-soft:rgba(139,92,246,0.16);
+  --cyan-soft:rgba(6,182,212,0.16);
+  --pink-soft:rgba(236,72,153,0.16);
+  --lime-soft:rgba(132,204,22,0.16);
+
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.4);
+  --shadow:0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.04);
+  --shadow-lg:0 10px 30px -10px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html,body { height:100%; }
+body {
+  font-family:'Outfit',-apple-system,system-ui,sans-serif;
+  font-size:14px; font-weight:400; line-height:1.5;
+  color:var(--text); background:var(--bg);
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  font-feature-settings:'tnum' 1,'cv01' 1,'ss01' 1;
+  letter-spacing:-0.01em;
+  overflow:hidden;
+  transition:background 320ms var(--ease), color 320ms var(--ease);
+}
+
+button { font-family:inherit; cursor:pointer; border:none; background:none; color:inherit; }
+a { color:inherit; text-decoration:none; }
+.num { font-variant-numeric:tabular-nums; font-feature-settings:'tnum' 1; }
+
+/* ─── App shell ────────────────────────────────────────── */
+.app {
+  display:grid;
+  grid-template-columns:var(--sidebar-w) 1fr;
+  height:100vh;
+}
+
+/* ─── Sidebar ──────────────────────────────────────────── */
+.sb {
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  display:flex; flex-direction:column;
+  position:relative;
+  transition:background 320ms var(--ease), border-color 320ms var(--ease);
+}
+.sb-brand {
+  padding:18px 18px 20px;
+  display:flex; align-items:center; gap:11px;
+  border-bottom:1px solid var(--border);
+  transition:border-color 320ms var(--ease);
+}
+.logo-mark {
+  width:34px; height:34px;
+  background:var(--ink);
+  border-radius:9px;
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+  flex-shrink:0;
+  transition:background 240ms var(--ease), transform 240ms var(--ease);
+}
+[data-theme="dark"] .logo-mark { background:#fff; }
+[data-theme="dark"] .logo-mark .ico path { stroke:#0A0A0A; }
+.logo-mark:hover { transform:rotate(-8deg); }
+.logo-mark .ico { width:18px; height:18px; }
+.logo-mark .ico .blip {
+  transform-origin:22px 8px;
+  animation:logo-ping 2.4s var(--ease) infinite;
+}
+@keyframes logo-ping {
+  0%,80%,100% { opacity:1; transform:scale(1); }
+  85% { opacity:0.4; transform:scale(1.4); }
+  90% { opacity:1; transform:scale(1); }
+}
+.logo-text { display:flex; flex-direction:column; gap:0; line-height:1; }
+.logo-name {
+  font-size:17px; font-weight:700; letter-spacing:-0.035em;
+  color:var(--text);
+}
+.logo-tag {
+  font-size:8px; font-weight:600; letter-spacing:0.18em;
+  color:var(--text-4); text-transform:uppercase;
+  margin-top:3px;
+}
+
+.sb-search {
+  padding:14px 14px 8px;
+}
+.sb-search-input {
+  width:100%; padding:8px 12px 8px 32px;
+  background:var(--surface-2);
+  border:1px solid transparent;
+  border-radius:var(--radius-xs);
+  font-size:13px; color:var(--text);
+  transition:all 180ms var(--ease);
+  position:relative;
+}
+.sb-search-wrap { position:relative; }
+.sb-search-wrap::before {
+  content:''; position:absolute; left:10px; top:50%; transform:translateY(-50%);
+  width:14px; height:14px;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23737373' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><path d='m21 21-4.3-4.3'/></svg>") center/contain no-repeat;
+  pointer-events:none;
+}
+.sb-search-input::placeholder { color:var(--text-4); }
+.sb-search-input:focus { outline:none; border-color:var(--accent); background:var(--surface); box-shadow:var(--shadow-glow); }
+.sb-search-kbd {
+  position:absolute; right:8px; top:50%; transform:translateY(-50%);
+  font-size:9.5px; font-weight:600; color:var(--text-4);
+  padding:2px 6px; border:1px solid var(--border); border-radius:4px;
+  pointer-events:none;
+  letter-spacing:0.03em;
+}
+
+.sb-nav { padding:8px 10px; flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:1px; }
+.sb-section {
+  padding:14px 14px 6px;
+  font-size:10px; font-weight:600;
+  letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--text-4);
+}
+.sb-item {
+  display:flex; align-items:center; gap:10px;
+  padding:8px 12px;
+  border-radius:7px;
+  font-size:13.5px; font-weight:500;
+  color:var(--text-2);
+  cursor:pointer;
+  position:relative;
+  transition:background 160ms var(--ease), color 160ms var(--ease), transform 100ms var(--ease);
+}
+.sb-item:hover { background:var(--surface-2); color:var(--text); }
+.sb-item:active { transform:scale(0.98); }
+.sb-item.active {
+  background:var(--surface-2);
+  color:var(--text);
+  font-weight:600;
+}
+.sb-item.active::before {
+  content:''; position:absolute; left:-10px; top:6px; bottom:6px;
+  width:2.5px; border-radius:0 2px 2px 0;
+  background:var(--accent);
+}
+.sb-item svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; opacity:0.8; }
+.sb-item.active svg { opacity:1; color:var(--accent); }
+.sb-badge {
+  margin-left:auto;
+  font-size:9.5px; font-weight:700;
+  background:var(--danger);
+  color:#fff;
+  padding:1.5px 6px;
+  border-radius:8px;
+  letter-spacing:0.02em;
+  animation:pulse-soft 2.4s ease-in-out infinite;
+}
+.sb-badge.b-warn { background:var(--warning); animation:none; }
+.sb-badge.b-ok { background:var(--gray-4); animation:none; font-weight:600; }
+@keyframes pulse-soft {
+  0%,100% { transform:scale(1); }
+  50% { transform:scale(1.08); }
+}
+
+.sb-foot {
+  padding:14px 12px 14px;
+  border-top:1px solid var(--border);
+  display:flex; align-items:center; gap:10px;
+  transition:border-color 320ms var(--ease);
+}
+.sb-avatar {
+  width:32px; height:32px; border-radius:50%;
+  background:linear-gradient(135deg,#2563EB,#8B5CF6);
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:700; color:#fff;
+  flex-shrink:0;
+  letter-spacing:0.02em;
+  transition:transform 200ms var(--ease);
+}
+.sb-foot:hover .sb-avatar { transform:scale(1.06) rotate(-6deg); }
+.sb-user-info { display:flex; flex-direction:column; gap:1px; line-height:1.2; min-width:0; flex:1; }
+.sb-user-name { font-size:12.5px; font-weight:600; color:var(--text); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sb-user-role { font-size:10.5px; color:var(--text-3); }
+.sb-foot-more {
+  width:24px; height:24px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:6px; color:var(--text-3);
+  transition:background 160ms var(--ease), color 160ms var(--ease);
+}
+.sb-foot-more:hover { background:var(--surface-2); color:var(--text); }
+
+/* ─── Main ─────────────────────────────────────────────── */
+.main {
+  display:flex; flex-direction:column;
+  min-width:0;
+  background:var(--bg);
+  transition:background 320ms var(--ease);
+}
+
+/* Top bar */
+.tb {
+  height:var(--topbar-h);
+  padding:0 24px;
+  display:flex; align-items:center;
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  gap:14px;
+  z-index:5;
+  transition:background 320ms var(--ease), border-color 320ms var(--ease);
+}
+.tb-crumb { display:flex; align-items:center; gap:6px; font-size:13px; color:var(--text-3); }
+.tb-crumb .sep { color:var(--text-4); opacity:0.6; }
+.tb-crumb .here { color:var(--text); font-weight:600; }
+.tb-spacer { flex:1; }
+
+.tb-search {
+  display:flex; align-items:center; gap:8px;
+  padding:7px 12px;
+  background:var(--surface-2);
+  border:1px solid transparent;
+  border-radius:8px;
+  width:280px;
+  font-size:13px; color:var(--text-3);
+  cursor:pointer;
+  transition:all 180ms var(--ease);
+}
+.tb-search:hover { border-color:var(--border); background:var(--surface); }
+.tb-search svg { width:14px; height:14px; opacity:0.7; }
+.tb-search .placeholder { flex:1; }
+.tb-search .kbd { font-size:10px; padding:1px 5px; border:1px solid var(--border); border-radius:4px; color:var(--text-4); font-weight:600; letter-spacing:0.02em; }
+
+.tb-action {
+  width:34px; height:34px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:8px;
+  color:var(--text-2);
+  position:relative;
+  transition:background 160ms var(--ease), color 160ms var(--ease), transform 100ms var(--ease);
+}
+.tb-action:hover { background:var(--surface-2); color:var(--text); }
+.tb-action:active { transform:scale(0.94); }
+.tb-action svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.tb-action .notif-dot {
+  position:absolute; top:7px; right:7px;
+  width:7px; height:7px; border-radius:50%;
+  background:var(--danger);
+  border:1.5px solid var(--surface);
+}
+
+/* Theme toggle — sliding switch */
+.theme-toggle {
+  width:48px; height:26px;
+  border-radius:99px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  display:flex; align-items:center;
+  padding:2px;
+  cursor:pointer;
+  position:relative;
+  transition:background 240ms var(--ease), border-color 240ms var(--ease);
+}
+.theme-toggle::before {
+  content:'';
+  width:20px; height:20px;
+  background:var(--ink);
+  border-radius:50%;
+  transition:transform 320ms var(--ease-soft), background 320ms var(--ease);
+  position:relative; z-index:1;
+}
+[data-theme="dark"] .theme-toggle::before {
+  transform:translateX(22px);
+  background:#fff;
+}
+.theme-toggle::after {
+  content:'';
+  position:absolute; top:50%; left:8px; transform:translateY(-50%);
+  width:10px; height:10px;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A3A3A3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='4'/><path d='M12 2v2'/><path d='M12 20v2'/><path d='m4.93 4.93 1.41 1.41'/><path d='m17.66 17.66 1.41 1.41'/><path d='M2 12h2'/><path d='M20 12h2'/><path d='m6.34 17.66-1.41 1.41'/><path d='m19.07 4.93-1.41 1.41'/></svg>") center/contain no-repeat;
+  pointer-events:none;
+  transition:opacity 240ms var(--ease);
+}
+[data-theme="dark"] .theme-toggle::after {
+  left:auto; right:8px;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235F5F65' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/></svg>") center/contain no-repeat;
+}
+
+.tb-user {
+  display:flex; align-items:center; gap:8px;
+  padding:4px 6px 4px 4px;
+  border-radius:8px;
+  transition:background 160ms var(--ease);
+  cursor:pointer;
+}
+.tb-user:hover { background:var(--surface-2); }
+.tb-user-av {
+  width:28px; height:28px; border-radius:50%;
+  background:linear-gradient(135deg,#2563EB,#8B5CF6);
+  display:flex; align-items:center; justify-content:center;
+  font-size:10px; font-weight:700; color:#fff; letter-spacing:0.02em;
+}
+.tb-user-name { font-size:13px; font-weight:600; color:var(--text); }
+
+/* Filter bar */
+.fb {
+  height:var(--filterbar-h);
+  padding:0 24px;
+  display:flex; align-items:center;
+  gap:8px;
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  transition:background 320ms var(--ease), border-color 320ms var(--ease);
+}
+.fb-chip {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 11px 6px 10px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  font-size:12.5px; font-weight:500;
+  color:var(--text-2);
+  cursor:pointer;
+  transition:all 160ms var(--ease);
+}
+.fb-chip:hover { background:var(--surface); color:var(--text); border-color:var(--gray-5); }
+.fb-chip:active { transform:scale(0.97); }
+.fb-chip.active {
+  background:var(--text);
+  color:var(--surface);
+  border-color:var(--text);
+}
+.fb-chip svg { width:12px; height:12px; opacity:0.7; }
+.fb-chip .caret { font-size:8px; margin-left:2px; opacity:0.6; }
+.fb-spacer { flex:1; }
+.fb-live {
+  display:flex; align-items:center; gap:6px;
+  font-size:11.5px; font-weight:500; color:var(--text-3);
+  letter-spacing:0.01em;
+}
+.fb-live .dot {
+  width:7px; height:7px; border-radius:50%;
+  background:var(--success);
+  box-shadow:0 0 0 0 rgba(5,150,105,0.5);
+  animation:live-pulse 1.8s var(--ease) infinite;
+}
+@keyframes live-pulse {
+  0% { box-shadow:0 0 0 0 rgba(5,150,105,0.5); }
+  70% { box-shadow:0 0 0 8px rgba(5,150,105,0); }
+  100% { box-shadow:0 0 0 0 rgba(5,150,105,0); }
+}
+.fb-live .time { font-variant-numeric:tabular-nums; color:var(--text-2); font-weight:600; }
+.fb-btn {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:7px 13px;
+  background:var(--text);
+  color:var(--surface);
+  border-radius:8px;
+  font-size:12.5px; font-weight:600;
+  transition:all 180ms var(--ease);
+}
+.fb-btn:hover { background:#000; }
+[data-theme="dark"] .fb-btn:hover { background:#fff; opacity:0.92; }
+.fb-btn:active { transform:scale(0.97); }
+.fb-btn svg { width:13px; height:13px; }
+
+/* Content scroll */
+.content {
+  flex:1; overflow-y:auto; overflow-x:hidden;
+  padding:24px 24px 64px;
+  display:flex; flex-direction:column;
+  gap:20px;
+}
+
+/* ─── KPI row ──────────────────────────────────────────── */
+.kpi-row {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+.kpi {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:18px 20px 16px;
+  display:flex; flex-direction:column; gap:14px;
+  cursor:default;
+  position:relative;
+  overflow:hidden;
+  transition:transform 240ms var(--ease), box-shadow 240ms var(--ease), border-color 240ms var(--ease), background 320ms var(--ease);
+}
+.kpi::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(circle at 100% 0%, var(--accent-soft), transparent 60%);
+  opacity:0; transition:opacity 320ms var(--ease);
+  pointer-events:none;
+}
+.kpi:hover {
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-lg);
+  border-color:var(--gray-5);
+}
+.kpi:hover::before { opacity:1; }
+.kpi-top { display:flex; align-items:center; justify-content:space-between; }
+.kpi-label {
+  font-size:11px; font-weight:600;
+  letter-spacing:0.05em;
+  color:var(--text-3);
+}
+.kpi-icon {
+  width:24px; height:24px;
+  border-radius:6px;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.kpi-icon svg { width:13px; height:13px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.kpi-icon.i-accent { background:var(--accent-soft); color:var(--accent); }
+.kpi-icon.i-danger { background:var(--danger-soft); color:var(--danger); }
+.kpi-icon.i-warn { background:var(--warning-soft); color:var(--warning); }
+.kpi-icon.i-success { background:var(--success-soft); color:var(--success); }
+.kpi-icon.i-purple { background:var(--purple-soft); color:var(--purple); }
+
+.kpi-val {
+  font-size:34px; font-weight:700;
+  letter-spacing:-0.035em;
+  line-height:1;
+  color:var(--text);
+  font-variant-numeric:tabular-nums;
+  display:flex; align-items:baseline; gap:2px;
+}
+.kpi-val .unit { font-size:18px; font-weight:500; color:var(--text-3); letter-spacing:-0.02em; }
+.kpi-bot { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.kpi-delta {
+  font-size:11.5px; font-weight:600;
+  padding:2.5px 7px 2.5px 6px;
+  border-radius:5px;
+  display:inline-flex; align-items:center; gap:3px;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-0.005em;
+}
+.kpi-delta svg { width:10px; height:10px; }
+.kpi-delta.dn { background:var(--danger-soft); color:var(--danger); }
+.kpi-delta.up { background:var(--success-soft); color:var(--success); }
+.kpi-delta.warn { background:var(--warning-soft); color:var(--warning); }
+.kpi-delta.flat { background:var(--surface-2); color:var(--text-3); }
+
+.spark { width:88px; height:24px; display:flex; align-items:flex-end; gap:2px; }
+.spark .bar { flex:1; border-radius:1.5px; min-height:3px; transition:transform 200ms var(--ease); transform-origin:bottom; }
+.kpi:hover .spark .bar { transform:scaleY(1.12); }
+.bar-accent{background:var(--accent);} .bar-accent-soft{background:var(--accent-soft);}
+.bar-danger{background:var(--danger);} .bar-danger-soft{background:var(--danger-soft);}
+.bar-warn{background:var(--warning);} .bar-warn-soft{background:var(--warning-soft);}
+.bar-success{background:var(--success);} .bar-success-soft{background:var(--success-soft);}
+.bar-line{background:var(--border);}
+
+/* ─── Hero chart + side panel ─────────────────────────── */
+.hero-row { display:grid; grid-template-columns:1.7fr 1fr; gap:14px; }
+
+.panel {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  transition:background 320ms var(--ease), border-color 320ms var(--ease);
+}
+.panel-head {
+  padding:18px 22px 14px;
+  display:flex; align-items:flex-start; justify-content:space-between;
+  gap:12px;
+}
+.panel-title {
+  font-size:14px; font-weight:600;
+  letter-spacing:-0.012em;
+  color:var(--text);
+}
+.panel-sub {
+  font-size:11.5px; color:var(--text-3);
+  margin-top:2px;
+}
+.panel-legend { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+.legend-chip {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:11px; font-weight:500;
+  color:var(--text-3); letter-spacing:0.01em;
+}
+.legend-chip .l {
+  width:10px; height:2px; border-radius:1px; background:var(--accent);
+}
+.legend-chip .l.dashed { background:transparent; border-top:2px dashed var(--danger); height:0; }
+.legend-chip .l.goal { background:var(--success); }
+.legend-chip .l.dot { width:7px; height:7px; border-radius:50%; }
+
+.panel-body { padding:8px 22px 22px; }
+.panel-foot {
+  padding:12px 22px;
+  background:var(--surface-2);
+  border-top:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+  font-size:11.5px; color:var(--text-3);
+  transition:background 320ms var(--ease), border-color 320ms var(--ease);
+}
+
+/* Hero chart specifically */
+.hero-chart-stats {
+  display:flex; align-items:flex-end; gap:24px;
+  margin-bottom:12px;
+}
+.hero-stat-big { display:flex; flex-direction:column; gap:4px; }
+.hero-stat-label { font-size:10.5px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-3); }
+.hero-stat-val {
+  font-size:42px; font-weight:800;
+  letter-spacing:-0.04em; line-height:1;
+  color:var(--text);
+  font-variant-numeric:tabular-nums;
+  display:flex; align-items:baseline; gap:1px;
+}
+.hero-stat-val .unit { font-size:20px; font-weight:500; color:var(--text-3); letter-spacing:-0.02em; }
+.hero-stat-val.crit { color:var(--danger); }
+.hero-stat-delta-pill {
+  display:inline-flex; align-items:center; gap:4px;
+  padding:3px 8px 3px 7px;
+  border-radius:5px;
+  background:var(--danger-soft); color:var(--danger);
+  font-size:11.5px; font-weight:600; letter-spacing:-0.005em;
+  font-variant-numeric:tabular-nums;
+  width:fit-content;
+  margin-top:2px;
+}
+.hero-chart-svg { width:100%; height:200px; display:block; overflow:visible; }
+.hero-chart-svg .grid-line { stroke:var(--border); stroke-width:1; }
+.hero-chart-svg .axis-text { font-size:9.5px; fill:var(--text-3); font-family:'Outfit',sans-serif; font-weight:500; }
+.hero-chart-svg .goal-line { stroke:var(--success); stroke-width:1; stroke-dasharray:4 4; opacity:0.6; }
+
+/* Side panel — Atividade hoje */
+.side-stack { display:flex; flex-direction:column; gap:0; padding:14px 22px 18px; }
+.side-stat {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px solid var(--border-2);
+  transition:border-color 320ms var(--ease);
+}
+.side-stat:last-child { border-bottom:none; }
+.side-stat-label {
+  display:flex; align-items:center; gap:8px;
+  font-size:12.5px; color:var(--text-2);
+}
+.side-stat-label .dot {
+  width:8px; height:8px; border-radius:50%;
+}
+.side-stat-val {
+  display:flex; align-items:baseline; gap:6px;
+  font-size:18px; font-weight:700; color:var(--text);
+  font-variant-numeric:tabular-nums; letter-spacing:-0.02em;
+}
+.side-stat-val .delta {
+  font-size:11px; font-weight:600;
+  font-variant-numeric:tabular-nums;
+}
+.side-stat-val .delta.up { color:var(--danger); }
+.side-stat-val .delta.down { color:var(--success); }
+
+/* ─── Cascata signature ────────────────────────────────── */
+.casc {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px 24px 20px;
+  display:flex; flex-direction:column; gap:18px;
+  position:relative;
+  overflow:hidden;
+  transition:background 320ms var(--ease), border-color 320ms var(--ease);
+}
+.casc::before {
+  content:''; position:absolute; top:0; left:0; right:0;
+  height:3px;
+  background:linear-gradient(90deg, var(--danger) 0%, var(--warning) 50%, transparent 100%);
+}
+.casc-head {
+  display:flex; align-items:flex-start; justify-content:space-between;
+  gap:16px;
+}
+.casc-head-left { display:flex; align-items:center; gap:12px; }
+.casc-ico {
+  width:38px; height:38px;
+  border-radius:10px;
+  background:var(--danger-soft);
+  color:var(--danger);
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:16px;
+  border:1px solid var(--danger-soft);
+  position:relative;
+}
+.casc-ico::before {
+  content:''; position:absolute; inset:-3px;
+  border-radius:12px;
+  border:1.5px solid var(--danger);
+  opacity:0;
+  animation:casc-ico-ring 2.4s var(--ease) infinite;
+}
+@keyframes casc-ico-ring {
+  0%,80%,100% { opacity:0; transform:scale(1); }
+  10%,30% { opacity:0.5; transform:scale(1.05); }
+}
+.casc-meta { display:flex; flex-direction:column; gap:2px; }
+.casc-label {
+  font-size:10.5px; font-weight:700;
+  letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--danger);
+  display:inline-flex; align-items:center; gap:7px;
+}
+.casc-label .dot {
+  width:6px; height:6px; border-radius:50%;
+  background:var(--danger);
+  animation:live-pulse 1.4s ease-in-out infinite;
+  box-shadow:0 0 0 0 rgba(220,38,38,0.5);
+}
+.casc-prod {
+  font-size:22px; font-weight:700;
+  letter-spacing:-0.028em; line-height:1.1;
+  color:var(--text);
+}
+.casc-prod span { color:var(--text-3); font-weight:500; font-size:14px; }
+.casc-elapsed {
+  font-size:11.5px; font-weight:500;
+  color:var(--text-3);
+  text-align:right;
+}
+.casc-elapsed strong { color:var(--text); font-weight:600; }
+
+.casc-flow {
+  display:flex; align-items:flex-start; gap:0;
+  padding:8px 6px 4px;
+}
+.cnode { display:flex; flex-direction:column; align-items:center; gap:8px; flex-shrink:0; z-index:2; }
+.cdot {
+  width:42px; height:42px;
+  border-radius:50%;
+  background:var(--surface);
+  border:2px solid;
+  display:flex; align-items:center; justify-content:center;
+  font-size:11.5px; font-weight:700;
+  font-variant-numeric:tabular-nums;
+  position:relative;
+  transition:transform 280ms var(--ease), box-shadow 280ms var(--ease);
+  cursor:pointer;
+}
+.cdot:hover { transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+.cdot.p5 { border-color:var(--gray-5); color:var(--text-2); background:var(--surface); }
+.cdot.p4 { border-color:var(--warning); color:var(--warning); background:var(--warning-soft); }
+.cdot.p3 { border-color:var(--danger); color:var(--danger); background:var(--danger-soft); }
+.cdot.predicted {
+  border-style:dashed; border-color:var(--danger); color:var(--danger);
+  background:var(--surface);
+}
+.cdot.predicted::after {
+  content:''; position:absolute; inset:-4px;
+  border-radius:50%; border:2px solid var(--danger);
+  opacity:0;
+  animation:casc-ping 1.6s var(--ease) infinite;
+}
+@keyframes casc-ping {
+  0% { opacity:0.6; transform:scale(0.85); }
+  70% { opacity:0; transform:scale(1.5); }
+  100% { opacity:0; transform:scale(1.5); }
+}
+.ctime {
+  font-size:10.5px; font-weight:600;
+  color:var(--text-3);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:0.02em;
+}
+.clink {
+  flex:1; height:2px;
+  margin:20px -2px 0;
+  background:repeating-linear-gradient(90deg, var(--border) 0 6px, transparent 6px 11px);
+  position:relative;
+}
+.clink.warn { background:repeating-linear-gradient(90deg, var(--warning) 0 6px, transparent 6px 11px); opacity:0.7; }
+.clink.crit { background:repeating-linear-gradient(90deg, var(--danger) 0 6px, transparent 6px 11px); opacity:0.85; }
+.clink.crit::after {
+  content:''; position:absolute; left:0; top:-1px; bottom:-1px; width:6px;
+  background:var(--danger);
+  border-radius:1px;
+  animation:flow-pulse 1.8s linear infinite;
+}
+@keyframes flow-pulse {
+  0% { left:0; opacity:1; }
+  100% { left:calc(100% - 6px); opacity:0; }
+}
+
+.casc-foot {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:14px;
+  padding-top:18px;
+  border-top:1px solid var(--border);
+  transition:border-color 320ms var(--ease);
+}
+.casc-prob { display:flex; flex-direction:column; gap:2px; }
+.casc-prob-label {
+  font-size:10.5px; font-weight:600;
+  letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--text-3);
+}
+.casc-prob-val {
+  font-size:22px; font-weight:800;
+  color:var(--danger);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-0.025em;
+  line-height:1.1;
+}
+.casc-prob-context {
+  font-size:11px; color:var(--text-3);
+  margin-left:6px; font-weight:500;
+}
+.btn-primary {
+  display:inline-flex; align-items:center; gap:7px;
+  padding:9px 14px 9px 16px;
+  background:var(--text); color:var(--surface);
+  border-radius:8px;
+  font-size:13px; font-weight:600;
+  letter-spacing:-0.005em;
+  transition:all 180ms var(--ease);
+  position:relative;
+  overflow:hidden;
+}
+.btn-primary::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.18), transparent 50%);
+  opacity:0; transition:opacity 300ms var(--ease);
+}
+.btn-primary:hover::before { opacity:1; }
+.btn-primary:hover { transform:translateY(-1px); box-shadow:var(--shadow-lg); }
+.btn-primary:active { transform:scale(0.97); }
+.btn-primary svg { width:13px; height:13px; transition:transform 200ms var(--ease); }
+.btn-primary:hover svg { transform:translateX(2px); }
+
+/* ─── Alerts + heatmap row ─────────────────────────────── */
+.mid-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+
+.alerts-list { display:flex; flex-direction:column; padding:8px 22px 18px; }
+.alert {
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:flex-start;
+  gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid var(--border-2);
+  cursor:pointer;
+  margin:0 -8px;
+  padding-left:8px; padding-right:8px;
+  border-radius:6px;
+  transition:background 160ms var(--ease), transform 100ms var(--ease);
+}
+.alert:hover { background:var(--surface-2); }
+.alert:active { transform:scale(0.995); }
+.alert:last-child { border-bottom:none; }
+.alert-prio {
+  width:36px; height:36px;
+  border-radius:9px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:11.5px; font-weight:700;
+  letter-spacing:0;
+  flex-shrink:0;
+  font-variant-numeric:tabular-nums;
+}
+.alert-prio.p2 { background:var(--ink); color:#fff; }
+[data-theme="dark"] .alert-prio.p2 { background:#fff; color:var(--ink); }
+.alert-prio.p3 { background:var(--danger-soft); color:var(--danger); }
+.alert-prio.p4 { background:var(--warning-soft); color:var(--warning); }
+.alert-prio.p5 { background:var(--accent-soft); color:var(--accent); }
+.alert-body { min-width:0; padding-top:2px; }
+.alert-title {
+  font-size:13.5px; font-weight:600;
+  letter-spacing:-0.012em;
+  color:var(--text);
+  margin-bottom:2px;
+}
+.alert-text {
+  font-size:12px; color:var(--text-3);
+  line-height:1.45;
+}
+.alert-meta {
+  display:flex; flex-direction:column;
+  align-items:flex-end; gap:3px;
+  padding-top:5px;
+  white-space:nowrap;
+}
+.alert-time {
+  font-size:11px; font-weight:500;
+  color:var(--text-3);
+  font-variant-numeric:tabular-nums;
+}
+.alert-tag {
+  font-size:9.5px; font-weight:600;
+  padding:1px 6px;
+  border-radius:4px;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+}
+.alert-tag.cascading { background:var(--danger-soft); color:var(--danger); }
+
+/* Heatmap atividade — GitHub-style */
+.heatmap-wrap { padding:14px 22px 18px; }
+.heatmap-grid {
+  display:grid;
+  grid-template-columns:auto repeat(24, 1fr);
+  gap:3px;
+  font-variant-numeric:tabular-nums;
+}
+.heatmap-cell {
+  aspect-ratio:1;
+  border-radius:2.5px;
+  background:var(--surface-2);
+  transition:transform 160ms var(--ease), box-shadow 160ms var(--ease);
+  cursor:pointer;
+  position:relative;
+}
+.heatmap-cell:hover {
+  transform:scale(1.35);
+  box-shadow:0 0 0 1.5px var(--accent), var(--shadow-lg);
+  z-index:5;
+}
+.h0 { background:var(--surface-2); }
+.h1 { background:rgba(37,99,235,0.16); }
+.h2 { background:rgba(37,99,235,0.32); }
+.h3 { background:rgba(37,99,235,0.55); }
+.h4 { background:rgba(37,99,235,0.78); }
+.h5 { background:var(--accent); }
+.h6 { background:var(--danger); }
+[data-theme="dark"] .h0 { background:rgba(255,255,255,0.04); }
+[data-theme="dark"] .h1 { background:rgba(37,99,235,0.22); }
+[data-theme="dark"] .h2 { background:rgba(37,99,235,0.40); }
+[data-theme="dark"] .h3 { background:rgba(37,99,235,0.60); }
+[data-theme="dark"] .h4 { background:rgba(37,99,235,0.80); }
+
+.heatmap-row-label {
+  font-size:10px; font-weight:600;
+  color:var(--text-3);
+  letter-spacing:0.04em;
+  text-align:right;
+  padding-right:6px;
+  align-self:center;
+  text-transform:uppercase;
+}
+.heatmap-col-label {
+  font-size:9px; color:var(--text-3);
+  text-align:center;
+  font-weight:500;
+  font-variant-numeric:tabular-nums;
+}
+.heatmap-legend {
+  display:flex; align-items:center; gap:8px;
+  margin-top:14px; padding-top:14px;
+  border-top:1px solid var(--border-2);
+  font-size:10.5px; color:var(--text-3);
+  letter-spacing:0.04em;
+  transition:border-color 320ms var(--ease);
+}
+.heatmap-legend .scale { display:flex; gap:2px; align-items:center; }
+.heatmap-legend .scale span { width:11px; height:11px; border-radius:2px; }
+
+/* ─── Top produtos table ───────────────────────────────── */
+.tbl-panel { padding:6px 22px 18px; }
+.tbl {
+  width:100%;
+  border-collapse:collapse;
+}
+.tbl thead th {
+  text-align:left;
+  padding:10px 12px;
+  font-size:10px; font-weight:600;
+  letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--text-3);
+  border-bottom:1px solid var(--border);
+}
+.tbl tbody td {
+  padding:14px 12px;
+  border-bottom:1px solid var(--border-2);
+  vertical-align:middle;
+  font-size:13px;
+  color:var(--text-2);
+  transition:border-color 320ms var(--ease);
+}
+.tbl tbody tr {
+  transition:background 160ms var(--ease);
+  cursor:pointer;
+}
+.tbl tbody tr:hover td { background:var(--surface-2); }
+.tbl tbody tr:last-child td { border-bottom:none; }
+.tbl .t-rank { color:var(--text-4); font-weight:600; font-variant-numeric:tabular-nums; width:32px; }
+.tbl .t-prod { font-weight:600; color:var(--text); letter-spacing:-0.012em; font-size:13.5px; }
+.tbl .t-prod-region { font-size:11px; color:var(--text-3); font-weight:500; margin-top:2px; }
+.spark-tbl { width:88px; height:24px; display:flex; align-items:flex-end; gap:2px; }
+.spark-tbl .bar { flex:1; border-radius:1px; min-height:3px; }
+.t-trend {
+  font-weight:600; font-size:12.5px;
+  display:inline-flex; align-items:center; gap:3px;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-0.005em;
+}
+.t-trend.up { color:var(--danger); }
+.t-trend.down { color:var(--success); }
+.t-trend.flat { color:var(--text-3); }
+.score-cell { display:flex; align-items:center; gap:10px; }
+.score-bar {
+  width:84px; height:5px;
+  background:var(--surface-2);
+  border-radius:3px;
+  overflow:hidden;
+  position:relative;
+}
+.score-fill { height:100%; border-radius:3px; transition:width 600ms var(--ease-soft); }
+.fill-danger { background:var(--danger); }
+.fill-warn { background:var(--warning); }
+.fill-success { background:var(--success); }
+.fill-accent { background:var(--accent); }
+.score-num {
+  font-weight:700; font-size:13.5px; color:var(--text);
+  font-variant-numeric:tabular-nums; letter-spacing:-0.015em;
+  min-width:22px;
+}
+.t-tag {
+  font-size:10px; font-weight:600;
+  padding:2px 7px;
+  border-radius:5px;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+}
+.t-tag.crit { background:var(--danger-soft); color:var(--danger); }
+.t-tag.warn { background:var(--warning-soft); color:var(--warning); }
+.t-tag.ok { background:var(--success-soft); color:var(--success); }
+.t-tag.stable { background:var(--surface-2); color:var(--text-3); }
+.t-arr {
+  color:var(--text-4); font-size:14px;
+  transition:transform 180ms var(--ease), color 180ms var(--ease);
+}
+.tbl tbody tr:hover .t-arr { color:var(--text); transform:translateX(2px); }
+
+/* ─── Section header ───────────────────────────────────── */
+.sec-h {
+  display:flex; align-items:baseline; justify-content:space-between;
+  margin-bottom:-6px; padding:8px 2px 2px;
+}
+.sec-h h2 {
+  font-size:17px; font-weight:700;
+  letter-spacing:-0.022em;
+  color:var(--text);
+}
+.sec-h .sub { font-size:12px; color:var(--text-3); margin-top:2px; }
+.sec-link {
+  font-size:12.5px; font-weight:500;
+  color:var(--text-2);
+  display:inline-flex; align-items:center; gap:5px;
+  padding:5px 9px; border-radius:6px;
+  transition:all 160ms var(--ease);
+}
+.sec-link:hover { background:var(--surface-2); color:var(--text); }
+.sec-link:active { transform:scale(0.97); }
+.sec-link svg { width:12px; height:12px; transition:transform 200ms var(--ease); }
+.sec-link:hover svg { transform:translateX(2px); }
+
+/* ─── Entry animations ─────────────────────────────────── */
+[data-enter] {
+  opacity:0;
+  transform:translateY(8px);
+  animation:enter 700ms var(--ease-soft) forwards;
+}
+[data-enter="1"] { animation-delay:60ms; }
+[data-enter="2"] { animation-delay:110ms; }
+[data-enter="3"] { animation-delay:150ms; }
+[data-enter="4"] { animation-delay:190ms; }
+[data-enter="5"] { animation-delay:230ms; }
+[data-enter="6"] { animation-delay:280ms; }
+[data-enter="7"] { animation-delay:340ms; }
+[data-enter="8"] { animation-delay:400ms; }
+[data-enter="9"] { animation-delay:460ms; }
+@keyframes enter { to { opacity:1; transform:translateY(0); } }
+
+/* ─── Scrollbar ────────────────────────────────────────── */
+.content::-webkit-scrollbar, .sb-nav::-webkit-scrollbar { width:10px; height:10px; }
+.content::-webkit-scrollbar-track, .sb-nav::-webkit-scrollbar-track { background:transparent; }
+.content::-webkit-scrollbar-thumb, .sb-nav::-webkit-scrollbar-thumb {
+  background:var(--border); border-radius:6px; border:3px solid var(--bg);
+}
+.content::-webkit-scrollbar-thumb:hover { background:var(--gray-5); }
+
+/* ─── Reduced motion ───────────────────────────────────── */
+@media (prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    animation-duration:0.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important;
+  }
+  [data-enter] { opacity:1; transform:none; }
+}
+
+/* ─── Responsive (basic) ───────────────────────────────── */
+@media (max-width:1180px) {
+  .hero-row, .mid-row { grid-template-columns:1fr; }
+  .kpi-row { grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:880px) {
+  :root { --sidebar-w:64px; }
+  .sb-brand .logo-text, .logo-tag, .sb-section, .sb-item span, .sb-foot .sb-user-info, .sb-foot-more,
+  .sb-search { display:none; }
+  .sb-item { justify-content:center; }
+  .tb-search { width:auto; }
+  .tb-search .placeholder, .tb-search .kbd { display:none; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ═══ SIDEBAR ═══════════════════════════════════════ -->
+  <aside class="sb">
+    <div class="sb-brand">
+      <div class="logo-mark">
+        <svg class="ico" viewBox="0 0 28 28" fill="none">
+          <path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <g class="blip">
+            <circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+            <circle cx="22" cy="8" r="1.4" fill="#3B82F6"/>
+          </g>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="logo-name">Cronos</div>
+        <div class="logo-tag">Veja antes. Aja antes.</div>
+      </div>
+    </div>
+
+    <div class="sb-search">
+      <div class="sb-search-wrap">
+        <input class="sb-search-input" placeholder="Buscar produto, alerta...">
+        <span class="sb-search-kbd">⌘K</span>
+      </div>
+    </div>
+
+    <nav class="sb-nav">
+      <div class="sb-section">Operação</div>
+
+      <div class="sb-item active">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        <span>Dashboard</span>
+      </div>
+
+      <div class="sb-item">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span>Previsões</span>
+      </div>
+
+      <div class="sb-item">
+        <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l3-3 4 4 5-5"/></svg>
+        <span>Tendências</span>
+      </div>
+
+      <div class="sb-item">
+        <svg viewBox="0 0 24 24"><path d="M12 2 4 7v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V7l-8-5z"/></svg>
+        <span>Cascatas</span>
+        <span class="sb-badge">3</span>
+      </div>
+
+      <div class="sb-item">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+        <span>Saúde · Produto</span>
+      </div>
+
+      <div class="sb-item">
+        <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><line x1="3.27" y1="6.96" x2="12" y2="12.01"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        <span>Probabilidade KPI</span>
+      </div>
+
+      <div class="sb-section">Diferenciais</div>
+
+      <div class="sb-item">
+        <svg viewBox="0 0 24 24"><path d="M12 2v4"/><path d="M12 18v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="m16.24 16.24 2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="m16.24 7.76 2.83-2.83"/></svg>
+        <span>Morning brief</span>
+        <span class="sb-badge b-ok">06:00</span>
+      </div>
+
+      <div class="sb-item">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Alertas</span>
+        <span class="sb-badge b-warn">8</span>
+      </div>
+
+      <div class="sb-section">Análise</div>
+
+      <div class="sb-item">
+        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        <span>Produtos</span>
+      </div>
+
+      <div class="sb-item">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Equipes</span>
+      </div>
+
+      <div class="sb-item">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span>Configurações</span>
+      </div>
+    </nav>
+
+    <div class="sb-foot">
+      <div class="sb-avatar">IV</div>
+      <div class="sb-user-info">
+        <div class="sb-user-name">Igor Vignola</div>
+        <div class="sb-user-role">Operações · Locaweb</div>
+      </div>
+      <button class="sb-foot-more" title="Menu do usuário">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN ══════════════════════════════════════════ -->
+  <main class="main">
+
+    <!-- Top bar -->
+    <div class="tb">
+      <div class="tb-crumb">
+        <span>Operação</span>
+        <span class="sep">/</span>
+        <span class="here">Dashboard</span>
+      </div>
+
+      <div class="tb-spacer"></div>
+
+      <div class="tb-search" id="cmdk-trigger">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <span class="placeholder">Buscar ou pular para...</span>
+        <span class="kbd">⌘K</span>
+      </div>
+
+      <button class="tb-action" title="Histórico">
+        <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
+      </button>
+
+      <button class="tb-action" title="Notificações">
+        <svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        <span class="notif-dot"></span>
+      </button>
+
+      <button class="theme-toggle" id="themeToggle" title="Alternar tema" aria-label="Alternar tema"></button>
+
+      <div class="tb-user">
+        <div class="tb-user-av">IV</div>
+        <div class="tb-user-name">Igor</div>
+      </div>
+    </div>
+
+    <!-- Filter bar -->
+    <div class="fb">
+      <button class="fb-chip active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Hoje · 20 mai
+        <span class="caret">▾</span>
+      </button>
+
+      <button class="fb-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Todas as regiões
+        <span class="caret">▾</span>
+      </button>
+
+      <button class="fb-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        23 produtos
+        <span class="caret">▾</span>
+      </button>
+
+      <button class="fb-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        P3 ou acima
+        <span class="caret">▾</span>
+      </button>
+
+      <div class="fb-spacer"></div>
+
+      <div class="fb-live">
+        <span class="dot"></span>
+        Atualizado <span class="time" id="liveTime">16:42:08</span>
+      </div>
+
+      <button class="fb-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+        Nova vista
+      </button>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+      <!-- KPI row -->
+      <section class="kpi-row" data-enter="1">
+
+        <div class="kpi">
+          <div class="kpi-top">
+            <div class="kpi-label">Incidentes hoje</div>
+            <div class="kpi-icon i-accent"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          </div>
+          <div class="kpi-val num">127</div>
+          <div class="kpi-bot">
+            <span class="kpi-delta dn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="6 15 12 9 18 15"/></svg>
+              12%
+            </span>
+            <span class="spark">
+              <span class="bar bar-accent-soft" style="height:30%"></span>
+              <span class="bar bar-accent-soft" style="height:45%"></span>
+              <span class="bar bar-accent-soft" style="height:38%"></span>
+              <span class="bar bar-accent-soft" style="height:52%"></span>
+              <span class="bar bar-accent-soft" style="height:60%"></span>
+              <span class="bar bar-accent-soft" style="height:48%"></span>
+              <span class="bar bar-accent-soft" style="height:70%"></span>
+              <span class="bar bar-accent-soft" style="height:55%"></span>
+              <span class="bar bar-accent-soft" style="height:65%"></span>
+              <span class="bar bar-accent-soft" style="height:58%"></span>
+              <span class="bar bar-accent-soft" style="height:78%"></span>
+              <span class="bar bar-accent" style="height:100%"></span>
+            </span>
+          </div>
+        </div>
+
+        <div class="kpi">
+          <div class="kpi-top">
+            <div class="kpi-label">OLA do mês</div>
+            <div class="kpi-icon i-warn"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          </div>
+          <div class="kpi-val num">96.2<span class="unit">%</span></div>
+          <div class="kpi-bot">
+            <span class="kpi-delta warn">↓ 1.3pp da meta</span>
+            <span class="spark">
+              <span class="bar bar-success" style="height:88%"></span>
+              <span class="bar bar-success" style="height:90%"></span>
+              <span class="bar bar-success" style="height:92%"></span>
+              <span class="bar bar-success" style="height:85%"></span>
+              <span class="bar bar-warn" style="height:72%"></span>
+              <span class="bar bar-warn" style="height:68%"></span>
+              <span class="bar bar-warn" style="height:65%"></span>
+              <span class="bar bar-warn" style="height:70%"></span>
+              <span class="bar bar-warn" style="height:64%"></span>
+              <span class="bar bar-warn" style="height:60%"></span>
+              <span class="bar bar-warn" style="height:62%"></span>
+              <span class="bar bar-warn" style="height:58%"></span>
+            </span>
+          </div>
+        </div>
+
+        <div class="kpi">
+          <div class="kpi-top">
+            <div class="kpi-label">Cascatas ativas</div>
+            <div class="kpi-icon i-danger"><svg viewBox="0 0 24 24"><path d="M12 2 4 7v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V7l-8-5z"/></svg></div>
+          </div>
+          <div class="kpi-val num">3</div>
+          <div class="kpi-bot">
+            <span class="kpi-delta dn">+2 em 4h</span>
+            <span class="spark">
+              <span class="bar bar-line" style="height:10%"></span>
+              <span class="bar bar-line" style="height:10%"></span>
+              <span class="bar bar-warn-soft" style="height:25%"></span>
+              <span class="bar bar-line" style="height:10%"></span>
+              <span class="bar bar-warn-soft" style="height:30%"></span>
+              <span class="bar bar-line" style="height:10%"></span>
+              <span class="bar bar-warn-soft" style="height:28%"></span>
+              <span class="bar bar-warn" style="height:55%"></span>
+              <span class="bar bar-warn" style="height:60%"></span>
+              <span class="bar bar-danger" style="height:80%"></span>
+              <span class="bar bar-danger" style="height:90%"></span>
+              <span class="bar bar-danger" style="height:100%"></span>
+            </span>
+          </div>
+        </div>
+
+        <div class="kpi">
+          <div class="kpi-top">
+            <div class="kpi-label">Score médio</div>
+            <div class="kpi-icon i-success"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          </div>
+          <div class="kpi-val num">82</div>
+          <div class="kpi-bot">
+            <span class="kpi-delta up">↑ +3 vs 7d</span>
+            <span class="spark">
+              <span class="bar bar-success" style="height:65%"></span>
+              <span class="bar bar-success" style="height:68%"></span>
+              <span class="bar bar-success" style="height:72%"></span>
+              <span class="bar bar-success" style="height:70%"></span>
+              <span class="bar bar-success" style="height:75%"></span>
+              <span class="bar bar-success" style="height:78%"></span>
+              <span class="bar bar-success" style="height:76%"></span>
+              <span class="bar bar-success" style="height:80%"></span>
+              <span class="bar bar-success" style="height:82%"></span>
+              <span class="bar bar-success" style="height:78%"></span>
+              <span class="bar bar-success" style="height:84%"></span>
+              <span class="bar bar-success" style="height:90%"></span>
+            </span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Hero row: chart + atividade -->
+      <section class="hero-row" data-enter="2">
+
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">Probabilidade de atingir KPI · maio 2026</div>
+              <div class="panel-sub">Projeção Monte Carlo · 10.000 cenários · IC 80%/95%</div>
+            </div>
+            <div class="panel-legend">
+              <span class="legend-chip"><span class="l"></span>Mediana</span>
+              <span class="legend-chip"><span class="l dashed"></span>Projeção</span>
+              <span class="legend-chip"><span class="l goal"></span>Meta 90%</span>
+            </div>
+          </div>
+          <div class="panel-body">
+
+            <div class="hero-chart-stats">
+              <div class="hero-stat-big">
+                <div class="hero-stat-label">Probabilidade hoje</div>
+                <div class="hero-stat-val crit">73<span class="unit">%</span></div>
+                <div class="hero-stat-delta-pill">↓ 12pp em 7d</div>
+              </div>
+              <div class="hero-stat-big">
+                <div class="hero-stat-label">Mínimo (pessimista)</div>
+                <div class="hero-stat-val num" style="font-size:30px;color:var(--text-2);">42<span class="unit" style="font-size:14px;">%</span></div>
+              </div>
+              <div class="hero-stat-big">
+                <div class="hero-stat-label">Máximo (otimista)</div>
+                <div class="hero-stat-val num" style="font-size:30px;color:var(--text-2);">91<span class="unit" style="font-size:14px;">%</span></div>
+              </div>
+            </div>
+
+            <svg class="hero-chart-svg" viewBox="0 0 900 200" preserveAspectRatio="none" role="img">
+              <defs>
+                <linearGradient id="hc-95" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#2563EB" stop-opacity="0.18"/>
+                  <stop offset="100%" stop-color="#2563EB" stop-opacity="0.02"/>
+                </linearGradient>
+                <linearGradient id="hc-80" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#2563EB" stop-opacity="0.34"/>
+                  <stop offset="100%" stop-color="#2563EB" stop-opacity="0.10"/>
+                </linearGradient>
+              </defs>
+              <line class="grid-line" x1="0" y1="40"  x2="900" y2="40"/>
+              <line class="grid-line" x1="0" y1="90"  x2="900" y2="90"/>
+              <line class="grid-line" x1="0" y1="140" x2="900" y2="140"/>
+              <line class="grid-line" x1="0" y1="190" x2="900" y2="190" stroke-width="1.2"/>
+
+              <line class="goal-line" x1="0" y1="40" x2="900" y2="40"/>
+              <text class="axis-text" x="892" y="34" text-anchor="end" style="fill:#059669;font-weight:600;">META · 90%</text>
+
+              <!-- IC 95% -->
+              <path d="M 0,8 L 110,22 L 200,42 L 290,68 L 380,98 L 450,118 L 510,134
+                       L 570,140 L 640,144 L 720,148 L 800,152 L 900,158
+                       L 900,180 L 800,176 L 720,172 L 640,168 L 570,158 L 510,150 L 450,138 L 380,116 L 290,90 L 200,68 L 110,42 L 0,28 Z"
+                    fill="url(#hc-95)"/>
+              <!-- IC 80% -->
+              <path d="M 0,12 L 110,26 L 200,48 L 290,76 L 380,108 L 450,124 L 510,140
+                       L 570,144 L 640,148 L 720,152 L 800,154 L 900,160
+                       L 900,176 L 800,172 L 720,170 L 640,166 L 570,154 L 510,146 L 450,134 L 380,112 L 290,86 L 200,62 L 110,38 L 0,22 Z"
+                    fill="url(#hc-80)"/>
+
+              <!-- Histórico (linha preta) -->
+              <path d="M 0,14 L 110,30 L 200,52 L 290,80 L 380,112 L 450,128 L 510,142"
+                    fill="none" stroke="var(--text)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 2px 4px rgba(0,0,0,0.10));"/>
+
+              <!-- Forecast (linha azul tracejada) -->
+              <path d="M 510,142 L 570,146 L 640,148 L 720,152 L 800,154 L 900,158"
+                    fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="5 4"/>
+
+              <!-- Vertical "hoje" -->
+              <line x1="510" y1="0" x2="510" y2="190" stroke="var(--text-4)" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/>
+
+              <!-- Today dot -->
+              <circle cx="510" cy="142" r="7" fill="var(--surface)" stroke="var(--text)" stroke-width="2.5"/>
+              <circle cx="510" cy="142" r="3" fill="var(--text)"/>
+
+              <!-- Y axis -->
+              <text class="axis-text" x="6" y="44">100%</text>
+              <text class="axis-text" x="6" y="94">85%</text>
+              <text class="axis-text" x="6" y="144" style="font-weight:700;fill:var(--danger);">73%</text>
+              <text class="axis-text" x="6" y="194">60%</text>
+
+              <!-- X axis -->
+              <text class="axis-text" x="0"   y="208" text-anchor="start">01</text>
+              <text class="axis-text" x="200" y="208" text-anchor="middle">08</text>
+              <text class="axis-text" x="380" y="208" text-anchor="middle">15</text>
+              <text class="axis-text" x="510" y="208" text-anchor="middle" style="font-weight:700;fill:var(--text);">HOJE · 20</text>
+              <text class="axis-text" x="720" y="208" text-anchor="middle">26</text>
+              <text class="axis-text" x="900" y="208" text-anchor="end">31</text>
+            </svg>
+          </div>
+          <div class="panel-foot">
+            <span>Modelo: Prophet + XGBoost · features lag 1/7/30d, rolling 7d, dia_semana, is_feriado</span>
+            <span>v2.6.1 · atualizado há 2 min</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">Atividade · agora</div>
+              <div class="panel-sub">Últimas 24h em tempo real</div>
+            </div>
+          </div>
+          <div class="side-stack">
+            <div class="side-stat">
+              <div class="side-stat-label"><span class="dot" style="background:var(--accent);"></span> Em aberto</div>
+              <div class="side-stat-val num">14<span class="delta up">+3</span></div>
+            </div>
+            <div class="side-stat">
+              <div class="side-stat-label"><span class="dot" style="background:var(--purple);"></span> Em atendimento</div>
+              <div class="side-stat-val num">28</div>
+            </div>
+            <div class="side-stat">
+              <div class="side-stat-label"><span class="dot" style="background:var(--success);"></span> Resolvidos hoje</div>
+              <div class="side-stat-val num">85<span class="delta down">+12</span></div>
+            </div>
+            <div class="side-stat">
+              <div class="side-stat-label"><span class="dot" style="background:var(--warning);"></span> Prestes a violar</div>
+              <div class="side-stat-val num">2</div>
+            </div>
+            <div class="side-stat">
+              <div class="side-stat-label"><span class="dot" style="background:var(--cyan);"></span> Tempo médio resolução</div>
+              <div class="side-stat-val num">38<span class="unit" style="font-size:11px;color:var(--text-3);font-weight:500;">min</span></div>
+            </div>
+            <div class="side-stat">
+              <div class="side-stat-label"><span class="dot" style="background:var(--pink);"></span> Times saturados</div>
+              <div class="side-stat-val num">1<span class="delta up" style="font-size:10.5px;">team14 · 92%</span></div>
+            </div>
+          </div>
+          <div class="panel-foot">
+            <span>122.543 incidentes base · 3 anos</span>
+            <a href="#" class="sec-link" style="padding:2px 6px;font-size:11px;">Detalhar
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Section: cascata -->
+      <section class="sec-h" data-enter="3">
+        <div>
+          <h2>Detector de cascata</h2>
+          <div class="sub">Padrões P5/P4 que historicamente escalaram para P2/P3</div>
+        </div>
+        <a href="#" class="sec-link">Ver todas
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </section>
+
+      <section class="casc" data-enter="4">
+        <div class="casc-head">
+          <div class="casc-head-left">
+            <div class="casc-ico">!</div>
+            <div class="casc-meta">
+              <div class="casc-label"><span class="dot"></span>Cascata em formação · iminente</div>
+              <div class="casc-prod">DNS Manager <span>· BR-leste · 1.842 clientes afetáveis</span></div>
+            </div>
+          </div>
+          <div class="casc-elapsed">
+            <div>Iniciada às <strong>14:02</strong></div>
+            <div>há <strong>2h 40min</strong></div>
+          </div>
+        </div>
+
+        <div class="casc-flow">
+          <div class="cnode"><div class="cdot p5">P5</div><div class="ctime">14:02</div></div>
+          <div class="clink"></div>
+          <div class="cnode"><div class="cdot p5">P5</div><div class="ctime">14:18</div></div>
+          <div class="clink warn"></div>
+          <div class="cnode"><div class="cdot p4">P4</div><div class="ctime">14:31</div></div>
+          <div class="clink warn"></div>
+          <div class="cnode"><div class="cdot p4">P4</div><div class="ctime">14:44</div></div>
+          <div class="clink crit"></div>
+          <div class="cnode"><div class="cdot predicted">P2?</div><div class="ctime">~ 17h</div></div>
+        </div>
+
+        <div class="casc-foot">
+          <div class="casc-prob">
+            <div class="casc-prob-label">Probabilidade de P2 nas próximas 2h</div>
+            <div class="casc-prob-val num">68%<span class="casc-prob-context">baseada em 47 cascatas similares</span></div>
+          </div>
+          <button class="btn-primary">
+            Mitigar agora
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- Section: alerts + heatmap -->
+      <section class="mid-row" data-enter="5">
+
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">Alertas recentes</div>
+              <div class="panel-sub">Últimas 24h · 8 ativos · ordenados por urgência</div>
+            </div>
+            <a href="#" class="sec-link" style="font-size:11.5px;">Todos
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+          </div>
+          <div class="alerts-list">
+            <div class="alert">
+              <div class="alert-prio p3">P3</div>
+              <div class="alert-body">
+                <div class="alert-title">Disco em 91% · Servidor cl-04</div>
+                <div class="alert-text">Crescimento 6%/h. Em projeção, estoura em ~3h.</div>
+              </div>
+              <div class="alert-meta">
+                <span class="alert-time">há 4min</span>
+                <span class="alert-tag cascading">cascading</span>
+              </div>
+            </div>
+
+            <div class="alert">
+              <div class="alert-prio p4">P4</div>
+              <div class="alert-body">
+                <div class="alert-title">Latência banco SQL acima do baseline</div>
+                <div class="alert-text">p95 em 312ms · esperado &lt; 180ms · região BR-sul</div>
+              </div>
+              <div class="alert-meta">
+                <span class="alert-time">há 12min</span>
+              </div>
+            </div>
+
+            <div class="alert">
+              <div class="alert-prio p4">P4</div>
+              <div class="alert-body">
+                <div class="alert-title">Acúmulo P4 · DNS Manager</div>
+                <div class="alert-text">4 incidentes em 42min · padrão de cascata confirmado</div>
+              </div>
+              <div class="alert-meta">
+                <span class="alert-time">há 28min</span>
+                <span class="alert-tag cascading">cascading</span>
+              </div>
+            </div>
+
+            <div class="alert">
+              <div class="alert-prio p5">P5</div>
+              <div class="alert-body">
+                <div class="alert-title">Fila de e-mail acima do baseline</div>
+                <div class="alert-text">Email Pro · 1.4k msgs · esperado &lt; 500</div>
+              </div>
+              <div class="alert-meta">
+                <span class="alert-time">há 41min</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">Intensidade de incidentes</div>
+              <div class="panel-sub">7 últimos dias · hora a hora · base 122k incidentes</div>
+            </div>
+          </div>
+          <div class="heatmap-wrap">
+            <div class="heatmap-grid" id="heatmap">
+              <!-- gerado via JS -->
+            </div>
+            <div class="heatmap-legend">
+              <span>Menos</span>
+              <span class="scale">
+                <span class="h0"></span><span class="h1"></span><span class="h2"></span><span class="h3"></span><span class="h4"></span><span class="h5"></span><span class="h6"></span>
+              </span>
+              <span>Mais</span>
+              <span style="margin-left:auto;color:var(--text-3);">Pico: <strong style="color:var(--text);font-variant-numeric:tabular-nums;">qui 21h</strong> · 38 incidentes</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Section: top produtos -->
+      <section class="sec-h" data-enter="6">
+        <div>
+          <h2>Produtos sob observação</h2>
+          <div class="sub">Score de saúde · pior → melhor · janela 7 dias</div>
+        </div>
+        <a href="#" class="sec-link">Ranking completo
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </section>
+
+      <section class="panel" data-enter="7">
+        <div class="tbl-panel">
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th style="width:28px">#</th>
+                <th>Produto</th>
+                <th>Volume 7d</th>
+                <th>OLA</th>
+                <th>Tendência</th>
+                <th>Score</th>
+                <th></th>
+                <th style="width:24px"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="t-rank num">01</td>
+                <td>
+                  <div class="t-prod">DNS Manager</div>
+                  <div class="t-prod-region">BR-leste · BR-sul</div>
+                </td>
+                <td>
+                  <span class="spark-tbl">
+                    <span class="bar bar-danger-soft" style="height:30%"></span>
+                    <span class="bar bar-danger-soft" style="height:45%"></span>
+                    <span class="bar bar-warn" style="height:55%"></span>
+                    <span class="bar bar-warn" style="height:65%"></span>
+                    <span class="bar bar-danger" style="height:80%"></span>
+                    <span class="bar bar-danger" style="height:95%"></span>
+                    <span class="bar bar-danger" style="height:100%"></span>
+                  </span>
+                </td>
+                <td><span style="font-weight:600;color:var(--danger);" class="num">93.4%</span></td>
+                <td><span class="t-trend up">↗ +24%</span></td>
+                <td>
+                  <div class="score-cell">
+                    <div class="score-bar"><div class="score-fill fill-danger" style="width:45%"></div></div>
+                    <span class="score-num num">45</span>
+                  </div>
+                </td>
+                <td><span class="t-tag crit">Crítico</span></td>
+                <td class="t-arr">›</td>
+              </tr>
+
+              <tr>
+                <td class="t-rank num">02</td>
+                <td>
+                  <div class="t-prod">Email Pro</div>
+                  <div class="t-prod-region">Multi-região</div>
+                </td>
+                <td>
+                  <span class="spark-tbl">
+                    <span class="bar bar-warn-soft" style="height:50%"></span>
+                    <span class="bar bar-warn-soft" style="height:55%"></span>
+                    <span class="bar bar-warn" style="height:62%"></span>
+                    <span class="bar bar-warn" style="height:58%"></span>
+                    <span class="bar bar-warn" style="height:70%"></span>
+                    <span class="bar bar-warn" style="height:74%"></span>
+                    <span class="bar bar-warn" style="height:78%"></span>
+                  </span>
+                </td>
+                <td><span style="font-weight:600;color:var(--warning);" class="num">95.1%</span></td>
+                <td><span class="t-trend up">↗ +8%</span></td>
+                <td>
+                  <div class="score-cell">
+                    <div class="score-bar"><div class="score-fill fill-warn" style="width:58%"></div></div>
+                    <span class="score-num num">58</span>
+                  </div>
+                </td>
+                <td><span class="t-tag warn">Atenção</span></td>
+                <td class="t-arr">›</td>
+              </tr>
+
+              <tr>
+                <td class="t-rank num">03</td>
+                <td>
+                  <div class="t-prod">PostgreSQL Manage</div>
+                  <div class="t-prod-region">BR-sul</div>
+                </td>
+                <td>
+                  <span class="spark-tbl">
+                    <span class="bar bar-warn-soft" style="height:55%"></span>
+                    <span class="bar bar-warn-soft" style="height:50%"></span>
+                    <span class="bar bar-warn" style="height:58%"></span>
+                    <span class="bar bar-warn" style="height:62%"></span>
+                    <span class="bar bar-warn" style="height:60%"></span>
+                    <span class="bar bar-warn" style="height:65%"></span>
+                    <span class="bar bar-warn" style="height:68%"></span>
+                  </span>
+                </td>
+                <td><span style="font-weight:600;color:var(--warning);" class="num">96.8%</span></td>
+                <td><span class="t-trend up">↗ +3%</span></td>
+                <td>
+                  <div class="score-cell">
+                    <div class="score-bar"><div class="score-fill fill-warn" style="width:64%"></div></div>
+                    <span class="score-num num">64</span>
+                  </div>
+                </td>
+                <td><span class="t-tag warn">Atenção</span></td>
+                <td class="t-arr">›</td>
+              </tr>
+
+              <tr>
+                <td class="t-rank num">04</td>
+                <td>
+                  <div class="t-prod">WordPress Cloud</div>
+                  <div class="t-prod-region">BR-leste</div>
+                </td>
+                <td>
+                  <span class="spark-tbl">
+                    <span class="bar bar-success-soft" style="height:62%"></span>
+                    <span class="bar bar-success" style="height:65%"></span>
+                    <span class="bar bar-success" style="height:70%"></span>
+                    <span class="bar bar-success" style="height:68%"></span>
+                    <span class="bar bar-success" style="height:66%"></span>
+                    <span class="bar bar-success" style="height:63%"></span>
+                    <span class="bar bar-success" style="height:60%"></span>
+                  </span>
+                </td>
+                <td><span style="font-weight:600;color:var(--success);" class="num">99.2%</span></td>
+                <td><span class="t-trend down">↘ −2%</span></td>
+                <td>
+                  <div class="score-cell">
+                    <div class="score-bar"><div class="score-fill fill-success" style="width:71%"></div></div>
+                    <span class="score-num num">71</span>
+                  </div>
+                </td>
+                <td><span class="t-tag ok">Saudável</span></td>
+                <td class="t-arr">›</td>
+              </tr>
+
+              <tr>
+                <td class="t-rank num">05</td>
+                <td>
+                  <div class="t-prod">Painel Cloud</div>
+                  <div class="t-prod-region">Multi-região</div>
+                </td>
+                <td>
+                  <span class="spark-tbl">
+                    <span class="bar bar-success" style="height:72%"></span>
+                    <span class="bar bar-success" style="height:76%"></span>
+                    <span class="bar bar-success" style="height:78%"></span>
+                    <span class="bar bar-success" style="height:74%"></span>
+                    <span class="bar bar-success" style="height:70%"></span>
+                    <span class="bar bar-success" style="height:68%"></span>
+                    <span class="bar bar-success" style="height:65%"></span>
+                  </span>
+                </td>
+                <td><span style="font-weight:600;color:var(--success);" class="num">99.6%</span></td>
+                <td><span class="t-trend down">↘ −5%</span></td>
+                <td>
+                  <div class="score-cell">
+                    <div class="score-bar"><div class="score-fill fill-success" style="width:79%"></div></div>
+                    <span class="score-num num">79</span>
+                  </div>
+                </td>
+                <td><span class="t-tag ok">Saudável</span></td>
+                <td class="t-arr">›</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>
+// ─── Theme toggle ────────────────────────────────────────
+const root = document.documentElement;
+const toggle = document.getElementById('themeToggle');
+toggle.addEventListener('click', () => {
+  const cur = root.getAttribute('data-theme');
+  root.setAttribute('data-theme', cur === 'light' ? 'dark' : 'light');
+});
+
+// ─── Live clock ──────────────────────────────────────────
+const timeEl = document.getElementById('liveTime');
+function tick() {
+  const d = new Date();
+  const h = String(d.getHours()).padStart(2,'0');
+  const m = String(d.getMinutes()).padStart(2,'0');
+  const s = String(d.getSeconds()).padStart(2,'0');
+  if (timeEl) timeEl.textContent = `${h}:${m}:${s}`;
+}
+tick(); setInterval(tick, 1000);
+
+// ─── Heatmap generation ──────────────────────────────────
+const heatmap = document.getElementById('heatmap');
+const days = ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+const intensities = [
+  // segunda
+  [0,0,0,0,0,1,2,3,4,3,2,2,3,4,3,3,3,4,3,2,1,0,0,0],
+  // terça
+  [0,0,0,0,1,2,3,4,4,3,3,3,4,5,4,3,3,4,4,3,2,1,0,0],
+  // quarta
+  [0,0,0,1,1,2,3,4,5,4,3,3,4,5,5,4,4,5,4,3,2,1,0,0],
+  // quinta — pico
+  [0,0,0,1,2,3,4,5,5,4,3,3,4,5,5,4,4,5,5,6,5,3,2,1],
+  // sexta
+  [0,0,0,1,1,2,3,4,4,3,3,3,4,4,4,4,3,4,3,2,1,1,0,0],
+  // sábado
+  [0,0,0,0,0,1,1,2,2,2,2,2,2,2,2,2,2,1,1,1,0,0,0,0],
+  // domingo
+  [0,0,0,0,0,0,1,1,1,1,2,2,2,1,1,1,1,1,1,0,0,0,0,0],
+];
+// header row
+const empty = document.createElement('div');
+heatmap.appendChild(empty);
+for (let h = 0; h < 24; h++) {
+  const cell = document.createElement('div');
+  cell.className = 'heatmap-col-label';
+  cell.textContent = (h % 3 === 0) ? String(h).padStart(2,'0') : '';
+  heatmap.appendChild(cell);
+}
+// rows
+days.forEach((day, di) => {
+  const lbl = document.createElement('div');
+  lbl.className = 'heatmap-row-label';
+  lbl.textContent = day;
+  heatmap.appendChild(lbl);
+  for (let h = 0; h < 24; h++) {
+    const c = document.createElement('div');
+    const v = intensities[di][h];
+    c.className = `heatmap-cell h${v}`;
+    c.title = `${day} ${String(h).padStart(2,'0')}:00 · intensidade ${v}/6`;
+    heatmap.appendChild(c);
+  }
+});
+
+// ─── Button ripple position tracking ─────────────────────
+document.querySelectorAll('.btn-primary').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    btn.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    btn.style.setProperty('--my', `${e.clientY - r.top}px`);
+  });
+});
+
+// ─── Cmd+K stub ──────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+    e.preventDefault();
+    document.getElementById('cmdk-trigger').style.transform = 'scale(1.02)';
+    setTimeout(() => document.getElementById('cmdk-trigger').style.transform = '', 200);
+  }
+});
+</script>
+
+</body>
+</html>
