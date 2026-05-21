@@ -1,11 +1,29 @@
 ---
 data: 2026-05-21
 tipo: decisao
-status: ativo
+status: superado
 relacionados: [aesthetic-dark-glass-hibrido, brand-design-system-vs-prototipo, claude-design-limites-quirks]
 ---
 
 # Prototipagem da Sprint 2 via Claude Design (não Figma)
+
+## Atualização 2026-05-21 (mesmo dia, à tarde)
+
+**Decisão superada.** Após receber o output do Claude Design, Igor sentiu que o protótipo gerado:
+- Ficou genérico ("parece dashboard de IA igual qualquer outro")
+- Inventou termos e equipes que não existem na Locaweb
+- Fugiu da identidade Cronos canônica do `brand/design-system.html`
+- Estava confuso por excesso de informação/funcionalidade
+
+Novo caminho adotado:
+1. Voltar pra identidade canônica light/operacional do `brand/`
+2. Explorar `LWDATASET.xlsx` ANTES de prototipar (extrair vocabulário real)
+3. Calibrar personalidade refinada (tipo "iOS premium" mas mantendo brand Cronos) via showcase visual em `prototipos/personalidade.html`
+4. Prototipar do zero em HTML manual, uma tela por vez
+
+Os arquivos da iteração Claude Design foram removidos (ver commit subsequente). Permanecem em git history (commit `ceb729f`).
+
+Esta decisão fica marcada como **superado** mas preservada pra registro do aprendizado: ferramentas de geração de UI por IA precisam de spec ancorado em dados reais e identidade firme, senão regridem ao slop genérico.
 
 ## Contexto
 

@@ -1,0 +1,401 @@
+/* ═══════════════════════════════════════════════════════════
+   CRONOS · DESIGN SYSTEM · TOKENS
+   ───────────────────────────────────────────────────────────
+   Fonte única de verdade. Edite aqui e propaga em tudo.
+
+   Princípios HIG aplicados:
+   · Hierarchy  → escalas explícitas (color/type/space/elevation)
+   · Harmony    → paleta única (#2563EB), tipo único (Outfit),
+                  radii consistentes (escala 4-22-28)
+   · Consistency→ tokens nomeados semanticamente, não visualmente
+
+   Materials seguem Liquid Glass (iOS 26):
+   · Camada funcional (controls/nav) flutua acima do conteúdo
+   · Regular variant pra UI com texto
+   · Clear variant pra over-media (uso futuro)
+
+   Inspiração final: Apple HIG · brand/design-system.html
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+
+  /* ─────────────────────────────────────────────────────
+     1 · COLOR — Neutros (escala preto → branco)
+     ─────────────────────────────────────────────────── */
+
+  --black:      #000000;
+  --ink:        #0A0A0F;   /* HIG-style off-black, never #000 in UI */
+  --dark:       #111111;
+  --dark-2:     #1A1A1A;
+  --dark-3:     #252525;
+  --gray-1:     #3A3A3A;
+  --gray-2:     #525252;
+  --gray-3:     #737373;
+  --gray-4:     #A3A3A3;
+  --gray-5:     #D4D4D4;
+  --gray-6:     #E5E5E5;
+  --gray-7:     #F0F0F0;
+  --gray-8:     #F7F7F7;
+  --white:      #FFFFFF;
+
+  /* ─────────────────────────────────────────────────────
+     2 · COLOR — Accent único + soft (Cronos canônico)
+     ─────────────────────────────────────────────────── */
+
+  --accent:         #2563EB;   /* Cronos blue */
+  --accent-hover:   #1D4ED8;
+  --accent-soft:    #EFF6FF;
+  --accent-border:  #BFDBFE;
+  --accent-text:    #1E40AF;   /* legível em accent-soft bg */
+
+  /* ─────────────────────────────────────────────────────
+     3 · COLOR — Semânticas (3 níveis: solid · soft · border)
+     ─────────────────────────────────────────────────── */
+
+  --danger:         #DC2626;
+  --danger-hover:   #B91C1C;
+  --danger-soft:    #FEF2F2;
+  --danger-border:  #FECACA;
+  --danger-text:    #991B1B;
+
+  --warning:        #D97706;
+  --warning-hover:  #B45309;
+  --warning-soft:   #FFFBEB;
+  --warning-border: #FDE68A;
+  --warning-text:   #92400E;
+
+  --success:        #059669;
+  --success-hover:  #047857;
+  --success-soft:   #ECFDF5;
+  --success-border: #A7F3D0;
+  --success-text:   #065F46;
+
+  /* ─────────────────────────────────────────────────────
+     4 · COLOR — Semantic tokens (HIG Label hierarchy)
+     ─────────────────────────────────────────────────── */
+
+  /* Labels = foreground text (hierarquia em 4 níveis HIG-style) */
+  --label-primary:    var(--dark);
+  --label-secondary:  var(--gray-2);
+  --label-tertiary:   var(--gray-3);
+  --label-quaternary: var(--gray-4);
+  --label-placeholder:var(--gray-4);
+  --label-disabled:   var(--gray-5);
+  --label-link:       var(--accent);
+  --label-on-accent:  var(--white);
+
+  /* Backgrounds = surface tokens (2 sets HIG-style) */
+  --bg-base:          var(--gray-8);  /* page base */
+  --bg-primary:       var(--white);   /* card / panel base */
+  --bg-secondary:     var(--gray-8);  /* grouped content */
+  --bg-tertiary:      var(--gray-7);  /* nested grouping */
+
+  /* Separators / hairlines */
+  --separator:        var(--gray-6);  /* permite leve transparência conceitual */
+  --separator-opaque: var(--gray-5);
+  --hairline:         var(--gray-7);  /* sutil divisor entre rows */
+
+  /* Fills (HIG-style — backgrounds de botões neutros, chips) */
+  --fill-primary:     var(--gray-7);
+  --fill-secondary:   var(--gray-8);
+  --fill-tertiary:    rgba(120,120,128,0.08);
+  --fill-quaternary:  rgba(120,120,128,0.04);
+
+  /* ─────────────────────────────────────────────────────
+     5 · MATERIALS — Liquid Glass-inspired
+     ─────────────────────────────────────────────────── */
+
+  /* Liquid Glass REGULAR (use em controls, sidebar, top bar) */
+  --glass-regular-bg:        rgba(255,255,255,0.72);
+  --glass-regular-blur:      blur(32px) saturate(180%);
+  --glass-regular-border:    rgba(255,255,255,0.85);
+  --glass-regular-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.9),
+    inset 0 -1px 0 rgba(0,0,0,0.02),
+    0 1px 2px rgba(0,30,80,0.04),
+    0 12px 32px -16px rgba(0,30,80,0.10);
+
+  /* Liquid Glass CLEAR (use sobre media — uso futuro) */
+  --glass-clear-bg:          rgba(255,255,255,0.40);
+  --glass-clear-blur:        blur(24px) saturate(160%);
+  --glass-clear-border:      rgba(255,255,255,0.50);
+  --glass-clear-dimming:     rgba(0,0,0,0.35);  /* sobre conteúdo bright */
+
+  /* Standard materials (content layer differentiation) */
+  --material-ultra-thin:     rgba(255,255,255,0.30);
+  --material-thin:           rgba(255,255,255,0.50);
+  --material-regular:        rgba(255,255,255,0.72);
+  --material-thick:          rgba(255,255,255,0.92);
+
+  /* Glass quando hovered */
+  --glass-regular-bg-hover:  rgba(255,255,255,0.85);
+  --glass-regular-shadow-lift:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 4px 8px rgba(0,30,80,0.04),
+    0 16px 40px -12px rgba(0,30,80,0.14);
+
+  /* ─────────────────────────────────────────────────────
+     6 · TYPOGRAPHY — Outfit (web) + JetBrains Mono BANIDA
+     Outfit suporta tabular-nums via font-feature-settings
+     ─────────────────────────────────────────────────── */
+
+  --font-sans:    'Outfit', -apple-system, BlinkMacSystemFont,
+                  'Segoe UI', system-ui, sans-serif;
+  --font-mono:    var(--font-sans);  /* mesmo font, com tabular-nums */
+
+  /* Font weights */
+  --fw-regular:   400;
+  --fw-medium:    500;
+  --fw-semibold:  600;
+  --fw-bold:      700;
+  --fw-heavy:     800;
+
+  /* Type scale (px, HIG-aware progression) */
+  --fs-10:        10px;   /* labels uppercase, micro captions */
+  --fs-11:        11px;   /* captions */
+  --fs-12:        12px;   /* small body */
+  --fs-13:        13px;   /* secondary body */
+  --fs-14:        14px;   /* primary body (default) */
+  --fs-15:        15px;   /* larger body */
+  --fs-17:        17px;   /* h3 / sidebar nav */
+  --fs-20:        20px;   /* h2 */
+  --fs-24:        24px;   /* h1 */
+  --fs-28:        28px;   /* display sm */
+  --fs-34:        34px;   /* display md */
+  --fs-48:        48px;   /* display lg */
+  --fs-64:        64px;   /* display xl */
+  --fs-80:        80px;   /* hero */
+
+  /* Line heights */
+  --lh-tight:     1.05;
+  --lh-snug:      1.2;
+  --lh-normal:    1.45;
+  --lh-relaxed:   1.6;
+
+  /* Letter spacing */
+  --ls-display:   -0.04em;
+  --ls-heading:   -0.025em;
+  --ls-body:      -0.01em;
+  --ls-caption:   0;
+  --ls-uppercase: 0.08em;
+  --ls-uppercase-strong: 0.14em;
+
+  /* ─────────────────────────────────────────────────────
+     7 · SPACING — 4px base grid
+     ─────────────────────────────────────────────────── */
+
+  --space-0:      0;
+  --space-1:      4px;
+  --space-2:      8px;
+  --space-3:      12px;
+  --space-4:      16px;
+  --space-5:      20px;
+  --space-6:      24px;
+  --space-7:      28px;
+  --space-8:      32px;
+  --space-10:     40px;
+  --space-12:     48px;
+  --space-14:     56px;
+  --space-16:     64px;
+  --space-20:     80px;
+  --space-24:     96px;
+
+  /* ─────────────────────────────────────────────────────
+     8 · RADIUS — Apple-style squircle approximation
+        Larger radii feel more Apple
+     ─────────────────────────────────────────────────── */
+
+  --r-xs:         6px;     /* badges, micro pills */
+  --r-sm:         10px;    /* inputs, small buttons */
+  --r-md:         14px;    /* default buttons, chips */
+  --r-lg:         18px;    /* cards (Apple-ish) */
+  --r-xl:         22px;    /* large cards, panels */
+  --r-2xl:        28px;    /* hero panels */
+  --r-3xl:        36px;    /* full-bleed sections */
+  --r-pill:       9999px;  /* capsule (toggles, status pills) */
+  --r-circle:     50%;     /* avatars, radio dots */
+
+  /* ─────────────────────────────────────────────────────
+     9 · ELEVATION (shadows) — subtle, Apple-style
+     ─────────────────────────────────────────────────── */
+
+  /* Rest — quase invisível mas presente */
+  --shadow-1:
+    0 1px 2px rgba(0,0,0,0.03),
+    0 1px 1px rgba(0,0,0,0.02);
+
+  /* Raised — card padrão */
+  --shadow-2:
+    0 1px 2px rgba(0,0,0,0.03),
+    0 8px 24px -12px rgba(0,0,0,0.08);
+
+  /* Hover — card elevado por interação */
+  --shadow-3:
+    0 2px 4px rgba(0,0,0,0.04),
+    0 12px 32px -8px rgba(0,0,0,0.10),
+    0 24px 48px -24px rgba(0,0,0,0.08);
+
+  /* Popover / dropdown */
+  --shadow-4:
+    0 4px 8px rgba(0,0,0,0.04),
+    0 16px 40px -8px rgba(0,0,0,0.12),
+    0 32px 64px -16px rgba(0,0,0,0.10);
+
+  /* Modal */
+  --shadow-5:
+    0 8px 16px rgba(0,0,0,0.06),
+    0 24px 56px -8px rgba(0,0,0,0.18),
+    0 48px 96px -24px rgba(0,0,0,0.14);
+
+  /* Inner highlights (Liquid Glass signature) */
+  --shadow-inset-highlight:    inset 0 1px 0 rgba(255,255,255,0.9);
+  --shadow-inset-highlight-sm: inset 0 1px 0 rgba(255,255,255,0.6);
+
+  /* Focus ring (Apple-style halo) */
+  --shadow-focus:   0 0 0 4px rgba(37,99,235,0.20);
+  --shadow-focus-danger: 0 0 0 4px rgba(220,38,38,0.20);
+
+  /* Pressed (inner shadow on inset buttons) */
+  --shadow-pressed: inset 0 1px 3px rgba(0,0,0,0.10);
+
+  /* Colored glows (uso parcimonioso — só pulse dots e cascata predicted) */
+  --glow-accent:    0 0 14px rgba(37,99,235,0.45);
+  --glow-danger:    0 0 14px rgba(220,38,38,0.45);
+  --glow-success:   0 0 14px rgba(5,150,105,0.45);
+  --glow-warning:   0 0 14px rgba(217,119,6,0.45);
+
+  /* ─────────────────────────────────────────────────────
+     10 · MOTION — Easings + durations
+     ─────────────────────────────────────────────────── */
+
+  /* Easing curves (custom, fortes — built-in CSS é fraca demais) */
+  --ease-out:         cubic-bezier(0.25, 1, 0.5, 1);          /* default UI ease-out */
+  --ease-out-strong:  cubic-bezier(0.16, 1, 0.3, 1);          /* enter animations */
+  --ease-in-out:      cubic-bezier(0.76, 0, 0.24, 1);         /* on-screen movement */
+  --ease-drawer:      cubic-bezier(0.32, 0.72, 0, 1);         /* iOS drawer/sheet */
+  --ease-spring:      cubic-bezier(0.34, 1.56, 0.64, 1);      /* toggle knob overshoot */
+
+  /* Durations */
+  --dur-instant:      80ms;    /* color/border immediate */
+  --dur-fast:         140ms;   /* button press */
+  --dur-quick:        200ms;   /* hover, tooltip */
+  --dur-base:         280ms;   /* card enter, panel transition */
+  --dur-slow:         400ms;   /* modal, drawer */
+  --dur-loop:         1600ms;  /* pulse loops */
+
+  /* Stagger gap (Emil: 30-80ms is sweet spot) */
+  --stagger:          60ms;
+
+  /* ─────────────────────────────────────────────────────
+     11 · Z-INDEX scale
+     ─────────────────────────────────────────────────── */
+
+  --z-base:           0;
+  --z-raised:         10;
+  --z-sticky:         50;
+  --z-dropdown:       100;
+  --z-popover:        200;
+  --z-modal-backdrop: 900;
+  --z-modal:          1000;
+  --z-toast:          1100;
+  --z-tooltip:        1200;
+
+  /* ─────────────────────────────────────────────────────
+     12 · BREAKPOINTS (em comentários — CSS vars não funcionam em @media)
+     ───────────────────────────────────────────────────
+
+     --bp-sm:   640px   (mobile landscape)
+     --bp-md:   768px   (tablet)
+     --bp-lg:   1024px  (small desktop)
+     --bp-xl:   1280px  (desktop)
+     --bp-2xl:  1536px  (wide desktop)
+
+     Mobile-first sempre. Use min-width queries.
+  */
+
+  /* ─────────────────────────────────────────────────────
+     13 · INTERACTIVE SIZES (HIG hit targets)
+     ─────────────────────────────────────────────────── */
+
+  --hit-min:          44px;   /* HIG mínimo touch target */
+  --hit-comfortable:  48px;
+  --hit-large:        56px;
+
+  /* Button heights (3 sizes) */
+  --btn-h-sm:         32px;
+  --btn-h-md:         40px;
+  --btn-h-lg:         48px;
+
+  /* Icon sizes (estable progression) */
+  --icon-xs:          12px;
+  --icon-sm:          14px;
+  --icon-md:          16px;
+  --icon-lg:          20px;
+  --icon-xl:          24px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESET MÍNIMO E DEFAULTS GLOBAIS
+   ═══════════════════════════════════════════════════════════ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-normal);
+  letter-spacing: var(--ls-body);
+  color: var(--label-primary);
+  background: var(--bg-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'tnum' 1, 'cv01' 1, 'ss01' 1;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: var(--label-link);
+  text-decoration: none;
+}
+
+/* Tabular numbers helper */
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+/* SVG icons inherit color via stroke=currentColor by convention */
+svg { display: block; }
+
+/* Reduced motion — respeitar prefers-reduced-motion globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

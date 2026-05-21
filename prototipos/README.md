@@ -1,88 +1,35 @@
 # Protótipos — Cronos
 
-Mockups HTML/CSS/JS das 5 telas principais do Cronos. Cada tela vira **screenshot** que cola num slide do PPT da Sprint 2 (bloco 3 do template oficial — "Protótipos da Solução", o maior bloco com 5 slides).
+## Estado atual (21/05/2026)
 
----
+🔄 **Reset.** A direção dark-glass via Claude Design foi descartada — o resultado ficou genérico, com termos inventados, e fugiu da identidade Cronos.
 
-## Estado atual
+Novo caminho:
+1. **Calibrar personalidade** via `personalidade.html` — 4 flavors do mesmo dashboard, todos light + brand canônico, variando o tom (operacional crisp · iOS-refined · editorial · tático).
+2. **Explorar `data/raw/LWDATASET.xlsx`** pra extrair vocabulário real da Locaweb (produtos, categorias, padrões) → vira input do protótipo, zero invenção.
+3. **Spec consolidado** com personalidade escolhida + vocabulário real.
+4. **Novo protótipo** uma tela por vez, HTML manual (mais controle, sem limite de cota).
 
-✅ `assets/style.css` — identidade visual Cronos completa (paleta, tipografia, componentes base: KPIs, cards, tabelas, sparklines, alertas, badges, score bars)
+## Arquivos ativos
 
-⏳ Telas a construir:
-1. `dashboard.html` — Dashboard Geral
-2. `morning-brief.html` — Resumo + ações
-3. `cascata.html` — Detector de cascata
-4. `saude-produto.html` — Score de saúde
-5. `kpi-probabilidade.html` — Probabilidade de KPI
-6. `index.html` — landing com nav entre as telas
+| Arquivo | Função |
+|---|---|
+| `personalidade.html` | Showcase visual de 4 personalidades pra Igor escolher (passo 1) |
+| `README.md` | Este arquivo |
 
----
+## Arquivos arquivados / descartados
 
-## Como usar o CSS base
+A iteração dark-glass via Claude Design foi removida (`dashboard-v1-command.html`, `dashboard-v5-glass.html`, `preview-style.html`, `claude-design-prompt*.md`, `Claude Design/*`). Permanece em git history (commits `ceb729f`, `5ac1b88`) caso seja preciso revisitar.
 
-Toda tela importa o `style.css` e usa as classes utilitárias + componentes prontos:
+## Identidade visual ativa
 
-```html
-<!doctype html>
-<html lang="pt-BR">
-<head>
-  <meta charset="utf-8">
-  <title>Cronos · Dashboard</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css">
-</head>
-<body>
-  <div class="app">
-    <!-- topnav vai aqui -->
-    <header class="header">...</header>
-    <main class="content">...</main>
-  </div>
-</body>
-</html>
-```
+A canônica: `brand/design-system.html`.
 
-### Paleta (variáveis CSS prontas)
+**Tokens-chave:**
+- Accent único: `#2563EB`
+- Neutros: escala `#000` → `#FFF` (11 cinzas)
+- Semânticas: `#DC2626` danger · `#059669` success · `#D97706` warning — **APENAS em badges, dots e barras de progresso**, nunca em números grandes ou títulos
+- Tipografia: `Outfit` (site/dashboard) + `Sora` (slides) + `JetBrains Mono` (números tabulares)
+- Radii: 14px panels, 10px small, 6px xs
 
-| Variável | Hex | Uso |
-|---|---|---|
-| `--c-accent` | `#2563EB` | Azul Cronos — destaque, série principal |
-| `--c-danger` | `#DC2626` | Vermelho — APENAS perigo/crítico (OLA estourado, KPI em risco) |
-| `--c-warning` | `#D97706` | Amarelo — atenção |
-| `--c-success` | `#16A34A` | Verde — sucesso |
-| `--c-ink` | `#111827` | Texto principal |
-| `--c-mid` | `#888888` | Texto secundário, eixos |
-| `--c-border` | `#E5E7EB` | Bordas, separadores |
-| `--c-bg` | `#F9FAFB` | Fundo geral da tela |
-
-> **Regra de ouro:** se a cor não comunica algo específico, use cinza. Vermelho NUNCA é decorativo.
-
-### Componentes já prontos no CSS
-
-- `.header`, `.brand`, `.brand-logo`, `.brand-name`, `.brand-tag`, `.head-right`, `.head-live`, `.avatar`
-- `.kpi-row`, `.kpi-card`, `.kpi-label`, `.kpi-value`, `.kpi-sub`, `.spark` + `.bar`
-- `.card`, `.card-head`, `.card-title`, `.card-sub`, `.legend`, `.chip`
-- `.alerts`, `.alert`, `.alert-icon`, `.alert-body`, `.badge`
-- `table`, `th`, `td`, `.spark-tbl`, `.score-cell`, `.score-bar`, `.score-fill`, `.action-btn`
-- `.topnav` (navegação entre os 5 mockups)
-
----
-
-## Por que HTML e não Figma
-
-Tentamos Figma em 20/05 (arquivo de teste em https://www.figma.com/design/OEBIG7Bh1P6z6TFi8FufSd) mas batemos no limite do plano Starter do Figma MCP. HTML/CSS/JS é mais flexível, sem teto, e ainda vira esqueleto dos templates Django na Sprint 3.
-
----
-
-## Como gerar os screenshots pro PPT
-
-Cada tela renderizada no navegador → print da tela (Win+Shift+S) ou print da página inteira via DevTools → cola no slide correspondente do template oficial.
-
----
-
-## Identidade visual de referência
-
-Estilo inspirado em **TIM / Unifique** (referência da mentoria com Douglas): dashboard de consumo, near real-time, 2-3 abas, clean e focado. Visão clara do estado atual no topo, drill-down quando precisa de detalhe.
-
-> Detalhes completos da identidade visual: `.claude/skills/viz-style/SKILL.md`
+> **Regra de ouro do brand:** Números grandes, títulos e textos são sempre preto/cinza. Cor semântica é informação, não decoração.

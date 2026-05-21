@@ -1,0 +1,1115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cronos DS · 01 Foundations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tokens.css">
+<style>
+/* ─── Layout do design system docs ─── */
+.docs {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  max-width: 1480px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+/* Side nav sticky */
+.docs-nav {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+  padding: var(--space-8) var(--space-6) var(--space-6);
+  border-right: 1px solid var(--hairline);
+  background: var(--bg-primary);
+  overflow-y: auto;
+}
+.docs-brand {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--hairline);
+  margin-bottom: var(--space-5);
+}
+.docs-logo {
+  width: 34px; height: 34px;
+  background: var(--dark);
+  border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+}
+.docs-logo svg { width: 18px; height: 18px; }
+.docs-brand-txt { display: flex; flex-direction: column; line-height: 1; }
+.docs-brand-name { font-size: var(--fs-15); font-weight: var(--fw-bold); letter-spacing: var(--ls-heading); }
+.docs-brand-sub { font-size: 9px; font-weight: var(--fw-semibold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--label-quaternary); margin-top: 2px; }
+
+.docs-section-title {
+  font-size: var(--fs-10); font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase;
+  color: var(--label-tertiary);
+  padding: var(--space-3) var(--space-2) var(--space-1);
+  margin-top: var(--space-3);
+}
+.docs-link {
+  display: flex; align-items: center; gap: var(--space-2);
+  padding: 7px 10px;
+  border-radius: var(--r-sm);
+  font-size: var(--fs-13);
+  font-weight: var(--fw-medium);
+  color: var(--label-secondary);
+  text-decoration: none;
+  transition: background var(--dur-quick) var(--ease-out),
+              color var(--dur-quick) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+  margin-bottom: 1px;
+}
+.docs-link:hover { background: var(--fill-secondary); color: var(--label-primary); }
+.docs-link:active { transform: scale(0.98); }
+.docs-link.active { background: var(--accent-soft); color: var(--accent); font-weight: var(--fw-semibold); }
+.docs-link .dot {
+  width: 4px; height: 4px;
+  background: currentColor;
+  border-radius: 50%;
+  opacity: 0.4;
+}
+.docs-link.active .dot { opacity: 1; }
+
+/* Conteúdo principal */
+.docs-main {
+  padding: var(--space-12) var(--space-12) var(--space-20);
+  min-width: 0;
+}
+
+/* Header */
+.page-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: var(--fs-10); font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase;
+  color: var(--label-tertiary);
+  margin-bottom: var(--space-4);
+}
+.page-eyebrow::before {
+  content: ''; width: 24px; height: 1px; background: var(--gray-5);
+}
+.page-h1 {
+  font-size: var(--fs-48);
+  font-weight: var(--fw-heavy);
+  letter-spacing: var(--ls-display);
+  line-height: var(--lh-tight);
+  color: var(--label-primary);
+  max-width: 22ch;
+}
+.page-h1 em { font-style: normal; color: var(--label-tertiary); }
+.page-lead {
+  font-size: var(--fs-15);
+  color: var(--label-secondary);
+  line-height: var(--lh-relaxed);
+  max-width: 64ch;
+  margin-top: var(--space-4);
+}
+.page-lead code {
+  font-family: var(--font-sans);
+  background: var(--fill-secondary);
+  padding: 2px 7px;
+  border-radius: var(--r-xs);
+  font-size: 12.5px;
+  color: var(--label-primary);
+  font-weight: var(--fw-semibold);
+}
+
+/* Section structure */
+section {
+  margin-top: var(--space-16);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--hairline);
+}
+section:first-of-type { border-top: none; margin-top: var(--space-12); }
+.sec-h {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+.sec-num {
+  font-size: var(--fs-12); font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase;
+  color: var(--accent);
+}
+.sec-h h2 {
+  font-size: var(--fs-28);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-heading);
+  color: var(--label-primary);
+  margin-top: 4px;
+}
+.sec-h p {
+  font-size: var(--fs-13);
+  color: var(--label-tertiary);
+  max-width: 56ch;
+  line-height: var(--lh-normal);
+  text-align: right;
+}
+
+.sub-h {
+  font-size: var(--fs-11);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase;
+  color: var(--label-tertiary);
+  margin: var(--space-8) 0 var(--space-3);
+  display: flex; align-items: center; gap: var(--space-3);
+}
+.sub-h::after { content: ''; flex: 1; height: 1px; background: var(--hairline); }
+.sub-h:first-of-type { margin-top: 0; }
+
+.note {
+  padding: var(--space-4) var(--space-5);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--r-md);
+  font-size: var(--fs-12);
+  color: var(--accent-text);
+  line-height: var(--lh-normal);
+  margin-top: var(--space-5);
+  display: flex; align-items: flex-start; gap: var(--space-3);
+}
+.note::before {
+  content: 'i';
+  flex-shrink: 0;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Times New Roman', serif;
+  font-size: 11px; font-weight: var(--fw-bold);
+  font-style: italic;
+  margin-top: 2px;
+}
+.note strong { font-weight: var(--fw-bold); }
+.note.warning {
+  background: var(--warning-soft);
+  border-color: var(--warning-border);
+  color: var(--warning-text);
+}
+.note.warning::before {
+  background: var(--warning);
+  content: '!';
+  font-style: normal;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   COLOR section
+   ═══════════════════════════════════════════════════════════ */
+
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+  gap: var(--space-3);
+}
+.swatch {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  cursor: pointer;
+  transition: transform var(--dur-quick) var(--ease-out);
+}
+.swatch:hover { transform: translateY(-2px); }
+.swatch:active { transform: scale(0.98); }
+.swatch-color {
+  height: 80px;
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-1);
+  border: 1px solid rgba(0,0,0,0.04);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow var(--dur-quick) var(--ease-out);
+}
+.swatch:hover .swatch-color { box-shadow: var(--shadow-2); }
+.swatch-color::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), transparent 40%);
+  pointer-events: none;
+}
+.swatch-name { font-size: var(--fs-12); font-weight: var(--fw-semibold); color: var(--label-primary); line-height: 1.2; }
+.swatch-hex { font-size: var(--fs-11); color: var(--label-tertiary); font-variant-numeric: tabular-nums; letter-spacing: 0.02em; line-height: 1.2; }
+.swatch-token { font-size: 10px; color: var(--label-quaternary); font-family: ui-monospace, 'SF Mono', monospace; opacity: 0.7; line-height: 1.2; margin-top: 2px; }
+
+/* Semantic stack — 3 variants per color (solid · soft · border) */
+.semantic-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+.semantic-block {
+  display: flex; flex-direction: column;
+  border-radius: var(--r-md);
+  padding: var(--space-4);
+  height: 88px; justify-content: space-between;
+  box-shadow: var(--shadow-1);
+  transition: transform var(--dur-quick) var(--ease-out);
+  cursor: pointer;
+}
+.semantic-block:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+.semantic-lbl { font-size: var(--fs-11); font-weight: var(--fw-semibold); text-transform: uppercase; letter-spacing: var(--ls-uppercase); }
+.semantic-hex { font-size: var(--fs-12); font-variant-numeric: tabular-nums; opacity: 0.7; }
+
+/* Hierarchy demo — labels e backgrounds */
+.demo-hierarchy {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);
+}
+.hierarchy-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-1);
+}
+.hier-row {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.hier-row:last-child { border-bottom: none; }
+.hier-sample { width: 60px; flex-shrink: 0; }
+.hier-sample.lbl-primary { color: var(--label-primary); font-weight: var(--fw-semibold); }
+.hier-sample.lbl-secondary { color: var(--label-secondary); font-weight: var(--fw-medium); }
+.hier-sample.lbl-tertiary { color: var(--label-tertiary); }
+.hier-sample.lbl-quaternary { color: var(--label-quaternary); }
+.hier-meta {
+  flex: 1; display: flex; justify-content: space-between;
+  font-size: var(--fs-11); color: var(--label-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+.hier-meta code { font-family: ui-monospace, monospace; }
+
+/* ═══════════════════════════════════════════════════════════
+   TYPOGRAPHY section
+   ═══════════════════════════════════════════════════════════ */
+
+.type-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 120px;
+  align-items: baseline;
+  gap: var(--space-5);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.type-row:last-child { border-bottom: none; }
+.type-size {
+  font-size: var(--fs-11); color: var(--label-tertiary);
+  font-variant-numeric: tabular-nums; letter-spacing: 0.02em;
+}
+.type-size strong { color: var(--label-primary); font-weight: var(--fw-semibold); }
+.type-sample { color: var(--label-primary); }
+.type-token { font-size: var(--fs-10); color: var(--label-quaternary); font-family: ui-monospace, monospace; text-align: right; letter-spacing: 0; }
+
+/* Weight demo */
+.weights-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-4);
+}
+.weight-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  padding: var(--space-4);
+  text-align: center;
+  transition: all var(--dur-quick) var(--ease-out);
+  cursor: pointer;
+}
+.weight-card:hover { transform: translateY(-2px); border-color: var(--separator); box-shadow: var(--shadow-2); }
+.weight-card .sample { font-size: var(--fs-28); letter-spacing: var(--ls-heading); color: var(--label-primary); }
+.weight-card .meta { font-size: var(--fs-10); color: var(--label-tertiary); font-weight: var(--fw-semibold); letter-spacing: var(--ls-uppercase); text-transform: uppercase; margin-top: var(--space-2); }
+
+/* Tabular nums demo */
+.tnum-demo {
+  background: var(--bg-primary);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  padding: var(--space-5);
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);
+}
+.tnum-side h4 { font-size: var(--fs-11); font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--label-tertiary); margin-bottom: var(--space-2); }
+.tnum-side ul { list-style: none; }
+.tnum-side li {
+  font-size: var(--fs-17);
+  color: var(--label-primary);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-heading);
+  line-height: 1.4;
+}
+.tnum-side.no li { font-variant-numeric: normal; }
+.tnum-side.yes li { font-variant-numeric: tabular-nums; }
+
+/* ═══════════════════════════════════════════════════════════
+   SPACING section
+   ═══════════════════════════════════════════════════════════ */
+
+.space-grid {
+  display: grid; grid-template-columns: 80px 1fr 160px;
+  gap: var(--space-4); align-items: center;
+  padding: var(--space-2) 0;
+}
+.space-row + .space-row { border-top: 1px solid var(--hairline); }
+.space-token { font-size: var(--fs-11); color: var(--label-tertiary); font-family: ui-monospace, monospace; font-weight: var(--fw-semibold); }
+.space-bar {
+  height: 32px;
+  background: var(--accent-soft);
+  border-radius: var(--r-xs);
+  position: relative;
+  border-left: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+}
+.space-value { font-size: var(--fs-12); color: var(--label-secondary); font-variant-numeric: tabular-nums; text-align: right; }
+
+/* ═══════════════════════════════════════════════════════════
+   RADIUS section
+   ═══════════════════════════════════════════════════════════ */
+
+.radius-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-4);
+}
+.radius-card {
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-3);
+  padding: var(--space-5);
+  background: var(--bg-primary);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: all var(--dur-quick) var(--ease-out);
+}
+.radius-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); border-color: var(--separator); }
+.radius-shape {
+  width: 80px; height: 80px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  box-shadow: var(--shadow-inset-highlight-sm), var(--shadow-2);
+}
+.radius-meta { text-align: center; }
+.radius-name { font-size: var(--fs-12); font-weight: var(--fw-semibold); color: var(--label-primary); }
+.radius-value { font-size: var(--fs-11); color: var(--label-tertiary); font-variant-numeric: tabular-nums; font-family: ui-monospace, monospace; margin-top: 2px; }
+
+/* ═══════════════════════════════════════════════════════════
+   ELEVATION section
+   ═══════════════════════════════════════════════════════════ */
+
+.elevation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-5);
+  padding: var(--space-6) 0;
+}
+.elev-card {
+  height: 140px;
+  background: var(--bg-primary);
+  border-radius: var(--r-lg);
+  padding: var(--space-4) var(--space-5);
+  display: flex; flex-direction: column; justify-content: space-between;
+  cursor: pointer;
+  transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+.elev-card.s1 { box-shadow: var(--shadow-1); }
+.elev-card.s2 { box-shadow: var(--shadow-2); }
+.elev-card.s3 { box-shadow: var(--shadow-3); }
+.elev-card.s4 { box-shadow: var(--shadow-4); }
+.elev-card.s5 { box-shadow: var(--shadow-5); }
+.elev-card:hover { transform: translateY(-4px); }
+.elev-card.s1:hover { box-shadow: var(--shadow-2); }
+.elev-card.s2:hover { box-shadow: var(--shadow-3); }
+.elev-card.s3:hover { box-shadow: var(--shadow-4); }
+.elev-card.s4:hover { box-shadow: var(--shadow-5); }
+.elev-name { font-size: var(--fs-12); font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase); text-transform: uppercase; color: var(--label-tertiary); }
+.elev-purpose { font-size: var(--fs-15); font-weight: var(--fw-semibold); color: var(--label-primary); letter-spacing: var(--ls-heading); }
+.elev-token { font-size: var(--fs-11); font-family: ui-monospace, monospace; color: var(--label-quaternary); }
+
+/* Focus ring demo */
+.focus-demo {
+  display: flex; gap: var(--space-4); align-items: center;
+  padding: var(--space-6);
+  background: var(--bg-primary);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  margin-top: var(--space-5);
+}
+.focus-input {
+  flex: 1; padding: 10px 14px;
+  background: var(--bg-base);
+  border: 1px solid var(--separator);
+  border-radius: var(--r-sm);
+  font: inherit;
+  color: var(--label-primary);
+  outline: none;
+  transition: border-color var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out);
+}
+.focus-input:focus { border-color: var(--accent); box-shadow: var(--shadow-focus); }
+.focus-input::placeholder { color: var(--label-quaternary); }
+.focus-hint { font-size: var(--fs-12); color: var(--label-tertiary); }
+
+/* Glow demos */
+.glows-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+.glow-dot {
+  height: 80px;
+  background: var(--bg-primary);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--space-2);
+}
+.glow-dot .d { width: 10px; height: 10px; border-radius: 50%; animation: pulse var(--dur-loop) var(--ease-out) infinite; }
+.glow-dot .d.a { background: var(--accent); box-shadow: var(--glow-accent); }
+.glow-dot .d.dn { background: var(--danger); box-shadow: var(--glow-danger); }
+.glow-dot .d.s { background: var(--success); box-shadow: var(--glow-success); }
+.glow-dot .d.w { background: var(--warning); box-shadow: var(--glow-warning); }
+.glow-dot span { font-size: var(--fs-10); font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase); text-transform: uppercase; color: var(--label-tertiary); }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+/* ═══════════════════════════════════════════════════════════
+   MATERIALS section (Liquid Glass-inspired preview)
+   ═══════════════════════════════════════════════════════════ */
+
+.materials-canvas {
+  position: relative;
+  height: 360px;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  margin-top: var(--space-5);
+  background:
+    radial-gradient(circle at 25% 30%, rgba(37,99,235,0.30), transparent 50%),
+    radial-gradient(circle at 75% 70%, rgba(220,38,38,0.20), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(217,119,6,0.15), transparent 60%),
+    linear-gradient(135deg, #FFF8F0 0%, #F0F4FF 100%);
+}
+.material-card {
+  position: absolute;
+  width: 200px; height: 88px;
+  border-radius: var(--r-lg);
+  padding: var(--space-4);
+  display: flex; flex-direction: column; justify-content: space-between;
+  cursor: pointer;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.material-card:hover { transform: translate(-50%, -50%) scale(1.04); }
+.material-card .name { font-size: var(--fs-12); font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase); text-transform: uppercase; color: var(--label-primary); }
+.material-card .desc { font-size: var(--fs-11); color: var(--label-tertiary); }
+
+.material-card.ultraThin {
+  top: 25%; left: 18%; transform: translate(-50%,-50%);
+  background: var(--material-ultra-thin);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  border: 1px solid rgba(255,255,255,0.5);
+}
+.material-card.thin {
+  top: 25%; left: 50%; transform: translate(-50%,-50%);
+  background: var(--material-thin);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.6);
+}
+.material-card.regular {
+  top: 25%; left: 82%; transform: translate(-50%,-50%);
+  background: var(--material-regular);
+  backdrop-filter: var(--glass-regular-blur);
+  -webkit-backdrop-filter: var(--glass-regular-blur);
+  border: 1px solid var(--glass-regular-border);
+  box-shadow: var(--glass-regular-shadow);
+}
+.material-card.thick {
+  top: 70%; left: 30%; transform: translate(-50%,-50%);
+  background: var(--material-thick);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid rgba(255,255,255,0.95);
+  box-shadow: var(--shadow-3);
+}
+.material-card.glass-clear {
+  top: 70%; left: 70%; transform: translate(-50%,-50%);
+  background: var(--glass-clear-bg);
+  backdrop-filter: var(--glass-clear-blur);
+  -webkit-backdrop-filter: var(--glass-clear-blur);
+  border: 1px solid var(--glass-clear-border);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MOTION section (preview)
+   ═══════════════════════════════════════════════════════════ */
+
+.motion-easings {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+.easing-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  padding: var(--space-4);
+  cursor: pointer;
+  transition: all var(--dur-quick) var(--ease-out);
+}
+.easing-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); border-color: var(--separator); }
+.easing-name { font-size: var(--fs-12); font-weight: var(--fw-bold); color: var(--label-primary); letter-spacing: var(--ls-heading); }
+.easing-curve { font-size: var(--fs-11); font-family: ui-monospace, monospace; color: var(--label-tertiary); margin-top: 2px; word-break: break-all; }
+.easing-track {
+  height: 6px; background: var(--gray-7); border-radius: 3px;
+  margin: var(--space-3) 0 var(--space-2);
+  position: relative; overflow: hidden;
+}
+.easing-bullet {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 18px;
+  background: var(--accent);
+  border-radius: 3px;
+  animation: easeRun 2s infinite;
+}
+.easing-bullet.eo { animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1); }
+.easing-bullet.eos { animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+.easing-bullet.eio { animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1); }
+.easing-bullet.edr { animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1); }
+.easing-bullet.esp { animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes easeRun {
+  0% { left: 0; }
+  50% { left: calc(100% - 18px); }
+  100% { left: 0; }
+}
+.easing-meta { font-size: var(--fs-10); color: var(--label-quaternary); }
+
+/* Durations bar viz */
+.durations {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  margin-top: var(--space-5);
+  background: var(--bg-primary);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  padding: var(--space-5);
+}
+.dur-row { display: grid; grid-template-columns: 100px 1fr 60px; gap: var(--space-3); align-items: center; }
+.dur-token { font-size: var(--fs-12); font-family: ui-monospace, monospace; color: var(--label-secondary); font-weight: var(--fw-semibold); }
+.dur-bar { height: 8px; background: linear-gradient(90deg, var(--accent), var(--accent-hover)); border-radius: 4px; }
+.dur-value { font-size: var(--fs-11); color: var(--label-tertiary); font-variant-numeric: tabular-nums; text-align: right; }
+
+/* ═══════════════════════════════════════════════════════════
+   Z-INDEX scale
+   ═══════════════════════════════════════════════════════════ */
+
+.zindex-table {
+  width: 100%;
+  background: var(--bg-primary);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border-collapse: collapse;
+}
+.zindex-table th,
+.zindex-table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid var(--hairline);
+  font-size: var(--fs-13);
+}
+.zindex-table tr:last-child td { border-bottom: none; }
+.zindex-table th {
+  font-size: var(--fs-11);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-uppercase);
+  text-transform: uppercase;
+  color: var(--label-tertiary);
+  background: var(--bg-secondary);
+}
+.zindex-table td.token { font-family: ui-monospace, monospace; font-weight: var(--fw-semibold); color: var(--label-primary); }
+.zindex-table td.value { font-variant-numeric: tabular-nums; color: var(--label-secondary); font-weight: var(--fw-semibold); }
+.zindex-table td.use { color: var(--label-tertiary); }
+
+/* Stagger entrance */
+section {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: fadeUp 700ms var(--ease-out-strong) forwards;
+}
+section:nth-of-type(1) { animation-delay: 60ms; }
+section:nth-of-type(2) { animation-delay: 120ms; }
+section:nth-of-type(3) { animation-delay: 180ms; }
+section:nth-of-type(4) { animation-delay: 240ms; }
+section:nth-of-type(5) { animation-delay: 300ms; }
+section:nth-of-type(6) { animation-delay: 360ms; }
+section:nth-of-type(7) { animation-delay: 420ms; }
+section:nth-of-type(8) { animation-delay: 480ms; }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 980px) {
+  .docs { grid-template-columns: 1fr; }
+  .docs-nav { position: static; height: auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="docs">
+
+  <!-- ═══ Side nav ═══ -->
+  <nav class="docs-nav">
+    <div class="docs-brand">
+      <div class="docs-logo">
+        <svg viewBox="0 0 28 28" fill="none">
+          <path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+          <circle cx="22" cy="8" r="1.4" fill="#3B82F6"/>
+        </svg>
+      </div>
+      <div class="docs-brand-txt">
+        <div class="docs-brand-name">Cronos DS</div>
+        <div class="docs-brand-sub">Design system</div>
+      </div>
+    </div>
+
+    <div class="docs-section-title">01 Foundations</div>
+    <a class="docs-link active" href="#color"><span class="dot"></span>Color</a>
+    <a class="docs-link" href="#typography"><span class="dot"></span>Typography</a>
+    <a class="docs-link" href="#spacing"><span class="dot"></span>Spacing</a>
+    <a class="docs-link" href="#radius"><span class="dot"></span>Radius</a>
+    <a class="docs-link" href="#elevation"><span class="dot"></span>Elevation</a>
+    <a class="docs-link" href="#materials"><span class="dot"></span>Materials</a>
+    <a class="docs-link" href="#motion"><span class="dot"></span>Motion (preview)</a>
+    <a class="docs-link" href="#zindex"><span class="dot"></span>Z-index</a>
+
+    <div class="docs-section-title">Próximos</div>
+    <a class="docs-link" href="#" style="opacity:0.5; pointer-events:none;"><span class="dot"></span>02 Motion</a>
+    <a class="docs-link" href="#" style="opacity:0.5; pointer-events:none;"><span class="dot"></span>03 Atoms</a>
+    <a class="docs-link" href="#" style="opacity:0.5; pointer-events:none;"><span class="dot"></span>04 Molecules</a>
+    <a class="docs-link" href="#" style="opacity:0.5; pointer-events:none;"><span class="dot"></span>05 Cronos</a>
+    <a class="docs-link" href="#" style="opacity:0.5; pointer-events:none;"><span class="dot"></span>06 Patterns</a>
+  </nav>
+
+  <!-- ═══ Main ═══ -->
+  <main class="docs-main">
+    <header>
+      <span class="page-eyebrow">Cronos Design System · 01</span>
+      <h1 class="page-h1">Foundations.<br><em>O alfabeto.</em></h1>
+      <p class="page-lead">
+        Tokens fundamentais que constituem o sistema visual do Cronos. Tudo a partir daqui — botões, cascatas, KPIs, alertas — herda destes valores. Edite o <code>assets/tokens.css</code> e propaga em tudo. Inspirado em <strong>Apple HIG</strong> (Hierarchy · Harmony · Consistency) e fiel à identidade canônica do brand (<strong>accent #2563EB</strong>, neutros pretos sobre brancos, Outfit Sans).
+      </p>
+    </header>
+
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- 01 · COLOR                                       -->
+    <!-- ════════════════════════════════════════════════ -->
+    <section id="color">
+      <div class="sec-h">
+        <div>
+          <span class="sec-num">01</span>
+          <h2>Color</h2>
+        </div>
+        <p>Neutros formam estrutura. Accent (<code>#2563EB</code>) destaca interatividade. Semânticas comunicam estado — nunca decoração.</p>
+      </div>
+
+      <h3 class="sub-h">Neutros · escala preto → branco</h3>
+      <div class="swatch-grid">
+        <div class="swatch"><div class="swatch-color" style="background:#000"></div><div class="swatch-name">Black</div><div class="swatch-hex">#000000</div><div class="swatch-token">--black</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#0A0A0F"></div><div class="swatch-name">Ink</div><div class="swatch-hex">#0A0A0F</div><div class="swatch-token">--ink</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#111"></div><div class="swatch-name">Dark</div><div class="swatch-hex">#111111</div><div class="swatch-token">--dark</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#252525"></div><div class="swatch-name">Dark 3</div><div class="swatch-hex">#252525</div><div class="swatch-token">--dark-3</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#525252"></div><div class="swatch-name">Gray 2</div><div class="swatch-hex">#525252</div><div class="swatch-token">--gray-2</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#737373"></div><div class="swatch-name">Gray 3</div><div class="swatch-hex">#737373</div><div class="swatch-token">--gray-3</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#A3A3A3"></div><div class="swatch-name">Gray 4</div><div class="swatch-hex">#A3A3A3</div><div class="swatch-token">--gray-4</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#D4D4D4"></div><div class="swatch-name">Gray 5</div><div class="swatch-hex">#D4D4D4</div><div class="swatch-token">--gray-5</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#E5E5E5"></div><div class="swatch-name">Gray 6</div><div class="swatch-hex">#E5E5E5</div><div class="swatch-token">--gray-6</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#F0F0F0"></div><div class="swatch-name">Gray 7</div><div class="swatch-hex">#F0F0F0</div><div class="swatch-token">--gray-7</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#F7F7F7"></div><div class="swatch-name">Gray 8</div><div class="swatch-hex">#F7F7F7</div><div class="swatch-token">--gray-8</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#FFF"></div><div class="swatch-name">White</div><div class="swatch-hex">#FFFFFF</div><div class="swatch-token">--white</div></div>
+      </div>
+
+      <h3 class="sub-h">Accent único · Cronos blue</h3>
+      <div class="swatch-grid">
+        <div class="swatch"><div class="swatch-color" style="background:#2563EB"></div><div class="swatch-name">Accent</div><div class="swatch-hex">#2563EB</div><div class="swatch-token">--accent</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#1D4ED8"></div><div class="swatch-name">Accent hover</div><div class="swatch-hex">#1D4ED8</div><div class="swatch-token">--accent-hover</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#EFF6FF"></div><div class="swatch-name">Accent soft</div><div class="swatch-hex">#EFF6FF</div><div class="swatch-token">--accent-soft</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#BFDBFE"></div><div class="swatch-name">Accent border</div><div class="swatch-hex">#BFDBFE</div><div class="swatch-token">--accent-border</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#1E40AF"></div><div class="swatch-name">Accent text</div><div class="swatch-hex">#1E40AF</div><div class="swatch-token">--accent-text</div></div>
+      </div>
+
+      <h3 class="sub-h">Semânticas · solid · soft · border (e text)</h3>
+
+      <div class="semantic-row">
+        <div class="semantic-block" style="background:#DC2626;color:#fff;"><span class="semantic-lbl">Danger</span><span class="semantic-hex">#DC2626</span></div>
+        <div class="semantic-block" style="background:#FEF2F2;color:#991B1B;"><span class="semantic-lbl">Danger soft</span><span class="semantic-hex">#FEF2F2</span></div>
+        <div class="semantic-block" style="background:#fff;color:#991B1B;border:1px solid #FECACA;"><span class="semantic-lbl">Danger border</span><span class="semantic-hex">#FECACA</span></div>
+      </div>
+
+      <div class="semantic-row">
+        <div class="semantic-block" style="background:#D97706;color:#fff;"><span class="semantic-lbl">Warning</span><span class="semantic-hex">#D97706</span></div>
+        <div class="semantic-block" style="background:#FFFBEB;color:#92400E;"><span class="semantic-lbl">Warning soft</span><span class="semantic-hex">#FFFBEB</span></div>
+        <div class="semantic-block" style="background:#fff;color:#92400E;border:1px solid #FDE68A;"><span class="semantic-lbl">Warning border</span><span class="semantic-hex">#FDE68A</span></div>
+      </div>
+
+      <div class="semantic-row">
+        <div class="semantic-block" style="background:#059669;color:#fff;"><span class="semantic-lbl">Success</span><span class="semantic-hex">#059669</span></div>
+        <div class="semantic-block" style="background:#ECFDF5;color:#065F46;"><span class="semantic-lbl">Success soft</span><span class="semantic-hex">#ECFDF5</span></div>
+        <div class="semantic-block" style="background:#fff;color:#065F46;border:1px solid #A7F3D0;"><span class="semantic-lbl">Success border</span><span class="semantic-hex">#A7F3D0</span></div>
+      </div>
+
+      <h3 class="sub-h">Label hierarchy · 4 níveis (HIG-style)</h3>
+      <div class="demo-hierarchy">
+        <div class="hierarchy-card">
+          <div class="hier-row">
+            <span class="hier-sample lbl-primary">Aa</span>
+            <div class="hier-meta"><span>Primary label</span><code>--label-primary</code></div>
+          </div>
+          <div class="hier-row">
+            <span class="hier-sample lbl-secondary">Aa</span>
+            <div class="hier-meta"><span>Secondary label</span><code>--label-secondary</code></div>
+          </div>
+          <div class="hier-row">
+            <span class="hier-sample lbl-tertiary">Aa</span>
+            <div class="hier-meta"><span>Tertiary label</span><code>--label-tertiary</code></div>
+          </div>
+          <div class="hier-row">
+            <span class="hier-sample lbl-quaternary">Aa</span>
+            <div class="hier-meta"><span>Quaternary label</span><code>--label-quaternary</code></div>
+          </div>
+        </div>
+
+        <div class="hierarchy-card" style="display:flex; flex-direction:column; gap:var(--space-2);">
+          <div style="height:48px; background:var(--bg-primary); border:1px solid var(--hairline); border-radius:var(--r-sm); padding:var(--space-3); display:flex; align-items:center; justify-content:space-between; font-size:var(--fs-12);">
+            <span>Background primary</span><code style="color:var(--label-tertiary);font-family:ui-monospace,monospace;">--bg-primary</code>
+          </div>
+          <div style="height:48px; background:var(--bg-secondary); border:1px solid var(--hairline); border-radius:var(--r-sm); padding:var(--space-3); display:flex; align-items:center; justify-content:space-between; font-size:var(--fs-12);">
+            <span>Background secondary</span><code style="color:var(--label-tertiary);font-family:ui-monospace,monospace;">--bg-secondary</code>
+          </div>
+          <div style="height:48px; background:var(--bg-tertiary); border:1px solid var(--hairline); border-radius:var(--r-sm); padding:var(--space-3); display:flex; align-items:center; justify-content:space-between; font-size:var(--fs-12);">
+            <span>Background tertiary</span><code style="color:var(--label-tertiary);font-family:ui-monospace,monospace;">--bg-tertiary</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>Regra de ouro:</strong> Cor sem significado é cinza. Números grandes, títulos e textos são sempre <code>--label-primary</code> ou <code>--label-secondary</code>. Cores semânticas (danger/warning/success) aparecem APENAS em badges pequenos, dots de status e barras de progresso. Nunca num número principal ou título.
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- 02 · TYPOGRAPHY                                  -->
+    <!-- ════════════════════════════════════════════════ -->
+    <section id="typography">
+      <div class="sec-h">
+        <div>
+          <span class="sec-num">02</span>
+          <h2>Typography</h2>
+        </div>
+        <p>Outfit Sans com <code>font-feature-settings: 'tnum' 1</code> habilita números tabulares. Sem fonte mono separada — Apple também não usa em UI.</p>
+      </div>
+
+      <h3 class="sub-h">Type scale</h3>
+      <div class="type-row"><span class="type-size"><strong>80</strong>/800</span><span class="type-sample" style="font-size:var(--fs-80); font-weight:var(--fw-heavy); letter-spacing:var(--ls-display); line-height:var(--lh-tight);">73%</span><span class="type-token">--fs-80</span></div>
+      <div class="type-row"><span class="type-size"><strong>64</strong>/800</span><span class="type-sample" style="font-size:var(--fs-64); font-weight:var(--fw-heavy); letter-spacing:var(--ls-display); line-height:var(--lh-tight);">Cronos</span><span class="type-token">--fs-64</span></div>
+      <div class="type-row"><span class="type-size"><strong>48</strong>/800</span><span class="type-sample" style="font-size:var(--fs-48); font-weight:var(--fw-heavy); letter-spacing:var(--ls-display); line-height:var(--lh-tight);">Display Lg</span><span class="type-token">--fs-48</span></div>
+      <div class="type-row"><span class="type-size"><strong>34</strong>/700</span><span class="type-sample" style="font-size:var(--fs-34); font-weight:var(--fw-bold); letter-spacing:var(--ls-heading); line-height:var(--lh-snug);">Display Md</span><span class="type-token">--fs-34</span></div>
+      <div class="type-row"><span class="type-size"><strong>28</strong>/700</span><span class="type-sample" style="font-size:var(--fs-28); font-weight:var(--fw-bold); letter-spacing:var(--ls-heading);">Display Sm / H1</span><span class="type-token">--fs-28</span></div>
+      <div class="type-row"><span class="type-size"><strong>24</strong>/700</span><span class="type-sample" style="font-size:var(--fs-24); font-weight:var(--fw-bold); letter-spacing:var(--ls-heading);">Heading 24 / H1 small</span><span class="type-token">--fs-24</span></div>
+      <div class="type-row"><span class="type-size"><strong>20</strong>/700</span><span class="type-sample" style="font-size:var(--fs-20); font-weight:var(--fw-bold); letter-spacing:var(--ls-heading);">Heading 20 / H2</span><span class="type-token">--fs-20</span></div>
+      <div class="type-row"><span class="type-size"><strong>17</strong>/600</span><span class="type-sample" style="font-size:var(--fs-17); font-weight:var(--fw-semibold); letter-spacing:var(--ls-heading);">Heading 17 / H3 · sidebar nav</span><span class="type-token">--fs-17</span></div>
+      <div class="type-row"><span class="type-size"><strong>15</strong>/500</span><span class="type-sample" style="font-size:var(--fs-15); font-weight:var(--fw-medium);">Body 15 · larger paragraphs</span><span class="type-token">--fs-15</span></div>
+      <div class="type-row"><span class="type-size"><strong>14</strong>/400</span><span class="type-sample" style="font-size:var(--fs-14);">Body 14 · default paragraph text</span><span class="type-token">--fs-14</span></div>
+      <div class="type-row"><span class="type-size"><strong>13</strong>/400</span><span class="type-sample" style="font-size:var(--fs-13); color:var(--label-secondary);">Body 13 · secondary content</span><span class="type-token">--fs-13</span></div>
+      <div class="type-row"><span class="type-size"><strong>12</strong>/400</span><span class="type-sample" style="font-size:var(--fs-12); color:var(--label-tertiary);">Body 12 · small captions</span><span class="type-token">--fs-12</span></div>
+      <div class="type-row"><span class="type-size"><strong>11</strong>/600</span><span class="type-sample" style="font-size:var(--fs-11); font-weight:var(--fw-semibold); color:var(--label-tertiary);">Caption · meta labels</span><span class="type-token">--fs-11</span></div>
+      <div class="type-row"><span class="type-size"><strong>10</strong>/700</span><span class="type-sample" style="font-size:var(--fs-10); font-weight:var(--fw-bold); letter-spacing:var(--ls-uppercase-strong); text-transform:uppercase; color:var(--label-tertiary);">Label uppercase</span><span class="type-token">--fs-10</span></div>
+
+      <h3 class="sub-h">Weights (Outfit 300–800)</h3>
+      <div class="weights-grid">
+        <div class="weight-card"><div class="sample" style="font-weight:400;">Aa</div><div class="meta">400 · Regular</div></div>
+        <div class="weight-card"><div class="sample" style="font-weight:500;">Aa</div><div class="meta">500 · Medium</div></div>
+        <div class="weight-card"><div class="sample" style="font-weight:600;">Aa</div><div class="meta">600 · Semibold</div></div>
+        <div class="weight-card"><div class="sample" style="font-weight:700;">Aa</div><div class="meta">700 · Bold</div></div>
+        <div class="weight-card"><div class="sample" style="font-weight:800;">Aa</div><div class="meta">800 · Heavy</div></div>
+      </div>
+
+      <h3 class="sub-h">Tabular nums — números em colunas alinham</h3>
+      <div class="tnum-demo">
+        <div class="tnum-side no">
+          <h4>Sem tabular-nums</h4>
+          <ul>
+            <li>122,543</li>
+            <li>96,200</li>
+            <li>1,247</li>
+            <li>847</li>
+            <li>73</li>
+          </ul>
+        </div>
+        <div class="tnum-side yes">
+          <h4>Com tabular-nums (default no Cronos)</h4>
+          <ul class="num">
+            <li>122,543</li>
+            <li>96,200</li>
+            <li>1,247</li>
+            <li>847</li>
+            <li>73</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- 03 · SPACING                                     -->
+    <!-- ════════════════════════════════════════════════ -->
+    <section id="spacing">
+      <div class="sec-h">
+        <div>
+          <span class="sec-num">03</span>
+          <h2>Spacing</h2>
+        </div>
+        <p>Base grid de 4px. Tudo no Cronos respira em múltiplos disso. Gaps internos pequenos (1-3), entre componentes médios (4-6), entre seções grandes (8-12+).</p>
+      </div>
+
+      <div style="background:var(--bg-primary); border:1px solid var(--hairline); border-radius:var(--r-md); padding:var(--space-5);">
+        <div class="space-row space-grid"><span class="space-token">--space-1</span><div class="space-bar" style="width:4px;"></div><span class="space-value">4 px</span></div>
+        <div class="space-row space-grid"><span class="space-token">--space-2</span><div class="space-bar" style="width:8px;"></div><span class="space-value">8 px</span></div>
+        <div class="space-row space-grid"><span class="space-token">--space-3</span><div class="space-bar" style="width:12px;"></div><span class="space-value">12 px</span></div>
+        <div class="space-row space-grid"><span class="space-token">--space-4</span><div class="space-bar" style="width:16px;"></div><span class="space-value">16 px</span></div>
+        <div class="space-row space-grid"><span class="space-token">--space-5</span><div class="space-bar" style="width:20px;"></div><span class="space-value">20 px</span></div>
+        <div class="space-row space-grid"><span class="space-token">--space-6</span><div class="space-bar" style="width:24px;"></div><span class="space-value">24 px</span></div>
+        <div class="space-row space-grid"><span class="space-token">--space-8</span><div class="space-bar" style="width:32px;"></div><span class="space-value">32 px</span></div>
+        <div class="space-row space-grid"><span class="space-token">--space-10</span><div class="space-bar" style="width:40px;"></div><span class="space-value">40 px</span></div>
+        <div class="space-row space-grid"><span class="space-token">--space-12</span><div class="space-bar" style="width:48px;"></div><span class="space-value">48 px</span></div>
+        <div class="space-row space-grid"><span class="space-token">--space-16</span><div class="space-bar" style="width:64px;"></div><span class="space-value">64 px</span></div>
+        <div class="space-row space-grid"><span class="space-token">--space-20</span><div class="space-bar" style="width:80px;"></div><span class="space-value">80 px</span></div>
+        <div class="space-row space-grid"><span class="space-token">--space-24</span><div class="space-bar" style="width:96px;"></div><span class="space-value">96 px</span></div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- 04 · RADIUS                                      -->
+    <!-- ════════════════════════════════════════════════ -->
+    <section id="radius">
+      <div class="sec-h">
+        <div>
+          <span class="sec-num">04</span>
+          <h2>Radius</h2>
+        </div>
+        <p>Apple usa squircles (cantos suaves não-circulares). Aproximamos via radii generosos. Quanto maior o componente, maior o radius — 6px em chips, 22px+ em cards hero.</p>
+      </div>
+
+      <div class="radius-grid">
+        <div class="radius-card"><div class="radius-shape" style="border-radius:var(--r-xs);"></div><div class="radius-meta"><div class="radius-name">XS</div><div class="radius-value">6 px · --r-xs</div></div></div>
+        <div class="radius-card"><div class="radius-shape" style="border-radius:var(--r-sm);"></div><div class="radius-meta"><div class="radius-name">SM</div><div class="radius-value">10 px · --r-sm</div></div></div>
+        <div class="radius-card"><div class="radius-shape" style="border-radius:var(--r-md);"></div><div class="radius-meta"><div class="radius-name">MD</div><div class="radius-value">14 px · --r-md</div></div></div>
+        <div class="radius-card"><div class="radius-shape" style="border-radius:var(--r-lg);"></div><div class="radius-meta"><div class="radius-name">LG</div><div class="radius-value">18 px · --r-lg</div></div></div>
+        <div class="radius-card"><div class="radius-shape" style="border-radius:var(--r-xl);"></div><div class="radius-meta"><div class="radius-name">XL</div><div class="radius-value">22 px · --r-xl</div></div></div>
+        <div class="radius-card"><div class="radius-shape" style="border-radius:var(--r-2xl);"></div><div class="radius-meta"><div class="radius-name">2XL</div><div class="radius-value">28 px · --r-2xl</div></div></div>
+        <div class="radius-card"><div class="radius-shape" style="border-radius:var(--r-pill);"></div><div class="radius-meta"><div class="radius-name">Pill</div><div class="radius-value">∞ · --r-pill</div></div></div>
+        <div class="radius-card"><div class="radius-shape" style="border-radius:50%;"></div><div class="radius-meta"><div class="radius-name">Circle</div><div class="radius-value">50% · --r-circle</div></div></div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- 05 · ELEVATION                                   -->
+    <!-- ════════════════════════════════════════════════ -->
+    <section id="elevation">
+      <div class="sec-h">
+        <div>
+          <span class="sec-num">05</span>
+          <h2>Elevation</h2>
+        </div>
+        <p>5 níveis. Shadows são sutis e em camadas (Apple usa 2-3 layers por shadow). Passa o mouse pra ver elevação reativa.</p>
+      </div>
+
+      <div class="elevation-grid">
+        <div class="elev-card s1">
+          <span class="elev-name">Rest</span>
+          <div><div class="elev-purpose">Default cards</div><div class="elev-token">--shadow-1</div></div>
+        </div>
+        <div class="elev-card s2">
+          <span class="elev-name">Raised</span>
+          <div><div class="elev-purpose">Panels, surfaces</div><div class="elev-token">--shadow-2</div></div>
+        </div>
+        <div class="elev-card s3">
+          <span class="elev-name">Hover</span>
+          <div><div class="elev-purpose">Interactive lift</div><div class="elev-token">--shadow-3</div></div>
+        </div>
+        <div class="elev-card s4">
+          <span class="elev-name">Popover</span>
+          <div><div class="elev-purpose">Floating menus</div><div class="elev-token">--shadow-4</div></div>
+        </div>
+        <div class="elev-card s5">
+          <span class="elev-name">Modal</span>
+          <div><div class="elev-purpose">Dialogs, sheets</div><div class="elev-token">--shadow-5</div></div>
+        </div>
+      </div>
+
+      <h3 class="sub-h">Focus ring · Apple-style halo</h3>
+      <div class="focus-demo">
+        <input class="focus-input" placeholder="Click ou Tab pra ver o focus ring (4px halo accent)">
+        <span class="focus-hint">--shadow-focus</span>
+      </div>
+
+      <div class="note">
+        <strong>Outer glow tokens existem em <code>tokens.css</code></strong> (--glow-accent · --glow-danger · --glow-success · --glow-warning) mas são reservados pra usos pontuais e funcionais — cascata predicted ring, live indicator crítico. Em buttons e cards normais, usar apenas as shadows neutras desta seção.
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- 06 · MATERIALS                                   -->
+    <!-- ════════════════════════════════════════════════ -->
+    <section id="materials">
+      <div class="sec-h">
+        <div>
+          <span class="sec-num">06</span>
+          <h2>Materials</h2>
+        </div>
+        <p>Inspirado em <strong>Liquid Glass</strong> (Apple iOS 26). Glass-regular flutua acima do conteúdo nos controls. Standard materials (4 thicknesses) diferenciam camadas dentro do content layer.</p>
+      </div>
+
+      <div class="materials-canvas">
+        <div class="material-card ultraThin">
+          <span class="name">UltraThin</span>
+          <span class="desc">Mantém contexto · blur 10px</span>
+        </div>
+        <div class="material-card thin">
+          <span class="name">Thin</span>
+          <span class="desc">Overlay leve · blur 16px</span>
+        </div>
+        <div class="material-card regular">
+          <span class="name">Regular · Liquid Glass</span>
+          <span class="desc">Default · blur 32px</span>
+        </div>
+        <div class="material-card thick">
+          <span class="name">Thick</span>
+          <span class="desc">Mais opaco · blur 40px</span>
+        </div>
+        <div class="material-card glass-clear">
+          <span class="name">Glass Clear</span>
+          <span class="desc">Translúcido · sobre media</span>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>Liquid Glass (iOS 26):</strong> Use Glass Regular em <strong>sidebar, top bar, KPI cards, panels</strong>. NÃO use no content layer (vira complexidade visual). Standard materials (ultraThin/thin/regular/thick) servem pra differentiate camadas dentro do content. Use Glass Clear apenas sobre conteúdo rico (media).
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- 07 · MOTION (preview)                            -->
+    <!-- ════════════════════════════════════════════════ -->
+    <section id="motion">
+      <div class="sec-h">
+        <div>
+          <span class="sec-num">07</span>
+          <h2>Motion <em style="font-style:normal;color:var(--label-tertiary);font-weight:var(--fw-medium);font-size:var(--fs-15);">— preview, ver 02-motion.html</em></h2>
+        </div>
+        <p>Motion = como cada elemento "se move" na tela. Botão press, card entrando, tooltip abrindo. Não é decoração — é o feedback que diz pro usuário "sua ação foi recebida".</p>
+      </div>
+
+      <div class="note">
+        <strong>O que estes tokens controlam:</strong> toda animação no Cronos tem (1) uma <strong>easing curve</strong> — a "personalidade" do movimento, lento/rápido/com overshoot — e (2) uma <strong>duração</strong>. Os 5 easings abaixo cobrem 99% dos casos. Press de botão = fast (140ms). Card entrando = base (280ms). Modal abrindo = slow (400ms). Ease-out forte parece "snappy", ease-in parece "preguiçoso" (banido em UI).
+      </div>
+
+      <h3 class="sub-h">Easing curves</h3>
+      <div class="motion-easings">
+        <div class="easing-card">
+          <div class="easing-name">--ease-out</div>
+          <div class="easing-track"><div class="easing-bullet eo"></div></div>
+          <div class="easing-curve">cubic-bezier(0.25, 1, 0.5, 1)</div>
+          <div class="easing-meta">Default UI ease-out</div>
+        </div>
+        <div class="easing-card">
+          <div class="easing-name">--ease-out-strong</div>
+          <div class="easing-track"><div class="easing-bullet eos"></div></div>
+          <div class="easing-curve">cubic-bezier(0.16, 1, 0.3, 1)</div>
+          <div class="easing-meta">Enter animations</div>
+        </div>
+        <div class="easing-card">
+          <div class="easing-name">--ease-in-out</div>
+          <div class="easing-track"><div class="easing-bullet eio"></div></div>
+          <div class="easing-curve">cubic-bezier(0.76, 0, 0.24, 1)</div>
+          <div class="easing-meta">On-screen movement</div>
+        </div>
+        <div class="easing-card">
+          <div class="easing-name">--ease-drawer</div>
+          <div class="easing-track"><div class="easing-bullet edr"></div></div>
+          <div class="easing-curve">cubic-bezier(0.32, 0.72, 0, 1)</div>
+          <div class="easing-meta">iOS drawer / sheet</div>
+        </div>
+        <div class="easing-card">
+          <div class="easing-name">--ease-spring</div>
+          <div class="easing-track"><div class="easing-bullet esp"></div></div>
+          <div class="easing-curve">cubic-bezier(0.34, 1.56, 0.64, 1)</div>
+          <div class="easing-meta">Toggle knob overshoot</div>
+        </div>
+      </div>
+
+      <h3 class="sub-h">Durations</h3>
+      <div class="durations">
+        <div class="dur-row"><span class="dur-token">--dur-instant</span><div class="dur-bar" style="width:8%"></div><span class="dur-value">80ms</span></div>
+        <div class="dur-row"><span class="dur-token">--dur-fast</span><div class="dur-bar" style="width:14%"></div><span class="dur-value">140ms</span></div>
+        <div class="dur-row"><span class="dur-token">--dur-quick</span><div class="dur-bar" style="width:20%"></div><span class="dur-value">200ms</span></div>
+        <div class="dur-row"><span class="dur-token">--dur-base</span><div class="dur-bar" style="width:28%"></div><span class="dur-value">280ms</span></div>
+        <div class="dur-row"><span class="dur-token">--dur-slow</span><div class="dur-bar" style="width:40%"></div><span class="dur-value">400ms</span></div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════ -->
+    <!-- 08 · Z-INDEX                                     -->
+    <!-- ════════════════════════════════════════════════ -->
+    <section id="zindex">
+      <div class="sec-h">
+        <div>
+          <span class="sec-num">08</span>
+          <h2>Z-index</h2>
+        </div>
+        <p>Ordem de empilhamento dos elementos quando se sobrepõem. Modal sempre por cima do conteúdo. Tooltip sempre por cima do modal.</p>
+      </div>
+
+      <div class="note">
+        <strong>O que é Z-index:</strong> quando dois elementos ocupam o mesmo espaço na tela (ex: um modal aberto sobre o dashboard), o navegador precisa saber qual fica "na frente". Z-index define isso. Sem padrão, vira bagunça (modal atrás do conteúdo, tooltip cortado por card, etc.). A escala abaixo define semanticamente — use <code>--z-modal</code>, não <code>z-index: 999</code>.
+      </div>
+
+      <table class="zindex-table">
+        <thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td class="token">--z-base</td><td class="value">0</td><td class="use">Content default</td></tr>
+          <tr><td class="token">--z-raised</td><td class="value">10</td><td class="use">Hovered cards</td></tr>
+          <tr><td class="token">--z-sticky</td><td class="value">50</td><td class="use">Sticky top bar / nav</td></tr>
+          <tr><td class="token">--z-dropdown</td><td class="value">100</td><td class="use">Dropdown menus, selects</td></tr>
+          <tr><td class="token">--z-popover</td><td class="value">200</td><td class="use">Popovers, tooltips</td></tr>
+          <tr><td class="token">--z-modal-backdrop</td><td class="value">900</td><td class="use">Modal backdrop blur</td></tr>
+          <tr><td class="token">--z-modal</td><td class="value">1000</td><td class="use">Modal content</td></tr>
+          <tr><td class="token">--z-toast</td><td class="value">1100</td><td class="use">Toast notifications</td></tr>
+          <tr><td class="token">--z-tooltip</td><td class="value">1200</td><td class="use">Tooltips (sempre por cima)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div style="margin-top:var(--space-16); padding-top:var(--space-6); border-top:1px solid var(--hairline); display:flex; justify-content:space-between; align-items:center;">
+      <div style="font-size:var(--fs-12); color:var(--label-tertiary);">
+        Cronos Design System · 01 Foundations · v0.1
+      </div>
+      <div style="font-size:var(--fs-12); color:var(--label-tertiary);">
+        Próximo: <strong style="color:var(--label-primary); font-weight:var(--fw-semibold);">02 Motion →</strong>
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<script>
+// Side nav highlight on scroll
+const links = document.querySelectorAll('.docs-link[href^="#"]');
+const sections = Array.from(links).map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.docs-link[href="#${entry.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

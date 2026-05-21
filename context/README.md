@@ -55,6 +55,7 @@ Coisas que descobrimos no caminho e queremos preservar pra próxima sessão.
 
 | Conhecimento | Última atualização |
 |---|---|
+| [Apple HIG — referência destilada](conhecimento/apple-hig-reference.md) | 2026-05-21 |
 | [Claude Design — limites e quirks](conhecimento/claude-design-limites-quirks.md) | 2026-05-21 |
 | [Brand canônico (light) vs Protótipo (dark)](conhecimento/brand-design-system-vs-prototipo.md) | 2026-05-21 |
 

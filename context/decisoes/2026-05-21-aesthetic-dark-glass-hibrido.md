@@ -1,11 +1,22 @@
 ---
 data: 2026-05-21
 tipo: decisao
-status: ativo
+status: superado
 relacionados: [prototipagem-claude-design, brand-design-system-vs-prototipo]
 ---
 
 # Aesthetic dos protótipos — dark glass híbrido V1+V5
+
+## Atualização 2026-05-21 (mesmo dia, à tarde)
+
+**Decisão superada.** Após ver o output do Claude Design baseado neste spec, Igor concluiu que:
+- O dark glass criou distância da identidade canônica do brand Cronos (que é LIGHT)
+- Tentar manter "dois sistemas conscientes" (light pra Django, dark pra protótipo) introduziu fricção desnecessária
+- A apresentação na banca FIAP fica mais coesa com **uma identidade única continuada da Sprint 1**
+
+Nova direção: **manter a identidade canônica light do `brand/design-system.html`** e refinar com personalidade premium (iOS-style soft elevations, frosted glass sutil sobre fundo claro). Sem mudar a paleta.
+
+Ver decisão sucessora em [[2026-05-21-identidade-prototipo-light-refinada]] (a ser criada após calibração via `prototipos/personalidade.html`).
 
 ## Contexto
 
