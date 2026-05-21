@@ -118,10 +118,25 @@ Challenge-LocaWeb/
 
 ## Skills disponíveis
 
-Skills carregam sob demanda quando o contexto pede. Consulte sempre que aplicável:
+Skills carregam sob demanda quando o contexto pede. **9 skills ativas no projeto**, agrupadas:
 
-- **`sprint-checklist`** — checklist obrigatório antes de qualquer entregável. Use SEMPRE antes de finalizar PPT, código ou material de entrega.
-- **`challenge-context`** — contexto completo do desafio: dataset (122k incidentes, 19 campos), regras de KPI/OLA, metas anuais, prioridades. Consultar ao trabalhar com dados.
+### Cronos-canonical (sempre relevantes)
+
+- **`challenge-context`** — contexto completo do desafio: dataset (122k incidentes, 19 campos), regras de KPI/OLA, metas anuais, prioridades. Consultar antes de qualquer entregável.
+- **`sprint-checklist`** — checklist obrigatório antes de qualquer entregável (PPT, código, slide).
+- **`context-keeper`** — mantém `context/` sempre atualizado. Auto-invoca quando tomamos decisão técnica, Igor expressa preferência, aprendemos algo novo, ou ele pede pra "lembrar disso".
+- **`commit-style`** — padrão de commits do projeto (conventional commits em PT-BR).
+
+### Código & análise
+
+- **`python-style`** — convenções de Python (.py + células em .ipynb, Django + pandas).
+- **`notebook-style`** — estrutura obrigatória dos `.ipynb` (AED, modelagem).
+- **`viz-style`** — padrão visual dos gráficos (AED, dashboard, slides).
+
+### UI & design (Sprint 2+)
+
+- **`design-taste-frontend`** — regras métricas de UI (protótipos, Claude Design, Django). Bloqueia AI slop (THE LILA BAN, Inter font, scale-zero entry, etc.).
+- **`emil-design-eng`** — polish e micro-interações (durações, easing, transform-origin, scale-on-press). Pareada com `design-taste-frontend`.
 
 ---
 
