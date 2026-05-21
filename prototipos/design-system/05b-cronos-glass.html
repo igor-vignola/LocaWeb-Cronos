@@ -257,19 +257,27 @@ body::after {
 .tb-search-trigger .ph { flex: 1; }
 .tb-search-trigger .kbd { font-size: 9.5px; padding: 1.5px 5px; background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; color: var(--label-tertiary); font-weight: var(--fw-semibold); }
 
-.tb-btn {
-  width: 36px; height: 36px;
-  border-radius: var(--r-sm);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--label-secondary);
+/* Top bar notification — pill com count visivel */
+.tb-notif {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 34px; padding: 0 11px 0 9px;
+  background: rgba(220,38,38,0.10);
+  border: 1px solid rgba(220,38,38,0.25);
+  border-radius: var(--r-pill);
+  font-size: 12px; font-weight: var(--fw-semibold);
+  color: var(--danger);
   cursor: pointer;
   transition: all var(--dur-quick) var(--ease-out);
-  position: relative;
 }
-.tb-btn:hover { background: rgba(0,0,0,0.06); color: var(--label-primary); }
-.tb-btn:active { transform: scale(0.94); }
-.tb-btn svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.tb-btn .ndot { position: absolute; top: 8px; right: 9px; width: 7px; height: 7px; border-radius: 50%; background: var(--danger); border: 1.5px solid var(--white); box-shadow: 0 0 4px rgba(220,38,38,0.5); }
+.tb-notif:hover { background: rgba(220,38,38,0.15); transform: translateY(-1px); box-shadow: 0 4px 12px -2px rgba(220,38,38,0.20); }
+.tb-notif:active { transform: scale(0.97); }
+.tb-notif .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--danger);
+  animation: livePulse 1.6s ease-in-out infinite;
+  box-shadow: 0 0 6px rgba(220,38,38,0.5);
+}
+.tb-notif .count { font-variant-numeric: tabular-nums; }
 
 /* Content scroll */
 .content {
@@ -311,17 +319,18 @@ body::after {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   HERO
+   HERO — 2 colunas robusto
    ═══════════════════════════════════════════════════════════ */
 .hero {
   border-radius: var(--r-2xl);
   padding: var(--space-6) var(--space-7);
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: minmax(240px, 280px) 1fr;
   gap: var(--space-8);
   align-items: center;
   position: relative;
   overflow: hidden;
+  min-height: 200px;
 }
 .hero::before {
   content: ''; position: absolute; inset: 0;
@@ -331,13 +340,18 @@ body::after {
   pointer-events: none;
 }
 .hero > * { position: relative; }
-.hero-num-block { position: relative; }
+
+.hero-left {
+  display: flex; flex-direction: column;
+  border-right: 1px solid rgba(0,0,0,0.06);
+  padding-right: var(--space-6);
+}
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 6px;
   font-size: 10.5px; font-weight: var(--fw-bold);
   letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 8px;
+  margin-bottom: var(--space-3);
 }
 .hero-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
 .hero-num {
@@ -349,28 +363,29 @@ body::after {
 }
 .hero-num .unit { font-size: 34px; color: var(--label-tertiary); font-weight: var(--fw-medium); letter-spacing: -0.04em; }
 .hero-ci {
-  display: inline-flex; align-items: center; gap: 8px;
-  margin-top: 12px;
+  display: flex; align-items: center; gap: 8px;
+  margin-top: var(--space-3);
   font-size: 11.5px; color: var(--label-tertiary);
+  flex-wrap: wrap;
 }
 .hero-ci .pill { background: var(--danger-soft); color: var(--danger); font-weight: var(--fw-bold); padding: 2px 8px; border-radius: 5px; font-size: 10.5px; font-variant-numeric: tabular-nums; }
 .hero-ci-tag { font-size: 9.5px; font-weight: var(--fw-bold); color: var(--label-quaternary); letter-spacing: var(--ls-uppercase); text-transform: uppercase; }
 
-.hero-msg { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.hero-right { display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; }
 .hero-h1 {
   font-size: var(--fs-24); font-weight: var(--fw-bold);
   letter-spacing: var(--ls-heading); line-height: 1.2;
   color: var(--label-primary);
-  max-width: 30ch;
+  max-width: 40ch;
 }
 .hero-h1 .kw { color: var(--danger); }
 .hero-sub {
   font-size: 13px; color: var(--label-tertiary);
   line-height: var(--lh-normal);
-  max-width: 50ch;
+  max-width: 56ch;
 }
 .hero-sub strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
-.hero-actions { display: flex; gap: var(--space-2); margin-top: 6px; }
+.hero-actions { display: flex; gap: var(--space-2); margin-top: var(--space-2); flex-wrap: wrap; }
 
 /* Buttons */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); font-family: var(--font-sans); font-weight: var(--fw-semibold); letter-spacing: -0.005em; cursor: pointer; user-select: none; border: 1px solid transparent; transition: transform var(--dur-fast) var(--ease-out), background var(--dur-quick) var(--ease-out), border-color var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out); white-space: nowrap; height: var(--btn-h-md); padding: 0 18px; font-size: var(--fs-14); border-radius: var(--r-md); }
@@ -874,14 +889,16 @@ body::after {
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         <span class="ph">Buscar...</span><span class="kbd">⌘K</span>
       </div>
-      <button class="tb-btn"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/></svg><span class="ndot"></span></button>
-      <button class="tb-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg></button>
+      <button class="tb-notif">
+        <span class="dot"></span>
+        <span class="count">3 alertas críticos</span>
+      </button>
     </div>
 
     <div class="content">
 
       <section class="hero glass glass-elev">
-        <div class="hero-num-block">
+        <div class="hero-left">
           <div class="hero-eyebrow"><span class="dot"></span>Probabilidade KPI · Maio</div>
           <div class="hero-num">73<span class="unit">%</span></div>
           <div class="hero-ci">
@@ -890,29 +907,13 @@ body::after {
           </div>
         </div>
 
-        <div class="hero-msg">
+        <div class="hero-right">
           <h2 class="hero-h1">A meta de maio está <span class="kw">caindo rápido</span>.</h2>
           <p class="hero-sub">Queda de <strong>12pp em 7 dias</strong>. Para reverter, zero violações até 31/mai. O detector identificou <strong>3 cascatas</strong> em formação. Modelo treinado em <strong>122.543 incidentes</strong> dos últimos 3 anos.</p>
           <div class="hero-actions">
             <button class="btn btn-primary">Plano de mitigação<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
             <button class="btn btn-glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Cenários Monte Carlo</button>
           </div>
-        </div>
-
-        <div class="hero-spark-wrap">
-          <div class="hero-spark-lbl">Trajetória · 30d</div>
-          <svg class="hero-spark-svg" viewBox="0 0 200 60" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="hsgP" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#2563EB" stop-opacity="0.18"/><stop offset="100%" stop-color="#2563EB" stop-opacity="0"/></linearGradient>
-              <linearGradient id="hsgF" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#DC2626" stop-opacity="0.16"/><stop offset="100%" stop-color="#DC2626" stop-opacity="0"/></linearGradient>
-            </defs>
-            <path d="M0,16 L25,18 L50,22 L75,28 L100,34 L120,38 L 120,60 L0,60 Z" fill="url(#hsgP)"/>
-            <path d="M120,38 L150,46 L180,52 L200,56 L 200,60 L120,60 Z" fill="url(#hsgF)"/>
-            <path d="M0,16 L25,18 L50,22 L75,28 L100,34 L120,38" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
-            <path d="M120,38 L150,46 L180,52 L200,56" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-dasharray="5 4" vector-effect="non-scaling-stroke"/>
-            <circle cx="120" cy="38" r="3.5" fill="#fff" stroke="#111" stroke-width="2" vector-effect="non-scaling-stroke"/>
-          </svg>
-          <div class="hero-spark-foot"><span>21/abr · <strong>85%</strong></span><span>31/mai · <strong style="color:var(--danger);">~58%</strong></span></div>
         </div>
       </section>
 
