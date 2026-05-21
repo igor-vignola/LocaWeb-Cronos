@@ -138,6 +138,10 @@ Skills carregam sob demanda quando o contexto pede. **9 skills ativas no projeto
 - **`design-taste-frontend`** — regras métricas de UI (protótipos, Claude Design, Django). Bloqueia AI slop (THE LILA BAN, Inter font, scale-zero entry, etc.).
 - **`emil-design-eng`** — polish e micro-interações (durações, easing, transform-origin, scale-on-press). Pareada com `design-taste-frontend`.
 
+### Conteúdo & escrita
+
+- **`humanizer`** — remove sinais de IA-generated writing em qualquer texto (slides, README, docs). Detecta padrões como inflated symbolism, em-dash overuse, rule of three, vocab AI ("Elevate", "Seamless"), passive voice. Use ao revisar copy de slides/PPT, releases, docs públicas.
+
 ---
 
 ## Onde buscar informação adicional
