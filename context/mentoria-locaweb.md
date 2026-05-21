@@ -8,17 +8,27 @@ Live de mentoria com a equipe da Locaweb (Douglas Gouveia e time) durante a Spri
 
 ## Anomalia de setembro/2025 — INVESTIGAR OBRIGATORIAMENTE
 
-A Locaweb confirmou: **houve queda anômala de incidentes em setembro de 2025**. Os dados estão corretos (não é faltando registro) — é fenômeno real.
+> 🔄 **Correção registrada em 21/05/2026 após análise do dataset:** o registro original desta mentoria dizia "queda anômala". **Os dados mostram o oposto — é uma ALTA anômala.** Ver `prototipos/docs/vocabulario-real.md` seção 11.
+
+A Locaweb mencionou uma **anomalia em setembro de 2025**. Os dados estão corretos (não é registro faltando) — é fenômeno real. Volume mensal observado:
+
+| Período | Volume médio/mês |
+|---|---|
+| 2023 (ano inteiro) | ~10 incidentes/mês |
+| 2024 (ano inteiro) | ~52 incidentes/mês |
+| jan–ago/2025 | ~3,5 mil/mês |
+| **set/2025** | **21,6 mil** (≈ 5x ago/25) |
+| out–dez/2025 | 21,5 k → 23 k → 27,3 k |
 
 **Pedido explícito da Locaweb:** investigar e apresentar a hipótese da causa como destaque na AED.
 
 > *"Vai ser um destaque entregar isso, o motivo."*
 
 **Hipóteses a testar (começar por aqui):**
-- Mudança de processo interno de monitoramento
+- **Mudança/expansão de processo interno de monitoramento** (mais sensores capturando mais eventos) ← mais provável dado o salto absoluto
 - Migração de plataforma / mudança técnica
-- Queda real de carga (clientes em transição, mercado)
-- Mudança na categorização de incidentes
+- Inclusão de nova base de clientes ou de novos produtos sob monitoração
+- Mudança na categorização (eventos que antes eram silenciados viraram incidentes)
 - Mudança de operação (terceirização, automação)
 
 **Objetivo:** demonstrar que fomos a fundo nos dados, não fizemos análise superficial.

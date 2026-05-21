@@ -36,6 +36,9 @@ secrets.json
 tmp/
 .cache/
 
+# Office lock files (criados quando .pptx/.docx/.xlsx estão abertos)
+~$*
+
 # Docker (volumes locais)
 docker/volumes/
 
