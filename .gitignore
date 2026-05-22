@@ -29,6 +29,9 @@ secrets.json
 *.swo
 *~
 
+# Claude Code local settings (preferências individuais da máquina)
+.claude/settings.local.json
+
 
 # Logs e temporários
 *.log

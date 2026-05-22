@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cronos · Cascatas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../brand/design-system/assets/tokens.css">
+<style>
+body { background: #EEF1F7; position: relative; overflow: hidden; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; background: radial-gradient(1100px 800px at -200px -150px, rgba(37,99,235,0.22), transparent 55%), radial-gradient(900px 700px at calc(100% + 100px) calc(100% + 100px), rgba(220,38,38,0.13), transparent 55%), radial-gradient(800px 600px at 60% 40%, rgba(168,85,247,0.10), transparent 55%); pointer-events: none; }
+body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.025 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>"); mix-blend-mode: multiply; opacity: 0.6; }
+
+.app { position: relative; z-index: 2; display: grid; grid-template-columns: 244px 1fr; gap: var(--space-3); padding: var(--space-3); height: 100vh; }
+
+/* SIDEBAR */
+.sb { background: rgba(255,255,255,0.72); backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-xl); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(0,30,80,0.04), 0 16px 40px -16px rgba(0,30,80,0.14); display: flex; flex-direction: column; overflow-y: auto; }
+.sb-brand { padding: var(--space-4) var(--space-5); display: flex; align-items: center; gap: var(--space-3); border-bottom: 1px solid rgba(0,0,0,0.05); }
+.sb-logo { width: 36px; height: 36px; background: var(--dark); border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.10); }
+.sb-logo svg { width: 19px; height: 19px; }
+.sb-brand-name { font-size: var(--fs-17); font-weight: var(--fw-bold); letter-spacing: -0.028em; background: linear-gradient(135deg, var(--dark), var(--gray-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.sb-brand-sub { font-size: 8.5px; font-weight: var(--fw-semibold); letter-spacing: 0.18em; color: var(--label-quaternary); text-transform: uppercase; margin-top: 3px; }
+.sb-search { margin: var(--space-3) var(--space-4); position: relative; }
+.sb-search input { width: 100%; height: 36px; padding: 0 38px 0 32px; background: rgba(0,0,0,0.04); border: 1px solid transparent; border-radius: var(--r-sm); font: inherit; font-size: 12.5px; color: var(--label-primary); outline: none; }
+.sb-search::before { content: ''; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 13px; height: 13px; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A3A3A3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><path d='m21 21-4.3-4.3'/></svg>") center/contain no-repeat; }
+.sb-search .kbd { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 9.5px; font-weight: var(--fw-semibold); color: var(--label-tertiary); padding: 2px 6px; background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; pointer-events: none; }
+.sb-nav { padding: var(--space-2) var(--space-3); flex: 1; display: flex; flex-direction: column; gap: 1px; }
+.sb-section { font-size: 9.5px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--label-quaternary); padding: var(--space-3) var(--space-2) 6px; }
+.sb-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: var(--r-sm); font-size: 13.5px; font-weight: var(--fw-medium); color: var(--label-secondary); cursor: pointer; transition: all var(--dur-quick) var(--ease-out); text-decoration: none; }
+.sb-item:hover { background: rgba(255,255,255,0.55); color: var(--label-primary); }
+.sb-item.active { background: linear-gradient(135deg, rgba(37,99,235,0.16), rgba(37,99,235,0.08)); color: var(--accent); font-weight: var(--fw-semibold); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 1px 2px rgba(37,99,235,0.10); }
+.sb-item svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: 0.85; flex-shrink: 0; }
+.sb-item.active svg { opacity: 1; }
+.sb-item .lbl { flex: 1; }
+.sb-item .badge { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; padding: 0 5px; background: var(--danger); color: var(--white); border-radius: 9px; font-size: 9.5px; font-weight: var(--fw-bold); }
+.sb-item .badge.neutral { background: rgba(37,99,235,0.16); color: var(--accent); }
+.sb-item .badge.warning { background: var(--warning); }
+.sb-foot { padding: var(--space-3) var(--space-4); border-top: 1px solid rgba(0,0,0,0.05); display: flex; align-items: center; gap: var(--space-3); }
+.sb-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #1E40AF); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 11px; font-weight: var(--fw-bold); flex-shrink: 0; box-shadow: 0 4px 12px rgba(37,99,235,0.25), inset 0 1px 0 rgba(255,255,255,0.2); }
+.sb-user-name { font-size: 12.5px; font-weight: var(--fw-semibold); }
+.sb-user-role { font-size: 10.5px; color: var(--label-tertiary); }
+.sb-foot-more { width: 26px; height: 26px; border-radius: var(--r-xs); background: transparent; border: none; color: var(--label-tertiary); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+/* MAIN + TOPBAR */
+.main { display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+.tb { height: 60px; padding: 0 var(--space-6); display: flex; align-items: center; gap: var(--space-3); background: rgba(255,255,255,0.72); backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-md); margin-bottom: var(--space-3); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(0,30,80,0.04); }
+.tb-crumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--label-tertiary); }
+.tb-crumb .here { color: var(--label-primary); font-weight: var(--fw-semibold); }
+.tb-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: rgba(220,38,38,0.10); color: var(--danger); border: 1px solid rgba(220,38,38,0.25); border-radius: var(--r-pill); font-size: 11.5px; font-weight: var(--fw-semibold); margin-left: var(--space-3); }
+.tb-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--danger); animation: livePulse 1.6s ease-in-out infinite; }
+.tb-spacer { flex: 1; }
+@keyframes livePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* ═══════════════════════════════════════════════════════════ */
+.content { flex: 1; overflow-y: auto; padding: var(--space-5) 0 var(--space-8); display: flex; justify-content: center; }
+.page { width: 100%; max-width: 980px; padding: 0 var(--space-5); opacity: 0; transform: translateY(8px); animation: fadeUp 700ms var(--ease-out-strong) forwards; }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+.page-head { padding-bottom: var(--space-5); margin-bottom: var(--space-5); border-bottom: 1px solid rgba(0,0,0,0.08); }
+.page-head h1 { font-size: 32px; font-weight: var(--fw-heavy); letter-spacing: -0.03em; line-height: 1; color: var(--label-primary); margin-bottom: 6px; }
+.page-head p { font-size: 13.5px; color: var(--label-tertiary); line-height: 1.45; }
+.page-head p strong { color: var(--label-primary); font-weight: var(--fw-semibold); }
+
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); padding: var(--space-4) var(--space-5); background: rgba(255,255,255,0.55); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-lg); margin-bottom: var(--space-5); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9); }
+.stat { display: flex; flex-direction: column; gap: 4px; position: relative; }
+.stat + .stat::before { content: ''; position: absolute; left: calc(-1 * var(--space-5) / 2 - 0.5px); top: 4px; bottom: 4px; width: 1px; background: rgba(0,0,0,0.06); }
+.stat .v { font-size: 28px; font-weight: var(--fw-heavy); letter-spacing: -0.03em; color: var(--label-primary); font-variant-numeric: tabular-nums; line-height: 1; }
+.stat .v.crit { color: var(--danger); }
+.stat .v.good { color: var(--success); }
+.stat .l { font-size: 11px; font-weight: var(--fw-semibold); color: var(--label-tertiary); letter-spacing: 0.02em; }
+.stat .delta { font-size: 11px; color: var(--label-tertiary); font-variant-numeric: tabular-nums; margin-top: 2px; }
+.stat .delta.crit { color: var(--danger); }
+
+/* ─────── CASCATA CARD ─────── */
+.casc-list { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.casc {
+  background: rgba(255,255,255,0.62);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.85);
+  border-radius: var(--r-lg);
+  padding: var(--space-5) var(--space-6);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(0,30,80,0.03);
+  display: grid; gap: var(--space-4);
+}
+.casc.crit { border-left: 4px solid var(--danger); }
+.casc.warn { border-left: 4px solid var(--warning); }
+.casc.resolved { border-left: 4px solid var(--success); }
+
+/* HEADER */
+.casc-head { display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-3); align-items: center; }
+.casc-status { display: flex; align-items: center; gap: 8px; }
+.casc-status-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.casc-status-dot.crit { background: var(--danger); animation: livePulse 1.6s ease-in-out infinite; }
+.casc-status-dot.warn { background: var(--warning); }
+.casc-status-dot.resolved { background: var(--success); }
+.casc-status-text { font-size: 10px; font-weight: var(--fw-bold); letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 9px; border-radius: var(--r-pill); }
+.casc-status-text.crit { background: var(--danger); color: var(--white); }
+.casc-status-text.warn { background: rgba(217,119,6,0.15); color: var(--warning); }
+.casc-status-text.resolved { background: rgba(5,150,105,0.12); color: var(--success); }
+
+.casc-id { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.casc-tag { font-family: ui-monospace, monospace; font-size: 14px; font-weight: var(--fw-bold); color: var(--label-primary); letter-spacing: 0.04em; }
+.casc-meta { font-size: 12px; color: var(--label-tertiary); line-height: 1.4; }
+.casc-meta strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
+.casc-meta code { font-family: ui-monospace, monospace; background: rgba(0,0,0,0.05); padding: 1px 5px; border-radius: 4px; font-size: 11px; }
+
+.casc-time { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
+.casc-time .v { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: var(--fw-heavy); color: var(--label-primary); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1; }
+.casc-time .l { font-size: 9.5px; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--label-tertiary); }
+
+/* BLOCKS dentro do card */
+.block-h {
+  font-size: 9.5px; font-weight: var(--fw-bold);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--label-quaternary);
+  margin-bottom: var(--space-2);
+  display: flex; align-items: center; gap: var(--space-2);
+}
+.block-h::after { content: ''; flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+
+/* ALERTAS lista */
+.alerts {
+  display: flex; flex-direction: column;
+  gap: 0;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: rgba(0,0,0,0.015);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.alert {
+  display: grid;
+  grid-template-columns: 64px 38px 1fr auto;
+  gap: var(--space-3);
+  align-items: center;
+  padding: 10px var(--space-4);
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  transition: background var(--dur-quick) var(--ease-out);
+}
+.alert:last-child { border-bottom: none; }
+.alert:hover { background: rgba(255,255,255,0.5); }
+.alert.now { background: rgba(220,38,38,0.05); }
+.alert.now:hover { background: rgba(220,38,38,0.08); }
+.alert.resolved-row { background: rgba(5,150,105,0.05); }
+
+.alert-time { font-family: ui-monospace, monospace; font-size: 12px; font-weight: var(--fw-semibold); color: var(--label-secondary); font-variant-numeric: tabular-nums; }
+.alert-pri {
+  font-family: ui-monospace, monospace;
+  font-size: 10px; font-weight: var(--fw-bold);
+  letter-spacing: 0.06em;
+  text-align: center;
+  padding: 3px 0;
+  border-radius: 4px;
+}
+.alert-pri.p5 { background: rgba(217,119,6,0.13); color: var(--warning); }
+.alert-pri.p4 { background: rgba(220,38,38,0.12); color: var(--danger); }
+.alert-pri.ok { background: rgba(5,150,105,0.13); color: var(--success); }
+
+.alert-desc { font-size: 13px; color: var(--label-primary); line-height: 1.35; }
+.alert-desc code { font-family: ui-monospace, monospace; background: rgba(0,0,0,0.05); padding: 1px 5px; border-radius: 4px; font-size: 11.5px; }
+.alert-desc .host { color: var(--label-tertiary); font-size: 11.5px; }
+
+.alert-marker {
+  font-size: 9.5px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--danger);
+  background: var(--white);
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--danger);
+  white-space: nowrap;
+}
+.alert-marker.resolved-marker { color: var(--success); border-color: var(--success); }
+
+/* CONTEXT block (padrão histórico + sugestão) */
+.context { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+
+.ctx-card {
+  padding: var(--space-4);
+  background: rgba(255,255,255,0.45);
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: var(--r-md);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.ctx-h {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-2);
+  font-size: 9.5px; font-weight: var(--fw-bold);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--label-tertiary);
+}
+.ai-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 8.5px; font-weight: var(--fw-bold);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: var(--r-pill);
+  background: linear-gradient(135deg, rgba(37,99,235,0.12), rgba(168,85,247,0.12));
+  color: var(--accent);
+  border: 1px solid rgba(37,99,235,0.22);
+  white-space: nowrap;
+}
+.ai-badge svg { width: 9px; height: 9px; flex-shrink: 0; }
+.ctx-body { font-size: 13px; color: var(--label-primary); line-height: 1.5; }
+.ctx-body strong { font-weight: var(--fw-semibold); }
+.ctx-body code { font-family: ui-monospace, monospace; background: rgba(0,0,0,0.05); padding: 1px 5px; border-radius: 4px; font-size: 11.5px; }
+.ctx-body .num { font-family: ui-monospace, monospace; font-weight: var(--fw-bold); color: var(--danger); font-variant-numeric: tabular-nums; }
+.ctx-body .num.good { color: var(--success); }
+.ctx-disclaimer { font-size: 11px; color: var(--label-quaternary); font-style: italic; margin-top: 4px; }
+
+/* FOOTER (ações) */
+.casc-foot { display: grid; grid-template-columns: 1fr auto; gap: var(--space-3); align-items: center; padding-top: var(--space-3); border-top: 1px solid rgba(0,0,0,0.06); }
+.casc-action {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: 9px 16px;
+  background: linear-gradient(135deg, var(--accent), #1E40AF);
+  color: var(--white);
+  border-radius: var(--r-md);
+  font-size: 13px; font-weight: var(--fw-semibold);
+  cursor: pointer;
+  border: none;
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.20), 0 2px 8px -2px rgba(37,99,235,0.30);
+}
+.casc-action:hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 6px 16px -3px rgba(37,99,235,0.40); }
+.casc-action:active { transform: scale(0.97); }
+.casc-action svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.4; stroke-linecap: round; transition: transform var(--dur-quick) var(--ease-out); }
+.casc-action:hover svg { transform: translateX(2px); }
+.casc-action code { font-family: ui-monospace, monospace; background: rgba(255,255,255,0.20); padding: 1px 5px; border-radius: 4px; font-size: 11.5px; font-weight: var(--fw-bold); }
+.casc-action.muted { background: rgba(0,0,0,0.06); color: var(--label-secondary); box-shadow: none; }
+.casc-action.muted:hover { background: rgba(0,0,0,0.09); }
+.casc-action.resolved-btn { background: rgba(5,150,105,0.12); color: var(--success); box-shadow: none; }
+.casc-action.resolved-btn:hover { background: rgba(5,150,105,0.18); }
+
+.casc-link { font-size: 12.5px; color: var(--label-tertiary); font-weight: var(--fw-semibold); display: inline-flex; align-items: center; gap: 4px; cursor: pointer; transition: gap 200ms var(--ease-out), color 200ms var(--ease-out); text-decoration: none; }
+.casc-link:hover { gap: 8px; color: var(--label-primary); }
+.casc-link svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2.4; stroke-linecap: round; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sb">
+    <div class="sb-brand">
+      <div class="sb-logo"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.4" fill="#3B82F6"/></svg></div>
+      <div><div class="sb-brand-name">Cronos</div><div class="sb-brand-sub">Veja antes · aja antes</div></div>
+    </div>
+    <div class="sb-search"><input placeholder="Buscar produto, alerta..."><span class="kbd">⌘K</span></div>
+    <nav class="sb-nav">
+      <div class="sb-section">Operação</div>
+      <a class="sb-item" href="dashboard.html"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span class="lbl">Dashboard</span></a>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="lbl">Previsões</span></a>
+      <a class="sb-item active" href="cascata.html"><svg viewBox="0 0 24 24"><path d="M12 2L4 7v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V7l-8-5z"/></svg><span class="lbl">Cascatas</span><span class="badge">3</span></a>
+      <a class="sb-item" href="saude-produto.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg><span class="lbl">Saúde · Produto</span></a>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><span class="lbl">Probabilidade KPI</span></a>
+      <div class="sb-section">Diferenciais</div>
+      <a class="sb-item" href="morning-brief.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg><span class="lbl">Morning brief</span><span class="badge neutral">06:00</span></a>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/></svg><span class="lbl">Alertas</span><span class="badge warning">8</span></a>
+      <div class="sb-section">Análise</div>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/></svg><span class="lbl">Produtos</span></a>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/></svg><span class="lbl">Equipes</span></a>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg><span class="lbl">Configurações</span></a>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-avatar">IV</div>
+      <div style="flex:1;"><div class="sb-user-name">Igor Vignola</div><div class="sb-user-role">Operações · Locaweb</div></div>
+      <button class="sb-foot-more"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <div class="tb">
+      <div class="tb-crumb"><span>Operação</span><span style="color:var(--label-quaternary);">/</span><span class="here">Cascatas</span></div>
+      <div class="tb-pill"><span class="dot"></span>1 crítica</div>
+      <div class="tb-spacer"></div>
+    </div>
+
+    <div class="content">
+      <div class="page">
+
+        <header class="page-head">
+          <h1>Cascatas</h1>
+          <p>Acúmulo de alertas P4/P5 num mesmo produto · histórico comparado a <strong>4.812</strong> cascatas anteriores</p>
+        </header>
+
+        <div class="stats">
+          <div class="stat"><span class="v crit">3</span><span class="l">Em formação</span><span class="delta crit">1 crítica</span></div>
+          <div class="stat"><span class="v good">1</span><span class="l">Cortada hoje</span><span class="delta">via runbook</span></div>
+          <div class="stat"><span class="v">2h 14min</span><span class="l">Mais antiga</span><span class="delta">lhco · INC8643147</span></div>
+          <div class="stat"><span class="v">12</span><span class="l">Alertas acumulados</span><span class="delta">nas 3 ativas</span></div>
+        </div>
+
+        <div class="casc-list">
+
+          <!-- ═══ Cascata 1: lhco crítica ═══ -->
+          <article class="casc crit">
+            <div class="casc-head">
+              <div class="casc-status">
+                <span class="casc-status-dot crit"></span>
+                <span class="casc-status-text crit">Em formação</span>
+              </div>
+              <div class="casc-id">
+                <span class="casc-tag">lhco · INC8643147</span>
+                <span class="casc-meta">7 alertas em <code>lhco-web-03</code> · grupo <strong>Team14</strong> · categoria <code>cat71</code></span>
+              </div>
+              <div class="casc-time"><span class="v">2h 14min</span><span class="l">desde 1º alerta</span></div>
+            </div>
+
+            <div>
+              <div class="block-h">Cronologia dos alertas</div>
+              <div class="alerts">
+                <div class="alert">
+                  <span class="alert-time">04:28</span>
+                  <span class="alert-pri p5">P5</span>
+                  <span class="alert-desc">Apache Busy Workers ≥ 85% <span class="host">em <code>lhco-web-03</code></span></span>
+                  <span></span>
+                </div>
+                <div class="alert">
+                  <span class="alert-time">05:18</span>
+                  <span class="alert-pri p5">P5</span>
+                  <span class="alert-desc">Lack of free swap space 40m &lt; 5% <span class="host">em <code>lhco-web-03</code></span></span>
+                  <span></span>
+                </div>
+                <div class="alert">
+                  <span class="alert-time">05:56</span>
+                  <span class="alert-pri p5">P5</span>
+                  <span class="alert-desc">Apache Busy Workers ≥ 92% <span class="host">em <code>lhco-web-03</code> (reincidência)</span></span>
+                  <span></span>
+                </div>
+                <div class="alert">
+                  <span class="alert-time">06:14</span>
+                  <span class="alert-pri p5">P5</span>
+                  <span class="alert-desc">Free disk space less than 10% on volume / <span class="host">em <code>lhco-web-03</code></span></span>
+                  <span></span>
+                </div>
+                <div class="alert">
+                  <span class="alert-time">06:31</span>
+                  <span class="alert-pri p5">P5</span>
+                  <span class="alert-desc">IOwait grown up CPU queue <span class="host">em <code>lhco-web-03</code></span></span>
+                  <span></span>
+                </div>
+                <div class="alert">
+                  <span class="alert-time">06:38</span>
+                  <span class="alert-pri p4">P4</span>
+                  <span class="alert-desc">Nginx Type: tcp on Port: 80 Not Running <span class="host">em <code>lhco-web-03</code></span></span>
+                  <span></span>
+                </div>
+                <div class="alert now">
+                  <span class="alert-time">06:42</span>
+                  <span class="alert-pri p4">P4</span>
+                  <span class="alert-desc">Perf Teste Asp · Web Test Fail (P95 &gt; 1.2s) <span class="host">em <code>lhco-web-03</code></span></span>
+                  <span class="alert-marker">Agora</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="context">
+              <div class="ctx-card">
+                <div class="ctx-h"><span>Padrão histórico</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
+                <span class="ctx-body">Encadeamento similar a <span class="num">23</span> cascatas anteriores em <code>lhco</code> com a mesma assinatura (2× Apache BW + escalada Nginx). <span class="num">18 dessas (78%)</span> chegaram em P3 ou pior.</span>
+                <span class="ctx-disclaimer">k-NN sobre 4.812 cascatas históricas · janela 6h</span>
+              </div>
+              <div class="ctx-card">
+                <div class="ctx-h"><span>Sugestão de runbook</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
+                <span class="ctx-body">Em <span class="num">15 das 18</span> que escalaram, o time acionou <code>IC00014</code> e <span class="num good">resolveu em 87%</span> dos casos. Duração típica: ~12min.</span>
+                <span class="ctx-disclaimer">frequência condicional · base k-NN acima</span>
+              </div>
+            </div>
+
+            <div class="casc-foot">
+              <button class="casc-action">
+                Acionar runbook <code>IC00014</code>
+                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <a class="casc-link" href="#">Ver detalhe do produto <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a>
+            </div>
+          </article>
+
+          <!-- ═══ Cascata 2: lhvp warn ═══ -->
+          <article class="casc warn">
+            <div class="casc-head">
+              <div class="casc-status">
+                <span class="casc-status-dot warn"></span>
+                <span class="casc-status-text warn">Em formação · sem owner</span>
+              </div>
+              <div class="casc-id">
+                <span class="casc-tag">lhvp · INC8607139</span>
+                <span class="casc-meta">2 alertas em <code>lhvp-db-01</code> · grupo <strong>Team14</strong> · categoria <code>cat73</code></span>
+              </div>
+              <div class="casc-time"><span class="v">18min</span><span class="l">desde 1º alerta</span></div>
+            </div>
+
+            <div>
+              <div class="block-h">Cronologia dos alertas</div>
+              <div class="alerts">
+                <div class="alert">
+                  <span class="alert-time">06:24</span>
+                  <span class="alert-pri p5">P5</span>
+                  <span class="alert-desc">Free disk space less than 10% on volume / (disco 89%) <span class="host">em <code>lhvp-db-01</code></span></span>
+                  <span></span>
+                </div>
+                <div class="alert now">
+                  <span class="alert-time">06:30</span>
+                  <span class="alert-pri p5">P5</span>
+                  <span class="alert-desc">Check PostgreSQL Replication Slave · slow query &gt; 5s <span class="host">em <code>lhvp-db-01</code></span></span>
+                  <span class="alert-marker">Agora</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="context">
+              <div class="ctx-card">
+                <div class="ctx-h"><span>Padrão histórico</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
+                <span class="ctx-body">Encadeamento similar a <span class="num">apenas 4</span> cascatas anteriores em <code>lhvp</code> (disco + slow query). Base pequena pra projetar — historicamente <span class="num">2 das 4</span> chegaram em P3.</span>
+                <span class="ctx-disclaimer">n pequeno · estimativa pouco confiável</span>
+              </div>
+              <div class="ctx-card">
+                <div class="ctx-h"><span>Sugestão</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
+                <span class="ctx-body">Sem owner há 18min. Em casos de <code>lhvp</code> com cascata, <span class="num">Team09</span> (1.440 incidentes históricos no produto) costuma atender mais rápido que Team14 nessa categoria.</span>
+                <span class="ctx-disclaimer">heurística de roteamento por expertise</span>
+              </div>
+            </div>
+
+            <div class="casc-foot">
+              <button class="casc-action">
+                Atribuir Team09
+                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <a class="casc-link" href="#">Ver detalhe do produto <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a>
+            </div>
+          </article>
+
+          <!-- ═══ Cascata 3: lcem warn ═══ -->
+          <article class="casc warn">
+            <div class="casc-head">
+              <div class="casc-status">
+                <span class="casc-status-dot warn"></span>
+                <span class="casc-status-text warn">Em formação</span>
+              </div>
+              <div class="casc-id">
+                <span class="casc-tag">lcem · INC8629044</span>
+                <span class="casc-meta">1 alerta em <code>lcem-api</code> · grupo <strong>Team05</strong> · categoria <code>cat76</code></span>
+              </div>
+              <div class="casc-time"><span class="v">1h 12min</span><span class="l">desde 1º alerta</span></div>
+            </div>
+
+            <div>
+              <div class="block-h">Cronologia dos alertas</div>
+              <div class="alerts">
+                <div class="alert now">
+                  <span class="alert-time">05:30</span>
+                  <span class="alert-pri p5">P5</span>
+                  <span class="alert-desc">High bandwidth &gt; 60% at least 15m (latência intermitente) <span class="host">em <code>lcem-api</code></span></span>
+                  <span class="alert-marker">Agora</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="context">
+              <div class="ctx-card">
+                <div class="ctx-h"><span>Padrão histórico</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
+                <span class="ctx-body">Em dias com janela de backup conflitando com pico operacional (09h-11h), <span class="num">8 de 12</span> alertas isolados em <code>lcem</code> viraram cascata P3.</span>
+                <span class="ctx-disclaimer">filtro: backup ativo · 12 ocorrências em 90 dias</span>
+              </div>
+              <div class="ctx-card">
+                <div class="ctx-h"><span>Sugestão</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
+                <span class="ctx-body">Mover janela de backup pra <span class="num">03:00</span>. Histórico de <code>lcem</code> com backup às 03h: <span class="num good">0 cascatas</span> em 47 dias com essa janela.</span>
+                <span class="ctx-disclaimer">comparação histórica · 47 dias amostrados</span>
+              </div>
+            </div>
+
+            <div class="casc-foot">
+              <button class="casc-action">
+                Mover janela de backup pra 03:00
+                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <a class="casc-link" href="#">Ver janelas históricas <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a>
+            </div>
+          </article>
+
+          <!-- ═══ Cascata 4: RESOLVIDA ═══ -->
+          <article class="casc resolved">
+            <div class="casc-head">
+              <div class="casc-status">
+                <span class="casc-status-dot resolved"></span>
+                <span class="casc-status-text resolved">Cortada · 03:46</span>
+              </div>
+              <div class="casc-id">
+                <span class="casc-tag">lsin · INC8643112</span>
+                <span class="casc-meta">2 alertas em <code>lsin-app-02</code> · grupo <strong>Team11</strong> · cortada com runbook <code>IC00019</code></span>
+              </div>
+              <div class="casc-time"><span class="v">32min</span><span class="l">tempo total</span></div>
+            </div>
+
+            <div>
+              <div class="block-h">Cronologia dos alertas</div>
+              <div class="alerts">
+                <div class="alert">
+                  <span class="alert-time">03:14</span>
+                  <span class="alert-pri p5">P5</span>
+                  <span class="alert-desc">Check Application Monitoring <span class="host">em <code>lsin-app-02</code></span></span>
+                  <span></span>
+                </div>
+                <div class="alert">
+                  <span class="alert-time">03:24</span>
+                  <span class="alert-pri p5">P5</span>
+                  <span class="alert-desc">Processor load is too high &gt; 20% <span class="host">em <code>lsin-app-02</code></span></span>
+                  <span></span>
+                </div>
+                <div class="alert resolved-row">
+                  <span class="alert-time">03:46</span>
+                  <span class="alert-pri ok">OK</span>
+                  <span class="alert-desc">Cascata cortada · runbook <code>IC00019</code> aplicado por Team11</span>
+                  <span class="alert-marker resolved-marker">Resolvida</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="context">
+              <div class="ctx-card">
+                <div class="ctx-h"><span>Por que funcionou</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
+                <span class="ctx-body">Padrão clássico de <code>lsin</code> (Check App + CPU alta). Em <span class="num good">14 de 16</span> cascatas similares anteriores, <code>IC00019</code> cortou antes de escalar. Tempo mediano: <span class="num good">28min</span>.</span>
+                <span class="ctx-disclaimer">caso seguiu a expectativa histórica</span>
+              </div>
+              <div class="ctx-card">
+                <div class="ctx-h"><span>Aprendizado</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
+                <span class="ctx-body">Capturar como caso de referência: padrão <code>lsin</code> + <code>IC00019</code> tem altíssima taxa de sucesso. Vale automatizar disparo em próximas ocorrências.</span>
+              </div>
+            </div>
+
+            <div class="casc-foot">
+              <button class="casc-action resolved-btn">
+                Marcar como caso de referência
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              </button>
+              <a class="casc-link" href="#">Ver relatório completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>
