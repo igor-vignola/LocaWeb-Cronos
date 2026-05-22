@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cronos · Cascatas · A · Mapa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../brand/design-system/assets/tokens.css">
+<style>
+body { background: #EEF1F7; position: relative; overflow: hidden; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; background: radial-gradient(1100px 800px at -200px -150px, rgba(37,99,235,0.22), transparent 55%), radial-gradient(900px 700px at calc(100% + 100px) calc(100% + 100px), rgba(220,38,38,0.13), transparent 55%), radial-gradient(800px 600px at 60% 40%, rgba(168,85,247,0.10), transparent 55%); pointer-events: none; }
+body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.025 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>"); mix-blend-mode: multiply; opacity: 0.6; }
+
+.app { position: relative; z-index: 2; display: grid; grid-template-columns: 244px 1fr; gap: var(--space-3); padding: var(--space-3); height: 100vh; }
+
+/* SIDEBAR */
+.sb { background: rgba(255,255,255,0.72); backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-xl); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(0,30,80,0.04), 0 16px 40px -16px rgba(0,30,80,0.14); display: flex; flex-direction: column; overflow-y: auto; }
+.sb-brand { padding: var(--space-4) var(--space-5); display: flex; align-items: center; gap: var(--space-3); border-bottom: 1px solid rgba(0,0,0,0.05); }
+.sb-logo { width: 36px; height: 36px; background: var(--dark); border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.10); }
+.sb-logo svg { width: 19px; height: 19px; }
+.sb-brand-name { font-size: var(--fs-17); font-weight: var(--fw-bold); letter-spacing: -0.028em; background: linear-gradient(135deg, var(--dark), var(--gray-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.sb-brand-sub { font-size: 8.5px; font-weight: var(--fw-semibold); letter-spacing: 0.18em; color: var(--label-quaternary); text-transform: uppercase; margin-top: 3px; }
+.sb-search { margin: var(--space-3) var(--space-4); position: relative; }
+.sb-search input { width: 100%; height: 36px; padding: 0 38px 0 32px; background: rgba(0,0,0,0.04); border: 1px solid transparent; border-radius: var(--r-sm); font: inherit; font-size: 12.5px; color: var(--label-primary); outline: none; }
+.sb-search::before { content: ''; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 13px; height: 13px; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A3A3A3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><path d='m21 21-4.3-4.3'/></svg>") center/contain no-repeat; }
+.sb-search .kbd { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 9.5px; font-weight: var(--fw-semibold); color: var(--label-tertiary); padding: 2px 6px; background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; pointer-events: none; }
+.sb-nav { padding: var(--space-2) var(--space-3); flex: 1; display: flex; flex-direction: column; gap: 1px; }
+.sb-section { font-size: 9.5px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--label-quaternary); padding: var(--space-3) var(--space-2) 6px; }
+.sb-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: var(--r-sm); font-size: 13.5px; font-weight: var(--fw-medium); color: var(--label-secondary); cursor: pointer; transition: all var(--dur-quick) var(--ease-out); text-decoration: none; }
+.sb-item:hover { background: rgba(255,255,255,0.55); color: var(--label-primary); }
+.sb-item.active { background: linear-gradient(135deg, rgba(37,99,235,0.16), rgba(37,99,235,0.08)); color: var(--accent); font-weight: var(--fw-semibold); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 1px 2px rgba(37,99,235,0.10); }
+.sb-item svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: 0.85; flex-shrink: 0; }
+.sb-item.active svg { opacity: 1; }
+.sb-item .lbl { flex: 1; }
+.sb-item .badge { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; padding: 0 5px; background: var(--danger); color: var(--white); border-radius: 9px; font-size: 9.5px; font-weight: var(--fw-bold); }
+.sb-item .badge.neutral { background: rgba(37,99,235,0.16); color: var(--accent); }
+.sb-item .badge.warning { background: var(--warning); }
+.sb-foot { padding: var(--space-3) var(--space-4); border-top: 1px solid rgba(0,0,0,0.05); display: flex; align-items: center; gap: var(--space-3); }
+.sb-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #1E40AF); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 11px; font-weight: var(--fw-bold); flex-shrink: 0; box-shadow: 0 4px 12px rgba(37,99,235,0.25), inset 0 1px 0 rgba(255,255,255,0.2); }
+.sb-user-name { font-size: 12.5px; font-weight: var(--fw-semibold); }
+.sb-user-role { font-size: 10.5px; color: var(--label-tertiary); }
+.sb-foot-more { width: 26px; height: 26px; border-radius: var(--r-xs); background: transparent; border: none; color: var(--label-tertiary); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+/* MAIN + TOPBAR */
+.main { display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+.tb { height: 60px; padding: 0 var(--space-6); display: flex; align-items: center; gap: var(--space-3); background: rgba(255,255,255,0.72); backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-md); margin-bottom: var(--space-3); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(0,30,80,0.04); }
+.tb-crumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--label-tertiary); }
+.tb-crumb .here { color: var(--label-primary); font-weight: var(--fw-semibold); }
+.tb-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: rgba(220,38,38,0.10); color: var(--danger); border: 1px solid rgba(220,38,38,0.25); border-radius: var(--r-pill); font-size: 11.5px; font-weight: var(--fw-semibold); margin-left: var(--space-3); }
+.tb-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--danger); animation: livePulse 1.6s ease-in-out infinite; }
+.tb-spacer { flex: 1; }
+.var-nav { display: inline-flex; gap: 2px; padding: 3px; background: rgba(0,0,0,0.05); border-radius: var(--r-sm); }
+.var-nav a { padding: 5px 10px; font-size: 11.5px; font-weight: var(--fw-semibold); color: var(--label-tertiary); text-decoration: none; border-radius: 5px; transition: all var(--dur-quick) var(--ease-out); }
+.var-nav a:hover { color: var(--label-primary); }
+.var-nav a.active { background: var(--white); color: var(--label-primary); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+@keyframes livePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE
+   ═══════════════════════════════════════════════════════════ */
+.content { flex: 1; overflow-y: auto; padding: var(--space-5) 0 var(--space-8); display: flex; justify-content: center; }
+.page { width: 100%; max-width: 1180px; padding: 0 var(--space-5); opacity: 0; transform: translateY(8px); animation: fadeUp 700ms var(--ease-out-strong) forwards; }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+.page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-5); padding-bottom: var(--space-5); margin-bottom: var(--space-5); border-bottom: 1px solid rgba(0,0,0,0.08); }
+.page-head-left h1 { font-size: 32px; font-weight: var(--fw-heavy); letter-spacing: -0.03em; line-height: 1; color: var(--label-primary); margin-bottom: 6px; }
+.page-head-left p { font-size: 13.5px; color: var(--label-tertiary); line-height: 1.45; }
+.page-head-left p strong { color: var(--label-primary); font-weight: var(--fw-semibold); }
+
+/* Cascade tabs */
+.cascade-tabs { display: inline-flex; gap: 4px; padding: 3px; background: rgba(0,0,0,0.05); border-radius: var(--r-sm); flex-shrink: 0; }
+.cascade-tab { padding: 7px 14px; font-family: var(--font-sans); font-size: 12.5px; font-weight: var(--fw-semibold); color: var(--label-tertiary); background: transparent; border: none; cursor: pointer; transition: all var(--dur-quick) var(--ease-out); border-radius: 5px; display: inline-flex; align-items: center; gap: 6px; }
+.cascade-tab:hover { color: var(--label-primary); }
+.cascade-tab:active { transform: scale(0.97); }
+.cascade-tab.active { background: var(--white); color: var(--label-primary); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.cascade-tab .tab-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.cascade-tab .tab-dot.crit { background: var(--danger); }
+.cascade-tab .tab-dot.warn { background: var(--warning); }
+
+/* Mini stats */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); padding: var(--space-4) var(--space-5); background: rgba(255,255,255,0.55); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-lg); margin-bottom: var(--space-5); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9); }
+.stat { display: flex; flex-direction: column; gap: 4px; position: relative; }
+.stat + .stat::before { content: ''; position: absolute; left: calc(-1 * var(--space-5) / 2 - 0.5px); top: 4px; bottom: 4px; width: 1px; background: rgba(0,0,0,0.06); }
+.stat .v { font-size: 28px; font-weight: var(--fw-heavy); letter-spacing: -0.03em; color: var(--label-primary); font-variant-numeric: tabular-nums; line-height: 1; }
+.stat .v.crit { color: var(--danger); }
+.stat .l { font-size: 11px; font-weight: var(--fw-semibold); color: var(--label-tertiary); letter-spacing: 0.02em; }
+.stat .delta { font-size: 11px; color: var(--label-tertiary); font-variant-numeric: tabular-nums; margin-top: 2px; }
+.stat .delta.crit { color: var(--danger); }
+
+/* Main layout: viz + detail */
+.layout { display: grid; grid-template-columns: 1.55fr 1fr; gap: var(--space-4); }
+
+/* Visualization card */
+.viz-card { background: rgba(255,255,255,0.55); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-lg); padding: var(--space-5); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9); display: flex; flex-direction: column; gap: var(--space-3); }
+.viz-head { display: flex; align-items: baseline; justify-content: space-between; }
+.viz-h { font-size: 9.5px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--label-tertiary); }
+.viz-legend { display: flex; gap: var(--space-3); }
+.viz-legend-item { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: var(--fw-semibold); color: var(--label-tertiary); }
+.viz-legend-item .swatch { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.viz-legend-item .swatch.pai { background: var(--danger); }
+.viz-legend-item .swatch.p4 { background: rgba(220,38,38,0.55); }
+.viz-legend-item .swatch.p5 { background: var(--warning); }
+
+.viz-svg-wrap { position: relative; flex: 1; aspect-ratio: 4 / 3; max-height: 540px; }
+.viz-svg { width: 100%; height: 100%; display: block; }
+
+/* SVG nodes — usar CSS pra coisas dinâmicas */
+.node-pai-bg { fill: var(--white); stroke: var(--danger); stroke-width: 3; filter: drop-shadow(0 6px 18px rgba(220,38,38,0.30)); }
+.node-pai-ring { fill: none; stroke: var(--danger); stroke-width: 2; opacity: 0.5; animation: ringPulse 2.4s ease-in-out infinite; }
+@keyframes ringPulse { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 0; transform: scale(1.18); } }
+.node-pai-text-main { font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 800; fill: var(--danger); }
+.node-pai-text-sub { font-family: 'Outfit', sans-serif; font-size: 9.5px; font-weight: 700; fill: var(--label-tertiary); letter-spacing: 0.12em; text-transform: uppercase; }
+.node-pai-text-prob { font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 900; fill: var(--danger); }
+
+.node-edge { fill: none; stroke: rgba(220,38,38,0.25); stroke-width: 1.5; transition: stroke 200ms var(--ease-out), stroke-width 200ms var(--ease-out); }
+.node-edge.p4 { stroke: rgba(220,38,38,0.40); }
+.node-edge.p5 { stroke: rgba(217,119,6,0.30); }
+
+.node-child { cursor: pointer; transition: transform 200ms var(--ease-out); transform-origin: center; transform-box: fill-box; }
+.node-child:hover { transform: scale(1.08); }
+.node-child-bg { fill: var(--white); stroke-width: 2; }
+.node-child.p4 .node-child-bg { stroke: var(--danger); }
+.node-child.p5 .node-child-bg { stroke: var(--warning); }
+.node-child-pill { font-family: ui-monospace, monospace; font-size: 8.5px; font-weight: 700; letter-spacing: 0.05em; }
+.node-child.p4 .node-child-pill { fill: var(--danger); }
+.node-child.p5 .node-child-pill { fill: var(--warning); }
+.node-child-label { font-family: 'Outfit', sans-serif; font-size: 10.5px; font-weight: 600; fill: var(--label-primary); }
+.node-child-time { font-family: ui-monospace, monospace; font-size: 9.5px; font-weight: 600; fill: var(--label-tertiary); }
+
+.node-child.selected .node-child-bg { stroke-width: 3; filter: drop-shadow(0 4px 10px rgba(37,99,235,0.30)); }
+.node-edge.selected { stroke: var(--accent); stroke-width: 2.5; }
+
+/* Detail card */
+.detail-card { background: rgba(255,255,255,0.55); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-lg); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9); overflow: hidden; display: flex; flex-direction: column; }
+.detail-section { padding: var(--space-5); }
+.detail-section + .detail-section { border-top: 1px solid rgba(0,0,0,0.06); }
+
+.detail-h { font-size: 9.5px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--label-tertiary); margin-bottom: var(--space-3); display: flex; align-items: center; gap: var(--space-2); }
+.detail-h::after { content: ''; flex: 1; height: 1px; background: rgba(0,0,0,0.08); }
+
+/* Header da cascata selecionada */
+.casc-header { display: flex; flex-direction: column; gap: var(--space-2); }
+.casc-tag { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; padding: 6px 12px; background: rgba(220,38,38,0.08); color: var(--danger); border: 1px solid rgba(220,38,38,0.20); border-radius: var(--r-pill); font-family: ui-monospace, monospace; font-size: 11.5px; font-weight: var(--fw-bold); letter-spacing: 0.04em; }
+.casc-tag .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--danger); animation: livePulse 1.6s ease-in-out infinite; }
+.casc-product { font-size: 24px; font-weight: var(--fw-heavy); letter-spacing: -0.025em; color: var(--label-primary); line-height: 1.1; }
+.casc-product .meta { font-size: 13px; font-weight: var(--fw-medium); color: var(--label-tertiary); letter-spacing: 0; }
+.casc-summary { font-size: 13.5px; color: var(--label-secondary); line-height: 1.5; }
+.casc-summary strong { color: var(--label-primary); font-weight: var(--fw-semibold); }
+.casc-summary code { font-family: ui-monospace, monospace; background: rgba(0,0,0,0.05); padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+.casc-prob-row { display: grid; grid-template-columns: auto 1fr; gap: var(--space-4); align-items: center; padding: var(--space-4); margin-top: var(--space-2); background: rgba(220,38,38,0.05); border: 1px solid rgba(220,38,38,0.18); border-radius: var(--r-md); }
+.casc-prob-num { font-size: 48px; font-weight: var(--fw-heavy); letter-spacing: -0.04em; line-height: 0.9; color: var(--danger); font-variant-numeric: tabular-nums; }
+.casc-prob-num .scale { font-size: 18px; font-weight: var(--fw-semibold); color: var(--label-tertiary); }
+.casc-prob-info { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--label-secondary); }
+.casc-prob-info strong { color: var(--label-primary); font-weight: var(--fw-semibold); }
+.casc-prob-info .lbl { font-size: 10.5px; font-weight: var(--fw-bold); color: var(--label-tertiary); letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* Filho selecionado (info) */
+.sel-info { display: flex; flex-direction: column; gap: var(--space-2); }
+.sel-info-row { display: flex; gap: var(--space-2); align-items: baseline; font-size: 13px; color: var(--label-secondary); }
+.sel-info-row strong { color: var(--label-primary); font-weight: var(--fw-semibold); }
+.sel-info-row code { font-family: ui-monospace, monospace; background: rgba(0,0,0,0.05); padding: 1px 5px; border-radius: 4px; font-size: 11.5px; }
+.sel-pill { font-family: ui-monospace, monospace; font-size: 10px; font-weight: var(--fw-bold); padding: 3px 7px; border-radius: var(--r-sm); letter-spacing: 0.05em; align-self: flex-start; }
+.sel-pill.p5 { background: rgba(217,119,6,0.12); color: var(--warning); }
+.sel-pill.p4 { background: rgba(220,38,38,0.10); color: var(--danger); }
+.sel-info-empty { font-size: 12.5px; color: var(--label-quaternary); font-style: italic; }
+
+/* Ações */
+.actions { display: flex; flex-direction: column; gap: var(--space-2); }
+.action { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); background: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.9); border-radius: var(--r-md); cursor: pointer; transition: all var(--dur-quick) var(--ease-out); }
+.action:hover { background: var(--white); transform: translateX(2px); }
+.action:active { transform: scale(0.98); }
+.action-text { font-size: 12.5px; color: var(--label-primary); line-height: 1.4; }
+.action-text strong { font-weight: var(--fw-semibold); }
+.action-text code { font-family: ui-monospace, monospace; background: rgba(0,0,0,0.05); padding: 1px 4px; border-radius: 4px; font-size: 11px; }
+.action-impact { font-size: 11px; font-weight: var(--fw-bold); padding: 3px 8px; border-radius: var(--r-pill); background: rgba(5,150,105,0.10); color: var(--success); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* Hint */
+.hint { padding: var(--space-3) var(--space-5); background: rgba(37,99,235,0.06); border-top: 1px solid rgba(37,99,235,0.15); font-size: 11px; color: var(--accent); font-weight: var(--fw-semibold); display: flex; align-items: center; gap: 8px; }
+.hint svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sb">
+    <div class="sb-brand">
+      <div class="sb-logo"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.4" fill="#3B82F6"/></svg></div>
+      <div><div class="sb-brand-name">Cronos</div><div class="sb-brand-sub">Veja antes · aja antes</div></div>
+    </div>
+    <div class="sb-search"><input placeholder="Buscar produto, alerta..."><span class="kbd">⌘K</span></div>
+    <nav class="sb-nav">
+      <div class="sb-section">Operação</div>
+      <a class="sb-item" href="dashboard.html"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span class="lbl">Dashboard</span></a>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="lbl">Previsões</span></a>
+      <a class="sb-item active" href="cascata-a-mapa.html"><svg viewBox="0 0 24 24"><path d="M12 2L4 7v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V7l-8-5z"/></svg><span class="lbl">Cascatas</span><span class="badge">3</span></a>
+      <a class="sb-item" href="saude-produto.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg><span class="lbl">Saúde · Produto</span></a>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><span class="lbl">Probabilidade KPI</span></a>
+      <div class="sb-section">Diferenciais</div>
+      <a class="sb-item" href="morning-brief.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg><span class="lbl">Morning brief</span><span class="badge neutral">06:00</span></a>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/></svg><span class="lbl">Alertas</span><span class="badge warning">8</span></a>
+      <div class="sb-section">Análise</div>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/></svg><span class="lbl">Produtos</span></a>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/></svg><span class="lbl">Equipes</span></a>
+      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg><span class="lbl">Configurações</span></a>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-avatar">IV</div>
+      <div style="flex:1;"><div class="sb-user-name">Igor Vignola</div><div class="sb-user-role">Operações · Locaweb</div></div>
+      <button class="sb-foot-more"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <div class="tb">
+      <div class="tb-crumb"><span>Operação</span><span style="color:var(--label-quaternary);">/</span><span class="here">Cascatas</span></div>
+      <div class="tb-pill"><span class="dot"></span>1 crítica</div>
+      <div class="tb-spacer"></div>
+      <div class="var-nav">
+        <a href="cascata-a-mapa.html" class="active">A · Mapa</a>
+        <a href="cascata-b-timeline.html">B · Timeline</a>
+        <a href="cascata-c-storyline.html">C · Storyline</a>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="page">
+
+        <!-- Header -->
+        <header class="page-head">
+          <div class="page-head-left">
+            <h1>Mapa das cascatas</h1>
+            <p>Cada cascata mostra o incidente pai e os filhos que cascatearam até chegar nele · <strong>3</strong> em formação · base histórica de <strong>4.812</strong> cascatas</p>
+          </div>
+          <div class="cascade-tabs" id="tabs">
+            <button class="cascade-tab active" data-id="lhco"><span class="tab-dot crit"></span>lhco · INC8643147</button>
+            <button class="cascade-tab" data-id="lhvp"><span class="tab-dot warn"></span>lhvp · INC8607139</button>
+            <button class="cascade-tab" data-id="lcem"><span class="tab-dot warn"></span>lcem · INC8629044</button>
+          </div>
+        </header>
+
+        <!-- Stats -->
+        <div class="stats">
+          <div class="stat"><span class="v">3</span><span class="l">Em formação</span><span class="delta">monitorando agora</span></div>
+          <div class="stat"><span class="v crit">12</span><span class="l">Filhos acumulados</span><span class="delta crit">+4 nas últimas 2h</span></div>
+          <div class="stat"><span class="v">87<span style="font-size:14px;color:var(--label-tertiary);">%</span></span><span class="l">Acerto do detector</span><span class="delta">base 4.812 cascatas</span></div>
+          <div class="stat"><span class="v">INC8542250</span><span class="l">Maior cascata histórica</span><span class="delta">630 filhos · referência</span></div>
+        </div>
+
+        <!-- Layout: viz + detail -->
+        <div class="layout">
+
+          <!-- Visualization -->
+          <div class="viz-card">
+            <div class="viz-head">
+              <span class="viz-h">Árvore da cascata · clique num filho pra ver detalhes</span>
+              <div class="viz-legend">
+                <span class="viz-legend-item"><span class="swatch pai"></span>Pai (em formação)</span>
+                <span class="viz-legend-item"><span class="swatch p4"></span>P4 (escalado)</span>
+                <span class="viz-legend-item"><span class="swatch p5"></span>P5 (sinal)</span>
+              </div>
+            </div>
+            <div class="viz-svg-wrap">
+              <svg class="viz-svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+
+                <!-- Edges (linhas conectando pai aos filhos) -->
+                <g id="edges">
+                  <path class="node-edge p5" data-child="c1" d="M400,150 C400,250 130,300 130,360"/>
+                  <path class="node-edge p5" data-child="c2" d="M400,150 C400,250 210,330 210,420"/>
+                  <path class="node-edge p4" data-child="c3" d="M400,150 C400,260 320,360 320,470"/>
+                  <path class="node-edge p5" data-child="c4" d="M400,150 C400,260 420,360 420,500"/>
+                  <path class="node-edge p5" data-child="c5" d="M400,150 C400,260 520,360 520,470"/>
+                  <path class="node-edge p4" data-child="c6" d="M400,150 C400,250 600,330 600,420"/>
+                  <path class="node-edge p5" data-child="c7" d="M400,150 C400,250 680,300 680,360"/>
+                </g>
+
+                <!-- Pai (centro topo) -->
+                <g class="node-pai">
+                  <circle class="node-pai-ring" cx="400" cy="150" r="74"/>
+                  <circle class="node-pai-ring" cx="400" cy="150" r="74" style="animation-delay: 1.2s;"/>
+                  <circle class="node-pai-bg" cx="400" cy="150" r="68"/>
+                  <text class="node-pai-text-sub" x="400" y="118" text-anchor="middle">INCIDENTE PAI</text>
+                  <text class="node-pai-text-main" x="400" y="138" text-anchor="middle">INC8643147</text>
+                  <text class="node-pai-text-prob" x="400" y="174" text-anchor="middle">84%</text>
+                  <text class="node-pai-text-sub" x="400" y="190" text-anchor="middle">prob · próx. 2h</text>
+                </g>
+
+                <!-- Filhos -->
+                <!-- c1: P5 Apache Busy (primeiro) -->
+                <g class="node-child p5" data-id="c1">
+                  <rect class="node-child-bg" x="60" y="338" width="140" height="56" rx="10"/>
+                  <text class="node-child-pill" x="74" y="358">P5</text>
+                  <text class="node-child-label" x="74" y="376">Apache BW 85%</text>
+                  <text class="node-child-time" x="74" y="389">04:28 · há 2h14</text>
+                </g>
+
+                <!-- c2: P5 Apache Busy reincidência -->
+                <g class="node-child p5" data-id="c2">
+                  <rect class="node-child-bg" x="140" y="398" width="140" height="56" rx="10"/>
+                  <text class="node-child-pill" x="154" y="418">P5</text>
+                  <text class="node-child-label" x="154" y="436">Apache BW 92%</text>
+                  <text class="node-child-time" x="154" y="449">05:56 · há 46min</text>
+                </g>
+
+                <!-- c3: P4 P95 spike -->
+                <g class="node-child p4 selected" data-id="c3">
+                  <rect class="node-child-bg" x="250" y="448" width="140" height="56" rx="10"/>
+                  <text class="node-child-pill" x="264" y="468">P4</text>
+                  <text class="node-child-label" x="264" y="486">P95 &gt; 1.2s</text>
+                  <text class="node-child-time" x="264" y="499">06:42 · agora</text>
+                </g>
+
+                <!-- c4: P5 disco -->
+                <g class="node-child p5" data-id="c4">
+                  <rect class="node-child-bg" x="355" y="478" width="140" height="56" rx="10"/>
+                  <text class="node-child-pill" x="369" y="498">P5</text>
+                  <text class="node-child-label" x="369" y="516">Disco 87% /var</text>
+                  <text class="node-child-time" x="369" y="529">06:14 · há 28min</text>
+                </g>
+
+                <!-- c5: P5 IOwait -->
+                <g class="node-child p5" data-id="c5">
+                  <rect class="node-child-bg" x="455" y="448" width="140" height="56" rx="10"/>
+                  <text class="node-child-pill" x="469" y="468">P5</text>
+                  <text class="node-child-label" x="469" y="486">IOwait alto</text>
+                  <text class="node-child-time" x="469" y="499">06:31 · há 11min</text>
+                </g>
+
+                <!-- c6: P4 nginx down -->
+                <g class="node-child p4" data-id="c6">
+                  <rect class="node-child-bg" x="530" y="398" width="140" height="56" rx="10"/>
+                  <text class="node-child-pill" x="544" y="418">P4</text>
+                  <text class="node-child-label" x="544" y="436">Nginx port 80</text>
+                  <text class="node-child-time" x="544" y="449">06:38 · há 4min</text>
+                </g>
+
+                <!-- c7: P5 swap -->
+                <g class="node-child p5" data-id="c7">
+                  <rect class="node-child-bg" x="610" y="338" width="140" height="56" rx="10"/>
+                  <text class="node-child-pill" x="624" y="358">P5</text>
+                  <text class="node-child-label" x="624" y="376">Swap &lt;5%</text>
+                  <text class="node-child-time" x="624" y="389">05:18 · há 1h24</text>
+                </g>
+
+              </svg>
+            </div>
+          </div>
+
+          <!-- Detail panel -->
+          <div class="detail-card">
+
+            <div class="detail-section">
+              <h4 class="detail-h">Cascata selecionada</h4>
+              <div class="casc-header">
+                <span class="casc-tag"><span class="dot"></span>EM FORMAÇÃO · 2h 14min</span>
+                <h2 class="casc-product">lhco <span class="meta">· Hospedagem · Team14</span></h2>
+                <p class="casc-summary">7 filhos cascateados desde 04:28 em <code>lhco-web-03</code>. Padrão similar à cascata histórica <code>INC8591143</code> que estourou em 4h e gerou <strong>510 filhos</strong>.</p>
+                <div class="casc-prob-row">
+                  <div class="casc-prob-num">84<span class="scale">%</span></div>
+                  <div class="casc-prob-info">
+                    <span class="lbl">Probabilidade P2 · próx. 2h</span>
+                    <span><strong>IC raiz:</strong> IC00014 (mais instável do dataset · 6.069 incidentes)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h4 class="detail-h">Filho selecionado · <code style="font-family:ui-monospace,monospace;background:rgba(0,0,0,0.05);padding:1px 5px;border-radius:4px;font-size:11px;color:var(--label-tertiary);">c3</code></h4>
+              <div class="sel-info" id="sel-info">
+                <!-- preenchido via JS -->
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h4 class="detail-h">Como cortar a cascata</h4>
+              <div class="actions">
+                <div class="action"><span class="action-text">Runbook <strong>IC00014</strong> · 4 passos · ~12min · 87% sucesso histórico</span><span class="action-impact">−42 pp</span></div>
+                <div class="action"><span class="action-text">Redistribuir 2 P5 · <strong>Team14 → Team09</strong> (Team09 expert em lhco)</span><span class="action-impact">−18 pp</span></div>
+                <div class="action"><span class="action-text">Escalar manualmente pra P3 · força SLA agressivo</span><span class="action-impact">−9 pp</span></div>
+              </div>
+            </div>
+
+            <div class="hint">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Clique em um filho no mapa pra ver os detalhes dele aqui
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// Dados dos filhos (sinais que cascatearam)
+const filhos = {
+  c1: { pri: 'P5', titulo: 'Apache Busy Workers ≥ 85%', host: 'lhco-web-03', alerta: 'Problem: Apache Busy Workers', tempo: '04:28 · há 2h14min', meta: 'primeiro sinal · iniciou a cascata', impact: '+18' },
+  c2: { pri: 'P5', titulo: 'Apache Busy Workers ≥ 92%', host: 'lhco-web-03', alerta: 'Problem: Apache Busy Workers', tempo: '05:56 · há 46min', meta: 'reincidência do mesmo sinal', impact: '+24' },
+  c3: { pri: 'P4', titulo: 'Tempo de resposta P95 > 1.2s', host: 'lhco-web-03', alerta: 'Problem: Perf Teste Asp · Web Test Fail', tempo: '06:42 · agora', meta: 'escalou de P5 pra P4 · padrão de escalada confirmado', impact: '+34' },
+  c4: { pri: 'P5', titulo: 'Disco em 87% no /var', host: 'lhco-web-03', alerta: 'Problem: Free disk space is less than 10% on volume /', tempo: '06:14 · há 28min', meta: 'pressão em recurso correlacionado', impact: '+11' },
+  c5: { pri: 'P5', titulo: 'IOwait alto na CPU queue', host: 'lhco-web-03', alerta: 'Problem: IOwait grown up CPU queue', tempo: '06:31 · há 11min', meta: 'sinal de gargalo de I/O', impact: '+9' },
+  c6: { pri: 'P4', titulo: 'Nginx não respondendo na porta 80', host: 'lhco-web-03', alerta: 'Problem: Check: Nginx Type: tcp on Port: 80 Not Running', tempo: '06:38 · há 4min', meta: 'já escalou — serviço dropou', impact: '+28' },
+  c7: { pri: 'P5', titulo: 'Swap livre &lt; 5%', host: 'lhco-web-03', alerta: 'Problem: Lack of free swap space 40m <5%', tempo: '05:18 · há 1h24min', meta: 'precursor histórico forte em lhco', impact: '+7' },
+};
+
+const selInfo = document.getElementById('sel-info');
+
+function renderFilho(id) {
+  const f = filhos[id];
+  if (!f) {
+    selInfo.innerHTML = '<span class="sel-info-empty">Nenhum filho selecionado.</span>';
+    return;
+  }
+  const klass = f.pri.toLowerCase();
+  selInfo.innerHTML = `
+    <span class="sel-pill ${klass}">${f.pri}</span>
+    <div class="sel-info-row"><strong>${f.titulo}</strong></div>
+    <div class="sel-info-row"><span style="color:var(--label-tertiary);">Host:</span> <code>${f.host}</code></div>
+    <div class="sel-info-row"><span style="color:var(--label-tertiary);">Alerta:</span> <code>${f.alerta}</code></div>
+    <div class="sel-info-row"><span style="color:var(--label-tertiary);">Quando:</span> ${f.tempo}</div>
+    <div class="sel-info-row" style="color:var(--label-tertiary); font-size: 12px;">${f.meta}</div>
+    <div class="sel-info-row" style="margin-top:6px;"><span style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--label-tertiary);">Impacto na prob:</span> <strong style="color: var(--danger); font-variant-numeric: tabular-nums;">${f.impact} pp</strong></div>
+  `;
+}
+
+// Inicializa com c3 (selected default)
+renderFilho('c3');
+
+// Cliques nos filhos
+document.querySelectorAll('.node-child').forEach(child => {
+  child.addEventListener('click', (e) => {
+    document.querySelectorAll('.node-child').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('.node-edge').forEach(ed => ed.classList.remove('selected'));
+    child.classList.add('selected');
+    const id = child.dataset.id;
+    const edge = document.querySelector(`.node-edge[data-child="${id}"]`);
+    if (edge) edge.classList.add('selected');
+    renderFilho(id);
+  });
+});
+
+// Cliques nas tabs (cosmetic — não troca conteúdo na demo)
+document.querySelectorAll('.cascade-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.cascade-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
