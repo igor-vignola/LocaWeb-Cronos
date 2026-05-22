@@ -962,6 +962,51 @@ body::after {
 .mb-pill:hover { background: rgba(37,99,235,0.16); transform: translateY(-1px); box-shadow: 0 4px 12px -2px rgba(37,99,235,0.20); }
 .mb-pill:active { transform: scale(0.97); }
 .mb-pill svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ═══════════════════════════════════════════════════════════
+   AI BADGE
+   ═══════════════════════════════════════════════════════════ */
+.ai-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 8.5px; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 7px; border-radius: var(--r-pill); background: linear-gradient(135deg, rgba(37,99,235,0.12), rgba(168,85,247,0.12)); color: var(--accent); border: 1px solid rgba(37,99,235,0.22); white-space: nowrap; margin-left: 8px; vertical-align: middle; }
+.ai-badge svg { width: 9px; height: 9px; flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════════════════════
+   TENDÊNCIA DIÁRIA 30 DIAS
+   ═══════════════════════════════════════════════════════════ */
+.trend { padding: var(--space-5) var(--space-6); margin-bottom: var(--space-4); }
+.trend-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: var(--space-4); }
+.trend-h { font-size: 14px; font-weight: var(--fw-bold); color: var(--label-primary); }
+.trend-sub { font-size: 11px; color: var(--label-tertiary); margin-top: 2px; }
+.trend-legend { display: flex; gap: var(--space-3); }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: var(--label-tertiary); font-weight: var(--fw-semibold); }
+.swatch { width: 10px; height: 2px; border-radius: 1px; flex-shrink: 0; }
+.swatch-vol { background: var(--accent); }
+.swatch-ola { background: var(--danger); }
+.trend-chart { position: relative; }
+.trend-axis { display: flex; justify-content: space-between; font-family: ui-monospace, monospace; font-size: 9.5px; color: var(--label-tertiary); margin-top: 6px; padding: 0 4px; }
+
+/* ═══════════════════════════════════════════════════════════
+   TOP INSTABILIDADES
+   ═══════════════════════════════════════════════════════════ */
+.top-inst { padding: var(--space-5) var(--space-6); margin-bottom: var(--space-4); }
+.top-inst-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--space-4); }
+.top-inst-h { font-size: 14px; font-weight: var(--fw-bold); color: var(--label-primary); }
+.top-inst-sub { font-size: 11px; color: var(--label-tertiary); margin-top: 2px; }
+.top-inst-link { font-size: 12px; color: var(--accent); font-weight: var(--fw-semibold); text-decoration: none; }
+.top-inst-list { display: flex; flex-direction: column; gap: var(--space-2); }
+.top-inst-row { display: grid; grid-template-columns: 70px 60px 60px 1fr; gap: var(--space-3); align-items: center; padding: 10px 12px; background: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-md); }
+.ti-tag { font-family: ui-monospace, monospace; font-size: 12px; font-weight: var(--fw-bold); padding: 3px 8px; background: rgba(0,0,0,0.06); color: var(--label-primary); border-radius: var(--r-sm); }
+.ti-score { font-size: 22px; font-weight: var(--fw-heavy); font-variant-numeric: tabular-nums; text-align: center; }
+.ti-score.crit { color: var(--danger); }
+.ti-score.warn { color: var(--warning); }
+.ti-delta { font-size: 12px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; padding: 3px 8px; border-radius: var(--r-pill); text-align: center; }
+.ti-delta.neg { background: var(--danger-soft); color: var(--danger); }
+.ti-fator { font-size: 12.5px; color: var(--label-secondary); }
+
+/* ═══════════════════════════════════════════════════════════
+   PRED LINK
+   ═══════════════════════════════════════════════════════════ */
+.pred-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: var(--fw-semibold); color: var(--accent); margin-top: var(--space-3); text-decoration: none; transition: gap 200ms; }
+.pred-link:hover { gap: 8px; }
 </style>
 </head>
 <body>
@@ -1049,7 +1094,7 @@ body::after {
 
       <section class="hero glass glass-elev">
         <div class="hero-left">
-          <div class="hero-eyebrow"><span class="dot"></span>Probabilidade KPI · Dezembro</div>
+          <div class="hero-eyebrow"><span class="dot"></span>Probabilidade KPI · Dezembro <span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
           <div class="hero-num">73<span class="unit">%</span></div>
           <div class="hero-ci">
             <span class="pill">±8pp</span>
@@ -1058,8 +1103,8 @@ body::after {
         </div>
 
         <div class="hero-right">
-          <h2 class="hero-h1">A meta de dezembro está <span class="kw">caindo rápido</span>.</h2>
-          <p class="hero-sub">Queda de <strong>12pp em 7 dias</strong>. Para reverter, zero violações até virada do mês. O detector identificou <strong>3 cascatas</strong> em formação. Modelo treinado em <strong>122.543 incidentes</strong> dos últimos 3 anos.</p>
+          <h2 class="hero-h1">A meta de dezembro está <span class="kw">em zona de atenção</span>.</h2>
+          <p class="hero-sub">Forecast aponta cenário apertado pro fechamento do mês. O detector identificou <strong>3 cascatas</strong> em formação. Projeção feita com Prophet + Monte Carlo · base de <strong>122.543 incidentes</strong>.</p>
           <div class="hero-actions">
             <button class="btn btn-primary">Plano de mitigação<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
             <button class="btn btn-glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Cenários Monte Carlo</button>
@@ -1114,6 +1159,28 @@ body::after {
             </span>
           </div>
           <div class="kpi-baseline"><strong>8</strong> em crítico · <strong>12</strong> em risco</div>
+        </div>
+      </section>
+
+      <section class="trend glass">
+        <div class="trend-head">
+          <div>
+            <div class="trend-h">Tendência diária · últimos 30 dias</div>
+            <div class="trend-sub">Volume de incidentes e violações OLA por dia</div>
+          </div>
+          <div class="trend-legend">
+            <span class="legend-item"><span class="swatch swatch-vol"></span>Volume</span>
+            <span class="legend-item"><span class="swatch swatch-ola"></span>OLA quebrado</span>
+          </div>
+        </div>
+        <div class="trend-chart">
+          <svg viewBox="0 0 800 200" preserveAspectRatio="none" style="width:100%; height:200px;">
+            <polyline points="0,140 28,135 55,142 82,128 110,150 138,145 165,138 192,155 220,148 248,142 275,135 302,140 330,128 358,120 385,125 412,130 440,118 468,128 495,135 522,128 550,122 578,130 605,135 632,142 660,150 688,148 715,158 742,162 770,170 800,168" fill="none" stroke="var(--accent)" stroke-width="2"/>
+            <polyline points="0,180 28,182 55,178 82,184 110,180 138,182 165,178 192,176 220,180 248,178 275,182 302,180 330,180 358,184 385,182 412,180 440,178 468,180 495,182 522,184 550,180 578,178 605,176 632,180 660,178 688,180 715,182 742,180 770,184 800,182" fill="none" stroke="var(--danger)" stroke-width="2" stroke-dasharray="4 4"/>
+          </svg>
+          <div class="trend-axis">
+            <span>01/dez</span><span>10/dez</span><span>20/dez</span><span>30/dez</span>
+          </div>
         </div>
       </section>
 
@@ -1179,7 +1246,7 @@ body::after {
       <section class="predicted-card glass">
         <div class="pred-head">
           <div>
-            <div class="pred-h">Probabilidade KPI · dezembro · projeção 15 dias</div>
+            <div class="pred-h">Próximos 7 dias · forecast por prioridade <span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
             <div class="pred-title-row">
               <span class="pred-val">73<span class="u">%</span></span>
               <span class="pred-ci">±8pp · 90% CI · Prophet+XGBoost</span>
@@ -1210,12 +1277,13 @@ body::after {
         </div>
 
         <div class="pred-foot">
-          <span>01/dez · <strong>85%</strong></span>
-          <span>15/dez · <strong>82%</strong></span>
-          <span><strong>HOJE 31/dez · 73%</strong></span>
-          <span>07/jan · <strong>65%</strong></span>
-          <span>15/jan · <span class="crit">~58%</span></span>
+          <span><strong>HOJE 31/dez</strong></span>
+          <span>+1: 01/jan</span>
+          <span>+3: 03/jan</span>
+          <span>+5: 05/jan</span>
+          <span><strong>+7: 07/jan</strong></span>
         </div>
+        <a class="pred-link" href="previsao.html">Ver previsão completa →</a>
       </section>
 
       <section class="casc-list glass">
@@ -1252,6 +1320,36 @@ body::after {
           <div class="casc-row-owner"><span class="avatar-xs rj">11</span><span class="name">Team11</span></div>
           <div class="casc-row-prob"><div class="casc-row-prob-bar warn"><i style="width:58%"></i></div><span class="casc-row-prob-val">58%</span></div>
           <span class="casc-row-cta">Abrir <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </section>
+
+      <section class="top-inst glass">
+        <div class="top-inst-head">
+          <div>
+            <div class="top-inst-h">Top instabilidades · produtos</div>
+            <div class="top-inst-sub">Produtos com maior queda de score nas últimas 2 semanas <span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
+          </div>
+          <a class="top-inst-link" href="saude-produto.html">Ver todos →</a>
+        </div>
+        <div class="top-inst-list">
+          <div class="top-inst-row">
+            <span class="ti-tag">lhco</span>
+            <span class="ti-score crit">62</span>
+            <span class="ti-delta neg">−18</span>
+            <span class="ti-fator">Volume + cascata em formação</span>
+          </div>
+          <div class="top-inst-row">
+            <span class="ti-tag">lcem</span>
+            <span class="ti-score warn">71</span>
+            <span class="ti-delta neg">−9</span>
+            <span class="ti-fator">Janela de backup conflita com pico</span>
+          </div>
+          <div class="top-inst-row">
+            <span class="ti-tag">lhvp</span>
+            <span class="ti-score warn">74</span>
+            <span class="ti-delta neg">−6</span>
+            <span class="ti-fator">Cascata sem owner</span>
+          </div>
         </div>
       </section>
 
@@ -1403,7 +1501,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="mb-block">
       <span class="mb-eyebrow">Hoje · 31 dez · atenção</span>
       <h3 class="mb-h">3 cascatas em formação. KPI em <span class="kw">73%</span>.</h3>
-      <div class="mb-bullet"><span><code>lhco · INC8643147</code> escala em ~38min · <strong>84%</strong></span></div>
+      <div class="mb-bullet"><span><code>lhco · INC8643147</code> cascata em formação há 2h · <strong>84%</strong></span></div>
       <div class="mb-bullet"><span><code>lhvp · INC8607139</code> sem owner há 18min · <strong>62%</strong></span></div>
       <div class="mb-bullet"><span>3 alertas <code>Apache Busy Workers</code> nas últimas 4h</span></div>
     </div>
