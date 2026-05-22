@@ -290,7 +290,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
 
         <div class="stats">
           <div class="stat"><span class="v crit">3</span><span class="l">Em formação</span><span class="delta crit">1 crítica</span></div>
-          <div class="stat"><span class="v good">1</span><span class="l">Cortada hoje</span><span class="delta">via runbook</span></div>
+          <div class="stat"><span class="v good">1</span><span class="l">Mitigada hoje</span><span class="delta">cascata encerrada</span></div>
           <div class="stat"><span class="v">2h 14min</span><span class="l">Mais antiga</span><span class="delta">lhco · INC8643147</span></div>
           <div class="stat"><span class="v">12</span><span class="l">Alertas acumulados</span><span class="delta">nas 3 ativas</span></div>
         </div>
@@ -306,75 +306,70 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
               </div>
               <div class="casc-id">
                 <span class="casc-tag">lhco · INC8643147</span>
-                <span class="casc-meta">7 alertas em <code>lhco-web-03</code> · grupo <strong>Team14</strong> · categoria <code>cat71</code></span>
+                <span class="casc-meta">7 incidentes-filhos · grupo <strong>Team14</strong> · categoria <code>cat71</code> · IC <code>IC00014</code></span>
               </div>
               <div class="casc-time"><span class="v">2h 14min</span><span class="l">desde 1º alerta</span></div>
             </div>
 
             <div>
-              <div class="block-h">Cronologia dos alertas</div>
+              <div class="block-h">Incidentes-filhos da cascata</div>
               <div class="alerts">
                 <div class="alert">
                   <span class="alert-time">04:28</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc">Apache Busy Workers ≥ 85% <span class="host">em <code>lhco-web-03</code></span></span>
+                  <span class="alert-desc"><code>INC8643149</code> · Problem: Apache Busy Workers</span>
                   <span></span>
                 </div>
                 <div class="alert">
                   <span class="alert-time">05:18</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc">Lack of free swap space 40m &lt; 5% <span class="host">em <code>lhco-web-03</code></span></span>
+                  <span class="alert-desc"><code>INC8643156</code> · Problem: Lack of free swap space 40m &lt; 5%</span>
                   <span></span>
                 </div>
                 <div class="alert">
                   <span class="alert-time">05:56</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc">Apache Busy Workers ≥ 92% <span class="host">em <code>lhco-web-03</code> (reincidência)</span></span>
+                  <span class="alert-desc"><code>INC8643172</code> · Problem: Apache Busy Workers (reincidência)</span>
                   <span></span>
                 </div>
                 <div class="alert">
                   <span class="alert-time">06:14</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc">Free disk space less than 10% on volume / <span class="host">em <code>lhco-web-03</code></span></span>
+                  <span class="alert-desc"><code>INC8643189</code> · Problem: Free disk space is less than 10% on volume /</span>
                   <span></span>
                 </div>
                 <div class="alert">
                   <span class="alert-time">06:31</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc">IOwait grown up CPU queue <span class="host">em <code>lhco-web-03</code></span></span>
+                  <span class="alert-desc"><code>INC8643204</code> · Problem: IOwait grown up CPU queue</span>
                   <span></span>
                 </div>
                 <div class="alert">
                   <span class="alert-time">06:38</span>
                   <span class="alert-pri p4">P4</span>
-                  <span class="alert-desc">Nginx Type: tcp on Port: 80 Not Running <span class="host">em <code>lhco-web-03</code></span></span>
+                  <span class="alert-desc"><code>INC8643217</code> · Problem: Check: Nginx Type: tcp on Port: 80 Not Running</span>
                   <span></span>
                 </div>
                 <div class="alert now">
                   <span class="alert-time">06:42</span>
                   <span class="alert-pri p4">P4</span>
-                  <span class="alert-desc">Perf Teste Asp · Web Test Fail (P95 &gt; 1.2s) <span class="host">em <code>lhco-web-03</code></span></span>
+                  <span class="alert-desc"><code>INC8643231</code> · Problem: Perf Teste Asp · Web Test Fail</span>
                   <span class="alert-marker">Agora</span>
                 </div>
               </div>
             </div>
 
             <div class="context">
-              <div class="ctx-card">
-                <div class="ctx-h"><span>Padrão histórico</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
-                <span class="ctx-body">Encadeamento similar a <span class="num">23</span> cascatas anteriores em <code>lhco</code> com a mesma assinatura (2× Apache BW + escalada Nginx). <span class="num">18 dessas (78%)</span> chegaram em P3 ou pior.</span>
-                <span class="ctx-disclaimer">k-NN sobre 4.812 cascatas históricas · janela 6h</span>
-              </div>
-              <div class="ctx-card">
-                <div class="ctx-h"><span>Sugestão de runbook</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
-                <span class="ctx-body">Em <span class="num">15 das 18</span> que escalaram, o time acionou <code>IC00014</code> e <span class="num good">resolveu em 87%</span> dos casos. Duração típica: ~12min.</span>
-                <span class="ctx-disclaimer">frequência condicional · base k-NN acima</span>
+              <div class="ctx-card" style="grid-column: 1 / -1;">
+                <div class="ctx-h"><span>Sugestão da IA</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
+                <span class="ctx-body">Encadeamento similar a <span class="num">23 cascatas</span> anteriores em <code>lhco</code> com IC <code>IC00014</code>. Dessas, <span class="num">18 (78%)</span> chegaram em P3 ou pior. <strong>Recomendação:</strong> reforçar a equipe responsável pelo produto <code>lhco</code> — historicamente cascatas dessa assinatura estabilizam mais rápido com expertise no produto.</span>
+                <span class="ctx-disclaimer">k-NN sobre histórico de cascatas · texto curado por Claude API</span>
               </div>
             </div>
 
             <div class="casc-foot">
               <button class="casc-action">
-                Acionar runbook <code>IC00014</code>
+                Acionar Team14 · produto lhco
                 <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
               </button>
               <a class="casc-link" href="#">Ver detalhe do produto <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a>
@@ -390,39 +385,34 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
               </div>
               <div class="casc-id">
                 <span class="casc-tag">lhvp · INC8607139</span>
-                <span class="casc-meta">2 alertas em <code>lhvp-db-01</code> · grupo <strong>Team14</strong> · categoria <code>cat73</code></span>
+                <span class="casc-meta">2 incidentes-filhos · grupo <strong>Team14</strong> · categoria <code>cat73</code> · sem owner há 18min</span>
               </div>
               <div class="casc-time"><span class="v">18min</span><span class="l">desde 1º alerta</span></div>
             </div>
 
             <div>
-              <div class="block-h">Cronologia dos alertas</div>
+              <div class="block-h">Incidentes-filhos da cascata</div>
               <div class="alerts">
                 <div class="alert">
                   <span class="alert-time">06:24</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc">Free disk space less than 10% on volume / (disco 89%) <span class="host">em <code>lhvp-db-01</code></span></span>
+                  <span class="alert-desc"><code>INC8607142</code> · Problem: Free disk space is less than 10% on volume / (disco 89%)</span>
                   <span></span>
                 </div>
                 <div class="alert now">
                   <span class="alert-time">06:30</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc">Check PostgreSQL Replication Slave · slow query &gt; 5s <span class="host">em <code>lhvp-db-01</code></span></span>
+                  <span class="alert-desc"><code>INC8607158</code> · Problem: Check PostgreSQL Replication Slave</span>
                   <span class="alert-marker">Agora</span>
                 </div>
               </div>
             </div>
 
             <div class="context">
-              <div class="ctx-card">
-                <div class="ctx-h"><span>Padrão histórico</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
-                <span class="ctx-body">Encadeamento similar a <span class="num">apenas 4</span> cascatas anteriores em <code>lhvp</code> (disco + slow query). Base pequena pra projetar — historicamente <span class="num">2 das 4</span> chegaram em P3.</span>
-                <span class="ctx-disclaimer">n pequeno · estimativa pouco confiável</span>
-              </div>
-              <div class="ctx-card">
-                <div class="ctx-h"><span>Sugestão</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
-                <span class="ctx-body">Sem owner há 18min. Em casos de <code>lhvp</code> com cascata, <span class="num">Team09</span> (1.440 incidentes históricos no produto) costuma atender mais rápido que Team14 nessa categoria.</span>
-                <span class="ctx-disclaimer">heurística de roteamento por expertise</span>
+              <div class="ctx-card" style="grid-column: 1 / -1;">
+                <div class="ctx-h"><span>Sugestão da IA</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
+                <span class="ctx-body">Cascatas similares em <code>lhvp</code> têm base pequena (<span class="num">apenas 4</span> casos anteriores) — estimativa pouco confiável. <strong>Recomendação:</strong> atribuir owner imediatamente. Cascatas em <code>lhvp</code> historicamente são roteadas pra <strong>Team09</strong> (1.440 incidentes registrados no produto).</span>
+                <span class="ctx-disclaimer">n pequeno · roteamento sugerido por especialização real</span>
               </div>
             </div>
 
@@ -444,33 +434,28 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
               </div>
               <div class="casc-id">
                 <span class="casc-tag">lcem · INC8629044</span>
-                <span class="casc-meta">1 alerta em <code>lcem-api</code> · grupo <strong>Team05</strong> · categoria <code>cat76</code></span>
+                <span class="casc-meta">1 incidente-filho · grupo <strong>Team05</strong> · categoria <code>cat76</code> · janela de backup 09h-11h</span>
               </div>
               <div class="casc-time"><span class="v">1h 12min</span><span class="l">desde 1º alerta</span></div>
             </div>
 
             <div>
-              <div class="block-h">Cronologia dos alertas</div>
+              <div class="block-h">Incidentes-filhos da cascata</div>
               <div class="alerts">
                 <div class="alert now">
                   <span class="alert-time">05:30</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc">High bandwidth &gt; 60% at least 15m (latência intermitente) <span class="host">em <code>lcem-api</code></span></span>
+                  <span class="alert-desc"><code>INC8629044</code> · Problem: High bandwidth &gt;60% at least 15m</span>
                   <span class="alert-marker">Agora</span>
                 </div>
               </div>
             </div>
 
             <div class="context">
-              <div class="ctx-card">
-                <div class="ctx-h"><span>Padrão histórico</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
-                <span class="ctx-body">Em dias com janela de backup conflitando com pico operacional (09h-11h), <span class="num">8 de 12</span> alertas isolados em <code>lcem</code> viraram cascata P3.</span>
+              <div class="ctx-card" style="grid-column: 1 / -1;">
+                <div class="ctx-h"><span>Sugestão da IA</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
+                <span class="ctx-body">Em dias com janela de backup conflitando com pico operacional (09h-11h), <span class="num">8 de 12</span> alertas isolados em <code>lcem</code> viraram cascata P3. <strong>Recomendação:</strong> avaliar mudança de janela de backup do produto <code>lcem</code> para horário fora do pico operacional.</span>
                 <span class="ctx-disclaimer">filtro: backup ativo · 12 ocorrências em 90 dias</span>
-              </div>
-              <div class="ctx-card">
-                <div class="ctx-h"><span>Sugestão</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
-                <span class="ctx-body">Mover janela de backup pra <span class="num">03:00</span>. Histórico de <code>lcem</code> com backup às 03h: <span class="num good">0 cascatas</span> em 47 dias com essa janela.</span>
-                <span class="ctx-disclaimer">comparação histórica · 47 dias amostrados</span>
               </div>
             </div>
 
@@ -488,54 +473,50 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
             <div class="casc-head">
               <div class="casc-status">
                 <span class="casc-status-dot resolved"></span>
-                <span class="casc-status-text resolved">Cortada · 03:46</span>
+                <span class="casc-status-text resolved">Encerrada · 03:46</span>
               </div>
               <div class="casc-id">
                 <span class="casc-tag">lsin · INC8643112</span>
-                <span class="casc-meta">2 alertas em <code>lsin-app-02</code> · grupo <strong>Team11</strong> · cortada com runbook <code>IC00019</code></span>
+                <span class="casc-meta">2 incidentes-filhos · grupo <strong>Team11</strong> · encerrada por <code>Falha de Aplicação</code></span>
               </div>
               <div class="casc-time"><span class="v">32min</span><span class="l">tempo total</span></div>
             </div>
 
             <div>
-              <div class="block-h">Cronologia dos alertas</div>
+              <div class="block-h">Incidentes-filhos da cascata</div>
               <div class="alerts">
                 <div class="alert">
                   <span class="alert-time">03:14</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc">Check Application Monitoring <span class="host">em <code>lsin-app-02</code></span></span>
+                  <span class="alert-desc"><code>INC8643112</code> · Problem: Check Application Monitoring</span>
                   <span></span>
                 </div>
                 <div class="alert">
                   <span class="alert-time">03:24</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc">Processor load is too high &gt; 20% <span class="host">em <code>lsin-app-02</code></span></span>
+                  <span class="alert-desc"><code>INC8643118</code> · Problem: Processor load is too high &gt; 20%</span>
                   <span></span>
                 </div>
                 <div class="alert resolved-row">
                   <span class="alert-time">03:46</span>
                   <span class="alert-pri ok">OK</span>
-                  <span class="alert-desc">Cascata cortada · runbook <code>IC00019</code> aplicado por Team11</span>
-                  <span class="alert-marker resolved-marker">Resolvida</span>
+                  <span class="alert-desc">Cascata encerrada · código <code>Falha de Aplicação</code> · responsável Team11</span>
+                  <span class="alert-marker resolved-marker">Encerrada</span>
                 </div>
               </div>
             </div>
 
             <div class="context">
-              <div class="ctx-card">
-                <div class="ctx-h"><span>Por que funcionou</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
-                <span class="ctx-body">Padrão clássico de <code>lsin</code> (Check App + CPU alta). Em <span class="num good">14 de 16</span> cascatas similares anteriores, <code>IC00019</code> cortou antes de escalar. Tempo mediano: <span class="num good">28min</span>.</span>
-                <span class="ctx-disclaimer">caso seguiu a expectativa histórica</span>
-              </div>
-              <div class="ctx-card">
-                <div class="ctx-h"><span>Aprendizado</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
-                <span class="ctx-body">Capturar como caso de referência: padrão <code>lsin</code> + <code>IC00019</code> tem altíssima taxa de sucesso. Vale automatizar disparo em próximas ocorrências.</span>
+              <div class="ctx-card" style="grid-column: 1 / -1;">
+                <div class="ctx-h"><span>Sugestão da IA</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
+                <span class="ctx-body">Padrão clássico de <code>lsin</code> (Check App + CPU alta) seguido por encerramento com código <code>Falha de Aplicação</code>. Em <span class="num good">14 de 16</span> cascatas similares anteriores, o desfecho foi o mesmo. <strong>Aprendizado:</strong> capturar como caso de referência — vale automatizar resposta em próximas ocorrências.</span>
+                <span class="ctx-disclaimer">cascatas similares · base de 16 casos</span>
               </div>
             </div>
 
             <div class="casc-foot">
               <button class="casc-action resolved-btn">
-                Marcar como caso de referência
+                Caso de referência registrado
                 <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
               </button>
               <a class="casc-link" href="#">Ver relatório completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a>
