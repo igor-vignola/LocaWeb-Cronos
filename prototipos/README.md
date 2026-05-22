@@ -13,12 +13,23 @@ prototipos/
 
 ## Telas ativas (`telas/`)
 
-| Arquivo | Função |
-|---|---|
-| `dashboard.html` | Tela principal — KPI mensal, cascatas, saúde por produto, heatmap, equipes |
-| `morning-brief.html` | Briefing diário em formato editorial (jornal) — Cronos AI resume ontem/hoje + sugestões + decisões + horizonte 7d |
+| Arquivo | Função | Briefing coberto |
+|---|---|---|
+| `dashboard.html` | Home da demo · resumo das 4 dores do gestor + KPI mensal | Tendência diária (#5, #6) |
+| `previsao.html` | Forecast D+1/D+7 por prioridade + por dimensão | **D+1 (#1), D+7 (#2), por prioridade (#3), por dimensão (#4)** |
+| `saude-produto.html` | Score por produto · XGBoost + SHAP · drill-down inline | Tendências/clusters (#8), explicabilidade (#9) |
+| `cascata.html` | Detector de acúmulo · lista REAL de incidentes-filhos + sugestão IA | Indicar onde agir (#7) |
+| `morning-brief.html` | Briefing editorial diário com resumo executivo | Indicar onde agir (#7), tendências (#8) |
 
-Ambos consomem `../../brand/design-system/assets/tokens.css` como única fonte de tokens (cores, espaçamento, motion).
+Todas consomem `../../brand/design-system/assets/tokens.css` como única fonte de tokens.
+
+## Demo navegável
+
+O protótipo é disponibilizado via **GitHub Pages** como demo navegável, complementando os screenshots do PPT:
+
+🔗 (link a ser configurado nas settings do repositório · Settings → Pages → branch `main` · folder `/` ou `/prototipos/telas`)
+
+Permite à Locaweb experimentar a navegação real entre as telas, não só ver imagens estáticas.
 
 ## Slides Sprint 2 (`slides/`)
 
