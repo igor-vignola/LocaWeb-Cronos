@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Demo · Light v3 · Poster centered</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../brand/design-system/assets/tokens.css">
+<link rel="stylesheet" href="_shared-light.css">
+<style>
+.layout {
+  position: relative; z-index: 2;
+  height: 100%;
+  padding: 90px 80px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: center;
+  text-align: center;
+}
+
+/* topo: eyebrow + título centralizado */
+.top {
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  padding-top: 16px;
+}
+.top .eyebrow { font-size: 13px; }
+.top .title {
+  font-size: 96px; line-height: 1.02;
+  padding-top: 0.05em;
+}
+.top .kicker {
+  font-size: 17px; line-height: 1.45;
+  max-width: 720px;
+  text-align: center;
+}
+
+/* meio: QR centralizado + URL em cartão grande */
+.center { display: flex; align-items: center; justify-content: center; gap: 44px; }
+.qr-frame {
+  position: relative;
+  padding: 22px;
+  background: #fff;
+  border-radius: 22px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 1px 2px rgba(0,30,80,0.04),
+    0 32px 80px -18px rgba(0,30,80,0.28);
+  border: 1px solid rgba(255,255,255,0.95);
+}
+.qr-frame::before {
+  content: ''; position: absolute;
+  inset: -3px;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #2563EB, #60A5FA, #2563EB);
+  z-index: -1;
+  opacity: 0.85;
+}
+.qr-frame img {
+  display: block;
+  width: 220px;
+  height: 220px;
+  image-rendering: pixelated;
+}
+
+/* card URL ao lado do QR */
+.url-card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.95);
+  border-radius: 18px;
+  padding: 28px 34px;
+  text-align: left;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.95),
+    0 16px 40px -16px rgba(0,30,80,0.18);
+  display: flex; flex-direction: column; gap: 14px;
+  max-width: 460px;
+}
+.url-card .small-eyebrow {
+  font-size: 10px; font-weight: 800;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(15,23,42,0.50);
+}
+.url-card .url {
+  font-family: ui-monospace, monospace;
+  font-size: 24px; font-weight: 700;
+  color: #2563EB;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.url-card .url-suffix {
+  font-size: 13.5px;
+  color: rgba(15,23,42,0.65);
+  line-height: 1.45;
+}
+.url-card .url-suffix strong { color: #0F172A; font-weight: 600; }
+.url-card .or {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(15,23,42,0.40);
+  text-align: center;
+  position: relative;
+  padding: 6px 0;
+}
+.url-card .or::before,
+.url-card .or::after {
+  content: ''; position: absolute;
+  top: 50%; width: calc(50% - 28px); height: 1px;
+  background: rgba(15,23,42,0.10);
+}
+.url-card .or::before { left: 0; }
+.url-card .or::after { right: 0; }
+
+/* base: dots de telas */
+.base {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding-top: 14px;
+}
+.base .pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.65);
+  border: 1px solid rgba(255,255,255,0.95);
+  border-radius: 100px;
+  font-size: 11.5px; font-weight: 700;
+  color: rgba(15,23,42,0.70);
+  letter-spacing: 0.02em;
+  box-shadow: 0 1px 2px rgba(0,30,80,0.04);
+}
+.base .pill .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #2563EB;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="crumb">
+    <span class="logo">
+      <svg viewBox="0 0 28 28" fill="none" width="20" height="20">
+        <path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+        <circle cx="22" cy="8" r="1.4" fill="#3B82F6"/>
+      </svg>
+    </span>
+    <span>Cronos · Demo navegável</span>
+  </div>
+  <div class="meta"><span class="dot"></span>Sprint 2</div>
+</div>
+
+<div class="layout">
+  <div class="top">
+    <div class="eyebrow">Experimente agora · acesso livre</div>
+    <h1 class="title">Demo <span class="accent">navegável</span></h1>
+    <p class="kicker">Os 5 protótipos estão publicados online com dados reais do LWDATASET — <strong>navegue como se fosse o produto final</strong>.</p>
+  </div>
+
+  <div class="center">
+    <div class="qr-frame">
+      <img src="qr.png" alt="QR code">
+    </div>
+
+    <div class="url-card">
+      <span class="small-eyebrow">Aponte a câmera</span>
+      <span class="url">cronos-locaweb.netlify.app</span>
+      <div class="or">ou</div>
+      <p class="url-suffix">Digite o endereço acima no navegador. Abre <strong>direto no Dashboard</strong>, sem cadastro.</p>
+    </div>
+  </div>
+
+  <div class="base">
+    <span class="pill"><span class="dot"></span>Dashboard</span>
+    <span class="pill"><span class="dot"></span>Previsões</span>
+    <span class="pill"><span class="dot"></span>Cascatas</span>
+    <span class="pill"><span class="dot"></span>Saúde do produto</span>
+    <span class="pill"><span class="dot"></span>Morning brief</span>
+  </div>
+</div>
+
+<div class="foot">
+  <div>Sprint 2 · Cronos · Challenge FIAP 2026</div>
+  <div class="right-info">5 telas em HTML/CSS/JS · 122.543 incidentes · hospedado via <strong>Netlify</strong></div>
+</div>
+
+</body>
+</html>

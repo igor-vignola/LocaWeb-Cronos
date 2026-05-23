@@ -2,7 +2,7 @@
 import qrcode
 from pathlib import Path
 
-URL = "https://igor-vignola.github.io/LocaWeb-Cronos/"
+URL = "https://cronos-locaweb.netlify.app/"
 OUT = Path(__file__).parent / "qr.png"
 
 qr = qrcode.QRCode(

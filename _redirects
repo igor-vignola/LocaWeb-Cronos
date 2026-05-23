@@ -1,0 +1,17 @@
+# Netlify redirects — raiz vai direto pro dashboard
+/                /prototipos/telas/dashboard.html    200
+# (200 = rewrite — mantém a URL bonita / sem expor o path interno)
+
+# Atalhos amigáveis pras telas
+/dashboard       /prototipos/telas/dashboard.html       200
+/previsoes       /prototipos/telas/previsao.html        200
+/previsao        /prototipos/telas/previsao.html        200
+/cascatas        /prototipos/telas/cascata.html         200
+/cascata         /prototipos/telas/cascata.html         200
+/saude           /prototipos/telas/saude-produto.html   200
+/saude-produto   /prototipos/telas/saude-produto.html   200
+/brief           /prototipos/telas/morning-brief.html   200
+/morning         /prototipos/telas/morning-brief.html   200
+
+# Landing original ainda acessível em /menu (caso queira mostrar)
+/menu            /index.html                            200

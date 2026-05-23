@@ -45,6 +45,14 @@ tmp/
 # Backups locais de PPTX (não versionar)
 *.bkp.pptx
 
+# Saídas geradas (screenshots, ZIP de deploy, pasta de build) — sempre regeráveis
+**/screenshots/
+cronos-deploy.zip
+deploy/
+
+# Dumps locais de revisão do PPT (regeráveis via sprints/_extract_ppt_content.py)
+_review/
+
 # Docker (volumes locais)
 docker/volumes/
 
