@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -121,124 +121,185 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
 }
 .block-h::after { content: ''; flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
 
-/* ALERTAS lista */
+/* ALERTAS lista — visual mais respirável */
 .alerts {
   display: flex; flex-direction: column;
-  gap: 0;
   border-radius: var(--r-md);
   overflow: hidden;
-  background: rgba(0,0,0,0.015);
-  border: 1px solid rgba(0,0,0,0.04);
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
 }
 .alert {
   display: grid;
-  grid-template-columns: 64px 38px 1fr auto;
-  gap: var(--space-3);
+  grid-template-columns: 60px 36px 1fr auto;
+  gap: var(--space-4);
   align-items: center;
-  padding: 10px var(--space-4);
-  border-bottom: 1px solid rgba(0,0,0,0.04);
+  padding: 12px var(--space-4);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  transition: background var(--dur-quick) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  position: relative;
+}
+.alert::before {
+  content: ''; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 3px;
+  background: transparent;
   transition: background var(--dur-quick) var(--ease-out);
 }
 .alert:last-child { border-bottom: none; }
-.alert:hover { background: rgba(255,255,255,0.5); }
-.alert.now { background: rgba(220,38,38,0.05); }
-.alert.now:hover { background: rgba(220,38,38,0.08); }
+.alert:hover { background: rgba(255,255,255,0.85); }
+.alert:hover::before { background: var(--accent); }
+.alert.now { background: rgba(220,38,38,0.06); }
+.alert.now::before { background: var(--danger); }
+.alert.now:hover { background: rgba(220,38,38,0.09); }
 .alert.resolved-row { background: rgba(5,150,105,0.05); }
+.alert.resolved-row::before { background: var(--success); }
 
-.alert-time { font-family: ui-monospace, monospace; font-size: 12px; font-weight: var(--fw-semibold); color: var(--label-secondary); font-variant-numeric: tabular-nums; }
+.alert-time {
+  font-family: ui-monospace, monospace;
+  font-size: 12.5px; font-weight: var(--fw-bold);
+  color: var(--label-primary);
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+}
 .alert-pri {
   font-family: ui-monospace, monospace;
-  font-size: 10px; font-weight: var(--fw-bold);
-  letter-spacing: 0.06em;
+  font-size: 10.5px; font-weight: var(--fw-bold);
+  letter-spacing: 0.04em;
   text-align: center;
-  padding: 3px 0;
-  border-radius: 4px;
+  padding: 4px 0;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
 }
-.alert-pri.p5 { background: rgba(217,119,6,0.13); color: var(--warning); }
-.alert-pri.p4 { background: rgba(220,38,38,0.12); color: var(--danger); }
-.alert-pri.ok { background: rgba(5,150,105,0.13); color: var(--success); }
+.alert-pri.p5 { background: rgba(217,119,6,0.15); color: var(--warning); border: 1px solid rgba(217,119,6,0.25); }
+.alert-pri.p4 { background: rgba(220,38,38,0.14); color: var(--danger); border: 1px solid rgba(220,38,38,0.25); }
+.alert-pri.p3 { background: var(--dark); color: var(--white); border: 1px solid var(--dark); }
+.alert-pri.ok { background: rgba(5,150,105,0.15); color: var(--success); border: 1px solid rgba(5,150,105,0.25); }
 
-.alert-desc { font-size: 13px; color: var(--label-primary); line-height: 1.35; }
-.alert-desc code { font-family: ui-monospace, monospace; background: rgba(0,0,0,0.05); padding: 1px 5px; border-radius: 4px; font-size: 11.5px; }
-.alert-desc .host { color: var(--label-tertiary); font-size: 11.5px; }
+.alert-desc {
+  font-size: 13px; color: var(--label-primary);
+  line-height: 1.4;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.alert-desc .desc-top { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+.alert-desc code {
+  font-family: ui-monospace, monospace;
+  background: rgba(0,0,0,0.06);
+  padding: 1px 6px; border-radius: 4px;
+  font-size: 11.5px; font-weight: var(--fw-semibold);
+  color: var(--label-secondary);
+}
+.alert-desc .ttl { font-weight: var(--fw-semibold); color: var(--label-primary); }
+.alert-desc .meta { font-size: 11px; color: var(--label-tertiary); font-variant-numeric: tabular-nums; }
 
 .alert-marker {
   font-size: 9.5px;
   font-weight: var(--fw-bold);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--danger);
-  background: var(--white);
-  padding: 2px 8px;
+  padding: 4px 10px;
   border-radius: var(--r-pill);
-  border: 1px solid var(--danger);
   white-space: nowrap;
 }
-.alert-marker.resolved-marker { color: var(--success); border-color: var(--success); }
+.alert-marker.now-marker { color: var(--white); background: var(--danger); box-shadow: 0 2px 6px rgba(220,38,38,0.30); animation: pulseNow 2s ease-in-out infinite; }
+.alert-marker.resolved-marker { color: var(--success); background: rgba(5,150,105,0.15); border: 1px solid rgba(5,150,105,0.30); }
+@keyframes pulseNow { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
 
-/* CONTEXT block (padrão histórico + sugestão) */
-.context { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
-
-.ctx-card {
-  padding: var(--space-4);
-  background: rgba(255,255,255,0.45);
-  border: 1px solid rgba(0,0,0,0.05);
-  border-radius: var(--r-md);
-  display: flex; flex-direction: column; gap: 6px;
+/* ─── SUGGESTION CARD — gradiente azul ─── */
+.sugg {
+  position: relative;
+  padding: var(--space-5) var(--space-5) var(--space-5) calc(var(--space-5) + 44px);
+  background: linear-gradient(135deg, rgba(37,99,235,0.10) 0%, rgba(99,102,241,0.06) 100%);
+  border: 1px solid rgba(37,99,235,0.22);
+  border-radius: var(--r-lg);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.7),
+    0 4px 16px -6px rgba(37,99,235,0.18);
+  overflow: hidden;
 }
-.ctx-h {
+.sugg::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), #818CF8, transparent 90%);
+}
+.sugg-icon {
+  position: absolute;
+  top: var(--space-5); left: var(--space-4);
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #4338CA);
+  color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: var(--fw-bold);
+  box-shadow: 0 4px 12px -2px rgba(37,99,235,0.40), inset 0 1px 0 rgba(255,255,255,0.30);
+}
+.sugg-icon svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.sugg-head {
   display: flex; align-items: center; justify-content: space-between;
   gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+.sugg-eyebrow {
   font-size: 9.5px; font-weight: var(--fw-bold);
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--label-tertiary);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent);
 }
 .ai-badge {
   display: inline-flex; align-items: center; gap: 4px;
   font-size: 8.5px; font-weight: var(--fw-bold);
   letter-spacing: 0.08em; text-transform: uppercase;
-  padding: 2px 7px;
-  border-radius: var(--r-pill);
-  background: linear-gradient(135deg, rgba(37,99,235,0.12), rgba(168,85,247,0.12));
+  padding: 2px 7px; border-radius: var(--r-pill);
+  background: rgba(255,255,255,0.85);
   color: var(--accent);
-  border: 1px solid rgba(37,99,235,0.22);
+  border: 1px solid rgba(37,99,235,0.28);
   white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0,30,80,0.06);
 }
 .ai-badge svg { width: 9px; height: 9px; flex-shrink: 0; }
-.ctx-body { font-size: 13px; color: var(--label-primary); line-height: 1.5; }
-.ctx-body strong { font-weight: var(--fw-semibold); }
-.ctx-body code { font-family: ui-monospace, monospace; background: rgba(0,0,0,0.05); padding: 1px 5px; border-radius: 4px; font-size: 11.5px; }
-.ctx-body .num { font-family: ui-monospace, monospace; font-weight: var(--fw-bold); color: var(--danger); font-variant-numeric: tabular-nums; }
-.ctx-body .num.good { color: var(--success); }
-.ctx-disclaimer { font-size: 11px; color: var(--label-quaternary); font-style: italic; margin-top: 4px; }
-
-/* FOOTER (ações) */
-.casc-foot { display: grid; grid-template-columns: 1fr auto; gap: var(--space-3); align-items: center; padding-top: var(--space-3); border-top: 1px solid rgba(0,0,0,0.06); }
-.casc-action {
-  display: inline-flex; align-items: center; gap: var(--space-2);
-  padding: 9px 16px;
-  background: linear-gradient(135deg, var(--accent), #1E40AF);
-  color: var(--white);
-  border-radius: var(--r-md);
-  font-size: 13px; font-weight: var(--fw-semibold);
-  cursor: pointer;
-  border: none;
-  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.20), 0 2px 8px -2px rgba(37,99,235,0.30);
+.sugg-body {
+  font-size: 13.5px;
+  color: var(--label-primary);
+  line-height: 1.55;
 }
-.casc-action:hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 6px 16px -3px rgba(37,99,235,0.40); }
-.casc-action:active { transform: scale(0.97); }
-.casc-action svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.4; stroke-linecap: round; transition: transform var(--dur-quick) var(--ease-out); }
-.casc-action:hover svg { transform: translateX(2px); }
-.casc-action code { font-family: ui-monospace, monospace; background: rgba(255,255,255,0.20); padding: 1px 5px; border-radius: 4px; font-size: 11.5px; font-weight: var(--fw-bold); }
-.casc-action.muted { background: rgba(0,0,0,0.06); color: var(--label-secondary); box-shadow: none; }
-.casc-action.muted:hover { background: rgba(0,0,0,0.09); }
-.casc-action.resolved-btn { background: rgba(5,150,105,0.12); color: var(--success); box-shadow: none; }
-.casc-action.resolved-btn:hover { background: rgba(5,150,105,0.18); }
-
-.casc-link { font-size: 12.5px; color: var(--label-tertiary); font-weight: var(--fw-semibold); display: inline-flex; align-items: center; gap: 4px; cursor: pointer; transition: gap 200ms var(--ease-out), color 200ms var(--ease-out); text-decoration: none; }
-.casc-link:hover { gap: 8px; color: var(--label-primary); }
-.casc-link svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2.4; stroke-linecap: round; }
+.sugg-body strong { font-weight: var(--fw-semibold); color: var(--label-primary); }
+.sugg-body code {
+  font-family: ui-monospace, monospace;
+  background: rgba(255,255,255,0.75);
+  padding: 1px 6px; border-radius: 4px;
+  font-size: 12px;
+  border: 1px solid rgba(37,99,235,0.18);
+}
+.sugg-body .num {
+  font-family: ui-monospace, monospace;
+  font-weight: var(--fw-bold);
+  color: var(--danger);
+  font-variant-numeric: tabular-nums;
+}
+.sugg-body .num.good { color: var(--success); }
+.sugg-foot {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(37,99,235,0.15);
+  font-size: 11px;
+  color: rgba(37,99,235,0.75);
+  font-weight: var(--fw-semibold);
+  display: flex; align-items: center; gap: 6px;
+}
+.sugg-foot::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.sugg.resolved {
+  background: linear-gradient(135deg, rgba(5,150,105,0.08) 0%, rgba(16,185,129,0.05) 100%);
+  border-color: rgba(5,150,105,0.25);
+}
+.sugg.resolved::before { background: linear-gradient(90deg, var(--success), #34D399, transparent 90%); }
+.sugg.resolved .sugg-icon { background: linear-gradient(135deg, var(--success), #047857); }
+.sugg.resolved .sugg-eyebrow { color: var(--success); }
+.sugg.resolved .ai-badge { color: var(--success); border-color: rgba(5,150,105,0.30); }
+.sugg.resolved .sugg-foot { color: rgba(5,150,105,0.80); border-top-color: rgba(5,150,105,0.18); }
+.sugg.resolved .sugg-foot::before { background: var(--success); }
 </style>
 </head>
 <body>
@@ -256,14 +317,8 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
       <a class="sb-item" href="previsao.html"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="lbl">Previsões</span></a>
       <a class="sb-item active" href="cascata.html"><svg viewBox="0 0 24 24"><path d="M12 2L4 7v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V7l-8-5z"/></svg><span class="lbl">Cascatas</span><span class="badge">3</span></a>
       <a class="sb-item" href="saude-produto.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg><span class="lbl">Saúde · Produto</span></a>
-      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><span class="lbl">Probabilidade KPI</span></a>
       <div class="sb-section">Diferenciais</div>
       <a class="sb-item" href="morning-brief.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg><span class="lbl">Morning brief</span><span class="badge neutral">06:00</span></a>
-      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/></svg><span class="lbl">Alertas</span><span class="badge warning">8</span></a>
-      <div class="sb-section">Análise</div>
-      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/></svg><span class="lbl">Produtos</span></a>
-      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/></svg><span class="lbl">Equipes</span></a>
-      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg><span class="lbl">Configurações</span></a>
     </nav>
     <div class="sb-foot">
       <div class="sb-avatar">IV</div>
@@ -312,67 +367,65 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
             </div>
 
             <div>
-              <div class="block-h">Incidentes-filhos da cascata</div>
+              <div class="block-h">Incidentes-filhos da cascata · 7 alertas</div>
               <div class="alerts">
                 <div class="alert">
                   <span class="alert-time">04:28</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><code>INC8643149</code> · Problem: Apache Busy Workers</span>
+                  <span class="alert-desc"><div class="desc-top"><code>INC8643149</code><span class="ttl">Apache Busy Workers</span></div></span>
                   <span></span>
                 </div>
                 <div class="alert">
                   <span class="alert-time">05:18</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><code>INC8643156</code> · Problem: Lack of free swap space 40m &lt; 5%</span>
+                  <span class="alert-desc"><div class="desc-top"><code>INC8643156</code><span class="ttl">Lack of free swap space 40m &lt; 5%</span></div></span>
                   <span></span>
                 </div>
                 <div class="alert">
                   <span class="alert-time">05:56</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><code>INC8643172</code> · Problem: Apache Busy Workers (reincidência)</span>
+                  <span class="alert-desc"><div class="desc-top"><code>INC8643172</code><span class="ttl">Apache Busy Workers</span><span class="meta">· reincidência</span></div></span>
                   <span></span>
                 </div>
                 <div class="alert">
                   <span class="alert-time">06:14</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><code>INC8643189</code> · Problem: Free disk space is less than 10% on volume /</span>
+                  <span class="alert-desc"><div class="desc-top"><code>INC8643189</code><span class="ttl">Free disk space &lt; 10% on volume /</span></div></span>
                   <span></span>
                 </div>
                 <div class="alert">
                   <span class="alert-time">06:31</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><code>INC8643204</code> · Problem: IOwait grown up CPU queue</span>
+                  <span class="alert-desc"><div class="desc-top"><code>INC8643204</code><span class="ttl">IOwait grown up CPU queue</span></div></span>
                   <span></span>
                 </div>
                 <div class="alert">
                   <span class="alert-time">06:38</span>
                   <span class="alert-pri p4">P4</span>
-                  <span class="alert-desc"><code>INC8643217</code> · Problem: Check: Nginx Type: tcp on Port: 80 Not Running</span>
+                  <span class="alert-desc"><div class="desc-top"><code>INC8643217</code><span class="ttl">Check Nginx tcp/80 Not Running</span></div></span>
                   <span></span>
                 </div>
                 <div class="alert now">
                   <span class="alert-time">06:42</span>
                   <span class="alert-pri p4">P4</span>
-                  <span class="alert-desc"><code>INC8643231</code> · Problem: Perf Teste Asp · Web Test Fail</span>
-                  <span class="alert-marker">Agora</span>
+                  <span class="alert-desc"><div class="desc-top"><code>INC8643231</code><span class="ttl">Perf Teste Asp · Web Test Fail</span></div></span>
+                  <span class="alert-marker now-marker">Agora</span>
                 </div>
               </div>
             </div>
 
-            <div class="context">
-              <div class="ctx-card" style="grid-column: 1 / -1;">
-                <div class="ctx-h"><span>Sugestão da IA</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
-                <span class="ctx-body">Encadeamento similar a <span class="num">23 cascatas</span> anteriores em <code>lhco</code> com IC <code>IC00014</code>. Dessas, <span class="num">18 (78%)</span> chegaram em P3 ou pior. <strong>Recomendação:</strong> reforçar a equipe responsável pelo produto <code>lhco</code> — historicamente cascatas dessa assinatura estabilizam mais rápido com expertise no produto.</span>
-                <span class="ctx-disclaimer">k-NN sobre histórico de cascatas · texto curado por Claude API</span>
+            <div class="sugg">
+              <div class="sugg-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z"/></svg>
               </div>
-            </div>
-
-            <div class="casc-foot">
-              <button class="casc-action">
-                Acionar Team14 · produto lhco
-                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-              </button>
-              <a class="casc-link" href="#">Ver detalhe do produto <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a>
+              <div class="sugg-head">
+                <span class="sugg-eyebrow">Sugestão · cascata atual</span>
+                <span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Sugestão IA</span>
+              </div>
+              <div class="sugg-body">
+                Encadeamento similar a <span class="num">23 cascatas</span> anteriores em <code>lhco</code> com IC <code>IC00014</code>. Dessas, <span class="num">18 (78%)</span> chegaram em P3 ou pior. <strong>Recomendação:</strong> reforçar a equipe responsável pelo produto <code>lhco</code> — cascatas dessa assinatura estabilizam mais rápido com expertise no produto.
+              </div>
+              <div class="sugg-foot">k-NN sobre histórico de cascatas · texto curado pela Claude API</div>
             </div>
           </article>
 
@@ -391,37 +444,35 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
             </div>
 
             <div>
-              <div class="block-h">Incidentes-filhos da cascata</div>
+              <div class="block-h">Incidentes-filhos da cascata · 2 alertas</div>
               <div class="alerts">
                 <div class="alert">
                   <span class="alert-time">06:24</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><code>INC8607142</code> · Problem: Free disk space is less than 10% on volume / (disco 89%)</span>
+                  <span class="alert-desc"><div class="desc-top"><code>INC8607142</code><span class="ttl">Free disk space &lt; 10% on volume /</span><span class="meta">· disco em 89%</span></div></span>
                   <span></span>
                 </div>
                 <div class="alert now">
                   <span class="alert-time">06:30</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><code>INC8607158</code> · Problem: Check PostgreSQL Replication Slave</span>
-                  <span class="alert-marker">Agora</span>
+                  <span class="alert-desc"><div class="desc-top"><code>INC8607158</code><span class="ttl">Check PostgreSQL Replication Slave</span></div></span>
+                  <span class="alert-marker now-marker">Agora</span>
                 </div>
               </div>
             </div>
 
-            <div class="context">
-              <div class="ctx-card" style="grid-column: 1 / -1;">
-                <div class="ctx-h"><span>Sugestão da IA</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
-                <span class="ctx-body">Cascatas similares em <code>lhvp</code> têm base pequena (<span class="num">apenas 4</span> casos anteriores) — estimativa pouco confiável. <strong>Recomendação:</strong> atribuir owner imediatamente. Cascatas em <code>lhvp</code> historicamente são roteadas pra <strong>Team09</strong> (1.440 incidentes registrados no produto).</span>
-                <span class="ctx-disclaimer">n pequeno · roteamento sugerido por especialização real</span>
+            <div class="sugg">
+              <div class="sugg-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z"/></svg>
               </div>
-            </div>
-
-            <div class="casc-foot">
-              <button class="casc-action">
-                Atribuir Team09
-                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-              </button>
-              <a class="casc-link" href="#">Ver detalhe do produto <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a>
+              <div class="sugg-head">
+                <span class="sugg-eyebrow">Sugestão · cascata sem owner</span>
+                <span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Sugestão IA</span>
+              </div>
+              <div class="sugg-body">
+                Cascatas similares em <code>lhvp</code> têm base pequena (<span class="num">apenas 4</span> casos anteriores) — estimativa pouco confiável. <strong>Recomendação:</strong> atribuir owner imediatamente. Cascatas em <code>lhvp</code> são tradicionalmente atendidas pela <strong>Team09</strong> (1.440 incidentes registrados no produto).
+              </div>
+              <div class="sugg-foot">n pequeno · roteamento sugerido por especialização real do dataset</div>
             </div>
           </article>
 
@@ -440,31 +491,29 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
             </div>
 
             <div>
-              <div class="block-h">Incidentes-filhos da cascata</div>
+              <div class="block-h">Incidentes-filhos da cascata · 1 alerta</div>
               <div class="alerts">
                 <div class="alert now">
                   <span class="alert-time">05:30</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><code>INC8629044</code> · Problem: High bandwidth &gt;60% at least 15m</span>
-                  <span class="alert-marker">Agora</span>
+                  <span class="alert-desc"><div class="desc-top"><code>INC8629044</code><span class="ttl">High bandwidth &gt; 60% at least 15m</span></div></span>
+                  <span class="alert-marker now-marker">Agora</span>
                 </div>
               </div>
             </div>
 
-            <div class="context">
-              <div class="ctx-card" style="grid-column: 1 / -1;">
-                <div class="ctx-h"><span>Sugestão da IA</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
-                <span class="ctx-body">Em dias com janela de backup conflitando com pico operacional (09h-11h), <span class="num">8 de 12</span> alertas isolados em <code>lcem</code> viraram cascata P3. <strong>Recomendação:</strong> avaliar mudança de janela de backup do produto <code>lcem</code> para horário fora do pico operacional.</span>
-                <span class="ctx-disclaimer">filtro: backup ativo · 12 ocorrências em 90 dias</span>
+            <div class="sugg">
+              <div class="sugg-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z"/></svg>
               </div>
-            </div>
-
-            <div class="casc-foot">
-              <button class="casc-action">
-                Mover janela de backup pra 03:00
-                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-              </button>
-              <a class="casc-link" href="#">Ver janelas históricas <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a>
+              <div class="sugg-head">
+                <span class="sugg-eyebrow">Sugestão · padrão recorrente</span>
+                <span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Sugestão IA</span>
+              </div>
+              <div class="sugg-body">
+                Em dias com janela de backup conflitando com pico operacional (09h-11h), <span class="num">8 de 12</span> alertas isolados em <code>lcem</code> viraram cascata P3. <strong>Recomendação:</strong> avaliar mudança de janela de backup do produto <code>lcem</code> para horário fora do pico operacional.
+              </div>
+              <div class="sugg-foot">filtro: backup ativo · 12 ocorrências em 90 dias</div>
             </div>
           </article>
 
@@ -483,43 +532,41 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
             </div>
 
             <div>
-              <div class="block-h">Incidentes-filhos da cascata</div>
+              <div class="block-h">Incidentes-filhos da cascata · 2 alertas + encerramento</div>
               <div class="alerts">
                 <div class="alert">
                   <span class="alert-time">03:14</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><code>INC8643112</code> · Problem: Check Application Monitoring</span>
+                  <span class="alert-desc"><div class="desc-top"><code>INC8643112</code><span class="ttl">Check Application Monitoring</span></div></span>
                   <span></span>
                 </div>
                 <div class="alert">
                   <span class="alert-time">03:24</span>
                   <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><code>INC8643118</code> · Problem: Processor load is too high &gt; 20%</span>
+                  <span class="alert-desc"><div class="desc-top"><code>INC8643118</code><span class="ttl">Processor load is too high &gt; 20%</span></div></span>
                   <span></span>
                 </div>
                 <div class="alert resolved-row">
                   <span class="alert-time">03:46</span>
                   <span class="alert-pri ok">OK</span>
-                  <span class="alert-desc">Cascata encerrada · código <code>Falha de Aplicação</code> · responsável Team11</span>
+                  <span class="alert-desc"><div class="desc-top"><span class="ttl">Encerrada</span><code>Falha de Aplicação</code><span class="meta">· responsável Team11</span></div></span>
                   <span class="alert-marker resolved-marker">Encerrada</span>
                 </div>
               </div>
             </div>
 
-            <div class="context">
-              <div class="ctx-card" style="grid-column: 1 / -1;">
-                <div class="ctx-h"><span>Sugestão da IA</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Gerado por IA</span></div>
-                <span class="ctx-body">Padrão clássico de <code>lsin</code> (Check App + CPU alta) seguido por encerramento com código <code>Falha de Aplicação</code>. Em <span class="num good">14 de 16</span> cascatas similares anteriores, o desfecho foi o mesmo. <strong>Aprendizado:</strong> capturar como caso de referência — vale automatizar resposta em próximas ocorrências.</span>
-                <span class="ctx-disclaimer">cascatas similares · base de 16 casos</span>
-              </div>
-            </div>
-
-            <div class="casc-foot">
-              <button class="casc-action resolved-btn">
-                Caso de referência registrado
+            <div class="sugg resolved">
+              <div class="sugg-icon">
                 <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              </button>
-              <a class="casc-link" href="#">Ver relatório completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></a>
+              </div>
+              <div class="sugg-head">
+                <span class="sugg-eyebrow">Aprendizado · caso de referência</span>
+                <span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Sugestão IA</span>
+              </div>
+              <div class="sugg-body">
+                Padrão clássico de <code>lsin</code> (Check App + CPU alta) seguido por encerramento com código <code>Falha de Aplicação</code>. Em <span class="num good">14 de 16</span> cascatas similares anteriores, o desfecho foi o mesmo. <strong>Aprendizado:</strong> capturar como caso de referência — vale automatizar a resposta em próximas ocorrências.
+              </div>
+              <div class="sugg-foot">cascatas similares · base de 16 casos · encerrada 03:46</div>
             </div>
           </article>
 

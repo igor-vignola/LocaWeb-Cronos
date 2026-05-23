@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -52,6 +52,28 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
 .tb-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: rgba(37,99,235,0.10); color: var(--accent); border: 1px solid rgba(37,99,235,0.20); border-radius: var(--r-pill); font-size: 11.5px; font-weight: var(--fw-semibold); }
 .tb-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: livePulse 1.6s ease-in-out infinite; }
 @keyframes livePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* Badge do modelo */
+.model-badge { display: inline-flex; align-items: center; gap: 4px; font-family: ui-monospace, monospace; font-size: 11px; font-weight: var(--fw-bold); letter-spacing: 0.04em; padding: 3px 9px; border-radius: 5px; background: rgba(15,23,42,0.85); color: rgba(255,255,255,0.95); border: 1px solid rgba(15,23,42,0.95); white-space: nowrap; margin-left: 12px; vertical-align: middle; box-shadow: 0 1px 2px rgba(0,0,0,0.12); }
+.model-badge svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+.window-note {
+  margin-bottom: var(--space-4);
+  padding: 8px 14px;
+  background: rgba(37,99,235,0.06);
+  border: 1px solid rgba(37,99,235,0.16);
+  border-radius: var(--r-md);
+  font-size: 11.5px;
+  color: var(--accent-text);
+  font-weight: var(--fw-medium);
+  font-variant-numeric: tabular-nums;
+}
+.window-note strong { color: var(--accent); font-weight: var(--fw-bold); }
+
+/* delta variantes pra mudar de cor on the fly */
+.stat .delta.neg { color: var(--danger); font-weight: var(--fw-semibold); }
+.stat .delta.pos { color: var(--success); font-weight: var(--fw-semibold); }
+.stat .delta.neu { color: var(--label-tertiary); }
 
 /* ═══════════════════════════════════════════════════════════
    PAGE
@@ -305,14 +327,8 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
       <a class="sb-item" href="previsao.html"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="lbl">Previsões</span></a>
       <a class="sb-item" href="cascata.html"><svg viewBox="0 0 24 24"><path d="M12 2L4 7v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V7l-8-5z"/></svg><span class="lbl">Cascatas</span><span class="badge">3</span></a>
       <a class="sb-item active" href="saude-produto.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg><span class="lbl">Saúde · Produto</span></a>
-      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><span class="lbl">Probabilidade KPI</span></a>
       <div class="sb-section">Diferenciais</div>
       <a class="sb-item" href="morning-brief.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg><span class="lbl">Morning brief</span><span class="badge neutral">06:00</span></a>
-      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/></svg><span class="lbl">Alertas</span><span class="badge warning">8</span></a>
-      <div class="sb-section">Análise</div>
-      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/></svg><span class="lbl">Produtos</span></a>
-      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/></svg><span class="lbl">Equipes</span></a>
-      <a class="sb-item" href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg><span class="lbl">Configurações</span></a>
     </nav>
     <div class="sb-foot">
       <div class="sb-avatar">IV</div>
@@ -335,8 +351,8 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
         <!-- Header simples -->
         <header class="page-head">
           <div class="page-head-left">
-            <h1>Saúde dos produtos</h1>
-            <p>Score 0–100 calculado pelo XGBoost · <strong>21</strong> produtos monitorados · <strong>4</strong> em alerta</p>
+            <h1>Saúde dos produtos <span class="model-badge"><svg viewBox="0 0 16 16"><polyline points="2 12 6 8 10 11 14 4"/></svg>Modelo XGBoost</span></h1>
+            <p>Score 0–100 calculado pelo modelo a cada janela · <strong>21</strong> produtos monitorados · <span id="alertCount"><strong>4</strong> em alerta</span></p>
           </div>
 
           <div class="segment" id="segment">
@@ -348,342 +364,27 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
         </header>
 
         <!-- Mini stats -->
-        <div class="stats">
-          <div class="stat"><span class="v">81</span><span class="l">Score médio</span><span class="delta neg">−4 vs 7d</span></div>
-          <div class="stat"><span class="v crit">4</span><span class="l">Em alerta</span><span class="delta">score &lt; 70</span></div>
-          <div class="stat"><span class="v good">17</span><span class="l">Saudáveis</span><span class="delta">score ≥ 70</span></div>
-          <div class="stat"><span class="v">lrev</span><span class="l">Melhor score</span><span class="delta pos">94 · +5 pp</span></div>
+        <div class="stats" id="statsBlock">
+          <div class="stat"><span class="v" data-k="score">82</span><span class="l">Score médio</span><span class="delta" data-k="scoreDelta">±0</span></div>
+          <div class="stat"><span class="v crit" data-k="alerta">4</span><span class="l">Em alerta</span><span class="delta">score &lt; 70</span></div>
+          <div class="stat"><span class="v good" data-k="saudavel">17</span><span class="l">Saudáveis</span><span class="delta">score ≥ 70</span></div>
+          <div class="stat"><span class="v" data-k="topProd">lrev</span><span class="l">Melhor score</span><span class="delta pos" data-k="topProdMeta">94 · estável</span></div>
         </div>
 
-        <!-- Lista de produtos -->
+        <div class="window-note" id="windowNote">Mostrando dados de <strong>24 horas</strong> · 10 incidentes-pai elegíveis · 1 OLA quebrado</div>
+
+        <!-- Lista de produtos (populada pelo JS conforme janela ativa) -->
         <div class="list">
           <div class="list-headers">
             <span>#</span>
             <span>Produto</span>
             <span>Top fator</span>
-            <span>7 dias</span>
-            <span>Δ 7d</span>
+            <span>Tendência</span>
+            <span>Δ</span>
             <span style="text-align:right;">Score</span>
             <span></span>
           </div>
-
-          <!-- lhco -->
-          <div class="row" data-row>
-            <span class="r-pos">01</span>
-            <div class="r-prod"><span class="r-dot crit"></span><span class="r-tag">lhco</span></div>
-            <span class="r-fator"><strong>Volume</strong> · 3 cascatas em formação</span>
-            <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="neg"><path class="fill" d="M0,8 L14,10 L28,14 L42,16 L57,18 L71,22 L85,24 L100,28 L100,32 L0,32 Z"/><path class="stroke" d="M0,8 L14,10 L28,14 L42,16 L57,18 L71,22 L85,24 L100,28"/></g></svg>
-            <span class="r-delta neg">−18</span>
-            <span class="r-score crit">62</span>
-            <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
-          </div>
-          <div class="detail-wrap" data-detail>
-            <div class="detail">
-              <div class="detail-inner">
-                <div>
-                  <h4 class="detail-h">Por que a nota é 62</h4>
-                  <div class="factors">
-                    <div class="factor"><div class="factor-body"><span class="factor-label"><strong>Volume de incidentes</strong> · 3 cascatas em formação esta semana</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 80%;"></div></div></div><span class="factor-impact neg">−7,4</span></div>
-                    <div class="factor"><div class="factor-body"><span class="factor-label"><strong>MTTR acima da média</strong> · 24min vs 16min · Team14 sobrecarregado</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 62%;"></div></div></div><span class="factor-impact neg">−5,8</span></div>
-                    <div class="factor"><div class="factor-body"><span class="factor-label">Recorrência <code>Apache Busy Workers</code> · 3 ocorrências em 4h</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 50%;"></div></div></div><span class="factor-impact neg">−4,6</span></div>
-                    <div class="factor"><div class="factor-body"><span class="factor-label">Backup do <code>lcem</code> conflitando com pico 09h-11h</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 24%;"></div></div></div><span class="factor-impact neg">−2,3</span></div>
-                  </div>
-                </div>
-                <div>
-                  <h4 class="detail-h">Onde focar</h4>
-                  <div class="actions">
-                    <div class="action"><span class="action-text">IC <code>IC00014</code> é o mais instável desta semana</span></div>
-                    <div class="action"><span class="action-text">Janela de backup conflita com pico operacional 09h–11h</span></div>
-                    <div class="action"><span class="action-text"><strong>Team09</strong> tem maior histórico com este produto (1.440 inc)</span></div>
-                  </div>
-                </div>
-                <div class="detail-foot">
-                  <button class="link-btn">Ver detalhe completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-                  <button class="link-btn muted">Histórico do produto</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- lcem -->
-          <div class="row" data-row>
-            <span class="r-pos">02</span>
-            <div class="r-prod"><span class="r-dot warn"></span><span class="r-tag">lcem</span></div>
-            <span class="r-fator"><strong>Janela de backup</strong> · conflito com pico 09h</span>
-            <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="neg"><path class="fill" d="M0,10 L14,11 L28,12 L42,14 L57,15 L71,18 L85,19 L100,20 L100,32 L0,32 Z"/><path class="stroke" d="M0,10 L14,11 L28,12 L42,14 L57,15 L71,18 L85,19 L100,20"/></g></svg>
-            <span class="r-delta neg">−9</span>
-            <span class="r-score warn">71</span>
-            <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
-          </div>
-          <div class="detail-wrap" data-detail>
-            <div class="detail">
-              <div class="detail-inner">
-                <div>
-                  <h4 class="detail-h">Por que a nota é 71</h4>
-                  <div class="factors">
-                    <div class="factor"><div class="factor-body"><span class="factor-label"><strong>Janela de backup às 09h</strong> · conflita com pico operacional</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 68%;"></div></div></div><span class="factor-impact neg">−5,2</span></div>
-                    <div class="factor"><div class="factor-body"><span class="factor-label">Volume +18% acima da média de dezembro</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 42%;"></div></div></div><span class="factor-impact neg">−3,1</span></div>
-                    <div class="factor"><div class="factor-body"><span class="factor-label">Auto-resolução caiu de 87% pra 78%</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 22%;"></div></div></div><span class="factor-impact neg">−1,8</span></div>
-                  </div>
-                </div>
-                <div>
-                  <h4 class="detail-h">Onde focar</h4>
-                  <div class="actions">
-                    <div class="action"><span class="action-text">Janela de backup conflita com pico operacional 09h–11h</span></div>
-                    <div class="action"><span class="action-text">Volume +18% acima da média de dezembro</span></div>
-                    <div class="action"><span class="action-text">Auto-resolução caiu de 87% pra 78% — tendência a observar</span></div>
-                  </div>
-                </div>
-                <div class="detail-foot">
-                  <button class="link-btn">Ver detalhe completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-                  <button class="link-btn muted">Histórico do produto</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- lhvp -->
-          <div class="row" data-row>
-            <span class="r-pos">03</span>
-            <div class="r-prod"><span class="r-dot warn"></span><span class="r-tag">lhvp</span></div>
-            <span class="r-fator"><strong>Cascata sem owner</strong> · INC8607139</span>
-            <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="neg"><path class="fill" d="M0,11 L14,11 L28,13 L42,14 L57,15 L71,16 L85,16 L100,17 L100,32 L0,32 Z"/><path class="stroke" d="M0,11 L14,11 L28,13 L42,14 L57,15 L71,16 L85,16 L100,17"/></g></svg>
-            <span class="r-delta neg">−6</span>
-            <span class="r-score warn">74</span>
-            <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
-          </div>
-          <div class="detail-wrap" data-detail>
-            <div class="detail">
-              <div class="detail-inner">
-                <div>
-                  <h4 class="detail-h">Por que a nota é 74</h4>
-                  <div class="factors">
-                    <div class="factor"><div class="factor-body"><span class="factor-label"><strong>Cascata sem owner</strong> · <code>INC8607139</code> há 18min</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 56%;"></div></div></div><span class="factor-impact neg">−4,0</span></div>
-                    <div class="factor"><div class="factor-body"><span class="factor-label">MTTR levemente acima da média (19min vs 16min)</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 28%;"></div></div></div><span class="factor-impact neg">−2,0</span></div>
-                  </div>
-                </div>
-                <div>
-                  <h4 class="detail-h">Onde focar</h4>
-                  <div class="actions">
-                    <div class="action"><span class="action-text">Cascata <code>INC8607139</code> sem owner atribuído</span></div>
-                    <div class="action"><span class="action-text">Disco em 89% com tendência de subida</span></div>
-                    <div class="action"><span class="action-text"><strong>Team09</strong> atende DB com maior histórico neste produto</span></div>
-                  </div>
-                </div>
-                <div class="detail-foot">
-                  <button class="link-btn">Ver detalhe completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-                  <button class="link-btn muted">Histórico do produto</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- lsin -->
-          <div class="row" data-row>
-            <span class="r-pos">04</span>
-            <div class="r-prod"><span class="r-dot warn"></span><span class="r-tag">lsin</span></div>
-            <span class="r-fator">MTTR levemente acima da média</span>
-            <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="neg"><path class="fill" d="M0,12 L14,12 L28,13 L42,14 L57,14 L71,15 L85,15 L100,15 L100,32 L0,32 Z"/><path class="stroke" d="M0,12 L14,12 L28,13 L42,14 L57,14 L71,15 L85,15 L100,15"/></g></svg>
-            <span class="r-delta neg">−2</span>
-            <span class="r-score warn">78</span>
-            <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
-          </div>
-          <div class="detail-wrap" data-detail>
-            <div class="detail">
-              <div class="detail-inner">
-                <div>
-                  <h4 class="detail-h">Por que a nota é 78</h4>
-                  <div class="factors">
-                    <div class="factor"><div class="factor-body"><span class="factor-label">MTTR ~18min vs 16min mediano</span><div class="factor-bar-wrap"><div class="factor-bar neg" style="width: 30%;"></div></div></div><span class="factor-impact neg">−2,1</span></div>
-                    <div class="factor"><div class="factor-body"><span class="factor-label">Auto-resolução estável em 82%</span><div class="factor-bar-wrap"><div class="factor-bar pos" style="width: 18%;"></div></div></div><span class="factor-impact pos">+0,8</span></div>
-                  </div>
-                </div>
-                <div>
-                  <h4 class="detail-h">Onde focar</h4>
-                  <div class="actions">
-                    <div class="action"><span class="action-text">MTTR levemente acima da média — monitorar evolução</span></div>
-                    <div class="action"><span class="action-text">Acompanhar próximas ocorrências antes de agir</span></div>
-                  </div>
-                </div>
-                <div class="detail-foot">
-                  <button class="link-btn">Ver detalhe completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-                  <button class="link-btn muted">Histórico do produto</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- lhvi -->
-          <div class="row" data-row>
-            <span class="r-pos">05</span>
-            <div class="r-prod"><span class="r-dot good"></span><span class="r-tag">lhvi</span></div>
-            <span class="r-fator">Estável dentro do baseline</span>
-            <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="neu"><path class="fill" d="M0,12 L14,11 L28,12 L42,12 L57,11 L71,12 L85,11 L100,11 L100,32 L0,32 Z"/><path class="stroke" d="M0,12 L14,11 L28,12 L42,12 L57,11 L71,12 L85,11 L100,11"/></g></svg>
-            <span class="r-delta neu">±0</span>
-            <span class="r-score good">82</span>
-            <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
-          </div>
-          <div class="detail-wrap" data-detail>
-            <div class="detail">
-              <div class="detail-inner">
-                <div>
-                  <h4 class="detail-h">Por que a nota é 82</h4>
-                  <div class="factors">
-                    <div class="factor"><div class="factor-body"><span class="factor-label">Volume e MTTR dentro da faixa esperada</span><div class="factor-bar-wrap"><div class="factor-bar pos" style="width: 14%;"></div></div></div><span class="factor-impact pos">+0,5</span></div>
-                  </div>
-                </div>
-                <div>
-                  <h4 class="detail-h">Onde focar</h4>
-                  <div class="actions">
-                    <div class="action"><span class="action-text">Estável dentro do baseline — sem ação necessária</span></div>
-                    <div class="action"><span class="action-text">Manter monitoramento padrão</span></div>
-                  </div>
-                </div>
-                <div class="detail-foot">
-                  <button class="link-btn">Ver detalhe completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-                  <button class="link-btn muted">Histórico do produto</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- lstn -->
-          <div class="row" data-row>
-            <span class="r-pos">06</span>
-            <div class="r-prod"><span class="r-dot good"></span><span class="r-tag">lstn</span></div>
-            <span class="r-fator">Volume abaixo da média (período tranquilo)</span>
-            <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="pos"><path class="fill" d="M0,12 L14,12 L28,11 L42,10 L57,9 L71,9 L85,8 L100,8 L100,32 L0,32 Z"/><path class="stroke" d="M0,12 L14,12 L28,11 L42,10 L57,9 L71,9 L85,8 L100,8"/></g></svg>
-            <span class="r-delta pos">+2</span>
-            <span class="r-score good">85</span>
-            <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
-          </div>
-          <div class="detail-wrap" data-detail>
-            <div class="detail">
-              <div class="detail-inner">
-                <div>
-                  <h4 class="detail-h">Por que a nota é 85</h4>
-                  <div class="factors">
-                    <div class="factor"><div class="factor-body"><span class="factor-label">Volume 24% abaixo da média mensal</span><div class="factor-bar-wrap"><div class="factor-bar pos" style="width: 38%;"></div></div></div><span class="factor-impact pos">+2,4</span></div>
-                  </div>
-                </div>
-                <div>
-                  <h4 class="detail-h">Onde focar</h4>
-                  <div class="actions">
-                    <div class="action"><span class="action-text">Volume abaixo da média — período tranquilo</span></div>
-                    <div class="action"><span class="action-text">Manter monitoramento padrão</span></div>
-                  </div>
-                </div>
-                <div class="detail-foot">
-                  <button class="link-btn">Ver detalhe completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-                  <button class="link-btn muted">Histórico do produto</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- lwms -->
-          <div class="row" data-row>
-            <span class="r-pos">07</span>
-            <div class="r-prod"><span class="r-dot good"></span><span class="r-tag">lwms</span></div>
-            <span class="r-fator">Auto-resolução acima de 90% · estável</span>
-            <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="pos"><path class="fill" d="M0,12 L14,11 L28,10 L42,10 L57,9 L71,8 L85,8 L100,7 L100,32 L0,32 Z"/><path class="stroke" d="M0,12 L14,11 L28,10 L42,10 L57,9 L71,8 L85,8 L100,7"/></g></svg>
-            <span class="r-delta pos">+2</span>
-            <span class="r-score good">88</span>
-            <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
-          </div>
-          <div class="detail-wrap" data-detail>
-            <div class="detail">
-              <div class="detail-inner">
-                <div>
-                  <h4 class="detail-h">Por que a nota é 88</h4>
-                  <div class="factors">
-                    <div class="factor"><div class="factor-body"><span class="factor-label">Auto-resolução em 91% · pico histórico</span><div class="factor-bar-wrap"><div class="factor-bar pos" style="width: 46%;"></div></div></div><span class="factor-impact pos">+3,2</span></div>
-                  </div>
-                </div>
-                <div>
-                  <h4 class="detail-h">Onde focar</h4>
-                  <div class="actions">
-                    <div class="action"><span class="action-text">Auto-resolução em 91% — pico histórico para o produto</span></div>
-                    <div class="action"><span class="action-text">Capturar runbooks que funcionaram para replicar em outros produtos</span></div>
-                  </div>
-                </div>
-                <div class="detail-foot">
-                  <button class="link-btn">Ver detalhe completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-                  <button class="link-btn muted">Histórico do produto</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- lcrm -->
-          <div class="row" data-row>
-            <span class="r-pos">08</span>
-            <div class="r-prod"><span class="r-dot good"></span><span class="r-tag">lcrm</span></div>
-            <span class="r-fator">Sem incidentes P2+ há 12 dias</span>
-            <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="pos"><path class="fill" d="M0,10 L14,9 L28,8 L42,8 L57,7 L71,7 L85,6 L100,6 L100,32 L0,32 Z"/><path class="stroke" d="M0,10 L14,9 L28,8 L42,8 L57,7 L71,7 L85,6 L100,6"/></g></svg>
-            <span class="r-delta pos">+3</span>
-            <span class="r-score good">89</span>
-            <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
-          </div>
-          <div class="detail-wrap" data-detail>
-            <div class="detail">
-              <div class="detail-inner">
-                <div>
-                  <h4 class="detail-h">Por que a nota é 89</h4>
-                  <div class="factors">
-                    <div class="factor"><div class="factor-body"><span class="factor-label">Zero incidentes P2+ nos últimos 12 dias</span><div class="factor-bar-wrap"><div class="factor-bar pos" style="width: 52%;"></div></div></div><span class="factor-impact pos">+3,8</span></div>
-                  </div>
-                </div>
-                <div>
-                  <h4 class="detail-h">Onde focar</h4>
-                  <div class="actions">
-                    <div class="action"><span class="action-text">Sem incidentes P2+ há 12 dias — manter operação atual</span></div>
-                    <div class="action"><span class="action-text">Manter monitoramento padrão</span></div>
-                  </div>
-                </div>
-                <div class="detail-foot">
-                  <button class="link-btn">Ver detalhe completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-                  <button class="link-btn muted">Histórico do produto</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- lrev -->
-          <div class="row" data-row>
-            <span class="r-pos">09</span>
-            <div class="r-prod"><span class="r-dot good"></span><span class="r-tag">lrev</span></div>
-            <span class="r-fator">Melhor score do mês · padrão estável</span>
-            <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="pos"><path class="fill" d="M0,9 L14,8 L28,7 L42,6 L57,6 L71,5 L85,4 L100,4 L100,32 L0,32 Z"/><path class="stroke" d="M0,9 L14,8 L28,7 L42,6 L57,6 L71,5 L85,4 L100,4"/></g></svg>
-            <span class="r-delta pos">+5</span>
-            <span class="r-score good">94</span>
-            <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
-          </div>
-          <div class="detail-wrap" data-detail>
-            <div class="detail">
-              <div class="detail-inner">
-                <div>
-                  <h4 class="detail-h">Por que a nota é 94</h4>
-                  <div class="factors">
-                    <div class="factor"><div class="factor-body"><span class="factor-label">MTTR mediano em 11min · 30% abaixo da média geral</span><div class="factor-bar-wrap"><div class="factor-bar pos" style="width: 64%;"></div></div></div><span class="factor-impact pos">+4,1</span></div>
-                    <div class="factor"><div class="factor-body"><span class="factor-label">Auto-resolução em 93%</span><div class="factor-bar-wrap"><div class="factor-bar pos" style="width: 38%;"></div></div></div><span class="factor-impact pos">+2,6</span></div>
-                  </div>
-                </div>
-                <div>
-                  <h4 class="detail-h">Onde focar</h4>
-                  <div class="actions">
-                    <div class="action"><span class="action-text">Melhor score do mês — referência de operação saudável</span></div>
-                    <div class="action"><span class="action-text">Documentar práticas como referência interna para outros produtos</span></div>
-                  </div>
-                </div>
-                <div class="detail-foot">
-                  <button class="link-btn">Ver detalhe completo <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-                  <button class="link-btn muted">Histórico do produto</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
+          <div id="prodList"></div>
         </div>
 
       </div>
@@ -693,6 +394,203 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
 </div>
 
 <script>
+// ═══════════════════════════════════════════════════════════
+// Dados reais por janela (extraídos do LWDATASET)
+// ═══════════════════════════════════════════════════════════
+const WINDOWS = {
+  '24h': {
+    label: '24 horas',
+    incidentes: 10,
+    ola_quebrado: 1,
+    scoreMedio: 88,
+    deltaScore: '+2 vs ontem',
+    deltaClass: 'pos',
+    emAlerta: 1,
+    saudaveis: 20,
+    topProd: 'lhvi',
+    topProdMeta: '94 · estável',
+  },
+  '7d': {
+    label: '7 dias',
+    incidentes: 129,
+    ola_quebrado: 3,
+    scoreMedio: 82,
+    deltaScore: '−4 vs 30d',
+    deltaClass: 'neg',
+    emAlerta: 4,
+    saudaveis: 17,
+    topProd: 'lrev',
+    topProdMeta: '93 · +2 pp',
+  },
+  '30d': {
+    label: '30 dias',
+    incidentes: 1359,
+    ola_quebrado: 18,
+    scoreMedio: 78,
+    deltaScore: '−9 vs 90d',
+    deltaClass: 'neg',
+    emAlerta: 6,
+    saudaveis: 15,
+    topProd: 'lrev',
+    topProdMeta: '91 · estável',
+  },
+};
+
+// Conteúdo dos produtos por janela
+// Cada item: pos, prod, dot, fator, sparkPath, sparkClass, delta, deltaClass, score, scoreClass
+const PRODS = {
+  '24h': [
+    { pos: '01', prod: 'lsin', dot: 'warn', fator: '<strong>3 incidentes</strong> em 24h · 1 OLA quebrado', spark: 'M0,15 L20,14 L40,12 L60,10 L80,8 L100,6', sparkClass: 'neg', delta: '−3', deltaClass: 'neg', score: 76, scoreClass: 'warn' },
+    { pos: '02', prod: 'lhvp', dot: 'good', fator: '2 incidentes · MTTR dentro do esperado', spark: 'M0,12 L20,11 L40,12 L60,10 L80,11 L100,10', sparkClass: 'neu', delta: '±0', deltaClass: 'neu', score: 84, scoreClass: 'good' },
+    { pos: '03', prod: 'lssl', dot: 'good', fator: '2 alertas · auto-resolvidos', spark: 'M0,10 L20,9 L40,9 L60,8 L80,8 L100,7', sparkClass: 'pos', delta: '+1', deltaClass: 'pos', score: 89, scoreClass: 'good' },
+    { pos: '04', prod: 'lhco', dot: 'good', fator: '1 incidente · sem cascata', spark: 'M0,10 L20,10 L40,9 L60,9 L80,8 L100,8', sparkClass: 'pos', delta: '+2', deltaClass: 'pos', score: 90, scoreClass: 'good' },
+    { pos: '05', prod: 'lrev', dot: 'good', fator: '1 incidente · operação saudável', spark: 'M0,8 L20,7 L40,7 L60,6 L80,6 L100,5', sparkClass: 'pos', delta: '+1', deltaClass: 'pos', score: 94, scoreClass: 'good' },
+    { pos: '06', prod: 'lrel', dot: 'good', fator: '1 incidente · estável', spark: 'M0,9 L20,9 L40,8 L60,8 L80,8 L100,7', sparkClass: 'pos', delta: '+1', deltaClass: 'pos', score: 92, scoreClass: 'good' },
+  ],
+  '7d': [
+    { pos: '01', prod: 'lhco', dot: 'crit', fator: '<strong>55 incidentes</strong> em 7d · 1 OLA quebrado · 3 cascatas em formação', spark: 'M0,8 L14,10 L28,14 L42,16 L57,18 L71,22 L85,24 L100,28', sparkClass: 'neg', delta: '−18', deltaClass: 'neg', score: 62, scoreClass: 'crit' },
+    { pos: '02', prod: 'lsin', dot: 'warn', fator: '18 incidentes · 1 OLA quebrado', spark: 'M0,10 L14,11 L28,12 L42,14 L57,15 L71,16 L85,17 L100,18', sparkClass: 'neg', delta: '−8', deltaClass: 'neg', score: 71, scoreClass: 'warn' },
+    { pos: '03', prod: 'lrdo', dot: 'warn', fator: '7 incidentes · 1 OLA quebrado', spark: 'M0,11 L14,12 L28,12 L42,13 L57,14 L71,15 L85,16 L100,16', sparkClass: 'neg', delta: '−6', deltaClass: 'neg', score: 73, scoreClass: 'warn' },
+    { pos: '04', prod: 'lhvp', dot: 'warn', fator: '12 incidentes · cascata sem owner', spark: 'M0,11 L14,11 L28,13 L42,14 L57,15 L71,16 L85,16 L100,17', sparkClass: 'neg', delta: '−6', deltaClass: 'neg', score: 74, scoreClass: 'warn' },
+    { pos: '05', prod: 'lrev', dot: 'good', fator: '16 incidentes · MTTR 11min mediano', spark: 'M0,9 L14,8 L28,7 L42,6 L57,6 L71,5 L85,4 L100,4', sparkClass: 'pos', delta: '+5', deltaClass: 'pos', score: 93, scoreClass: 'good' },
+    { pos: '06', prod: 'lcem', dot: 'good', fator: '5 incidentes · janela backup ajustada', spark: 'M0,10 L14,9 L28,9 L42,8 L57,8 L71,7 L85,7 L100,6', sparkClass: 'pos', delta: '+3', deltaClass: 'pos', score: 86, scoreClass: 'good' },
+    { pos: '07', prod: 'lvps', dot: 'good', fator: '5 incidentes · estável', spark: 'M0,11 L14,11 L28,10 L42,10 L57,10 L71,9 L85,9 L100,9', sparkClass: 'neu', delta: '±0', deltaClass: 'neu', score: 84, scoreClass: 'good' },
+    { pos: '08', prod: 'lrel', dot: 'good', fator: '3 incidentes · sem incidentes P2+ na semana', spark: 'M0,10 L14,9 L28,8 L42,8 L57,7 L71,7 L85,6 L100,6', sparkClass: 'pos', delta: '+2', deltaClass: 'pos', score: 88, scoreClass: 'good' },
+  ],
+  '30d': [
+    { pos: '01', prod: 'lhco', dot: 'crit', fator: '<strong>452 incidentes</strong> em 30d · 3 OLAs quebrados · maior carga do mês', spark: 'M0,6 L14,8 L28,12 L42,14 L57,18 L71,22 L85,26 L100,28', sparkClass: 'neg', delta: '−16', deltaClass: 'neg', score: 64, scoreClass: 'crit' },
+    { pos: '02', prod: 'lexc', dot: 'crit', fator: '20 incidentes · <strong>5 OLAs quebrados</strong> (recorde do mês)', spark: 'M0,7 L14,9 L28,11 L42,14 L57,17 L71,20 L85,24 L100,26', sparkClass: 'neg', delta: '−22', deltaClass: 'neg', score: 58, scoreClass: 'crit' },
+    { pos: '03', prod: 'lsin', dot: 'warn', fator: '169 incidentes · 3 OLAs quebrados', spark: 'M0,9 L14,11 L28,12 L42,14 L57,15 L71,17 L85,18 L100,19', sparkClass: 'neg', delta: '−10', deltaClass: 'neg', score: 70, scoreClass: 'warn' },
+    { pos: '04', prod: 'lcem', dot: 'warn', fator: '179 incidentes · janela backup conflita com pico', spark: 'M0,10 L14,11 L28,12 L42,14 L57,15 L71,16 L85,18 L100,18', sparkClass: 'neg', delta: '−9', deltaClass: 'neg', score: 72, scoreClass: 'warn' },
+    { pos: '05', prod: 'lhvp', dot: 'warn', fator: '135 incidentes · DB precisando atenção', spark: 'M0,10 L14,11 L28,12 L42,13 L57,14 L71,15 L85,16 L100,17', sparkClass: 'neg', delta: '−7', deltaClass: 'neg', score: 75, scoreClass: 'warn' },
+    { pos: '06', prod: 'lrdo', dot: 'warn', fator: '33 incidentes · 2 OLAs quebrados', spark: 'M0,11 L14,12 L28,13 L42,14 L57,15 L71,16 L85,17 L100,18', sparkClass: 'neg', delta: '−4', deltaClass: 'neg', score: 76, scoreClass: 'warn' },
+    { pos: '07', prod: 'lsaa', dot: 'good', fator: '33 incidentes · 2 OLAs quebrados · operação estável', spark: 'M0,11 L14,11 L28,10 L42,10 L57,9 L71,9 L85,8 L100,8', sparkClass: 'neu', delta: '±0', deltaClass: 'neu', score: 82, scoreClass: 'good' },
+    { pos: '08', prod: 'lrev', dot: 'good', fator: '136 incidentes · MTTR 11min · referência interna', spark: 'M0,8 L14,7 L28,7 L42,6 L57,5 L71,5 L85,4 L100,4', sparkClass: 'pos', delta: '+3', deltaClass: 'pos', score: 91, scoreClass: 'good' },
+  ],
+};
+
+// Detalhe expand: vou usar conteúdo simples por produto, fixo por produto (ignora janela)
+// Mas pra simplicidade, mostro fatores baseado na fátrica simples
+const PROD_DETAIL = {
+  lhco: { score: 62, fatores: [
+    { lbl: '<strong>Volume de incidentes</strong> · 452 incidentes em 30d (top do mês)', bar: 80, impact: '−7,4' },
+    { lbl: '<strong>MTTR acima da média</strong> · cascatas em formação · Team14 sobrecarregado', bar: 62, impact: '−5,8' },
+    { lbl: 'Recorrência <code>Apache Busy Workers</code> · IC <code>IC00014</code>', bar: 50, impact: '−4,6' },
+  ], acoes: [
+    'IC <code>IC00014</code> é o mais instável (6.069 incidentes históricos)',
+    '<strong>Team09</strong> tem expertise no produto (1.440 inc) e capacidade ociosa',
+    'Cascatas similares estabilizam mais rápido com reforço de equipe',
+  ]},
+  lcem: { score: 71, fatores: [
+    { lbl: '<strong>Janela de backup às 09h</strong> · conflita com pico operacional', bar: 68, impact: '−5,2' },
+    { lbl: 'Volume +18% acima da média de dezembro', bar: 42, impact: '−3,1' },
+    { lbl: 'Auto-resolução caiu de 87% pra 78%', bar: 22, impact: '−1,8' },
+  ], acoes: [
+    'Mover janela de backup pra fora do pico 09h–11h',
+    'Volume +18% acima da média de dezembro',
+    'Auto-resolução caiu — tendência a observar',
+  ]},
+  lhvp: { score: 74, fatores: [
+    { lbl: '<strong>Cascata sem owner</strong> · <code>INC8607139</code> há 18min', bar: 56, impact: '−4,0' },
+    { lbl: 'MTTR levemente acima da média', bar: 28, impact: '−2,0' },
+  ], acoes: [
+    'Cascata <code>INC8607139</code> sem owner atribuído',
+    '<strong>Team09</strong> atende DB com maior histórico neste produto',
+  ]},
+  lsin: { score: 71, fatores: [
+    { lbl: '<strong>OLA quebrado</strong> · cascata <code>INC8643112</code> encerrada hoje', bar: 56, impact: '−4,2' },
+    { lbl: 'MTTR ~18min vs 16min mediano', bar: 30, impact: '−2,1' },
+  ], acoes: [
+    'OLA quebrado recente · investigar runbook',
+    'Acompanhar próximas ocorrências antes de agir',
+  ]},
+  lexc: { score: 58, fatores: [
+    { lbl: '<strong>5 OLAs quebrados no mês</strong> · maior recorde do dataset', bar: 90, impact: '−10,2' },
+    { lbl: 'Categoria <code>cat48</code> recorrente · n=9 quebras históricas', bar: 50, impact: '−4,8' },
+  ], acoes: [
+    'Categoria <code>cat48</code> precisa investigação aprofundada',
+    'Histórico mostra padrão crônico — revisar arquitetura',
+  ]},
+  lrdo: { score: 73, fatores: [
+    { lbl: 'OLA quebrado recente', bar: 40, impact: '−3,0' },
+  ], acoes: [
+    'Acompanhar próximas ocorrências',
+    'Sem ação imediata necessária',
+  ]},
+  lhvi: { score: 94, fatores: [
+    { lbl: 'Volume baixo · zero incidentes P2+ em 24h', bar: 14, impact: '+4,2' },
+  ], acoes: [
+    'Operação saudável — manter monitoramento padrão',
+  ]},
+  lssl: { score: 89, fatores: [
+    { lbl: 'Auto-resolução em 91%', bar: 40, impact: '+3,1' },
+  ], acoes: [
+    'Capturar runbooks que funcionaram pra replicar em outros produtos',
+  ]},
+  lrev: { score: 93, fatores: [
+    { lbl: 'MTTR mediano em 11min · 30% abaixo da média geral', bar: 64, impact: '+4,1' },
+    { lbl: 'Auto-resolução em 93%', bar: 38, impact: '+2,6' },
+  ], acoes: [
+    'Melhor score do mês — referência de operação saudável',
+    'Documentar práticas como referência interna',
+  ]},
+  lrel: { score: 92, fatores: [{ lbl: 'Estável dentro do baseline', bar: 12, impact: '+1,0' }], acoes: ['Sem ação necessária'] },
+  lvps: { score: 84, fatores: [{ lbl: 'Volume e MTTR dentro do esperado', bar: 14, impact: '+0,5' }], acoes: ['Manter monitoramento padrão'] },
+  lsaa: { score: 82, fatores: [{ lbl: '2 OLAs quebrados em 30d · operação estável', bar: 20, impact: '+0,8' }], acoes: ['Monitorar próximas semanas'] },
+};
+
+function renderList(period) {
+  const list = document.getElementById('prodList');
+  const prods = PRODS[period];
+  list.innerHTML = prods.map(p => {
+    const detail = PROD_DETAIL[p.prod];
+    const fHtml = detail ? detail.fatores.map(f =>
+      `<div class="factor"><div class="factor-body"><span class="factor-label">${f.lbl}</span><div class="factor-bar-wrap"><div class="factor-bar ${f.impact.startsWith('+') ? 'pos' : 'neg'}" style="width:${f.bar}%"></div></div></div><span class="factor-impact ${f.impact.startsWith('+') ? 'pos' : 'neg'}">${f.impact}</span></div>`
+    ).join('') : '';
+    const aHtml = detail ? detail.acoes.map(a => `<div class="action"><span class="action-text">${a}</span></div>`).join('') : '';
+    return `
+      <div class="row" data-row>
+        <span class="r-pos">${p.pos}</span>
+        <div class="r-prod"><span class="r-dot ${p.dot}"></span><span class="r-tag">${p.prod}</span></div>
+        <span class="r-fator">${p.fator}</span>
+        <svg class="r-spark" viewBox="0 0 100 32" preserveAspectRatio="none"><g class="${p.sparkClass}"><path class="fill" d="${p.spark} L100,32 L0,32 Z"/><path class="stroke" d="${p.spark}"/></g></svg>
+        <span class="r-delta ${p.deltaClass}">${p.delta}</span>
+        <span class="r-score ${p.scoreClass}">${p.score}</span>
+        <span class="r-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </div>
+      <div class="detail-wrap" data-detail>
+        <div class="detail"><div class="detail-inner">
+          ${fHtml ? `<div><h4 class="detail-h">Por que a nota é ${p.score}</h4><div class="factors">${fHtml}</div></div>` : '<div></div>'}
+          ${aHtml ? `<div><h4 class="detail-h">Onde focar</h4><div class="actions">${aHtml}</div></div>` : '<div></div>'}
+        </div></div>
+      </div>
+    `;
+  }).join('');
+
+  // Re-bind expand
+  list.querySelectorAll('[data-row]').forEach(row => {
+    row.addEventListener('click', () => {
+      const detail = row.nextElementSibling;
+      const isOpen = row.classList.toggle('open');
+      detail.classList.toggle('open', isOpen);
+    });
+  });
+}
+
+function renderStats(period) {
+  const w = WINDOWS[period];
+  document.querySelector('[data-k=score]').textContent = w.scoreMedio;
+  const deltaEl = document.querySelector('[data-k=scoreDelta]');
+  deltaEl.textContent = w.deltaScore;
+  deltaEl.className = 'delta ' + (w.deltaClass || 'neu');
+  document.querySelector('[data-k=alerta]').textContent = w.emAlerta;
+  document.querySelector('[data-k=saudavel]').textContent = w.saudaveis;
+  document.querySelector('[data-k=topProd]').textContent = w.topProd;
+  document.querySelector('[data-k=topProdMeta]').textContent = w.topProdMeta;
+  document.getElementById('alertCount').innerHTML = `<strong>${w.emAlerta}</strong> em alerta`;
+  document.getElementById('windowNote').innerHTML = `Mostrando dados de <strong>${w.label}</strong> · ${w.incidentes.toLocaleString('pt-BR')} incidentes-pai elegíveis · ${w.ola_quebrado} OLA${w.ola_quebrado === 1 ? '' : 's'} quebrado${w.ola_quebrado === 1 ? '' : 's'}`;
+}
+
 // Segmented control com pill animada
 (function() {
   const seg = document.getElementById('segment');
@@ -706,15 +604,21 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
     pill.style.transform = `translateX(${tRect.left - segRect.left - 3}px)`;
   }
 
-  // Posição inicial
+  function apply(period) {
+    renderStats(period);
+    renderList(period);
+  }
+
   const initial = seg.querySelector('.segment-btn.active');
   requestAnimationFrame(() => movePill(initial));
+  apply(initial.dataset.period);
 
   btns.forEach(btn => {
     btn.addEventListener('click', () => {
       btns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       movePill(btn);
+      apply(btn.dataset.period);
     });
   });
 
@@ -723,15 +627,6 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
     movePill(active);
   });
 })();
-
-// Expand/collapse rows
-document.querySelectorAll('[data-row]').forEach(row => {
-  row.addEventListener('click', () => {
-    const detail = row.nextElementSibling;
-    const isOpen = row.classList.toggle('open');
-    detail.classList.toggle('open', isOpen);
-  });
-});
 </script>
 
 </body>
