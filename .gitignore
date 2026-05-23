@@ -42,6 +42,9 @@ tmp/
 # Office lock files (criados quando .pptx/.docx/.xlsx estão abertos)
 ~$*
 
+# Backups locais de PPTX (não versionar)
+*.bkp.pptx
+
 # Docker (volumes locais)
 docker/volumes/
 

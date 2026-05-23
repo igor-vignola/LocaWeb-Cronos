@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Divisor · Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared.css">
+</head>
+<body>
+
+<div class="layout">
+  <div class="left">
+    <div class="crumb">
+      <span class="logo"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0F172A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.4" fill="#3B82F6"/></svg></span>
+      <span>Cronos · Veja antes · aja antes</span>
+    </div>
+    <div class="eyebrow">Tela 1 de 5 · Protótipo</div>
+    <h1 class="title">Dashboard</h1>
+    <p class="kicker">Visão geral da operação em <strong>tempo quase real</strong>. KPI mensal de OLA, cascatas ativas, tendência de 30 dias e calendário do mês.</p>
+    <div class="dq">
+      <span class="q-mark">?</span>
+      <span>Pergunta gerencial: <strong>"Vou bater a meta de OLA este mês?"</strong></span>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="frame">
+      <div class="skel hero">
+        <span class="lbl">Meta OLA · dezembro</span>
+        <div class="big">73<span class="u">%</span></div>
+        <div class="sub">probabilidade de atingir a meta · ±8pp · CI 90%</div>
+      </div>
+
+      <div class="skel kpi">
+        <span class="lbl">Incidentes hoje</span>
+        <span class="val">755</span>
+        <span class="delta warn">↓ 14% vs ontem</span>
+      </div>
+      <div class="skel kpi">
+        <span class="lbl">OLAs · mês</span>
+        <span class="val">18 / 20</span>
+        <span class="delta warn">2 da meta</span>
+      </div>
+
+      <div class="skel chart">
+        <svg viewBox="0 0 400 90" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#60A5FA" stop-opacity="0.40"/>
+              <stop offset="100%" stop-color="#60A5FA" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M 0 60 Q 30 50, 50 55 T 100 48 T 150 40 T 200 30 T 250 38 T 300 25 T 350 32 T 400 18 L 400 90 L 0 90 Z" fill="url(#g)"/>
+          <path d="M 0 60 Q 30 50, 50 55 T 100 48 T 150 40 T 200 30 T 250 38 T 300 25 T 350 32 T 400 18" fill="none" stroke="#60A5FA" stroke-width="2.2" stroke-linejoin="round"/>
+          <circle cx="0" cy="60" r="2.5" fill="#60A5FA"/>
+          <circle cx="100" cy="48" r="2.5" fill="#60A5FA"/>
+          <circle cx="200" cy="30" r="2.5" fill="#60A5FA"/>
+          <circle cx="300" cy="25" r="2.5" fill="#60A5FA"/>
+          <circle cx="400" cy="18" r="3" fill="#fff" stroke="#60A5FA" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div>Sprint 2 · Protótipos da solução</div>
+    <div class="right-info">Base: <strong>122.543</strong> incidentes · <strong>248</strong> violações OLA · 2023–2025</div>
+  </div>
+</div>
+
+</body>
+</html>

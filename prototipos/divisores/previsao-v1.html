@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Divisor · Previsões</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared.css">
+</head>
+<body>
+
+<div class="layout">
+  <div class="left">
+    <div class="crumb">
+      <span class="logo"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0F172A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.4" fill="#3B82F6"/></svg></span>
+      <span>Cronos · Veja antes · aja antes</span>
+    </div>
+    <div class="eyebrow">Tela 2 de 5 · Protótipo</div>
+    <h1 class="title">Previsões</h1>
+    <p class="kicker">Forecast <strong>D+1</strong> e <strong>D+7</strong> sobre série diária. Drivers SHAP justificando cada previsão e ranking dos produtos em maior risco de OLA na semana.</p>
+    <div class="dq">
+      <span class="q-mark">?</span>
+      <span>Pergunta gerencial: <strong>"Preciso reforçar a operação amanhã?"</strong></span>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="frame">
+      <div class="skel hero">
+        <span class="lbl">Probabilidade de OLA · D+1 (qui 01/jan)</span>
+        <div class="big success">12<span class="u">%</span></div>
+        <div class="sub">risco BAIXO · feriado nacional · faixa 90%: 4–22%</div>
+      </div>
+
+      <div class="skel kpi">
+        <span class="lbl">Pico semana · seg 05</span>
+        <span class="val" style="color:#F87171;">72%</span>
+        <span class="delta bad">volta do feriado · risco máximo</span>
+      </div>
+      <div class="skel kpi">
+        <span class="lbl">Top produto risco</span>
+        <span class="val" style="color:#F87171;">lhco</span>
+        <span class="delta bad">82% prob · cascata P4 ativa</span>
+      </div>
+
+      <div class="skel bars">
+        <span class="b" style="background:#60A5FA;height:14%;" title="qui 12%"></span>
+        <span class="b" style="background:#FBBF24;height:48%;" title="sex 48%"></span>
+        <span class="b" style="background:rgba(255,255,255,0.35);height:24%;" title="sáb 24%"></span>
+        <span class="b" style="background:rgba(255,255,255,0.35);height:20%;" title="dom 20%"></span>
+        <span class="b" style="background:#F87171;height:72%;" title="seg 72%"></span>
+        <span class="b" style="background:#F87171;height:60%;" title="ter 60%"></span>
+        <span class="b" style="background:#FBBF24;height:54%;" title="qua 54%"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div>Sprint 2 · Protótipos da solução</div>
+    <div class="right-info">Stack: <strong>Prophet</strong> · <strong>XGBoost</strong> · <strong>SHAP</strong> · 51 modelos por produto</div>
+  </div>
+</div>
+
+</body>
+</html>
