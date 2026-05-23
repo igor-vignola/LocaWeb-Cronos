@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -10,12 +10,12 @@
 <link rel="stylesheet" href="../../brand/design-system/assets/tokens.css">
 <style>
 body { background: #EEF1F7; position: relative; overflow: hidden; }
-body::before { content: ''; position: fixed; inset: 0; z-index: 0; background: radial-gradient(1100px 800px at -200px -150px, rgba(37,99,235,0.22), transparent 55%), radial-gradient(900px 700px at calc(100% + 100px) calc(100% + 100px), rgba(220,38,38,0.13), transparent 55%), radial-gradient(800px 600px at 60% 40%, rgba(168,85,247,0.10), transparent 55%); pointer-events: none; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; background: radial-gradient(1100px 800px at -200px -150px, rgba(37,99,235,0.22), transparent 55%), radial-gradient(900px 700px at calc(100% + 100px) calc(100% + 100px), rgba(220,38,38,0.13), transparent 55%); pointer-events: none; }
 body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.025 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>"); mix-blend-mode: multiply; opacity: 0.6; }
 
 .app { position: relative; z-index: 2; display: grid; grid-template-columns: 244px 1fr; gap: var(--space-3); padding: var(--space-3); height: 100vh; }
 
-/* SIDEBAR (compartilhada) */
+/* SIDEBAR */
 .sb { background: rgba(255,255,255,0.72); backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-xl); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(0,30,80,0.04), 0 16px 40px -16px rgba(0,30,80,0.14); display: flex; flex-direction: column; overflow-y: auto; }
 .sb-brand { padding: var(--space-4) var(--space-5); display: flex; align-items: center; gap: var(--space-3); border-bottom: 1px solid rgba(0,0,0,0.05); }
 .sb-logo { width: 36px; height: 36px; background: var(--dark); border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.10); }
@@ -28,7 +28,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
 .sb-search .kbd { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 9.5px; font-weight: var(--fw-semibold); color: var(--label-tertiary); padding: 2px 6px; background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.06); border-radius: 4px; pointer-events: none; }
 .sb-nav { padding: var(--space-2) var(--space-3); flex: 1; display: flex; flex-direction: column; gap: 1px; }
 .sb-section { font-size: 9.5px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--label-quaternary); padding: var(--space-3) var(--space-2) 6px; }
-.sb-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: var(--r-sm); font-size: 13.5px; font-weight: var(--fw-medium); color: var(--label-secondary); cursor: pointer; transition: all var(--dur-quick) var(--ease-out); text-decoration: none; }
+.sb-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: var(--r-sm); font-size: 13.5px; font-weight: var(--fw-medium); color: var(--label-secondary); cursor: pointer; transition: background var(--dur-quick) var(--ease-out), color var(--dur-quick) var(--ease-out); text-decoration: none; }
 .sb-item:hover { background: rgba(255,255,255,0.55); color: var(--label-primary); }
 .sb-item.active { background: linear-gradient(135deg, rgba(37,99,235,0.16), rgba(37,99,235,0.08)); color: var(--accent); font-weight: var(--fw-semibold); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 1px 2px rgba(37,99,235,0.10); }
 .sb-item svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: 0.85; flex-shrink: 0; }
@@ -36,7 +36,6 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
 .sb-item .lbl { flex: 1; }
 .sb-item .badge { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; padding: 0 5px; background: var(--danger); color: var(--white); border-radius: 9px; font-size: 9.5px; font-weight: var(--fw-bold); }
 .sb-item .badge.neutral { background: rgba(37,99,235,0.16); color: var(--accent); }
-.sb-item .badge.warning { background: var(--warning); }
 .sb-foot { padding: var(--space-3) var(--space-4); border-top: 1px solid rgba(0,0,0,0.05); display: flex; align-items: center; gap: var(--space-3); }
 .sb-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #1E40AF); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 11px; font-weight: var(--fw-bold); flex-shrink: 0; box-shadow: 0 4px 12px rgba(37,99,235,0.25), inset 0 1px 0 rgba(255,255,255,0.2); }
 .sb-user-name { font-size: 12.5px; font-weight: var(--fw-semibold); }
@@ -55,134 +54,165 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
 
 /* PAGE */
 .content { flex: 1; overflow-y: auto; padding: var(--space-5) 0 var(--space-8); display: flex; justify-content: center; }
-.page { width: 100%; max-width: 1080px; padding: 0 var(--space-5); opacity: 0; transform: translateY(8px); animation: fadeUp 700ms var(--ease-out-strong) forwards; }
+.page { width: 100%; max-width: 1080px; padding: 0 var(--space-5); display: flex; flex-direction: column; gap: var(--space-5); }
+.page > * { opacity: 0; transform: translateY(8px); animation: fadeUp 600ms var(--ease-out-strong) forwards; }
+.page > *:nth-child(1) { animation-delay: 60ms; }
+.page > *:nth-child(2) { animation-delay: 140ms; }
+.page > *:nth-child(3) { animation-delay: 220ms; }
+.page > *:nth-child(4) { animation-delay: 300ms; }
+.page > *:nth-child(5) { animation-delay: 380ms; }
 @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
 /* PAGE HEAD */
-.page-head { padding-bottom: var(--space-5); margin-bottom: var(--space-5); border-bottom: 1px solid rgba(0,0,0,0.08); }
+.page-head { padding-bottom: var(--space-4); border-bottom: 1px solid rgba(0,0,0,0.08); }
 .page-head h1 { font-size: 32px; font-weight: var(--fw-heavy); letter-spacing: -0.03em; line-height: 1; color: var(--label-primary); margin-bottom: 6px; }
 .page-head p { font-size: 13.5px; color: var(--label-tertiary); line-height: 1.45; }
+.page-head p strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
 
-/* BADGES
-   - model-badge: saída numérica do modelo (Prophet+XGB)
-   - ai-badge: texto curado pela Claude API */
-.model-badge { display: inline-flex; align-items: center; gap: 4px; font-family: ui-monospace, monospace; font-size: 9px; font-weight: var(--fw-bold); letter-spacing: 0.04em; padding: 2px 7px; border-radius: 4px; background: rgba(15,23,42,0.85); color: rgba(255,255,255,0.95); border: 1px solid rgba(15,23,42,0.95); white-space: nowrap; margin-left: 10px; vertical-align: middle; box-shadow: 0 1px 2px rgba(0,0,0,0.12); }
-.model-badge svg { width: 10px; height: 10px; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
-.ai-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 8.5px; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 7px; border-radius: var(--r-pill); background: linear-gradient(135deg, rgba(37,99,235,0.12), rgba(168,85,247,0.12)); color: var(--accent); border: 1px solid rgba(37,99,235,0.22); white-space: nowrap; margin-left: 8px; vertical-align: middle; }
-.ai-badge svg { width: 9px; height: 9px; flex-shrink: 0; }
+/* GLASS reutilizável */
+.glass { background: rgba(255,255,255,0.55); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-lg); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 12px 32px -14px rgba(0,30,80,0.10); }
 
-/* HERO D+1 — gestor-friendly: foco em impacto */
-.hero-d1 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); padding: var(--space-6) var(--space-6); background: rgba(255,255,255,0.55); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-lg); margin-bottom: var(--space-5); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9); }
-.hero-d1-eyebrow { font-size: 10px; font-weight: var(--fw-bold); letter-spacing: 0.16em; text-transform: uppercase; color: var(--label-tertiary); margin-bottom: var(--space-3); display: flex; align-items: center; gap: var(--space-2); }
-.hero-d1-left { display: flex; flex-direction: column; gap: var(--space-3); }
-.hero-d1-metric { display: flex; flex-direction: column; gap: 6px; padding-bottom: var(--space-3); border-bottom: 1px solid rgba(0,0,0,0.06); }
-.hero-d1-metric:last-child { border-bottom: none; padding-bottom: 0; }
-.hero-d1-row { display: flex; align-items: baseline; gap: var(--space-3); flex-wrap: wrap; }
-.hero-d1-val { font-size: 38px; font-weight: var(--fw-heavy); letter-spacing: -0.03em; line-height: 1; color: var(--label-primary); font-variant-numeric: tabular-nums; }
-.hero-d1-val .unit { font-size: 15px; font-weight: var(--fw-medium); color: var(--label-tertiary); margin-left: 5px; }
-.hero-d1-delta { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 5px; font-size: 12px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; }
-.hero-d1-delta.warn { background: var(--warning-soft); color: var(--warning); }
-.hero-d1-delta.danger { background: var(--danger-soft); color: var(--danger); }
-.hero-d1-delta.good { background: var(--success-soft); color: var(--success); }
-.hero-d1-mlbl { font-size: 11px; font-weight: var(--fw-semibold); color: var(--label-tertiary); letter-spacing: 0.02em; }
-.hero-d1-mlbl strong { color: var(--label-secondary); font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; }
-.hero-d1-right { display: flex; flex-direction: column; gap: var(--space-3); justify-content: center; padding-left: var(--space-5); border-left: 1px solid rgba(0,0,0,0.06); }
-.hero-d1-context { font-size: 13.5px; color: var(--label-secondary); line-height: 1.55; }
-.hero-d1-context strong { color: var(--label-primary); font-weight: var(--fw-semibold); }
-.hero-d1-context .kw { color: var(--warning); font-weight: var(--fw-bold); }
-.hero-d1-prio { display: flex; gap: var(--space-2); flex-wrap: wrap; }
-.hero-d1-prio-item {
-  display: flex; align-items: center; gap: 6px;
-  padding: 4px 9px;
-  background: rgba(255,255,255,0.6);
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: var(--r-pill);
-  font-size: 11px; font-weight: var(--fw-semibold);
-  font-variant-numeric: tabular-nums;
-}
-.hero-d1-prio-item .lbl { color: var(--label-tertiary); font-size: 10px; }
-.hero-d1-prio-item .val { color: var(--label-primary); font-weight: var(--fw-bold); }
-.hero-d1-prio-item.p2 { border-color: rgba(0,0,0,0.20); }
-.hero-d1-prio-item.p3 { border-color: rgba(220,38,38,0.20); }
-.hero-d1-prio-item.p45 { border-color: rgba(217,119,6,0.20); }
+/* MODEL BADGE — único, discreto, no rodapé de cada bloco */
+.model-tag { display: inline-flex; align-items: center; gap: 4px; font-family: ui-monospace, monospace; font-size: 9.5px; font-weight: var(--fw-bold); letter-spacing: 0.04em; padding: 2px 7px; border-radius: 4px; background: rgba(15,23,42,0.08); color: var(--label-tertiary); white-space: nowrap; }
+.model-tag svg { width: 9px; height: 9px; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
-/* FORECAST 7 DIAS — gráfico de barras agrupadas com hover */
-.fc-7d { padding: var(--space-5) var(--space-6); background: rgba(255,255,255,0.55); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-lg); margin-bottom: var(--space-5); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9); }
-.fc-7d-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--space-4); gap: var(--space-4); }
-.fc-7d-h { font-size: 14px; font-weight: var(--fw-bold); color: var(--label-primary); display: flex; align-items: center; gap: var(--space-2); }
-.fc-7d-sub { font-size: 11px; color: var(--label-tertiary); margin-top: 2px; }
-.fc-7d-toggle { display: inline-flex; padding: 3px; background: rgba(0,0,0,0.05); border-radius: var(--r-sm); }
-.fc-7d-tab { padding: 5px 14px; font-size: 11.5px; font-weight: var(--fw-semibold); color: var(--label-tertiary); background: transparent; border: none; border-radius: 5px; cursor: pointer; transition: all var(--dur-quick) var(--ease-out); }
-.fc-7d-tab.active { background: var(--white); color: var(--label-primary); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-.fc-7d-chart { position: relative; min-height: 260px; }
-.fc-7d-chart svg { width: 100%; height: 240px; display: block; }
-.fc-7d-chart .grid-line { stroke: rgba(0,0,0,0.06); stroke-width: 1; }
-.fc-7d-chart .grid-label { font-size: 9.5px; fill: var(--label-tertiary); font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; }
-.fc-7d-chart .day-tick { font-size: 10px; fill: var(--label-tertiary); font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; font-weight: var(--fw-semibold); }
-.fc-7d-chart .day-tick.today { fill: var(--accent); font-weight: var(--fw-bold); }
-.fc-7d-chart .bar { transition: opacity 120ms var(--ease-out); cursor: pointer; }
-.fc-7d-chart .bar:hover { opacity: 0.85; }
-.fc-7d-chart .ci-band { fill: rgba(37,99,235,0.08); }
+/* SECTION HEAD */
+.sect-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: var(--space-4); gap: var(--space-3); }
+.sect-h { font-size: 11px; font-weight: var(--fw-bold); letter-spacing: 0.14em; text-transform: uppercase; color: var(--label-tertiary); margin-bottom: 6px; }
+.sect-title { font-size: 18px; font-weight: var(--fw-bold); letter-spacing: -0.01em; color: var(--label-primary); line-height: 1.2; }
+.sect-sub { font-size: 12px; color: var(--label-tertiary); margin-top: 4px; line-height: 1.4; }
 
-/* tooltip global */
-.chart-tip {
-  position: fixed; z-index: 999;
-  padding: 8px 12px;
-  background: rgba(15,23,42,0.96);
-  color: var(--white);
-  border-radius: 6px;
-  font-size: 11.5px;
-  font-weight: var(--fw-medium);
-  line-height: 1.4;
-  pointer-events: none;
-  opacity: 0;
-  transform: translate(-50%, -100%) translateY(-8px);
-  transition: opacity 120ms var(--ease-out);
-  box-shadow: 0 8px 24px -4px rgba(0,0,0,0.25);
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
+/* ═══ BLOCO 1 · D+1 ═══ */
+.b1 { padding: var(--space-6); display: grid; grid-template-columns: minmax(320px, 1.1fr) 1fr; gap: var(--space-6); align-items: stretch; }
+.b1-left { display: flex; flex-direction: column; }
+.b1-eyebrow { font-size: 10.5px; font-weight: var(--fw-bold); letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-3); display: flex; align-items: center; gap: 8px; }
+.b1-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.b1-q { font-size: 13.5px; color: var(--label-secondary); font-weight: var(--fw-semibold); margin-bottom: var(--space-2); }
+.b1-num { font-size: 88px; font-weight: var(--fw-heavy); letter-spacing: -0.05em; line-height: 0.9; color: var(--warning); font-variant-numeric: tabular-nums; }
+.b1-num .unit { font-size: 30px; color: var(--label-tertiary); font-weight: var(--fw-medium); margin-left: 4px; }
+.b1-band-row { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-3); flex-wrap: wrap; }
+.b1-band { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: var(--warning-soft); color: var(--warning); border-radius: var(--r-pill); font-size: 11.5px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; }
+.b1-band.danger { background: var(--danger-soft); color: var(--danger); }
+.b1-band.good { background: var(--success-soft); color: var(--success); }
+.b1-delta { font-size: 11.5px; color: var(--label-tertiary); font-variant-numeric: tabular-nums; }
+.b1-delta strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
+.b1-right { display: flex; flex-direction: column; gap: var(--space-3); padding-left: var(--space-5); border-left: 1px solid rgba(0,0,0,0.06); }
+.b1-secondary { display: flex; flex-direction: column; gap: 6px; padding-bottom: var(--space-3); border-bottom: 1px solid rgba(0,0,0,0.06); }
+.b1-sec-lbl { font-size: 10.5px; font-weight: var(--fw-bold); letter-spacing: 0.10em; text-transform: uppercase; color: var(--label-tertiary); }
+.b1-sec-val { font-size: 22px; font-weight: var(--fw-bold); color: var(--label-primary); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.b1-sec-val .unit { font-size: 13px; color: var(--label-tertiary); font-weight: var(--fw-medium); margin-left: 4px; }
+.b1-sec-faixa { font-size: 11px; color: var(--label-tertiary); font-variant-numeric: tabular-nums; }
+.b1-sec-faixa strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
+.b1-prio { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 2px; }
+.b1-prio-pill { display: flex; flex-direction: column; padding: 6px 12px; border: 1px solid rgba(0,0,0,0.08); border-radius: var(--r-sm); background: rgba(255,255,255,0.55); font-variant-numeric: tabular-nums; }
+.b1-prio-pill .lbl { font-size: 9px; font-weight: var(--fw-bold); letter-spacing: 0.08em; color: var(--label-tertiary); text-transform: uppercase; }
+.b1-prio-pill .val { font-size: 14px; font-weight: var(--fw-bold); color: var(--label-primary); }
+.b1-prio-pill.p2 { border-color: rgba(15,23,42,0.30); }
+.b1-prio-pill.p3 { border-color: rgba(220,38,38,0.25); }
+.b1-prio-pill.p45 { border-color: rgba(217,119,6,0.25); }
+
+/* drivers SHAP-light */
+.b1-drivers { margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid rgba(0,0,0,0.06); }
+.b1-drivers-h { font-size: 10.5px; font-weight: var(--fw-bold); letter-spacing: 0.10em; text-transform: uppercase; color: var(--label-tertiary); margin-bottom: var(--space-2); display: flex; align-items: center; gap: 6px; }
+.b1-drivers-h .shap { font-family: ui-monospace, monospace; font-size: 9px; padding: 1px 6px; background: rgba(37,99,235,0.12); color: var(--accent); border-radius: 3px; letter-spacing: 0.04em; }
+.b1-driver { display: grid; grid-template-columns: 16px 1fr; gap: 8px; align-items: baseline; padding: 4px 0; font-size: 12.5px; color: var(--label-secondary); line-height: 1.4; }
+.b1-driver .sign { font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; }
+.b1-driver .sign.up { color: var(--danger); }
+.b1-driver .sign.dn { color: var(--success); }
+.b1-driver .sign.eq { color: var(--label-tertiary); }
+.b1-driver strong { color: var(--label-primary); font-weight: var(--fw-semibold); font-variant-numeric: tabular-nums; }
+
+.b1-foot { display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px dashed rgba(0,0,0,0.08); }
+
+/* ═══ BLOCO 2 · D+7 ═══ */
+.b2 { padding: var(--space-5) var(--space-6) var(--space-4); }
+.b2-chart-wrap { position: relative; width: 100%; }
+.b2-chart-wrap svg { width: 100%; height: auto; display: block; overflow: visible; }
+.b2-chart-wrap .zone-rect { opacity: 0.55; }
+.b2-chart-wrap .grid-line { stroke: rgba(0,0,0,0.05); stroke-width: 1; }
+.b2-chart-wrap .grid-label { font-size: 10px; fill: var(--label-tertiary); font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+.b2-chart-wrap .ci-band { fill: rgba(15,23,42,0.06); }
+.b2-chart-wrap .ci-cap { stroke: rgba(15,23,42,0.40); stroke-width: 1.4; stroke-linecap: round; }
+.b2-chart-wrap .bar { transition: filter 160ms var(--ease-out); cursor: pointer; }
+.b2-chart-wrap .bar:hover { filter: brightness(0.92) saturate(1.1); }
+.b2-chart-wrap .bar-frame { fill: none; stroke: var(--danger); stroke-width: 2; stroke-dasharray: 0; }
+.b2-chart-wrap .bar-label { font-size: 13px; font-weight: 700; fill: var(--label-primary); font-variant-numeric: tabular-nums; font-family: var(--font-sans, 'Outfit'), sans-serif; }
+.b2-chart-wrap .bar-label.peak { fill: var(--danger); }
+.b2-chart-wrap .bar-label.feriado-l { fill: var(--accent); }
+.b2-chart-wrap .day-name { font-size: 11.5px; fill: var(--label-secondary); font-family: ui-monospace, monospace; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.b2-chart-wrap .day-date { font-size: 10.5px; fill: var(--label-tertiary); font-family: ui-monospace, monospace; font-weight: 500; font-variant-numeric: tabular-nums; }
+.b2-chart-wrap .day-name.peak, .b2-chart-wrap .day-date.peak { fill: var(--danger); font-weight: 800; }
+.b2-chart-wrap .day-name.feriado, .b2-chart-wrap .day-date.feriado { fill: var(--accent); }
+.b2-chart-wrap .feriado-ico { font-size: 11px; fill: var(--accent); }
+.b2-chart-wrap .threshold-line { stroke: rgba(220,38,38,0.35); stroke-width: 1.2; stroke-dasharray: 5 4; }
+.b2-chart-wrap .threshold-label { font-size: 10px; fill: var(--danger); font-family: ui-monospace, monospace; font-weight: 600; }
+.b2-chart-wrap .threshold-label-bg { fill: rgba(255,255,255,0.94); stroke: rgba(220,38,38,0.28); stroke-width: 1; }
+.b2-insight { margin-top: var(--space-4); padding: var(--space-3) var(--space-4); background: rgba(220,38,38,0.06); border-left: 3px solid var(--danger); border-radius: var(--r-sm); font-size: 12.5px; color: var(--label-secondary); line-height: 1.5; }
+.b2-insight strong { color: var(--danger); font-weight: var(--fw-bold); }
+.b2-foot { display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-3); font-size: 10.5px; color: var(--label-quaternary); }
+
+/* ═══ BLOCO 3 · Onde concentrar ═══ */
+.b3 { padding: var(--space-5) var(--space-6); }
+.b3-list { display: flex; flex-direction: column; gap: var(--space-2); }
+.b3-row { display: grid; grid-template-columns: 70px 1fr 70px 1.4fr; gap: var(--space-4); align-items: center; padding: var(--space-3) var(--space-4); background: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-md); transition: transform var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out); cursor: pointer; }
+.b3-row:hover { transform: translateX(2px); box-shadow: 0 4px 14px -6px rgba(0,30,80,0.12); }
+.b3-prod { font-family: ui-monospace, monospace; font-size: 13px; font-weight: var(--fw-bold); padding: 4px 10px; background: rgba(0,0,0,0.06); color: var(--label-primary); border-radius: var(--r-sm); text-align: center; }
+.b3-bar-wrap { display: flex; align-items: center; gap: var(--space-3); }
+.b3-bar { flex: 1; height: 8px; background: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden; }
+.b3-bar i { display: block; height: 100%; border-radius: 4px; }
+.b3-bar.crit i { background: linear-gradient(90deg, var(--danger), #B91C1C); }
+.b3-bar.warn i { background: linear-gradient(90deg, var(--warning), #B45309); }
+.b3-bar.ok i { background: var(--accent); }
+.b3-pct { font-size: 17px; font-weight: var(--fw-heavy); font-variant-numeric: tabular-nums; text-align: right; letter-spacing: -0.02em; }
+.b3-pct.crit { color: var(--danger); }
+.b3-pct.warn { color: var(--warning); }
+.b3-pct.ok { color: var(--accent); }
+.b3-driver { font-size: 12px; color: var(--label-tertiary); line-height: 1.4; }
+.b3-driver strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
+.b3-foot { display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid rgba(0,0,0,0.06); }
+.b3-link { font-size: 12.5px; color: var(--accent); font-weight: var(--fw-semibold); background: none; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; padding: 0; transition: gap 200ms; }
+.b3-link:hover { gap: 8px; }
+.b3-link svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2.4; stroke-linecap: round; }
+
+/* tooltip */
+.chart-tip { position: fixed; z-index: 999; padding: 8px 12px; background: rgba(15,23,42,0.96); color: var(--white); border-radius: 6px; font-size: 11.5px; font-weight: var(--fw-medium); line-height: 1.4; pointer-events: none; opacity: 0; transform: translate(-50%, -100%) translateY(-8px); transition: opacity 120ms var(--ease-out); box-shadow: 0 8px 24px -4px rgba(0,0,0,0.25); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .chart-tip.on { opacity: 1; }
 .chart-tip .lbl { color: rgba(255,255,255,0.65); font-size: 9.5px; font-weight: var(--fw-bold); letter-spacing: 0.06em; text-transform: uppercase; }
-.chart-tip .row { display: flex; align-items: center; gap: 6px; margin-top: 2px; }
-.chart-tip .sw { width: 8px; height: 8px; border-radius: 2px; }
 
-/* DISTRIBUIÇÃO POR DIMENSÃO */
-.dist { padding: var(--space-5) var(--space-6); background: rgba(255,255,255,0.55); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-lg); margin-bottom: var(--space-5); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9); }
-.dist-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-4); }
-.dist-h { font-size: 14px; font-weight: var(--fw-bold); color: var(--label-primary); display: flex; align-items: center; gap: var(--space-2); }
-.dist-tabs { display: inline-flex; padding: 3px; background: rgba(0,0,0,0.05); border-radius: var(--r-sm); }
-.dist-tab { padding: 5px 12px; font-size: 11.5px; font-weight: var(--fw-semibold); color: var(--label-tertiary); background: transparent; border: none; border-radius: 5px; cursor: pointer; }
-.dist-tab.active { background: var(--white); color: var(--label-primary); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-.dist-list { display: flex; flex-direction: column; gap: var(--space-2); }
-.dist-row { display: grid; grid-template-columns: 80px 1fr 60px; gap: var(--space-3); align-items: center; padding: 6px 0; }
-.dist-tag { font-family: ui-monospace, monospace; font-size: 12px; font-weight: var(--fw-bold); padding: 3px 8px; background: rgba(0,0,0,0.06); color: var(--label-primary); border-radius: var(--r-sm); }
-.dist-bar { height: 8px; background: rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden; }
-.dist-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #1E40AF); border-radius: 4px; }
-.dist-val { font-size: 13px; font-weight: var(--fw-bold); color: var(--label-primary); font-variant-numeric: tabular-nums; text-align: right; }
-.dist-foot { font-size: 10.5px; color: var(--label-tertiary); font-style: italic; margin-top: var(--space-3); }
+/* MODAL — "ver todos os produtos" */
+.modal-bd { position: fixed; inset: 0; background: rgba(10,10,15,0.20); backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 280ms var(--ease-out-strong); }
+.modal-bd.on { opacity: 1; pointer-events: auto; }
+.modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.96); width: 720px; max-width: calc(100vw - 32px); max-height: calc(100vh - 64px); display: flex; flex-direction: column; background: rgba(255,255,255,0.92); backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%); border: 1px solid rgba(255,255,255,0.95); border-radius: var(--r-2xl); box-shadow: inset 0 1px 0 rgba(255,255,255,1), 0 8px 16px rgba(0,0,0,0.08), 0 32px 80px -16px rgba(0,30,80,0.30); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 320ms var(--ease-out-strong), transform 320ms cubic-bezier(0.23, 1, 0.32, 1); }
+.modal.on { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
+.modal-head { padding: var(--space-6) var(--space-6) var(--space-4); border-bottom: 1px solid rgba(0,0,0,0.06); display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); }
+.modal-h { font-size: 18px; font-weight: var(--fw-bold); letter-spacing: -0.01em; }
+.modal-sub { font-size: 12px; color: var(--label-tertiary); margin-top: 4px; }
+.modal-close { width: 32px; height: 32px; border-radius: 50%; background: rgba(0,0,0,0.05); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--label-secondary); transition: all var(--dur-quick) var(--ease-out); flex-shrink: 0; }
+.modal-close:hover { background: rgba(0,0,0,0.10); color: var(--label-primary); }
+.modal-close:active { transform: scale(0.94); }
+.modal-close svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.4; stroke-linecap: round; }
+.modal-body { flex: 1; overflow-y: auto; padding: var(--space-4) var(--space-6) var(--space-5); }
+.modal-search { position: relative; margin-bottom: var(--space-3); }
+.modal-search input { width: 100%; height: 36px; padding: 0 14px 0 32px; background: rgba(0,0,0,0.04); border: 1px solid transparent; border-radius: var(--r-sm); font: inherit; font-size: 12.5px; color: var(--label-primary); outline: none; transition: all var(--dur-quick) var(--ease-out); }
+.modal-search input:focus { background: var(--white); border-color: var(--accent); }
+.modal-search::before { content: ''; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 13px; height: 13px; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A3A3A3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><path d='m21 21-4.3-4.3'/></svg>") center/contain no-repeat; }
+.modal-table { display: flex; flex-direction: column; gap: 2px; }
+.modal-table-head { display: grid; grid-template-columns: 70px 1fr 70px 80px; gap: var(--space-3); padding: 6px 12px; font-size: 9.5px; font-weight: var(--fw-bold); letter-spacing: 0.10em; text-transform: uppercase; color: var(--label-quaternary); border-bottom: 1px solid rgba(0,0,0,0.06); }
+.modal-row { display: grid; grid-template-columns: 70px 1fr 70px 80px; gap: var(--space-3); padding: 8px 12px; align-items: center; border-radius: var(--r-sm); transition: background var(--dur-quick) var(--ease-out); font-variant-numeric: tabular-nums; }
+.modal-row:hover { background: rgba(0,0,0,0.03); }
+.modal-row .p { font-family: ui-monospace, monospace; font-size: 12px; font-weight: var(--fw-bold); padding: 3px 8px; background: rgba(0,0,0,0.06); border-radius: 4px; text-align: center; color: var(--label-primary); }
+.modal-row .d { font-size: 12px; color: var(--label-secondary); }
+.modal-row .pct { font-size: 13px; font-weight: var(--fw-bold); text-align: right; }
+.modal-row .pct.crit { color: var(--danger); }
+.modal-row .pct.warn { color: var(--warning); }
+.modal-row .pct.ok { color: var(--accent); }
+.modal-row .hist { font-size: 11px; color: var(--label-tertiary); text-align: right; }
+.modal-foot { padding: var(--space-3) var(--space-6); border-top: 1px solid rgba(0,0,0,0.06); background: rgba(0,0,0,0.025); font-size: 11px; color: var(--label-tertiary); line-height: 1.4; }
 
-/* DIAS CRÍTICOS */
-.events { padding: var(--space-5) var(--space-6); background: rgba(255,255,255,0.55); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-lg); margin-bottom: var(--space-5); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9); }
-.events-h { font-size: 14px; font-weight: var(--fw-bold); color: var(--label-primary); margin-bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-2); }
-.events-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
-.event-card { padding: var(--space-4); background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-md); display: flex; flex-direction: column; gap: 4px; }
-.event-date { font-size: 10.5px; font-weight: var(--fw-bold); letter-spacing: 0.12em; text-transform: uppercase; color: var(--label-tertiary); }
-.event-title { font-size: 13.5px; font-weight: var(--fw-semibold); color: var(--label-primary); line-height: 1.35; }
-.event-why { font-size: 11.5px; color: var(--label-tertiary); }
-
-/* IMPACTO NA META */
-.meta-impact { display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--space-6); padding: var(--space-5) var(--space-6); background: rgba(217,119,6,0.05); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(217,119,6,0.18); border-radius: var(--r-lg); margin-bottom: var(--space-5); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9); }
-.meta-impact-eyebrow { font-size: 10px; font-weight: var(--fw-bold); letter-spacing: 0.14em; text-transform: uppercase; color: var(--label-tertiary); margin-bottom: var(--space-2); display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
-.meta-impact-ci strong { color: var(--label-secondary); font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; }
-.meta-impact-status { display: inline-flex; align-items: center; gap: 6px; }
-.meta-impact-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-.meta-impact-val { font-size: 40px; font-weight: var(--fw-heavy); letter-spacing: -0.03em; color: var(--label-primary); font-variant-numeric: tabular-nums; line-height: 0.95; }
-.meta-impact-val .unit { font-size: 16px; font-weight: var(--fw-medium); color: var(--label-tertiary); margin-left: 6px; }
-.meta-impact-ci { font-size: 11.5px; color: var(--label-tertiary); margin-top: 4px; font-variant-numeric: tabular-nums; }
-.meta-impact-right { display: flex; flex-direction: column; justify-content: center; gap: var(--space-3); }
-.meta-impact-status { font-size: 14px; font-weight: var(--fw-bold); padding: 6px 12px; background: rgba(217,119,6,0.12); color: var(--warning); border-radius: var(--r-pill); align-self: flex-start; }
-.meta-impact-note { font-size: 12.5px; color: var(--label-secondary); line-height: 1.5; }
+@media (max-width: 980px) {
+  .b1 { grid-template-columns: 1fr; }
+  .b1-right { padding-left: 0; border-left: none; padding-top: var(--space-4); border-top: 1px solid rgba(0,0,0,0.06); }
+}
 </style>
 </head>
 <body>
@@ -193,14 +223,13 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
       <div class="sb-logo"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.4" fill="#3B82F6"/></svg></div>
       <div><div class="sb-brand-name">Cronos</div><div class="sb-brand-sub">Veja antes · aja antes</div></div>
     </div>
-    <div class="sb-search"><input placeholder="Buscar produto, alerta..."><span class="kbd">⌘K</span></div>
+    <div class="sb-search"><input placeholder="Buscar produto, alerta..."><span class="kbd">Ctrl K</span></div>
     <nav class="sb-nav">
       <div class="sb-section">Operação</div>
       <a class="sb-item" href="dashboard.html"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span class="lbl">Dashboard</span></a>
       <a class="sb-item active" href="previsao.html"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="lbl">Previsões</span></a>
       <a class="sb-item" href="cascata.html"><svg viewBox="0 0 24 24"><path d="M12 2L4 7v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V7l-8-5z"/></svg><span class="lbl">Cascatas</span><span class="badge">3</span></a>
       <a class="sb-item" href="saude-produto.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg><span class="lbl">Saúde · Produto</span></a>
-      <div class="sb-section">Diferenciais</div>
       <a class="sb-item" href="morning-brief.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg><span class="lbl">Morning brief</span><span class="badge neutral">06:00</span></a>
     </nav>
     <div class="sb-foot">
@@ -215,94 +244,138 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
     <div class="tb">
       <div class="tb-crumb"><span>Operação</span><span style="color:var(--label-quaternary);">/</span><span class="here">Previsões</span></div>
       <div class="tb-spacer"></div>
-      <div class="tb-pill"><span class="dot"></span>Atualizado 06:00</div>
+      <div class="tb-pill"><span class="dot"></span>Atualizado 06:00 · 31/dez</div>
     </div>
 
     <div class="content">
       <div class="page">
 
-        <!-- Step 6.2 — Page head -->
         <header class="page-head">
-          <div class="page-head-left">
-            <h1>Previsões</h1>
-            <p>Forecast Prophet sobre série diária · D+1, D+7 e impacto na meta de dezembro</p>
-          </div>
+          <h1>Previsões</h1>
+          <p>D+1 · D+7 · onde concentrar · trajetória até a meta. <strong>Base:</strong> 122.543 incidentes (2023–2025) · 248 violações de OLA históricas (0,97% dos elegíveis).</p>
         </header>
 
-        <!-- Hero D+1 — gestor-friendly: foco em impacto -->
-        <section class="hero-d1">
-          <div class="hero-d1-left">
-            <div class="hero-d1-eyebrow">D+1 · amanhã (qui 01/jan) <span class="model-badge"><svg viewBox="0 0 16 16"><polyline points="2 12 6 8 10 11 14 4"/></svg>Modelo Prophet</span></div>
-
-            <div class="hero-d1-metric">
-              <div class="hero-d1-row">
-                <span class="hero-d1-val">~870 <span class="unit">incidentes</span></span>
-                <span class="hero-d1-delta warn">↑ 4% vs média 30d</span>
-              </div>
-              <span class="hero-d1-mlbl">faixa 90%: <strong>790</strong> a <strong>950</strong></span>
+        <!-- ═════════ BLOCO 1 · D+1 ═════════ -->
+        <section class="b1 glass">
+          <div class="b1-left">
+            <div class="b1-eyebrow"><span class="dot"></span>D+1 · amanhã, qui 01/jan/2026</div>
+            <div class="b1-q">Vou estourar OLA amanhã?</div>
+            <div class="b1-num">12<span class="unit">%</span></div>
+            <div class="b1-band-row">
+              <span class="b1-band good">risco BAIXO · feriado nacional</span>
+              <span class="b1-delta">média dia útil <strong>62%</strong> · ontem (31/dez) <strong>54%</strong></span>
             </div>
-
-            <div class="hero-d1-metric">
-              <div class="hero-d1-row">
-                <span class="hero-d1-val">~1 <span class="unit">OLA quebrado esperado</span></span>
-                <span class="hero-d1-delta good">dentro da meta (≤1/dia)</span>
-              </div>
-              <span class="hero-d1-mlbl">probabilidade de violar OLA amanhã: <strong>62%</strong></span>
-            </div>
-
-            <div class="hero-d1-prio">
-              <span class="hero-d1-prio-item p2"><span class="lbl">P2</span><span class="val">~110</span></span>
-              <span class="hero-d1-prio-item p3"><span class="lbl">P3</span><span class="val">~297</span></span>
-              <span class="hero-d1-prio-item p45"><span class="lbl">P4/P5</span><span class="val">~463</span></span>
+            <div class="b1-drivers">
+              <div class="b1-drivers-h">Por que essa previsão? <span class="shap">SHAP</span></div>
+              <div class="b1-driver"><span class="sign dn">↓</span><span><strong>−38pp</strong> · feriado nacional · empresas paradas reduzem volume operacional (validado por Locaweb na mentoria)</span></div>
+              <div class="b1-driver"><span class="sign up">↑</span><span><strong>+8pp</strong> · cascata ativa em <strong>lhco</strong> desde ontem 14:28 — pode escalar</span></div>
+              <div class="b1-driver"><span class="sign eq">·</span><span><strong>±0pp</strong> · carga P4/P5 últimos 3d dentro do esperado para período</span></div>
             </div>
           </div>
 
-          <div class="hero-d1-right">
-            <p class="hero-d1-context"><strong>Quinta-feira histórica</strong> concentra incidentes entre 09h-11h. Volume amanhã 4% acima do normal — <span class="kw">risco moderado pra OLA</span>, mas dentro da faixa típica.</p>
-            <p class="hero-d1-context">Modelo treinado sobre <strong>3 meses</strong> de operação estável (set–dez/2025). Atualização diária às <strong>06:00</strong>.</p>
+          <div class="b1-right">
+            <div class="b1-secondary">
+              <span class="b1-sec-lbl">Volume esperado</span>
+              <span class="b1-sec-val">~220 <span class="unit">incidentes</span></span>
+              <span class="b1-sec-faixa">faixa 90%: <strong>150</strong> a <strong>310</strong> · ↓75% vs média 30d (881)</span>
+            </div>
+            <div class="b1-secondary">
+              <span class="b1-sec-lbl">Decomposição por prioridade</span>
+              <div class="b1-prio">
+                <span class="b1-prio-pill p2"><span class="lbl">P2 Alta</span><span class="val">~28</span></span>
+                <span class="b1-prio-pill p3"><span class="lbl">P3 Média</span><span class="val">~75</span></span>
+                <span class="b1-prio-pill p45"><span class="lbl">P4/P5</span><span class="val">~117</span></span>
+              </div>
+              <span class="b1-sec-faixa" style="margin-top:6px;">apenas P2 e P3 entram no KPI · só pais contam</span>
+            </div>
+            <div class="b1-foot">
+              <span class="model-tag"><svg viewBox="0 0 16 16"><polyline points="2 12 6 8 10 11 14 4"/></svg>Prophet · XGBoost · SHAP</span>
+              <span style="font-size:10.5px;color:var(--label-quaternary);">treinado em set–dez/2025 (regime atual)</span>
+            </div>
           </div>
         </section>
 
-        <!-- Forecast 7 dias — volume previsto OU OLA quebrado previsto -->
-        <section class="fc-7d">
-          <div class="fc-7d-head">
+        <!-- ═════════ BLOCO 2 · D+7 ═════════ -->
+        <section class="b2 glass">
+          <div class="sect-head">
             <div>
-              <div class="fc-7d-h">Forecast 7 dias <span class="model-badge"><svg viewBox="0 0 16 16"><polyline points="2 12 6 8 10 11 14 4"/></svg>Modelo Prophet</span></div>
-              <div class="fc-7d-sub" id="fc7dSub">Volume de incidentes esperado por dia · banda 90% CI</div>
-            </div>
-            <div class="fc-7d-toggle" id="fc7dToggle">
-              <button class="fc-7d-tab active" data-view="volume">Volume</button>
-              <button class="fc-7d-tab" data-view="ola">OLA quebrado</button>
+              <div class="sect-h">D+7 · próximos 7 dias</div>
+              <h2 class="sect-title">Algum dia da semana vai apertar?</h2>
+              <p class="sect-sub">Probabilidade de violar OLA P2 ou P3 por dia · banda 90%</p>
             </div>
           </div>
-          <div class="fc-7d-chart" id="fc7dChart"><!-- renderizado por JS --></div>
+
+          <div class="b2-chart-wrap" id="b2Chart"></div>
+
+          <div class="b2-insight">
+            <strong>Segunda 05/jan é o dia de risco máximo da semana.</strong> Volta da operação após feriado prolongado tende a concentrar incidentes acumulados — padrão histórico observado em jan/abr/set de 2025.
+          </div>
+
+          <div class="b2-foot">
+            <span style="font-size:11px;color:var(--label-tertiary);">Sazonalidade modelada: <strong style="color:var(--label-secondary);">feriado</strong> e <strong style="color:var(--label-secondary);">fim de semana</strong> (não dia da semana isolado).</span>
+            <span class="model-tag"><svg viewBox="0 0 16 16"><polyline points="2 12 6 8 10 11 14 4"/></svg>Prophet · XGBoost</span>
+          </div>
         </section>
 
-        <!-- Distribuição por produto -->
-        <section class="dist">
-          <div class="dist-head">
-            <div class="dist-h">Onde os incidentes vão cair · 7 dias <span class="model-badge"><svg viewBox="0 0 16 16"><polyline points="2 12 6 8 10 11 14 4"/></svg>Modelo Prophet</span></div>
+        <!-- ═════════ BLOCO 3 · Onde concentrar ═════════ -->
+        <section class="b3 glass">
+          <div class="sect-head">
+            <div>
+              <div class="sect-h">Onde vai concentrar · 7 dias</div>
+              <h2 class="sect-title">Qual produto exige atenção?</h2>
+              <p class="sect-sub">Top 5 produtos com maior probabilidade de violar OLA · modelo por produto (XGBoost individual), não rateio histórico</p>
+            </div>
           </div>
-          <div class="dist-list">
-            <div class="dist-row"><span class="dist-tag">lhco</span><div class="dist-bar"><div class="dist-fill" style="width:78%;"></div></div><span class="dist-val">~2.080</span></div>
-            <div class="dist-row"><span class="dist-tag">lcem</span><div class="dist-bar"><div class="dist-fill" style="width:38%;"></div></div><span class="dist-val">~825</span></div>
-            <div class="dist-row"><span class="dist-tag">lsin</span><div class="dist-bar"><div class="dist-fill" style="width:35%;"></div></div><span class="dist-val">~778</span></div>
-            <div class="dist-row"><span class="dist-tag">lhvp</span><div class="dist-bar"><div class="dist-fill" style="width:28%;"></div></div><span class="dist-val">~621</span></div>
-            <div class="dist-row"><span class="dist-tag">lrev</span><div class="dist-bar"><div class="dist-fill" style="width:24%;"></div></div><span class="dist-val">~626</span></div>
-          </div>
-          <p class="dist-foot">Forecast total decomposto pela distribuição histórica dos últimos 30 dias · só top 5 produtos</p>
-        </section>
 
-        <!-- Impacto previsto na meta -->
-        <section class="meta-impact">
-          <div class="meta-impact-left">
-            <div class="meta-impact-eyebrow">Impacto previsto na meta de janeiro <span class="model-badge"><svg viewBox="0 0 16 16"><polyline points="2 12 6 8 10 11 14 4"/></svg>Modelo Prophet+XGB</span></div>
-            <div class="meta-impact-val">~19 <span class="unit">violações OLA no mês</span></div>
-            <div class="meta-impact-ci">meta ≤ 20 · faixa esperada <strong>15 a 23</strong></div>
+          <div class="b3-list">
+            <div class="b3-row">
+              <span class="b3-prod">lexc</span>
+              <div class="b3-bar-wrap">
+                <div class="b3-bar crit"><i style="width:78%;"></i></div>
+              </div>
+              <span class="b3-pct crit">78%</span>
+              <span class="b3-driver"><strong>5 OLAs em 30 dias</strong> · concentração crítica (só 20 incidentes no período) · Team07</span>
+            </div>
+            <div class="b3-row">
+              <span class="b3-prod">lhco</span>
+              <div class="b3-bar-wrap">
+                <div class="b3-bar crit"><i style="width:72%;"></i></div>
+              </div>
+              <span class="b3-pct crit">72%</span>
+              <span class="b3-driver"><strong>452 incidentes/30d</strong> · 3 OLAs · cascata P4 ativa desde 31/dez 14:28</span>
+            </div>
+            <div class="b3-row">
+              <span class="b3-prod">lsin</span>
+              <div class="b3-bar-wrap">
+                <div class="b3-bar crit"><i style="width:68%;"></i></div>
+              </div>
+              <span class="b3-pct crit">68%</span>
+              <span class="b3-driver">campeão histórico — <strong>63 violações</strong> em 3 anos · 3 OLAs nos últimos 30d</span>
+            </div>
+            <div class="b3-row">
+              <span class="b3-prod">lrdo</span>
+              <div class="b3-bar-wrap">
+                <div class="b3-bar warn"><i style="width:48%;"></i></div>
+              </div>
+              <span class="b3-pct warn">48%</span>
+              <span class="b3-driver"><strong>2 OLAs em 30d</strong> com baixo volume (33 incidentes) · taxa de quebra atípica</span>
+            </div>
+            <div class="b3-row">
+              <span class="b3-prod">lsaa</span>
+              <div class="b3-bar-wrap">
+                <div class="b3-bar warn"><i style="width:42%;"></i></div>
+              </div>
+              <span class="b3-pct warn">42%</span>
+              <span class="b3-driver"><strong>2 OLAs em 30d</strong> · Team16 especializado · histórico recente em alta</span>
+            </div>
           </div>
-          <div class="meta-impact-right">
-            <div class="meta-impact-status warn">No limite da meta</div>
-            <p class="meta-impact-note">Se o forecast confirmar, janeiro fecha dentro da meta — mas com margem estreita. As cascatas em formação podem empurrar pra fora.</p>
+
+          <div class="b3-foot">
+            <button class="b3-link" id="openAllProducts">
+              Ver todos os 51 produtos
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <span class="model-tag"><svg viewBox="0 0 16 16"><polyline points="2 12 6 8 10 11 14 4"/></svg>XGBoost por produto · 51 modelos</span>
           </div>
         </section>
 
@@ -312,138 +385,280 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
   </main>
 </div>
 
-<script>
-// ═══════════════════════════════════════════════════════════
-// Forecast 7 dias — datasets pro toggle Volume / OLA
-// Volume é projeção do modelo Prophet a partir da média
-// dez/2025 (~881/dia) com sazonalidade semanal.
-// OLA quebrado: probabilidade × dias do mês
-// ═══════════════════════════════════════════════════════════
-const FC = {
-  // dias começam em quinta 01/jan (D+1)
-  labels: ['HOJE 31/12', '+1 qui', '+2 sex', '+3 sáb', '+4 dom', '+5 seg', '+6 ter', '+7 qua'],
-  todayIdx: 0,
-  volume: {
-    median: [755, 870, 920, 615, 530, 935, 945, 905],
-    lower:  [755, 790, 830, 540, 460, 850, 855, 810],
-    upper:  [755, 950, 1020, 700, 615, 1040, 1050, 1010],
-    unit: 'incidentes',
-    color: 'var(--accent)',
-    fmtVal: v => v.toLocaleString('pt-BR'),
+<!-- MODAL · ver todos produtos -->
+<div class="modal-bd" id="modalBd"></div>
+<aside class="modal" id="modalAll" role="dialog" aria-modal="true">
+  <div class="modal-head">
+    <div>
+      <div class="modal-h">Todos os produtos · probabilidade de OLA · 7 dias</div>
+      <div class="modal-sub">Ranking por prob. de violar OLA P2 ou P3 nos próximos 7 dias · XGBoost individual por produto</div>
+    </div>
+    <button class="modal-close" id="modalClose" aria-label="Fechar"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="modal-body">
+    <div class="modal-search"><input id="modalSearch" placeholder="Filtrar produto..."></div>
+    <div class="modal-table">
+      <div class="modal-table-head">
+        <span>Produto</span>
+        <span>Driver principal</span>
+        <span style="text-align:right;">Prob. OLA</span>
+        <span style="text-align:right;">Histórico</span>
+      </div>
+      <div id="modalRows"></div>
+    </div>
+  </div>
+  <div class="modal-foot">
+    <strong>51 produtos</strong> · listagem completa baseada em <em>vocabulario-real.md</em>. Produtos sem histórico de OLA têm probabilidade calculada por similaridade de volume e categoria.
+  </div>
+</aside>
+
+<!-- Dados da tela -->
+<script id="cronos-prev-data" type="application/json">
+{
+  "d7": {
+    "labels": ["qui 01", "sex 02", "sáb 03", "dom 04", "seg 05", "ter 06", "qua 07"],
+    "isFeriado": [true, false, false, false, false, false, false],
+    "isFimDeSemana": [false, false, true, true, false, false, false],
+    "median": [12, 48, 22, 18, 72, 58, 52],
+    "lower":  [4,  35, 14, 10, 62, 48, 42],
+    "upper":  [22, 62, 32, 28, 82, 70, 64],
+    "volume_median": [220, 760, 540, 480, 920, 935, 870]
   },
-  ola: {
-    // OLA quebrados — base histórica: ~18-25/mês = 0.6/dia médio
-    median: [1, 1, 2, 0, 0, 2, 1, 1],
-    lower:  [0, 0, 0, 0, 0, 1, 0, 0],
-    upper:  [2, 2, 3, 1, 1, 3, 2, 2],
-    unit: 'OLAs quebrados',
-    color: 'var(--danger)',
-    fmtVal: v => String(v),
-  },
-};
-
-function renderFc7d(view) {
-  const host = document.getElementById('fc7dChart');
-  const sub  = document.getElementById('fc7dSub');
-  if (!host) return;
-
-  const data = FC[view];
-  const W = 800, H = 240, PAD_L = 44, PAD_R = 16, PAD_T = 16, PAD_B = 36;
-  const innerW = W - PAD_L - PAD_R, innerH = H - PAD_T - PAD_B;
-  const N = FC.labels.length;
-
-  const yMax = Math.max(...data.upper) * 1.15;
-  const yRange = yMax;
-
-  const bandW = innerW / N;
-  const x = i => PAD_L + bandW * i + bandW / 2;
-  const y = v => PAD_T + (1 - v / yRange) * innerH;
-
-  // CI band (área entre lower e upper)
-  let bandPath = `M ${x(0)} ${y(data.upper[0])} `;
-  for (let i = 1; i < N; i++) bandPath += `L ${x(i)} ${y(data.upper[i])} `;
-  for (let i = N - 1; i >= 0; i--) bandPath += `L ${x(i)} ${y(data.lower[i])} `;
-  bandPath += 'Z';
-
-  // gridlines
-  const grid = [];
-  const steps = 4;
-  for (let i = 0; i <= steps; i++) {
-    const yv = (yRange / steps) * i;
-    const yPx = y(yv);
-    grid.push(`<line class="grid-line" x1="${PAD_L}" y1="${yPx}" x2="${W - PAD_R}" y2="${yPx}"/>`);
-    const lbl = view === 'volume' ? Math.round(yv).toLocaleString('pt-BR') : yv.toFixed(1);
-    grid.push(`<text class="grid-label" x="${PAD_L - 6}" y="${yPx + 3}" text-anchor="end">${lbl}</text>`);
-  }
-
-  // bars (col por dia)
-  const bw = bandW * 0.55;
-  const bars = data.median.map((v, i) => {
-    const cx = x(i) - bw / 2;
-    const cy = y(v);
-    const h = (H - PAD_B) - cy;
-    const isToday = i === FC.todayIdx;
-    const fill = isToday ? 'rgba(15,23,42,0.65)' : data.color;
-    return `<rect class="bar" x="${cx}" y="${cy}" width="${bw}" height="${h}" rx="3" fill="${fill}" data-i="${i}"/>`;
-  }).join('');
-
-  // line through medians
-  const linePts = data.median.map((v, i) => `${x(i)},${y(v)}`).join(' ');
-
-  // day ticks
-  const ticks = FC.labels.map((lbl, i) => {
-    const isToday = i === FC.todayIdx;
-    return `<text class="day-tick ${isToday ? 'today' : ''}" x="${x(i)}" y="${H - 12}" text-anchor="middle">${lbl}</text>`;
-  }).join('');
-
-  host.innerHTML = `
-    <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
-      ${grid.join('')}
-      <path class="ci-band" d="${bandPath}" fill="${view === 'ola' ? 'rgba(220,38,38,0.08)' : 'rgba(37,99,235,0.08)'}"/>
-      ${bars}
-      <polyline points="${linePts}" fill="none" stroke="${data.color}" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.45"/>
-      ${ticks}
-    </svg>
-  `;
-
-  sub.textContent = view === 'volume'
-    ? 'Volume de incidentes esperado por dia · banda 90% CI · cinza = hoje (real)'
-    : 'OLAs quebrados esperados por dia · banda 90% CI · cinza = hoje (real)';
-
-  // hover
-  host.querySelectorAll('.bar').forEach(bar => {
-    bar.addEventListener('mouseenter', () => {
-      const i = +bar.dataset.i;
-      const rect = bar.getBoundingClientRect();
-      const isToday = i === FC.todayIdx;
-      showTip(`
-        <div class="lbl">${FC.labels[i]}${isToday ? ' · real' : ' · previsto'}</div>
-        <div class="row"><span class="sw" style="background:${data.color}"></span><span class="v">${data.fmtVal(data.median[i])}</span> ${data.unit}</div>
-        ${isToday ? '' : `<div class="row" style="color:rgba(255,255,255,0.65)">faixa 90%: ${data.fmtVal(data.lower[i])} – ${data.fmtVal(data.upper[i])}</div>`}
-      `, rect.left + rect.width / 2, rect.top);
-    });
-    bar.addEventListener('mouseleave', hideTip);
-  });
+  "produtos": [
+    {"p":"lexc","pct":78,"hist":5,"vol":20,"drv":"5 OLAs/30d com só 20 incidentes — concentração crítica · Team07"},
+    {"p":"lhco","pct":72,"hist":3,"vol":452,"drv":"maior volume (452 inc/30d) · cascata P4 ativa desde ontem 14:28"},
+    {"p":"lsin","pct":68,"hist":3,"vol":169,"drv":"campeão histórico (63 viol. em 3 anos) · 3 OLAs nos últimos 30d"},
+    {"p":"lrdo","pct":48,"hist":2,"vol":33,"drv":"2 OLAs/30d com baixo volume — taxa de quebra atípica"},
+    {"p":"lsaa","pct":42,"hist":2,"vol":33,"drv":"2 OLAs/30d · Team16 especializado · histórico em alta"},
+    {"p":"lcem","pct":28,"hist":1,"vol":179,"drv":"volume estável · 1 OLA/30d · Team05 + Team11"},
+    {"p":"lvps","pct":22,"hist":1,"vol":27,"drv":"baixo volume · histórico em alta vs 2024"},
+    {"p":"lgoa","pct":20,"hist":1,"vol":19,"drv":"baixo volume · 1 OLA pontual no mês"},
+    {"p":"lhvp","pct":18,"hist":0,"vol":135,"drv":"135 inc/30d · 0 OLAs no mês — estável"},
+    {"p":"lrev","pct":16,"hist":0,"vol":136,"drv":"estável · sem alertas em 30d"},
+    {"p":"lrel","pct":14,"hist":0,"vol":29,"drv":"estável · baixo volume"},
+    {"p":"lcho","pct":12,"hist":0,"vol":17,"drv":"estável · baixo volume"},
+    {"p":"lssl","pct":11,"hist":0,"vol":0,"drv":"correlação histórica com lhco (9 viol. em 3 anos)"},
+    {"p":"lcsi","pct":10,"hist":0,"vol":0,"drv":"sem incidentes nos últimos 30d"},
+    {"p":"lemg","pct":9,"hist":0,"vol":0,"drv":"estável"},
+    {"p":"lemn","pct":8,"hist":0,"vol":0,"drv":"estável"},
+    {"p":"lcsp","pct":7,"hist":0,"vol":0,"drv":"sem histórico recente"},
+    {"p":"lsmt","pct":6,"hist":0,"vol":0,"drv":"sem histórico recente"},
+    {"p":"lsg2","pct":5,"hist":0,"vol":0,"drv":"sem histórico de OLA"},
+    {"p":"lclo","pct":5,"hist":0,"vol":0,"drv":"sem histórico de OLA"},
+    {"p":"lwpl","pct":4,"hist":0,"vol":0,"drv":"sem histórico de OLA"},
+    {"p":"lsd0","pct":4,"hist":0,"vol":0,"drv":"sem histórico de OLA"},
+    {"p":"lvpk","pct":4,"hist":0,"vol":0,"drv":"sem histórico de OLA"},
+    {"p":"khvp","pct":3,"hist":0,"vol":0,"drv":"sem histórico de OLA"},
+    {"p":"lsto","pct":3,"hist":0,"vol":0,"drv":"sem histórico de OLA"}
+  ]
 }
+</script>
 
-// Tooltip global
+<script>
+const PREV = JSON.parse(document.getElementById('cronos-prev-data').textContent);
+
+// ═══════════════════════════════════════════════════════════
+// TOOLTIP
+// ═══════════════════════════════════════════════════════════
 const tip = document.createElement('div');
 tip.className = 'chart-tip';
 document.body.appendChild(tip);
 function showTip(html, x, y) { tip.innerHTML = html; tip.style.left = x + 'px'; tip.style.top = y + 'px'; tip.classList.add('on'); }
 function hideTip() { tip.classList.remove('on'); }
 
-// Toggle
-document.querySelectorAll('#fc7dToggle .fc-7d-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('#fc7dToggle .fc-7d-tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    renderFc7d(tab.dataset.view);
-  });
-});
+// ═══════════════════════════════════════════════════════════
+// CHART D+7 — barras de prob OLA com banda CI translúcida,
+// gradientes verticais, zonas de risco e labels acima das barras
+// ═══════════════════════════════════════════════════════════
+(function renderB2() {
+  const host = document.getElementById('b2Chart');
+  if (!host) return;
+  const d = PREV.d7;
+  const dateExt = ['01/jan', '02/jan', '03/jan', '04/jan', '05/jan', '06/jan', '07/jan'];
+  const N = d.labels.length;
+  const W = 1200, H = 280, PAD_L = 52, PAD_R = 28, PAD_T = 32, PAD_B = 64;
+  const innerW = W - PAD_L - PAD_R, innerH = H - PAD_T - PAD_B;
+  const yMax = 100;
+  const slot = innerW / N;
+  const x = i => PAD_L + slot * i + slot / 2;
+  const y = v => PAD_T + (1 - v / yMax) * innerH;
+  const bw = slot * 0.62;
+  const bottomY = PAD_T + innerH;
 
-// Render inicial
-renderFc7d('volume');
+  // 3 zonas de risco no fundo (>60% vermelho, 30-60% amarelo, <30% verde)
+  const zoneHi = y(60);
+  const zoneMid = y(30);
+  const zones = `
+    <rect class="zone-rect" x="${PAD_L}" y="${PAD_T}" width="${innerW}" height="${zoneHi - PAD_T}" fill="rgba(220,38,38,0.05)"/>
+    <rect class="zone-rect" x="${PAD_L}" y="${zoneHi}" width="${innerW}" height="${zoneMid - zoneHi}" fill="rgba(217,119,6,0.045)"/>
+    <rect class="zone-rect" x="${PAD_L}" y="${zoneMid}" width="${innerW}" height="${bottomY - zoneMid}" fill="rgba(5,150,105,0.035)"/>
+  `;
+
+  // gridlines (0, 25, 50, 75, 100)
+  const grid = [];
+  for (let i = 0; i <= 4; i++) {
+    const yv = 25 * i;
+    const yPx = y(yv);
+    grid.push(`<line class="grid-line" x1="${PAD_L}" y1="${yPx}" x2="${W - PAD_R}" y2="${yPx}"/>`);
+    grid.push(`<text class="grid-label" x="${PAD_L - 10}" y="${yPx + 4}" text-anchor="end">${yv}%</text>`);
+  }
+
+  // limiar 50% — linha tracejada + label à esquerda com fundo
+  const threshY = y(50);
+  const threshold = `
+    <line class="threshold-line" x1="${PAD_L}" y1="${threshY}" x2="${W - PAD_R}" y2="${threshY}"/>
+    <rect class="threshold-label-bg" x="${PAD_L + 6}" y="${threshY - 10}" width="146" height="20" rx="4"/>
+    <text class="threshold-label" x="${PAD_L + 14}" y="${threshY + 4}" text-anchor="start">limiar atenção · 50%</text>
+  `;
+
+  // gradientes + drop shadow
+  const palettes = {
+    danger:  ['#DC2626', '#991B1B'],
+    warning: ['#D97706', '#92400E'],
+    feriado: ['#2563EB', '#1E40AF'],
+    neutral: ['#475569', '#334155'],
+  };
+  let defs = '<defs>';
+  Object.entries(palettes).forEach(([k, c]) => {
+    defs += `
+      <linearGradient id="g-${k}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="${c[0]}" stop-opacity="1"/>
+        <stop offset="100%" stop-color="${c[1]}" stop-opacity="0.90"/>
+      </linearGradient>
+    `;
+  });
+  defs += `
+    <filter id="barShadow" x="-50%" y="-20%" width="200%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="rgba(15,23,42,0.18)"/>
+    </filter>
+  </defs>`;
+
+  // peak
+  const peakIdx = d.median.indexOf(Math.max(...d.median));
+
+  // bars + CI band + caps + labels
+  const elements = [];
+  d.median.forEach((v, i) => {
+    const cx = x(i);
+    const barX = cx - bw / 2;
+    const yCenter = y(v);
+    const barH = bottomY - yCenter;
+
+    let gradId;
+    if (d.isFeriado[i]) gradId = 'g-feriado';
+    else if (v >= 60) gradId = 'g-danger';
+    else if (v >= 40) gradId = 'g-warning';
+    else gradId = 'g-neutral';
+
+    // banda CI (retângulo translúcido atrás da barra)
+    const yU = y(d.upper[i]);
+    const yL = y(d.lower[i]);
+    const ciW = bw * 0.34;
+    elements.push(`<rect class="ci-band" x="${cx - ciW/2}" y="${yU}" width="${ciW}" height="${yL - yU}" rx="2"/>`);
+
+    // barra principal com gradiente + drop shadow
+    elements.push(`<rect class="bar" x="${barX}" y="${yCenter}" width="${bw}" height="${barH}" rx="6" fill="url(#${gradId})" filter="url(#barShadow)" data-i="${i}"/>`);
+
+    // frame ao redor da barra peak
+    if (i === peakIdx) {
+      elements.push(`<rect class="bar-frame" x="${barX - 4}" y="${yCenter - 4}" width="${bw + 8}" height="${barH + 8}" rx="8"/>`);
+    }
+
+    // CI caps em "I" — sutis
+    const capW = bw * 0.18;
+    elements.push(`<line class="ci-cap" x1="${cx - capW/2}" y1="${yU}" x2="${cx + capW/2}" y2="${yU}"/>`);
+    elements.push(`<line class="ci-cap" x1="${cx - capW/2}" y1="${yL}" x2="${cx + capW/2}" y2="${yL}"/>`);
+
+    // label do valor em cima da barra
+    const lblCls = d.isFeriado[i] ? 'feriado-l' : (i === peakIdx ? 'peak' : '');
+    elements.push(`<text class="bar-label ${lblCls}" x="${cx}" y="${yCenter - 14}" text-anchor="middle">${v}%</text>`);
+  });
+
+  // x labels em 2 níveis (dia da semana + data) + ícone feriado
+  const xLabels = [];
+  d.labels.forEach((lbl, i) => {
+    const dayName = lbl.split(' ')[0];
+    const dateStr = dateExt[i];
+    const cls = d.isFeriado[i] ? 'feriado' : (i === peakIdx ? 'peak' : '');
+    const ico = d.isFeriado[i] ? `<text class="feriado-ico" x="${x(i)}" y="${H - 40}" text-anchor="middle">★ feriado</text>` : '';
+    xLabels.push(`
+      ${ico}
+      <text class="day-name ${cls}" x="${x(i)}" y="${H - 22}" text-anchor="middle">${dayName}</text>
+      <text class="day-date ${cls}" x="${x(i)}" y="${H - 6}" text-anchor="middle">${dateStr}</text>
+    `);
+  });
+
+  host.innerHTML = `
+    <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+      ${defs}
+      ${zones}
+      ${grid.join('')}
+      ${threshold}
+      ${elements.join('')}
+      ${xLabels.join('')}
+    </svg>
+  `;
+
+  // hover
+  host.querySelectorAll('.bar').forEach(bar => {
+    bar.addEventListener('mouseenter', () => {
+      const i = +bar.dataset.i;
+      const rect = bar.getBoundingClientRect();
+      const tag = d.isFeriado[i] ? 'feriado nacional' : (d.isFimDeSemana[i] ? 'fim de semana' : 'dia útil');
+      showTip(`
+        <div class="lbl">${d.labels[i]} · ${tag}</div>
+        <div style="margin-top:4px;font-size:13px;font-weight:bold;">${d.median[i]}% prob. OLA</div>
+        <div style="opacity:0.7;font-size:10.5px;">faixa 90%: ${d.lower[i]}–${d.upper[i]}%</div>
+        <div style="opacity:0.7;font-size:10.5px;margin-top:2px;">volume esperado: ~${d.volume_median[i]} incidentes</div>
+      `, rect.left + rect.width / 2, rect.top);
+    });
+    bar.addEventListener('mouseleave', hideTip);
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════
+// MODAL · ver todos produtos
+// ═══════════════════════════════════════════════════════════
+const modalBd = document.getElementById('modalBd');
+const modalAll = document.getElementById('modalAll');
+const modalRows = document.getElementById('modalRows');
+const modalSearch = document.getElementById('modalSearch');
+
+function renderModalRows(filter = '') {
+  const f = filter.toLowerCase().trim();
+  const rows = PREV.produtos
+    .filter(p => !f || p.p.toLowerCase().includes(f) || p.drv.toLowerCase().includes(f))
+    .map(p => {
+      const cls = p.pct >= 60 ? 'crit' : (p.pct >= 35 ? 'warn' : 'ok');
+      return `
+        <div class="modal-row">
+          <span class="p">${p.p}</span>
+          <span class="d">${p.drv}</span>
+          <span class="pct ${cls}">${p.pct}%</span>
+          <span class="hist">${p.hist} viol. · ${p.vol.toLocaleString('pt-BR')} inc.</span>
+        </div>
+      `;
+    }).join('');
+  modalRows.innerHTML = rows || '<div style="padding:20px;text-align:center;color:var(--label-tertiary);font-size:12px;">nenhum produto encontrado</div>';
+}
+
+function openModal() {
+  renderModalRows();
+  modalBd.classList.add('on');
+  modalAll.classList.add('on');
+  setTimeout(() => modalSearch.focus(), 240);
+}
+function closeModal() {
+  modalBd.classList.remove('on');
+  modalAll.classList.remove('on');
+  modalSearch.value = '';
+}
+
+document.getElementById('openAllProducts').addEventListener('click', openModal);
+document.getElementById('modalClose').addEventListener('click', closeModal);
+modalBd.addEventListener('click', closeModal);
+modalSearch.addEventListener('input', e => renderModalRows(e.target.value));
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && modalAll.classList.contains('on')) closeModal(); });
 </script>
 
 </body>

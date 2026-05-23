@@ -320,14 +320,13 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
       <div class="sb-logo"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.4" fill="#3B82F6"/></svg></div>
       <div><div class="sb-brand-name">Cronos</div><div class="sb-brand-sub">Veja antes · aja antes</div></div>
     </div>
-    <div class="sb-search"><input placeholder="Buscar produto, alerta..."><span class="kbd">⌘K</span></div>
+    <div class="sb-search"><input placeholder="Buscar produto, alerta..."><span class="kbd">Ctrl K</span></div>
     <nav class="sb-nav">
       <div class="sb-section">Operação</div>
       <a class="sb-item" href="dashboard.html"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span class="lbl">Dashboard</span></a>
       <a class="sb-item" href="previsao.html"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="lbl">Previsões</span></a>
       <a class="sb-item" href="cascata.html"><svg viewBox="0 0 24 24"><path d="M12 2L4 7v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V7l-8-5z"/></svg><span class="lbl">Cascatas</span><span class="badge">3</span></a>
       <a class="sb-item active" href="saude-produto.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg><span class="lbl">Saúde · Produto</span></a>
-      <div class="sb-section">Diferenciais</div>
       <a class="sb-item" href="morning-brief.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg><span class="lbl">Morning brief</span><span class="badge neutral">06:00</span></a>
     </nav>
     <div class="sb-foot">
@@ -451,7 +450,7 @@ const PRODS = {
     { pos: '01', prod: 'lhco', dot: 'crit', fator: '<strong>55 incidentes</strong> em 7d · 1 OLA quebrado · 3 cascatas em formação', spark: 'M0,8 L14,10 L28,14 L42,16 L57,18 L71,22 L85,24 L100,28', sparkClass: 'neg', delta: '−18', deltaClass: 'neg', score: 62, scoreClass: 'crit' },
     { pos: '02', prod: 'lsin', dot: 'warn', fator: '18 incidentes · 1 OLA quebrado', spark: 'M0,10 L14,11 L28,12 L42,14 L57,15 L71,16 L85,17 L100,18', sparkClass: 'neg', delta: '−8', deltaClass: 'neg', score: 71, scoreClass: 'warn' },
     { pos: '03', prod: 'lrdo', dot: 'warn', fator: '7 incidentes · 1 OLA quebrado', spark: 'M0,11 L14,12 L28,12 L42,13 L57,14 L71,15 L85,16 L100,16', sparkClass: 'neg', delta: '−6', deltaClass: 'neg', score: 73, scoreClass: 'warn' },
-    { pos: '04', prod: 'lhvp', dot: 'warn', fator: '12 incidentes · cascata sem owner', spark: 'M0,11 L14,11 L28,13 L42,14 L57,15 L71,16 L85,16 L100,17', sparkClass: 'neg', delta: '−6', deltaClass: 'neg', score: 74, scoreClass: 'warn' },
+    { pos: '04', prod: 'lhvp', dot: 'warn', fator: '12 incidentes · cascata sem equipe', spark: 'M0,11 L14,11 L28,13 L42,14 L57,15 L71,16 L85,16 L100,17', sparkClass: 'neg', delta: '−6', deltaClass: 'neg', score: 74, scoreClass: 'warn' },
     { pos: '05', prod: 'lrev', dot: 'good', fator: '16 incidentes · MTTR 11min mediano', spark: 'M0,9 L14,8 L28,7 L42,6 L57,6 L71,5 L85,4 L100,4', sparkClass: 'pos', delta: '+5', deltaClass: 'pos', score: 93, scoreClass: 'good' },
     { pos: '06', prod: 'lcem', dot: 'good', fator: '5 incidentes · janela backup ajustada', spark: 'M0,10 L14,9 L28,9 L42,8 L57,8 L71,7 L85,7 L100,6', sparkClass: 'pos', delta: '+3', deltaClass: 'pos', score: 86, scoreClass: 'good' },
     { pos: '07', prod: 'lvps', dot: 'good', fator: '5 incidentes · estável', spark: 'M0,11 L14,11 L28,10 L42,10 L57,10 L71,9 L85,9 L100,9', sparkClass: 'neu', delta: '±0', deltaClass: 'neu', score: 84, scoreClass: 'good' },
@@ -491,10 +490,10 @@ const PROD_DETAIL = {
     'Auto-resolução caiu — tendência a observar',
   ]},
   lhvp: { score: 74, fatores: [
-    { lbl: '<strong>Cascata sem owner</strong> · <code>INC8607139</code> há 18min', bar: 56, impact: '−4,0' },
+    { lbl: '<strong>Cascata sem equipe</strong> · <code>INC8607139</code> há 18min', bar: 56, impact: '−4,0' },
     { lbl: 'MTTR levemente acima da média', bar: 28, impact: '−2,0' },
   ], acoes: [
-    'Cascata <code>INC8607139</code> sem owner atribuído',
+    'Cascata <code>INC8607139</code> sem equipe atribuída',
     '<strong>Team09</strong> atende DB com maior histórico neste produto',
   ]},
   lsin: { score: 71, fatores: [
