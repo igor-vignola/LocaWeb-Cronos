@@ -41,6 +41,7 @@ Decisões pontuais com contexto único. Nome do arquivo: `YYYY-MM-DD-slug.md`.
 |---|---|
 | [Prototipagem via Claude Design (não Figma)](decisoes/2026-05-21-prototipagem-claude-design.md) | 2026-05-21 |
 | [Aesthetic dark glass híbrido V1+V5](decisoes/2026-05-21-aesthetic-dark-glass-hibrido.md) | 2026-05-21 |
+| [Alvo dos modelos: série elegível ao KPI (não volume total)](decisoes/2026-07-20-alvo-modelagem-serie-kpi.md) | 2026-07-20 |
 
 ### `preferencias/` — como Igor trabalha, princípios, processo
 
@@ -61,6 +62,7 @@ Coisas que descobrimos no caminho e queremos preservar pra próxima sessão.
 | [Claude Design — limites e quirks](conhecimento/claude-design-limites-quirks.md) | 2026-05-21 |
 | [Brand canônico (light) vs Protótipo (dark)](conhecimento/brand-design-system-vs-prototipo.md) | 2026-05-21 |
 | [Setup ambiente modelagem Windows (Prophet/tslearn/SHAP)](conhecimento/setup-ambiente-modelagem-windows.md) | 2026-07-20 |
+| [Regras de KPI + causa da anomalia de setembro/2025](conhecimento/regras-kpi-e-anomalia-setembro.md) | 2026-07-20 |
 
 ---
 
