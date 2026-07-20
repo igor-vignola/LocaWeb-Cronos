@@ -30,7 +30,8 @@ A skill `.claude/skills/context-keeper/` mantém esta pasta **automaticamente at
 | Arquivo | Status |
 |---|---|
 | [Sprint 1 — Ideação](sprints/01-ideacao.md) | ✅ Entregue · nota 5/5 |
-| [Sprint 2 — Arquitetura](sprints/02-arquitetura.md) | 🚧 Em andamento (entrega 24/05) |
+| [Sprint 2 — Arquitetura](sprints/02-arquitetura.md) | ✅ Entregue · nota 5/5 |
+| Sprint 3 — MVP Preliminar | 🚧 Iniciada 20/07 (entrega 23/08) |
 
 ### `decisoes/` — uma decisão por arquivo, datada
 
@@ -48,6 +49,7 @@ Regras genéricas que aplicamos em todo trabalho do projeto.
 | Preferência | Última atualização |
 |---|---|
 | [Protótipo deve refletir toda decisão da arquitetura](preferencias/prototipo-reflete-arquitetura.md) | 2026-05-21 |
+| [Documentar em paralelo — não comprimir o MVP em poucos slides](preferencias/documentar-em-paralelo-nao-comprimir.md) | 2026-07-20 |
 
 ### `conhecimento/` — fatos aprendidos sobre Locaweb/dataset/ferramentas
 
@@ -58,6 +60,7 @@ Coisas que descobrimos no caminho e queremos preservar pra próxima sessão.
 | [Apple HIG — referência destilada](conhecimento/apple-hig-reference.md) | 2026-05-21 |
 | [Claude Design — limites e quirks](conhecimento/claude-design-limites-quirks.md) | 2026-05-21 |
 | [Brand canônico (light) vs Protótipo (dark)](conhecimento/brand-design-system-vs-prototipo.md) | 2026-05-21 |
+| [Setup ambiente modelagem Windows (Prophet/tslearn/SHAP)](conhecimento/setup-ambiente-modelagem-windows.md) | 2026-07-20 |
 
 ---
 

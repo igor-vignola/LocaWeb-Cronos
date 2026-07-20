@@ -4,13 +4,44 @@
 
 ---
 
-## Atualizado em: 20/05/2026 (skills de design realocadas para `.claude/skills/`)
+## Atualizado em: 20/07/2026 (Sprint 3 iniciada)
 
-## Sprint atual: **Sprint 2 — Arquitetura** 🚧
+## Sprint atual: **Sprint 3 — MVP Preliminar** 🚧 (entrega 23/08/2026)
 
-**Entrega:** 24/05/2026 (domingo) — **4 dias restantes**
+**Sprint 2 entregue em 24/05/2026 — nota 5.00/5.00** ✅ (avaliada 09/06/2026)
+Feedback do professor: arquitetura detalhada, integrações claras, protótipos bem
+elaborados, domínio do tema, ótimo equilíbrio teoria/técnica/visualização.
+**Único ponto a melhorar:** slide explícito de gestão ágil (estava implícito).
+➜ Sprint 3 resolve naturalmente — o template tem 2 slides dedicados a Kanban/gestão.
 
-**Arquivo final a entregar:** `EC_Sprint_2_2TSCOA_arqsolucao_Cronos_SuperDataBros.pptx`
+**Arquivo entregue Sprint 2:** `EC_Sprint_2_2TSCOA_arqsolucao_Cronos_SuperDataBros.pptx`
+
+---
+
+## Sprint 3 — MVP Preliminar (INICIADA 20/07/2026)
+
+Igor voltou do Global Solution e pediu pra começar em 20/07. Prazo **23/08** (~1 mês).
+É a sprint mais pesada: aqui o ML declarado na arquitetura tem que **virar código
+rodando** e as saídas reais precisam aparecer no produto (a banca julga MVP em
+funcionamento). Ver `preferencias/prototipo-reflete-arquitetura.md`.
+
+**Ponto de partida real (o que já existe):**
+- `notebooks/01_eda.ipynb` — EDA PARCIAL (Seções 1-3: setup, carga, visão geral)
+- `prototipos/telas/` — 5 telas HTML estáticas com números reais do dataset (mockup, não model-driven): dashboard, morning-brief, cascata, saude-produto, previsao
+- `prototipos/slides/` — 4 slides HTML+PNG (capa, arquitetura, tecnologias, agradecimentos)
+- Sprint 1 e 2 .pptx entregues em `sprints/`
+
+**Lacunas para o MVP (o que falta):**
+- [ ] Fechar a EDA (Seção 4+ do notebook)
+- [ ] Feature engineering (lag 1/7/30d, rolling 7d, dia_semana, is_feriado) — notebook 02
+- [ ] Modelagem: Prophet (D+1/D+7), XGBoost (risco OLA), TimeSeriesKMeans+DTW (clusters), SHAP (explicabilidade) — notebook 03
+- [ ] Avaliação/métricas dos modelos
+- [ ] App Django (regra do projeto — AINDA NÃO EXISTE) servindo as previsões reais
+- [ ] Ligar protótipos às saídas reais dos modelos
+- [ ] Montar PPT da Sprint 3 no template oficial (14 slides)
+
+> Plano detalhado da Sprint 3 será materializado em `sprints/03-mvp-preliminar.md`
+> após Igor validar a estratégia.
 
 ---
 

@@ -4,8 +4,18 @@
 
 - **Tema:** Arquitetura inicial da solução
 - **Período:** 20/05/2026 a 24/05/2026 *(começamos antes, em 13/05)*
-- **Status:** 🚧 EM ANDAMENTO
-- **Arquivo a entregar:** `EC_Sprint_2_2TSCOA_arqsolucao_Cronos_SuperDataBros.pptx`
+- **Status:** ✅ ENTREGUE 24/05/2026 · **nota 5.00/5.00** (avaliada 09/06/2026)
+- **Arquivo entregue:** `EC_Sprint_2_2TSCOA_arqsolucao_Cronos_SuperDataBros.pptx`
+
+> **Feedback do professor (09/06/2026):** "A apresentação oferece uma arquitetura
+> detalhada com integrações claras entre tecnologias e protótipos bem elaborados da
+> interface final, demonstrando domínio sobre o tema. O único ponto a observar para
+> próximas entregas é dedicar um slide explícito à gestão ágil do projeto, embora
+> indícios disso estejam presentes de forma implícita. Ótimo equilíbrio entre teoria,
+> técnica e visualização."
+>
+> **Ação p/ Sprint 3:** o template da Sprint 3 já tem 2 slides dedicados a gestão de
+> projeto (Kanban) — endereçar de forma explícita e caprichada resolve o único ponto.
 
 > Antes de finalizar qualquer entregável desta sprint, executar a skill **`sprint-checklist`** item por item.
 
