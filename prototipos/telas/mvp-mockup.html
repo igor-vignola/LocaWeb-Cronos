@@ -1,0 +1,1613 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cronos · MVP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../brand/design-system/assets/tokens.css">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   CRONOS · MVP MOCKUP
+   3 abas (Dashboard · Risco de OLA · Saúde & Volume)
+   + popup Morning Brief + página de relatório
+   + modais (incidente / produto) + tooltip de gráfico
+   Liquid glass da Sprint 2, surfaces variável-driven (tema claro/escuro).
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── camada de tema (surfaces via variáveis) ─────────────── */
+:root {
+  --page:              #EEF1F7;
+  --glass-bg:          rgba(255,255,255,0.72);
+  --glass-bg-strong:   rgba(255,255,255,0.88);
+  --glass-border:      rgba(255,255,255,0.85);
+  --glass-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.9),
+    inset 0 -1px 0 rgba(0,0,0,0.02),
+    0 1px 2px rgba(0,30,80,0.04),
+    0 12px 32px -14px rgba(0,30,80,0.12);
+  --glass-shadow-elev:
+    inset 0 1px 0 rgba(255,255,255,0.95),
+    0 2px 6px rgba(0,30,80,0.06),
+    0 20px 48px -16px rgba(0,30,80,0.18);
+  --hair:              rgba(0,0,0,0.06);
+  --hair-2:            rgba(0,0,0,0.08);
+  --row-hover:         rgba(255,255,255,0.60);
+  --track:             rgba(0,0,0,0.06);
+  --chip-neutral:      rgba(0,0,0,0.055);
+  --fill-soft:         rgba(0,0,0,0.04);
+  --mesh-a:            rgba(37,99,235,0.22);
+  --mesh-b:            rgba(220,38,38,0.13);
+  --mesh-c:            rgba(168,85,247,0.10);
+  --tip-bg:            rgba(15,23,42,0.96);
+}
+:root[data-theme="dark"] {
+  --page:              #0A0E17;
+  --glass-bg:          rgba(28,35,51,0.62);
+  --glass-bg-strong:   rgba(40,49,69,0.78);
+  --glass-border:      rgba(255,255,255,0.10);
+  --glass-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 1px 2px rgba(0,0,0,0.40),
+    0 16px 40px -16px rgba(0,0,0,0.60);
+  --glass-shadow-elev:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 20px 52px -16px rgba(0,0,0,0.72);
+  --hair:              rgba(255,255,255,0.08);
+  --hair-2:            rgba(255,255,255,0.12);
+  --row-hover:         rgba(255,255,255,0.06);
+  --track:             rgba(255,255,255,0.10);
+  --chip-neutral:      rgba(255,255,255,0.08);
+  --fill-soft:         rgba(255,255,255,0.05);
+  --mesh-a:            rgba(37,99,235,0.30);
+  --mesh-b:            rgba(220,38,38,0.16);
+  --mesh-c:            rgba(168,85,247,0.14);
+  --tip-bg:            rgba(6,10,20,0.96);
+  /* labels */
+  --label-primary:    #F1F4F9;
+  --label-secondary:  #C4CBD8;
+  --label-tertiary:   #8E97A8;
+  --label-quaternary: #626C80;
+  /* chips semânticos */
+  --danger-soft:  rgba(220,38,38,0.18);  --danger-text:  #FCA5A5;
+  --warning-soft: rgba(217,119,6,0.20);  --warning-text: #FCD34D;
+  --success-soft: rgba(5,150,105,0.20);  --success-text: #6EE7B7;
+  --accent-soft:  rgba(37,99,235,0.20);  --accent-text:  #93C5FD;
+}
+
+body { background: var(--page); position: relative; overflow: hidden; transition: background var(--dur-base) var(--ease-out); }
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(1100px 800px at -200px -150px, var(--mesh-a), transparent 55%),
+    radial-gradient(900px 700px at calc(100% + 100px) calc(100% + 100px), var(--mesh-b), transparent 55%),
+    radial-gradient(800px 600px at 60% 40%, var(--mesh-c), transparent 55%);
+}
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.025 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply; opacity: 0.6;
+}
+
+.app {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: 244px 1fr;
+  gap: var(--space-3); padding: var(--space-3);
+  height: 100vh;
+}
+
+/* ─── SIDEBAR ─────────────────────────────────────────────── */
+.sb {
+  background: var(--glass-bg);
+  backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid var(--glass-border); border-radius: var(--r-xl);
+  box-shadow: var(--glass-shadow-elev);
+  display: flex; flex-direction: column; overflow-y: auto;
+}
+.sb-brand { padding: var(--space-4) var(--space-5); display: flex; align-items: center; gap: var(--space-3); border-bottom: 1px solid var(--hair); }
+.sb-logo { width: 36px; height: 36px; background: var(--dark); border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; position: relative; transition: transform var(--dur-base) var(--ease-out); box-shadow: 0 4px 12px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.10); }
+.sb-logo:hover { transform: rotate(-6deg); }
+.sb-logo svg { width: 19px; height: 19px; }
+.sb-logo .blip { animation: blipPulse 2.4s var(--ease-out) infinite; transform-origin: 22px 8px; }
+@keyframes blipPulse { 0%, 80%, 100% { opacity: 1; transform: scale(1); } 85% { opacity: 0.4; transform: scale(1.5); } 90% { opacity: 1; transform: scale(1); } }
+.sb-brand-txt { display: flex; flex-direction: column; gap: 1px; line-height: 1; }
+.sb-brand-name { font-size: var(--fs-17); font-weight: var(--fw-bold); letter-spacing: -0.028em; background: linear-gradient(135deg, var(--label-primary), var(--label-tertiary)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.sb-brand-sub { font-size: 8.5px; font-weight: var(--fw-semibold); letter-spacing: 0.18em; color: var(--label-quaternary); text-transform: uppercase; margin-top: 3px; }
+
+.sb-nav { padding: var(--space-2) var(--space-3); flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.sb-section { font-size: 9.5px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--label-quaternary); padding: var(--space-3) var(--space-2) 6px; }
+.sb-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 10px; border-radius: var(--r-sm);
+  font-size: 13.5px; font-weight: var(--fw-medium); color: var(--label-secondary);
+  cursor: pointer; text-align: left; width: 100%; background: none; border: none;
+  transition: background var(--dur-quick) var(--ease-out), color var(--dur-quick) var(--ease-out), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out);
+}
+.sb-item:hover { background: var(--row-hover); color: var(--label-primary); }
+.sb-item:active { transform: scale(0.98); }
+.sb-item.active {
+  background: linear-gradient(135deg, rgba(37,99,235,0.18), rgba(37,99,235,0.08));
+  color: var(--accent); font-weight: var(--fw-semibold);
+  box-shadow: 0 1px 2px rgba(37,99,235,0.10);
+}
+.sb-item svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: 0.85; flex-shrink: 0; }
+.sb-item.active svg { opacity: 1; }
+.sb-item .lbl { flex: 1; }
+.sb-item .badge { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; padding: 0 5px; background: var(--danger); color: #fff; border-radius: 9px; font-size: 9.5px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; box-shadow: 0 2px 6px rgba(220,38,38,0.30); }
+.sb-item .badge.neutral { background: rgba(37,99,235,0.16); color: var(--accent); box-shadow: none; }
+
+.sb-foot { padding: var(--space-3) var(--space-4); border-top: 1px solid var(--hair); display: flex; align-items: center; gap: var(--space-3); }
+.sb-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #1E40AF); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: var(--fw-bold); flex-shrink: 0; box-shadow: 0 4px 12px rgba(37,99,235,0.25), inset 0 1px 0 rgba(255,255,255,0.2); }
+.sb-user-info { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
+.sb-user-name { font-size: 12.5px; font-weight: var(--fw-semibold); color: var(--label-primary); line-height: 1.2; }
+.sb-user-role { font-size: 10.5px; color: var(--label-tertiary); line-height: 1.2; }
+
+/* ─── MAIN + TOPBAR ───────────────────────────────────────── */
+.main { display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+.tb {
+  height: 60px; padding: 0 var(--space-5);
+  display: flex; align-items: center; gap: var(--space-2);
+  background: var(--glass-bg);
+  backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid var(--glass-border); border-radius: var(--r-md);
+  margin-bottom: var(--space-3);
+  box-shadow: var(--glass-shadow);
+}
+.tb-crumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--label-tertiary); }
+.tb-crumb .sep { color: var(--label-quaternary); }
+.tb-crumb .here { color: var(--label-primary); font-weight: var(--fw-semibold); }
+.tb-spacer { flex: 1; }
+.tb-live { display: inline-flex; align-items: center; gap: 7px; padding: 5px 11px; background: rgba(5,150,105,0.10); border: 1px solid rgba(5,150,105,0.25); border-radius: var(--r-pill); font-size: 11px; font-weight: var(--fw-semibold); color: var(--success); }
+.tb-live .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); animation: livePulse 1.6s ease-in-out infinite; box-shadow: 0 0 6px rgba(5,150,105,0.5); }
+.tb-live .time { font-variant-numeric: tabular-nums; }
+@keyframes livePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+.tb-brief {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 34px; padding: 0 13px;
+  background: rgba(37,99,235,0.10); border: 1px solid rgba(37,99,235,0.22);
+  border-radius: var(--r-pill);
+  font-size: 12px; font-weight: var(--fw-semibold); color: var(--accent);
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-out), background var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out);
+}
+.tb-brief:hover { background: rgba(37,99,235,0.16); transform: translateY(-1px); box-shadow: 0 4px 12px -2px rgba(37,99,235,0.22); }
+.tb-brief:active { transform: scale(0.97); }
+.tb-brief svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.tb-btn {
+  width: 36px; height: 36px; border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--label-secondary); cursor: pointer;
+  transition: background var(--dur-quick) var(--ease-out), color var(--dur-quick) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.tb-btn:hover { background: var(--fill-soft); color: var(--label-primary); }
+.tb-btn:active { transform: scale(0.92); }
+.tb-btn svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.tb-btn .moon { display: none; }
+:root[data-theme="dark"] .tb-btn .sun { display: none; }
+:root[data-theme="dark"] .tb-btn .moon { display: block; }
+
+/* ─── CONTENT / PANELS ────────────────────────────────────── */
+.content { flex: 1; overflow-y: auto; padding: var(--space-2) 0 var(--space-12); }
+.panel { display: none; max-width: 1040px; margin: 0 auto; padding: 0 var(--space-2); flex-direction: column; gap: var(--space-4); }
+.panel.active { display: flex; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.panel.anim > * { opacity: 0; animation: fadeUp 620ms var(--ease-out-strong) forwards; }
+.panel.anim > *:nth-child(1) { animation-delay: 40ms; }
+.panel.anim > *:nth-child(2) { animation-delay: 100ms; }
+.panel.anim > *:nth-child(3) { animation-delay: 160ms; }
+.panel.anim > *:nth-child(4) { animation-delay: 220ms; }
+.panel.anim > *:nth-child(5) { animation-delay: 280ms; }
+.panel.anim > *:nth-child(6) { animation-delay: 340ms; }
+
+/* ─── GLASS SURFACE + BLOCK ───────────────────────────────── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+.glass-elev { box-shadow: var(--glass-shadow-elev); }
+.block { border-radius: var(--r-xl); padding: var(--space-5) var(--space-6); }
+.block-h { font-size: 11px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--label-tertiary); margin-bottom: var(--space-4); display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
+.block-h.plain { justify-content: flex-start; }
+code { font-family: ui-monospace, monospace; background: var(--fill-soft); padding: 1px 5px; border-radius: 4px; font-size: 0.86em; }
+
+/* ─── BADGES ──────────────────────────────────────────────── */
+.ai-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 8.5px; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: var(--r-pill); background: linear-gradient(135deg, rgba(37,99,235,0.12), rgba(168,85,247,0.12)); color: var(--accent); border: 1px solid rgba(37,99,235,0.22); white-space: nowrap; vertical-align: middle; }
+.ai-badge svg { width: 9px; height: 9px; flex-shrink: 0; }
+.an-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 8.5px; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: var(--r-pill); background: var(--chip-neutral); color: var(--label-secondary); border: 1px solid var(--hair-2); white-space: nowrap; vertical-align: middle; }
+.an-badge svg { width: 10px; height: 10px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+/* ─── PANEL HEAD ──────────────────────────────────────────── */
+.panel-head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-4); padding: var(--space-2) var(--space-1) 0; }
+.eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-2); }
+.eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.panel-title { font-size: 26px; font-weight: var(--fw-heavy); letter-spacing: -0.03em; line-height: 1.08; color: var(--label-primary); }
+.panel-sub { font-size: 13px; color: var(--label-tertiary); margin-top: 6px; max-width: 60ch; line-height: 1.45; }
+.panel-date { font-size: 12px; font-weight: var(--fw-semibold); color: var(--label-tertiary); font-variant-numeric: tabular-nums; white-space: nowrap; padding-bottom: 3px; }
+
+/* ─── KPI STRIP ───────────────────────────────────────────── */
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); }
+.kpi { border-radius: var(--r-lg); padding: var(--space-4) var(--space-5); display: flex; flex-direction: column; gap: var(--space-3); transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out); position: relative; overflow: hidden; }
+.kpi:hover { transform: translateY(-3px); box-shadow: var(--glass-shadow-elev); }
+.kpi-top { display: flex; align-items: center; justify-content: space-between; }
+.kpi-label { font-size: 10.5px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase); text-transform: uppercase; color: var(--label-tertiary); line-height: 1.3; }
+.kpi-icon { width: 30px; height: 30px; border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.kpi-icon.accent { background: linear-gradient(135deg, var(--accent), #1E40AF); color: #fff; box-shadow: 0 4px 10px -2px rgba(37,99,235,0.35); }
+.kpi-icon.danger { background: linear-gradient(135deg, var(--danger), #991B1B); color: #fff; box-shadow: 0 4px 10px -2px rgba(220,38,38,0.35); }
+.kpi-icon.warning { background: linear-gradient(135deg, var(--warning), #92400E); color: #fff; box-shadow: 0 4px 10px -2px rgba(217,119,6,0.35); }
+.kpi-icon.success { background: linear-gradient(135deg, var(--success), #065F46); color: #fff; box-shadow: 0 4px 10px -2px rgba(5,150,105,0.35); }
+.kpi-icon svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.kpi-val { font-size: 34px; font-weight: var(--fw-heavy); letter-spacing: -0.035em; line-height: 1; color: var(--label-primary); font-variant-numeric: tabular-nums; display: flex; align-items: baseline; gap: 3px; flex-wrap: wrap; }
+.kpi-val .u { font-size: 15px; color: var(--label-tertiary); font-weight: var(--fw-medium); letter-spacing: -0.025em; }
+.kpi-val .rng-dash { font-size: 22px; color: var(--label-quaternary); font-weight: var(--fw-medium); }
+.kpi-val.sm { font-size: 26px; }
+.kpi-foot { display: flex; align-items: center; gap: 8px; }
+.kpi-baseline { font-size: 10.5px; color: var(--label-quaternary); font-variant-numeric: tabular-nums; line-height: 1.4; }
+.kpi-baseline strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
+
+/* ─── TREND / VOLUME CHART ────────────────────────────────── */
+.vol-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-3); flex-wrap: wrap; }
+.vol-head .t { font-size: 14px; font-weight: var(--fw-bold); color: var(--label-primary); }
+.vol-head .s { font-size: 11.5px; color: var(--label-tertiary); margin-top: 3px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.vol-legend { display: flex; gap: var(--space-3); font-size: 10.5px; color: var(--label-tertiary); font-weight: var(--fw-semibold); }
+.vol-legend .li { display: inline-flex; align-items: center; gap: 5px; }
+.vol-legend .sw { width: 12px; height: 3px; border-radius: 2px; }
+.vol-legend .sw.hist { background: var(--accent); }
+.vol-legend .sw.fore { background: rgba(37,99,235,0.35); }
+.vol-chart { position: relative; }
+.vol-chart svg { width: 100%; height: 230px; display: block; }
+.vol-chart .hover-line { stroke: var(--label-quaternary); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0; transition: opacity 100ms var(--ease-out); }
+.vol-chart .hover-line.on { opacity: 0.7; }
+.vol-chart .hover-dot { opacity: 0; transition: opacity 100ms var(--ease-out); }
+.vol-chart .hover-dot.on { opacity: 1; }
+.vol-x { display: flex; justify-content: space-between; font-size: 10px; color: var(--label-quaternary); font-variant-numeric: tabular-nums; margin-top: 4px; padding: 0 2px; }
+
+/* tooltip global */
+.chart-tip {
+  position: fixed; z-index: var(--z-tooltip);
+  padding: 8px 12px; background: var(--tip-bg); color: #fff;
+  border-radius: 8px; font-size: 11.5px; font-weight: var(--fw-medium); line-height: 1.4;
+  pointer-events: none; opacity: 0;
+  transform: translate(-50%, -100%) translateY(-10px);
+  transition: opacity 120ms var(--ease-out);
+  box-shadow: 0 8px 24px -4px rgba(0,0,0,0.30);
+  white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+.chart-tip.on { opacity: 1; }
+.chart-tip .lbl { color: rgba(255,255,255,0.62); font-size: 9.5px; font-weight: var(--fw-bold); letter-spacing: 0.06em; text-transform: uppercase; }
+.chart-tip .row { display: flex; align-items: center; gap: 6px; margin-top: 2px; }
+.chart-tip .sw { width: 8px; height: 8px; border-radius: 2px; }
+.chart-tip .v { color: #fff; font-weight: var(--fw-bold); }
+
+/* ─── SNIPPET / list rows compartilhados ──────────────────── */
+.risk-list-head, .risk-row {
+  display: grid;
+  grid-template-columns: 120px 66px 46px 1fr 58px;
+  gap: var(--space-4); align-items: center;
+}
+.risk-list-head { padding: 4px var(--space-2) var(--space-3); font-size: 9.5px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase-strong); text-transform: uppercase; color: var(--label-quaternary); border-bottom: 1px solid var(--hair); }
+.risk-row { padding: var(--space-3) var(--space-2); border-bottom: 1px solid var(--hair); border-radius: var(--r-sm); cursor: pointer; transition: background var(--dur-quick) var(--ease-out), transform var(--dur-fast) var(--ease-out); }
+.risk-row:last-child { border-bottom: none; }
+.risk-row:hover { background: var(--row-hover); }
+.risk-row:active { transform: scale(0.994); }
+.risk-inc { font-family: ui-monospace, monospace; font-size: 12px; font-weight: var(--fw-bold); color: var(--label-primary); }
+.risk-prod { font-family: ui-monospace, monospace; font-size: 12.5px; font-weight: var(--fw-bold); color: var(--label-secondary); }
+.prio { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 24px; border-radius: var(--r-xs); font-size: 11px; font-weight: var(--fw-bold); }
+.prio.p2 { background: var(--label-primary); color: var(--page); }
+.prio.p3 { background: var(--danger-soft); color: var(--danger-text); }
+.risk-barcell { display: flex; align-items: center; gap: var(--space-3); }
+.risk-bar { flex: 1; height: 7px; background: var(--track); border-radius: var(--r-pill); overflow: hidden; }
+.risk-bar i { display: block; height: 100%; border-radius: var(--r-pill); width: 0; transition: width 900ms var(--ease-out-strong); }
+.risk-bar.crit i { background: var(--danger); }
+.risk-bar.warn i { background: var(--warning); }
+.risk-bar.low i { background: var(--accent); }
+.risk-pct { font-size: 14px; font-weight: var(--fw-bold); color: var(--label-primary); font-variant-numeric: tabular-nums; min-width: 38px; text-align: right; }
+.ver-btn { display: inline-flex; align-items: center; justify-content: center; gap: 3px; height: 28px; padding: 0 12px; border-radius: var(--r-sm); background: var(--glass-bg-strong); border: 1px solid var(--hair-2); font-size: 11.5px; font-weight: var(--fw-semibold); color: var(--label-secondary); cursor: pointer; transition: transform var(--dur-fast) var(--ease-out), background var(--dur-quick) var(--ease-out), color var(--dur-quick) var(--ease-out); }
+.ver-btn:hover { color: var(--accent); }
+.ver-btn:active { transform: scale(0.95); }
+.risk-sub { font-size: 10px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase); text-transform: uppercase; color: var(--danger-text); padding: var(--space-3) var(--space-2) 5px; }
+.risk-sub.muted { color: var(--label-quaternary); border-top: 1px solid var(--hair); margin-top: var(--space-2); padding-top: var(--space-3); }
+
+.block-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: var(--fw-semibold); color: var(--accent); cursor: pointer; background: none; border: none; transition: gap var(--dur-quick) var(--ease-out); }
+.block-link:hover { gap: 8px; }
+.block-link svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ─── faixa de destaque (Análise) ─────────────────────────── */
+.finding { display: flex; align-items: center; gap: var(--space-4); border-radius: var(--r-lg); padding: var(--space-4) var(--space-5); }
+.finding-icon { width: 38px; height: 38px; border-radius: var(--r-md); background: linear-gradient(135deg, var(--accent), #1E40AF); color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 12px -2px rgba(37,99,235,0.30), inset 0 1px 0 rgba(255,255,255,0.2); }
+.finding-icon svg { width: 19px; height: 19px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.finding-body { flex: 1; }
+.finding-body .t { font-size: 14.5px; font-weight: var(--fw-semibold); color: var(--label-primary); line-height: 1.35; }
+.finding-body .t strong { color: var(--accent); }
+
+/* ─── termômetro do KPI ───────────────────────────────────── */
+.gauge-top { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-4); }
+.gauge-val { font-size: 40px; font-weight: var(--fw-heavy); letter-spacing: -0.04em; line-height: 1; color: var(--label-primary); font-variant-numeric: tabular-nums; }
+.gauge-val.sm { font-size: 30px; }
+.gauge-val .u { font-size: 13px; font-weight: var(--fw-medium); color: var(--label-tertiary); margin-left: 6px; letter-spacing: 0; }
+.gauge-prob { text-align: right; }
+.gauge-prob .p { font-size: 22px; font-weight: var(--fw-bold); color: var(--success); font-variant-numeric: tabular-nums; line-height: 1; }
+.gauge-prob .pl { font-size: 10.5px; color: var(--label-tertiary); }
+.gauge-track { position: relative; height: 12px; border-radius: var(--r-pill); background: linear-gradient(90deg, rgba(5,150,105,0.20), rgba(217,119,6,0.20) 78%, rgba(220,38,38,0.22)); overflow: hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.08); }
+.gauge-fill { position: absolute; top: 0; bottom: 0; left: 0; border-radius: var(--r-pill); background: linear-gradient(90deg, var(--success), #10B981); width: 0; transition: width 1000ms var(--ease-out-strong); }
+.gauge-marker { position: absolute; top: 50%; transform: translate(-50%, -50%); background: var(--glass-bg-strong); border: 1px solid var(--accent); color: var(--accent); font-size: 10px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; padding: 1px 7px; border-radius: var(--r-pill); white-space: nowrap; box-shadow: 0 1px 3px rgba(0,0,0,0.12); z-index: 2; }
+.gauge-scale { display: flex; justify-content: space-between; margin-top: 8px; font-size: 10.5px; color: var(--label-tertiary); font-variant-numeric: tabular-nums; }
+.gauge-scale .meta { color: var(--label-primary); font-weight: var(--fw-bold); }
+.gauge-note { margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--hair); font-size: 12px; color: var(--label-tertiary); line-height: 1.45; }
+.gauge-note strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
+
+/* ─── ativos crônicos ─────────────────────────────────────── */
+.asset-row { display: grid; grid-template-columns: 90px 1fr 44px; gap: var(--space-4); align-items: center; padding: var(--space-2) var(--space-1); }
+.asset-tag { font-family: ui-monospace, monospace; font-size: 12px; font-weight: var(--fw-bold); padding: 4px 8px; background: var(--chip-neutral); color: var(--label-primary); border-radius: var(--r-sm); text-align: center; }
+.asset-bar { height: 8px; background: var(--track); border-radius: var(--r-pill); overflow: hidden; }
+.asset-bar i { display: block; height: 100%; border-radius: var(--r-pill); background: linear-gradient(90deg, var(--danger), #EF4444); width: 0; transition: width 900ms var(--ease-out-strong); }
+.asset-n { font-size: 14px; font-weight: var(--fw-bold); color: var(--label-primary); font-variant-numeric: tabular-nums; text-align: right; }
+.asset-n .s { font-size: 10px; color: var(--label-tertiary); font-weight: var(--fw-medium); display: block; margin-top: -2px; }
+
+/* ─── SAÚDE · ranking ─────────────────────────────────────── */
+.health-row { display: grid; grid-template-columns: 26px 84px 1fr 132px; gap: var(--space-4); align-items: center; padding: var(--space-3) var(--space-2); border-bottom: 1px solid var(--hair); border-radius: var(--r-sm); cursor: pointer; transition: background var(--dur-quick) var(--ease-out), transform var(--dur-fast) var(--ease-out); }
+.health-row:last-child { border-bottom: none; }
+.health-row:hover { background: var(--row-hover); }
+.health-row:active { transform: scale(0.994); }
+.health-row.muted { opacity: 0.6; }
+.h-pos { font-family: ui-monospace, monospace; font-size: 12px; font-weight: var(--fw-bold); color: var(--label-quaternary); font-variant-numeric: tabular-nums; }
+.h-prod { display: flex; align-items: center; gap: 8px; }
+.h-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.h-dot.good { background: var(--success); }
+.h-dot.warn { background: var(--warning); }
+.h-dot.crit { background: var(--danger); }
+.h-dot.neu { background: var(--gray-4); }
+.h-tag { font-family: ui-monospace, monospace; font-size: 12.5px; font-weight: var(--fw-bold); color: var(--label-primary); }
+.h-metric { font-size: 13px; color: var(--label-secondary); }
+.h-metric strong { color: var(--label-primary); font-weight: var(--fw-semibold); font-variant-numeric: tabular-nums; }
+.h-metric.na { color: var(--label-quaternary); font-style: italic; }
+.tier { justify-self: end; display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: var(--r-pill); font-size: 11px; font-weight: var(--fw-bold); }
+.tier.good { background: var(--success-soft); color: var(--success-text); }
+.tier.warn { background: var(--warning-soft); color: var(--warning-text); }
+.tier.crit { background: var(--danger-soft); color: var(--danger-text); }
+.tier.neu { background: var(--chip-neutral); color: var(--label-tertiary); }
+
+/* ─── nota de contexto (Análise) ──────────────────────────── */
+.ctx-note { display: flex; align-items: flex-start; gap: var(--space-3); border-radius: var(--r-lg); padding: var(--space-4) var(--space-5); }
+.ctx-note .an-badge { margin-top: 2px; }
+.ctx-note .txt { font-size: 13px; color: var(--label-secondary); line-height: 1.5; }
+.ctx-note .txt strong { color: var(--label-primary); font-weight: var(--fw-semibold); }
+
+/* ─── BRIEFING PAGE (4ª view) ─────────────────────────────── */
+.brief-back { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px 0 8px; border-radius: var(--r-pill); background: var(--glass-bg-strong); border: 1px solid var(--hair-2); font-size: 12px; font-weight: var(--fw-semibold); color: var(--label-secondary); cursor: pointer; align-self: flex-start; transition: transform var(--dur-fast) var(--ease-out), color var(--dur-quick) var(--ease-out); }
+.brief-back:hover { color: var(--accent); }
+.brief-back:active { transform: scale(0.96); }
+.brief-back svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.rep-title { font-size: 30px; font-weight: var(--fw-heavy); letter-spacing: -0.035em; line-height: 1.05; color: var(--label-primary); }
+.rep-lede { font-size: 14px; color: var(--label-secondary); line-height: 1.55; margin-top: var(--space-3); max-width: 64ch; }
+.rep-lede strong { color: var(--label-primary); font-weight: var(--fw-semibold); }
+.rep-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.stat-row { display: flex; align-items: stretch; }
+.stat-cell { flex: 1; display: flex; flex-direction: column; gap: 4px; padding: 0 var(--space-4); }
+.stat-cell:first-child { padding-left: 0; }
+.stat-cell + .stat-cell { border-left: 1px solid var(--hair-2); }
+.stat-cell .v { font-size: 34px; font-weight: var(--fw-heavy); letter-spacing: -0.035em; line-height: 1; color: var(--label-primary); font-variant-numeric: tabular-nums; }
+.stat-cell .v.crit { color: var(--danger); }
+.stat-cell .l { font-size: 12px; color: var(--label-tertiary); line-height: 1.35; }
+.fr { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; color: var(--label-primary); }
+.fr .n { font-size: 48px; font-weight: var(--fw-heavy); letter-spacing: -0.05em; line-height: 0.9; font-variant-numeric: tabular-nums; }
+.fr .dash { font-size: 32px; font-weight: var(--fw-medium); color: var(--label-quaternary); }
+.fr .unit { font-size: 15px; font-weight: var(--fw-semibold); color: var(--label-tertiary); }
+.fr-ci { display: inline-flex; align-items: center; gap: 8px; margin-top: var(--space-3); font-size: 12px; color: var(--label-tertiary); }
+.fr-ci .pill { background: var(--accent-soft); color: var(--accent-text); font-weight: var(--fw-bold); padding: 2px 9px; border-radius: 6px; font-size: 11px; }
+
+.sug-list { display: flex; flex-direction: column; }
+.sug-item { display: grid; grid-template-columns: 22px 1fr; gap: var(--space-3); padding: var(--space-3) 0; align-items: start; }
+.sug-item + .sug-item { border-top: 1px solid var(--hair); }
+.sug-star { width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #1E40AF); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: var(--fw-bold); margin-top: 1px; box-shadow: 0 2px 6px rgba(37,99,235,0.30); }
+.sug-body { font-size: 13.5px; color: var(--label-secondary); line-height: 1.5; }
+.sug-body strong { color: var(--label-primary); font-weight: var(--fw-semibold); }
+
+/* ─── MODAIS ──────────────────────────────────────────────── */
+.modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(10,12,20,0.28);
+  backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
+  z-index: var(--z-modal-backdrop);
+  opacity: 0; pointer-events: none;
+  transition: opacity 300ms var(--ease-out-strong);
+}
+.modal-backdrop.open { opacity: 1; pointer-events: auto; }
+
+.modal {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.96);
+  transform-origin: 50% 50%;
+  width: 560px; max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 56px); overflow-y: auto;
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(48px) saturate(180%); -webkit-backdrop-filter: blur(48px) saturate(180%);
+  border: 1px solid var(--glass-border); border-radius: var(--r-2xl);
+  box-shadow: var(--glass-shadow-elev), 0 40px 90px -20px rgba(0,20,60,0.35);
+  z-index: var(--z-modal);
+  opacity: 0; pointer-events: none;
+  transition: opacity 280ms var(--ease-out-strong), transform 320ms var(--ease-spring);
+}
+.modal.open { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
+.modal.brief { width: 540px; transform-origin: 50% 0%;
+  background:
+    radial-gradient(600px 340px at 2% -10%, rgba(37,99,235,0.17), transparent 56%),
+    linear-gradient(168deg, rgba(37,99,235,0.09), transparent 42%),
+    var(--glass-bg-strong);
+}
+.modal.incident, .modal.product { width: 500px; }
+.modal-inner { padding: var(--space-7) var(--space-7) var(--space-6); }
+
+.modal-close { position: absolute; top: var(--space-4); right: var(--space-4); width: 32px; height: 32px; border-radius: 50%; background: var(--fill-soft); border: none; display: flex; align-items: center; justify-content: center; color: var(--label-secondary); cursor: pointer; transition: background var(--dur-quick) var(--ease-out), color var(--dur-quick) var(--ease-out), transform var(--dur-fast) var(--ease-out); z-index: 3; }
+.modal-close:hover { background: var(--chip-neutral); color: var(--label-primary); }
+.modal-close:active { transform: scale(0.92); }
+.modal-close svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.4; stroke-linecap: round; }
+
+/* brief modal — layout resultante (estrutura editorial + gradiente, sem serifada) */
+.modal.brief .modal-inner { padding: var(--space-6) var(--space-7) var(--space-5); }
+.rb-masthead { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: var(--space-4); padding-right: 30px; border-bottom: 1px solid var(--hair-2); }
+.rb-brand { display: inline-flex; align-items: center; gap: 9px; font-size: 13px; font-weight: var(--fw-heavy); letter-spacing: 0.2em; text-transform: uppercase; color: var(--label-primary); }
+.rb-brand svg { width: 17px; height: 17px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.rb-date { font-size: 12px; font-weight: var(--fw-medium); color: var(--label-tertiary); font-variant-numeric: tabular-nums; }
+
+.rb-lede { font-size: 24px; font-weight: 300; line-height: 1.34; letter-spacing: -0.02em; color: var(--label-secondary); margin: var(--space-5) 0 0; }
+.rb-lede b { font-weight: var(--fw-semibold); color: var(--label-primary); }
+.rb-drop { float: left; font-size: 56px; line-height: 0.74; font-weight: var(--fw-bold); padding: 5px 12px 0 0; color: var(--accent); letter-spacing: -0.04em; }
+
+.rb-rule { height: 1px; background: var(--hair); margin: var(--space-5) 0; }
+
+.rb-today { display: flex; align-items: flex-end; gap: var(--space-5); }
+.rb-fore { min-width: 0; }
+.rb-eyebrow { font-size: 10px; font-weight: var(--fw-bold); letter-spacing: 0.14em; text-transform: uppercase; color: var(--label-quaternary); margin-bottom: var(--space-3); }
+.rb-band { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; font-variant-numeric: tabular-nums; }
+.rb-band .lead, .rb-band .conj { font-size: 22px; font-weight: 300; color: var(--label-tertiary); letter-spacing: -0.01em; }
+.rb-band .n { font-size: 50px; font-weight: var(--fw-heavy); letter-spacing: -0.05em; line-height: 0.8; color: var(--label-primary); }
+.rb-band .tail { font-size: 14px; font-weight: var(--fw-semibold); color: var(--label-secondary); margin-left: 3px; }
+.rb-ci { margin-top: var(--space-3); font-size: 11.5px; color: var(--label-tertiary); }
+.rb-ci b { color: var(--accent); font-weight: var(--fw-bold); }
+.rb-risk { margin-left: auto; text-align: right; padding-bottom: 3px; }
+.rb-risk .rn { font-size: 30px; font-weight: var(--fw-heavy); color: var(--danger); line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.rb-risk .rl { font-size: 11px; color: var(--label-tertiary); margin-top: 3px; max-width: 13ch; line-height: 1.3; margin-left: auto; }
+
+.rb-acts { margin-top: var(--space-5); }
+.rb-ol { list-style: none; counter-reset: a; margin: 0; padding: 0; }
+.rb-ol li { counter-increment: a; position: relative; padding: 10px 0 10px 34px; font-size: 13px; color: var(--label-secondary); line-height: 1.45; border-bottom: 1px solid var(--hair); }
+.rb-ol li:last-child { border-bottom: none; padding-bottom: 0; }
+.rb-ol li::before { content: counter(a, decimal-leading-zero); position: absolute; left: 0; top: 12px; font-size: 12px; font-weight: var(--fw-bold); color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: 0.03em; line-height: 1; }
+.rb-ol li b { color: var(--label-primary); font-weight: var(--fw-semibold); }
+.rb-ol li code { background: var(--fill-soft); }
+.modal-actions { display: flex; gap: var(--space-2); justify-content: flex-end; padding: var(--space-4) var(--space-7); background: var(--fill-soft); border-top: 1px solid var(--hair); border-radius: 0 0 var(--r-2xl) var(--r-2xl); }
+.modal-actions.rb-foot { align-items: center; justify-content: space-between; }
+.rb-byline { font-size: 11.5px; color: var(--label-quaternary); }
+.rb-foot-btns { display: flex; gap: var(--space-2); }
+
+/* buttons genéricos */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); font-family: var(--font-sans); font-weight: var(--fw-semibold); cursor: pointer; user-select: none; border: 1px solid transparent; transition: transform var(--dur-fast) var(--ease-out), background var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out); white-space: nowrap; height: var(--btn-h-md); padding: 0 18px; font-size: var(--fs-14); border-radius: var(--r-md); }
+.btn:active { transform: scale(0.97); }
+.btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform var(--dur-quick) var(--ease-out); }
+.btn-primary { background: linear-gradient(135deg, var(--accent), #1E40AF); color: #fff; box-shadow: inset 0 1px 0 rgba(255,255,255,0.20), 0 4px 14px -2px rgba(37,99,235,0.35); }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 8px 24px -2px rgba(37,99,235,0.45); }
+.btn-primary:hover svg { transform: translateX(2px); }
+.btn-glass { background: var(--glass-bg-strong); color: var(--label-primary); border-color: var(--glass-border); }
+.btn-glass:hover { background: var(--chip-neutral); }
+
+/* incident modal factors (SHAP-style) */
+.mo-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-5); padding-right: 36px; }
+.mo-inc { font-family: ui-monospace, monospace; font-size: 17px; font-weight: var(--fw-bold); color: var(--label-primary); letter-spacing: -0.01em; }
+.mo-meta { display: flex; align-items: center; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.mo-prod { font-family: ui-monospace, monospace; font-size: 12.5px; font-weight: var(--fw-bold); color: var(--label-secondary); background: var(--chip-neutral); padding: 3px 8px; border-radius: var(--r-xs); }
+.mo-risk-badge { text-align: right; flex-shrink: 0; }
+.mo-risk-badge .p { font-size: 34px; font-weight: var(--fw-heavy); letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+.mo-risk-badge .p.crit { color: var(--danger); }
+.mo-risk-badge .p.warn { color: var(--warning); }
+.mo-risk-badge .p.low { color: var(--accent); }
+.mo-risk-badge .pl { font-size: 10px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase); text-transform: uppercase; color: var(--label-tertiary); margin-top: 2px; }
+.mo-section-h { font-size: 11px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase); text-transform: uppercase; color: var(--label-tertiary); margin-bottom: var(--space-3); display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.fac-list { display: flex; flex-direction: column; gap: var(--space-3); }
+.fac-row { display: grid; grid-template-columns: 1fr; gap: 6px; }
+.fac-top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.fac-label { font-size: 12.5px; color: var(--label-secondary); }
+.fac-w { font-size: 11px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; flex-shrink: 0; }
+.fac-w.up { color: var(--danger); }
+.fac-w.neu { color: var(--label-quaternary); }
+.fac-w.down { color: var(--success); }
+.fac-bar { height: 8px; background: var(--track); border-radius: var(--r-pill); overflow: hidden; }
+.fac-bar i { display: block; height: 100%; border-radius: var(--r-pill); width: 0; transition: width 700ms var(--ease-out-strong); }
+.fac-bar.up i { background: var(--danger); }
+.fac-bar.neu i { background: var(--gray-4); }
+.fac-bar.down i { background: var(--success); }
+.mo-note { margin-top: var(--space-5); padding-top: var(--space-4); border-top: 1px solid var(--hair); font-size: 12px; color: var(--label-tertiary); line-height: 1.5; }
+.mo-note strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
+
+/* product modal */
+.pm-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); margin: var(--space-5) 0; }
+.pm-metric { background: var(--fill-soft); border: 1px solid var(--hair); border-radius: var(--r-md); padding: var(--space-3) var(--space-4); }
+.pm-metric .v { font-size: 22px; font-weight: var(--fw-heavy); letter-spacing: -0.03em; color: var(--label-primary); font-variant-numeric: tabular-nums; line-height: 1; }
+.pm-metric .v.na { font-size: 14px; font-weight: var(--fw-semibold); color: var(--label-quaternary); font-style: italic; }
+.pm-metric .l { font-size: 10.5px; color: var(--label-tertiary); margin-top: 5px; line-height: 1.3; }
+.pm-spark-h { font-size: 11px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase); text-transform: uppercase; color: var(--label-tertiary); margin-bottom: var(--space-2); }
+.pm-spark svg { width: 100%; height: 60px; display: block; }
+.pm-spark-foot { display: flex; justify-content: space-between; font-size: 10px; color: var(--label-quaternary); margin-top: 4px; }
+
+/* ─── CARGA POR EQUIPE (Análise) ──────────────────────────── */
+.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+.team-cell {
+  background: var(--fill-soft); border: 1px solid var(--hair);
+  border-radius: var(--r-md); padding: var(--space-3) var(--space-4);
+  display: flex; flex-direction: column; gap: var(--space-3);
+  transition: transform var(--dur-quick) var(--ease-out), background var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out);
+}
+.team-cell:hover { background: var(--row-hover); transform: translateY(-2px); box-shadow: var(--glass-shadow); }
+.team-cell-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
+.team-cell-name { display: flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: var(--fw-bold); color: var(--label-primary); font-variant-numeric: tabular-nums; }
+.team-av { width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #fff; font-size: 9.5px; font-weight: var(--fw-bold); background: linear-gradient(135deg, var(--accent), #1E40AF); box-shadow: inset 0 1px 0 rgba(255,255,255,0.15); font-variant-numeric: tabular-nums; flex-shrink: 0; }
+.team-viol { display: inline-flex; align-items: baseline; gap: 4px; font-variant-numeric: tabular-nums; }
+.team-viol .vn { font-size: 16px; font-weight: var(--fw-heavy); letter-spacing: -0.02em; line-height: 1; color: var(--label-secondary); }
+.team-viol .vl { font-size: 9px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase); text-transform: uppercase; color: var(--label-quaternary); }
+.team-viol.crit .vn { color: var(--danger-text); }
+.team-viol.warn .vn { color: var(--warning-text); }
+.team-viol.ok   .vn { color: var(--success-text); }
+.team-cell-bar { height: 6px; background: var(--track); border-radius: var(--r-pill); overflow: hidden; }
+.team-cell-bar i { display: block; height: 100%; width: 0; border-radius: var(--r-pill); background: var(--accent); transition: width 900ms var(--ease-out-strong); min-width: 3px; }
+.team-cell-foot { display: flex; justify-content: space-between; align-items: baseline; font-size: 10.5px; color: var(--label-tertiary); font-variant-numeric: tabular-nums; }
+.team-cell-foot .vol { color: var(--label-secondary); }
+.team-cell-foot .pct { font-size: 14px; color: var(--label-primary); font-weight: var(--fw-bold); }
+.team-note { margin-top: var(--space-4); padding-top: var(--space-3); border-top: 1px solid var(--hair); font-size: 12px; color: var(--label-tertiary); line-height: 1.5; }
+.team-note strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
+.team-note .up { color: var(--danger-text); font-weight: var(--fw-semibold); }
+
+/* ─── HEATMAP hora × dia (Análise) ────────────────────────── */
+.hm-scroll { overflow-x: auto; }
+.hm-wrap { min-width: 540px; }
+.hm-axis-top { display: grid; grid-template-columns: 34px 1fr; gap: 8px; margin-bottom: 5px; }
+.hm-axis-hours { display: grid; grid-template-columns: repeat(24, 1fr); gap: 3px; font-size: 9px; color: var(--label-quaternary); font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; }
+.hm-axis-hours span { grid-column: span 3; }
+.hm-rows { display: flex; flex-direction: column; gap: 3px; }
+.hm-row { display: grid; grid-template-columns: 34px 1fr; gap: 8px; align-items: center; }
+.hm-day { font-size: 9.5px; font-weight: var(--fw-bold); color: var(--label-tertiary); letter-spacing: 0.06em; text-transform: uppercase; }
+.hm-grid { display: grid; grid-template-columns: repeat(24, 1fr); gap: 3px; }
+.hm-cell { aspect-ratio: 1; border-radius: 3px; background: var(--accent); position: relative; transition: transform var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out); cursor: default; }
+.hm-cell:hover { transform: scale(1.5); box-shadow: 0 0 0 1.5px var(--accent), 0 6px 16px -4px rgba(0,0,0,0.40); z-index: 5; }
+.hm-cell.peak { box-shadow: 0 0 0 1.3px var(--accent-text); }
+.hm-cell.peak:hover { box-shadow: 0 0 0 1.5px var(--accent), 0 6px 16px -4px rgba(0,0,0,0.40); }
+.hm-scale { display: flex; align-items: center; gap: 8px; margin-top: var(--space-4); font-size: 10.5px; color: var(--label-tertiary); }
+.hm-scale .grad { flex: 0 0 120px; height: 8px; border-radius: var(--r-pill); background: linear-gradient(90deg, var(--track), var(--accent)); }
+.hm-insight { font-size: 12px; color: var(--label-tertiary); line-height: 1.5; margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--hair); }
+.hm-insight strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
+
+/* ─── legenda OLA no gráfico de volume ────────────────────── */
+.vol-legend .sw.ola { width: 8px; height: 8px; border-radius: 2px; background: var(--danger); }
+
+/* ─── COMPONENTE A · calendário mensal (dez/2025) ─────────── */
+.cal-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+.cal-block { display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; }
+.cal-label { display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: var(--fw-bold); letter-spacing: 0.02em; color: var(--label-secondary); }
+.cal-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.cal-dot.vol { background: var(--accent); }
+.cal-dot.ola { background: var(--danger); }
+.cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; font-size: 9px; font-weight: var(--fw-bold); letter-spacing: 0.06em; text-transform: uppercase; color: var(--label-quaternary); text-align: center; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.cal-cell { aspect-ratio: 1.35; border-radius: 6px; position: relative; padding: 5px 6px; display: flex; flex-direction: column; justify-content: space-between; cursor: default; box-shadow: inset 0 0 0 1px var(--hair); transition: transform var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out); }
+.cal-grid.vol .cal-cell:not(.empty):hover { transform: scale(1.08); box-shadow: 0 0 0 1.5px var(--accent), 0 6px 16px -5px rgba(0,0,0,0.40); z-index: 5; }
+.cal-grid.ola .cal-cell:not(.empty):hover { transform: scale(1.08); box-shadow: 0 0 0 1.5px var(--danger), 0 6px 16px -5px rgba(0,0,0,0.40); z-index: 5; }
+.cal-cell.empty { background: transparent !important; box-shadow: none; cursor: default; }
+.cal-day { font-size: 9px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; opacity: 0.7; }
+.cal-val { font-size: 12.5px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; letter-spacing: -0.015em; text-align: right; line-height: 1; }
+.cal-cell.on-dark .cal-day, .cal-cell.on-dark .cal-val { color: #fff; }
+.cal-cell.on-light .cal-day, .cal-cell.on-light .cal-val { color: var(--label-primary); }
+.cal-cell.is-zero .cal-val { opacity: 0.40; }
+.cal-note { margin-top: var(--space-4); padding-top: var(--space-3); border-top: 1px solid var(--hair); font-size: 12px; color: var(--label-tertiary); line-height: 1.5; }
+.cal-note strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
+
+/* ─── COMPONENTE B · régua de meta por prioridade ─────────── */
+.rul-group { display: flex; flex-direction: column; gap: var(--space-5); }
+.rul-group + .rul-group { margin-top: var(--space-6); padding-top: var(--space-6); border-top: 1px solid var(--hair); }
+.rul-ghead { display: flex; align-items: center; gap: 9px; }
+.rul-gtag { display: inline-flex; align-items: center; justify-content: center; height: 23px; padding: 0 10px; border-radius: var(--r-xs); font-size: 11px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; }
+.rul-gtag.p2 { background: var(--label-primary); color: var(--page); }
+.rul-gtag.p3 { background: var(--danger-soft); color: var(--danger-text); }
+.rul-gname { font-size: 12.5px; font-weight: var(--fw-semibold); color: var(--label-secondary); }
+.rul { display: flex; flex-direction: column; gap: 8px; }
+.rul-top { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); }
+.rul-label { font-size: 12.5px; font-weight: var(--fw-semibold); color: var(--label-secondary); }
+.rul-right { display: flex; align-items: baseline; gap: 9px; flex-shrink: 0; }
+.rul-val { font-size: 20px; font-weight: var(--fw-heavy); letter-spacing: -0.03em; color: var(--label-primary); font-variant-numeric: tabular-nums; line-height: 1; }
+.rul-badge { display: inline-flex; align-items: center; height: 20px; padding: 0 9px; border-radius: var(--r-pill); font-size: 11px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; }
+.rul-badge.met { background: var(--accent-soft); color: var(--accent-text); }
+.rul-badge.miss { background: var(--danger-soft); color: var(--danger-text); }
+.rul-track { position: relative; height: 32px; margin-top: 9px; }
+.rul-bands { display: flex; height: 100%; border-radius: var(--r-sm); overflow: hidden; box-shadow: inset 0 0 0 1px var(--hair); }
+.rul-seg { flex: 1; border-right: 1px solid var(--glass-bg); }
+.rul-seg:last-child { border-right: none; }
+.rul-meta { position: absolute; top: -6px; bottom: -6px; left: 50%; width: 2px; background: var(--label-primary); border-radius: 2px; z-index: 3; opacity: 0.55; }
+.rul-meta::after { content: 'meta'; position: absolute; top: -13px; left: 50%; transform: translateX(-50%); font-size: 8px; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--label-tertiary); }
+.rul-marker { position: absolute; top: -4px; bottom: -4px; width: 2.5px; border-radius: 3px; z-index: 4; transform: translateX(-50%); transition: left 900ms var(--ease-out-strong); }
+.rul-marker::before { content: ''; position: absolute; top: -5px; left: 50%; transform: translateX(-50%); width: 9px; height: 9px; border-radius: 50%; background: inherit; box-shadow: 0 0 0 2px var(--glass-bg-strong); }
+.rul-marker.met { background: var(--accent); }
+.rul-marker.miss { background: var(--danger); }
+.rul-scale { display: flex; margin-top: 9px; }
+.rul-band { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 1px; text-align: center; padding: 0 2px; }
+.rul-band .pct { font-size: 11px; font-weight: var(--fw-bold); color: var(--label-quaternary); font-variant-numeric: tabular-nums; }
+.rul-band .rng { font-size: 8.5px; color: var(--label-quaternary); font-variant-numeric: tabular-nums; opacity: 0.75; white-space: nowrap; }
+.rul-band.active .pct { font-weight: var(--fw-heavy); }
+.rul-band.active.met .pct { color: var(--accent); }
+.rul-band.active.miss .pct { color: var(--danger); }
+.rul-band.active .rng { opacity: 1; color: var(--label-tertiary); }
+.rul-note { margin-top: var(--space-5); padding-top: var(--space-4); border-top: 1px solid var(--hair); font-size: 12px; color: var(--label-tertiary); line-height: 1.5; }
+.rul-note strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
+
+/* ─── COMPONENTE B (compacto) · scoreboard de atingimento ─── */
+.score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.score-cell { background: var(--fill-soft); border: 1px solid var(--hair); border-radius: var(--r-md); padding: var(--space-3) var(--space-4); display: flex; flex-direction: column; gap: 7px; transition: transform var(--dur-quick) var(--ease-out), background var(--dur-quick) var(--ease-out); }
+.score-cell:hover { background: var(--row-hover); transform: translateY(-2px); }
+.score-cell .sc-lbl { font-size: 10px; font-weight: var(--fw-bold); letter-spacing: var(--ls-uppercase); text-transform: uppercase; color: var(--label-tertiary); }
+.score-cell .sc-row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); }
+.score-cell .sc-val { font-size: 21px; font-weight: var(--fw-heavy); letter-spacing: -0.03em; color: var(--label-primary); font-variant-numeric: tabular-nums; line-height: 1; }
+.score-cell .sc-val .su { font-size: 10.5px; color: var(--label-tertiary); font-weight: var(--fw-medium); margin-left: 3px; letter-spacing: 0; }
+.score-badge { display: inline-flex; align-items: center; height: 21px; padding: 0 9px; border-radius: var(--r-pill); font-size: 11px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; flex-shrink: 0; }
+.score-badge.met { background: var(--accent-soft); color: var(--accent-text); }
+.score-badge.miss { background: var(--danger-soft); color: var(--danger-text); }
+
+/* ─── RESPONSIVO ──────────────────────────────────────────── */
+@media (max-width: 1180px) {
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .rep-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 860px) {
+  .app { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
+  .sb { flex-direction: row; align-items: center; overflow-x: auto; }
+  .sb-nav { flex-direction: row; }
+  .sb-section, .sb-foot { display: none; }
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+  .risk-list-head { display: none; }
+  .risk-row { grid-template-columns: auto auto auto 1fr; row-gap: var(--space-2); column-gap: var(--space-3); }
+  .risk-row .risk-barcell { grid-column: 1 / -1; grid-row: 2; }
+  .risk-row .ver-btn { grid-row: 1; grid-column: 4; justify-self: end; }
+  .health-row { grid-template-columns: 1fr auto; }
+  .health-row .h-pos { display: none; }
+  .health-row .h-prod { grid-column: 1; grid-row: 1; }
+  .health-row .tier { grid-column: 2; grid-row: 1; }
+  .health-row .h-metric { grid-column: 1 / -1; grid-row: 2; }
+  .panel-head { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+  .pm-metrics { grid-template-columns: 1fr; }
+  .cal-pair { grid-template-columns: 1fr; gap: var(--space-6); }
+}
+@media (max-width: 520px) {
+  .kpi-row { grid-template-columns: 1fr; }
+  .tb-brief span { display: none; }
+  .team-grid { grid-template-columns: 1fr; }
+  .score-grid { grid-template-columns: 1fr; }
+  .rul-band .rng { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sb">
+    <div class="sb-brand">
+      <div class="sb-logo">
+        <svg viewBox="0 0 28 28" fill="none">
+          <path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <g class="blip">
+            <circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+            <circle cx="22" cy="8" r="1.4" fill="#3B82F6"/>
+          </g>
+        </svg>
+      </div>
+      <div class="sb-brand-txt">
+        <div class="sb-brand-name">Cronos</div>
+        <div class="sb-brand-sub">Veja antes · aja antes</div>
+      </div>
+    </div>
+
+    <nav class="sb-nav">
+      <div class="sb-section">MVP</div>
+      <button class="sb-item active" data-tab="dashboard">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        <span class="lbl">Dashboard</span>
+      </button>
+      <button class="sb-item" data-tab="risco">
+        <svg viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span class="lbl">Risco de OLA</span>
+        <span class="badge">4</span>
+      </button>
+      <button class="sb-item" data-tab="saude">
+        <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        <span class="lbl">Saúde &amp; Volume</span>
+      </button>
+    </nav>
+
+    <div class="sb-foot">
+      <div class="sb-avatar">IV</div>
+      <div class="sb-user-info">
+        <div class="sb-user-name">Igor Vignola</div>
+        <div class="sb-user-role">Operações · Locaweb</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <div class="tb">
+      <div class="tb-crumb"><span>Cronos</span><span class="sep">/</span><span class="here" id="crumb">Dashboard</span></div>
+      <div class="tb-spacer"></div>
+      <div class="tb-live"><span class="dot"></span><span>Live</span><span class="time" id="liveTime">06:00:00</span></div>
+      <button class="tb-brief" id="briefBtn" title="Abrir morning briefing">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>
+        <span>Briefing</span>
+      </button>
+      <button class="tb-btn" id="themeBtn" title="Alternar tema">
+        <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg>
+        <svg class="moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+
+    <div class="content">
+
+      <!-- ════════ ABA 1 · DASHBOARD ════════ -->
+      <section class="panel active anim" data-panel="dashboard">
+
+        <div class="panel-head">
+          <div>
+            <div class="eyebrow"><span class="dot"></span>Estado atual · segunda, 20 jul</div>
+            <h1 class="panel-title">Visão geral da operação</h1>
+            <p class="panel-sub">Previsão do dia, incidentes em risco e saúde por produto — o essencial antes de abrir os detalhes.</p>
+          </div>
+          <div class="panel-date">Segunda · 20 jul</div>
+        </div>
+
+        <!-- KPI strip -->
+        <div class="kpi-row">
+          <div class="kpi glass">
+            <div class="kpi-top"><span class="kpi-label">Previsão hoje</span><div class="kpi-icon accent"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div></div>
+            <div class="kpi-val"><span data-count="45">0</span><span class="rng-dash">–</span><span data-count="68">0</span></div>
+            <div class="kpi-baseline">incidentes P2/P3 · faixa de confiança 80%</div>
+          </div>
+          <div class="kpi glass">
+            <div class="kpi-top"><span class="kpi-label">Alto risco agora</span><div class="kpi-icon danger"><svg viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div></div>
+            <div class="kpi-val"><span data-count="4">0</span></div>
+            <div class="kpi-baseline">incidentes abertos com risco ≥ 50%</div>
+          </div>
+          <div class="kpi glass">
+            <div class="kpi-top"><span class="kpi-label">Quebras de OLA · mês</span><div class="kpi-icon warning"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div></div>
+            <div class="kpi-val"><span data-count="13">0</span></div>
+            <div class="kpi-baseline">jul/2026 · <strong>ritmo dentro da meta anual</strong></div>
+          </div>
+          <div class="kpi glass">
+            <div class="kpi-top"><span class="kpi-label">Saúde geral</span><div class="kpi-icon success"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div></div>
+            <div class="kpi-val"><span data-count="2">0</span><span class="u">fora do verde</span></div>
+            <div class="kpi-baseline"><strong>lssl</strong> crítico · <strong>lsin</strong> em atenção</div>
+          </div>
+        </div>
+
+        <!-- Tendência + previsão -->
+        <div class="glass block">
+          <div class="vol-head">
+            <div>
+              <div class="t">Volume diário · últimos 30 dias + previsão</div>
+              <div class="s">Série elegível ao KPI (P2/P3) · área sombreada = faixa D+1 a D+7</div>
+            </div>
+            <div class="vol-legend">
+              <span class="li"><span class="sw hist"></span>histórico</span>
+              <span class="li"><span class="sw fore"></span>previsão</span>
+              <span class="li"><span class="sw ola"></span>OLAs quebrados</span>
+            </div>
+          </div>
+          <div class="vol-chart" data-chart="vol"></div>
+          <div class="vol-x"><span>-30 dias</span><span>hoje</span><span>+7 dias</span></div>
+        </div>
+
+        <!-- Top risco agora -->
+        <div class="glass block">
+          <h3 class="block-h"><span>Top risco agora</span><button class="block-link" data-goto="risco">ver todos<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button></h3>
+          <div id="topRiskList"></div>
+        </div>
+
+        <!-- Carga por equipe -->
+        <div class="glass block">
+          <h3 class="block-h"><span>Carga por equipe</span><span class="an-badge"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Análise</span></h3>
+          <div class="team-grid" id="teamGrid"></div>
+          <p class="team-note"><strong>Team14</strong> concentra <strong>75,7%</strong> do volume mas quase nenhuma quebra de OLA (10). <strong>Team11</strong>, com só 8,0% do volume, acumula o <span class="up">maior número de quebras (114)</span> — volume alto nem sempre é onde está o risco.</p>
+        </div>
+
+        <!-- Scoreboard de atingimento de meta (ano de referência 2025) -->
+        <div class="glass block">
+          <h3 class="block-h"><span>Atingimento de meta por prioridade</span><span class="an-badge" style="text-transform:none;letter-spacing:0.02em">ano de referência 2025</span></h3>
+          <div class="score-grid" id="scoreGrid"></div>
+          <button class="block-link" data-goto="risco" style="margin-top:var(--space-4)">ver régua completa em Risco de OLA<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        </div>
+
+      </section>
+
+      <!-- ════════ ABA 2 · RISCO DE OLA ════════ -->
+      <section class="panel anim" data-panel="risco">
+
+        <div class="panel-head">
+          <div>
+            <div class="eyebrow"><span class="dot"></span>Risco de OLA</div>
+            <h1 class="panel-title">Risco de violação de OLA</h1>
+            <p class="panel-sub">Incidentes abertos ordenados pela chance de estourar a OLA. Abra uma linha para ver o que pesa no risco.</p>
+          </div>
+          <div class="panel-date">Ordenado por risco</div>
+        </div>
+
+        <!-- Lista de incidentes -->
+        <div class="glass block">
+          <h3 class="block-h"><span>Incidentes abertos · risco de violar a OLA</span></h3>
+          <div class="risk-list-head"><span>Incidente</span><span>Produto</span><span>Prio</span><span>Risco de violação</span><span></span></div>
+          <div id="riskList"></div>
+        </div>
+
+        <!-- Faixa Análise -->
+        <div class="glass finding">
+          <div class="finding-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 3 5-6"/></svg></div>
+          <div class="finding-body"><div class="t"><strong>30 itens de configuração</strong> concentram <strong>61,7% das quebras</strong> de OLA (153 de 248).</div></div>
+          <span class="an-badge"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Análise</span>
+        </div>
+
+        <!-- Régua de meta por prioridade (ano de referência 2025) -->
+        <div class="glass block">
+          <h3 class="block-h"><span>Meta anual por prioridade · atingimento</span><span class="an-badge" style="text-transform:none;letter-spacing:0.02em">ano de referência 2025</span></h3>
+          <div id="rulers"></div>
+          <p class="rul-note"><strong>2025</strong> é o último ano completo do dataset. A régua traz as faixas oficiais de meta da Locaweb para <strong>quebras de OLA</strong> e <strong>volume de incidentes tratados</strong>; o marcador mostra onde a operação fechou. <strong>Meta = 100% ou acima</strong> — abaixo disso a faixa não foi atingida. Sem projeção de modelo: os números vêm direto do fechamento de 2025.</p>
+        </div>
+
+        <!-- Ativos crônicos -->
+        <div class="glass block">
+          <h3 class="block-h"><span>Ativos crônicos · reforçar</span><span class="an-badge"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Análise</span></h3>
+          <div class="asset-row"><span class="asset-tag">IC00840</span><span class="asset-bar"><i data-fill="100"></i></span><span class="asset-n">32<span class="s">quebras</span></span></div>
+          <div class="asset-row"><span class="asset-tag">IC00349</span><span class="asset-bar"><i data-fill="75"></i></span><span class="asset-n">24<span class="s">quebras</span></span></div>
+          <div class="asset-row"><span class="asset-tag">IC00251</span><span class="asset-bar"><i data-fill="34"></i></span><span class="asset-n">11<span class="s">quebras</span></span></div>
+          <div class="asset-row"><span class="asset-tag">IC01285</span><span class="asset-bar"><i data-fill="31"></i></span><span class="asset-n">10<span class="s">quebras</span></span></div>
+          <div class="gauge-note" style="margin-top:var(--space-4)"><strong>30 ativos concentram 61,7% das quebras</strong> de OLA (153 de 248): reforçar esse grupo cobre a maior parte do risco.</div>
+        </div>
+
+      </section>
+
+      <!-- ════════ ABA 3 · SAÚDE & VOLUME ════════ -->
+      <section class="panel anim" data-panel="saude">
+
+        <div class="panel-head">
+          <div>
+            <div class="eyebrow"><span class="dot"></span>Saúde &amp; Volume</div>
+            <h1 class="panel-title">Saúde por produto</h1>
+            <p class="panel-sub">Tempo mediano de resolução por produto. Abra um produto para ver volume, taxa de violação e tendência.</p>
+          </div>
+          <div class="panel-date">Últimos 30 dias</div>
+        </div>
+
+        <!-- Ranking de saúde -->
+        <div class="glass block">
+          <h3 class="block-h"><span>Saúde por produto · tempo mediano de resolução</span></h3>
+          <div id="healthList"></div>
+        </div>
+
+        <!-- Volume + previsão -->
+        <div class="glass block">
+          <div class="vol-head">
+            <div>
+              <div class="t">Volume diário · últimos 30 dias + previsão</div>
+              <div class="s">Área sombreada = faixa de confiança D+1 a D+7</div>
+            </div>
+            <div class="vol-legend">
+              <span class="li"><span class="sw hist"></span>histórico</span>
+              <span class="li"><span class="sw fore"></span>previsão</span>
+              <span class="li"><span class="sw ola"></span>OLAs quebrados</span>
+            </div>
+          </div>
+          <div class="vol-chart" data-chart="vol"></div>
+          <div class="vol-x"><span>-30 dias</span><span>hoje</span><span>+7 dias</span></div>
+        </div>
+
+        <!-- Heatmap hora × dia -->
+        <div class="glass block">
+          <h3 class="block-h"><span>Volume por hora e dia da semana</span><span class="an-badge"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Análise</span></h3>
+          <div class="hm-scroll"><div class="hm-wrap" id="heatmap"></div></div>
+          <div class="hm-scale"><span>menos</span><span class="grad"></span><span>mais incidentes</span></div>
+          <p class="hm-insight"><strong>Leitura:</strong> o volume se concentra nas <strong>manhãs de dias úteis (09h–11h)</strong> — a célula mais intensa é terça às 09h. Madrugadas e fins de semana ficam bem mais baixos.</p>
+        </div>
+
+        <!-- Calendário mensal (dez/2025) -->
+        <div class="glass block">
+          <h3 class="block-h"><span>Calendário · dezembro/2025</span><span class="an-badge"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Análise</span></h3>
+          <div class="cal-pair">
+            <div class="cal-block">
+              <div class="cal-label"><span class="cal-dot vol"></span>Incidentes · total do dia</div>
+              <div class="cal-weekdays"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>
+              <div class="cal-grid vol" id="calVol"></div>
+            </div>
+            <div class="cal-block">
+              <div class="cal-label"><span class="cal-dot ola"></span>OLAs quebrados · total do dia</div>
+              <div class="cal-weekdays"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>
+              <div class="cal-grid ola" id="calOla"></div>
+            </div>
+          </div>
+          <p class="cal-note"><strong>Leitura:</strong> à esquerda o volume de incidentes por dia (pico em 22/dez com <strong>1.370</strong>); à direita as quebras de OLA. Cor mais forte concentra o dia mais intenso de cada painel.</p>
+        </div>
+
+        <!-- Nota Análise -->
+        <div class="glass ctx-note">
+          <span class="an-badge"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Análise</span>
+          <span class="txt"><strong>Set/2025:</strong> o volume subiu ~5× por causa da expansão do monitoramento automático — é mais coisa sendo detectada, <strong>não uma piora da operação</strong>.</span>
+        </div>
+
+      </section>
+
+      <!-- ════════ VIEW · RELATÓRIO DO BRIEFING (fora da nav) ════════ -->
+      <section class="panel anim" data-panel="briefing">
+        <button class="brief-back" data-goto="dashboard"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>voltar ao dashboard</button>
+
+        <div class="panel-head">
+          <div>
+            <div class="eyebrow"><span class="dot"></span>Relatório completo · gerado 06:00</div>
+            <h1 class="rep-title">Briefing · segunda, 20 jul 2026</h1>
+            <p class="rep-lede">Resumo operacional do dia com base em <strong>122.543 incidentes</strong> (2023–2025). Todos os números de previsão vêm com faixa e confiança — o modelo nunca aponta um valor exato.</p>
+          </div>
+        </div>
+
+        <div class="rep-grid">
+          <div class="glass block">
+            <h3 class="block-h plain">Ontem · domingo 19 jul</h3>
+            <div class="stat-row">
+              <div class="stat-cell"><span class="v">62</span><span class="l">incidentes que contam pro KPI</span></div>
+              <div class="stat-cell"><span class="v crit">1</span><span class="l">quebra de OLA</span></div>
+              <div class="stat-cell"><span class="v">66<span style="font-size:16px;color:var(--label-tertiary);font-weight:500">%</span></span><span class="l">sem intervenção humana</span></div>
+            </div>
+            <div class="gauge-note" style="border-top:none;padding-top:var(--space-4)">Domingo dentro do padrão de fim de semana. A única quebra foi no produto <code>lssl</code>, que segue como o mais lento para resolver.</div>
+          </div>
+
+          <div class="glass glass-elev block">
+            <h3 class="block-h"><span>Hoje · previsão</span></h3>
+            <div class="fr"><span class="n">45</span><span class="dash">–</span><span class="n">68</span><span class="unit">incidentes P2/P3</span></div>
+            <div class="fr-ci"><span class="pill">confiança 80%</span> faixa prevista para hoje</div>
+            <div class="gauge-note" style="border-top:none;padding-top:var(--space-4)"><strong>4 incidentes de alto risco</strong> já estão abertos — detalhados na aba Risco de OLA.</div>
+          </div>
+        </div>
+
+        <div class="glass block">
+          <h3 class="block-h"><span>Ações sugeridas</span><span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Sugestão IA</span></h3>
+          <div class="sug-list">
+            <div class="sug-item"><span class="sug-star">★</span><span class="sug-body">Priorize <code>INC8643147</code> no produto <code>lssl</code> — risco alto de violar a OLA nas próximas horas.</span></div>
+            <div class="sug-item"><span class="sug-star">★</span><span class="sug-body">O ativo <code>IC00840</code> acumula histórico de quebras (32 no período) — vale reforçar o acompanhamento hoje.</span></div>
+            <div class="sug-item"><span class="sug-star">★</span><span class="sug-body">Volume previsto dentro da faixa normal de uma segunda-feira — sem pico esperado até o fim do dia.</span></div>
+          </div>
+        </div>
+
+        <div class="glass ctx-note">
+          <span class="an-badge"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Método</span>
+          <span class="txt">Previsão de volume por <strong>Prophet</strong>, com features de calendário (dia da semana e feriados nacionais) e banda de confiança de 80%. O texto das ações é redigido pela Claude API a partir das saídas do modelo: <strong>nenhum número é inventado pela IA</strong>.</span>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- ═══════════ MODAIS ═══════════ -->
+<div class="modal-backdrop" id="backdrop"></div>
+
+<!-- Popup Morning Brief -->
+<div class="modal brief" id="briefModal" role="dialog" aria-modal="true" aria-label="Morning briefing">
+  <button class="modal-close" data-close aria-label="Fechar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <div class="modal-inner">
+    <div class="rb-masthead">
+      <span class="rb-brand"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg>Cronos</span>
+      <span class="rb-date">Briefing · segunda, 20 jul 2026 · 06:00</span>
+    </div>
+    <p class="rb-lede"><span class="rb-drop">D</span>omingo fechou dentro do esperado: <b>62 incidentes</b> que contam pro KPI, <b>1 quebra de OLA</b> e 66% resolvidos sem intervenção humana.</p>
+    <div class="rb-rule"></div>
+    <div class="rb-today">
+      <div class="rb-fore">
+        <div class="rb-eyebrow">Previsão</div>
+        <div class="rb-band"><span class="lead">Entre</span><span class="n">45</span><span class="conj">e</span><span class="n">68</span><span class="tail">incidentes hoje</span></div>
+        <div class="rb-ci">P2/P3 · faixa prevista · confiança <b>80%</b></div>
+      </div>
+      <div class="rb-risk">
+        <div class="rn">4</div>
+        <div class="rl">em alto risco abertos agora</div>
+      </div>
+    </div>
+    <div class="rb-acts">
+      <div class="rb-eyebrow">Ações sugeridas</div>
+      <ol class="rb-ol">
+        <li>Priorizar <code>INC8643147</code> <b>(lssl)</b> — risco alto de violar a OLA nas próximas horas.</li>
+        <li>Reforçar o acompanhamento do ativo <code>IC00840</code> — acumula <b>32 quebras</b> no período.</li>
+        <li>Volume dentro da faixa normal de segunda — sem pico esperado até o fim do dia.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="modal-actions rb-foot">
+    <span class="rb-byline">Gerado por Cronos às 06:00</span>
+    <div class="rb-foot-btns">
+      <button class="btn btn-glass" data-close>Fechar</button>
+      <button class="btn btn-primary" id="briefReportBtn">ver relatório completo<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal incidente (injetado) -->
+<div class="modal incident" id="incidentModal" role="dialog" aria-modal="true" aria-label="Detalhe do incidente">
+  <button class="modal-close" data-close aria-label="Fechar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <div class="modal-inner" id="incidentBody"></div>
+</div>
+
+<!-- Modal produto (injetado) -->
+<div class="modal product" id="productModal" role="dialog" aria-modal="true" aria-label="Detalhe do produto">
+  <button class="modal-close" data-close aria-label="Fechar"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <div class="modal-inner" id="productBody"></div>
+</div>
+
+<script>
+"use strict";
+const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ═══ relógio Live ═══ */
+(() => {
+  const el = document.getElementById('liveTime');
+  const p = n => (n < 10 ? '0' + n : '' + n);
+  const tick = () => { const d = new Date(); el.textContent = `${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`; };
+  tick(); setInterval(tick, 1000);
+})();
+
+/* ═══ tema claro/escuro ═══ */
+(() => {
+  const btn = document.getElementById('themeBtn');
+  const root = document.documentElement;
+  let saved = null;
+  try { saved = localStorage.getItem('cronos-theme'); } catch (e) {}
+  if (saved) root.setAttribute('data-theme', saved);
+  btn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('cronos-theme', next); } catch (e) {}
+    charts.forEach(c => c.render());
+  });
+})();
+
+/* ═══ dados ═══ */
+const INCIDENTS = [
+  { inc:'INC8643147', prod:'lssl', prio:'p2', pct:92, band:'crit', aberto:'3h20',
+    factors:[
+      { t:'Ativo já violou OLA antes', dir:'up', w:34 },
+      { t:'lssl resolve devagar (mediana 227 min)', dir:'up', w:27 },
+      { t:'Prioridade P2', dir:'up', w:19 },
+      { t:'Horário de pico (09h–11h)', dir:'neu', w:8 }
+    ]},
+  { inc:'INC8643091', prod:'lsin', prio:'p3', pct:84, band:'crit', aberto:'2h05',
+    factors:[
+      { t:'lsin resolve acima da média (138 min)', dir:'up', w:30 },
+      { t:'Ativo com reincidência recente', dir:'up', w:24 },
+      { t:'Aberto há mais de 2h', dir:'up', w:16 },
+      { t:'Horário de pico (09h–11h)', dir:'neu', w:9 }
+    ]},
+  { inc:'INC8642980', prod:'lhco', prio:'p3', pct:71, band:'warn', aberto:'1h30',
+    factors:[
+      { t:'Volume alto no produto hoje', dir:'up', w:26 },
+      { t:'Aberto há 1h30', dir:'up', w:18 },
+      { t:'Prioridade P3', dir:'up', w:14 },
+      { t:'lhco costuma resolver no prazo (64 min)', dir:'down', w:10 }
+    ]},
+  { inc:'INC8642877', prod:'lcem', prio:'p3', pct:58, band:'warn', aberto:'52min',
+    factors:[
+      { t:'Categoria com histórico de atraso', dir:'up', w:22 },
+      { t:'Aberto há 52 min', dir:'up', w:13 },
+      { t:'lcem costuma resolver rápido (22 min)', dir:'down', w:18 },
+      { t:'Fora do horário de pico', dir:'neu', w:7 }
+    ]},
+  { inc:'INC8642731', prod:'lssl', prio:'p3', pct:44, band:'low', aberto:'40min',
+    factors:[
+      { t:'lssl resolve devagar (227 min)', dir:'up', w:24 },
+      { t:'Aberto há 40 min', dir:'up', w:10 },
+      { t:'Sem reincidência no ativo', dir:'down', w:16 },
+      { t:'Fora do horário de pico', dir:'neu', w:8 }
+    ]},
+  { inc:'INC8642640', prod:'lvps', prio:'p3', pct:31, band:'low', aberto:'22min',
+    factors:[
+      { t:'Aberto há pouco tempo (22 min)', dir:'down', w:20 },
+      { t:'Sem histórico de quebra no ativo', dir:'down', w:15 },
+      { t:'Baixo volume no produto', dir:'down', w:12 },
+      { t:'Prioridade P3', dir:'up', w:11 }
+    ]}
+];
+
+const HEALTH = [
+  { prod:'lcem', pos:'01', min:22,  tier:'good', dot:'good', metric:'resolve rápido',       n:1240, viol:0.4, spark:[30,28,27,25,24,23,22] },
+  { prod:'lhco', pos:'02', min:64,  tier:'good', dot:'good', metric:'dentro do esperado',   n:980,  viol:0.9, spark:[71,70,68,66,65,63,64] },
+  { prod:'lsin', pos:'03', min:138, tier:'warn', dot:'warn', metric:'acima da média',        n:610,  viol:2.1, spark:[110,118,124,130,133,140,138] },
+  { prod:'lssl', pos:'04', min:227, tier:'crit', dot:'crit', metric:'resolve devagar',       n:430,  viol:3.8, spark:[182,196,206,214,222,230,227] },
+  { prod:'lvps', pos:'—',  min:null, tier:'neu', dot:'neu', metric:'baixo volume no período', n:38,  viol:null, spark:null },
+  { prod:'lrel', pos:'—',  min:null, tier:'neu', dot:'neu', metric:'baixo volume no período', n:21,  viol:null, spark:null }
+];
+
+const TIER_LABEL = { good:'saudável', warn:'atenção', crit:'crítico', neu:'dados insuficientes' };
+
+/* ═══ util count-up ═══ */
+function countUp(el, to, dur) {
+  if (REDUCE) { el.textContent = to.toLocaleString('pt-BR'); return; }
+  const start = performance.now();
+  const step = now => {
+    const t = Math.min(1, (now - start) / dur);
+    const e = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(to * e).toLocaleString('pt-BR');
+    if (t < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+function runCountUps(scope) {
+  scope.querySelectorAll('[data-count]').forEach(el => {
+    if (el.dataset.done) return;
+    el.dataset.done = '1';
+    countUp(el, parseInt(el.dataset.count, 10), 900);
+  });
+}
+function runFills(scope) {
+  scope.querySelectorAll('[data-fill]').forEach(el => {
+    requestAnimationFrame(() => { el.style.width = el.dataset.fill + '%'; });
+  });
+}
+
+/* ═══ tooltip global ═══ */
+const tip = document.createElement('div');
+tip.className = 'chart-tip';
+document.body.appendChild(tip);
+function showTip(html, x, y) { tip.innerHTML = html; tip.style.left = x + 'px'; tip.style.top = y + 'px'; tip.classList.add('on'); }
+function hideTip() { tip.classList.remove('on'); }
+
+/* ═══ gráfico de volume 30d + faixa D+1..D+7 (com tooltip) ═══ */
+const HIST = [58,63,55,61,66,33,26, 60,64,57,62,68,35,28, 59,65,58,63,70,34,27, 61,66,60,67,72,36,29, 62,67];
+const FORE = [56,64,69,35,27,60,66];
+// OLAs quebrados por dia — série real (dez/2025, KPI Violado? == SIM), alinhada aos 30 dias de HIST
+const OLA_HIST = [0,0,2,0,0,1,2,2,0,1, 0,0,2,1,0,0,1,0,0,3, 0,0,0,0,0,2,0,0,0,1];
+const charts = [];
+
+function makeVolChart(host) {
+  const W = 1000, H = 230, PAD_L = 42, PAD_R = 34, PAD_T = 16, PAD_B = 20;
+  const innerW = W - PAD_L - PAD_R, innerH = H - PAD_T - PAD_B;
+  const N = HIST.length + FORE.length;
+  const yMin = 0, yMax = 90, yRange = yMax - yMin;
+  const yOlaMax = 4; // eixo direito: OLAs quebrados/dia (0..4, alinhado às 3 linhas de grade)
+  const lastI = HIST.length - 1;
+  const x = i => PAD_L + (i / (N - 1)) * innerW;
+  const y = v => PAD_T + (1 - (Math.max(yMin, Math.min(yMax, v)) - yMin) / yRange) * innerH;
+  const yOla = v => PAD_T + (1 - Math.min(v, yOlaMax) / yOlaMax) * innerH;
+  const upper = FORE.map((v, i) => Math.round(v * (1 + (0.06 + i * 0.018))));
+  const lower = FORE.map((v, i) => Math.round(v * (1 - (0.06 + i * 0.018))));
+
+  // série p/ tooltip
+  const series = [];
+  for (let i = 0; i < HIST.length; i++) {
+    const back = lastI - i;
+    series.push({ type:'hist', v:HIST[i], ola:OLA_HIST[i], label: back === 0 ? 'hoje' : ('há ' + back + (back === 1 ? ' dia' : ' dias')) });
+  }
+  for (let i = 0; i < FORE.length; i++) series.push({ type:'fore', v:FORE[i], lo:lower[i], up:upper[i], label:'previsão · D+' + (i + 1) });
+
+  function render() {
+    const histPath = HIST.map((v, k) => `${k === 0 ? 'M' : 'L'} ${x(k)} ${y(v)}`).join(' ');
+    const forePath = `M ${x(lastI)} ${y(HIST[lastI])} ` + FORE.map((v, k) => `L ${x(HIST.length + k)} ${y(v)}`).join(' ');
+    const bandUp = `M ${x(lastI)} ${y(HIST[lastI])} ` + upper.map((v, k) => `L ${x(HIST.length + k)} ${y(v)}`).join(' ');
+    const bandDn = lower.slice().reverse().map((v, k) => `L ${x(HIST.length + lower.length - 1 - k)} ${y(v)}`).join(' ');
+    const band = `${bandUp} ${bandDn} Z`;
+    const baseY = H - PAD_B;
+    const histArea = `${histPath} L ${x(lastI)} ${baseY} L ${x(0)} ${baseY} Z`;
+
+    let grid = '';
+    for (let g = 0; g <= 2; g++) {
+      const t = g / 2, yPx = PAD_T + (1 - t) * innerH, val = Math.round(yRange * t);
+      const olaVal = Math.round(yOlaMax * t);
+      grid += `<line x1="${PAD_L}" y1="${yPx}" x2="${W - PAD_R}" y2="${yPx}" stroke="var(--hair)" stroke-width="1"/>`;
+      grid += `<text x="${PAD_L - 8}" y="${yPx + 3}" text-anchor="end" font-size="9.5" fill="var(--label-tertiary)" font-family="ui-monospace,monospace">${val}</text>`;
+      grid += `<text x="${W - PAD_R + 7}" y="${yPx + 3}" text-anchor="start" font-size="9.5" fill="var(--danger)" font-family="ui-monospace,monospace" opacity="0.85">${olaVal}</text>`;
+    }
+    const todayX = x(lastI);
+    // barras de OLAs quebrados/dia (eixo direito, vermelho) — só nos 30 dias históricos
+    const barW = Math.min(13, innerW / N * 0.55);
+    let olaBars = '';
+    for (let i = 0; i < HIST.length; i++) {
+      const ov = OLA_HIST[i]; if (!ov) continue;
+      const bx = x(i), by = yOla(ov), bh = (H - PAD_B) - by;
+      olaBars += `<rect x="${(bx - barW / 2).toFixed(1)}" y="${by.toFixed(1)}" width="${barW.toFixed(1)}" height="${bh.toFixed(1)}" rx="1.5" fill="var(--danger)" opacity="0.48"/>`;
+    }
+
+    host.innerHTML = `
+      <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="vHist" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2563EB" stop-opacity="0.24"/>
+            <stop offset="100%" stop-color="#2563EB" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        ${grid}
+        <path d="${histArea}" fill="url(#vHist)"/>
+        <path d="${band}" fill="rgba(37,99,235,0.14)"/>
+        ${olaBars}
+        <line x1="${todayX}" y1="${PAD_T}" x2="${todayX}" y2="${baseY}" stroke="var(--label-quaternary)" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
+        <path d="${histPath}" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="${forePath}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" opacity="0.6"/>
+        <circle cx="${todayX}" cy="${y(HIST[lastI])}" r="3.4" fill="var(--accent)" stroke="#fff" stroke-width="1.4"/>
+        <line class="hover-line" y1="${PAD_T}" y2="${baseY}" x1="0" x2="0"/>
+        <circle class="hover-dot" r="4" fill="var(--accent)" stroke="#fff" stroke-width="1.6" cx="0" cy="0"/>
+        <rect x="0" y="0" width="${W}" height="${H}" fill="transparent" class="hover-catch"/>
+      </svg>`;
+
+    const svg = host.querySelector('svg');
+    const hover = host.querySelector('.hover-line');
+    const dot = host.querySelector('.hover-dot');
+    svg.addEventListener('mousemove', e => {
+      const rect = svg.getBoundingClientRect();
+      const px = e.clientX - rect.left;
+      const ratio = (px - PAD_L * rect.width / W) / (innerW * rect.width / W);
+      const i = Math.max(0, Math.min(N - 1, Math.round(ratio * (N - 1))));
+      const xSvg = x(i);
+      const d = series[i];
+      hover.setAttribute('x1', xSvg); hover.setAttribute('x2', xSvg); hover.classList.add('on');
+      dot.setAttribute('cx', xSvg); dot.setAttribute('cy', y(d.v)); dot.classList.add('on');
+      dot.setAttribute('fill', d.type === 'fore' ? 'rgba(37,99,235,0.6)' : 'var(--accent)');
+      const xPx = rect.left + xSvg * rect.width / W;
+      const olaRow = d.ola > 0
+        ? `<div class="row"><span class="sw" style="background:var(--danger)"></span><span class="v">${d.ola}</span> OLA quebrada${d.ola > 1 ? 's' : ''}</div>`
+        : `<div class="row" style="color:rgba(255,255,255,0.6)">sem quebra de OLA</div>`;
+      const body = d.type === 'fore'
+        ? `<div class="lbl">${d.label}</div><div class="row"><span class="v">${d.v}</span> P2/P3 · faixa ${d.lo}–${d.up}</div>`
+        : `<div class="lbl">${d.label}</div><div class="row"><span class="sw" style="background:var(--accent)"></span><span class="v">${d.v}</span> incidentes P2/P3</div>${olaRow}`;
+      showTip(body, xPx, rect.top - 2);
+    });
+    svg.addEventListener('mouseleave', () => { hover.classList.remove('on'); dot.classList.remove('on'); hideTip(); });
+  }
+  return { render };
+}
+document.querySelectorAll('[data-chart="vol"]').forEach(host => {
+  const c = makeVolChart(host); charts.push(c); c.render();
+});
+
+/* ═══ listas de risco ═══ */
+function riskRowHTML(r, idx) {
+  return `<div class="risk-row" data-inc="${idx}">
+    <span class="risk-inc">${r.inc}</span>
+    <span class="risk-prod">${r.prod}</span>
+    <span><span class="prio ${r.prio}">${r.prio.toUpperCase()}</span></span>
+    <span class="risk-barcell"><span class="risk-bar ${r.band}"><i data-fill="${r.pct}"></i></span><span class="risk-pct">${r.pct}%</span></span>
+    <button class="ver-btn" data-inc="${idx}">ver</button>
+  </div>`;
+}
+(() => {
+  const host = document.getElementById('riskList');
+  const alto = INCIDENTS.map((r, i) => ({ r, i })).filter(o => o.r.pct >= 50);
+  const mod  = INCIDENTS.map((r, i) => ({ r, i })).filter(o => o.r.pct < 50);
+  host.innerHTML =
+    `<div class="risk-sub">${alto.length} de alto risco · risco ≥ 50%</div>` +
+    alto.map(o => riskRowHTML(o.r, o.i)).join('') +
+    (mod.length ? `<div class="risk-sub muted">demais abertos · risco moderado</div>` + mod.map(o => riskRowHTML(o.r, o.i)).join('') : '');
+})();
+(() => {
+  const host = document.getElementById('topRiskList');
+  host.innerHTML = INCIDENTS.slice(0, 3).map((r, i) => riskRowHTML(r, i)).join('');
+})();
+
+/* ═══ ranking de saúde ═══ */
+(() => {
+  const host = document.getElementById('healthList');
+  host.innerHTML = HEALTH.map((h, i) => {
+    const metric = h.min == null
+      ? `<span class="h-metric na">${h.metric}</span>`
+      : `<span class="h-metric"><strong>${h.min} min</strong> mediano · ${h.metric}</span>`;
+    return `<div class="health-row ${h.tier === 'neu' ? 'muted' : ''}" data-prod="${i}">
+      <span class="h-pos">${h.pos}</span>
+      <span class="h-prod"><span class="h-dot ${h.dot}"></span><span class="h-tag">${h.prod}</span></span>
+      ${metric}
+      <span class="tier ${h.tier}">${TIER_LABEL[h.tier]}</span>
+    </div>`;
+  }).join('');
+})();
+
+/* ═══ carga por equipe (dados reais do dataset) ═══ */
+/* volume · % do total · violações de OLA · classe de risco pela contagem de quebras */
+const TEAMS = [
+  { team:'Team14', av:'14', vol:92775, share:75.7, viol:10,  risk:'ok'   },
+  { team:'Team11', av:'11', vol:9790,  share:8.0,  viol:114, risk:'crit' },
+  { team:'Team05', av:'05', vol:9276,  share:7.6,  viol:13,  risk:'warn' },
+  { team:'Team09', av:'09', vol:3425,  share:2.8,  viol:56,  risk:'crit' },
+  { team:'Team12', av:'12', vol:2173,  share:1.8,  viol:8,   risk:'ok'   },
+  { team:'Team03', av:'03', vol:1306,  share:1.1,  viol:12,  risk:'warn' }
+];
+(() => {
+  const host = document.getElementById('teamGrid');
+  if (!host) return;
+  const fmtShare = s => s.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  host.innerHTML = TEAMS.map(t => `
+    <div class="team-cell">
+      <div class="team-cell-head">
+        <span class="team-cell-name"><span class="team-av">${t.av}</span>${t.team}</span>
+        <span class="team-viol ${t.risk}"><span class="vn">${t.viol}</span><span class="vl">OLA</span></span>
+      </div>
+      <div class="team-cell-bar"><i data-fill="${t.share}"></i></div>
+      <div class="team-cell-foot"><span class="vol">${t.vol.toLocaleString('pt-BR')} inc.</span><span class="pct">${fmtShare(t.share)}%</span></div>
+    </div>`).join('');
+})();
+
+/* ═══ heatmap hora × dia (volume real por dia-da-semana × hora, todo o período) ═══ */
+const HM_DAYS = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+const HM_MATRIX = [
+  [726,616,445,741,802,724,699,492,732,1044,1264,1028,906,871,875,1093,922,921,679,587,601,715,797,790],
+  [795,648,560,771,634,533,695,530,811,1302,1286,1076,1008,886,990,1022,920,1017,768,663,685,636,692,554],
+  [857,673,559,736,596,521,905,1073,831,1032,1053,1079,955,799,901,1120,1031,807,793,752,808,820,644,619],
+  [745,627,599,709,557,501,621,461,702,1016,942,887,894,843,937,1041,930,1053,980,632,714,716,614,1085],
+  [870,617,545,638,582,538,625,650,854,972,844,1170,912,899,954,953,826,729,708,615,658,695,649,667],
+  [875,724,552,825,762,592,649,477,523,593,523,569,506,473,535,460,434,434,630,524,565,863,681,663],
+  [741,708,616,712,641,568,692,470,543,469,444,485,436,417,432,435,402,438,461,474,481,487,504,563]
+];
+(() => {
+  const host = document.getElementById('heatmap');
+  if (!host) return;
+  let max = 0;
+  HM_MATRIX.forEach(r => r.forEach(v => { if (v > max) max = v; }));
+  const hours = ['00', '03', '06', '09', '12', '15', '18', '21'];
+  const axis = `<div class="hm-axis-top"><span></span><div class="hm-axis-hours">${hours.map(h => `<span>${h}</span>`).join('')}</div></div>`;
+  const rows = HM_MATRIX.map((row, di) => {
+    const cells = row.map((v, hr) => {
+      const alpha = (0.10 + 0.88 * Math.pow(v / max, 0.72)).toFixed(3);
+      const peak = (di <= 4 && hr >= 9 && hr <= 11) ? ' peak' : '';
+      return `<div class="hm-cell${peak}" style="background:rgba(37,99,235,${alpha})" title="${HM_DAYS[di]} ${hr}h · ${v.toLocaleString('pt-BR')} incidentes"></div>`;
+    }).join('');
+    return `<div class="hm-row"><span class="hm-day">${HM_DAYS[di]}</span><div class="hm-grid">${cells}</div></div>`;
+  }).join('');
+  host.innerHTML = axis + `<div class="hm-rows">${rows}</div>`;
+})();
+
+/* ═══ COMPONENTE A · calendário dez/2025 (dados reais do dataset) ═══ */
+/* volume e OLAs quebrados por dia · dez/2025 · portado da tela da Sprint 2 (dashboard.html) */
+(() => {
+  const CAL_VOL = {2:782,3:729,4:744,5:872,6:751,7:738,8:772,9:881,10:801,11:741,12:727,13:761,14:695,15:863,16:1076,17:1025,18:1005,19:839,20:984,21:1104,22:1370,23:1122,24:929,25:704,26:910,27:1027,28:829,29:921,30:866,31:755};
+  const CAL_OLA = {2:0,3:0,4:2,5:0,6:0,7:1,8:2,9:2,10:0,11:1,12:0,13:0,14:2,15:1,16:0,17:0,18:1,19:0,20:0,21:3,22:0,23:0,24:0,25:0,26:0,27:2,28:0,29:0,30:0,31:1};
+  const WD = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+  const MO = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+  const YEAR = 2025, MONTH = 11; // dez (0-based)
+  const colStart = (new Date(Date.UTC(YEAR, MONTH, 1)).getUTCDay() + 6) % 7; // Seg=0
+  const daysInMonth = new Date(Date.UTC(YEAR, MONTH + 1, 0)).getUTCDate();
+
+  function render(hostId, data, kind) {
+    const host = document.getElementById(hostId);
+    if (!host) return;
+    const rgb = kind === 'vol' ? '37,99,235' : '220,38,38';
+    let max = 1; Object.values(data).forEach(v => { if (v > max) max = v; });
+    const rows = Math.ceil((colStart + daysInMonth) / 7);
+    let html = '';
+    for (let s = 0; s < rows * 7; s++) {
+      const day = s - colStart + 1;
+      if (day < 1 || day > daysInMonth) { html += '<div class="cal-cell empty"></div>'; continue; }
+      const val = data[day];
+      if (val === undefined) { html += `<div class="cal-cell empty"><span class="cal-day on-light" style="opacity:0.35">${day}</span></div>`; continue; }
+      const alpha = val === 0 ? 0.06 : 0.16 + (val / max) * 0.78;
+      const bg = val === 0 ? 'var(--fill-soft)' : `rgba(${rgb},${alpha.toFixed(3)})`;
+      const txt = val === 0 ? 'on-light is-zero' : (alpha >= 0.5 ? 'on-dark' : 'on-light');
+      html += `<div class="cal-cell ${txt}" data-day="${day}" data-val="${val}" style="background:${bg}"><span class="cal-day">${day}</span><span class="cal-val">${val.toLocaleString('pt-BR')}</span></div>`;
+    }
+    host.innerHTML = html;
+    host.querySelectorAll('.cal-cell[data-day]').forEach(cell => {
+      cell.addEventListener('mouseenter', () => {
+        const day = +cell.dataset.day, val = +cell.dataset.val;
+        const wd = WD[new Date(Date.UTC(YEAR, MONTH, day)).getUTCDay()];
+        const r = cell.getBoundingClientRect();
+        const line = kind === 'vol'
+          ? `<span class="sw" style="background:rgb(${rgb})"></span><span class="v">${val.toLocaleString('pt-BR')}</span> incidentes`
+          : `<span class="sw" style="background:rgb(${rgb})"></span><span class="v">${val}</span> ${val === 1 ? 'quebra' : 'quebras'} de OLA`;
+        showTip(`<div class="lbl">${wd} · ${day}/${MO[MONTH]}/${YEAR}</div><div class="row">${line}</div>`, r.left + r.width / 2, r.top);
+      });
+      cell.addEventListener('mouseleave', hideTip);
+    });
+  }
+  render('calVol', CAL_VOL, 'vol');
+  render('calOla', CAL_OLA, 'ola');
+})();
+
+/* ═══ COMPONENTE B · régua de meta por prioridade (dados reais 2025) ═══ */
+/* Computado do dataset (aba "Dataset Geral"): elegíveis = "Entrou para KPI?"==SIM,
+   ano de "Aberto"==2025, quebra = "KPI Violado?"==SIM, prioridade por startswith("2")/("3").
+   Reais 2025 → quebras P2=42 (75%) · P3=196 (150%) · volume P2=5.159 (125%) · P3=19.997 (125%).
+   Âncoras duras batem (122.543 linhas; 25.600 elegíveis; 248 quebras totais, 238 em 2025; P2 vol 5.159).
+   HONESTIDADE: a âncora "quebras P3 ~100%" NÃO se sustenta — o total real de 2025 é 238 quebras,
+   o que fixa P3 em 196 (faixa <201 = 150%). Mantido o número real; nada maquiado. */
+const RUL_DATA = [
+  { tag: 'p2', name: 'P2 · Alta', metrics: [
+    { name: 'Quebras de OLA no ano', value: 42, unit: 'quebras', bands: [
+      { pct: 150, lo: 0, hi: 31, rng: '<31' }, { pct: 125, lo: 31, hi: 36, rng: '31–35' }, { pct: 100, lo: 36, hi: 40, rng: '36–39' },
+      { pct: 75, lo: 40, hi: 46, rng: '40–45' }, { pct: 50, lo: 46, hi: 54, rng: '46–53' }, { pct: 0, lo: 54, hi: 81, rng: '>53' } ] },
+    { name: 'Volume de incidentes tratados', value: 5159, unit: 'incidentes', bands: [
+      { pct: 150, lo: 0, hi: 4585, rng: '<4.585' }, { pct: 125, lo: 4585, hi: 5389, rng: '4.585–5.388' }, { pct: 100, lo: 5389, hi: 6169, rng: '5.389–6.168' },
+      { pct: 75, lo: 6169, hi: 6253, rng: '6.169–6.252' }, { pct: 50, lo: 6253, hi: 6337, rng: '6.253–6.336' }, { pct: 0, lo: 6337, hi: 9505, rng: '>6.336' } ] }
+  ]},
+  { tag: 'p3', name: 'P3 · Média', metrics: [
+    { name: 'Quebras de OLA no ano', value: 196, unit: 'quebras', bands: [
+      { pct: 150, lo: 0, hi: 201, rng: '<201' }, { pct: 125, lo: 201, hi: 231, rng: '201–230' }, { pct: 100, lo: 231, hi: 264, rng: '231–263' },
+      { pct: 75, lo: 264, hi: 291, rng: '264–290' }, { pct: 50, lo: 291, hi: 321, rng: '291–320' }, { pct: 0, lo: 321, hi: 481, rng: '>320' } ] },
+    { name: 'Volume de incidentes tratados', value: 19997, unit: 'incidentes', bands: [
+      { pct: 150, lo: 0, hi: 19489, rng: '<19.489' }, { pct: 125, lo: 19489, hi: 22117, rng: '19.489–22.116' }, { pct: 100, lo: 22117, hi: 22525, rng: '22.117–22.524' },
+      { pct: 75, lo: 22525, hi: 23893, rng: '22.525–23.892' }, { pct: 50, lo: 23893, hi: 24277, rng: '23.893–24.276' }, { pct: 0, lo: 24277, hi: 36414, rng: '>24.276' } ] }
+  ]}
+];
+function rulActiveIdx(m) {
+  for (let i = 0; i < m.bands.length; i++) { if (m.value < m.bands[i].hi || i === m.bands.length - 1) return i; }
+  return m.bands.length - 1;
+}
+function rulMarkerPos(m, idx) {
+  const b = m.bands[idx];
+  const within = Math.max(0, Math.min(1, (m.value - b.lo) / (b.hi - b.lo)));
+  return ((idx + within) / m.bands.length) * 100;
+}
+function rulHTML(m) {
+  const idx = rulActiveIdx(m), pct = m.bands[idx].pct, met = pct >= 100, pos = rulMarkerPos(m, idx);
+  const alphaMap = { 150: 0.13, 125: 0.09, 100: 0.05, 75: 0.05, 50: 0.10, 0: 0.15 };
+  const segs = m.bands.map(b => `<div class="rul-seg" style="background:rgba(${b.pct >= 100 ? '37,99,235' : '220,38,38'},${alphaMap[b.pct]})"></div>`).join('');
+  const scale = m.bands.map((b, i) => `<div class="rul-band ${i === idx ? 'active ' + (met ? 'met' : 'miss') : ''}"><span class="pct">${b.pct}%</span><span class="rng">${b.rng}</span></div>`).join('');
+  return `<div class="rul">
+    <div class="rul-top"><span class="rul-label">${m.name}</span>
+      <span class="rul-right"><span class="rul-val">${m.value.toLocaleString('pt-BR')}<span style="font-size:11px;color:var(--label-tertiary);font-weight:500;margin-left:3px">${m.unit}</span></span><span class="rul-badge ${met ? 'met' : 'miss'}">${pct}%</span></span>
+    </div>
+    <div class="rul-track"><div class="rul-bands">${segs}</div><div class="rul-meta"></div><div class="rul-marker ${met ? 'met' : 'miss'}" style="left:${pos.toFixed(2)}%"></div></div>
+    <div class="rul-scale">${scale}</div>
+  </div>`;
+}
+(() => {
+  const host = document.getElementById('rulers');
+  if (!host) return;
+  host.innerHTML = RUL_DATA.map(g => `
+    <div class="rul-group">
+      <div class="rul-ghead"><span class="rul-gtag ${g.tag}">${g.tag.toUpperCase()}</span><span class="rul-gname">${g.name}</span></div>
+      ${g.metrics.map(rulHTML).join('')}
+    </div>`).join('');
+})();
+/* scoreboard compacto (dashboard) — mesmos números, sem os desenhos de régua */
+(() => {
+  const host = document.getElementById('scoreGrid');
+  if (!host) return;
+  const cells = [];
+  RUL_DATA.forEach(g => g.metrics.forEach(m => {
+    const idx = rulActiveIdx(m), pct = m.bands[idx].pct, met = pct >= 100;
+    const short = m.unit === 'quebras' ? 'Quebras de OLA' : 'Volume tratado';
+    cells.push(`<div class="score-cell">
+      <span class="sc-lbl">${g.name} · ${short}</span>
+      <div class="sc-row"><span class="sc-val">${m.value.toLocaleString('pt-BR')}<span class="su">${m.unit}</span></span><span class="score-badge ${met ? 'met' : 'miss'}">${pct}%</span></div>
+    </div>`);
+  }));
+  host.innerHTML = cells.join('');
+})();
+
+/* ═══ MODAIS ═══ */
+const backdrop = document.getElementById('backdrop');
+let openEl = null;
+function openModal(el) {
+  if (openEl && openEl !== el) openEl.classList.remove('open');
+  openEl = el;
+  backdrop.classList.add('open');
+  el.classList.add('open');
+  runFills(el);
+}
+function closeModal() {
+  backdrop.classList.remove('open');
+  document.querySelectorAll('.modal.open').forEach(m => m.classList.remove('open'));
+  openEl = null;
+  hideTip();
+}
+backdrop.addEventListener('click', closeModal);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', closeModal));
+
+/* ── modal incidente ── */
+function openIncident(idx) {
+  const r = INCIDENTS[idx];
+  const maxW = Math.max.apply(null, r.factors.map(f => f.w));
+  const arrow = d => d === 'up' ? '↑' : d === 'down' ? '↓' : '~';
+  const facs = r.factors.map(f => `
+    <div class="fac-row">
+      <div class="fac-top"><span class="fac-label">${f.t}</span><span class="fac-w ${f.dir}">${arrow(f.dir)} ${f.dir === 'neu' ? 'neutro' : (f.dir === 'up' ? '+' : '−') + f.w + 'pp'}</span></div>
+      <div class="fac-bar ${f.dir}"><i data-fill="${Math.round(f.w / maxW * 100)}"></i></div>
+    </div>`).join('');
+  document.getElementById('incidentBody').innerHTML = `
+    <div class="mo-head">
+      <div>
+        <div class="mo-inc">${r.inc}</div>
+        <div class="mo-meta"><span class="mo-prod">${r.prod}</span><span class="prio ${r.prio}">${r.prio.toUpperCase()}</span><span class="an-badge" style="background:var(--chip-neutral)">aberto há ${r.aberto}</span></div>
+      </div>
+      <div class="mo-risk-badge"><div class="p ${r.band}">${r.pct}%</div><div class="pl">risco de violação</div></div>
+    </div>
+    <div class="mo-section-h"><span>Por que o risco é ${r.pct >= 50 ? 'alto' : 'moderado'}</span></div>
+    <div class="fac-list">${facs}</div>
+    <div class="mo-note">Contribuição de cada fator para a probabilidade estimada pelo modelo (estilo SHAP). <strong>↑</strong> empurra o risco pra cima, <strong>↓</strong> pra baixo, <strong>~</strong> é neutro. A previsão é uma estimativa com incerteza — não uma certeza.</div>`;
+  openModal(document.getElementById('incidentModal'));
+}
+
+/* ── modal produto ── */
+function sparkline(vals, color) {
+  const w = 460, h = 60, pad = 6;
+  const min = Math.min.apply(null, vals), max = Math.max.apply(null, vals), rng = (max - min) || 1;
+  const x = i => pad + i / (vals.length - 1) * (w - 2 * pad);
+  const y = v => pad + (1 - (v - min) / rng) * (h - 2 * pad);
+  const line = vals.map((v, i) => `${i ? 'L' : 'M'} ${x(i)} ${y(v)}`).join(' ');
+  const area = line + ` L ${x(vals.length - 1)} ${h - pad} L ${x(0)} ${h - pad} Z`;
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+    <path d="${area}" fill="${color}" opacity="0.14"/>
+    <path d="${line}" fill="none" stroke="${color}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="${x(vals.length - 1)}" cy="${y(vals[vals.length - 1])}" r="3.4" fill="${color}" stroke="#fff" stroke-width="1.4"/>
+  </svg>`;
+}
+function openProduct(idx) {
+  const h = HEALTH[idx];
+  const tierColor = h.tier === 'good' ? 'var(--success)' : h.tier === 'warn' ? 'var(--warning)' : h.tier === 'crit' ? 'var(--danger)' : 'var(--gray-4)';
+  const medianCell = h.min == null
+    ? `<div class="pm-metric"><div class="v na">insuficiente</div><div class="l">tempo mediano</div></div>`
+    : `<div class="pm-metric"><div class="v">${h.min}<span style="font-size:12px;color:var(--label-tertiary);font-weight:500"> min</span></div><div class="l">tempo mediano de resolução</div></div>`;
+  const violCell = h.viol == null
+    ? `<div class="pm-metric"><div class="v na">—</div><div class="l">taxa de violação</div></div>`
+    : `<div class="pm-metric"><div class="v">${h.viol}<span style="font-size:12px;color:var(--label-tertiary);font-weight:500">%</span></div><div class="l">taxa de violação de OLA</div></div>`;
+  const spark = h.spark
+    ? `<div style="margin-top:var(--space-5)"><div class="pm-spark-h">Tempo mediano · últimas 7 semanas</div><div class="pm-spark">${sparkline(h.spark, tierColor)}</div><div class="pm-spark-foot"><span>-7 sem</span><span>agora</span></div></div>`
+    : `<div class="mo-note" style="margin-top:var(--space-4)">Poucos incidentes no período (<strong>${h.n}</strong>) para uma estimativa confiável de tempo e tendência.</div>`;
+  document.getElementById('productBody').innerHTML = `
+    <div class="mo-head">
+      <div>
+        <div class="mo-inc" style="display:flex;align-items:center;gap:10px"><span class="h-dot ${h.dot}" style="width:11px;height:11px"></span>${h.prod}</div>
+        <div class="mo-meta"><span class="tier ${h.tier}">${TIER_LABEL[h.tier]}</span></div>
+      </div>
+      <div class="mo-risk-badge"></div>
+    </div>
+    <div class="pm-metrics">
+      ${medianCell}
+      <div class="pm-metric"><div class="v">${h.n.toLocaleString('pt-BR')}</div><div class="l">incidentes no período</div></div>
+      ${violCell}
+    </div>
+    ${spark}`;
+  openModal(document.getElementById('productModal'));
+}
+
+/* ── delegação de cliques ── */
+document.addEventListener('click', e => {
+  const risk = e.target.closest('[data-inc]');
+  if (risk) { openIncident(parseInt(risk.dataset.inc, 10)); return; }
+  const prod = e.target.closest('[data-prod]');
+  if (prod) { openProduct(parseInt(prod.dataset.prod, 10)); return; }
+});
+
+/* ═══ navegação de abas ═══ */
+const items = document.querySelectorAll('.sb-item[data-tab]');
+const panels = document.querySelectorAll('.panel[data-panel]');
+const crumb = document.getElementById('crumb');
+const NAMES = { dashboard:'Dashboard', risco:'Risco de OLA', saude:'Saúde & Volume', briefing:'Briefing' };
+function activate(tab) {
+  items.forEach(i => i.classList.toggle('active', i.dataset.tab === tab));
+  panels.forEach(p => {
+    const on = p.dataset.panel === tab;
+    p.classList.toggle('active', on);
+    if (on) {
+      p.classList.remove('anim'); void p.offsetWidth; p.classList.add('anim');
+      runCountUps(p); runFills(p);
+    }
+  });
+  if (NAMES[tab]) crumb.textContent = NAMES[tab];
+  document.querySelector('.content').scrollTop = 0;
+}
+items.forEach(i => i.addEventListener('click', () => activate(i.dataset.tab)));
+document.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', () => activate(b.dataset.goto)));
+
+/* ═══ briefing popup ═══ */
+document.getElementById('briefBtn').addEventListener('click', () => openModal(document.getElementById('briefModal')));
+document.getElementById('briefReportBtn').addEventListener('click', () => { closeModal(); activate('briefing'); });
+
+/* ═══ init ═══ */
+const dash = document.querySelector('.panel[data-panel="dashboard"]');
+runCountUps(dash); runFills(dash);
+// popup abre no load, com leve atraso
+setTimeout(() => { if (!openEl) openModal(document.getElementById('briefModal')); }, REDUCE ? 250 : 650);
+</script>
+
+</body>
+</html>
