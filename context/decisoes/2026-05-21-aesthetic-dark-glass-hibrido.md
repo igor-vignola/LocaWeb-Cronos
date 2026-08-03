@@ -38,7 +38,7 @@ Igor gostou de V1 e V5 e pediu meio-termo.
 - **Semânticas:** danger `#DC2626`, warning `#D97706`, success `#059669` (canonical do brand)
 - **Tipografia:** Outfit Sans + JetBrains Mono pra TODOS os números
 - **Mesh BG:** 2 blobs ESTÁTICOS (azul top-left + danger bottom-right) + grain texture. NUNCA animar — performance.
-- **Outer glow proibido**, com 2 exceções únicas: hero pulse dot + cascata predicted ring
+- **Outer glow proibido** — sem exceções (na Sprint 3 o Igor tirou os elementos pulsantes, e a cascata saiu do produto; o "hero pulse dot" e o "cascata predicted ring" não valem mais)
 
 ## Por quê
 

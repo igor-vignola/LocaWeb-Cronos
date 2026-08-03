@@ -21,7 +21,7 @@ construída: à medida que treinamos os modelos, ir **documentando em paralelo**
    e é proibido.
 2. **Mostrar o processo, não só o número.** Não basta reportar acurácia. Tem que constar:
    quais **modelos/métodos** usamos, **visualizações** de cada etapa, e a **justificativa
-   de cada escolha** (por que Prophet, por que DTW, por que essas features, etc.).
+   de cada escolha** (por que Prophet, por que regressão logística no risco, por que essas features, etc.).
 3. **Documentar em paralelo.** Enquanto construímos os notebooks, manter um `.md` de
    documentação vivo (candidato: `docs/sprint-3-mvp.md`) que registra o que fizemos e
    vira a base dos slides depois. O detalhe técnico fino vive no `.ipynb`; o `.md` é a
@@ -38,7 +38,7 @@ evita o retrabalho de "reconstruir o raciocínio" na hora de montar o PPT no fim
 
 ## Como aplicar
 
-- Ao fechar cada bloco de modelagem (EDA, features, Prophet, XGBoost, DTW, SHAP),
+- Ao fechar cada bloco de modelagem (EDA, features, Prophet, risco de OLA/logística, SHAP),
   registrar no `.md`: o que foi feito, o gráfico/saída, e o porquê da escolha.
 - Ao montar o PPT, expandir — 1 modelo pode virar 2-3 slides (setup, resultado, leitura).
 - Nunca resumir "pra caber". Se está longo, é sinal de que tem trabalho pra mostrar.

@@ -17,7 +17,7 @@ Em 21/05/2026 Igor decidiu refazer o design system do Cronos seguindo o **caminh
 2. **Harmony** — design concêntrico alinha entre elementos, sistema e dispositivos
 3. **Consistency** — convenções de plataforma, adapta a janelas/displays
 
-> Aplicado ao Cronos: a paleta canônica `#2563EB` + neutros é a **harmony**, a separação visual entre chrome (sidebar/topbar) e content layer (KPIs/cascata) é a **hierarchy**, e a aderência aos padrões web (⌘K search, kbd hints, hover states) é a **consistency**.
+> Aplicado ao Cronos: a paleta canônica `#2563EB` + neutros é a **harmony**, a separação visual entre chrome (sidebar/topbar) e content layer (KPIs/régua de risco) é a **hierarchy**, e a aderência aos padrões web (⌘K search, kbd hints, hover states) é a **consistency**.
 
 ---
 
@@ -37,7 +37,7 @@ Material **dinâmico** que unifica a linguagem visual entre plataformas Apple. F
 
 | Variant | Quando usar | Cronos applies onde |
 |---|---|---|
-| **Regular** | Quando background pode criar problema de legibilidade · componentes com muito texto (alerts, sidebars, popovers) | Sidebar, top bar, KPI cards, cascata signature |
+| **Regular** | Quando background pode criar problema de legibilidade · componentes com muito texto (alerts, sidebars, popovers) | Sidebar, top bar, KPI cards, régua de meta |
 | **Clear** | Sobre media/photos pra preservar visibilidade do conteúdo | Onboarding/hero rico, eventualmente over-chart overlays |
 
 ### Dimming layer pro Liquid Glass `clear`

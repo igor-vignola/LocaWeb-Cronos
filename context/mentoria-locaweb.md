@@ -51,6 +51,8 @@ Pedras de tropeço comuns que a Locaweb levantou:
 
 ## Padrão de cascata — VALIDADO pela Locaweb
 
+> **Atualização Sprint 3 (21/07/2026):** registro histórico da mentoria preservado abaixo. Ao testar no dado, a **escalada** (mesmo incidente virar P3/P2) foi **refutada** — 87% das quebras de OLA são de incidentes isolados; taxa de escalada 21% contra ~60% do acaso. O padrão de **acúmulo** que o Douglas descreveu não chegou a ser testado isoladamente. Decisão: cascata **fora do MVP** (ver `docs/sprint-3-mvp.md` → "Testado e descartado"). Não reescrevemos o que ele disse — só anotamos o resultado do teste.
+
 Confirmado tecnicamente: **incidentes P4/P5 frequentemente escalam para P3/P2**.
 
 **Exemplo real dado pelo Douglas:**

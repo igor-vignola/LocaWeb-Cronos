@@ -4,6 +4,19 @@ Este documento registra decisões já tomadas. Cada decisão tem motivo. **Não 
 
 ---
 
+## Atualização Sprint 3 — 21/07/2026 (vale isto)
+
+Ao treinar/testar os modelos no dado real, parte das decisões abaixo foi revista. O texto original segue preservado como registro, mas **prevalece o que está aqui:**
+
+- **Risco de OLA → regressão logística** (não XGBoost). Empata/supera o XGBoost (AUC ~0,80 vs ~0,79) e é mais explicável; XGBoost vira baseline comparado. Prophet segue para o volume.
+- **Clusterização DTW → descartada.** `TimeSeriesKMeans`+DTW deu silhueta ~0,13 (sem grupos reais). O requisito de classificação/clusterização é atendido pelo classificador de risco.
+- **Detector de cascata → descartado.** Escalada refutada no dado (87% das quebras são isoladas; escalada 21% vs ~60% do acaso); o padrão de acúmulo da mentoria não foi testado. Diferenciais atuais: morning briefing + score de saúde.
+- **Escopo temporal:** elegíveis ao KPI concentram-se em 2025 (~1 ano denso). Treino em 2025, sazonalidade semanal ligada, anual desligada.
+
+Evidências e detalhes: `docs/sprint-3-mvp.md`.
+
+---
+
 ## Stack aprovada
 
 ### Modelagem preditiva
@@ -71,7 +84,7 @@ Este documento registra decisões já tomadas. Cada decisão tem motivo. **Não 
 
 **Diferencial:** ninguém no mercado faz briefing escrito automático sob medida. Datadog, Splunk, Dynatrace mostram dashboard — não escrevem texto contextualizado.
 
-### 2. Detector de cascata
+### 2. Detector de cascata *(DESCARTADO na Sprint 3 — ver Atualização no topo)*
 
 **O que é:** monitora acúmulo de alertas pequenos (P4/P5) no mesmo produto/categoria que historicamente precedem falhas graves (P3/P2).
 
@@ -132,4 +145,4 @@ Estilo de referência: **dashboards de consumo (TIM, Unifique)** — interativo,
 
 ---
 
-*Última atualização: 14/05/2026*
+*Última atualização: 21/07/2026*

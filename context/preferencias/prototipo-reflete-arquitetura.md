@@ -29,16 +29,16 @@ Sem essa regra, Cronos vira "caixa preta que prevê" — não confiança. Com el
 
 Ao revisar/escrever qualquer entregável visual do Cronos (PPT, mockup, protótipo, slide), passar o checklist:
 
+> **Atualização 21/07/2026:** tabela ajustada ao que sobreviveu ao teste no dado — DTW e cascata saíram; risco de OLA é regressão logística; sem elementos pulsantes.
+
 | Decisão declarada na arquitetura | Manifestação visual obrigatória |
 |---|---|
-| Prophet (forecast com tendência+sazonalidade) | Intervalo de confiança visível (`73% ±8pp · 90% CI`) |
-| XGBoost com features temporais (lag, rolling, dia_semana, is_feriado) | — (cobertura indireta via dashboard) |
-| SHAP / explicabilidade | Decomposição "POR QUE" no card de previsão, com pesos % de cada feature |
-| TimeSeriesKMeans + DTW | Bloco "produtos correlatos" mostrando agrupamento + % chance de serem arrastados pela cascata |
-| Claude API pra alertas + morning brief | Eyebrow `· IA` ou `GERADO POR IA` no texto |
-| Detector de cascata | Fluxo P5→P4→P3 com nó P2 previsto pulsando (tracejado) |
+| Prophet (volume D+1/D+7, P2 e P3) | Previsão em faixa + nível de confiança (nunca número cravado) |
+| Regressão logística (risco de OLA por incidente) | Card de risco com probabilidade + triagem (top X% que concentra as quebras) |
+| SHAP / explicabilidade | Decomposição "POR QUE" no card do incidente, com peso de cada fator (fatores reais do dado) |
+| Régua de meta por prioridade | Faixas oficiais da Locaweb + posição real (P2/P3, quebras e volume) |
+| Claude API pra alertas + morning brief | Conteúdo marcado como sugestão de IA |
 | Score de saúde 0-100 | Visível com decomposição (peso de cada fator no hover/click) |
-| KPI mensal com janela de ação | Countdown explícito (`38h até decisão impossível`) |
 | Holidays BR via lib `holidays` | Marker visual em dias de feriado nos gráficos |
 | Docker entrega | (não tem manifestação visual — é deploy) |
 

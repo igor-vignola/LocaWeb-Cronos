@@ -10,7 +10,7 @@ Para detalhes específicos, consulte a pasta `context/`.
 
 ## O projeto
 
-**Cronos** é um sistema de inteligência preditiva para incidentes operacionais da Locaweb. Transforma 3 anos de dados (122.543 incidentes) em previsões e alertas automáticos para antecipar violações de OLA e apoiar a tomada de decisão operacional.
+**Cronos** é um sistema de inteligência preditiva para incidentes operacionais da Locaweb. Transforma o histórico operacional (122.543 incidentes registrados; a base elegível ao KPI concentra-se em 2025) em previsões e alertas automáticos para antecipar violações de OLA e apoiar a tomada de decisão operacional.
 
 Domínio: **AIOps** — previsão de incidentes e tendências operacionais usando ML.
 
@@ -31,8 +31,8 @@ Domínio: **AIOps** — previsão de incidentes e tendências operacionais usand
 | Sprint | Tema | Entrega | Status |
 |--------|------|---------|--------|
 | 1 | Ideação | 27/04/2026 | ✅ Entregue · **nota 5.00/5.00** |
-| 2 | Arquitetura | 24/05/2026 | 🚧 **EM ANDAMENTO** |
-| 3 | MVP Preliminar | 23/08/2026 | ⏳ Futuro |
+| 2 | Arquitetura | 24/05/2026 | ✅ Entregue · **nota 5.00/5.00** |
+| 3 | MVP Preliminar | 23/08/2026 | 🚧 **EM ANDAMENTO** (modelagem) |
 | 4 | Solução Final | 08/09/2026 | ⏳ Futuro |
 
 Detalhes em `context/sprints/` e `context/status.md`.
@@ -43,10 +43,10 @@ Detalhes em `context/sprints/` e `context/status.md`.
 
 Estas decisões já estão tomadas. **Não revisitar sem motivo forte.**
 
-1. **NÃO usar ARIMA/SARIMA** — é problema de série temporal. Stack aprovada: **Prophet + XGBoost** com features temporais (lag 1/7/30d, rolling 7d, dia_semana, is_feriado).
-2. **NÃO usar K-Means puro** para clusterização — padrões podem estar deslocados no tempo. Usar **`TimeSeriesKMeans` com `metric='dtw'`** (tslearn).
+1. **NÃO usar ARIMA/SARIMA.** Previsão de volume: **Prophet** (features de calendário `dia_semana` + `is_feriado`; treino em 2025, sazonalidade semanal ligada e anual desligada). Risco de OLA: **regressão logística** — empata/supera o XGBoost (AUC ~0,80 vs ~0,79) e é mais explicável; XGBoost fica como baseline de comparação.
+2. **Clusterização DTW testada e DESCARTADA** — `TimeSeriesKMeans` com `metric='dtw'` deu silhueta ~0,13 (sem grupos reais). O requisito de "classificação ou clusterização" do desafio é atendido pelo **classificador de risco de OLA**. Não reabrir DTW nem K-Means sem novo motivo.
 3. **NÃO usar Streamlit** — todo mundo usou ano passado. **Django** é mandatório.
-4. **Apenas incidente PAI conta para KPI.** Filtrar (`Incidente Pai` vazio) antes de modelar OLA — confirmado pela Locaweb.
+4. **Filtro de elegibilidade ao KPI: usar o campo oficial `Entrou para KPI? == 'SIM'`.** Ele já codifica as três regras juntas: prioridade 1/2/3, `Incidente Pai` vazio e `Status ≠ "Sem Intervenção"`. Resultado: **25.600 elegíveis** (21% de 122.543). Atenção: filtrar apenas por `Incidente Pai` vazio devolve 107.416 registros (88% da base) e está errado. Confirmado pela Locaweb e implementado no `notebooks/02_base_kpi.ipynb`.
 5. **Solução agnóstica de cloud provider.** A Locaweb É uma cloud — não amarrar a AWS/GCP/Azure. Usar apenas serviços portáveis.
 6. **Entrega via Docker.** Facilita Locaweb pegar e rodar.
 7. **Feriados não estão no dataset** — engineering via lib `holidays` BR ou `country_holidays='BR'` do Prophet.
@@ -55,11 +55,12 @@ Estas decisões já estão tomadas. **Não revisitar sem motivo forte.**
 
 ---
 
-## Os 3 diferenciais do produto
+## Os diferenciais do produto
 
 1. **Morning briefing** — resumo automático (Ontem / Hoje / Ações sugeridas) com botão "ver detalhes" para relatório completo. Aparece proativamente, não espera consulta.
-2. **Detector de cascata** — monitora acúmulo de alertas pequenos (P4/P5) que historicamente precedem falhas graves (P3/P2). **Padrão validado pela Locaweb na mentoria.**
-3. **Score de saúde por produto** — nota 0-100 por produto com ranking, tendência e explicabilidade.
+2. **Score de saúde por produto** — nota 0-100 por produto com ranking, tendência e explicabilidade.
+
+> **Descartado na Sprint 3:** o "detector de cascata" era o 2º diferencial (Sprint 1/2). Ao testar no dado, a **escalada** foi refutada — 87% das quebras de OLA são de incidentes isolados; taxa de escalada 21% contra ~60% do acaso. O padrão de **acúmulo** citado pela Locaweb na mentoria foi testado em 29/07/2026 e também não se sustentou (backlog diário × quebras: r = -0,139 em dias úteis). Fora do MVP. Ver `docs/sprint-3-mvp.md` → "Testado e descartado".
 
 ---
 
@@ -87,7 +88,6 @@ Igor revisa e aprova cada componente antes de avançar. Não pular etapas de val
 ```
 Challenge-LocaWeb/
 ├── CLAUDE.md                  ← este arquivo
-├── README.md                  ← apresentação pública do projeto
 ├── .gitignore
 ├── .claude/
 │   └── skills/                ← skills carregadas sob demanda
@@ -104,10 +104,11 @@ Challenge-LocaWeb/
 │       └── 02-arquitetura.md
 ├── assets/                    ← arquivos da FIAP/Locaweb (read-only)
 │   ├── briefings/
-│   └── locaweb/
+│   ├── locaweb/
+│   └── Materal LocalWeb/LW-DATASET.xlsx  ← dataset oficial (o nome da pasta tem typo mesmo)
 ├── brand/                     ← identidade visual do Cronos
 ├── data/
-│   └── raw/LWDATASET.xlsx     ← versionado (anonimizado)
+│   └── interim/incidentes_kpi.parquet   ← base filtrada (gerada pelo 02_base_kpi)
 ├── notebooks/                 ← AED, features, modelagem (Sprint 2+)
 └── sprints/                   ← entregáveis .pptx
     ├── sprint-1/
@@ -174,4 +175,4 @@ Quando precisar de algo além desta visão geral:
 
 ---
 
-*Última atualização: 14/05/2026*
+*Última atualização: 21/07/2026*
