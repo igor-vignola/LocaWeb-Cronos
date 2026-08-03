@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>S1 hero</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+:root{--accent:#2563EB;--accent2:#3B82F6;--accent-l:#EFF6FF;--danger:#DC2626;--ink:#0A0E17;
+ --g2:#525252;--g3:#737373;--g4:#A3A3A3;--g6:#E5E5E5;--g8:#F7F7F7;--font:'Outfit',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased}
+.slide{width:1600px;height:900px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.grid-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+/* temas */
+.dark{background:var(--ink);color:#E8ECF3}
+.dark .grid-bg{background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:44px 44px}
+.dark .mesh{position:absolute;inset:0;z-index:0;background:radial-gradient(1000px 640px at 8% -8%,rgba(37,99,235,.26),transparent 55%),radial-gradient(820px 600px at 112% 112%,rgba(37,99,235,.12),transparent 55%)}
+.light{background:#fff;color:#111}
+.light .mesh{position:absolute;inset:0;z-index:0;background:radial-gradient(1100px 700px at 92% -12%,rgba(37,99,235,.16),transparent 55%),radial-gradient(760px 560px at -8% 108%,rgba(37,99,235,.10),transparent 58%)}
+.light .grid-bg{background-image:linear-gradient(rgba(17,24,39,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(17,24,39,.025) 1px,transparent 1px);background-size:44px 44px}
+/* header */
+.hd{position:relative;z-index:2;display:flex;align-items:center;gap:11px;padding:40px 60px 0}
+.hd .bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.dark .hd .bi{background:#fff}.light .hd .bi{background:var(--ink)}
+.hd .bi svg{width:19px;height:19px}
+.hd .bn{font-size:18px;font-weight:800;letter-spacing:-.3px}.dark .hd .bn{color:#fff}.light .hd .bn{color:#000}
+.hd .tag{margin-left:auto;font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:7px 15px;border-radius:999px}
+.dark .hd .tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#B8C0CE}
+.light .hd .tag{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);color:var(--accent)}
+.body{position:relative;z-index:2;flex:1;padding:26px 60px 54px;display:flex;flex-direction:column;min-height:0}
+/* eyebrow SEM mono — Outfit uppercase */
+.eb{font-size:14px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase}
+.dark .eb{color:var(--accent2)}.light .eb{color:var(--accent)}
+.tt{font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1.02;margin-top:14px}
+.dark .tt{color:#fff}.tt .hl{color:var(--accent2)}.light .tt .hl{color:var(--accent)}
+.lead{font-size:19px;line-height:1.5;margin-top:18px;max-width:640px}
+.dark .lead{color:#98A2B3}.light .lead{color:#5b6472}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+.s1 .body{justify-content:center}.s1 .tt{font-size:60px}
+.s1 .split{margin-top:auto;display:flex;flex-direction:column;gap:16px;max-width:940px}
+.s1 .bar-row{display:flex;align-items:center;gap:18px}
+.s1 .bar-ic{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.s1 .bar-ic svg{width:26px;height:26px}
+.s1 .track{flex:1;height:56px;border-radius:12px;background:rgba(255,255,255,.05);overflow:hidden;position:relative}
+.s1 .fill{height:100%;border-radius:12px;display:flex;align-items:center;padding:0 22px;gap:14px}
+.s1 .fill .pct{font-size:26px;font-weight:800;color:#fff;letter-spacing:-1px}
+.s1 .fill .lbl{font-size:16px;font-weight:600}
+.s1 .cnt{font-size:15px;color:#8E97A8;width:150px;text-align:right;flex-shrink:0}
+</style></head><body><div class="slide dark s1"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><div class="tag">Análise · Operação</div></div>
+<div class="body">
+  <div class="eb">Exploração · a operação real</div>
+  <div class="tt">A operação é <span class="hl">85% automática</span></div>
+  <div class="lead">A maior parte dos incidentes vem do monitoramento e fecha sozinha. O que exige mão humana é o que realmente pesa no KPI.</div>
+  <div class="split">
+    <div class="bar-row">
+      <div class="bar-ic" style="background:var(--accent)"><span class="ic" style="color:#fff"><span class="ic"><svg viewBox="0 0 24 24"><path d="M2 12h4l2.5-7 4 14 2.5-7h6"/></svg></span></span></div>
+      <div class="track"><div class="fill" style="width:85%;background:linear-gradient(90deg,#2563EB,#1D4ED8)"><span class="pct">85%</span><span class="lbl" style="color:#DBEAFE">Monitoramento</span></div></div>
+      <div class="cnt">104.298 incidentes</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-ic" style="background:rgba(255,255,255,.08)"><span class="ic" style="color:#C4CBD8"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></span></span></div>
+      <div class="track"><div class="fill" style="width:15%;background:rgba(255,255,255,.14)"><span class="pct">15%</span></div></div>
+      <div class="cnt">18.244 · Manual</div>
+    </div>
+  </div>
+</div></div></body></html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>08 P2 P3</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+:root{--accent:#2563EB;--accent2:#3B82F6;--accent3:#60A5FA;--accent-l:#EFF6FF;
+ --good:#15A05B;--good-l:#E7F6EE;--warn:#D9930B;--warn-l:#FBF1DC;--bad:#DC2626;--bad-l:#FCECEC;
+ --ink:#0A0E17;--pg:#F4F7FC;--line:#E5EAF1;--tx:#4A5568;--tx2:#6B7688;--head:#0B1220;
+ --font:'Outfit',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.slide{width:1600px;height:900px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.mesh,.grid-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+/* DARK (divisorias) */
+.dark{background:var(--ink);color:#E8ECF3}
+.dark .grid-bg{background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:48px 48px}
+.dark .mesh{background:radial-gradient(1100px 680px at 4% -12%,rgba(37,99,235,.3),transparent 55%),radial-gradient(900px 640px at 116% 118%,rgba(37,99,235,.16),transparent 55%)}
+/* LIGHT (conteudo) — branco com gradiente azul rico */
+.light{background:var(--pg);color:var(--head)}
+.light .mesh{background:radial-gradient(1200px 760px at 100% -16%,rgba(37,99,235,.16),transparent 54%),radial-gradient(880px 640px at -12% 112%,rgba(37,99,235,.10),transparent 56%),radial-gradient(700px 520px at 50% -30%,rgba(96,165,250,.10),transparent 60%)}
+.light .grid-bg{background-image:linear-gradient(rgba(17,24,39,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(17,24,39,.026) 1px,transparent 1px);background-size:48px 48px}
+/* header */
+.hd{position:relative;z-index:3;display:flex;align-items:center;gap:11px;padding:40px 64px 0}
+.hd .bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.dark .hd .bi{background:#fff}.light .hd .bi{background:var(--ink)}
+.hd .bi svg{width:19px;height:19px}
+.hd .bn{font-size:18px;font-weight:800;letter-spacing:-.3px}.dark .hd .bn{color:#fff}.light .hd .bn{color:#000}
+.hd .bt{font-size:13px;font-weight:600;letter-spacing:1.5px;margin-left:2px}.dark .hd .bt{color:#5b647a}.light .hd .bt{color:#9AA6B6}
+.hd .tag{margin-left:auto;font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:7px 15px;border-radius:999px}
+.dark .hd .tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#B8C0CE}
+.light .hd .tag{background:#fff;border:1px solid var(--line);color:var(--accent);box-shadow:0 4px 14px -8px rgba(37,99,235,.3)}
+.body{position:relative;z-index:2;flex:1;padding:24px 64px 46px;display:flex;flex-direction:column;min-height:0}
+/* tipografia */
+.eb{display:inline-flex;align-items:center;gap:12px;font-size:13.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+.dark .eb{color:var(--accent3)}.light .eb{color:var(--accent)}
+.eb::before{content:'';width:26px;height:2px;border-radius:2px;background:currentColor;opacity:.7}
+.tt{font-size:40px;font-weight:800;letter-spacing:-1.4px;line-height:1.05;margin-top:14px}
+.dark .tt{color:#fff}.light .tt{color:var(--head)}.tt .hl{color:var(--accent)}.dark .tt .hl{color:var(--accent2)}
+.lead{font-size:18px;line-height:1.5;margin-top:14px;max-width:720px}
+.dark .lead{color:#98A2B3}.light .lead{color:var(--tx)}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.num{font-variant-numeric:tabular-nums}
+b,strong{font-weight:700}
+/* verdict pill */
+.vp{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:999px;letter-spacing:.2px}
+.vp .ic{width:14px;height:14px}.vp .ic svg{width:14px;height:14px;stroke-width:2.4}
+.vp.good{background:var(--good-l);color:var(--good)}
+.vp.warn{background:var(--warn-l);color:var(--warn)}
+.vp.bad{background:var(--bad-l);color:var(--bad)}
+.vp.focus{background:var(--accent-l);color:var(--accent)}
+.vp.ctx{background:#EEF2F7;color:var(--tx2)}
+.dark .vp.good{background:rgba(21,160,91,.16);color:#4ADE80}.dark .vp.bad{background:rgba(220,38,38,.16);color:#F87171}
+.dark .vp.focus{background:rgba(37,99,235,.18);color:#93C5FD}.dark .vp.ctx{background:rgba(255,255,255,.07);color:#9AA6B6}
+
+.q8 .body{padding-top:16px}.q8 .tt{font-size:38px}
+.q8 .row{flex:1;display:flex;gap:26px;margin-top:20px;min-height:0}
+.q8 .pan{flex:1;background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px 32px;display:flex;flex-direction:column;box-shadow:0 18px 44px -26px rgba(15,23,42,.22)}
+.q8 .ph{display:flex;align-items:baseline;gap:14px}
+.q8 .ph .pp{font-size:22px;font-weight:800;color:var(--head)}
+.q8 .ph .pt{font-size:14px;font-weight:600;color:var(--tx2);margin-left:auto}
+.q8 .pbig{display:flex;align-items:baseline;gap:12px;margin-top:16px}
+.q8 .pbig .n{font-size:60px;font-weight:900;letter-spacing:-3px;line-height:1;color:var(--accent)}
+.q8 .pbig .u{font-size:17px;color:var(--tx2)}
+.q8 .psub{font-size:14.5px;color:var(--tx);margin-top:4px}
+.q8 .chart{margin-top:18px;height:150px;flex:1}
+.q8 .band{margin-top:14px;display:flex;align-items:center;gap:10px;font-size:14px;color:var(--tx)}
+.q8 .band .vp{flex-shrink:0}
+.q8 .why{margin-top:20px;background:var(--accent-l);border:1px solid rgba(37,99,235,.2);border-radius:14px;padding:16px 20px;font-size:15.5px;color:#1e3a8a;line-height:1.45}
+.q8 .why b{color:var(--accent)}
+
+.chart{width:100%;height:100%;display:block;overflow:visible}
+.gl{stroke:rgba(17,24,39,.08)}.dark .gl{stroke:rgba(255,255,255,.07)}
+.ax{font:600 12px var(--font);fill:#94A3B8}
+.bv{font:800 17px var(--font);fill:var(--head)}.dark .bv{fill:#fff}
+.bl{font:600 13px var(--font);fill:#64748B}
+.mplfig{max-width:100%;max-height:100%;display:block;margin:auto;object-fit:contain}
+</style></head><body><div class="slide light q8"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Modelagem · O alvo</div></div><div class="body">
+      <div class="eb">As duas séries que vamos prever</div>
+      <div class="tt">P2 e P3 têm tamanhos diferentes, então viram séries separadas</div>
+      <div class="row">
+        <div class="pan"><div class="ph"><span class="pp">P3 · Média</span><span class="pt">19.997 casos no ano</span></div>
+          <div class="pbig"><span class="n num">~55</span><span class="u">incidentes por dia</span></div>
+          <div class="psub">O grosso do volume que vale pra meta.</div>
+          <svg viewBox="0 0 470 170" class="chart"><line x1="46" y1="152.0" x2="456" y2="152.0" stroke="rgba(17,24,39,.08)" stroke-width="1"/><text x="37" y="156.0" text-anchor="end" style="font:600 11px var(--font);fill:#94A3B8">0</text><line x1="46" y1="65.8" x2="456" y2="65.8" stroke="rgba(17,24,39,.08)" stroke-width="1"/><text x="37" y="69.8" text-anchor="end" style="font:600 11px var(--font);fill:#94A3B8">55</text><polygon points="46.0,44.2 61.2,38.1 76.4,41.6 91.6,42.5 106.7,50.2 121.9,96.8 137.1,105.4 152.3,44.2 167.5,38.1 182.7,41.6 197.9,42.5 213.0,50.2 228.2,96.8 243.4,105.4 258.6,44.2 273.8,38.1 289.0,41.6 304.1,42.5 319.3,50.2 334.5,96.8 349.7,105.4 364.9,44.2 380.1,38.1 395.3,41.6 410.4,42.5 425.6,50.2 440.8,96.8 456.0,105.4 456.0,139.9 440.8,131.3 425.6,84.7 410.4,77.0 395.3,76.1 380.1,72.6 364.9,78.7 349.7,139.9 334.5,131.3 319.3,84.7 304.1,77.0 289.0,76.1 273.8,72.6 258.6,78.7 243.4,139.9 228.2,131.3 213.0,84.7 197.9,77.0 182.7,76.1 167.5,72.6 152.3,78.7 137.1,139.9 121.9,131.3 106.7,84.7 91.6,77.0 76.4,76.1 61.2,72.6 46.0,78.7" fill="#2563EB" fill-opacity=".15"/><line x1="46" y1="65.8" x2="456" y2="65.8" stroke="#2563EB" stroke-opacity=".45" stroke-width="1.4" stroke-dasharray="4 4"/><polyline points="46.0,61.4 61.2,55.4 76.4,58.8 91.6,59.7 106.7,67.5 121.9,114.1 137.1,122.7 152.3,61.4 167.5,55.4 182.7,58.8 197.9,59.7 213.0,67.5 228.2,114.1 243.4,122.7 258.6,61.4 273.8,55.4 289.0,58.8 304.1,59.7 319.3,67.5 334.5,114.1 349.7,122.7 364.9,61.4 380.1,55.4 395.3,58.8 410.4,59.7 425.6,67.5 440.8,114.1 456.0,122.7" fill="none" stroke="#2563EB" stroke-width="2.6" stroke-linejoin="round"/><line x1="46" y1="152.0" x2="456" y2="152.0" stroke="rgba(17,24,39,.14)" stroke-width="1.2"/><text x="91.6" y="167.0" text-anchor="middle" style="font:600 10.5px var(--font);fill:#94A3B8">sem 1</text><text x="197.9" y="167.0" text-anchor="middle" style="font:600 10.5px var(--font);fill:#94A3B8">sem 2</text><text x="304.1" y="167.0" text-anchor="middle" style="font:600 10.5px var(--font);fill:#94A3B8">sem 3</text><text x="410.4" y="167.0" text-anchor="middle" style="font:600 10.5px var(--font);fill:#94A3B8">sem 4</text><text x="456" y="58.8" text-anchor="end" style="font:700 11px var(--font);fill:#2563EB">média 55/dia</text></svg>
+          <div class="band"><span class="vp focus">erro médio · 11/dia</span><span>erro médio (MAE) do modelo em D+1 a D+7</span></div>
+        </div>
+        <div class="pan"><div class="ph"><span class="pp">P2 · Alta</span><span class="pt">5.159 casos no ano</span></div>
+          <div class="pbig"><span class="n num" style="color:#60A5FA">~14</span><span class="u">incidentes por dia</span></div>
+          <div class="psub">Quatro vezes menor. Some dentro do P3 se juntar tudo.</div>
+          <svg viewBox="0 0 470 170" class="chart"><line x1="46" y1="152.0" x2="456" y2="152.0" stroke="rgba(17,24,39,.08)" stroke-width="1"/><text x="37" y="156.0" text-anchor="end" style="font:600 11px var(--font);fill:#94A3B8">0</text><line x1="46" y1="65.8" x2="456" y2="65.8" stroke="rgba(17,24,39,.08)" stroke-width="1"/><text x="37" y="69.8" text-anchor="end" style="font:600 11px var(--font);fill:#94A3B8">14</text><polygon points="46.0,35.6 61.2,29.5 76.4,33.0 91.6,33.8 106.7,41.6 121.9,88.2 137.1,96.8 152.3,35.6 167.5,29.5 182.7,33.0 197.9,33.8 213.0,41.6 228.2,88.2 243.4,96.8 258.6,35.6 273.8,29.5 289.0,33.0 304.1,33.8 319.3,41.6 334.5,88.2 349.7,96.8 364.9,35.6 380.1,29.5 395.3,33.0 410.4,33.8 425.6,41.6 440.8,88.2 456.0,96.8 456.0,148.5 440.8,139.9 425.6,93.4 410.4,85.6 395.3,84.7 380.1,81.3 364.9,87.3 349.7,148.5 334.5,139.9 319.3,93.4 304.1,85.6 289.0,84.7 273.8,81.3 258.6,87.3 243.4,148.5 228.2,139.9 213.0,93.4 197.9,85.6 182.7,84.7 167.5,81.3 152.3,87.3 137.1,148.5 121.9,139.9 106.7,93.4 91.6,85.6 76.4,84.7 61.2,81.3 46.0,87.3" fill="#60A5FA" fill-opacity=".15"/><line x1="46" y1="65.8" x2="456" y2="65.8" stroke="#60A5FA" stroke-opacity=".45" stroke-width="1.4" stroke-dasharray="4 4"/><polyline points="46.0,61.4 61.2,55.4 76.4,58.9 91.6,59.7 106.7,67.5 121.9,114.1 137.1,122.7 152.3,61.4 167.5,55.4 182.7,58.9 197.9,59.7 213.0,67.5 228.2,114.1 243.4,122.7 258.6,61.4 273.8,55.4 289.0,58.9 304.1,59.7 319.3,67.5 334.5,114.1 349.7,122.7 364.9,61.4 380.1,55.4 395.3,58.9 410.4,59.7 425.6,67.5 440.8,114.1 456.0,122.7" fill="none" stroke="#60A5FA" stroke-width="2.6" stroke-linejoin="round"/><line x1="46" y1="152.0" x2="456" y2="152.0" stroke="rgba(17,24,39,.14)" stroke-width="1.2"/><text x="91.6" y="167.0" text-anchor="middle" style="font:600 10.5px var(--font);fill:#94A3B8">sem 1</text><text x="197.9" y="167.0" text-anchor="middle" style="font:600 10.5px var(--font);fill:#94A3B8">sem 2</text><text x="304.1" y="167.0" text-anchor="middle" style="font:600 10.5px var(--font);fill:#94A3B8">sem 3</text><text x="410.4" y="167.0" text-anchor="middle" style="font:600 10.5px var(--font);fill:#94A3B8">sem 4</text><text x="456" y="58.8" text-anchor="end" style="font:700 11px var(--font);fill:#60A5FA">média 14/dia</text></svg>
+          <div class="band"><span class="vp focus">erro médio · 4/dia</span><span>erro médio (MAE) do modelo em D+1 a D+7</span></div>
+        </div>
+      </div>
+      <div class="why">Por isso o Cronos treina <b>uma série para cada prioridade</b> e soma as duas na tela. Assim o P2, que é pequeno, não desaparece dentro do P3.</div>
+    </div></div></body></html>

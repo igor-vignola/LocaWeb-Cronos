@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>13 Resultado barras</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+:root{--accent:#2563EB;--accent2:#3B82F6;--accent3:#60A5FA;--accent-l:#EFF6FF;
+ --danger:#DC2626;--warn:#E0A82E;--ink:#0A0E17;--font:'Outfit',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.slide{width:1600px;height:900px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.mesh,.grid-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.dark{background:var(--ink);color:#E8ECF3}
+.dark .grid-bg{background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:46px 46px}
+.dark .mesh{background:radial-gradient(1000px 640px at 6% -10%,rgba(37,99,235,.26),transparent 55%),radial-gradient(820px 620px at 114% 116%,rgba(37,99,235,.13),transparent 55%)}
+.light{background:#F5F7FB;color:#111}
+.light .mesh{background:radial-gradient(1120px 720px at 94% -14%,rgba(37,99,235,.14),transparent 56%),radial-gradient(780px 580px at -10% 110%,rgba(37,99,235,.08),transparent 58%)}
+.light .grid-bg{background-image:linear-gradient(rgba(17,24,39,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(17,24,39,.028) 1px,transparent 1px);background-size:46px 46px}
+/* header */
+.hd{position:relative;z-index:3;display:flex;align-items:center;gap:11px;padding:38px 60px 0}
+.hd .bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.dark .hd .bi{background:#fff}.light .hd .bi{background:var(--ink)}
+.hd .bi svg{width:19px;height:19px}
+.hd .bn{font-size:18px;font-weight:800;letter-spacing:-.3px}.dark .hd .bn{color:#fff}.light .hd .bn{color:#000}
+.hd .tag{margin-left:auto;font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:7px 15px;border-radius:999px}
+.dark .hd .tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#B8C0CE}
+.light .hd .tag{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);color:var(--accent)}
+.body{position:relative;z-index:2;flex:1;padding:22px 60px 46px;display:flex;flex-direction:column;min-height:0}
+/* tipografia */
+.eb{font-size:13.5px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase}
+.dark .eb{color:var(--accent3)}.light .eb{color:var(--accent)}
+.tt{font-size:42px;font-weight:800;letter-spacing:-1.5px;line-height:1.03;margin-top:12px}
+.dark .tt{color:#fff}.tt .hl{color:var(--accent2)}.light .tt .hl{color:var(--accent)}
+.light .tt{color:#0b1220}
+.lead{font-size:18px;line-height:1.5;margin-top:14px;max-width:680px}
+.dark .lead{color:#98A2B3}.light .lead{color:#5b6472}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+b,strong{font-weight:700}
+.num{font-variant-numeric:tabular-nums}
+/* callout / chips / badges reutilizaveis */
+.callout{border-radius:14px;padding:18px 22px;font-size:16.5px;line-height:1.45}
+.dark .callout{background:linear-gradient(120deg,rgba(37,99,235,.16),rgba(37,99,235,.05));border:1px solid rgba(59,130,246,.34);color:#DBEAFE}
+.light .callout{background:var(--accent-l);border:1px solid rgba(37,99,235,.2);color:#1e3a8a}
+.callout b{color:#fff}.light .callout b{color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{display:inline-flex;align-items:center;gap:9px;font-size:14.5px;font-weight:600;padding:9px 15px;border-radius:999px}
+.dark .chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#C4CBD8}
+.light .chip{background:#fff;border:1px solid #E5E7EB;color:#374151;box-shadow:0 4px 14px -8px rgba(37,99,235,.25)}
+.chip .ic{width:18px;height:18px}.chip .ic svg{width:18px;height:18px}
+.dark .chip .ic{color:var(--accent3)}.light .chip .ic{color:var(--accent)}
+
+.r13 .body{padding-top:14px}.r13 .tt{font-size:38px}
+.r13 .row{flex:1;display:flex;gap:40px;margin-top:16px;min-height:0}
+.r13 .chartbox{width:620px;flex-shrink:0;display:flex;flex-direction:column}
+.r13 .chartbox .ch2{flex:1}
+.r13 .legend{display:flex;gap:20px;justify-content:center;margin-top:4px;font-size:14px}
+.r13 .legend span{display:inline-flex;align-items:center;gap:8px}.dark .r13 .legend span{color:#98A2B3}.light .r13 .legend span{color:#64748B}
+.r13 .legend i{width:14px;height:14px;border-radius:4px}
+.r13 .side{flex:1;display:flex;flex-direction:column;gap:15px;justify-content:center}
+.r13 .rd{border-radius:14px;padding:18px 22px}
+.dark .r13 .rd{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)}
+.light .r13 .rd{background:#fff;border:1px solid #E4E9F1;box-shadow:0 12px 30px -18px rgba(37,99,235,.2)}
+.r13 .rd .rt{font-size:16.5px;line-height:1.45}.dark .r13 .rd .rt{color:#C4CBD8}.light .r13 .rd .rt{color:#374151}
+.r13 .rd .rt b{font-weight:700}.dark .r13 .rd .rt b{color:#fff}.light .r13 .rd .rt b{color:#0b1220}
+.r13 .rd .rt .win{color:#4ADE80;font-weight:700}.light .r13 .rd .rt .win{color:#16A34A}
+.r13 .mbmi{font-size:13px;letter-spacing:.3px;margin-top:2px}.dark .r13 .mbmi{color:#7A8494}.light .r13 .mbmi{color:#94A3B8}
+/* B: tabela */
+.r13b .body{padding-top:16px}
+.r13b .tblwrap{margin-top:22px;display:flex;flex-direction:column;gap:0;border-radius:18px;overflow:hidden}
+.light .r13b .tblwrap{background:#fff;border:1px solid #E4E9F1;box-shadow:0 18px 40px -24px rgba(15,23,42,.28)}
+.dark .r13b .tblwrap{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09)}
+.r13b .trow{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;align-items:center;gap:16px;padding:30px 32px}
+.r13b .thead{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:#94A3B8;padding-top:22px;padding-bottom:16px}
+.dark .r13b .thead{color:#7A8494}.light .r13b .thead{background:#F8FAFC}.dark .r13b .thead{background:rgba(255,255,255,.02)}
+.r13b .tr{font-size:17px}.dark .r13b .tr{border-top:1px solid rgba(255,255,255,.07)}.light .r13b .tr{border-top:1px solid #EDF1F6}
+.r13b .tc0{font-weight:700}.dark .r13b .tc0{color:#fff}.light .r13b .tc0{color:#0b1220}
+.r13b .tv{font-weight:800;font-size:20px;letter-spacing:-.5px;font-variant-numeric:tabular-nums}.dark .r13b .tv{color:#C4CBD8}.light .r13b .tv{color:#334155}
+.r13b .tv.best{color:#4ADE80}.light .r13b .tv.best{color:#16A34A}
+.r13b .tv.mut{opacity:.65}
+.r13b .win-badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:rgba(74,222,128,.14);color:#4ADE80;margin-left:8px}
+.light .r13b .win-badge{background:rgba(22,163,74,.12);color:#16A34A}
+.r13b .horizon{display:flex;align-items:center;gap:26px;margin-top:20px;border-radius:16px;padding:20px 26px}
+.light .r13b .horizon{background:#fff;border:1px solid #E4E9F1;box-shadow:0 12px 30px -20px rgba(37,99,235,.2)}
+.dark .r13b .horizon{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09)}
+.r13b .horizon .ht{width:210px;flex-shrink:0}
+.r13b .horizon .ht h4{font-size:16px;font-weight:700}.dark .r13b .horizon .ht h4{color:#fff}.light .r13b .horizon .ht h4{color:#0b1220}
+.r13b .horizon .ht p{font-size:13.5px;margin-top:5px;line-height:1.4}.dark .r13b .horizon .ht p{color:#98A2B3}.light .r13b .horizon .ht p{color:#64748B}
+.r13b .horizon .hg{flex:1;height:70px}
+
+.chart{width:100%;height:100%;display:block;overflow:visible}
+.gl{stroke:rgba(255,255,255,.07)}.light .gl{stroke:rgba(17,24,39,.08)}
+.ax{font:500 12px var(--font);fill:#7A8494}.light .ax{fill:#94A3B8}
+.bv{font:800 18px var(--font);fill:#fff}.light .bv{fill:#0b1220}
+.bv2{font:800 14px var(--font);fill:#fff}.light .bv2{fill:#0b1220}
+.bl{font:600 14px var(--font);fill:#98A2B3}.light .bl{fill:#64748B}
+.mkb{fill:#2563EB;stroke:#0A0E17;stroke-width:2}.light .mkb{stroke:#fff}
+.hkb{fill:#2563EB;stroke:#0A0E17;stroke-width:2}.light .hkb{stroke:#fff}
+</style></head><body><div class="slide dark r13"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><div class="tag">Modelagem · Resultado</div></div><div class="body">
+      <div class="eb">Resultado · rolling backtest, MAE médio D+1–D+7</div>
+      <div class="tt">O Prophet ganha no P2 e empata no P3</div>
+      <div class="row">
+        <div class="chartbox"><div class="ch2"><svg viewBox="0 0 600 380" class="chart"><rect x="68.8" y="212.0" width="58.5" height="114.0" rx="6" fill="#5A6675"/><text x="98.0" y="203.0" class="bv2" text-anchor="middle">5,7</text><rect x="139.3" y="242.0" width="58.5" height="84.0" rx="6" fill="#2563EB"/><text x="168.5" y="233.0" class="bv2" text-anchor="middle">4,2</text><rect x="209.7" y="242.0" width="58.5" height="84.0" rx="6" fill="#93C5FD"/><text x="239.0" y="233.0" class="bv2" text-anchor="middle">4,2</text><text x="168.5" y="364" class="bl" text-anchor="middle">P2 · Alta</text><rect x="345.8" y="100.0" width="58.5" height="226.0" rx="6" fill="#5A6675"/><text x="375.0" y="91.0" class="bv2" text-anchor="middle">11,3</text><rect x="416.3" y="90.0" width="58.5" height="236.0" rx="6" fill="#2563EB"/><text x="445.5" y="81.0" class="bv2" text-anchor="middle">11,8</text><rect x="486.7" y="72.0" width="58.5" height="254.0" rx="6" fill="#93C5FD"/><text x="516.0" y="63.0" class="bv2" text-anchor="middle">12,7</text><text x="445.5" y="364" class="bl" text-anchor="middle">P3 · Média</text></svg></div>
+          <div class="legend"><span><i style="background:#5A6675"></i>baseline (sazonal-7)</span><span><i style="background:#2563EB"></i>Prophet</span><span><i style="background:#93C5FD"></i>regressão de colunas</span></div>
+          <div class="mbmi" style="text-align:center">MAE = erro médio em incidentes/dia · menor é melhor</div>
+        </div>
+        <div class="side">
+          <div class="rd"><div class="rt">Em <b>P2</b>, Prophet e regressão <span class="win">baixam o erro de 5,7 → 4,2</span> — ganham do baseline.</div></div>
+          <div class="rd"><div class="rt">Em <b>P3</b>, os três empatam em ~11–12. O baseline já está no teto do que é previsível.</div></div>
+          <div class="rd"><div class="rt">O <b>horizonte importa pouco</b>: o erro de D+7 é quase igual ao de D+1 — o sinal é o padrão semanal fixo.</div></div>
+        </div>
+      </div>
+    </div></div></body></html>

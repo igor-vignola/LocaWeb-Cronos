@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Cronos · Showcase de design (4 slides)</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#0a0c11;overflow:hidden;font-family:'Outfit','Segoe UI',sans-serif}
+  #stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+  /* cada slide é 1600x900; escalamos por transform pra caber na janela */
+  .wrap{position:relative;width:1600px;height:900px;transform-origin:center center;
+        box-shadow:0 40px 120px rgba(0,0,0,.6);border-radius:14px;overflow:hidden}
+  iframe{width:1600px;height:900px;border:0;display:block}
+  .frame{position:absolute;inset:0;opacity:0;transition:opacity .28s ease;pointer-events:none}
+  .frame.on{opacity:1;pointer-events:auto}
+  /* HUD */
+  .hud{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:10;
+       display:flex;align-items:center;gap:14px;color:#9aa4b2;font-size:13px;
+       background:rgba(18,22,30,.8);border:1px solid rgba(255,255,255,.08);
+       backdrop-filter:blur(10px);padding:9px 16px;border-radius:999px}
+  .hud b{color:#e8edf5;font-weight:700}
+  .dots{display:flex;gap:7px}
+  .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18);transition:.2s}
+  .dot.on{background:#2f6bff;transform:scale(1.25)}
+  .key{font-size:11px;color:#6b7688;border:1px solid rgba(255,255,255,.12);border-radius:6px;
+       padding:2px 7px;font-family:'Outfit',sans-serif}
+  .tag{position:fixed;top:20px;left:22px;z-index:10;color:#6b7688;font-size:12px;letter-spacing:1px;font-weight:600}
+</style>
+</head>
+<body>
+  <div class="tag">CRONOS · SHOWCASE DE DESIGN</div>
+  <div id="stage"><div class="wrap" id="wrap"></div></div>
+  <div class="hud">
+    <span class="key">↑ ↓</span>
+    <span>navegar</span>
+    <span class="dots" id="dots"></span>
+    <span><b id="cur">1</b> / 4</span>
+  </div>
+<script>
+  const files = ['s_1.html','s_2.html','s_3.html','s_4.html'];
+  const wrap = document.getElementById('wrap');
+  const dotsEl = document.getElementById('dots');
+  files.forEach((f,i)=>{
+    const d = document.createElement('div');
+    d.className='frame'+(i===0?' on':'');
+    d.innerHTML='<iframe src="'+f+'" scrolling="no"></iframe>';
+    wrap.appendChild(d);
+    const dot=document.createElement('span');
+    dot.className='dot'+(i===0?' on':'');
+    dotsEl.appendChild(dot);
+  });
+  const frames=[...document.querySelectorAll('.frame')];
+  const dots=[...document.querySelectorAll('.dot')];
+  let idx=0;
+  function show(n){
+    idx=(n+files.length)%files.length;
+    frames.forEach((f,i)=>f.classList.toggle('on',i===idx));
+    dots.forEach((d,i)=>d.classList.toggle('on',i===idx));
+    document.getElementById('cur').textContent=idx+1;
+  }
+  function fit(){
+    const s=Math.min(window.innerWidth/1600, window.innerHeight/900)*0.9;
+    wrap.style.transform='scale('+s+')';
+  }
+  addEventListener('resize',fit); fit();
+  addEventListener('keydown',e=>{
+    if(e.key==='ArrowDown'||e.key==='ArrowRight'||e.key===' '){show(idx+1);e.preventDefault();}
+    if(e.key==='ArrowUp'||e.key==='ArrowLeft'){show(idx-1);e.preventDefault();}
+  });
+  addEventListener('click',()=>show(idx+1));
+</script>
+</body>
+</html>

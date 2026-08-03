@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>03 Filtro fluxo</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+:root{--accent:#2563EB;--accent2:#3B82F6;--accent3:#60A5FA;--accent-l:#EFF6FF;
+ --danger:#DC2626;--warn:#E0A82E;--ink:#0A0E17;--font:'Outfit',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.slide{width:1600px;height:900px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.mesh,.grid-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.dark{background:var(--ink);color:#E8ECF3}
+.dark .grid-bg{background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:46px 46px}
+.dark .mesh{background:radial-gradient(1000px 640px at 6% -10%,rgba(37,99,235,.26),transparent 55%),radial-gradient(820px 620px at 114% 116%,rgba(37,99,235,.13),transparent 55%)}
+.light{background:#F5F7FB;color:#111}
+.light .mesh{background:radial-gradient(1120px 720px at 94% -14%,rgba(37,99,235,.14),transparent 56%),radial-gradient(780px 580px at -10% 110%,rgba(37,99,235,.08),transparent 58%)}
+.light .grid-bg{background-image:linear-gradient(rgba(17,24,39,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(17,24,39,.028) 1px,transparent 1px);background-size:46px 46px}
+/* header */
+.hd{position:relative;z-index:3;display:flex;align-items:center;gap:11px;padding:38px 60px 0}
+.hd .bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.dark .hd .bi{background:#fff}.light .hd .bi{background:var(--ink)}
+.hd .bi svg{width:19px;height:19px}
+.hd .bn{font-size:18px;font-weight:800;letter-spacing:-.3px}.dark .hd .bn{color:#fff}.light .hd .bn{color:#000}
+.hd .tag{margin-left:auto;font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:7px 15px;border-radius:999px}
+.dark .hd .tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#B8C0CE}
+.light .hd .tag{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);color:var(--accent)}
+.body{position:relative;z-index:2;flex:1;padding:22px 60px 46px;display:flex;flex-direction:column;min-height:0}
+/* tipografia */
+.eb{font-size:13.5px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase}
+.dark .eb{color:var(--accent3)}.light .eb{color:var(--accent)}
+.tt{font-size:42px;font-weight:800;letter-spacing:-1.5px;line-height:1.03;margin-top:12px}
+.dark .tt{color:#fff}.tt .hl{color:var(--accent2)}.light .tt .hl{color:var(--accent)}
+.light .tt{color:#0b1220}
+.lead{font-size:18px;line-height:1.5;margin-top:14px;max-width:680px}
+.dark .lead{color:#98A2B3}.light .lead{color:#5b6472}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+b,strong{font-weight:700}
+.num{font-variant-numeric:tabular-nums}
+/* callout / chips / badges reutilizaveis */
+.callout{border-radius:14px;padding:18px 22px;font-size:16.5px;line-height:1.45}
+.dark .callout{background:linear-gradient(120deg,rgba(37,99,235,.16),rgba(37,99,235,.05));border:1px solid rgba(59,130,246,.34);color:#DBEAFE}
+.light .callout{background:var(--accent-l);border:1px solid rgba(37,99,235,.2);color:#1e3a8a}
+.callout b{color:#fff}.light .callout b{color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{display:inline-flex;align-items:center;gap:9px;font-size:14.5px;font-weight:600;padding:9px 15px;border-radius:999px}
+.dark .chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#C4CBD8}
+.light .chip{background:#fff;border:1px solid #E5E7EB;color:#374151;box-shadow:0 4px 14px -8px rgba(37,99,235,.25)}
+.chip .ic{width:18px;height:18px}.chip .ic svg{width:18px;height:18px}
+.dark .chip .ic{color:var(--accent3)}.light .chip .ic{color:var(--accent)}
+
+/* A: fluxo + regras (light) */
+.f3a .row{flex:1;display:flex;gap:48px;align-items:center}
+.f3a .lft{flex:1}.f3a .tt{font-size:50px}
+.f3a .flow{margin-top:30px;display:flex;align-items:center;gap:24px}
+.f3a .fn{font-weight:800;letter-spacing:-2px;line-height:1}
+.f3a .fn.a{font-size:52px;color:#A3A3A3}.f3a .fn.b{font-size:78px;color:var(--accent)}
+.f3a .fl{font-size:14px;color:#737373;margin-top:8px}
+.f3a .arrow{font-size:34px;color:#C7D2FE}
+.f3a .rgt{width:440px;display:flex;flex-direction:column;gap:14px}
+.f3a .rule{display:flex;align-items:center;gap:16px;background:#fff;border:1.5px solid #EAEEF4;border-radius:14px;padding:18px 20px;box-shadow:0 12px 30px -16px rgba(37,99,235,.22)}
+.f3a .rule .ci{width:44px;height:44px;border-radius:11px;background:var(--accent-l);color:var(--accent);flex-shrink:0}.f3a .rule .ci svg{width:22px;height:22px}
+.f3a .rule .rt{font-size:16.5px;font-weight:600;color:#1a1a1a}.f3a .rule .rt b{color:var(--accent)}
+.f3a .note{margin-top:22px;font-size:14.5px;color:#6b7280;max-width:560px;line-height:1.45}
+/* B: funil dark — faixas proporcionais */
+.f3b .body{padding-top:16px}.f3b .tt{font-size:44px}
+.f3b .stage{margin-top:26px;flex:1;display:flex;flex-direction:column;justify-content:center;gap:22px}
+.f3b .frow{display:grid;grid-template-columns:190px 560px 1fr;align-items:center;gap:26px}
+.f3b .fnum{text-align:right;font-size:34px;font-weight:800;letter-spacing:-1.5px;color:#fff;font-variant-numeric:tabular-nums}
+.f3b .track2{height:52px;display:flex}
+.f3b .bar{height:52px;border-radius:11px;display:flex;align-items:center;justify-content:flex-end;padding-right:15px}
+.f3b .bar .bp{font-size:15px;font-weight:700;color:#fff}
+.f3b .b1{width:100%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15)}
+.f3b .b2{width:34%;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.2)}
+.f3b .b3{width:21%;background:linear-gradient(90deg,#2563EB,#1D4ED8);box-shadow:0 14px 34px -14px rgba(37,99,235,.6)}
+.f3b .desc{font-size:16px;color:#98A2B3;line-height:1.35}.f3b .desc b{color:#fff}
+.f3b .cond{display:flex;gap:12px;margin-top:14px}
+.f3b .cd{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:13px;padding:15px 18px;display:flex;align-items:center;gap:12px;font-size:15px;color:#C4CBD8}
+.f3b .cd .ci{width:36px;height:36px;border-radius:9px;background:rgba(59,130,246,.16);color:#93C5FD;flex-shrink:0}.f3b .cd .ci svg{width:19px;height:19px}
+.f3b .cd b{color:#fff}
+</style></head><body><div class="slide light f3a"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><div class="tag">Análise · KPI</div></div><div class="body"><div class="row">
+      <div class="lft">
+        <div class="eb">O filtro de elegibilidade</div>
+        <div class="tt">Só <span class="hl">21%</span> dos incidentes<br>entram na conta do KPI</div>
+        <div class="flow">
+          <div><div class="fn a num">122.543</div><div class="fl">registrados</div></div>
+          <div class="arrow">&#10142;</div>
+          <div><div class="fn b num">25.600</div><div class="fl">elegíveis ao KPI</div></div>
+        </div>
+        <div class="note">O campo oficial <b>"Entrou para KPI?"</b> já codifica as três regras. Não é a origem que exclui — 9.529 incidentes de monitoramento entram no KPI.</div>
+      </div>
+      <div class="rgt">
+        <div class="rule"><span class="ic ci"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><div class="rt">Prioridade <b>1, 2 ou 3</b></div></div>
+        <div class="rule"><span class="ic ci"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5"/><path d="M8 10h8M8 14h5"/></svg></span><div class="rt">Sem <b>incidente-pai</b> (só o incidente PAI conta)</div></div>
+        <div class="rule"><span class="ic ci"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7-7 9-4-2-7-4.5-7-9V6z"/><path d="M9.5 12l1.8 1.8 3.5-3.8"/></svg></span><div class="rt">Status ≠ <b>"Sem Intervenção"</b></div></div>
+      </div>
+    </div></div></div></body></html>

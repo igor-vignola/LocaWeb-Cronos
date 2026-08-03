@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>01 Divisoria EDA</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+:root{--accent:#2563EB;--accent2:#3B82F6;--accent3:#60A5FA;--accent-l:#EFF6FF;
+ --good:#15A05B;--good-l:#E7F6EE;--warn:#D9930B;--warn-l:#FBF1DC;--bad:#DC2626;--bad-l:#FCECEC;
+ --ink:#0A0E17;--pg:#F4F7FC;--line:#E5EAF1;--tx:#4A5568;--tx2:#6B7688;--head:#0B1220;
+ --font:'Outfit',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.slide{width:1600px;height:900px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.mesh,.grid-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+/* DARK (divisorias) */
+.dark{background:var(--ink);color:#E8ECF3}
+.dark .grid-bg{background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:48px 48px}
+.dark .mesh{background:radial-gradient(1100px 680px at 4% -12%,rgba(37,99,235,.3),transparent 55%),radial-gradient(900px 640px at 116% 118%,rgba(37,99,235,.16),transparent 55%)}
+/* LIGHT (conteudo) — branco com gradiente azul rico */
+.light{background:var(--pg);color:var(--head)}
+.light .mesh{background:radial-gradient(1200px 760px at 100% -16%,rgba(37,99,235,.16),transparent 54%),radial-gradient(880px 640px at -12% 112%,rgba(37,99,235,.10),transparent 56%),radial-gradient(700px 520px at 50% -30%,rgba(96,165,250,.10),transparent 60%)}
+.light .grid-bg{background-image:linear-gradient(rgba(17,24,39,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(17,24,39,.026) 1px,transparent 1px);background-size:48px 48px}
+/* header */
+.hd{position:relative;z-index:3;display:flex;align-items:center;gap:11px;padding:40px 64px 0}
+.hd .bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.dark .hd .bi{background:#fff}.light .hd .bi{background:var(--ink)}
+.hd .bi svg{width:19px;height:19px}
+.hd .bn{font-size:18px;font-weight:800;letter-spacing:-.3px}.dark .hd .bn{color:#fff}.light .hd .bn{color:#000}
+.hd .bt{font-size:13px;font-weight:600;letter-spacing:1.5px;margin-left:2px}.dark .hd .bt{color:#5b647a}.light .hd .bt{color:#9AA6B6}
+.hd .tag{margin-left:auto;font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:7px 15px;border-radius:999px}
+.dark .hd .tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#B8C0CE}
+.light .hd .tag{background:#fff;border:1px solid var(--line);color:var(--accent);box-shadow:0 4px 14px -8px rgba(37,99,235,.3)}
+.body{position:relative;z-index:2;flex:1;padding:24px 64px 46px;display:flex;flex-direction:column;min-height:0}
+/* tipografia */
+.eb{display:inline-flex;align-items:center;gap:12px;font-size:13.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+.dark .eb{color:var(--accent3)}.light .eb{color:var(--accent)}
+.eb::before{content:'';width:26px;height:2px;border-radius:2px;background:currentColor;opacity:.7}
+.tt{font-size:40px;font-weight:800;letter-spacing:-1.4px;line-height:1.05;margin-top:14px}
+.dark .tt{color:#fff}.light .tt{color:var(--head)}.tt .hl{color:var(--accent)}.dark .tt .hl{color:var(--accent2)}
+.lead{font-size:18px;line-height:1.5;margin-top:14px;max-width:720px}
+.dark .lead{color:#98A2B3}.light .lead{color:var(--tx)}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.num{font-variant-numeric:tabular-nums}
+b,strong{font-weight:700}
+/* verdict pill */
+.vp{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:999px;letter-spacing:.2px}
+.vp .ic{width:14px;height:14px}.vp .ic svg{width:14px;height:14px;stroke-width:2.4}
+.vp.good{background:var(--good-l);color:var(--good)}
+.vp.warn{background:var(--warn-l);color:var(--warn)}
+.vp.bad{background:var(--bad-l);color:var(--bad)}
+.vp.focus{background:var(--accent-l);color:var(--accent)}
+.vp.ctx{background:#EEF2F7;color:var(--tx2)}
+.dark .vp.good{background:rgba(21,160,91,.16);color:#4ADE80}.dark .vp.bad{background:rgba(220,38,38,.16);color:#F87171}
+.dark .vp.focus{background:rgba(37,99,235,.18);color:#93C5FD}.dark .vp.ctx{background:rgba(255,255,255,.07);color:#9AA6B6}
+
+.d1 .body{flex-direction:row;gap:56px;align-items:center;padding-top:10px}
+.d1 .lft{flex:1;display:flex;flex-direction:column}
+.d1 h1{font-size:76px;font-weight:900;letter-spacing:-3px;line-height:.98;color:#fff;margin-top:20px}
+.d1 h1 .hl{background:linear-gradient(90deg,#60A5FA,#2563EB);-webkit-background-clip:text;background-clip:text;color:transparent}
+.d1 .lead{font-size:20px;max-width:520px;margin-top:22px}
+.d1 .q{margin-top:30px;display:inline-flex;align-items:center;gap:13px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:15px 20px;max-width:520px}
+.d1 .q .ci{width:34px;height:34px;border-radius:9px;background:rgba(59,130,246,.18);color:#93C5FD;flex-shrink:0}.d1 .q .ci svg{width:18px;height:18px}
+.d1 .q span{font-size:16px;color:#C4CBD8}.d1 .q b{color:#fff}
+/* preview panel */
+.d1 .pv{width:560px;flex-shrink:0;background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:28px;box-shadow:0 40px 90px -40px rgba(0,0,0,.7)}
+.d1 .pvh{font-size:12.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#7A8494;display:flex;align-items:center;gap:9px}
+.d1 .pvh .dot{width:7px;height:7px;border-radius:50%;background:#4ADE80;box-shadow:0 0 10px #4ADE80}
+.d1 .pvgrid{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.d1 .pc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px}
+.d1 .pc.wide{grid-column:span 2}
+.d1 .pc .pl{font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#7A8494}
+.d1 .pc .pn{font-size:32px;font-weight:800;letter-spacing:-1.5px;color:#fff;margin-top:6px;line-height:1}
+.d1 .pc .pn .u{font-size:15px;color:#8E97A8;font-weight:600}
+.d1 .pc .ps{font-size:12.5px;color:#8E97A8;margin-top:4px}
+.d1 .spark{display:flex;align-items:flex-end;gap:5px;height:56px;margin-top:14px}
+.d1 .spark span{flex:1;border-radius:3px;background:linear-gradient(180deg,#3B82F6,rgba(59,130,246,.25))}
+.d1 .foot{position:absolute;bottom:40px;left:64px;right:64px;z-index:3;display:flex;justify-content:space-between;font-size:12.5px;color:#5b647a;border-top:1px solid rgba(255,255,255,.08);padding-top:16px;letter-spacing:.4px}
+.d1 .foot b{color:#8E97A8;font-weight:700}
+</style></head><body><div class="slide dark d1"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">MVP Preliminar · Sprint 3</div></div><div class="body">
+      <div class="lft">
+        <div class="eb">Seção 01 · Exploração</div>
+        <h1>Análise<br>Exploratória<br><span class="hl">dos Dados</span></h1>
+        <div class="lead">Antes de prever, entender o terreno. O histórico operacional da Locaweb lido campo a campo, para separar o que é sinal do que é ruído.</div>
+        <div class="q"><span class="ic ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span><span>A pergunta desta seção: <b>o que, no dado, sustenta uma previsão confiável?</b></span></div>
+      </div>
+      <div class="pv">
+        <div class="pvh"><span class="dot"></span>O dado em um relance</div>
+        <div class="pvgrid">
+          <div class="pc"><div class="pl">Incidentes</div><div class="pn num">122.543</div><div class="ps">registros no total</div></div>
+          <div class="pc"><div class="pl">Campos</div><div class="pn num">19</div><div class="ps">colunas por incidente</div></div>
+          <div class="pc wide"><div class="pl">Volume mensal · 2025</div>
+            <div class="spark"><span style="height:14%"></span><span style="height:13%"></span><span style="height:13%"></span><span style="height:12%"></span><span style="height:12%"></span><span style="height:13%"></span><span style="height:13%"></span><span style="height:15%"></span><span style="height:79%"></span><span style="height:84%"></span><span style="height:79%"></span><span style="height:100%"></span></div>
+            <div class="ps" style="margin-top:10px">o patamar salta a partir de setembro</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span>Cronos · MVP Preliminar · Sprint 3</span><span>Base: <b>122.543 incidentes</b> · 248 violações de OLA · 2023 a 2025</span></div></div></body></html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>07 Sazonalidade</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+:root{--accent:#2563EB;--accent2:#3B82F6;--accent3:#60A5FA;--accent-l:#EFF6FF;
+ --danger:#DC2626;--warn:#E0A82E;--ink:#0A0E17;--font:'Outfit',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.slide{width:1600px;height:900px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.mesh,.grid-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.dark{background:var(--ink);color:#E8ECF3}
+.dark .grid-bg{background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:46px 46px}
+.dark .mesh{background:radial-gradient(1000px 640px at 6% -10%,rgba(37,99,235,.26),transparent 55%),radial-gradient(820px 620px at 114% 116%,rgba(37,99,235,.13),transparent 55%)}
+.light{background:#F5F7FB;color:#111}
+.light .mesh{background:radial-gradient(1120px 720px at 94% -14%,rgba(37,99,235,.14),transparent 56%),radial-gradient(780px 580px at -10% 110%,rgba(37,99,235,.08),transparent 58%)}
+.light .grid-bg{background-image:linear-gradient(rgba(17,24,39,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(17,24,39,.028) 1px,transparent 1px);background-size:46px 46px}
+/* header */
+.hd{position:relative;z-index:3;display:flex;align-items:center;gap:11px;padding:38px 60px 0}
+.hd .bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.dark .hd .bi{background:#fff}.light .hd .bi{background:var(--ink)}
+.hd .bi svg{width:19px;height:19px}
+.hd .bn{font-size:18px;font-weight:800;letter-spacing:-.3px}.dark .hd .bn{color:#fff}.light .hd .bn{color:#000}
+.hd .tag{margin-left:auto;font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:7px 15px;border-radius:999px}
+.dark .hd .tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#B8C0CE}
+.light .hd .tag{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);color:var(--accent)}
+.body{position:relative;z-index:2;flex:1;padding:22px 60px 46px;display:flex;flex-direction:column;min-height:0}
+/* tipografia */
+.eb{font-size:13.5px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase}
+.dark .eb{color:var(--accent3)}.light .eb{color:var(--accent)}
+.tt{font-size:42px;font-weight:800;letter-spacing:-1.5px;line-height:1.03;margin-top:12px}
+.dark .tt{color:#fff}.tt .hl{color:var(--accent2)}.light .tt .hl{color:var(--accent)}
+.light .tt{color:#0b1220}
+.lead{font-size:18px;line-height:1.5;margin-top:14px;max-width:680px}
+.dark .lead{color:#98A2B3}.light .lead{color:#5b6472}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+b,strong{font-weight:700}
+.num{font-variant-numeric:tabular-nums}
+/* callout / chips / badges reutilizaveis */
+.callout{border-radius:14px;padding:18px 22px;font-size:16.5px;line-height:1.45}
+.dark .callout{background:linear-gradient(120deg,rgba(37,99,235,.16),rgba(37,99,235,.05));border:1px solid rgba(59,130,246,.34);color:#DBEAFE}
+.light .callout{background:var(--accent-l);border:1px solid rgba(37,99,235,.2);color:#1e3a8a}
+.callout b{color:#fff}.light .callout b{color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{display:inline-flex;align-items:center;gap:9px;font-size:14.5px;font-weight:600;padding:9px 15px;border-radius:999px}
+.dark .chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#C4CBD8}
+.light .chip{background:#fff;border:1px solid #E5E7EB;color:#374151;box-shadow:0 4px 14px -8px rgba(37,99,235,.25)}
+.chip .ic{width:18px;height:18px}.chip .ic svg{width:18px;height:18px}
+.dark .chip .ic{color:var(--accent3)}.light .chip .ic{color:var(--accent)}
+
+.z7 .body{padding-top:14px}.z7 .tt{font-size:38px}
+.z7 .chartbox{flex:1;margin-top:14px;min-height:0}
+.z7 .foot{display:flex;gap:26px;margin-top:6px}
+.z7 .fc{flex:1;border-radius:14px;padding:18px 22px;display:flex;align-items:center;gap:16px}
+.dark .z7 .fc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)}
+.light .z7 .fc{background:#fff;border:1px solid #EAEEF4;box-shadow:0 12px 30px -18px rgba(37,99,235,.2)}
+.z7 .fc .fv{font-size:34px;font-weight:800;letter-spacing:-1.5px;flex-shrink:0}
+.z7 .fc .fv.a{color:var(--accent2)}.light .z7 .fc .fv.a{color:var(--accent)}
+.dark .z7 .fc .fv.m{color:#8E97A8}.light .z7 .fc .fv.m{color:#94A3B8}
+.z7 .fc .ft{font-size:15px;line-height:1.35}.dark .z7 .fc .ft{color:#98A2B3}.light .z7 .fc .ft{color:#64748B}
+.z7 .fc .ft b{color:inherit}.dark .z7 .fc .ft b{color:#fff}.light .z7 .fc .ft b{color:#0b1220}
+/* B: split util vs nao-util */
+.z7b .row{flex:1;display:flex;gap:34px;align-items:center;margin-top:16px}
+.z7b .col{flex:1;border-radius:20px;padding:34px 36px;position:relative;overflow:hidden}
+.z7b .col.u{background:linear-gradient(155deg,rgba(37,99,235,.16),rgba(37,99,235,.03));border:1px solid rgba(59,130,246,.34)}
+.dark .z7b .col.n{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)}
+.z7b .col .ct{font-size:16px;font-weight:700;letter-spacing:.3px}.dark .z7b .col .ct{color:#C4CBD8}
+.z7b .col .cn{font-size:76px;font-weight:900;letter-spacing:-3px;line-height:1;margin-top:10px}
+.z7b .col.u .cn{color:var(--accent2)}.z7b .col.n .cn{color:#fff}
+.z7b .col .cu{font-size:16px;color:#8E97A8;margin-top:2px}
+.z7b .col .cd{font-size:15px;color:#98A2B3;margin-top:16px;line-height:1.45}
+.z7b .mini{display:flex;align-items:flex-end;gap:8px;height:70px;margin-top:22px}
+.z7b .mini span{flex:1;border-radius:5px}
+
+.chart{width:100%;height:100%;display:block;overflow:visible}
+.gl{stroke:rgba(255,255,255,.07)}.light .gl{stroke:rgba(17,24,39,.08)}
+.ax{font:500 12px var(--font);fill:#7A8494}.light .ax{fill:#94A3B8}
+.bv{font:800 18px var(--font);fill:#fff}.light .bv{fill:#0b1220}
+.bv2{font:800 14px var(--font);fill:#fff}.light .bv2{fill:#0b1220}
+.bl{font:600 14px var(--font);fill:#98A2B3}.light .bl{fill:#64748B}
+.mkb{fill:#2563EB;stroke:#0A0E17;stroke-width:2}.light .mkb{stroke:#fff}
+.hkb{fill:#2563EB;stroke:#0A0E17;stroke-width:2}.light .hkb{stroke:#fff}
+</style></head><body><div class="slide light z7"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><div class="tag">Análise · Sazonalidade</div></div><div class="body">
+      <div class="eb">Sazonalidade · série elegível ao KPI, 2025</div>
+      <div class="tt">O que muda o volume é o dia útil, não o dia da semana</div>
+      <div class="chartbox"><svg viewBox="0 0 1180 380" class="chart"><rect x="20.0" y="77.4" width="123.2" height="252.6" rx="7" fill="#2563EB"/><text x="81.6" y="66.4" class="bv" text-anchor="middle">82</text><text x="81.6" y="364" class="bl" text-anchor="middle">Seg</text><rect x="165.2" y="62.0" width="123.2" height="268.0" rx="7" fill="#2563EB"/><text x="226.9" y="51.0" class="bv" text-anchor="middle">87</text><text x="226.9" y="364" class="bl" text-anchor="middle">Ter</text><rect x="310.5" y="68.2" width="123.2" height="261.8" rx="7" fill="#2563EB"/><text x="372.1" y="57.2" class="bv" text-anchor="middle">85</text><text x="372.1" y="364" class="bl" text-anchor="middle">Qua</text><rect x="455.8" y="71.3" width="123.2" height="258.7" rx="7" fill="#2563EB"/><text x="517.4" y="60.3" class="bv" text-anchor="middle">84</text><text x="517.4" y="364" class="bl" text-anchor="middle">Qui</text><rect x="601.0" y="92.8" width="123.2" height="237.2" rx="7" fill="#2563EB"/><text x="662.6" y="81.8" class="bv" text-anchor="middle">77</text><text x="662.6" y="364" class="bl" text-anchor="middle">Sex</text><rect x="746.2" y="222.2" width="123.2" height="107.8" rx="7" fill="#5A6675"/><text x="807.9" y="211.2" class="bv" text-anchor="middle">35</text><text x="807.9" y="364" class="bl" text-anchor="middle">Sáb</text><rect x="891.5" y="246.8" width="123.2" height="83.2" rx="7" fill="#5A6675"/><text x="953.1" y="235.8" class="bv" text-anchor="middle">27</text><text x="953.1" y="364" class="bl" text-anchor="middle">Dom</text><rect x="1036.8" y="240.7" width="123.2" height="89.3" rx="7" fill="#5A6675"/><text x="1098.4" y="229.7" class="bv" text-anchor="middle">29</text><text x="1098.4" y="364" class="bl" text-anchor="middle">Fer.</text></svg></div>
+      <div class="foot">
+        <div class="fc"><div class="fv a num">77–87</div><div class="ft">incidentes/dia nos <b>dias úteis</b> — todos num patamar parecido entre si</div></div>
+        <div class="fc"><div class="fv m num">27–35</div><div class="ft">nos <b>sábados, domingos e feriados</b> — cai para menos da metade</div></div>
+      </div>
+    </div></div></body></html>

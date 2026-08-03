@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>03 Filtro</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+:root{--accent:#2563EB;--accent2:#3B82F6;--accent3:#60A5FA;--accent-l:#EFF6FF;
+ --good:#15A05B;--good-l:#E7F6EE;--warn:#D9930B;--warn-l:#FBF1DC;--bad:#DC2626;--bad-l:#FCECEC;
+ --ink:#0A0E17;--pg:#F4F7FC;--line:#E5EAF1;--tx:#4A5568;--tx2:#6B7688;--head:#0B1220;
+ --font:'Outfit',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.slide{width:1600px;height:900px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.mesh,.grid-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+/* DARK (divisorias) */
+.dark{background:var(--ink);color:#E8ECF3}
+.dark .grid-bg{background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:48px 48px}
+.dark .mesh{background:radial-gradient(1100px 680px at 4% -12%,rgba(37,99,235,.3),transparent 55%),radial-gradient(900px 640px at 116% 118%,rgba(37,99,235,.16),transparent 55%)}
+/* LIGHT (conteudo) — branco com gradiente azul rico */
+.light{background:var(--pg);color:var(--head)}
+.light .mesh{background:radial-gradient(1200px 760px at 100% -16%,rgba(37,99,235,.16),transparent 54%),radial-gradient(880px 640px at -12% 112%,rgba(37,99,235,.10),transparent 56%),radial-gradient(700px 520px at 50% -30%,rgba(96,165,250,.10),transparent 60%)}
+.light .grid-bg{background-image:linear-gradient(rgba(17,24,39,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(17,24,39,.026) 1px,transparent 1px);background-size:48px 48px}
+/* header */
+.hd{position:relative;z-index:3;display:flex;align-items:center;gap:11px;padding:40px 64px 0}
+.hd .bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.dark .hd .bi{background:#fff}.light .hd .bi{background:var(--ink)}
+.hd .bi svg{width:19px;height:19px}
+.hd .bn{font-size:18px;font-weight:800;letter-spacing:-.3px}.dark .hd .bn{color:#fff}.light .hd .bn{color:#000}
+.hd .bt{font-size:13px;font-weight:600;letter-spacing:1.5px;margin-left:2px}.dark .hd .bt{color:#5b647a}.light .hd .bt{color:#9AA6B6}
+.hd .tag{margin-left:auto;font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:7px 15px;border-radius:999px}
+.dark .hd .tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#B8C0CE}
+.light .hd .tag{background:#fff;border:1px solid var(--line);color:var(--accent);box-shadow:0 4px 14px -8px rgba(37,99,235,.3)}
+.body{position:relative;z-index:2;flex:1;padding:24px 64px 46px;display:flex;flex-direction:column;min-height:0}
+/* tipografia */
+.eb{display:inline-flex;align-items:center;gap:12px;font-size:13.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+.dark .eb{color:var(--accent3)}.light .eb{color:var(--accent)}
+.eb::before{content:'';width:26px;height:2px;border-radius:2px;background:currentColor;opacity:.7}
+.tt{font-size:40px;font-weight:800;letter-spacing:-1.4px;line-height:1.05;margin-top:14px}
+.dark .tt{color:#fff}.light .tt{color:var(--head)}.tt .hl{color:var(--accent)}.dark .tt .hl{color:var(--accent2)}
+.lead{font-size:18px;line-height:1.5;margin-top:14px;max-width:720px}
+.dark .lead{color:#98A2B3}.light .lead{color:var(--tx)}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.num{font-variant-numeric:tabular-nums}
+b,strong{font-weight:700}
+/* verdict pill */
+.vp{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:999px;letter-spacing:.2px}
+.vp .ic{width:14px;height:14px}.vp .ic svg{width:14px;height:14px;stroke-width:2.4}
+.vp.good{background:var(--good-l);color:var(--good)}
+.vp.warn{background:var(--warn-l);color:var(--warn)}
+.vp.bad{background:var(--bad-l);color:var(--bad)}
+.vp.focus{background:var(--accent-l);color:var(--accent)}
+.vp.ctx{background:#EEF2F7;color:var(--tx2)}
+.dark .vp.good{background:rgba(21,160,91,.16);color:#4ADE80}.dark .vp.bad{background:rgba(220,38,38,.16);color:#F87171}
+.dark .vp.focus{background:rgba(37,99,235,.18);color:#93C5FD}.dark .vp.ctx{background:rgba(255,255,255,.07);color:#9AA6B6}
+
+.f3 .body{padding-top:16px}.f3 .tt{font-size:40px}
+.f3 .stage{flex:1;display:flex;flex-direction:column;justify-content:center;gap:24px;max-width:1200px}
+.f3 .frow{display:grid;grid-template-columns:200px 520px 1fr;align-items:center;gap:28px}
+.f3 .fnum{text-align:right;font-size:36px;font-weight:800;letter-spacing:-1.5px;color:var(--head)}
+.f3 .frow.hot .fnum{color:var(--accent)}
+.f3 .track{height:54px;display:flex}
+.f3 .bar{height:54px;border-radius:12px;display:flex;align-items:center;justify-content:flex-end;padding-right:16px;font-size:15px;font-weight:700;color:#fff}
+.f3 .b1{width:100%;background:#CBD5E1}.f3 .b2{width:34%;background:#93C5FD}.f3 .b3{width:21%;background:var(--accent);box-shadow:0 12px 30px -12px rgba(37,99,235,.5)}
+.f3 .desc{font-size:16px;color:var(--tx);line-height:1.4}.f3 .desc b{color:var(--head)}
+.f3 .rules{display:flex;gap:14px;margin-top:6px}
+.f3 .rc{flex:1;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:13px;box-shadow:0 10px 26px -18px rgba(15,23,42,.2)}
+.f3 .rc .ci{width:40px;height:40px;border-radius:10px;background:var(--accent-l);color:var(--accent);flex-shrink:0}.f3 .rc .ci svg{width:20px;height:20px}
+.f3 .rc span{font-size:15px;color:var(--tx)}.f3 .rc b{color:var(--head)}
+/* B: fluxo grande */
+.f3b .row{flex:1;display:flex;gap:50px;align-items:center}
+.f3b .lft{flex:1}
+.f3b .flow{display:flex;align-items:center;gap:26px;margin-top:26px}
+.f3b .fn{font-weight:800;letter-spacing:-2px;line-height:1}.f3b .fn.a{font-size:54px;color:#94A3B8}.f3b .fn.b{font-size:82px;color:var(--accent)}
+.f3b .fl{font-size:14.5px;color:var(--tx2);margin-top:8px}
+.f3b .arrow{color:#C7D2FE;font-size:40px}
+.f3b .note{margin-top:24px;font-size:15px;color:var(--tx);max-width:560px;line-height:1.5}.f3b .note b{color:var(--head)}
+.f3b .rgt{width:440px;flex-shrink:0;display:flex;flex-direction:column;gap:14px}
+.f3b .rc{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px 20px;display:flex;align-items:center;gap:15px;box-shadow:0 12px 30px -18px rgba(15,23,42,.2)}
+.f3b .rc .ci{width:44px;height:44px;border-radius:11px;background:var(--accent-l);color:var(--accent);flex-shrink:0}.f3b .rc .ci svg{width:22px;height:22px}
+.f3b .rc .rt{font-size:16px;color:var(--head)}.f3b .rc .rt b{color:var(--accent)}.f3b .rc .rs{font-size:13px;color:var(--tx2);margin-top:2px}
+</style></head><body><div class="slide light f3"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Filtro · O que conta</div></div><div class="body">
+      <div class="eb">O filtro da meta de OLA</div>
+      <div class="tt">De cada 5 incidentes, só 1 vale pra meta</div>
+      <div class="stage">
+        <div class="frow"><div class="fnum num">122.543</div><div class="track"><div class="bar b1">100%</div></div><div class="desc">todos os incidentes registrados no período</div></div>
+        <div class="frow"><div class="fnum num">42.155</div><div class="track"><div class="bar b2">34%</div></div><div class="desc">tiveram <b>tratamento</b> (fora os que fecham sozinhos)</div></div>
+        <div class="frow hot"><div class="fnum num">25.600</div><div class="track"><div class="bar b3">21%</div></div><div class="desc"><b>valem pra meta de OLA</b>: prioridade 1 a 3, sem incidente-pai</div></div>
+        <div class="rules">
+          <div class="rc"><span class="ic ci"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><span>Prioridade <b>1, 2 ou 3</b></span></div>
+          <div class="rc"><span class="ic ci"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5"/><path d="M8 10h8M8 14h5"/></svg></span><span>Sem <b>incidente-pai</b> (só o principal)</span></div>
+          <div class="rc"><span class="ic ci"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7-7 9-4-2-7-4.5-7-9V6z"/><path d="M9.5 12l1.8 1.8 3.5-3.8"/></svg></span><span>Teve <b>tratamento</b> da equipe</span></div>
+        </div>
+      </div>
+    </div></div></body></html>

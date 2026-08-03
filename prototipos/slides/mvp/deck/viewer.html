@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Cronos · Deck MVP — EDA + Previsão de Volume</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#07090d;overflow:hidden;font-family:'Outfit','Segoe UI',sans-serif}
+  #stage{position:fixed;inset:0;overflow:hidden}
+  .wrap{position:absolute;left:50%;top:50%;width:1600px;height:900px;transform-origin:center center;
+        border-radius:14px;overflow:hidden;box-shadow:0 50px 130px rgba(0,0,0,.7)}
+  .cell{position:absolute;inset:0;opacity:0;transition:opacity .26s ease;pointer-events:none}
+  .cell.on{opacity:1;pointer-events:auto}
+  iframe{width:1600px;height:900px;border:0;display:block;background:#0a0e17}
+
+  /* HUD topo esquerda: trilha vertical de slides */
+  .rail{position:fixed;left:26px;top:50%;transform:translateY(-50%);z-index:20;display:flex;flex-direction:column;gap:9px}
+  .rdot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.16);transition:.2s;cursor:pointer}
+  .rdot.on{background:#2f6bff;transform:scale(1.35)}
+  .rdot.sec{width:9px;height:3px;border-radius:2px;background:rgba(255,255,255,.28)}
+
+  /* HUD inferior */
+  .hud{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:20;
+       display:flex;align-items:center;gap:16px;color:#9aa4b2;font-size:13px;
+       background:rgba(16,20,28,.82);border:1px solid rgba(255,255,255,.09);
+       backdrop-filter:blur(12px);padding:9px 16px;border-radius:999px}
+  .hud .name{color:#e8edf5;font-weight:700;min-width:210px}
+  .hud .sep{width:1px;height:18px;background:rgba(255,255,255,.14)}
+  .hud .cnt{font-variant-numeric:tabular-nums}
+  .hud .cnt b{color:#e8edf5}
+  .ab{display:flex;gap:5px}
+  .ab .p{font-size:12px;font-weight:700;width:26px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;
+        background:rgba(255,255,255,.06);color:#7a8698;border:1px solid transparent}
+  .ab .p.on{background:#2f6bff;color:#fff}
+  .ab .p.solo{opacity:.35}
+  .ab .p.lone{background:transparent;color:#5f6b7c;border:1px dashed rgba(255,255,255,.18)}
+  .keyhint{display:flex;gap:12px;font-size:11px;color:#5f6b7c}
+  .keyhint kbd{font-family:inherit;font-size:11px;color:#8b97a8;border:1px solid rgba(255,255,255,.14);border-radius:5px;padding:2px 6px;background:rgba(255,255,255,.03)}
+
+  .tag{position:fixed;top:18px;left:26px;z-index:20;color:#5f6b7c;font-size:11px;letter-spacing:1.5px;font-weight:700}
+  .sec-flag{position:fixed;top:18px;right:26px;z-index:20;font-size:11px;letter-spacing:1.5px;font-weight:700;color:#2f6bff}
+</style>
+</head>
+<body>
+  <div class="tag">CRONOS · DECK MVP</div>
+  <div class="sec-flag" id="secflag">EDA</div>
+  <div class="rail" id="rail"></div>
+  <div id="stage"><div class="wrap" id="wrap"></div></div>
+  <div class="hud">
+    <span class="name" id="name">—</span>
+    <span class="sep"></span>
+    <span class="ab" id="ab"></span>
+    <span class="sep"></span>
+    <span class="cnt">slide <b id="cur">1</b> / 19</span>
+    <span class="sep"></span>
+    <span class="keyhint"><span><kbd>↑</kbd><kbd>↓</kbd> slide</span><span><kbd>←</kbd><kbd>→</kbd> variação</span></span>
+  </div>
+<script>
+  // 15 slides, cada um com variacoes disponiveis
+  const SLIDES = [
+    {n:1,  name:'Divisória · Análise Exploratória', sec:'EDA', v:['d01a']},
+    {n:2,  name:'Panorama da operação',             sec:'EDA', v:['d02a']},
+    {n:3,  name:'O filtro da meta de OLA',          sec:'EDA', v:['d03m','d03a','d03b']},
+    {n:4,  name:'Anomalia · o problema',            sec:'EDA', v:['d04r','d04a']},
+    {n:5,  name:'Anomalia · a causa',               sec:'EDA', v:['d04m','d04b','d04c']},
+    {n:6,  name:'Escopo temporal · a descoberta',   sec:'EDA', v:['d05m','d05a','d05b']},
+    {n:7,  name:'Distribuição operacional',         sec:'EDA', v:['d06m','d06a']},
+    {n:8,  name:'Sazonalidade',                     sec:'EDA', v:['d07m','d07a','d07b']},
+    {n:9,  name:'As duas séries · P2 e P3',         sec:'EDA', v:['d08m','d08a']},
+    {n:10, name:'Estrutura N1 / N2',                sec:'EDA', v:['d09a']},
+    {n:11, name:'Violações de OLA · o alvo',        sec:'EDA', v:['d10a']},
+    {n:12, name:'Hipóteses descartadas',            sec:'EDA', v:['d11a']},
+    {n:13, name:'Divisória · Previsão de Volume',   sec:'MODELAGEM', v:['d12a']},
+    {n:14, name:'As decisões de modelagem',         sec:'MODELAGEM', v:['d13a']},
+    {n:15, name:'Como validamos',                   sec:'MODELAGEM', v:['d14m','d14a']},
+    {n:16, name:'Resultado · o modelo funcionando', sec:'MODELAGEM', v:['d15m']},
+    {n:17, name:'Resultado · comparação de erro',   sec:'MODELAGEM', v:['d15n','d15b','d15c']},
+    {n:18, name:'O que o volume prevê (e o que não)', sec:'MODELAGEM', v:['d17a']},
+    {n:19, name:'Conclusão',                        sec:'MODELAGEM', v:['d16a']},
+  ];
+  const wrap = document.getElementById('wrap');
+  const rail = document.getElementById('rail');
+  const abEl = document.getElementById('ab');
+
+  // cria uma cell (iframe) por variacao; carrega src sob demanda
+  const cells = {}; // key 'NNx' -> iframe wrapper
+  SLIDES.forEach(s => s.v.forEach(id => {
+    const c = document.createElement('div'); c.className='cell'; c.dataset.id=id;
+    const f = document.createElement('iframe'); f.dataset.src=id+'.html'; f.scrolling='no';
+    c.appendChild(f); wrap.appendChild(c); cells[id]=c;
+  }));
+  // trilha vertical
+  SLIDES.forEach((s,i)=>{
+    const d=document.createElement('div'); d.className='rdot'+(i===0?' on':''); d.title=s.name;
+    d.onclick=()=>{ slide=i; variant=0; show(); };
+    rail.appendChild(d);
+  });
+  const rdots=[...rail.children];
+
+  let slide=0, variant=0;
+  function curId(){ return SLIDES[slide].v[Math.min(variant, SLIDES[slide].v.length-1)]; }
+  function load(id){ const f=cells[id].querySelector('iframe'); if(!f.src) f.src=f.dataset.src; }
+  function show(){
+    const s=SLIDES[slide];
+    if(variant>s.v.length-1) variant=s.v.length-1;
+    const id=curId();
+    // preload atual + vizinhos
+    load(id);
+    const nx=SLIDES[Math.min(slide+1,SLIDES.length-1)]; nx.v.forEach(load);
+    Object.values(cells).forEach(c=>c.classList.remove('on'));
+    cells[id].classList.add('on');
+    rdots.forEach((d,i)=>d.classList.toggle('on',i===slide));
+    document.getElementById('cur').textContent=s.n;
+    document.getElementById('name').textContent=s.name;
+    document.getElementById('secflag').textContent=s.sec;
+    // pills de variacao (A/B/C…), so as que existem
+    const labels=['A','B','C','D'];
+    abEl.innerHTML='';
+    for(let i=0;i<s.v.length;i++){
+      const p=document.createElement('span');
+      p.className='p'+(i===variant?' on':'')+(s.v.length<2?' lone':'');
+      p.textContent=labels[i]; abEl.appendChild(p);
+    }
+  }
+  function fit(){
+    // reserva margem p/ trilha (esq) e HUD (base); centraliza via translate + scale
+    const availW = innerWidth - 130, availH = innerHeight - 130;
+    const sc = Math.min(availW/1600, availH/900);
+    wrap.style.transform = 'translate(-50%,-50%) scale('+sc+')';
+  }
+  addEventListener('resize',fit); fit();
+  addEventListener('keydown',e=>{
+    if(e.key==='ArrowDown'){ slide=Math.min(slide+1,SLIDES.length-1); variant=0; show(); e.preventDefault(); }
+    else if(e.key==='ArrowUp'){ slide=Math.max(slide-1,0); variant=0; show(); e.preventDefault(); }
+    else if(e.key==='ArrowRight'){ variant=(variant+1)%SLIDES[slide].v.length; show(); e.preventDefault(); }
+    else if(e.key==='ArrowLeft'){ variant=(variant-1+SLIDES[slide].v.length)%SLIDES[slide].v.length; show(); e.preventDefault(); }
+  });
+  show();
+</script>
+</body>
+</html>

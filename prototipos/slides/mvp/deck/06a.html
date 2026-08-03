@@ -1,0 +1,83 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>06 Distribuicao</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+:root{--accent:#2563EB;--accent2:#3B82F6;--accent3:#60A5FA;--accent-l:#EFF6FF;
+ --danger:#DC2626;--warn:#E0A82E;--ink:#0A0E17;--font:'Outfit',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.slide{width:1600px;height:900px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.mesh,.grid-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.dark{background:var(--ink);color:#E8ECF3}
+.dark .grid-bg{background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:46px 46px}
+.dark .mesh{background:radial-gradient(1000px 640px at 6% -10%,rgba(37,99,235,.26),transparent 55%),radial-gradient(820px 620px at 114% 116%,rgba(37,99,235,.13),transparent 55%)}
+.light{background:#F5F7FB;color:#111}
+.light .mesh{background:radial-gradient(1120px 720px at 94% -14%,rgba(37,99,235,.14),transparent 56%),radial-gradient(780px 580px at -10% 110%,rgba(37,99,235,.08),transparent 58%)}
+.light .grid-bg{background-image:linear-gradient(rgba(17,24,39,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(17,24,39,.028) 1px,transparent 1px);background-size:46px 46px}
+/* header */
+.hd{position:relative;z-index:3;display:flex;align-items:center;gap:11px;padding:38px 60px 0}
+.hd .bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.dark .hd .bi{background:#fff}.light .hd .bi{background:var(--ink)}
+.hd .bi svg{width:19px;height:19px}
+.hd .bn{font-size:18px;font-weight:800;letter-spacing:-.3px}.dark .hd .bn{color:#fff}.light .hd .bn{color:#000}
+.hd .tag{margin-left:auto;font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:7px 15px;border-radius:999px}
+.dark .hd .tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#B8C0CE}
+.light .hd .tag{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);color:var(--accent)}
+.body{position:relative;z-index:2;flex:1;padding:22px 60px 46px;display:flex;flex-direction:column;min-height:0}
+/* tipografia */
+.eb{font-size:13.5px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase}
+.dark .eb{color:var(--accent3)}.light .eb{color:var(--accent)}
+.tt{font-size:42px;font-weight:800;letter-spacing:-1.5px;line-height:1.03;margin-top:12px}
+.dark .tt{color:#fff}.tt .hl{color:var(--accent2)}.light .tt .hl{color:var(--accent)}
+.light .tt{color:#0b1220}
+.lead{font-size:18px;line-height:1.5;margin-top:14px;max-width:680px}
+.dark .lead{color:#98A2B3}.light .lead{color:#5b6472}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+b,strong{font-weight:700}
+.num{font-variant-numeric:tabular-nums}
+/* callout / chips / badges reutilizaveis */
+.callout{border-radius:14px;padding:18px 22px;font-size:16.5px;line-height:1.45}
+.dark .callout{background:linear-gradient(120deg,rgba(37,99,235,.16),rgba(37,99,235,.05));border:1px solid rgba(59,130,246,.34);color:#DBEAFE}
+.light .callout{background:var(--accent-l);border:1px solid rgba(37,99,235,.2);color:#1e3a8a}
+.callout b{color:#fff}.light .callout b{color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{display:inline-flex;align-items:center;gap:9px;font-size:14.5px;font-weight:600;padding:9px 15px;border-radius:999px}
+.dark .chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#C4CBD8}
+.light .chip{background:#fff;border:1px solid #E5E7EB;color:#374151;box-shadow:0 4px 14px -8px rgba(37,99,235,.25)}
+.chip .ic{width:18px;height:18px}.chip .ic svg{width:18px;height:18px}
+.dark .chip .ic{color:var(--accent3)}.light .chip .ic{color:var(--accent)}
+
+.d6 .body{padding-top:14px}.d6 .tt{font-size:38px}
+.d6 .row{flex:1;display:flex;gap:44px;margin-top:20px;align-items:center;min-height:0}
+.d6 .main{flex:1;display:flex;flex-direction:column;gap:26px}
+.d6 .block .bt{font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+.dark .d6 .block .bt{color:#7A8494}.light .d6 .block .bt{color:#94A3B8}
+.hstack{display:flex;height:66px;border-radius:13px;overflow:hidden;gap:3px}
+.hstack .seg{display:flex;align-items:center;justify-content:center;position:relative}
+.hstack .seg span{font-size:15px;font-weight:700;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.3);white-space:nowrap}
+.d6 .donuts{width:400px;flex-shrink:0;display:flex;gap:22px}
+.d6 .dwrap{flex:1;text-align:center}
+.d6 .dwrap .dh{width:150px;height:150px;margin:0 auto}
+.d6 .dwrap .dc{font-size:15px;margin-top:6px;line-height:1.35}.dark .d6 .dwrap .dc{color:#98A2B3}.light .d6 .dwrap .dc{color:#64748B}
+/* B: rows */
+.d6b .wrap{flex:1;display:flex;flex-direction:column;gap:22px;margin-top:22px;justify-content:center}
+.d6b .legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:6px}
+.d6b .lg{display:inline-flex;align-items:center;gap:8px;font-size:14.5px;color:#4b5563}
+.d6b .lg i{width:13px;height:13px;border-radius:4px}
+
+.donut{width:100%;height:100%;display:block}
+.dtrack{stroke:rgba(255,255,255,.08)}.light .dtrack{stroke:#EAEEF4}
+.dpct{font:800 30px var(--font);fill:#fff}.light .dpct{fill:#0b1220}
+.dlab{font:600 13px var(--font);fill:#98A2B3}.light .dlab{fill:#64748B}
+</style></head><body><div class="slide dark d6"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><div class="tag">Análise · Distribuição</div></div><div class="body">
+      <div class="eb">Distribuição operacional</div>
+      <div class="tt">O volume é de prioridade baixa — o KPI está no meio</div>
+      <div class="row">
+        <div class="main">
+          <div class="block"><div class="bt">Mix de prioridade</div><div class="hstack"><div class="seg" style="width:52.9%;background:#334155"><span>P4 · 52,9%</span></div><div class="seg" style="width:34.1%;background:#2563EB"><span>P3 · 34,1%</span></div><div class="seg" style="width:12.8%;background:#60A5FA"><span>P2 · 12,8%</span></div><div class="seg" style="width:0.2%;background:#94A3B8"><span></span></div></div></div>
+          <div class="callout">P4 e P3 concentram <b>87%</b> do volume. As prioridades que entram no KPI (P1–P3) são a fatia menor — e é nelas que a operação é medida.</div>
+        </div>
+        <div class="donuts">
+          <div class="dwrap"><div class="dh"><svg viewBox="0 0 140 140" class="donut"><circle cx="70" cy="70" r="54" class="dtrack" fill="none" stroke-width="15"/><circle cx="70" cy="70" r="54" fill="none" stroke="#2563EB" stroke-width="15" stroke-linecap="round" stroke-dasharray="339.3" stroke-dashoffset="50.9" transform="rotate(-90 70 70)"/><text x="70" y="66" class="dpct" text-anchor="middle">85%</text><text x="70" y="90" class="dlab" text-anchor="middle">monitoram.</text></svg></div><div class="dc">vêm de monitoramento automático</div></div>
+          <div class="dwrap"><div class="dh"><svg viewBox="0 0 140 140" class="donut"><circle cx="70" cy="70" r="54" class="dtrack" fill="none" stroke-width="15"/><circle cx="70" cy="70" r="54" fill="none" stroke="#60A5FA" stroke-width="15" stroke-linecap="round" stroke-dasharray="339.3" stroke-dashoffset="115.4" transform="rotate(-90 70 70)"/><text x="70" y="66" class="dpct" text-anchor="middle">66%</text><text x="70" y="90" class="dlab" text-anchor="middle">s/ interv.</text></svg></div><div class="dc">fecham como "Sem Intervenção"</div></div>
+        </div>
+      </div>
+    </div></div></body></html>

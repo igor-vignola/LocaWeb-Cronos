@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8">
+<title>Vibe board — direções do deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Sora:wght@400;600;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0A0E17;color:#E8ECF3;font-family:'Outfit',sans-serif;padding:48px 56px 80px;-webkit-font-smoothing:antialiased}
+.mesh{position:fixed;inset:0;z-index:0;pointer-events:none;background:
+ radial-gradient(900px 600px at 10% -5%,rgba(37,99,235,.20),transparent 55%),
+ radial-gradient(760px 560px at 110% 108%,rgba(37,99,235,.10),transparent 55%)}
+.wrap{position:relative;z-index:1;max-width:1500px;margin:0 auto}
+h1{font-size:30px;font-weight:800;letter-spacing:-.5px}
+.sub{color:#8E97A8;margin-top:8px;font-size:15px;max-width:800px;line-height:1.5}
+h2{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#60A5FA;margin:52px 0 18px}
+.mono{font-family:'JetBrains Mono',monospace}
+.glass{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);border-radius:16px}
+.pick{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#626C80;margin-bottom:12px}
+/* fontes */
+.fonts{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.fcard{padding:26px 28px}
+.fname{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;color:#60A5FA;margin-bottom:14px}
+.fbig{font-size:62px;font-weight:800;letter-spacing:-2px;line-height:.9}
+.fline{font-size:17px;color:#B8C0CE;margin-top:10px}
+.f-outfit .fbig,.f-outfit .fline{font-family:'Outfit'} .f-space .fbig,.f-space .fline{font-family:'Space Grotesk'}
+.f-bric .fbig,.f-bric .fline{font-family:'Bricolage Grotesque'} .f-sora .fbig,.f-sora .fline{font-family:'Sora'}
+/* elementos */
+.els{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.el{padding:22px}
+.el .t{font-size:13px;color:#8E97A8;margin-bottom:16px}
+/* incidente card */
+.inc{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px}
+.inc .top{display:flex;align-items:center;justify-content:space-between}
+.inc .id{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:15px;color:#fff}
+.badge{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px}
+.badge.p2{background:rgba(220,38,38,.16);color:#FCA5A5;border:1px solid rgba(220,38,38,.4)}
+.inc .prod{color:#8E97A8;font-size:13px;margin-top:10px}
+.inc .ola{display:flex;align-items:center;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);color:#FCD34D;font-size:13px}
+.inc svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+/* manual x monitoramento */
+.mvm{display:flex;flex-direction:column;gap:12px}
+.mvm .r{display:flex;align-items:center;gap:12px}
+.mvm .ic{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mvm .ic svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.8}
+.mvm .bar{flex:1;height:34px;border-radius:8px;display:flex;align-items:center;padding:0 12px;font-size:13px;font-weight:600;color:#fff}
+/* icon set */
+.iconset{display:flex;flex-wrap:wrap;gap:14px}
+.ico{width:56px;height:56px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center}
+.ico svg{width:26px;height:26px;stroke:#93C5FD;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+/* stat panel */
+.stat{padding:18px 20px}
+.stat .lb{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:#626C80}
+.stat .n{font-size:44px;font-weight:800;letter-spacing:-2px;color:#fff;margin-top:6px}
+.stat .n .u{font-size:18px;color:#8E97A8}
+.stat .spark{display:flex;align-items:flex-end;gap:4px;height:34px;margin-top:12px}
+.stat .spark span{flex:1;background:rgba(37,99,235,.5);border-radius:2px}
+/* slide concepts */
+.slides{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.mini{aspect-ratio:16/9;border-radius:14px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,.08)}
+.mini .lab{position:absolute;top:12px;left:14px;z-index:3;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.4px;color:#626C80;text-transform:uppercase}
+.mini.dark{background:#0A0E17}
+.mini.dark .mmesh{position:absolute;inset:0;background:radial-gradient(500px 320px at 10% 0%,rgba(37,99,235,.22),transparent 55%)}
+.mini.light{background:#fff;color:#111}
+.mini .inner{position:relative;z-index:2;padding:40px 44px;height:100%;display:flex;flex-direction:column;justify-content:center}
+.mini .eb{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.mini.dark .eb{color:#60A5FA} .mini.light .eb{color:#2563EB}
+.mini .tt{font-size:30px;font-weight:800;letter-spacing:-1px;line-height:1.05}
+.mini.dark .tt{color:#fff} .mini .tt .hl{color:#2563EB}
+.mini .dd{font-size:13px;margin-top:10px;max-width:60%}
+.mini.dark .dd{color:#8E97A8} .mini.light .dd{color:#737373}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;padding:6px 12px;border-radius:999px;margin:4px 6px 0 0}
+.mini.dark .chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#C4CBD8}
+.note{color:#626C80;font-size:12.5px;margin-top:10px;line-height:1.5}
+</style></head>
+<body><div class="mesh"></div><div class="wrap">
+
+<h1>Vibe board — direções pro deck</h1>
+<div class="sub">Rascunho rápido pra você apontar o que curtiu. Não é slide final — são peças/vibes. Me diz: qual <b>fonte</b>, quais <b>elementos</b>, e qual <b>tratamento de slide</b> te agradam. Aí eu refaço os 15 nessa pegada (dark-dominante, com variações onde fizer sentido).</div>
+
+<h2>1 · Fonte do título (fuja do genérico)</h2>
+<div class="fonts">
+  <div class="fcard glass f-outfit"><div class="fname">A · OUTFIT (atual, Sprint 2)</div><div class="fbig">Cronos</div><div class="fline">Veja antes. Aja antes.</div></div>
+  <div class="fcard glass f-space"><div class="fname">B · SPACE GROTESK (técnico, distinto)</div><div class="fbig">Cronos</div><div class="fline">Veja antes. Aja antes.</div></div>
+  <div class="fcard glass f-bric"><div class="fname">C · BRICOLAGE GROTESQUE (editorial, com caráter)</div><div class="fbig">Cronos</div><div class="fline">Veja antes. Aja antes.</div></div>
+  <div class="fcard glass f-sora"><div class="fname">D · SORA (geométrica, sóbria)</div><div class="fbig">Cronos</div><div class="fline">Veja antes. Aja antes.</div></div>
+</div>
+
+<h2>2 · Elementos que dão cara de "incidentes / operação"</h2>
+<div class="els">
+  <div class="el glass"><div class="t">Card de incidente (aparece no risco, brief…)</div>
+    <div class="inc"><div class="top"><span class="id">INC8643147</span><span class="badge p2">P2 · ALTA</span></div>
+      <div class="prod">Produto: <b style="color:#C4CBD8">lssl</b> · aberto há 3h20</div>
+      <div class="ola"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> OLA vence em 40 min</div></div>
+  </div>
+  <div class="el glass"><div class="t">Manual × Monitoramento (a operação real)</div>
+    <div class="mvm">
+      <div class="r"><div class="ic" style="background:#2563EB"><svg viewBox="0 0 24 24"><path d="M2 12a10 10 0 0 1 20 0"/><path d="M6 12a6 6 0 0 1 12 0"/><circle cx="12" cy="12" r="1.5" fill="#fff" stroke="none"/></svg></div><div class="bar" style="background:linear-gradient(90deg,#2563EB,#1D4ED8);width:100%">Monitoramento · 85%</div></div>
+      <div class="r"><div class="ic" style="background:#525252"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></div><div class="bar" style="background:rgba(255,255,255,.10);width:24%">Manual · 15%</div></div>
+    </div>
+  </div>
+  <div class="el glass"><div class="t">Painel-número (tipo o "Previsões")</div>
+    <div class="stat"><div class="lb">Previsão P2/P3 · hoje</div><div class="n">45<span class="u">–68</span></div>
+      <div class="spark"><span style="height:60%"></span><span style="height:80%"></span><span style="height:45%"></span><span style="height:90%"></span><span style="height:70%"></span><span style="height:30%"></span><span style="height:85%"></span></div></div>
+  </div>
+</div>
+<div style="margin-top:16px"><div class="pick">Ícones de tema (linha, azul claro)</div>
+<div class="iconset">
+  <div class="ico" title="incidente"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4"/><circle cx="12" cy="17.5" r="0.6" fill="#93C5FD" stroke="none"/></svg></div>
+  <div class="ico" title="OLA/tempo"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+  <div class="ico" title="monitoramento"><svg viewBox="0 0 24 24"><path d="M2 12a10 10 0 0 1 20 0"/><path d="M6 12a6 6 0 0 1 12 0"/><circle cx="12" cy="12" r="1.4" fill="#93C5FD" stroke="none"/></svg></div>
+  <div class="ico" title="manual/pessoa"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></div>
+  <div class="ico" title="ticket"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10h6M7 14h4"/></svg></div>
+  <div class="ico" title="previsão"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 3 6-7"/><path d="M17 8h4v4"/></svg></div>
+  <div class="ico" title="alerta"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M10.5 21a1.5 1.5 0 0 0 3 0"/></svg></div>
+  <div class="ico" title="equipe/nível"><svg viewBox="0 0 24 24"><rect x="3" y="10" width="5" height="10"/><rect x="10" y="5" width="5" height="15"/><rect x="17" y="13" width="4" height="7"/></svg></div>
+</div></div>
+
+<h2>3 · Tratamento de slide — dark (o que você curte) × claro repensado</h2>
+<div class="slides">
+  <div class="mini dark"><div class="mmesh"></div><span class="lab">Conteúdo DARK · rico</span>
+    <div class="inner"><div class="eb">EDA · 02</div><div class="tt">A operação é <span class="hl" style="color:#60A5FA">85% automática</span></div>
+      <div class="dd">Storytelling com elemento visual + ícones, não gráfico solto.</div>
+      <div style="margin-top:14px"><span class="chip"><svg style="width:14px;height:14px;stroke:#60A5FA;fill:none;stroke-width:2" viewBox="0 0 24 24"><path d="M2 12a10 10 0 0 1 20 0"/></svg> Monitoramento</span><span class="chip">Sem Intervenção · 66%</span></div>
+    </div>
+  </div>
+  <div class="mini light"><span class="lab">Conteúdo CLARO · repensado</span>
+    <div class="inner"><div class="eb">EDA · 03</div><div class="tt">Só <span class="hl">21%</span> contam pro KPI</div>
+      <div class="dd">Claro com hierarquia forte, número gigante e ícone — não card branco chapado.</div>
+      <div style="margin-top:14px"><span class="chip" style="background:#EFF6FF;border:1px solid rgba(37,99,235,.25);color:#2563EB">122.543 → 25.600</span></div>
+    </div>
+  </div>
+</div>
+<div class="note">Ideia: <b style="color:#C4CBD8">dark-dominante</b> (você curte mais), claro só onde ajuda (diagrama denso). Onde eu tiver dúvida de visual, faço <b style="color:#C4CBD8">3–4 variações</b> daquele slide e você escolhe com as setas ←/→ no visualizador (↓ passa pro próximo).</div>
+
+</div></body></html>

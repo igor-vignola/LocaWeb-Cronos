@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Cronos · MVP — EDA + Previsão de Volume (15 slides)</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#15181f;font-family:'Outfit','Segoe UI',sans-serif;padding:40px 0 80px}
+  .head{max-width:1200px;margin:0 auto 32px;padding:0 24px;color:#E5E7EB}
+  .head h1{font-size:24px;font-weight:800;letter-spacing:-.5px}
+  .head p{color:#9CA3AF;margin-top:8px;font-size:14px}
+  .deck{display:flex;flex-direction:column;align-items:center;gap:36px}
+  .frame{width:min(1200px,94vw)}
+  .frame .num{font-family:'JetBrains Mono',monospace;font-size:12px;color:#6B7280;margin-bottom:8px;letter-spacing:1px}
+  .frame img{width:100%;display:block;border-radius:10px;box-shadow:0 18px 50px rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.06)}
+</style>
+</head>
+<body>
+  <div class="head">
+    <h1>Cronos · MVP Preliminar — Análise Exploratória + Previsão de Volume</h1>
+    <p>15 slides · role para baixo. Slides individuais em <code>slide_NN.html</code>; imagens em <code>png/</code>.</p>
+  </div>
+  <div class="deck" id="deck"></div>
+<script>
+  const deck = document.getElementById('deck');
+  const nomes = ['01 · Divisória EDA','02 · Visão geral','03 · Distribuição operacional','04 · Filtro de KPI',
+    '05 · Anomalia de setembro','06 · Concentração temporal','07 · Sazonalidade','08 · Volume não é risco',
+    '09 · Violações de OLA','10 · Divisória Modelagem','11 · Por que P2 e P3','12 · Metodologia',
+    '13 · Prophet','14 · Resultado (3 modelos)','15 · Conclusão'];
+  for (let i = 1; i <= 15; i++) {
+    const n = String(i).padStart(2,'0');
+    deck.insertAdjacentHTML('beforeend',
+      `<div class="frame"><div class="num">${nomes[i-1]}</div><img src="png/slide_${n}.png" alt="slide ${n}"></div>`);
+  }
+</script>
+</body>
+</html>

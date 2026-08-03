@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>04 Anomalia tabela</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+:root{--accent:#2563EB;--accent2:#3B82F6;--accent3:#60A5FA;--accent-l:#EFF6FF;
+ --danger:#DC2626;--warn:#E0A82E;--ink:#0A0E17;--font:'Outfit',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.slide{width:1600px;height:900px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.mesh,.grid-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.dark{background:var(--ink);color:#E8ECF3}
+.dark .grid-bg{background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:46px 46px}
+.dark .mesh{background:radial-gradient(1000px 640px at 6% -10%,rgba(37,99,235,.26),transparent 55%),radial-gradient(820px 620px at 114% 116%,rgba(37,99,235,.13),transparent 55%)}
+.light{background:#F5F7FB;color:#111}
+.light .mesh{background:radial-gradient(1120px 720px at 94% -14%,rgba(37,99,235,.14),transparent 56%),radial-gradient(780px 580px at -10% 110%,rgba(37,99,235,.08),transparent 58%)}
+.light .grid-bg{background-image:linear-gradient(rgba(17,24,39,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(17,24,39,.028) 1px,transparent 1px);background-size:46px 46px}
+/* header */
+.hd{position:relative;z-index:3;display:flex;align-items:center;gap:11px;padding:38px 60px 0}
+.hd .bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.dark .hd .bi{background:#fff}.light .hd .bi{background:var(--ink)}
+.hd .bi svg{width:19px;height:19px}
+.hd .bn{font-size:18px;font-weight:800;letter-spacing:-.3px}.dark .hd .bn{color:#fff}.light .hd .bn{color:#000}
+.hd .tag{margin-left:auto;font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:7px 15px;border-radius:999px}
+.dark .hd .tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#B8C0CE}
+.light .hd .tag{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);color:var(--accent)}
+.body{position:relative;z-index:2;flex:1;padding:22px 60px 46px;display:flex;flex-direction:column;min-height:0}
+/* tipografia */
+.eb{font-size:13.5px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase}
+.dark .eb{color:var(--accent3)}.light .eb{color:var(--accent)}
+.tt{font-size:42px;font-weight:800;letter-spacing:-1.5px;line-height:1.03;margin-top:12px}
+.dark .tt{color:#fff}.tt .hl{color:var(--accent2)}.light .tt .hl{color:var(--accent)}
+.light .tt{color:#0b1220}
+.lead{font-size:18px;line-height:1.5;margin-top:14px;max-width:680px}
+.dark .lead{color:#98A2B3}.light .lead{color:#5b6472}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+b,strong{font-weight:700}
+.num{font-variant-numeric:tabular-nums}
+/* callout / chips / badges reutilizaveis */
+.callout{border-radius:14px;padding:18px 22px;font-size:16.5px;line-height:1.45}
+.dark .callout{background:linear-gradient(120deg,rgba(37,99,235,.16),rgba(37,99,235,.05));border:1px solid rgba(59,130,246,.34);color:#DBEAFE}
+.light .callout{background:var(--accent-l);border:1px solid rgba(37,99,235,.2);color:#1e3a8a}
+.callout b{color:#fff}.light .callout b{color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{display:inline-flex;align-items:center;gap:9px;font-size:14.5px;font-weight:600;padding:9px 15px;border-radius:999px}
+.dark .chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#C4CBD8}
+.light .chip{background:#fff;border:1px solid #E5E7EB;color:#374151;box-shadow:0 4px 14px -8px rgba(37,99,235,.25)}
+.chip .ic{width:18px;height:18px}.chip .ic svg{width:18px;height:18px}
+.dark .chip .ic{color:var(--accent3)}.light .chip .ic{color:var(--accent)}
+
+.a4 .body{padding-top:14px}.a4 .tt{font-size:38px}
+.a4 .row{flex:1;display:flex;gap:40px;margin-top:16px;min-height:0}
+.a4 .chartbox{flex:1;position:relative}
+.a4 .side{width:330px;flex-shrink:0;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.a4 .stat{border-radius:14px;padding:18px 20px}
+.dark .a4 .stat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)}
+.light .a4 .stat{background:#fff;border:1px solid #EAEEF4;box-shadow:0 12px 30px -18px rgba(37,99,235,.2)}
+.a4 .stat .sv{font-size:34px;font-weight:800;letter-spacing:-1.5px}.dark .a4 .stat .sv{color:#fff}.light .a4 .stat .sv{color:#0b1220}
+.a4 .stat .sv.acc{color:var(--accent2)}.light .a4 .stat .sv.acc{color:var(--accent)}
+.a4 .stat .sl{font-size:14px;margin-top:5px;line-height:1.35}.dark .a4 .stat .sl{color:#98A2B3}.light .a4 .stat .sl{color:#64748B}
+.a4 .lgd{display:flex;gap:20px;margin-top:10px;font-size:13.5px}
+.a4 .lgd span{display:inline-flex;align-items:center;gap:8px;color:#8E97A8}.light .a4 .lgd span{color:#64748B}
+.a4 .lgd i{width:22px;height:0;border-top:3px solid;border-radius:2px}
+/* B: comparacao ago x set em tabela + delta */
+.a4b .grid{flex:1;display:flex;flex-direction:column;gap:11px;margin-top:18px}
+.a4b .hrow,.a4b .drow{display:grid;grid-template-columns:2.2fr 1fr 1fr 1.3fr;align-items:center;gap:18px}
+.a4b .hrow{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:#7A8494;padding:0 20px}
+.a4b .drow{padding:15px 20px;border-radius:13px}
+.dark .a4b .drow{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08)}
+.light .a4b .drow{background:#fff;border:1px solid #EAEEF4}
+.a4b .dl{font-size:16.5px;font-weight:600}.dark .a4b .dl{color:#E8ECF3}.light .a4b .dl{color:#1a1a1a}
+.a4b .dv{font-size:22px;font-weight:800;letter-spacing:-1px;font-variant-numeric:tabular-nums}.dark .a4b .dv{color:#C4CBD8}.light .a4b .dv{color:#334155}
+.a4b .dd{font-size:15px;font-weight:700}
+.a4b .up{color:#E0A82E}.a4b .flat{color:#22A06B}
+.a4b .drow.hot{background:linear-gradient(120deg,rgba(224,168,46,.13),transparent);border-color:rgba(224,168,46,.34)}
+.a4b .drow.cool{background:linear-gradient(120deg,rgba(34,160,107,.12),transparent);border-color:rgba(34,160,107,.32)}
+</style></head><body><div class="slide light a4b"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><div class="tag">Análise · Anomalia</div></div><div class="body">
+      <div class="eb">Investigação · agosto → setembro/2025</div>
+      <div class="tt">Todo o salto vem do monitoramento — não de novas falhas</div>
+      <div class="grid">
+        <div class="hrow"><div>Dimensão</div><div>Agosto</div><div>Setembro</div><div>Variação</div></div>
+        <div class="drow hot"><div class="dl">Origem: Monitoramento</div><div class="dv num">2.404</div><div class="dv num">20.008</div><div class="dd up">8,3×</div></div>
+        <div class="drow hot"><div class="dl">Status "Sem Intervenção"</div><div class="dv num">47</div><div class="dv num">17.838</div><div class="dd up">380×</div></div>
+        <div class="drow hot"><div class="dl">Itens de config. vistos pela 1ª vez</div><div class="dv num">458</div><div class="dv num">1.693</div><div class="dd up">3,7×</div></div>
+        <div class="drow cool"><div class="dl">Origem: Manual</div><div class="dv num">1.592</div><div class="dv num">1.553</div><div class="dd flat">≈ estável</div></div>
+        <div class="drow cool"><div class="dl">Volume elegível ao KPI</div><div class="dv num">2.330</div><div class="dv num">2.324</div><div class="dd flat">≈ estável</div></div>
+      </div>
+      <div class="callout" style="margin-top:16px">Os três indicadores que disparam apontam para <b>expansão do monitoramento automático</b> sobre ativos antes não vigiados — mais eventos capturados, não mais falhas. Como a série do KPI ignora "Sem Intervenção", a modelagem não é afetada.</div>
+    </div></div></body></html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>08 N1 N2 diverging</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+:root{--accent:#2563EB;--accent2:#3B82F6;--accent3:#60A5FA;--accent-l:#EFF6FF;
+ --danger:#DC2626;--warn:#E0A82E;--ink:#0A0E17;--font:'Outfit',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.slide{width:1600px;height:900px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.mesh,.grid-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.dark{background:var(--ink);color:#E8ECF3}
+.dark .grid-bg{background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:46px 46px}
+.dark .mesh{background:radial-gradient(1000px 640px at 6% -10%,rgba(37,99,235,.26),transparent 55%),radial-gradient(820px 620px at 114% 116%,rgba(37,99,235,.13),transparent 55%)}
+.light{background:#F5F7FB;color:#111}
+.light .mesh{background:radial-gradient(1120px 720px at 94% -14%,rgba(37,99,235,.14),transparent 56%),radial-gradient(780px 580px at -10% 110%,rgba(37,99,235,.08),transparent 58%)}
+.light .grid-bg{background-image:linear-gradient(rgba(17,24,39,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(17,24,39,.028) 1px,transparent 1px);background-size:46px 46px}
+/* header */
+.hd{position:relative;z-index:3;display:flex;align-items:center;gap:11px;padding:38px 60px 0}
+.hd .bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.dark .hd .bi{background:#fff}.light .hd .bi{background:var(--ink)}
+.hd .bi svg{width:19px;height:19px}
+.hd .bn{font-size:18px;font-weight:800;letter-spacing:-.3px}.dark .hd .bn{color:#fff}.light .hd .bn{color:#000}
+.hd .tag{margin-left:auto;font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:7px 15px;border-radius:999px}
+.dark .hd .tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#B8C0CE}
+.light .hd .tag{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);color:var(--accent)}
+.body{position:relative;z-index:2;flex:1;padding:22px 60px 46px;display:flex;flex-direction:column;min-height:0}
+/* tipografia */
+.eb{font-size:13.5px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase}
+.dark .eb{color:var(--accent3)}.light .eb{color:var(--accent)}
+.tt{font-size:42px;font-weight:800;letter-spacing:-1.5px;line-height:1.03;margin-top:12px}
+.dark .tt{color:#fff}.tt .hl{color:var(--accent2)}.light .tt .hl{color:var(--accent)}
+.light .tt{color:#0b1220}
+.lead{font-size:18px;line-height:1.5;margin-top:14px;max-width:680px}
+.dark .lead{color:#98A2B3}.light .lead{color:#5b6472}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+b,strong{font-weight:700}
+.num{font-variant-numeric:tabular-nums}
+/* callout / chips / badges reutilizaveis */
+.callout{border-radius:14px;padding:18px 22px;font-size:16.5px;line-height:1.45}
+.dark .callout{background:linear-gradient(120deg,rgba(37,99,235,.16),rgba(37,99,235,.05));border:1px solid rgba(59,130,246,.34);color:#DBEAFE}
+.light .callout{background:var(--accent-l);border:1px solid rgba(37,99,235,.2);color:#1e3a8a}
+.callout b{color:#fff}.light .callout b{color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{display:inline-flex;align-items:center;gap:9px;font-size:14.5px;font-weight:600;padding:9px 15px;border-radius:999px}
+.dark .chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#C4CBD8}
+.light .chip{background:#fff;border:1px solid #E5E7EB;color:#374151;box-shadow:0 4px 14px -8px rgba(37,99,235,.25)}
+.chip .ic{width:18px;height:18px}.chip .ic svg{width:18px;height:18px}
+.dark .chip .ic{color:var(--accent3)}.light .chip .ic{color:var(--accent)}
+
+.n8 .body{padding-top:14px}.n8 .tt{font-size:38px}
+.n8 .row{flex:1;display:flex;gap:26px;margin-top:20px;min-height:0;align-items:center}
+.n8 .col{flex:1;border-radius:20px;padding:34px 36px;display:flex;flex-direction:column}
+.dark .n8 .col.n1{background:linear-gradient(155deg,rgba(59,130,246,.13),rgba(37,99,235,.03));border:1px solid rgba(59,130,246,.3)}
+.n8 .col.n2{background:linear-gradient(155deg,rgba(220,38,38,.15),rgba(220,38,38,.03));border:1px solid rgba(220,38,38,.36)}
+.n8 .col .tag{align-self:flex-start;font-size:13px;font-weight:700;letter-spacing:1.5px;padding:6px 13px;border-radius:999px;margin-bottom:16px}
+.n8 .col.n1 .tag{background:rgba(255,255,255,.08);color:#C4CBD8}
+.n8 .col.n2 .tag{background:rgba(220,38,38,.2);color:#FCA5A5}
+.n8 .col h3{font-size:26px;font-weight:800;color:#fff;letter-spacing:-.5px}
+.n8 .col p{font-size:15.5px;color:#98A2B3;margin-top:8px;line-height:1.45}
+.n8 .metrics{margin-top:30px;display:flex;gap:14px;padding-top:24px;border-top:1px solid rgba(255,255,255,.09)}
+.n8 .m{flex:1}.n8 .m .mv{font-size:40px;font-weight:800;letter-spacing:-1.5px;color:#fff;line-height:1}
+.n8 .col.n1 .m.hero .mv{color:#93C5FD}.n8 .col.n2 .m.hero .mv{color:#FCA5A5}
+.n8 .m .ml{font-size:13px;color:#8E97A8;margin-top:6px;line-height:1.3}
+.n8 .vs{align-self:center;flex-shrink:0;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#8E97A8;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12)}
+/* B: diverging paired bars */
+.n8b .chartwrap{flex:1;margin-top:20px;display:flex;flex-direction:column;gap:20px;justify-content:center}
+.n8b .team{display:grid;grid-template-columns:150px 1fr;gap:20px;align-items:center}
+.n8b .tname{font-size:17px;font-weight:700}.dark .n8b .tname{color:#E8ECF3}.light .n8b .tname{color:#0b1220}
+.n8b .tname small{display:block;font-size:13px;font-weight:600;color:#8E97A8;margin-top:2px}
+.n8b .pair{display:flex;flex-direction:column;gap:9px}
+.n8b .pb{display:flex;align-items:center;gap:12px}
+.n8b .pb .cap{width:78px;font-size:13px;font-weight:600;text-align:right;flex-shrink:0}.dark .n8b .pb .cap{color:#98A2B3}.light .n8b .pb .cap{color:#64748B}
+.n8b .pb .tk{flex:1;height:26px;border-radius:7px;position:relative;overflow:hidden}.dark .n8b .pb .tk{background:rgba(255,255,255,.05)}.light .n8b .pb .tk{background:#EEF1F6}
+.n8b .pb .fl{height:100%;border-radius:7px;display:flex;align-items:center;padding-left:10px;font-size:13px;font-weight:700;color:#fff}
+.n8b .pv{width:56px;font-size:16px;font-weight:800;flex-shrink:0}.dark .n8b .pv{color:#fff}.light .n8b .pv{color:#0b1220}
+</style></head><body><div class="slide light n8b"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><div class="tag">Análise · Estrutura N1/N2</div></div><div class="body">
+      <div class="eb">Estrutura operacional · risco ≠ volume</div>
+      <div class="tt">Quem tem o volume não tem o risco</div>
+      <div class="chartwrap">
+        <div class="team"><div class="tname">Team14<small>N1 · triagem automática</small></div>
+          <div class="pair">
+            <div class="pb"><span class="cap">volume</span><div class="tk"><div class="fl" style="width:75.7%;background:#5A6675">75,7%</div></div></div>
+            <div class="pb"><span class="cap">violações</span><div class="tk"><div class="fl" style="width:4%;background:#DC2626">4%</div></div></div>
+          </div></div>
+        <div class="team"><div class="tname">Team11<small>N2 · especializado</small></div>
+          <div class="pair">
+            <div class="pb"><span class="cap">volume</span><div class="tk"><div class="fl" style="width:8%;background:#5A6675">8%</div></div></div>
+            <div class="pb"><span class="cap">violações</span><div class="tk"><div class="fl" style="width:46%;background:#DC2626">46%</div></div></div>
+          </div></div>
+        <div class="team"><div class="tname">Demais times<small>N1 + N2</small></div>
+          <div class="pair">
+            <div class="pb"><span class="cap">volume</span><div class="tk"><div class="fl" style="width:16.3%;background:#5A6675">16,3%</div></div></div>
+            <div class="pb"><span class="cap">violações</span><div class="tk"><div class="fl" style="width:50%;background:#DC2626">50%</div></div></div>
+          </div></div>
+      </div>
+      <div class="callout">A atenção preventiva do Cronos vai para o <b>gargalo dos N2</b> — não para o volume do N1. Team11 responde por 46% das violações com 8% do volume.</div>
+    </div></div></body></html>
