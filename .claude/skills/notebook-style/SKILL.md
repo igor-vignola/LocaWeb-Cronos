@@ -1,6 +1,6 @@
 ---
 name: notebook-style
-description: "Estrutura e padrão obrigatório dos notebooks Jupyter do projeto Cronos. SEMPRE consulte antes de criar ou editar arquivos .ipynb. Use quando o usuário mencionar: notebook, jupyter, .ipynb, AED, EDA, análise exploratória, modelagem, features, clusterização, SHAP, ou qualquer trabalho de análise de dados em Python. Use também ao gerar o primeiro notebook de uma nova etapa (01_eda, 02_features, etc.)."
+description: "Estrutura e padrão obrigatório dos notebooks Jupyter do projeto Cronos. SEMPRE consulte antes de criar ou editar arquivos .ipynb. Use quando o usuário mencionar: notebook, jupyter, .ipynb, AED, EDA, análise exploratória, modelagem, features, clusterização, SHAP, ou qualquer trabalho de análise de dados em Python. Use também ao gerar o primeiro notebook de uma nova etapa (01_eda, 02_base_kpi, etc.)."
 ---
 
 # Padrão de Notebooks — Cronos
@@ -13,12 +13,10 @@ Notebooks ficam em `notebooks/` com prefixo numérico:
 
 ```
 notebooks/
-├── 01_eda.ipynb          ← análise exploratória
-├── 02_features.ipynb     ← engenharia de features
-├── 03_modelagem.ipynb    ← treinamento dos modelos
-├── 04_ola.ipynb          ← análise específica de OLA
-├── 05_cluster.ipynb      ← clusterização DTW
-└── 06_shap.ipynb         ← explicabilidade
+├── 01_eda.ipynb                ← análise exploratória
+├── 02_base_kpi.ipynb           ← base compartilhada (carga, tipagem, filtro de KPI)
+├── 03_previsao_volume.ipynb    ← modelo 1: Prophet (volume D+1 a D+7, P2 e P3)
+└── 04_risco_ola.ipynb          ← modelo 2: regressão logística + SHAP (a produzir)
 ```
 
 **Por que prefixo numérico:** ordenação visual no explorador + indica ordem lógica de execução.
@@ -51,7 +49,7 @@ produto/categoria/prioridade, e investigar a anomalia de incidentes em setembro/
 
 ## Entradas
 
-- `data/raw/LWDATASET.xlsx`
+- `assets/Materal LocalWeb/LW-DATASET.xlsx`
 
 ## Saídas
 
@@ -106,7 +104,7 @@ Definir caminhos, configurações de visualização, paleta. Aplicar `setup_cron
 Apenas leitura. **Não fazer transformação aqui.**
 
 ```python
-df = pd.read_excel('../data/raw/LWDATASET.xlsx')
+df = pd.read_excel('../assets/Materal LocalWeb/LW-DATASET.xlsx')
 print(f"Linhas: {len(df):,} | Colunas: {df.shape[1]}")
 ```
 

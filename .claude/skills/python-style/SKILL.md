@@ -57,7 +57,7 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 from prophet import Prophet
-from xgboost import XGBRegressor
+from sklearn.linear_model import LogisticRegression
 
 # Local
 from src.features import build_temporal_features
@@ -229,13 +229,13 @@ def treinar_modelo(
     test_size: float = 0.2,
     random_state: int = 42,
     verbose: bool = False,
-) -> XGBRegressor:
+) -> LogisticRegression:
     ...
 ```
 
 Uso fica explícito:
 ```python
-modelo = treinar_modelo(df, 'volume', features, test_size=0.3, verbose=True)
+modelo = treinar_modelo(df, 'violou_ola', features, test_size=0.3, verbose=True)
 ```
 
 ### Evitar argumentos mutáveis como default
@@ -269,20 +269,22 @@ Não usar classes só pra agrupar funções sem estado — módulo basta.
 
 ```python
 class CronosForecaster:
-    """Previsão de volume de incidentes via Prophet + XGBoost."""
+    """Previsão de volume de incidentes elegíveis ao KPI via Prophet.
+
+    Uma instância por prioridade (P2 e P3 são séries separadas). O XGBoost NÃO
+    participa da previsão de volume: ele existe apenas como baseline de comparação
+    do modelo de risco de OLA, cujo modelo escolhido é a regressão logística.
+    """
 
     def __init__(
         self,
         prophet_params: dict | None = None,
-        xgb_params: dict | None = None,
     ) -> None:
         self.prophet_params = prophet_params or {}
-        self.xgb_params = xgb_params or {}
         self._prophet_model: Prophet | None = None
-        self._xgb_model: XGBRegressor | None = None
 
     def fit(self, df: pd.DataFrame) -> "CronosForecaster":
-        """Treina os dois modelos. Retorna self para encadeamento."""
+        """Treina o modelo na série informada. Retorna self para encadeamento."""
         ...
         return self
 
@@ -359,7 +361,7 @@ select = ["E", "F", "I", "N", "UP", "B"]
 # ✅ Padrão correto
 df_pai = df[df['Incidente Pai'].isna()]
 df_kpi = df_pai[df_pai['Entrou para KPI?'] == 'SIM']
-df_ola_p2 = df_kpi[df_kpi['Prioridade'] == '2-Alta']
+df_ola_p2 = df_kpi[df_kpi['Prioridade'] == '2 - Alta']
 ```
 
 ### 2. Features de calendário sempre via lib `holidays`

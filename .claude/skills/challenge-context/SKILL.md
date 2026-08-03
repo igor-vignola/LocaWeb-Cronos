@@ -20,7 +20,7 @@ description: "Contexto completo do Challenge FIAP 2026 com Locaweb. SEMPRE consu
 - **RM:** 561428
 - **Email:** igor.vignola@gmail.com
 - **Turma:** 2TSCOA — Tecnólogo Data Science
-- **Grupo:** [A DEFINIR — perguntar ao Igor quando necessário]
+- **Grupo:** Super Data Bros · turma 2TSCOA (Ana Beatriz Costa de Oliveira RM561310, Hygor Abrantes RM565063, Igor Vignola RM561428)
 
 ---
 
@@ -99,7 +99,7 @@ Os grupos DEVEM propor solução que:
 ## Dataset — LWDATASET.xlsx
 
 ### Estrutura
-- **Total de registros:** 122.543 (122.542 + header)
+- **Total de registros:** 122.543 incidentes (linhas de dado; confirmado por `df.info()` nos notebooks 01 e 02)
 - **Período:** Janeiro/2023 a Dezembro/2025 (3 anos)
 - **Campos:** 19 colunas
 
@@ -127,11 +127,11 @@ Os grupos DEVEM propor solução que:
 | KPI Violado? | SIM, NAO ou N/A | Booleano |
 
 ### Distribuição dos dados (números reais do dataset)
-- **Por prioridade:** P4-Baixa: 64.828 | P3-Média: 41.731 | P2-Alta: 15.649 | P5-Muito Baixa: 333 | P1-Crítica: 1
-- **Por status:** Sem Intervenção: 80.372 | Encerrado Automaticamente: 26.830 | Encerrado: 15.339 | Aguardando Problema: 1
+- **Por prioridade:** P4-Baixa: 64.828 | P3-Média: 41.732 | P2-Alta: 15.649 | P5-Muito Baixa: 333 | P1-Crítica: 1
+- **Por status:** Sem Intervenção: 80.373 | Encerrado Automaticamente: 26.830 | Encerrado: 15.339 | Aguardando Problema: 1
 - **Entrou para KPI:** NAO: 96.942 | SIM: 25.600
 - **KPI Violado:** N/A: 96.942 | NAO: 25.352 | SIM: 248
-- **Aberto por:** Monitoramento: 104.298 | Manual: 18.244
+- **Aberto por:** Monitoramento: 104.299 | Manual: 18.244
 
 ### Regras de KPI (IMPORTANTE — nunca errar isso)
 

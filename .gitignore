@@ -50,3 +50,5 @@ docker/volumes/
 db.sqlite3
 staticfiles/
 media/
+# Laboratório de modelagem (não comitado — vira notebook limpo no fim)
+notebooks/lab/

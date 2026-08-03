@@ -34,9 +34,9 @@ Convenção do projeto baseada em **Conventional Commits**, em português, forma
 ## Exemplos bons
 
 ```
-feat: adiciona detector de cascata para incidentes P4/P5 que escalam para P3
+feat: adiciona previsão de volume diário por prioridade com Prophet
 fix: corrige filtro de incidente pai que estava ignorando NaN em vez de string vazia
-docs: atualiza decisoes-tecnicas.md com a escolha de tslearn DTW para clusterização
+docs: atualiza decisoes-tecnicas.md com a escolha da regressão logística para risco de OLA
 chore: adiciona regras de gitignore para *.pkl e diretório data/processed
 refactor: extrai logica de geração de features temporais para módulo features.py
 test: adiciona teste de regressão para função de cálculo de OLA estourado
@@ -63,7 +63,7 @@ Para mudanças grandes ou com contexto importante, adicione corpo após uma linh
 feat: implementa pipeline completo de AED do dataset LWDATASET
 
 - Adiciona limpeza de tipos e datas
-- Identifica anomalia de queda de incidentes em setembro/2025
+- Identifica a mudança de patamar de incidentes em setembro/2025
 - Gera gráficos de distribuição temporal, por produto e por OLA
 - Salva relatório consolidado em notebooks/01_eda.ipynb
 ```
