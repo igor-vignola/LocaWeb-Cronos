@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>23 O modelo</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+:root{--accent:#2563EB;--accent2:#3B82F6;--accent3:#60A5FA;--accent-l:#EFF6FF;
+ --good:#15A05B;--good-l:#E7F6EE;--warn:#D9930B;--warn-l:#FBF1DC;--bad:#DC2626;--bad-l:#FCECEC;
+ --ink:#0A0E17;--pg:#F4F7FC;--line:#E5EAF1;--tx:#4A5568;--tx2:#6B7688;--head:#0B1220;
+ --font:'Outfit',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.slide{width:1600px;height:900px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.mesh,.grid-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.dark{background:var(--ink);color:#E8ECF3}
+.dark .grid-bg{background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:48px 48px}
+.dark .mesh{background:radial-gradient(1100px 680px at 4% -12%,rgba(37,99,235,.3),transparent 55%),radial-gradient(900px 640px at 116% 118%,rgba(37,99,235,.16),transparent 55%)}
+.light{background:var(--pg);color:var(--head)}
+.light .mesh{background:radial-gradient(1200px 760px at 100% -16%,rgba(37,99,235,.16),transparent 54%),radial-gradient(880px 640px at -12% 112%,rgba(37,99,235,.10),transparent 56%),radial-gradient(700px 520px at 50% -30%,rgba(96,165,250,.10),transparent 60%)}
+.light .grid-bg{background-image:linear-gradient(rgba(17,24,39,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(17,24,39,.026) 1px,transparent 1px);background-size:48px 48px}
+.hd{position:relative;z-index:3;display:flex;align-items:center;gap:11px;padding:40px 64px 0}
+.hd .bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.dark .hd .bi{background:#fff}.light .hd .bi{background:var(--ink)}
+.hd .bi svg{width:19px;height:19px}
+.hd .bn{font-size:18px;font-weight:800;letter-spacing:-.3px}.dark .hd .bn{color:#fff}.light .hd .bn{color:#000}
+.hd .bt{font-size:13px;font-weight:600;letter-spacing:1.5px;margin-left:2px}.dark .hd .bt{color:#5b647a}.light .hd .bt{color:#9AA6B6}
+.hd .tag{margin-left:auto;font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:7px 15px;border-radius:999px}
+.dark .hd .tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#B8C0CE}
+.light .hd .tag{background:#fff;border:1px solid var(--line);color:var(--accent);box-shadow:0 4px 14px -8px rgba(37,99,235,.3)}
+.body{position:relative;z-index:2;flex:1;padding:24px 64px 46px;display:flex;flex-direction:column;min-height:0}
+.eb{display:inline-flex;align-items:center;gap:12px;font-size:13.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+.dark .eb{color:var(--accent3)}.light .eb{color:var(--accent)}
+.eb::before{content:'';width:26px;height:2px;border-radius:2px;background:currentColor;opacity:.7}
+.tt{font-size:40px;font-weight:800;letter-spacing:-1.4px;line-height:1.05;margin-top:14px}
+.dark .tt{color:#fff}.light .tt{color:var(--head)}.tt .hl{color:var(--accent)}.dark .tt .hl{color:var(--accent2)}
+.lead{font-size:18px;line-height:1.5;margin-top:14px;max-width:720px}
+.dark .lead{color:#98A2B3}.light .lead{color:var(--tx)}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.num{font-variant-numeric:tabular-nums}
+b,strong{font-weight:700}
+.vp{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:999px;letter-spacing:.2px}
+.vp .ic{width:14px;height:14px}.vp .ic svg{width:14px;height:14px;stroke-width:2.4}
+.vp.good{background:var(--good-l);color:var(--good)}
+.vp.warn{background:var(--warn-l);color:var(--warn)}
+.vp.bad{background:var(--bad-l);color:var(--bad)}
+.vp.focus{background:var(--accent-l);color:var(--accent)}
+.vp.ctx{background:#EEF2F7;color:var(--tx2)}
+.dark .vp.good{background:rgba(21,160,91,.16);color:#4ADE80}.dark .vp.bad{background:rgba(220,38,38,.16);color:#F87171}
+.dark .vp.focus{background:rgba(37,99,235,.18);color:#93C5FD}.dark .vp.ctx{background:rgba(255,255,255,.07);color:#9AA6B6}
+.mplfig{display:block;width:100%;height:100%;object-fit:contain}
+.sub{font-size:16.5px;line-height:1.55;color:var(--tx);margin-top:12px;max-width:1180px}
+.sub b{color:var(--head)}
+
+.r23 .body{padding-top:16px}.r23 .tt{font-size:38px}
+.r23 .row{display:flex;gap:24px;margin-top:auto;margin-bottom:auto;align-items:stretch}
+.r23 .col{flex:1;background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px 28px;box-shadow:0 18px 44px -26px rgba(15,23,42,.22);display:flex;flex-direction:column}
+.r23 .col .ch{display:flex;align-items:center;gap:12px}
+.r23 .col .ci{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.r23 .col .ci svg{width:21px;height:21px}
+.r23 .col.usa .ci{background:var(--accent-l);color:var(--accent)}
+.r23 .col.nao .ci{background:var(--bad-l);color:var(--bad)}
+.r23 .col h3{font-size:20px;font-weight:800;letter-spacing:-.4px;color:var(--head)}
+.r23 .col h3 small{display:block;font-size:12.5px;font-weight:600;color:var(--tx2);letter-spacing:.2px;margin-top:2px}
+.r23 .items{margin-top:18px;display:flex;flex-direction:column;gap:8px}
+.r23 .it{display:flex;align-items:center;gap:11px;font-size:14.5px;padding:9px 13px;border-radius:10px;background:#F7F9FC}
+.r23 .it .ic{width:15px;height:15px;flex-shrink:0}.r23 .it .ic svg{width:15px;height:15px;stroke-width:2.4}
+.r23 .col.usa .it .ic{color:var(--accent)}
+.r23 .col.nao .it{background:var(--bad-l)}.r23 .col.nao .it .ic{color:var(--bad)}
+.r23 .it .k{font-weight:700;color:var(--head)}
+.r23 .it .w{color:var(--tx2);font-size:13px;margin-left:auto;text-align:right}
+.r23 .col .foot{margin-top:auto;padding-top:18px;font-size:14px;color:var(--tx);line-height:1.5;border-top:1px solid var(--line)}
+.r23 .col .foot b{color:var(--head)}
+.r23 .why{width:360px;flex-shrink:0;background:linear-gradient(160deg,#0B1220,#131C2E);border-radius:20px;padding:28px;color:#E8ECF3;display:flex;flex-direction:column;box-shadow:0 26px 60px -34px rgba(11,18,32,.7)}
+.r23 .why .wh{font-size:12.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:#7A8494}
+.r23 .why h4{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.5px;margin-top:12px;line-height:1.25}
+.r23 .why p{font-size:14.5px;color:#98A2B3;line-height:1.6;margin-top:14px}
+.r23 .why p b{color:#fff}
+.r23 .why .pill{margin-top:auto;align-self:flex-start;background:rgba(220,38,38,.16);color:#F87171;font-size:13px;font-weight:700;border-radius:999px;padding:8px 15px}
+</style></head><body><div class="slide light r23"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Risco de OLA · O modelo</div></div><div class="body">
+      <div class="eb">A regra que define o modelo</div>
+      <div class="tt">Só o que existe <span class="hl">no instante da abertura</span></div>
+      <div class="sub">A previsão precisa acontecer quando o incidente entra, então o modelo só pode usar informação disponível nesse momento. Campos preenchidos durante ou depois do atendimento ficam fora, por mais úteis que pareçam.</div>
+      <div class="row">
+        <div class="col usa"><div class="ch"><span class="ci"><span class="ic"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></span></span>
+          <h3>10 características usadas<small>o que a operação já sabe na abertura</small></h3></div>
+          <div class="items"><div class="it"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span><span class="k">Prioridade</span><span class="w">P2 ou P3</span></div><div class="it"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span><span class="k">Grupo designado</span><span class="w">16 equipes</span></div><div class="it"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span><span class="k">Produto</span><span class="w">45 produtos</span></div><div class="it"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span><span class="k">Categoria e subcategoria</span><span class="w">119 e 383</span></div><div class="it"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span><span class="k">Item de configuração</span><span class="w">4.665 ativos</span></div><div class="it"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span><span class="k">Origem da abertura</span><span class="w">manual ou monitoramento</span></div><div class="it"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span><span class="k">Hora, dia da semana, feriado</span><span class="w">do instante da abertura</span></div></div>
+          <div class="foot">Regressão logística treinada em <b>20.417</b> incidentes até 30/09/2025, testada nos <b>5.183</b> seguintes.</div></div>
+        <div class="col nao"><div class="ch"><span class="ci"><span class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2.2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span></span>
+          <h3>4 campos excluídos<small>informação que ainda não existe</small></h3></div>
+          <div class="items"><div class="it"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span class="k">Duração</span><span class="w">só existe no fechamento</span></div><div class="it"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span class="k">Resolvido e Encerrado</span><span class="w">posteriores à abertura</span></div><div class="it"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span class="k">Status</span><span class="w">muda durante o atendimento</span></div><div class="it"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span class="k">Código de fechamento e Solução</span><span class="w">preenchidos no fim</span></div></div>
+          <div class="foot">Usar qualquer um deles produziria um modelo de desempenho <b>aparentemente perfeito</b> e utilidade nula.</div></div>
+        <div class="why"><div class="wh">O caso mais tentador</div>
+          <h4>A duração decide o estouro por definição</h4>
+          <p>Se o OLA é um prazo, então a duração do atendimento <b>determina mecanicamente</b> se ele foi furado. Um modelo com esse campo acertaria quase tudo.</p>
+          <p>E seria inútil: no instante da abertura a duração é <b>zero</b> para todos. O acerto viria de uma informação que a operação só tem quando já não dá mais para agir.</p>
+          <div class="pill">excluído por vazamento</div></div>
+      </div>
+    </div></div></body></html>

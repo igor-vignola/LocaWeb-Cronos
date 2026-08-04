@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>21 O alvo</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+:root{--accent:#2563EB;--accent2:#3B82F6;--accent3:#60A5FA;--accent-l:#EFF6FF;
+ --good:#15A05B;--good-l:#E7F6EE;--warn:#D9930B;--warn-l:#FBF1DC;--bad:#DC2626;--bad-l:#FCECEC;
+ --ink:#0A0E17;--pg:#F4F7FC;--line:#E5EAF1;--tx:#4A5568;--tx2:#6B7688;--head:#0B1220;
+ --font:'Outfit',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.slide{width:1600px;height:900px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.mesh,.grid-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.dark{background:var(--ink);color:#E8ECF3}
+.dark .grid-bg{background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:48px 48px}
+.dark .mesh{background:radial-gradient(1100px 680px at 4% -12%,rgba(37,99,235,.3),transparent 55%),radial-gradient(900px 640px at 116% 118%,rgba(37,99,235,.16),transparent 55%)}
+.light{background:var(--pg);color:var(--head)}
+.light .mesh{background:radial-gradient(1200px 760px at 100% -16%,rgba(37,99,235,.16),transparent 54%),radial-gradient(880px 640px at -12% 112%,rgba(37,99,235,.10),transparent 56%),radial-gradient(700px 520px at 50% -30%,rgba(96,165,250,.10),transparent 60%)}
+.light .grid-bg{background-image:linear-gradient(rgba(17,24,39,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(17,24,39,.026) 1px,transparent 1px);background-size:48px 48px}
+.hd{position:relative;z-index:3;display:flex;align-items:center;gap:11px;padding:40px 64px 0}
+.hd .bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.dark .hd .bi{background:#fff}.light .hd .bi{background:var(--ink)}
+.hd .bi svg{width:19px;height:19px}
+.hd .bn{font-size:18px;font-weight:800;letter-spacing:-.3px}.dark .hd .bn{color:#fff}.light .hd .bn{color:#000}
+.hd .bt{font-size:13px;font-weight:600;letter-spacing:1.5px;margin-left:2px}.dark .hd .bt{color:#5b647a}.light .hd .bt{color:#9AA6B6}
+.hd .tag{margin-left:auto;font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:7px 15px;border-radius:999px}
+.dark .hd .tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#B8C0CE}
+.light .hd .tag{background:#fff;border:1px solid var(--line);color:var(--accent);box-shadow:0 4px 14px -8px rgba(37,99,235,.3)}
+.body{position:relative;z-index:2;flex:1;padding:24px 64px 46px;display:flex;flex-direction:column;min-height:0}
+.eb{display:inline-flex;align-items:center;gap:12px;font-size:13.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+.dark .eb{color:var(--accent3)}.light .eb{color:var(--accent)}
+.eb::before{content:'';width:26px;height:2px;border-radius:2px;background:currentColor;opacity:.7}
+.tt{font-size:40px;font-weight:800;letter-spacing:-1.4px;line-height:1.05;margin-top:14px}
+.dark .tt{color:#fff}.light .tt{color:var(--head)}.tt .hl{color:var(--accent)}.dark .tt .hl{color:var(--accent2)}
+.lead{font-size:18px;line-height:1.5;margin-top:14px;max-width:720px}
+.dark .lead{color:#98A2B3}.light .lead{color:var(--tx)}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.num{font-variant-numeric:tabular-nums}
+b,strong{font-weight:700}
+.vp{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:999px;letter-spacing:.2px}
+.vp .ic{width:14px;height:14px}.vp .ic svg{width:14px;height:14px;stroke-width:2.4}
+.vp.good{background:var(--good-l);color:var(--good)}
+.vp.warn{background:var(--warn-l);color:var(--warn)}
+.vp.bad{background:var(--bad-l);color:var(--bad)}
+.vp.focus{background:var(--accent-l);color:var(--accent)}
+.vp.ctx{background:#EEF2F7;color:var(--tx2)}
+.dark .vp.good{background:rgba(21,160,91,.16);color:#4ADE80}.dark .vp.bad{background:rgba(220,38,38,.16);color:#F87171}
+.dark .vp.focus{background:rgba(37,99,235,.18);color:#93C5FD}.dark .vp.ctx{background:rgba(255,255,255,.07);color:#9AA6B6}
+.mplfig{display:block;width:100%;height:100%;object-fit:contain}
+.sub{font-size:16.5px;line-height:1.55;color:var(--tx);margin-top:12px;max-width:1180px}
+.sub b{color:var(--head)}
+
+.r21 .body{padding-top:16px}.r21 .tt{font-size:38px}
+.r21 .row{flex:1;display:flex;gap:34px;margin-top:16px;min-height:0;align-items:stretch}
+.r21 .left{width:430px;flex-shrink:0;display:flex;flex-direction:column;gap:14px}
+.r21 .big{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px 30px;box-shadow:0 18px 44px -26px rgba(15,23,42,.22)}
+.r21 .big .lb{font-size:12.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--tx2)}
+.r21 .big .bn{font-size:62px;font-weight:900;letter-spacing:-3px;line-height:1;margin-top:8px;color:var(--bad)}
+.r21 .big .bn .u{font-size:22px;font-weight:700;color:var(--tx2);letter-spacing:-.5px}
+.r21 .big .bs{font-size:14.5px;color:var(--tx);margin-top:10px;line-height:1.45}
+.r21 .big.alt .bn{color:var(--accent)}
+.r21 .grid100{display:grid;grid-template-columns:repeat(21,1fr);gap:3px;margin-top:14px}
+.r21 .grid100 i{aspect-ratio:1;border-radius:2px;background:#DDE4EE}
+.r21 .grid100 i.hit{background:var(--bad)}
+.r21 .figwrap{flex:1;background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px 22px 14px;box-shadow:0 18px 44px -26px rgba(15,23,42,.22);display:flex;flex-direction:column;min-width:0}
+.r21 .figwrap .fh{font-size:13px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--tx2);margin-bottom:8px}
+.r21 .figwrap .fb{flex:1;min-height:0}
+.r21 .figwrap .ff{font-size:13px;color:var(--tx);margin-top:8px;line-height:1.4}
+.r21 .figwrap .ff b{color:var(--head)}
+</style></head><body><div class="slide light r21"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Risco de OLA · O alvo</div></div><div class="body">
+      <div class="eb">O que o modelo tem que encontrar</div>
+      <div class="tt">Uma quebra a cada <span class="hl">103 incidentes</span></div>
+      <div class="sub">Dos 25.600 incidentes elegíveis à meta, <b>248</b> estouraram o OLA. É um evento raro, e isso muda o que significa acertar: quem responder "não vai estourar" para tudo acerta <b>99%</b> das vezes e não serve para nada.</div>
+      <div class="row">
+        <div class="left">
+          <div class="big"><div class="lb">Quebras de OLA em 2023 a 2025</div>
+            <div class="bn num">248<span class="u"> de 25.600</span></div>
+            <div class="bs">Cada quadrado é um incidente. O vermelho é a quebra que a equipe precisa encontrar antes que aconteça.</div>
+            <div class="grid100"><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="hit"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div>
+          <div class="big alt"><div class="lb">Por que a acurácia não serve</div>
+            <div class="bn num">99,04<span class="u">%</span></div>
+            <div class="bs">É a acurácia de um modelo que <b>nunca sinaliza nada</b>. O nosso, sinalizando 518 incidentes, fica em 90,16%. Pela acurácia, não fazer nada ganha.</div></div>
+        </div>
+        <div class="figwrap"><div class="fh">O desbalanceamento e onde as quebras se concentram</div>
+          <div class="fb"><img class="mplfig" src="figs/risco_alvo.png" alt=""></div>
+          <div class="ff">A taxa varia de <b>0,11%</b> a <b>2,89%</b> entre as equipes, até três vezes a média da base. Existe sinal a capturar: as quebras não estão distribuídas por igual.</div></div>
+      </div>
+    </div></div></body></html>

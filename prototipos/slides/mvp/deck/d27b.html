@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>27 Explicabilidade b</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+:root{--accent:#2563EB;--accent2:#3B82F6;--accent3:#60A5FA;--accent-l:#EFF6FF;
+ --good:#15A05B;--good-l:#E7F6EE;--warn:#D9930B;--warn-l:#FBF1DC;--bad:#DC2626;--bad-l:#FCECEC;
+ --ink:#0A0E17;--pg:#F4F7FC;--line:#E5EAF1;--tx:#4A5568;--tx2:#6B7688;--head:#0B1220;
+ --font:'Outfit',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.slide{width:1600px;height:900px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.mesh,.grid-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.dark{background:var(--ink);color:#E8ECF3}
+.dark .grid-bg{background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:48px 48px}
+.dark .mesh{background:radial-gradient(1100px 680px at 4% -12%,rgba(37,99,235,.3),transparent 55%),radial-gradient(900px 640px at 116% 118%,rgba(37,99,235,.16),transparent 55%)}
+.light{background:var(--pg);color:var(--head)}
+.light .mesh{background:radial-gradient(1200px 760px at 100% -16%,rgba(37,99,235,.16),transparent 54%),radial-gradient(880px 640px at -12% 112%,rgba(37,99,235,.10),transparent 56%),radial-gradient(700px 520px at 50% -30%,rgba(96,165,250,.10),transparent 60%)}
+.light .grid-bg{background-image:linear-gradient(rgba(17,24,39,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(17,24,39,.026) 1px,transparent 1px);background-size:48px 48px}
+.hd{position:relative;z-index:3;display:flex;align-items:center;gap:11px;padding:40px 64px 0}
+.hd .bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.dark .hd .bi{background:#fff}.light .hd .bi{background:var(--ink)}
+.hd .bi svg{width:19px;height:19px}
+.hd .bn{font-size:18px;font-weight:800;letter-spacing:-.3px}.dark .hd .bn{color:#fff}.light .hd .bn{color:#000}
+.hd .bt{font-size:13px;font-weight:600;letter-spacing:1.5px;margin-left:2px}.dark .hd .bt{color:#5b647a}.light .hd .bt{color:#9AA6B6}
+.hd .tag{margin-left:auto;font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:7px 15px;border-radius:999px}
+.dark .hd .tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#B8C0CE}
+.light .hd .tag{background:#fff;border:1px solid var(--line);color:var(--accent);box-shadow:0 4px 14px -8px rgba(37,99,235,.3)}
+.body{position:relative;z-index:2;flex:1;padding:24px 64px 46px;display:flex;flex-direction:column;min-height:0}
+.eb{display:inline-flex;align-items:center;gap:12px;font-size:13.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+.dark .eb{color:var(--accent3)}.light .eb{color:var(--accent)}
+.eb::before{content:'';width:26px;height:2px;border-radius:2px;background:currentColor;opacity:.7}
+.tt{font-size:40px;font-weight:800;letter-spacing:-1.4px;line-height:1.05;margin-top:14px}
+.dark .tt{color:#fff}.light .tt{color:var(--head)}.tt .hl{color:var(--accent)}.dark .tt .hl{color:var(--accent2)}
+.lead{font-size:18px;line-height:1.5;margin-top:14px;max-width:720px}
+.dark .lead{color:#98A2B3}.light .lead{color:var(--tx)}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.num{font-variant-numeric:tabular-nums}
+b,strong{font-weight:700}
+.vp{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:999px;letter-spacing:.2px}
+.vp .ic{width:14px;height:14px}.vp .ic svg{width:14px;height:14px;stroke-width:2.4}
+.vp.good{background:var(--good-l);color:var(--good)}
+.vp.warn{background:var(--warn-l);color:var(--warn)}
+.vp.bad{background:var(--bad-l);color:var(--bad)}
+.vp.focus{background:var(--accent-l);color:var(--accent)}
+.vp.ctx{background:#EEF2F7;color:var(--tx2)}
+.dark .vp.good{background:rgba(21,160,91,.16);color:#4ADE80}.dark .vp.bad{background:rgba(220,38,38,.16);color:#F87171}
+.dark .vp.focus{background:rgba(37,99,235,.18);color:#93C5FD}.dark .vp.ctx{background:rgba(255,255,255,.07);color:#9AA6B6}
+.mplfig{display:block;width:100%;height:100%;object-fit:contain}
+.sub{font-size:16.5px;line-height:1.55;color:var(--tx);margin-top:12px;max-width:1180px}
+.sub b{color:var(--head)}
+
+.r27 .body{padding-top:16px}.r27 .tt{font-size:38px}
+.r27 .row{flex:1;display:flex;gap:26px;margin-top:16px;min-height:0;align-items:stretch}
+.r27 .figc{flex:1;background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 22px 12px;box-shadow:0 18px 44px -26px rgba(15,23,42,.22);display:flex;flex-direction:column;min-width:0}
+.r27 .figc .fb{flex:1;min-height:0}
+.r27 .figc .ff{font-size:13px;color:var(--tx);margin-top:6px;line-height:1.4}
+.r27 .side{width:470px;flex-shrink:0;display:flex;flex-direction:column;gap:14px}
+.r27 .screen{background:linear-gradient(160deg,#0B1220,#131C2E);border-radius:20px;padding:24px 26px;color:#E8ECF3;box-shadow:0 26px 60px -34px rgba(11,18,32,.7)}
+.r27 .screen .sh{font-size:11.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:#7A8494;display:flex;align-items:center;gap:8px}
+.r27 .screen .sh .dot{width:6px;height:6px;border-radius:50%;background:#4ADE80;box-shadow:0 0 8px #4ADE80}
+.r27 .screen .inc{font-size:19px;font-weight:800;color:#fff;margin-top:14px;letter-spacing:-.2px;display:flex;align-items:center;gap:10px}
+.r27 .screen .inc .badge{font-size:11px;font-weight:800;letter-spacing:1px;background:rgba(220,38,38,.2);color:#F87171;border-radius:6px;padding:4px 9px}
+.r27 .screen .regua{margin-top:14px;height:26px;border-radius:7px;background:rgba(255,255,255,.06);position:relative;overflow:hidden}
+.r27 .screen .regua i{position:absolute;left:0;top:0;bottom:0;width:56%;border-radius:7px;background:linear-gradient(90deg,#F87171,#DC2626)}
+.r27 .screen .regua u{position:absolute;top:-3px;bottom:-3px;left:1.7%;width:2px;background:#93C5FD}
+.r27 .screen .rlbl{display:flex;justify-content:space-between;font-size:11.5px;color:#7A8494;margin-top:7px}
+.r27 .screen .rlbl b{color:#93C5FD;font-weight:700}
+.r27 .screen .ev{margin-top:16px;background:rgba(255,255,255,.05);border-radius:12px;padding:15px 17px}
+.r27 .screen .ev .el{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#7A8494}
+.r27 .screen .ev .et{font-size:15.5px;color:#E8ECF3;margin-top:7px;line-height:1.45}
+.r27 .screen .ev .et b{color:#fff;font-weight:800}
+.r27 .screen .mot{margin-top:12px;display:flex;flex-direction:column;gap:6px}
+.r27 .screen .mr{display:flex;align-items:center;gap:10px;font-size:13.5px;color:#B8C0CE}
+.r27 .screen .mr .mb{flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,.07);overflow:hidden}
+.r27 .screen .mr .mb i{display:block;height:100%;background:#3B82F6;border-radius:3px}
+.r27 .screen .mr .mv{width:34px;text-align:right;font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+.r27 .noshap{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 24px;box-shadow:0 16px 40px -26px rgba(15,23,42,.2)}
+.r27 .noshap .nh{display:flex;align-items:center;gap:11px}
+.r27 .noshap .ci{width:38px;height:38px;border-radius:10px;background:var(--good-l);color:var(--good);display:flex;align-items:center;justify-content:center}
+.r27 .noshap .ci svg{width:19px;height:19px}
+.r27 .noshap h4{font-size:17.5px;font-weight:800;color:var(--head);letter-spacing:-.3px}
+.r27 .noshap p{font-size:14px;color:var(--tx);line-height:1.55;margin-top:11px}
+.r27 .noshap p b{color:var(--head)}
+.r27 .noshap code{font-family:var(--font);font-weight:700;color:var(--accent);background:var(--accent-l);padding:2px 7px;border-radius:5px;font-size:13.5px}
+</style></head><body><div class="slide light r27"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Risco de OLA · Explicabilidade</div></div><div class="body">
+      <div class="eb">Do número para a decisão</div>
+      <div class="tt">A explicação é a <span class="hl">própria conta</span> que o modelo fez</div>
+      <div class="sub">Uma fila ordenada sem motivo não é acionável. A pontuação da regressão logística é uma soma de parcelas, então dá para mostrar quanto cada característica pesou, somando exatamente o valor previsto.</div>
+      <div class="row">
+        <div class="figc"><div class="fb"><img class="mplfig" src="figs/risco_peso.png" alt=""></div>
+          <div class="ff">Reconstruímos a previsão a partir das parcelas exibidas e comparamos com o que o modelo calculou. O erro é de <b>0,000000000000003</b>: a explicação não é aproximação do cálculo, é o cálculo.</div></div>
+        <div class="side">
+          <div class="screen"><div class="sh"><span class="dot"></span>Tela de detalhe do incidente</div>
+            <div class="inc">INC8595245 <span class="badge">RISCO ALTO</span></div>
+            <div class="regua"><i></i><u></u></div>
+            <div class="rlbl"><span><b>média da base 0,97%</b></span><span>risco estimado <b>56,1%</b></span></div>
+            <div class="ev"><div class="el">O que já aconteceu com casos iguais</div>
+              <div class="et">Dos <b>66</b> incidentes deste ativo, <b>21 estouraram</b> o OLA.</div></div>
+            <div class="mot"><div class="mr"><span style="width:150px">categoria cat31</span><span class="mb"><i style="width:100%"></i></span><span class="mv">38%</span></div><div class="mr"><span style="width:150px">produto lsin</span><span class="mb"><i style="width:50%"></i></span><span class="mv">19%</span></div><div class="mr"><span style="width:150px">subcategoria sub388</span><span class="mb"><i style="width:32%"></i></span><span class="mv">12%</span></div><div class="mr"><span style="width:150px">equipe Team11</span><span class="mb"><i style="width:29%"></i></span><span class="mv">11%</span></div><div class="mr"><span style="width:150px">aberto no sábado</span><span class="mb"><i style="width:21%"></i></span><span class="mv">8%</span></div></div>
+          </div>
+          <div class="noshap"><div class="nh"><span class="ci"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span></span>
+            <h4>Sem SHAP, e por escolha</h4></div>
+            <p>Em modelo linear o valor do SHAP tem forma fechada: <code>peso × desvio da média</code>. A biblioteca chegaria ao mesmo resultado <b>por amostragem</b>, com custo maior e precisão menor.</p>
+            <p>A posição é a de <b>modelo interpretável por construção</b>, em vez de caixa preta com explicação estimada depois.</p></div>
+        </div>
+      </div>
+    </div></div></body></html>
