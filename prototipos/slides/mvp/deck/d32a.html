@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>32 Sem diagnostico</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+:root{--accent:#2563EB;--accent2:#3B82F6;--accent3:#60A5FA;--accent-l:#EFF6FF;
+ --good:#15A05B;--good-l:#E7F6EE;--warn:#D9930B;--warn-l:#FBF1DC;--bad:#DC2626;--bad-l:#FCECEC;
+ --ink:#0A0E17;--pg:#F4F7FC;--line:#E5EAF1;--tx:#4A5568;--tx2:#6B7688;--head:#0B1220;
+ --font:'Outfit',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.slide{width:1600px;height:900px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.mesh,.grid-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.dark{background:var(--ink);color:#E8ECF3}
+.dark .grid-bg{background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:48px 48px}
+.dark .mesh{background:radial-gradient(1100px 680px at 4% -12%,rgba(37,99,235,.3),transparent 55%),radial-gradient(900px 640px at 116% 118%,rgba(37,99,235,.16),transparent 55%)}
+.light{background:var(--pg);color:var(--head)}
+.light .mesh{background:radial-gradient(1200px 760px at 100% -16%,rgba(37,99,235,.16),transparent 54%),radial-gradient(880px 640px at -12% 112%,rgba(37,99,235,.10),transparent 56%),radial-gradient(700px 520px at 50% -30%,rgba(96,165,250,.10),transparent 60%)}
+.light .grid-bg{background-image:linear-gradient(rgba(17,24,39,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(17,24,39,.026) 1px,transparent 1px);background-size:48px 48px}
+.hd{position:relative;z-index:3;display:flex;align-items:center;gap:11px;padding:40px 64px 0}
+.hd .bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.dark .hd .bi{background:#fff}.light .hd .bi{background:var(--ink)}
+.hd .bi svg{width:19px;height:19px}
+.hd .bn{font-size:18px;font-weight:800;letter-spacing:-.3px}.dark .hd .bn{color:#fff}.light .hd .bn{color:#000}
+.hd .bt{font-size:13px;font-weight:600;letter-spacing:1.5px;margin-left:2px}.dark .hd .bt{color:#5b647a}.light .hd .bt{color:#9AA6B6}
+.hd .tag{margin-left:auto;font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:7px 15px;border-radius:999px}
+.dark .hd .tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#B8C0CE}
+.light .hd .tag{background:#fff;border:1px solid var(--line);color:var(--accent);box-shadow:0 4px 14px -8px rgba(37,99,235,.3)}
+.body{position:relative;z-index:2;flex:1;padding:24px 64px 46px;display:flex;flex-direction:column;min-height:0}
+.eb{display:inline-flex;align-items:center;gap:12px;font-size:13.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+.dark .eb{color:var(--accent3)}.light .eb{color:var(--accent)}
+.eb::before{content:'';width:26px;height:2px;border-radius:2px;background:currentColor;opacity:.7}
+.tt{font-size:40px;font-weight:800;letter-spacing:-1.4px;line-height:1.05;margin-top:14px}
+.dark .tt{color:#fff}.light .tt{color:var(--head)}.tt .hl{color:var(--accent)}.dark .tt .hl{color:var(--accent2)}
+.lead{font-size:18px;line-height:1.5;margin-top:14px;max-width:720px}
+.dark .lead{color:#98A2B3}.light .lead{color:var(--tx)}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.num{font-variant-numeric:tabular-nums}
+b,strong{font-weight:700}
+.vp{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:999px;letter-spacing:.2px}
+.vp .ic{width:14px;height:14px}.vp .ic svg{width:14px;height:14px;stroke-width:2.4}
+.vp.good{background:var(--good-l);color:var(--good)}
+.vp.warn{background:var(--warn-l);color:var(--warn)}
+.vp.bad{background:var(--bad-l);color:var(--bad)}
+.vp.focus{background:var(--accent-l);color:var(--accent)}
+.vp.ctx{background:#EEF2F7;color:var(--tx2)}
+.dark .vp.good{background:rgba(21,160,91,.16);color:#4ADE80}.dark .vp.bad{background:rgba(220,38,38,.16);color:#F87171}
+.dark .vp.focus{background:rgba(37,99,235,.18);color:#93C5FD}.dark .vp.ctx{background:rgba(255,255,255,.07);color:#9AA6B6}
+.mplfig{display:block;width:100%;height:100%;object-fit:contain}
+.sub{font-size:16.5px;line-height:1.55;color:var(--tx);margin-top:12px;max-width:1180px}
+.sub b{color:var(--head)}
+
+.p32 .body{padding-top:16px}.p32 .tt{font-size:38px}
+.p32 .row{display:flex;gap:22px;margin-top:auto;margin-bottom:auto;align-items:stretch}
+.p32 .big{width:392px;flex-shrink:0;background:linear-gradient(160deg,#0B1220,#131C2E);border-radius:20px;padding:28px 30px;color:#E8ECF3;box-shadow:0 26px 60px -34px rgba(11,18,32,.7);display:flex;flex-direction:column}
+.p32 .big .bl{font-size:11.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;color:#7A8494}
+.p32 .big .bv{font-size:66px;font-weight:900;letter-spacing:-3.4px;color:#F87171;line-height:1;margin-top:10px}
+.p32 .big .bv .u{font-size:20px;font-weight:700;color:#8E97A8;letter-spacing:-.4px;margin-left:6px}
+.p32 .big .bs{font-size:15px;color:#98A2B3;margin-top:12px;line-height:1.5}
+.p32 .big .bs b{color:#fff}
+.p32 .big .cmpr{margin-top:auto;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);display:flex;gap:16px}
+.p32 .big .cm{flex:1}
+.p32 .big .cm .cl{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#7A8494}
+.p32 .big .cm .cv{font-size:24px;font-weight:900;letter-spacing:-1.1px;margin-top:4px;line-height:1}
+.p32 .big .cm.a .cv{color:#F87171}.p32 .big .cm.b .cv{color:#93C5FD}
+.p32 .right{flex:1;display:flex;flex-direction:column;gap:14px;min-width:0}
+.p32 .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px 26px;box-shadow:0 16px 40px -26px rgba(15,23,42,.2)}
+.p32 .card .ch{display:flex;align-items:center;gap:11px}
+.p32 .card .ci{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.p32 .card .ci svg{width:19px;height:19px}
+.p32 .card.q .ci{background:var(--warn-l);color:var(--warn)}
+.p32 .card.a .ci{background:var(--accent-l);color:var(--accent)}
+.p32 .card h4{font-size:18px;font-weight:800;color:var(--head);letter-spacing:-.3px;line-height:1.25}
+.p32 .card p{font-size:14.5px;color:var(--tx);line-height:1.55;margin-top:11px}
+.p32 .card p b{color:var(--head)}
+.p32 .setas{margin-top:13px;display:flex;flex-direction:column;gap:8px}
+.p32 .seta{display:flex;align-items:center;gap:10px;background:#F7F9FC;border-radius:10px;padding:11px 14px;font-size:13.5px;color:var(--tx)}
+.p32 .seta b{color:var(--head)}
+.p32 .seta .n{width:20px;height:20px;border-radius:50%;background:var(--warn-l);color:var(--warn);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+</style></head><body><div class="slide light p32"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Padrões · Incidentes sem diagnóstico</div></div><div class="body">
+      <div class="eb">Um achado para a gestão, não para o modelo</div>
+      <div class="tt">Uma em cada cinco quebras é de incidente <span class="hl">sem causa identificada</span></div>
+      <div class="sub">Incidentes fechados com o código "Outro" são 7,8% do volume e concentram 21,8% das violações de OLA. É a segunda maior concentração de quebras da base, atrás apenas dos casos inéditos.</div>
+      <div class="row">
+        <div class="big"><div class="bl">Fechados como "Outro"</div>
+          <div class="bv num">21,8<span class="u">% das quebras</span></div>
+          <div class="bs">Em apenas <b>7,8%</b> do volume. São 1.995 incidentes e 54 quebras de OLA.</div>
+          <div class="cmpr">
+            <div class="cm a"><div class="cl">Taxa "Outro"</div><div class="cv num">2,71%</div></div>
+            <div class="cm b"><div class="cl">Média da base</div><div class="cv num">0,97%</div></div>
+          </div></div>
+        <div class="right">
+          <div class="card q"><div class="ch"><span class="ci"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span></span>
+            <h4>Não afirmamos a direção da causa</h4></div>
+            <p>O código de fechamento é preenchido <b>quando o incidente fecha</b>. Duas explicações servem para o mesmo número, e o dado não separa as duas:</p>
+            <div class="setas">
+              <div class="seta"><span class="n">1</span><span>causa difícil de achar <b>→</b> demora a resolver <b>→</b> estoura</span></div>
+              <div class="seta"><span class="n">2</span><span>incidente se arrastou e estourou <b>→</b> ninguém achou a raiz <b>→</b> vira "Outro"</span></div>
+            </div></div>
+          <div class="card a"><div class="ch"><span class="ci"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 21V4M6 4h11l-2 4 2 4H6"/></svg></span></span>
+            <h4>Por isso não entra no modelo, e sim na conversa</h4></div>
+            <p>Como só existe no fechamento, o campo <b>não pode prever</b> nada: na abertura ele está vazio para todos. É o mesmo motivo pelo qual a duração do atendimento ficou fora.</p>
+            <p>O valor dele é outro: aponta um ponto de processo para a Locaweb investigar. <b>Um quinto das violações está em casos que a operação encerrou sem saber o que aconteceu.</b></p></div>
+        </div>
+      </div>
+    </div></div></body></html>
