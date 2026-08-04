@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>22 Priorizacao</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>22 Novidade prediz</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
 :root{--accent:#2563EB;--accent2:#3B82F6;--accent3:#60A5FA;--accent-l:#EFF6FF;
  --good:#15A05B;--good-l:#E7F6EE;--warn:#D9930B;--warn-l:#FBF1DC;--bad:#DC2626;--bad-l:#FCECEC;
  --ink:#0A0E17;--pg:#F4F7FC;--line:#E5EAF1;--tx:#4A5568;--tx2:#6B7688;--head:#0B1220;
@@ -48,57 +48,80 @@ b,strong{font-weight:700}
 .sub b{color:var(--head)}
 
 .r22 .body{padding-top:16px}.r22 .tt{font-size:38px}
-.r22 .top{display:flex;gap:20px;margin-top:auto}
-.r22 .pri{flex:1;background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px 26px;box-shadow:0 16px 40px -26px rgba(15,23,42,.2);display:flex;align-items:center;gap:22px}
-.r22 .pri .tagp{font-size:19px;font-weight:900;letter-spacing:-.4px;color:var(--head);width:112px;flex-shrink:0}
-.r22 .pri .tagp small{display:block;font-size:12px;font-weight:600;color:var(--tx2);letter-spacing:.3px;margin-top:2px}
-.r22 .pri .mt{flex:1;display:flex;gap:26px}
-.r22 .pri .m{flex:1}
-.r22 .pri .m .ml{font-size:11.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--tx2)}
-.r22 .pri .m .mv{font-size:30px;font-weight:800;letter-spacing:-1.2px;margin-top:3px;line-height:1}
-.r22 .pri .m .ms{font-size:12.5px;color:var(--tx2);margin-top:3px}
-.r22 .pri.p2 .m .mv{color:var(--good)}
-.r22 .pri.p3 .m .mv{color:var(--bad)}
-.r22 .bridge{margin:20px 0 0;display:flex;align-items:center;gap:16px;justify-content:center}
-.r22 .bridge .ln{flex:1;height:1px;background:var(--line)}
-.r22 .bridge .txt{font-size:16px;font-weight:700;color:var(--accent);background:var(--accent-l);border-radius:999px;padding:9px 20px;white-space:nowrap}
-.r22 .bot{display:flex;gap:20px;margin-top:20px;margin-bottom:auto;align-items:stretch}
-.r22 .conc{flex:1.15;background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px 30px;box-shadow:0 18px 44px -26px rgba(15,23,42,.22);display:flex;flex-direction:column;justify-content:center}
-.r22 .conc h3{font-size:25px;font-weight:800;color:var(--head);letter-spacing:-.6px;line-height:1.2}
-.r22 .conc p{font-size:16px;color:var(--tx);line-height:1.55;margin-top:14px}
-.r22 .conc p b{color:var(--head)}
-.r22 .auc{width:400px;flex-shrink:0;background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px 26px;box-shadow:0 18px 44px -26px rgba(15,23,42,.22)}
+.r22 .row{display:flex;gap:26px;margin-top:auto;margin-bottom:auto;align-items:stretch}
+.r22 .grad{flex:1.25;background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px 30px;box-shadow:0 18px 44px -26px rgba(15,23,42,.22);display:flex;flex-direction:column}
+.r22 .grad .gh{font-size:12.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx2)}
+.r22 .grad .gs{font-size:14px;color:var(--tx);margin-top:7px}
+.r22 .gr{display:flex;align-items:center;gap:14px;margin-top:18px}
+.r22 .gr .gl{width:126px;flex-shrink:0}
+.r22 .gr .gl b{display:block;font-size:15px;font-weight:700;color:var(--head)}
+.r22 .gr .gl span{font-size:11.5px;color:var(--tx2)}
+.r22 .gr .gb{flex:1;height:30px;border-radius:7px;background:#F0F3F8;overflow:hidden;position:relative}
+.r22 .gr .gb i{display:block;height:100%;border-radius:7px}
+.r22 .gr .gv{width:118px;text-align:right;flex-shrink:0}
+.r22 .gr .gv b{font-size:20px;font-weight:800;letter-spacing:-.7px;font-variant-numeric:tabular-nums}
+.r22 .gr .gv span{display:block;font-size:11.5px;color:var(--tx2);margin-top:1px}
+.r22 .gr.a .gb i{background:linear-gradient(90deg,#EF4444,#DC2626)}.r22 .gr.a .gv b{color:var(--bad)}
+.r22 .gr.b .gb i{background:linear-gradient(90deg,#F0A33A,#D9930B)}.r22 .gr.b .gv b{color:var(--warn)}
+.r22 .gr.c .gb i{background:linear-gradient(90deg,#7FB4F5,#3B82F6)}.r22 .gr.c .gv b{color:var(--accent)}
+.r22 .gr.d .gb i{background:linear-gradient(90deg,#4ECB8A,#15A05B)}.r22 .gr.d .gv b{color:var(--good)}
+.r22 .grad .med{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:13.5px;color:var(--tx2)}
+.r22 .grad .med b{color:var(--head)}
+.r22 .grad .ctrlh{margin-top:auto;padding-top:18px;font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--tx2)}
+.r22 .grad .ctrl{margin-top:10px;display:flex;gap:10px}
+.r22 .grad .cc{flex:1;background:var(--accent-l);border-radius:12px;padding:13px 14px;text-align:center}
+.r22 .grad .cc .cv{font-size:20px;font-weight:900;color:var(--accent);letter-spacing:-.8px;line-height:1}
+.r22 .grad .cc .cl{font-size:11px;color:var(--tx2);margin-top:5px;line-height:1.25}
+.r22 .side{width:450px;flex-shrink:0;display:flex;flex-direction:column;gap:14px}
+.r22 .simp{background:linear-gradient(160deg,#0B1220,#131C2E);border-radius:20px;padding:24px 26px;color:#E8ECF3;box-shadow:0 26px 60px -34px rgba(11,18,32,.7)}
+.r22 .simp .sl{font-size:11.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;color:#7A8494}
+.r22 .simp h4{font-size:19px;font-weight:800;color:#fff;margin-top:11px;letter-spacing:-.35px;line-height:1.3}
+.r22 .simp .tw{margin-top:16px;display:flex;flex-direction:column;gap:9px}
+.r22 .simp .tr{display:flex;align-items:baseline;gap:10px;font-size:13.5px}
+.r22 .simp .tr .tl{flex:1;color:#98A2B3}
+.r22 .simp .tr .n1{font-weight:800;font-variant-numeric:tabular-nums;width:52px;text-align:right}
+.r22 .simp .tr .n2{font-weight:800;font-variant-numeric:tabular-nums;width:52px;text-align:right}
+.r22 .simp .tr.h{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#7A8494}
+.r22 .simp .tr.h .n1,.r22 .simp .tr.h .n2{font-weight:700}
+.r22 .simp .tr.agg .n1,.r22 .simp .tr.agg .n2{color:#8E97A8}
+.r22 .simp .tr.ctl .n1{color:#F87171}.r22 .simp .tr.ctl .n2{color:#93C5FD}
+.r22 .simp .why{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);font-size:13.5px;color:#98A2B3;line-height:1.55}
+.r22 .simp .why b{color:#fff}
+.r22 .auc{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 24px;box-shadow:0 16px 40px -26px rgba(15,23,42,.2)}
 .r22 .auc .ah{font-size:12.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx2)}
-.r22 .auc .ar{display:flex;align-items:center;gap:12px;margin-top:16px}
+.r22 .auc .ar{display:flex;align-items:center;gap:12px;margin-top:13px}
 .r22 .auc .ar .an{font-size:13.5px;color:var(--tx);flex:1}
-.r22 .auc .ar .av{font-size:22px;font-weight:800;letter-spacing:-.8px;font-variant-numeric:tabular-nums}
+.r22 .auc .ar .av{font-size:21px;font-weight:800;letter-spacing:-.8px;font-variant-numeric:tabular-nums}
 .r22 .auc .ar.bad .av{color:var(--bad)}.r22 .auc .ar.ctx .av{color:var(--tx2)}.r22 .auc .ar.good .av{color:var(--accent)}
-.r22 .auc .sep{height:1px;background:var(--line);margin:14px 0}
-.r22 .auc .note{font-size:13px;color:var(--tx2);line-height:1.45;margin-top:14px}
+.r22 .auc .note{font-size:13px;color:var(--tx2);line-height:1.45;margin-top:14px;padding-top:13px;border-top:1px solid var(--line)}
+.r22 .auc .note b{color:var(--head)}
 </style></head><body><div class="slide light r22"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Risco de OLA · Por que a prioridade não prevê</div></div><div class="body">
       <div class="eb">O ponto de partida do modelo</div>
-      <div class="tt">A priorização da Locaweb <span class="hl">funciona</span></div>
-      <div class="sub">Antes de propor um modelo, medimos a prática atual. O resultado é favorável ao processo da operação, e é justamente ele que abre espaço para o modelo.</div>
-      <div class="top">
-        <div class="pri p2"><div class="tagp">P2<small>alta prioridade</small></div>
-          <div class="mt">
-            <div class="m"><div class="ml">Taxa de quebra</div><div class="mv num">0,81%</div><div class="ms">5.159 incidentes</div></div>
-            <div class="m"><div class="ml">Tempo de resolução</div><div class="mv num">1.577</div><div class="ms">mediana</div></div>
-          </div></div>
-        <div class="pri p3"><div class="tagp">P3<small>média prioridade</small></div>
-          <div class="mt">
-            <div class="m"><div class="ml">Taxa de quebra</div><div class="mv num">1,01%</div><div class="ms">20.441 incidentes</div></div>
-            <div class="m"><div class="ml">Tempo de resolução</div><div class="mv num">6.328</div><div class="ms">quatro vezes o P2</div></div>
-          </div></div>
-      </div>
-      <div class="bridge"><span class="ln"></span><span class="txt">O que recebe atenção é resolvido, e o que é resolvido não estoura</span><span class="ln"></span></div>
-      <div class="bot">
-        <div class="conc"><h3>E é por isso que a prioridade não prevê quem vai estourar</h3>
-          <p>O caso prioritário <b>já foi atendido</b>. Quando a fila é ordenada por prioridade, ela coloca na frente exatamente os incidentes que a operação já resolve bem.</p>
-          <p>As quebras se concentram no <b>P3 que ficou parado</b>, e dentro dessa massa a ferramenta atual não distingue nada. É esse o espaço que o modelo ocupa.</p></div>
-        <div class="auc"><div class="ah">Capacidade de ordenar a fila (AUC)</div>
-          <div class="ar bad"><span class="an">Ordenar por prioridade</span><span class="av">0,469</span></div><div class="ar ctx"><span class="an">Sortear ao acaso</span><span class="av">0,506</span></div><div class="ar good"><span class="an">Modelo de risco</span><span class="av">0,869</span></div>
-          <div class="sep"></div>
-          <div class="note">Ordenar por prioridade fica <b>abaixo do sorteio</b>. Não é defeito do processo: é consequência de ele funcionar.</div></div>
+      <div class="tt">O que a operação já viu, ela <span class="hl">resolve</span></div>
+      <div class="sub">Agrupamos os incidentes pela frequência com que aquele mesmo problema aparece na base. Quanto mais familiar o problema, menos ele estoura o OLA. A relação é gradual, e sobreviveu a todos os controles que aplicamos.</div>
+      <div class="row">
+        <div class="grad">
+          <div class="gh">Taxa de quebra de OLA por familiaridade do problema</div>
+          <div class="gs">25.600 incidentes elegíveis, agrupados pela frequência do problema na base.</div>
+          <div class="gr a"><span class="gl"><b>Caso inédito</b><span>aparece 1 vez · 9.493 incidentes</span></span><span class="gb"><i style="width:100%"></i></span><span class="gv"><b>1,60%</b><span>1,65x a média</span></span></div><div class="gr b"><span class="gl"><b>Repete pouco</b><span>2 a 4 vezes · 2.616 incidentes</span></span><span class="gb"><i style="width:84%"></i></span><span class="gv"><b>1,34%</b><span>1,38x a média</span></span></div><div class="gr c"><span class="gl"><b>Repete</b><span>5 a 19 vezes · 2.928 incidentes</span></span><span class="gb"><i style="width:51%"></i></span><span class="gv"><b>0,82%</b><span>0,85x a média</span></span></div><div class="gr d"><span class="gl"><b>Rotina conhecida</b><span>20 vezes ou mais · 10.563 incidentes</span></span><span class="gb"><i style="width:22%"></i></span><span class="gv"><b>0,35%</b><span>0,36x a média</span></span></div>
+          <div class="med">Do caso inédito à rotina conhecida, a taxa cai <b>4,6 vezes</b>. E <b>152 das 248 quebras</b> estão na primeira faixa.</div>
+          <div class="ctrlh">O gradiente sobrevive a cada controle aplicado</div>
+          <div class="ctrl"><div class="cc"><div class="cv">6,7x</div><div class="cl">dentro<br>do P2</div></div><div class="cc"><div class="cv">4,3x</div><div class="cl">dentro<br>do P3</div></div><div class="cc"><div class="cv">4,9x</div><div class="cl">abertos<br>manualmente</div></div><div class="cc"><div class="cv">5,8x</div><div class="cl">abertos por<br>monitoramento</div></div></div>
+        </div>
+        <div class="side">
+          <div class="simp"><div class="sl">A leitura que o controle derrubou</div>
+            <h4>No agregado, o P2 parecia se comportar melhor</h4>
+            <div class="tw">
+              <div class="tr h"><span class="tl"></span><span class="n1">P2</span><span class="n2">P3</span></div>
+              <div class="tr agg"><span class="tl">taxa no agregado</span><span class="n1">0,81%</span><span class="n2">1,01%</span></div>
+              <div class="tr ctl"><span class="tl">só em caso inédito</span><span class="n1">2,27%</span><span class="n2">1,54%</span></div>
+            </div>
+            <div class="why">A vantagem do P2 era <b>composição</b>: ele está concentrado nos problemas que repetem. Apenas <b>7,9%</b> dos casos inéditos são P2, contra <b>30,8%</b> dos que repetem vinte vezes ou mais. Controlando pela frequência, a diferença desaparece.</div></div>
+          <div class="auc"><div class="ah">Capacidade de ordenar a fila (AUC)</div>
+            <div class="ar bad"><span class="an">Ordenar por prioridade</span><span class="av">0,469</span></div>
+            <div class="ar ctx"><span class="an">Sortear ao acaso</span><span class="av">0,506</span></div>
+            <div class="ar good"><span class="an">Modelo de risco</span><span class="av">0,869</span></div>
+            <div class="note">A ordenação padrão de ITSM fica <b>abaixo do sorteio</b>. O que ela não captura é a novidade do caso, e é essa a informação que o modelo acrescenta.</div></div>
+        </div>
       </div>
     </div></div></body></html>

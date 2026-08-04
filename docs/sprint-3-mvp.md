@@ -197,20 +197,45 @@ Onde cortar é decisão da operação, não do modelo: depende da capacidade di�
 
 Figuras: `03_curva_roc.png` e `04_curva_pr.png` em `notebooks/figures/04_risco_ola/`, geradas pelo `04_risco_ola.ipynb`.
 
-## A priorização funciona, e é por isso que ela não prevê (03/08/2026)
+## O que prediz quebra é a novidade do caso, não a prioridade (revisado em 04/08/2026)
 
-Ordenar a fila por prioridade — o comportamento padrão de qualquer ferramenta de ITSM — tem **ROC AUC de 0,4693**, abaixo do 0,5063 de uma fila aleatória. A ordenação oficial é pior que sortear.
+> **Correção registrada.** Este bloco afirmava, em 03/08/2026, que "a priorização funciona e é por isso que ela não prevê". A afirmação caiu no teste de controle de 04/08/2026 e foi substituída. O parágrafo original está descrito abaixo para que a mudança fique rastreável.
 
-A causa está no dado:
+Ordenar a fila por prioridade, o comportamento padrão de qualquer ferramenta de ITSM, tem **ROC AUC de 0,4693**, abaixo do 0,5063 de uma fila aleatória. A ordenação oficial é pior que sortear. Esse é o fato medido, e ele não mudou.
+
+### O que mudou foi a explicação
+
+No agregado, o P2 parece se comportar melhor:
 
 | Prioridade | Incidentes | Quebras | Taxa de quebra | Duração mediana |
 |---|---|---|---|---|
 | P2 — Alta | 5.159 | 42 | 0,81% | 1.577 |
 | P3 — Média | 20.441 | 206 | 1,01% | 6.328 |
 
-O P2 estoura menos que o P3 e é resolvido em um quarto do tempo. A priorização cumpre o que promete: o que recebe atenção é resolvido, e o que é resolvido não estoura. Consequentemente a prioridade não separa quem vai estourar, porque o caso prioritário já foi atendido. As quebras se concentram no P3 que ficou parado.
+A leitura inicial foi que a priorização evita o estouro. Ao estratificar por frequência do problema, ela não se sustenta:
 
-**Uso no deck.** Este é o argumento que justifica a existência do modelo de risco diante da pergunta "por que não basta olhar a prioridade?". Slide a produzir na seção do modelo de risco.
+| Frequência do problema | P2 | P3 | Composição da faixa |
+|---|---|---|---|
+| único | **2,27%** | 1,54% | 7,9% é P2 |
+| 2 a 4 vezes | **1,92%** | 1,21% | 17,9% é P2 |
+| 5 a 19 vezes | 0,73% | 0,85% | 23,4% é P2 |
+| 20 vezes ou mais | 0,34% | 0,36% | 30,8% é P2 |
+
+A vantagem agregada do P2 vem da composição: ele está concentrado nos problemas que repetem, que são os que não estouram. Dentro de cada faixa a diferença desaparece, e nas duas faixas de caso inédito ela inverte. É um paradoxo de Simpson.
+
+### O que sobrevive
+
+- **A duração menor do P2 é real** e vale dentro de todas as quatro faixas (3.125 contra 7.345, 2.431 contra 7.099, 1.680 contra 5.834, 1.317 contra 5.432).
+- **O AUC de 0,4693 é fato medido.**
+- **A novidade do caso é a variável explicativa**, e resistiu a todos os controles aplicados: gradiente de 6,7x dentro do P2, 4,3x dentro do P3, 4,9x dentro dos abertos manualmente e 5,8x dentro dos abertos por monitoramento.
+
+Limitação declarada: a inversão nas faixas inéditas se apoia em 17 e 9 quebras. O que está estabelecido é que o agregado é efeito de composição, não que o P2 seja pior.
+
+**Uso no deck.** Continua sendo o argumento que responde "por que não basta olhar a prioridade?", com a tese corrigida: o que a operação já viu, ela resolve; o que fura prazo é o caso inédito. Slide 21 da seção de risco, refeito em 04/08/2026.
+
+### Um segundo artefato derrubado no mesmo teste
+
+A origem da abertura parecia predizer quebra: os abertos manualmente eram 81,9% das quebras contra 62,6% dos não quebrados, uma diferença de 19 pontos. O efeito também é composição — 96,5% dos casos inéditos são manuais. Controlando por frequência, o manual estoura **menos** que o monitoramento na faixa de caso inédito (1,58% contra 2,09%). A origem permanece no modelo como característica, mas não é apresentada como achado.
 
 ## Decisão: explicabilidade sem SHAP (30/07/2026)
 
