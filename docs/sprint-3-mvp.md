@@ -237,6 +237,52 @@ Limitação declarada: a inversão nas faixas inéditas se apoia em 17 e 9 quebr
 
 A origem da abertura parecia predizer quebra: os abertos manualmente eram 81,9% das quebras contra 62,6% dos não quebrados, uma diferença de 19 pontos. O efeito também é composição — 96,5% dos casos inéditos são manuais. Controlando por frequência, o manual estoura **menos** que o monitoramento na faixa de caso inédito (1,58% contra 2,09%). A origem permanece no modelo como característica, mas não é apresentada como achado.
 
+## Causas e incidentes recorrentes (notebook 05, 04/08/2026)
+
+O `05_causas_recorrentes.ipynb` fecha quatro dos pontos exigidos na página 9 da apresentação oficial: agrupamentos críticos por produto, categoria e prioridade; incidentes recorrentes; identificação de padrões de incidentes críticos; e agrupamento de causas recorrentes.
+
+### O que os campos de causa realmente contêm
+
+| Campo | Valores preenchidos | Sem registro | Serve para |
+|---|---|---|---|
+| `Código de fechamento` | 16 códigos em português | 306 (1,2%) | agrupar causa; é o único interpretável |
+| `Categoria` / `Subcategoria` | 119 / 383, mascarados | 40 / 38 | agrupar, sem dizer o que o grupo significa |
+| `Solução` | 2 (Contorno, Definitiva) | 15.665 (61,2%) | indicador de tipo de solução, não texto |
+| `Descrição resumida` | 12.630 textos | 0 | identificar o problema recorrente |
+
+Os campos de causa são preenchidos no fechamento. Servem a diagnóstico e não a previsão, e é por isso que ficaram fora do modelo de risco.
+
+### Causas: volume e risco não coincidem
+
+Três causas somam 79% do volume, e "Falha de Aplicação" sozinha 59%. Mas a ordem por taxa de quebra é outra: "Falha de Sistema Operacional" é 11,9% do volume com taxa de 0,23%, um quarto da média, enquanto "Falha de Hardware" é 0,5% do volume com 7,14%, a maior da base. Atacar a causa mais frequente não é a estratégia para reduzir quebras.
+
+**Incidentes sem causa identificada concentram um quarto das quebras.** Os fechados como "Outro" são 7,8% do volume e 21,8% das quebras, taxa 2,79 vezes a média. A direção causal não é determinável: o campo é preenchido no fechamento, então "causa difícil atrasa e estoura" e "incidente se arrastou e ninguém achou a raiz" explicam o mesmo número. Fica registrado como diagnóstico de processo e como pergunta para a Locaweb.
+
+### O gradiente de familiaridade
+
+Achado central. Agrupando os incidentes pela frequência com que aquele problema aparece na base:
+
+| Familiaridade | Incidentes | % do volume | % das quebras | Taxa |
+|---|---|---|---|---|
+| único | 9.493 | 37,1% | **61,3%** | **1,60%** |
+| 2 a 4 vezes | 2.616 | 10,2% | 14,1% | 1,34% |
+| 5 a 19 vezes | 2.928 | 11,4% | 9,7% | 0,82% |
+| 20 vezes ou mais | 10.563 | 41,3% | 14,9% | **0,35%** |
+
+Queda de 4,6 vezes, monotônica. Os casos inéditos são 37% do volume e concentram 61% das quebras; a rotina conhecida é 41% do volume e 15% das quebras.
+
+**O achado resistiu a cinco verificações independentes:** três tratamentos de texto, com gradiente entre 3,9x e 4,6x, incluindo o agrupamento pela descrição bruta sem nenhuma normalização; e quatro estratos de controle, com gradiente de 6,7x dentro do P2, 4,3x dentro do P3, 4,9x nos abertos manualmente e 5,8x nos abertos por monitoramento.
+
+Ressalva: a familiaridade é calculada sobre a base inteira e portanto incorpora informação posterior a cada incidente. Como característica preditiva exigiria contagem retroativa, testada no notebook 04 com ganho marginal. Aqui o uso é descritivo.
+
+### Agrupamentos críticos
+
+Das 303 combinações de produto, categoria e prioridade, 49 têm pelo menos 100 incidentes e 7 têm risco de duas vezes a média ou mais. Esses 7 concentram 13% das quebras em 5% da base. É ganho de foco, mas modesto: o modelo de risco concentra 72% das quebras nos 20% de maior risco. O agrupamento por regra fixa não substitui o modelo.
+
+### Saídas para a aplicação
+
+Três tabelas gravadas em `data/interim/` para a camada de serviço do Django consumir sem recalcular: `05_causas.parquet` (16 linhas, alimenta o gráfico de barras duplo), `05_recorrentes.parquet` (439 linhas, alimenta a watchlist) e `05_grupos_criticos.parquet` (49 linhas, alimenta a tabela de foco).
+
 ## Decisão: explicabilidade sem SHAP (30/07/2026)
 
 A explicabilidade do modelo de risco é extraída **diretamente dos pesos da regressão logística**, sem SHAP.
