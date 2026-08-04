@@ -54,7 +54,7 @@ Consequência: **a previsão de volume dimensiona carga e projeta o atingimento 
 
 Em ordem de impacto na nota:
 
-- [ ] **Modelo de risco de OLA** (regressão logística, SHAP, leitura por triagem). É a prioridade número um: o material já cita AUC próximo de 0,80 e concentração de 66% no top 20% de risco, vindos de teste de laboratório, sem notebook que reproduza. Enquanto não existir, esses números não devem ser apresentados como resultado consolidado.
+- [ ] **Notebook oficial do risco de OLA** (`04_risco_ola.ipynb`). O modelo está fechado e medido no laboratório: ROC AUC 0,8693, PR-AUC 0,2958, 72% das quebras nos 20% de maior risco, 15 quebras nos 50 primeiros contra 6 da melhor regra simples. Falta destilar o laboratório no notebook limpo. O SHAP foi dispensado: para modelo linear a contribuição é `peso × desvio da média`, calculada de forma exata na seção 9 do laboratório (erro de reconstrução na ordem de 10⁻¹⁵).
 - [ ] **Decisão a tomar sobre versionamento do dado (LGPD).** O dataset bruto está versionado e o diretório `data/` não está no `.gitignore`, então o parquet entra no próximo commit. A Sprint 4 exige repositório público. A varredura de 29/07/2026 não encontrou PII (zero e-mails, CPF, telefone ou IP; nenhuma coluna de pessoa; `Aberto por` só tem Manual e Monitoramento), então não há exposição, mas a posição formal precisa ser decidida e registrada. Ver `docs/dossie-banca.md`, seção 2.5.
 - [ ] Repetir a varredura de PII no campo `Solução` (texto livre ainda não coberto).
 - [ ] Projeção de atingimento das metas anuais a partir da previsão de volume.

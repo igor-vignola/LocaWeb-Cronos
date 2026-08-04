@@ -8,7 +8,7 @@ Este documento registra decisões já tomadas. Cada decisão tem motivo. **Não 
 
 Ao treinar/testar os modelos no dado real, parte das decisões abaixo foi revista. O texto original segue preservado como registro, mas **prevalece o que está aqui:**
 
-- **Risco de OLA → regressão logística** (não XGBoost). Empata/supera o XGBoost (AUC ~0,80 vs ~0,79) e é mais explicável; XGBoost vira baseline comparado. Prophet segue para o volume.
+- **Risco de OLA → regressão logística** (não XGBoost). Medição definitiva de 03/08/2026, corte out-of-time (treino até 30/09/2025, teste out–dez com 50 quebras em 5.183 incidentes): ROC AUC 0,8693 contra 0,8679 do XGBoost (empate dentro do ruído) e PR-AUC 0,2958 contra 0,2526 (vantagem de 17%). A logística ainda é explicável por construção e preserva a calibração (48,1 quebras previstas contra 50 observadas), enquanto o XGBoost com `scale_pos_weight` prevê 1.007. XGBoost vira baseline comparado. Prophet segue para o volume.
 - **Clusterização DTW → descartada.** `TimeSeriesKMeans`+DTW deu silhueta ~0,13 (sem grupos reais). O requisito de classificação/clusterização é atendido pelo classificador de risco.
 - **Detector de cascata → descartado.** Escalada refutada no dado (87% das quebras são isoladas; escalada 21% vs ~60% do acaso); o padrão de acúmulo da mentoria não foi testado. Diferenciais atuais: morning briefing + score de saúde.
 - **Escopo temporal:** elegíveis ao KPI concentram-se em 2025 (~1 ano denso). Treino em 2025, sazonalidade semanal ligada, anual desligada.

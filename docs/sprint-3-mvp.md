@@ -65,7 +65,7 @@ Definida em 20–21/07/2026, com base nos três documentos oficiais (apresentaç
 
 **Modelos:**
 - Prophet prevê o volume diário elegível ao KPI (D+1 e D+7), uma série para P2 e outra para P3.
-- Risco de estouro de OLA por incidente: problema de classificação. A regressão logística é o modelo escolhido — empata ou supera o XGBoost (AUC ~0,80 contra ~0,79, diferença dentro do ruído com ~50 positivos no teste) e é um baseline forte e explicável. A leitura é conduzida pela triagem/ganho (os 20% de maior risco concentram ~66% das quebras), não pelo AUC isolado.
+- Risco de estouro de OLA por incidente: problema de classificação. A regressão logística é o modelo escolhido. Medido em 03/08/2026 no corte out-of-time (treino até 30/09, teste de outubro a dezembro com 50 quebras em 5.183 incidentes): ROC AUC **0,8693** contra 0,8679 do XGBoost, empate dentro do ruído; PR-AUC **0,2958** contra 0,2526, vantagem de 17% para a logística. A leitura principal é a triagem/ganho (os 20% de maior risco concentram **72%** das quebras), não o AUC isolado. O XGBoost com `scale_pos_weight` piora tudo e prevê 1.007 quebras onde houve 50, o que inviabiliza a projeção do KPI.
 - Projeção de atingimento dos KPIs: cálculo de taxa sobre a previsão, comparado às metas anuais por prioridade (ver "Régua de meta").
 
 **Dimensão categoria/produto/IC.** A apresentação cita "por categoria, produto ou item de configuração" — o "ou" indica dimensão secundária, não obrigatória. É coberta pelo modelo de risco (produto e categoria entram como features), pela saúde por produto e pela watchlist de itens de configuração. Não é atendida por previsão de volume por produto, porque o volume por produto por dia é esparso demais para uma série confiável.
@@ -170,6 +170,48 @@ Observação metodológica: o ajuste do Prophet não é determinístico (a otimi
 
 Leitura: em P2 a banda está bem calibrada. Em **P3 a banda subestima a incerteza**, e a causa é a mesma da seção anterior: a queda de nível de novembro e dezembro está fora do que o treino permitia prever, então o intervalo construído sobre jan a set fica estreito para o período. Encaminhamento: reportar a cobertura junto do MAE (a banda não é garantia), e reavaliar com re-treino contínuo, que é o modo de operação real do Cronos.
 
+## Métricas de classificação do modelo de risco (03/08/2026)
+
+Medição em corte out-of-time: treino até 30/09/2025, teste de outubro a dezembro com 5.183 incidentes e 50 quebras (0,96% de prevalência).
+
+| Modelo | ROC AUC | PR-AUC | Quebras no top 50 | No top 518 | Quebras previstas |
+|---|---|---|---|---|---|
+| **Regressão logística** | **0,8693** | **0,2958** | **15** | 29 | **48,1** |
+| XGBoost (padrão) | 0,8679 | 0,2526 | 14 | 29 | 54,3 |
+| XGBoost com `scale_pos_weight` | 0,8492 | 0,2367 | 12 | 27 | 1.007,1 |
+
+Quebras observadas no período: 50. Concentração nos 20% de maior risco: **72%** para a logística.
+
+**Leitura.** No ROC AUC os dois primeiros empatam dentro do ruído. No PR-AUC, que é a métrica adequada a evento raro porque desconsidera a classe majoritária, a logística tem vantagem de 17%. A terceira linha mostra o efeito de balancear a classe: melhora nada e destrói a calibração, prevendo vinte vezes mais quebras do que ocorreram, o que inviabiliza a projeção de atingimento do KPI.
+
+**Por que a acurácia não é reportada.** Com prevalência de 0,96%, um modelo que nunca sinaliza nada atinge 99,04% de acurácia, contra 90,16% do modelo no corte de 518. A métrica premia a inação e foi descartada. A avaliação usa matriz de confusão por corte, precisão, cobertura e a curva de ganho.
+
+| Corte | Alarmes | Acertos | Precisão | Cobertura |
+|---|---|---|---|---|
+| Risco ≥ 50% (regra padrão) | 2 | 2 | 100,0% | 4% |
+| Top 50 | 50 | 15 | 30,0% | 30% |
+| Top 100 | 100 | 17 | 17,0% | 34% |
+| Top 518 | 518 | 29 | 5,6% | 58% |
+
+Onde cortar é decisão da operação, não do modelo: depende da capacidade diária da equipe. A entrega é a tabela acima. Referência: sem modelo, qualquer amostra de 518 incidentes conteria 0,96% de quebras; com o modelo, 5,6% — seis vezes mais.
+
+Figuras: `07_curva_roc.png` e `08_curva_pr.png` em `notebooks/figures/04_risco_ola/`.
+
+## A priorização funciona, e é por isso que ela não prevê (03/08/2026)
+
+Ordenar a fila por prioridade — o comportamento padrão de qualquer ferramenta de ITSM — tem **ROC AUC de 0,4693**, abaixo do 0,5063 de uma fila aleatória. A ordenação oficial é pior que sortear.
+
+A causa está no dado:
+
+| Prioridade | Incidentes | Quebras | Taxa de quebra | Duração mediana |
+|---|---|---|---|---|
+| P2 — Alta | 5.159 | 42 | 0,81% | 1.577 |
+| P3 — Média | 20.441 | 206 | 1,01% | 6.328 |
+
+O P2 estoura menos que o P3 e é resolvido em um quarto do tempo. A priorização cumpre o que promete: o que recebe atenção é resolvido, e o que é resolvido não estoura. Consequentemente a prioridade não separa quem vai estourar, porque o caso prioritário já foi atendido. As quebras se concentram no P3 que ficou parado.
+
+**Uso no deck.** Este é o argumento que justifica a existência do modelo de risco diante da pergunta "por que não basta olhar a prioridade?". Slide a produzir na seção do modelo de risco.
+
 ## Decisão: explicabilidade sem SHAP (30/07/2026)
 
 A explicabilidade do modelo de risco é extraída **diretamente dos pesos da regressão logística**, sem SHAP.
@@ -216,7 +258,7 @@ Testes descartáveis para confirmar que os dados e as bibliotecas funcionam de p
 - **Dados suficientes:** série diária de 2025 com P2 em 14,1/dia (5.159 no ano) e P3 em 54,8/dia (19.997), sem dias vazios. Antes de 2025 há apenas 444 elegíveis (desprezível).
 - **Prophet:** treina nos 365 dias e gera previsão D+1..D+7. Ponto a tratar: a previsão pode sair negativa em dias de baixo volume; será preciso restringir a não-negatividade.
 - **XGBoost (volume):** roda; erro apenas ilustrativo nesta fase.
-- **XGBoost (risco de OLA):** roda e mostra sinal (AUC ~0,81 em teste bruto, com features mínimas). Base desbalanceada (248 positivos) — avaliação por precisão/recall.
+- **XGBoost (risco de OLA):** roda e mostra sinal (AUC ~0,81 em teste bruto, com features mínimas). Base desbalanceada (248 positivos) — avaliação por precisão/recall. *Substituído pela medição definitiva de 03/08/2026: ver "Decisão de modelagem" acima e a seção 10 do laboratório de risco.*
 
 ## Deck da sprint: estado atual (29/07/2026)
 
