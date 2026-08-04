@@ -195,7 +195,7 @@ Quebras observadas no período: 50. Concentração nos 20% de maior risco: **72%
 
 Onde cortar é decisão da operação, não do modelo: depende da capacidade diária da equipe. A entrega é a tabela acima. Referência: sem modelo, qualquer amostra de 518 incidentes conteria 0,96% de quebras; com o modelo, 5,6% — seis vezes mais.
 
-Figuras: `07_curva_roc.png` e `08_curva_pr.png` em `notebooks/figures/04_risco_ola/`.
+Figuras: `03_curva_roc.png` e `04_curva_pr.png` em `notebooks/figures/04_risco_ola/`, geradas pelo `04_risco_ola.ipynb`.
 
 ## A priorização funciona, e é por isso que ela não prevê (03/08/2026)
 
