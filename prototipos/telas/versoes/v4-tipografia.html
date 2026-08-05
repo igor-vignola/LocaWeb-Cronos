@@ -1,0 +1,773 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cronos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+ --ink:#0B0D12;--ink2:#141821;--pg:#F9FAFB;--card:#FFFFFF;
+ --line:rgba(226,232,240,.72);--tx:#4B5563;--tx2:#8B95A5;--head:#0F1420;
+ --ac:#2563EB;--acl:#EFF5FF;--no:#DC2626;--nol:#FEF2F2;--ok:#15A05B;--okl:#ECFDF3;
+ --wn:#B45309;--wnl:#FFFBEB;
+ --sh:0 20px 44px -18px rgba(15,23,42,.09),0 2px 6px -2px rgba(15,23,42,.04);
+ --shh:0 30px 60px -20px rgba(15,23,42,.14),0 3px 8px -3px rgba(15,23,42,.05);
+ --ease:cubic-bezier(.16,1,.3,1);--r:30px}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--pg);font-family:'Geist','Geist Fallback',system-ui,sans-serif;font-weight:400;color:var(--head);display:flex;min-height:100dvh}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums;letter-spacing:-.2px}
+/* ───────────────────── sidebar */
+aside{width:262px;flex-shrink:0;background:var(--ink);padding:28px 18px 24px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100dvh}
+aside::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+ background:radial-gradient(520px 340px at 12% -6%,rgba(37,99,235,.24),transparent 62%)}
+.marca{display:flex;align-items:center;gap:11px;padding:2px 10px 26px;position:relative;z-index:1}
+.marca .bi{width:34px;height:34px;border-radius:10px;background:#fff;display:grid;place-items:center;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
+.marca b{font-size:17.5px;font-weight:800;color:#fff;letter-spacing:-.4px;display:block;line-height:1.1}
+.marca em{font-size:9.5px;letter-spacing:1.5px;color:#5A6478;font-style:normal;font-weight:700}
+.nv{display:flex;align-items:center;gap:12px;background:none;border:0;color:#98A2B3;font:inherit;
+ font-size:14.5px;font-weight:600;padding:11px 13px;border-radius:12px;cursor:pointer;width:100%;
+ text-align:left;position:relative;z-index:1;transition:all .34s var(--ease);
+ animation:sl .5s var(--ease) both;animation-delay:calc(var(--i)*55ms)}
+.nv:hover:not(.off){background:rgba(255,255,255,.055);color:#E8ECF3;transform:translateX(2px)}
+.nv.on{color:#fff;background:linear-gradient(100deg,rgba(37,99,235,.34),rgba(37,99,235,.12));
+ border:1px solid rgba(147,197,253,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.nv.off{opacity:.34;cursor:default}
+.nv em{margin-left:auto;font-size:9px;font-style:normal;font-weight:700;letter-spacing:.7px;
+ background:rgba(255,255,255,.09);padding:3px 7px;border-radius:5px}
+.nv .ic{width:19px;height:19px;flex-shrink:0}
+.ic{display:inline-grid;place-items:center}
+.ic svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ic.sm svg{width:15px;height:15px;stroke-width:1.9}
+.ic.xs svg{width:13px;height:13px;stroke-width:2.1}
+aside .rod{margin-top:auto;font-size:11px;color:#4A5464;line-height:1.6;padding:0 11px;position:relative;z-index:1}
+/* ───────────────────── main */
+main{flex:1;padding:34px 40px 72px;min-width:0;max-width:1560px}
+.topo{display:flex;align-items:flex-end;gap:16px;margin-bottom:26px;animation:sd .55s var(--ease) both}
+.topo h1{font-size:30px;font-weight:800;letter-spacing:-1.1px;line-height:1}
+.topo .per{margin-left:auto;font-size:12px;color:var(--tx2);background:var(--card);
+ border:1px solid var(--line);padding:7px 14px;border-radius:999px;box-shadow:var(--sh)}
+/* ───────────────────── bento */
+.bento{display:grid;gap:20px}
+.b-brief{grid-template-columns:1.62fr 1fr;grid-template-rows:auto auto}
+.c-hero{grid-row:span 2}
+.b-fila{grid-template-columns:1.55fr 1fr}
+.c-tab{grid-row:span 2}
+.b-saude{grid-template-columns:1.7fr 1fr}
+.b-causas{grid-template-columns:1.1fr 1fr}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px 28px;
+ box-shadow:var(--sh);transition:box-shadow .45s var(--ease),transform .45s var(--ease);
+ animation:up .62s var(--ease) both;animation-delay:calc(var(--i)*90ms);min-width:0}
+.card:hover{box-shadow:var(--shh);transform:translateY(-2px)}
+.lbl{font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--tx2)}
+.lbl.mt{margin-top:22px}
+.lbl-row{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+.fonte-tag{margin-left:auto;font-size:10.5px;font-weight:600;letter-spacing:.5px;color:var(--tx2);
+ background:var(--pg);border:1px solid var(--line);padding:4px 9px;border-radius:6px;white-space:nowrap}
+.nota{font-size:12.5px;color:var(--tx2);line-height:1.6;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.nota b{color:var(--head);font-weight:700}
+/* hero briefing */
+.c-hero{display:flex;flex-direction:column;background:
+ radial-gradient(680px 300px at 100% -14%,rgba(37,99,235,.05),transparent 60%),var(--card)}
+.hero-top{display:flex;align-items:center;gap:12px}
+.live{font-size:11.5px;font-weight:600;letter-spacing:.4px;color:var(--tx2);
+ font-family:'JetBrains Mono',monospace}
+.hero-h{font-size:31px;font-weight:800;letter-spacing:-1.2px;margin-top:20px;line-height:1.14}
+.hero-h .mut{color:var(--tx2);font-weight:600}
+.hero-body{margin-top:16px}
+.hero-body p{font-size:15.5px;line-height:1.68;color:var(--tx);margin-bottom:13px;max-width:64ch}
+.hero-body b{color:var(--head);font-weight:700}
+.hero-body em{font-style:normal;font-weight:800;color:var(--head)}
+.acoes{margin-top:auto;padding-top:20px;display:flex;flex-direction:column;gap:9px}
+.acao{display:flex;align-items:center;gap:12px;font:inherit;font-size:14px;color:var(--tx);
+ background:var(--pg);border:1px solid var(--line);border-radius:14px;padding:13px 15px;cursor:pointer;
+ text-align:left;transition:all .32s var(--ease);animation:up .6s var(--ease) both;
+ animation-delay:calc(320ms + var(--i)*80ms)}
+.acao:hover{background:#fff;border-color:rgba(37,99,235,.3);color:var(--head);transform:translateX(3px);box-shadow:var(--sh)}
+.acao:active{transform:translateX(3px) scale(.985)}
+.acao .ad{font-size:10px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:var(--ac);
+ background:var(--acl);padding:4px 8px;border-radius:5px;flex-shrink:0;white-space:nowrap}
+.acao .ic{margin-left:auto;color:var(--tx2)}
+/* meta */
+.mb{margin-top:20px;animation:up .6s var(--ease) both;animation-delay:calc(200ms + var(--i)*100ms)}
+.mb-top{display:flex;align-items:baseline;gap:8px}
+.mb-p{font-size:12px;font-weight:800;color:var(--tx2);letter-spacing:.6px}
+.mb-v{font-size:26px;font-weight:800;letter-spacing:-1.1px;font-variant-numeric:tabular-nums}
+.mb-m{font-size:13px;color:var(--tx2);font-weight:600}
+.pill{font-size:10px;font-weight:800;letter-spacing:.7px;padding:3px 8px;border-radius:6px;text-transform:lowercase}
+.pill.ok{background:var(--okl);color:var(--ok)}.pill.no{background:var(--nol);color:var(--no)}
+.pill.wn{background:var(--wnl);color:var(--wn)}.pill.ac{background:var(--acl);color:var(--ac)}
+.mb-top .pill{margin-left:auto}
+.mb-t{height:20px;border-radius:7px;background:#F1F4F8;position:relative;overflow:hidden;margin-top:9px}
+.mb-t i{position:absolute;left:0;top:0;bottom:0;border-radius:7px;width:var(--w);
+ animation:grow 1s var(--ease) both;animation-delay:.35s}
+.mb-t i.ok{background:linear-gradient(90deg,#34D399,#15A05B)}
+.mb-t i.no{background:linear-gradient(90deg,#F87171,#DC2626)}
+.mb-t u{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--head);z-index:2}
+.mb-t s{position:absolute;top:0;bottom:0;background:rgba(15,20,32,.07);z-index:1}
+.mb-f{font-size:11.5px;color:var(--tx2);margin-top:6px;font-variant-numeric:tabular-nums}
+/* mini rank */
+.mini-rank{margin-top:16px;display:flex;flex-direction:column;gap:11px}
+.mr{display:flex;align-items:center;gap:11px;animation:up .55s var(--ease) both;
+ animation-delay:calc(280ms + var(--i)*65ms)}
+.mr-n{width:42px;font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.mr-b{flex:1;height:8px;border-radius:5px;background:#F1F4F8;overflow:hidden}
+.mr-b i{display:block;height:100%;border-radius:5px;width:var(--w);background:var(--c);
+ animation:grow .9s var(--ease) both;animation-delay:.42s}
+.mr-v{width:38px;text-align:right;font-size:13.5px;font-weight:800;font-variant-numeric:tabular-nums}
+/* tabelas */
+.tb{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:14px}
+.tb.sm{font-size:12.5px}
+.tb th{text-align:right;font-size:10px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;
+ color:var(--tx2);padding:0 7px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tb th:first-child,.tb th:nth-child(2){text-align:left}
+.tb td{text-align:right;padding:10px 7px;border-bottom:1px solid rgba(226,232,240,.5)}
+.tb td:first-child,.tb td:nth-child(2){text-align:left}
+.tb tbody tr{animation:fin .5s var(--ease) both;animation-delay:calc(240ms + var(--i)*45ms);
+ transition:background .26s var(--ease)}
+.tb tbody tr:hover{background:var(--pg)}
+.tb tbody tr.top{background:linear-gradient(90deg,var(--nol),transparent 72%)}
+.ord{color:var(--tx2);font-weight:700;width:24px;font-size:12px;font-family:'JetBrains Mono',monospace}
+.forte{font-weight:700;color:var(--head)}
+.dim{color:var(--tx2)}
+.neg{color:var(--no);font-weight:700}
+.pos{color:var(--ok);font-weight:700}
+.risco,.nota-cel{display:flex;align-items:center;gap:9px;justify-content:flex-end}
+.rb,.nb{width:62px;height:7px;border-radius:5px;background:#F1F4F8;overflow:hidden;flex-shrink:0}
+.rb i{display:block;height:100%;width:var(--w);border-radius:5px;background:linear-gradient(90deg,#F87171,#DC2626)}
+.nb i{display:block;height:100%;width:var(--w);border-radius:5px;background:var(--c)}
+.risco span,.nota-cel span{font-weight:700;width:46px;text-align:right}
+/* detalhe */
+.big-risco{display:flex;align-items:flex-end;gap:14px;margin-top:16px}
+.bn{font-size:52px;font-weight:800;letter-spacing:-2.6px;line-height:.9;color:var(--no)}
+.bn small{font-size:20px;letter-spacing:-.5px}
+.bl{font-size:12px;color:var(--tx2);font-weight:600;line-height:1.5;padding-bottom:5px}
+.bl em{display:block;font-style:normal;font-size:11px;opacity:.82}
+.rt{height:22px;border-radius:7px;background:#F1F4F8;position:relative;overflow:hidden;margin-top:14px}
+.rt i{position:absolute;left:0;top:0;bottom:0;border-radius:7px;width:var(--w);
+ background:linear-gradient(90deg,#F87171,#DC2626);animation:grow 1s var(--ease) both;animation-delay:.4s}
+.rt u{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ac)}
+.evid{display:flex;gap:11px;align-items:flex-start;margin-top:16px;background:var(--pg);
+ border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:14px;color:var(--tx);line-height:1.55}
+.evid .ic{color:var(--ac);margin-top:2px;flex-shrink:0}
+.evid b{color:var(--head);font-weight:700}
+.pw{display:flex;align-items:center;gap:11px;margin-top:10px;font-size:13px;
+ animation:up .5s var(--ease) both;animation-delay:calc(360ms + var(--i)*60ms)}
+.pn{width:142px;color:var(--tx)}
+.pb{flex:1;height:7px;border-radius:5px;background:#F1F4F8;overflow:hidden}
+.pb i{display:block;height:100%;width:var(--w);border-radius:5px;
+ background:linear-gradient(90deg,#93C5FD,#2563EB);animation:grow .85s var(--ease) both;animation-delay:.5s}
+.pv{width:34px;text-align:right;font-weight:800}
+/* risco latente */
+.expl{font-size:14px;color:var(--tx);line-height:1.62;margin-top:12px}
+.expl b{color:var(--head);font-weight:700}
+.lat{margin-top:13px;background:var(--wnl);border:1px solid rgba(180,83,9,.16);border-radius:13px;
+ padding:12px 15px;animation:up .55s var(--ease) both;animation-delay:calc(300ms + var(--i)*70ms)}
+.lat-p{font-size:14.5px;font-weight:700;color:var(--head)}
+.lat-d{display:flex;gap:12px;font-size:12px;color:var(--wn);font-weight:600;margin-top:3px}
+.lat-d .dim{color:var(--tx2);font-weight:500}
+/* recorrentes */
+.rec{margin-top:12px;padding-bottom:12px;border-bottom:1px solid rgba(226,232,240,.5);
+ animation:up .55s var(--ease) both;animation-delay:calc(240ms + var(--i)*60ms)}
+.rec-t{font-size:12px;color:var(--tx);display:block;line-height:1.4}
+.rec-m{display:flex;align-items:baseline;gap:5px;font-size:12px;color:var(--tx2);margin-top:5px}
+.rec-m .sep{opacity:.4;margin:0 2px}
+/* arquitetura */
+.arq{margin-top:28px;background:var(--ink);border-radius:var(--r);padding:28px 32px;color:#E8ECF3;
+ position:relative;overflow:hidden;animation:up .7s var(--ease) both;animation-delay:.4s}
+.arq::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+ background:radial-gradient(700px 320px at 88% -20%,rgba(37,99,235,.22),transparent 62%)}
+.arq h3{font-size:17px;font-weight:800;letter-spacing:-.4px;position:relative;z-index:1}
+.fluxo{display:flex;align-items:center;gap:11px;margin-top:18px;flex-wrap:wrap;position:relative;z-index:1}
+.et2{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1);border-radius:13px;
+ padding:12px 16px;font-size:13.5px;color:#D5DBE5;box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
+ animation:up .55s var(--ease) both;animation-delay:calc(520ms + var(--i)*80ms)}
+.et2 b{display:block;font-size:9.5px;letter-spacing:1.1px;text-transform:uppercase;color:#6B7688;margin-bottom:3px}
+.fl{color:#4A5464;position:relative;z-index:1}
+.arq p{font-size:13.5px;color:#98A2B3;line-height:1.66;margin-top:16px;max-width:78ch;position:relative;z-index:1}
+.arq p b{color:#fff;font-weight:700}
+
+/* ─── overlay e modal do briefing */
+.ovl{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:32px;
+ background:rgba(11,13,18,.58);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+ animation:fin .38s var(--ease) both}
+.ovl.off{display:none}
+.mdl{width:min(680px,100%);max-height:88dvh;overflow:auto;background:var(--card);
+ border-radius:30px;padding:32px 34px;box-shadow:0 44px 90px -30px rgba(11,13,18,.5),
+ inset 0 1px 0 rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.65);
+ animation:pop .52s var(--ease) both;
+ background-image:radial-gradient(620px 260px at 100% -16%,rgba(37,99,235,.06),transparent 62%)}
+@keyframes pop{from{opacity:0;transform:translateY(18px) scale(.975)}to{opacity:1;transform:none}}
+.mdl-top{display:flex;align-items:center;gap:12px}
+.mdl-h{font-size:29px;font-weight:800;letter-spacing:-1.1px;margin-top:18px;line-height:1.14}
+.mdl-h .mut{color:var(--tx2);font-weight:600}
+.mdl-body{margin-top:15px}
+.mdl-body p{font-size:15.5px;line-height:1.68;color:var(--tx);margin-bottom:13px}
+.mdl-body b{color:var(--head);font-weight:700}
+.mdl-body em{font-style:normal;font-weight:800;color:var(--head)}
+.mdl-fim{display:flex;align-items:center;gap:16px;margin-top:22px;padding-top:18px;
+ border-top:1px solid var(--line)}
+.mdl-nota{font-size:11.5px;color:var(--tx2);line-height:1.5;max-width:34ch}
+.btn-p{margin-left:auto;display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:14px;
+ font-weight:700;color:#fff;background:var(--ac);border:0;border-radius:12px;padding:12px 18px;
+ cursor:pointer;transition:all .3s var(--ease);box-shadow:0 8px 20px -8px rgba(37,99,235,.5);white-space:nowrap}
+.btn-p:hover{background:#1D4FD8;transform:translateY(-1px)}
+.btn-p:active{transform:translateY(-1px) scale(.98)}
+/* ─── sino */
+.sino{position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;
+ width:38px;height:38px;display:grid;place-items:center;cursor:pointer;color:var(--tx);
+ box-shadow:var(--sh);transition:all .3s var(--ease);margin-left:10px}
+.sino:hover{color:var(--ac);border-color:rgba(37,99,235,.3);transform:translateY(-1px)}
+.badge-n{position:absolute;top:-5px;right:-5px;min-width:17px;height:17px;border-radius:9px;
+ background:var(--no);color:#fff;font-size:10px;font-weight:800;display:grid;place-items:center;
+ padding:0 4px;box-shadow:0 0 0 2px var(--pg)}
+.sino.lido .badge-n{display:none}
+/* ─── dashboard */
+.b-dash{grid-template-columns:1.3fr 1.5fr 1fr;align-items:start}
+.c-mini{grid-column:1}.c-lat2{grid-column:2/4}
+.linkb{margin-left:auto;display:inline-flex;align-items:center;gap:5px;background:none;border:0;
+ font:inherit;font-size:12px;font-weight:700;color:var(--ac);cursor:pointer;padding:3px 0;
+ transition:gap .3s var(--ease)}
+.linkb:hover{gap:9px}
+.tf{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(226,232,240,.5);
+ animation:up .55s var(--ease) both;animation-delay:calc(220ms + var(--i)*62ms)}
+.tf-o{width:18px;font-size:12px;font-weight:700;color:var(--tx2)}
+.tf-c{flex:1;min-width:0}
+.tf-n{display:block;font-size:14px;font-weight:700;color:var(--head)}
+.tf-d{font-size:11.5px;color:var(--tx2)}
+.tf-v{font-size:19px;font-weight:800;color:var(--no);letter-spacing:-.6px}
+.tf-v small{font-size:12px}
+.duo{display:flex;gap:22px;margin-top:14px}
+.nm{flex:1}
+.dv{font-size:38px;font-weight:800;letter-spacing:-1.9px;line-height:.94;display:block}
+.nm.sm .dv{font-size:27px;letter-spacing:-1.2px}
+.nl{font-size:11.5px;color:var(--tx2);font-weight:600;display:block;margin-top:7px;line-height:1.4}
+.nl em{display:block;font-style:normal;opacity:.78;font-weight:500}
+.sep-h{height:1px;background:var(--line);margin:20px 0 0}
+@media (max-width:1240px){.b-dash{grid-template-columns:1fr 1fr}
+ .c-mini,.c-lat2{grid-column:auto}}
+
+/* ─── tipografia: display com carater, UI neutra, numero monoespacado */
+.dsp,.topo h1,.mdl-h,.marca b,.dv,.mb-v,.bn,.tf-v,.hero-h{
+ font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto}
+.topo h1{font-weight:800;letter-spacing:-1.4px}
+.mdl-h{font-weight:800;letter-spacing:-1.3px}
+.marca b{font-weight:800;letter-spacing:-.5px}
+.lbl,.mb-p,.nl,.fonte-tag,.mdl-nota,.nota,.tf-d{font-family:'Geist',system-ui,sans-serif}
+/* ─── textura de grade, a mesma linguagem das divisorias do deck */
+main{position:relative}
+main::before{content:'';position:fixed;inset:0 0 0 262px;z-index:0;pointer-events:none;
+ background-image:linear-gradient(rgba(15,20,32,.022) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(15,20,32,.022) 1px,transparent 1px);background-size:44px 44px;
+ mask-image:radial-gradient(900px 620px at 78% -6%,#000 12%,transparent 72%)}
+main>*{position:relative;z-index:1}
+/* ─── o traco da marca como divisor, em vez de linha reta generica */
+.rule{height:14px;margin:2px 0 0;opacity:.5}
+.rule svg{height:14px;width:100%;overflow:visible}
+.rule path{fill:none;stroke:var(--ac);stroke-width:1.6;stroke-linecap:round}
+.rule circle{fill:var(--ac)}
+/* ─── etiqueta de secao com o nodo da marca */
+.lbl{display:inline-flex;align-items:center;gap:9px}
+.lbl::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--ac);
+ box-shadow:0 0 0 3px rgba(37,99,235,.13);flex-shrink:0}
+.lbl-row .lbl{margin-bottom:0}
+/* ─── canto assimetrico nos cards, quebra a uniformidade do raio */
+.card{border-radius:26px 26px 26px 8px}
+.mdl{border-radius:30px 30px 30px 10px}
+.arq{border-radius:26px 26px 26px 8px}
+/* motion */
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes sl{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+@keyframes sd{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@keyframes fin{from{opacity:0}to{opacity:1}}
+@keyframes grow{from{width:0}to{width:var(--w)}}
+@keyframes bre{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.82)}}
+@media (max-width:1100px){
+ .bento{grid-template-columns:1fr!important}
+ .c-hero,.c-tab{grid-row:auto}
+ aside{position:static;height:auto;width:100%}
+ body{flex-direction:column}
+ main{padding:24px 18px 48px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<aside>
+  <div class="marca"><div class="bi"><svg viewBox="0 0 28 28" fill="none" width="19" height="19">
+    <path d="M6 22L12 14L16 17L22 8" stroke="#0B0D12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="22" cy="8" r="3" fill="none" stroke="#2563EB" stroke-width="1.7"/>
+    <circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
+    <div><b>Cronos</b><em>VEJA ANTES · AJA ANTES</em></div></div>
+  <button class="nv on" data-t="dash" style="--i:0">
+  <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg></span><span>Painel</span></button><button class="nv " data-t="fila" style="--i:1">
+  <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span>Fila de risco</span></button><button class="nv " data-t="saude" style="--i:2">
+  <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.6-7-9.4A4 4 0 0 1 12 8a4 4 0 0 1 7 2.6C19 15.4 12 20 12 20z"/></svg></span><span>Saúde por produto</span></button><button class="nv " data-t="causas" style="--i:3">
+  <span class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.4"/><path d="M15.8 15.8L20.5 20.5"/></svg></span><span>Causas e recorrentes</span></button><button class="nv off" disabled style="--i:4"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 3 6-8"/><path d="M15 7h6v6"/></svg></span>
+  <span>Previsão de volume</span><em>fase 2</em></button>
+  <div class="rod">Mockup da aplicação planejada.<br>Os números vêm dos parquets gerados
+    pelos notebooks 04 a 07.</div>
+</aside>
+<main>
+  <div class="topo"><h1 id="titulo">Painel</h1>
+    <span class="per">outubro a dezembro de 2025</span>
+    <button class="sino" id="reabrir" title="reabrir o resumo de hoje"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6z"/><path d="M10 20a2.4 2.4 0 0 0 4 0"/></svg></span>
+      <span class="badge-n">1</span></button></div>
+  <section class="tela" id="t-dash" >
+    <div class="bento b-dash">
+      <article class="card c-kpi" style="--i:0">
+        <div class="lbl">Projeção do ano contra a meta</div>
+        <div class="mb" style="--i:0">
+      <div class="mb-top"><span class="mb-p">P2</span>
+        <span class="mb-v">43,5</span>
+        <span class="mb-m">/ 45</span>
+        <span class="pill ok">dentro</span></div>
+      <div class="mb-t"><i class="ok" style="--w:75.5%"></i>
+        <u style="left:78.1%"></u>
+        <s style="left:66.4%;width:18.1%"></s></div>
+      <div class="mb-f">faixa 38 a 49</div></div><div class="mb" style="--i:1">
+      <div class="mb-top"><span class="mb-p">P3</span>
+        <span class="mb-v">208,0</span>
+        <span class="mb-m">/ 200</span>
+        <span class="pill no">acima</span></div>
+      <div class="mb-t"><i class="no" style="--w:81.3%"></i>
+        <u style="left:78.1%"></u>
+        <s style="left:74.5%;width:13.5%"></s></div>
+      <div class="mb-f">faixa 191 a 225</div></div>
+        <div class="nota">A barra clara é a faixa de incerteza. Em três das dez projeções testadas o
+          valor central cruzaria o limite sem que o ano cruzasse.</div>
+      </article>
+
+      <article class="card c-top" style="--i:1">
+        <div class="lbl-row"><div class="lbl">Início da fila de risco</div>
+          <button class="linkb" data-go="fila">fila completa<span class="ic xs"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button></div>
+        <div class="tf" style="--i:0">
+          <span class="tf-o mono">1</span>
+          <div class="tf-c"><span class="tf-n mono">INC8595245</span>
+            <span class="tf-d">Team11 · lsin · ativo IC00840</span></div>
+          <span class="tf-v mono">56,1<small>%</small></span></div><div class="tf" style="--i:1">
+          <span class="tf-o mono">2</span>
+          <div class="tf-c"><span class="tf-n mono">INC8607669</span>
+            <span class="tf-d">Team11 · lsin · ativo IC00840</span></div>
+          <span class="tf-v mono">50,4<small>%</small></span></div><div class="tf" style="--i:2">
+          <span class="tf-o mono">3</span>
+          <div class="tf-c"><span class="tf-n mono">INC8579361</span>
+            <span class="tf-d">Team11 · lsin · ativo IC00840</span></div>
+          <span class="tf-v mono">47,2<small>%</small></span></div><div class="tf" style="--i:3">
+          <span class="tf-o mono">4</span>
+          <div class="tf-c"><span class="tf-n mono">INC8599520</span>
+            <span class="tf-d">Team11 · lsin · ativo IC00840</span></div>
+          <span class="tf-v mono">42,9<small>%</small></span></div>
+        <div class="nota">Os quatro primeiros estão no mesmo ativo. Nos cinquenta primeiros da fila
+          estão <b>15 das 50</b> violações do período.</div>
+      </article>
+
+      <article class="card c-num" style="--i:2">
+        <div class="lbl">Volume previsto para hoje</div>
+        <div class="duo">
+          <div class="nm"><span class="dv mono">87</span><span class="nl">incidentes P3<em>faixa de 71 a 103</em></span></div>
+          <div class="nm"><span class="dv mono">14</span><span class="nl">incidentes P2<em>faixa de 8 a 20</em></span></div>
+        </div>
+        <div class="rule"><svg viewBox="0 0 300 14" preserveAspectRatio="none"><path d="M2 11 L86 11 L104 3 L118 9 L142 2"/><circle cx="142" cy="2" r="2.6"/><path d="M160 11 L298 11" stroke-dasharray="2 5"/></svg></div>
+        <div class="duo">
+          <div class="nm sm"><span class="dv mono neg">4</span><span class="nl">com risco acima de 10%<em>na fila de hoje</em></span></div>
+          <div class="nm sm"><span class="dv mono">1.129</span><span class="nl">em atendimento<em>abertos e não resolvidos</em></span></div>
+        </div>
+      </article>
+
+      <article class="card c-mini" style="--i:3">
+        <div class="lbl-row"><div class="lbl">Piores notas de saúde</div>
+          <button class="linkb" data-go="saude">ranking completo<span class="ic xs"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button></div>
+        <div class="mini-rank">
+          <div class="mr" style="--i:0">
+            <span class="mr-n">lssl</span>
+            <div class="mr-b"><i style="--w:15%;--c:#DC2626"></i></div>
+            <span class="mr-v">15,3</span></div><div class="mr" style="--i:1">
+            <span class="mr-n">lrdo</span>
+            <div class="mr-b"><i style="--w:20%;--c:#DC2626"></i></div>
+            <span class="mr-v">20,0</span></div><div class="mr" style="--i:2">
+            <span class="mr-n">lvps</span>
+            <div class="mr-b"><i style="--w:21%;--c:#DC2626"></i></div>
+            <span class="mr-v">21,2</span></div><div class="mr" style="--i:3">
+            <span class="mr-n">lsaa</span>
+            <div class="mr-b"><i style="--w:24%;--c:#DC2626"></i></div>
+            <span class="mr-v">23,5</span></div>
+        </div>
+      </article>
+
+      <article class="card c-lat2" style="--i:4">
+        <div class="lbl">Risco latente</div>
+        <p class="expl">Problema novo em alta e violação ainda baixa. O inédito viola <b>4,6x mais</b>, então estes produtos carregam exposição que ainda não se materializou.</p>
+        <div class="lat-row">
+        <div class="lat" style="--i:0"><span class="lat-p mono">lcsi</span>
+          <div class="lat-d"><span>56,0% novos</span>
+            <span class="dim">violação 0,09%</span></div></div><div class="lat" style="--i:1"><span class="lat-p mono">lcsp</span>
+          <div class="lat-d"><span>54,8% novos</span>
+            <span class="dim">violação 0,74%</span></div></div>
+      </article>
+    </div></section><section class="tela" id="t-fila" hidden>
+    <div class="bento b-fila">
+      <article class="card c-tab" style="--i:0">
+        <div class="lbl-row"><div class="lbl">Fila ordenada por risco</div>
+          <span class="fonte-tag">5.183 incidentes</span></div>
+        <table class="tb"><thead><tr><th></th><th>Incidente</th><th>Faixa</th><th>Risco</th>
+          <th>Equipe</th><th>Produto</th><th>Histórico do ativo</th></tr></thead>
+          <tbody><tr style="--i:0" class="top">
+      <td class="ord">1</td>
+      <td class="mono forte">INC8595245</td>
+      <td><span class="pill no">&gt; 10%</span></td>
+      <td class="risco"><div class="rb"><i style="--w:100%"></i></div><span class="mono">56,1%</span></td>
+      <td class="dim">Team11</td><td class="dim">lsin</td>
+      <td class="dim mono">21/66 violaram</td></tr><tr style="--i:1" class="">
+      <td class="ord">2</td>
+      <td class="mono forte">INC8607669</td>
+      <td><span class="pill no">&gt; 10%</span></td>
+      <td class="risco"><div class="rb"><i style="--w:90%"></i></div><span class="mono">50,4%</span></td>
+      <td class="dim">Team11</td><td class="dim">lsin</td>
+      <td class="dim mono">21/66 violaram</td></tr><tr style="--i:2" class="">
+      <td class="ord">3</td>
+      <td class="mono forte">INC8579361</td>
+      <td><span class="pill no">&gt; 10%</span></td>
+      <td class="risco"><div class="rb"><i style="--w:84%"></i></div><span class="mono">47,2%</span></td>
+      <td class="dim">Team11</td><td class="dim">lsin</td>
+      <td class="dim mono">21/66 violaram</td></tr><tr style="--i:3" class="">
+      <td class="ord">4</td>
+      <td class="mono forte">INC8599520</td>
+      <td><span class="pill no">&gt; 10%</span></td>
+      <td class="risco"><div class="rb"><i style="--w:76%"></i></div><span class="mono">42,9%</span></td>
+      <td class="dim">Team11</td><td class="dim">lsin</td>
+      <td class="dim mono">21/66 violaram</td></tr><tr style="--i:4" class="">
+      <td class="ord">5</td>
+      <td class="mono forte">INC8601345</td>
+      <td><span class="pill no">&gt; 10%</span></td>
+      <td class="risco"><div class="rb"><i style="--w:72%"></i></div><span class="mono">40,4%</span></td>
+      <td class="dim">Team11</td><td class="dim">lsin</td>
+      <td class="dim mono">21/66 violaram</td></tr><tr style="--i:5" class="">
+      <td class="ord">6</td>
+      <td class="mono forte">INC8614082</td>
+      <td><span class="pill no">&gt; 10%</span></td>
+      <td class="risco"><div class="rb"><i style="--w:59%"></i></div><span class="mono">33,1%</span></td>
+      <td class="dim">Team07</td><td class="dim">lhco</td>
+      <td class="dim mono">30/478 violaram</td></tr></tbody></table>
+        <div class="nota">Nos cinquenta primeiros estão <b>15 das 50</b> violações do período, contra
+          <b>6</b> da melhor regra simples e <b>1</b> da ordenação por prioridade.</div>
+      </article>
+
+      <article class="card c-det" style="--i:1">
+        <div class="lbl">Detalhe · <span class="mono forte">INC8595245</span></div>
+        <div class="big-risco"><span class="bn mono">56,1<small>%</small></span>
+          <span class="bl">risco estimado<em>média da base: 0,97%</em></span></div>
+        <div class="rt"><i style="--w:56%"></i><u style="left:1.7%"></u></div>
+        <div class="evid"><span class="ic sm"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.4"/><path d="M15.8 15.8L20.5 20.5"/></svg></span>
+          <div>Dos <b>66</b> incidentes do ativo <b class="mono">IC00840</b>,
+            <b>21 violaram</b> o prazo.</div></div>
+        <div class="lbl mt">O que pesa neste caso</div>
+        <div class="pw" style="--i:0"><span class="pn">categoria cat31</span>
+          <div class="pb"><i style="--w:100%"></i></div>
+          <span class="pv mono">38%</span></div><div class="pw" style="--i:1"><span class="pn">produto lsin</span>
+          <div class="pb"><i style="--w:50%"></i></div>
+          <span class="pv mono">19%</span></div><div class="pw" style="--i:2"><span class="pn">subcategoria sub388</span>
+          <div class="pb"><i style="--w:32%"></i></div>
+          <span class="pv mono">12%</span></div><div class="pw" style="--i:3"><span class="pn">equipe Team11</span>
+          <div class="pb"><i style="--w:29%"></i></div>
+          <span class="pv mono">11%</span></div><div class="pw" style="--i:4"><span class="pn">sábado, 19h</span>
+          <div class="pb"><i style="--w:21%"></i></div>
+          <span class="pv mono">8%</span></div>
+      </article>
+
+      <article class="card c-grp" style="--i:2">
+        <div class="lbl">Grupos críticos</div>
+        <table class="tb sm"><thead><tr><th>Produto · categoria · prioridade</th>
+          <th>Taxa</th><th>vs média</th></tr></thead><tbody>
+          <tr style="--i:0"><td class="mono">lsaa / cat31 / P3</td>
+            <td class="mono neg">3,64%</td>
+            <td class="mono dim">3,75x</td></tr><tr style="--i:1"><td class="mono">lvps / cat74 / P3</td>
+            <td class="mono neg">3,42%</td>
+            <td class="mono dim">3,53x</td></tr><tr style="--i:2"><td class="mono">lrev / cat35 / P3</td>
+            <td class="mono neg">3,31%</td>
+            <td class="mono dim">3,41x</td></tr><tr style="--i:3"><td class="mono">lrdo / cat31 / P3</td>
+            <td class="mono neg">2,70%</td>
+            <td class="mono dim">2,79x</td></tr></tbody></table>
+        <div class="nota">Sete grupos concentram <b>13%</b> das violações em <b>5%</b> da base. O modelo
+          concentra <b>72%</b> nos vinte por cento de maior risco.</div>
+      </article>
+    </div></section><section class="tela" id="t-saude" hidden>
+    <div class="bento b-saude">
+      <article class="card c-tab" style="--i:0">
+        <div class="lbl-row"><div class="lbl">Nota por produto</div>
+          <span class="fonte-tag">17 produtos · 95% do volume</span></div>
+        <table class="tb"><thead><tr><th></th><th>Produto</th><th>Nota</th><th>Situação</th>
+          <th>Incidentes</th><th>Taxa</th><th>Novos</th></tr></thead><tbody><tr style="--i:0">
+      <td class="ord">1</td><td class="mono forte">lcho</td>
+      <td class="nota-cel"><div class="nb"><i style="--w:71%;--c:#15A05B"></i></div>
+        <span class="mono">70,6</span></td>
+      <td><span class="pill ok">estável</span></td>
+      <td class="mono dim">511</td>
+      <td class="mono neg">0,59%</td>
+      <td class="mono dim">17,4%</td></tr><tr style="--i:1">
+      <td class="ord">2</td><td class="mono forte">lcem</td>
+      <td class="nota-cel"><div class="nb"><i style="--w:69%;--c:#15A05B"></i></div>
+        <span class="mono">69,4</span></td>
+      <td><span class="pill wn">risco latente</span></td>
+      <td class="mono dim">3.496</td>
+      <td class="mono neg">0,51%</td>
+      <td class="mono dim">43,8%</td></tr><tr style="--i:2">
+      <td class="ord">3</td><td class="mono forte">lgoa</td>
+      <td class="nota-cel"><div class="nb"><i style="--w:68%;--c:#15A05B"></i></div>
+        <span class="mono">68,2</span></td>
+      <td><span class="pill ac">problema conhecido e recorrente</span></td>
+      <td class="mono dim">397</td>
+      <td class="mono neg">1,76%</td>
+      <td class="mono dim">20,2%</td></tr><tr style="--i:3">
+      <td class="ord">4</td><td class="mono forte">lhvp</td>
+      <td class="nota-cel"><div class="nb"><i style="--w:67%;--c:#15A05B"></i></div>
+        <span class="mono">67,1</span></td>
+      <td><span class="pill ok">estável</span></td>
+      <td class="mono dim">1.888</td>
+      <td class="mono neg">0,74%</td>
+      <td class="mono dim">28,0%</td></tr><tr style="--i:4">
+      <td class="ord">5</td><td class="mono forte">lrev</td>
+      <td class="nota-cel"><div class="nb"><i style="--w:60%;--c:#D9930B"></i></div>
+        <span class="mono">60,0</span></td>
+      <td><span class="pill ok">estável</span></td>
+      <td class="mono dim">1.821</td>
+      <td class="mono neg">0,49%</td>
+      <td class="mono dim">25,5%</td></tr><tr style="--i:5">
+      <td class="ord">5</td><td class="mono forte">lsmt</td>
+      <td class="nota-cel"><div class="nb"><i style="--w:60%;--c:#D9930B"></i></div>
+        <span class="mono">60,0</span></td>
+      <td><span class="pill ok">estável</span></td>
+      <td class="mono dim">203</td>
+      <td class="mono neg">0,99%</td>
+      <td class="mono dim">14,8%</td></tr><tr style="--i:6">
+      <td class="ord">5</td><td class="mono forte">lemn</td>
+      <td class="nota-cel"><div class="nb"><i style="--w:60%;--c:#D9930B"></i></div>
+        <span class="mono">60,0</span></td>
+      <td><span class="pill ac">problema conhecido e recorrente</span></td>
+      <td class="mono dim">243</td>
+      <td class="mono neg">1,23%</td>
+      <td class="mono dim">16,0%</td></tr><tr style="--i:7">
+      <td class="ord">8</td><td class="mono forte">lhco</td>
+      <td class="nota-cel"><div class="nb"><i style="--w:58%;--c:#D9930B"></i></div>
+        <span class="mono">57,6</span></td>
+      <td><span class="pill ok">estável</span></td>
+      <td class="mono dim">8.131</td>
+      <td class="mono neg">0,66%</td>
+      <td class="mono dim">35,2%</td></tr><tr style="--i:8">
+      <td class="ord">9</td><td class="mono forte">lcsi</td>
+      <td class="nota-cel"><div class="nb"><i style="--w:51%;--c:#D9930B"></i></div>
+        <span class="mono">50,6</span></td>
+      <td><span class="pill wn">risco latente</span></td>
+      <td class="mono dim">1.058</td>
+      <td class="mono neg">0,09%</td>
+      <td class="mono dim">56,0%</td></tr><tr style="--i:9">
+      <td class="ord">10</td><td class="mono forte">lrel</td>
+      <td class="nota-cel"><div class="nb"><i style="--w:46%;--c:#D9930B"></i></div>
+        <span class="mono">45,9</span></td>
+      <td><span class="pill wn">risco latente</span></td>
+      <td class="mono dim">499</td>
+      <td class="mono neg">1,00%</td>
+      <td class="mono dim">43,7%</td></tr><tr style="--i:10">
+      <td class="ord">11</td><td class="mono forte">lsin</td>
+      <td class="nota-cel"><div class="nb"><i style="--w:41%;--c:#D9930B"></i></div>
+        <span class="mono">41,2</span></td>
+      <td><span class="pill ac">problema conhecido e recorrente</span></td>
+      <td class="mono dim">3.190</td>
+      <td class="mono neg">1,94%</td>
+      <td class="mono dim">28,2%</td></tr><tr style="--i:11">
+      <td class="ord">12</td><td class="mono forte">lcsp</td>
+      <td class="nota-cel"><div class="nb"><i style="--w:35%;--c:#DC2626"></i></div>
+        <span class="mono">35,3</span></td>
+      <td><span class="pill wn">risco latente</span></td>
+      <td class="mono dim">272</td>
+      <td class="mono neg">0,74%</td>
+      <td class="mono dim">54,8%</td></tr><tr style="--i:12">
+      <td class="ord">13</td><td class="mono forte">lemg</td>
+      <td class="nota-cel"><div class="nb"><i style="--w:34%;--c:#DC2626"></i></div>
+        <span class="mono">34,1</span></td>
+      <td><span class="pill no">problema já materializado</span></td>
+      <td class="mono dim">388</td>
+      <td class="mono neg">1,03%</td>
+      <td class="mono dim">62,6%</td></tr><tr style="--i:13">
+      <td class="ord">14</td><td class="mono forte">lsaa</td>
+      <td class="nota-cel"><div class="nb"><i style="--w:24%;--c:#DC2626"></i></div>
+        <span class="mono">23,5</span></td>
+      <td><span class="pill ac">problema conhecido e recorrente</span></td>
+      <td class="mono dim">554</td>
+      <td class="mono neg">1,44%</td>
+      <td class="mono dim">30,7%</td></tr><tr style="--i:14">
+      <td class="ord">15</td><td class="mono forte">lvps</td>
+      <td class="nota-cel"><div class="nb"><i style="--w:21%;--c:#DC2626"></i></div>
+        <span class="mono">21,2</span></td>
+      <td><span class="pill no">problema já materializado</span></td>
+      <td class="mono dim">418</td>
+      <td class="mono neg">2,39%</td>
+      <td class="mono dim">46,9%</td></tr><tr style="--i:15">
+      <td class="ord">16</td><td class="mono forte">lrdo</td>
+      <td class="nota-cel"><div class="nb"><i style="--w:20%;--c:#DC2626"></i></div>
+        <span class="mono">20,0</span></td>
+      <td><span class="pill no">problema já materializado</span></td>
+      <td class="mono dim">482</td>
+      <td class="mono neg">1,66%</td>
+      <td class="mono dim">63,9%</td></tr><tr style="--i:16">
+      <td class="ord">17</td><td class="mono forte">lssl</td>
+      <td class="nota-cel"><div class="nb"><i style="--w:15%;--c:#DC2626"></i></div>
+        <span class="mono">15,3</span></td>
+      <td><span class="pill no">problema já materializado</span></td>
+      <td class="mono dim">454</td>
+      <td class="mono neg">1,98%</td>
+      <td class="mono dim">64,1%</td></tr></tbody></table>
+        <div class="nota">Nota por posição relativa: <b>100 é o melhor dos 17</b>, não um produto sem
+          problemas. A linha abre a decomposição nos cinco componentes.</div>
+      </article>
+      <article class="card c-lat" style="--i:1">
+        <div class="lbl">Risco latente</div>
+        <p class="expl">Muito problema novo e violação ainda baixa. O problema inédito viola
+          <b>4,6x mais</b>, então estes produtos carregam exposição que não se materializou.</p>
+        <div class="lat" style="--i:0">
+          <span class="lat-p mono">lcsi</span>
+          <div class="lat-d"><span>56,0% novos</span>
+            <span class="dim">violação 0,09%</span></div></div><div class="lat" style="--i:1">
+          <span class="lat-p mono">lcsp</span>
+          <div class="lat-d"><span>54,8% novos</span>
+            <span class="dim">violação 0,74%</span></div></div><div class="lat" style="--i:2">
+          <span class="lat-p mono">lcem</span>
+          <div class="lat-d"><span>43,8% novos</span>
+            <span class="dim">violação 0,51%</span></div></div><div class="lat" style="--i:3">
+          <span class="lat-p mono">lrel</span>
+          <div class="lat-d"><span>43,7% novos</span>
+            <span class="dim">violação 1,00%</span></div></div>
+        <div class="nota">Invisível ao modelo de risco: cada incidente destes produtos tem
+          probabilidade individual baixa. O padrão só existe no agregado.</div>
+      </article>
+    </div></section><section class="tela" id="t-causas" hidden>
+    <div class="bento b-causas">
+      <article class="card c-cau" style="--i:0">
+        <div class="lbl">Causas · volume não é risco</div>
+        <table class="tb sm"><thead><tr><th>Causa</th><th>% base</th><th>% violações</th>
+          <th>Taxa</th><th>vs média</th></tr></thead><tbody>
+          <tr style="--i:0"><td>Falha de Aplicação</td>
+            <td class="mono dim">59,2%</td>
+            <td class="mono neg">52,0%</td>
+            <td class="mono">0,85%</td>
+            <td class="mono dim">0,88x</td></tr><tr style="--i:1"><td>Falha de Sistema Operacional</td>
+            <td class="mono dim">11,9%</td>
+            <td class="mono neg">2,8%</td>
+            <td class="mono">0,23%</td>
+            <td class="mono dim">0,24x</td></tr><tr style="--i:2"><td>Outro</td>
+            <td class="mono dim">7,8%</td>
+            <td class="mono neg">21,8%</td>
+            <td class="mono">2,71%</td>
+            <td class="mono dim">2,79x</td></tr><tr style="--i:3"><td>Falha causada pelo cliente</td>
+            <td class="mono dim">4,8%</td>
+            <td class="mono neg">2,0%</td>
+            <td class="mono">0,41%</td>
+            <td class="mono dim">0,42x</td></tr><tr style="--i:4"><td>Falha não reproduzida</td>
+            <td class="mono dim">4,4%</td>
+            <td class="mono neg">2,8%</td>
+            <td class="mono">0,62%</td>
+            <td class="mono dim">0,64x</td></tr></tbody></table>
+        <div class="nota"><b>Outro</b> é 7,8% do volume e 21,8% das violações. Campo preenchido no
+          fechamento: serve a diagnóstico, não a previsão.</div>
+      </article>
+      <article class="card c-rec" style="--i:1">
+        <div class="lbl">Watchlist de recorrentes</div>
+        <div class="rec" style="--i:0">
+          <span class="rec-t mono">problem: error backup full bacula</span>
+          <div class="rec-m"><span class="mono forte">753</span>vezes
+            <span class="sep">·</span><span class="mono">451</span>ativos
+            <span class="sep">·</span><span class="mono neg">6</span>violações</div></div><div class="rec" style="--i:1">
+          <span class="rec-t mono">problem: unavailable by icmp ping</span>
+          <div class="rec-m"><span class="mono forte">626</span>vezes
+            <span class="sep">·</span><span class="mono">421</span>ativos
+            <span class="sep">·</span><span class="mono neg">6</span>violações</div></div><div class="rec" style="--i:2">
+          <span class="rec-t mono">problem: error backup inc bacula</span>
+          <div class="rec-m"><span class="mono forte">565</span>vezes
+            <span class="sep">·</span><span class="mono">397</span>ativos
+            <span class="sep">·</span><span class="mono neg">3</span>violações</div></div><div class="rec" style="--i:3">
+          <span class="rec-t mono">problem: check: http type: tcp on port: <n> no</span>
+          <div class="rec-m"><span class="mono forte">436</span>vezes
+            <span class="sep">·</span><span class="mono">203</span>ativos
+            <span class="sep">·</span><span class="mono pos">0</span>violações</div></div><div class="rec" style="--i:4">
+          <span class="rec-t mono">problem: apache busy workers</span>
+          <div class="rec-m"><span class="mono forte">426</span>vezes
+            <span class="sep">·</span><span class="mono">221</span>ativos
+            <span class="sep">·</span><span class="mono pos">0</span>violações</div></div>
+        <div class="nota">Os vinte mais recorrentes cobrem <b>26%</b> do volume e violam <b>0,40%</b>,
+          menos da metade da média. Candidatos a automação.</div>
+      </article>
+    </div></section>
+  
+    <div class="ovl" id="ovl">
+      <div class="mdl" role="dialog" aria-label="Morning briefing">
+        <div class="mdl-top">
+          <div class="live">Resumo de 05/08 · 07h00</div>
+          <span class="fonte-tag">texto gerado</span>
+        </div>
+        <h2 class="mdl-h">Situação da operação <span class="mut">em três pontos</span></h2>
+        <div class="mdl-body">
+          <p><em>Ontem</em> entraram <b>83</b> incidentes elegíveis, dentro do padrão de dia útil.
+             Nenhum dos quatro casos de maior risco violou o prazo.</p>
+          <p><em>Hoje</em> a previsão é de <b>87</b> no P3 e <b>14</b> no P2. A fila começa com
+             <b>INC8595245</b>, no ativo <b>IC00840</b>, que já acumula
+             <b>21 violações em 66</b> passagens.</p>
+          <p><em>Atenção</em> ao P3: a projeção de fechamento está em <b>208,0</b>
+             contra meta de <b>200</b>. A faixa ainda comporta fechar dentro.</p>
+        </div>
+        <div class="acoes">
+          <button class="acao" data-go="fila" style="--i:0"><span class="ad">fila de risco</span>Cinco primeiros da fila concentrados no ativo IC00840<span class="ic xs"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button><button class="acao" data-go="saude" style="--i:1"><span class="ad">saúde por produto</span>Produto lssl na última posição do ranking<span class="ic xs"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button>
+        </div>
+        <div class="mdl-fim">
+          <span class="mdl-nota">Redação automática sobre a saída dos modelos. Sem interação por conversa.</span>
+          <button class="btn-p" id="fechar">Abrir o painel<span class="ic xs"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button>
+        </div>
+
+      </div>
+    </div>
+  <div class="arq">
+    <h3>Como a aplicação é servida</h3>
+    <div class="fluxo">
+      <div class="et2" style="--i:0"><b>notebooks</b>treinam e preveem</div><span class="fl"><span class="ic sm"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></span>
+      <div class="et2" style="--i:1"><b>data/interim</b>gravam parquet</div><span class="fl"><span class="ic sm"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></span>
+      <div class="et2" style="--i:2"><b>django</b>lê e renderiza</div><span class="fl"><span class="ic sm"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></span>
+      <div class="et2" style="--i:3"><b>docker</b>URL pública</div>
+    </div>
+    <p>O container leva apenas <b>django, pandas e pyarrow</b>. Não executa Prophet nem
+    scikit-learn, porque as previsões já estão gravadas. A imagem cabe em plano gratuito e a
+    entrega por Docker roda em qualquer provedor, sem amarrar a solução a uma nuvem específica.</p>
+    <p>A tela de previsão de volume está marcada como <b>fase 2</b> porque depende de recalcular o
+    Prophet periodicamente, o que pertence à rotina de re-treino e não ao MVP preliminar.</p>
+  </div>
+</main>
+<script>
+const ovl=document.getElementById('ovl'), sino=document.getElementById('reabrir');
+const fecha=()=>{ovl.classList.add('off');sino.classList.add('lido')};
+document.getElementById('fechar').onclick=fecha;
+sino.onclick=()=>{ovl.classList.remove('off');sino.classList.remove('lido')};
+ovl.onclick=e=>{if(e.target===ovl)fecha()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')fecha()});
+const T={"dash": "Painel", "fila": "Fila de risco", "saude": "Saúde por produto", "causas": "Causas e recorrentes"};
+function vai(t){
+  document.querySelectorAll('.nv').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
+  document.querySelectorAll('.tela').forEach(p=>{
+    p.hidden = p.id!=='t-'+t;
+    if(!p.hidden) p.querySelectorAll('.card').forEach(c=>{
+      c.style.animation='none'; void c.offsetWidth; c.style.animation='';
+    });
+  });
+  document.getElementById('titulo').textContent=T[t];
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{fecha();vai(b.dataset.go)});
+document.querySelectorAll('.nv[data-t]').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.nv').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  const t=b.dataset.t;
+  document.querySelectorAll('.tela').forEach(p=>{
+    p.hidden = p.id!=='t-'+t;
+    if(!p.hidden) p.querySelectorAll('.card').forEach(c=>{
+      c.style.animation='none'; void c.offsetWidth; c.style.animation='';
+    });
+  });
+  document.getElementById('titulo').textContent=T[t];
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+</script></body></html>

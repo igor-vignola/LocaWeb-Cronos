@@ -693,7 +693,7 @@ function vai(t){
   scrollTo({top:0,behavior:'smooth'})}
 document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{fecha();vai(b.dataset.go)});
 document.querySelectorAll('.nv[data-t]').forEach(b=>b.onclick=()=>vai(b.dataset.t));
-liga(document.getElementById('s-painel'));liga(document.querySelector('.aq').parentNode);
+liga(document.getElementById('s-painel'));
 """.replace("__TELAS__", json.dumps({k: v[0] for k, v in TELAS.items()}, ensure_ascii=False))
 
 OUT.write_text(f'''<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
@@ -717,18 +717,6 @@ OUT.write_text(f'''<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"
     <span class="ct">corte em {DIA_HOJE.day:02d}/{DIA_HOJE.month:02d}/{DIA_HOJE.year}</span>
     <button class="bl" id="bl" title="reabrir o resumo de hoje">{ic('bell')}<b>1</b></button></div>
   {telas}
-  <div class="aq" data-rev>
-    <h3>Como a aplicação é servida</h3>
-    <div class="fx">
-      <div class="st"><b>notebooks</b>treinam e preveem</div>{ic('arrow','i sm')}
-      <div class="st"><b>data/interim</b>gravam parquet</div>{ic('arrow','i sm')}
-      <div class="st"><b>django</b>lê e renderiza</div>{ic('arrow','i sm')}
-      <div class="st"><b>docker</b>URL pública</div>
-    </div>
-    <p>O contêiner leva apenas <b>django, pandas e pyarrow</b>. Não executa Prophet nem
-    scikit-learn, porque as previsões já estão gravadas. A imagem cabe em plano gratuito e a
-    entrega por Docker roda em qualquer provedor.</p>
-  </div>
 </main>
 {modal}
 <script>{JS}</script></body></html>''', encoding='utf-8')
