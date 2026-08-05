@@ -1,0 +1,473 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>Cronos · mockup do Django planejado</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#F4F7FC;--ink:#0A0E17;--line:#E5EAF1;--tx:#4A5568;--tx2:#6B7688;--head:#0B1220;
+ --ac:#2563EB;--acl:#EFF6FF;--bad:#DC2626;--good:#15A05B;--warn:#D9930B}
+body{background:var(--bg);font-family:'Outfit',sans-serif;color:var(--head);display:flex;min-height:100vh}
+aside{width:246px;flex-shrink:0;background:var(--ink);padding:26px 16px;display:flex;flex-direction:column;gap:5px}
+.marca{display:flex;align-items:center;gap:10px;padding:0 8px 22px}
+.marca .bi{width:32px;height:32px;border-radius:9px;background:#fff;display:flex;align-items:center;justify-content:center}
+.marca .bn{font-size:17px;font-weight:800;color:#fff;letter-spacing:-.3px}
+.marca .bt{font-size:10.5px;color:#5b647a;letter-spacing:1px;display:block;font-weight:600}
+.nv{display:flex;align-items:center;gap:11px;background:none;border:none;color:#98A2B3;
+ font-family:inherit;font-size:14.5px;font-weight:600;padding:11px 12px;border-radius:9px;
+ cursor:pointer;text-align:left;width:100%}
+.nv:hover{background:rgba(255,255,255,.05);color:#fff}
+.nv.on{background:rgba(37,99,235,.18);color:#fff}
+.nv.off{opacity:.42;cursor:not-allowed}
+.nv .ic{width:18px;height:18px;display:flex}
+.nv .ic svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round}
+.nv .soon{margin-left:auto;font-size:9.5px;background:rgba(255,255,255,.1);padding:2px 6px;border-radius:4px;letter-spacing:.5px}
+aside .rodape{margin-top:auto;font-size:11px;color:#4b5568;line-height:1.5;padding:0 8px}
+main{flex:1;padding:30px 34px 60px;min-width:0}
+.topo{display:flex;align-items:baseline;gap:14px;margin-bottom:22px}
+.topo h1{font-size:27px;font-weight:800;letter-spacing:-.8px}
+.topo .fonte{font-size:12.5px;color:var(--tx2);margin-left:auto;background:#fff;border:1px solid var(--line);
+ padding:6px 12px;border-radius:999px}
+.grid2{display:grid;grid-template-columns:1.35fr 1fr;gap:18px;align-items:start}
+.card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:20px 22px;
+ box-shadow:0 12px 30px -22px rgba(15,23,42,.2);margin-bottom:18px}
+.card.wide{grid-column:1/-1}
+.col{display:flex;flex-direction:column}
+.ch{font-size:12px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--tx2);
+ margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.dot{width:7px;height:7px;border-radius:50%}.dot.v{background:var(--good);box-shadow:0 0 8px var(--good)}
+.brief p{font-size:15px;line-height:1.62;color:var(--tx);margin-bottom:11px}
+.brief p b{color:var(--head)}
+.acoes{margin-top:16px;background:var(--acl);border-radius:11px;padding:14px 16px}
+.al{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ac)}
+.ai{font-size:14px;color:var(--tx);margin-top:7px;padding-left:14px;position:relative}
+.ai::before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--ac)}
+.nota{font-size:12.5px;color:var(--tx2);line-height:1.5;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.nota b{color:var(--head)}
+.meta-row{display:flex;align-items:center;gap:11px;margin-bottom:12px}
+.mp{width:26px;font-weight:800;font-size:14px}
+.mt{flex:1;height:19px;border-radius:6px;background:#F0F3F8;position:relative;overflow:hidden}
+.mt i{position:absolute;left:0;top:0;bottom:0;border-radius:6px}
+.mt u{position:absolute;top:-2px;bottom:-2px;width:2px;background:#0B1220}
+.mv{width:74px;text-align:right;font-weight:800;font-size:15px;font-variant-numeric:tabular-nums}
+.mv small{display:block;font-size:10.5px;color:var(--tx2);font-weight:600}
+.legenda{font-size:11.5px;color:var(--tx2)}
+.sr{display:flex;align-items:center;gap:10px;margin-bottom:9px;font-size:13.5px}
+.sn{width:44px;color:var(--tx)}
+.sb{flex:1;height:8px;border-radius:4px;background:#F0F3F8;overflow:hidden}
+.sb i{display:block;height:100%;border-radius:4px}
+.sv{width:36px;text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
+.tb{width:100%;border-collapse:collapse;font-size:13.5px}
+.tb.sm{font-size:12.5px}
+.tb th{text-align:right;font-size:10.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+ color:var(--tx2);padding-bottom:9px;border-bottom:1px solid var(--line)}
+.tb th:first-child,.tb th:nth-child(2){text-align:left}
+.tb td{text-align:right;padding:9px 6px;border-bottom:1px solid #F2F5F9;font-variant-numeric:tabular-nums}
+.tb td:first-child,.tb td:nth-child(2){text-align:left}
+.tb tr.hot td{background:#FEF7F7}
+.pos{color:var(--tx2);font-weight:700;width:34px}
+.inc{font-weight:700;color:var(--head)}
+.pb2{font-family:ui-monospace,monospace;font-size:11.5px;font-weight:500}
+.bad{color:var(--bad);font-weight:700}
+.badge{font-size:10px;font-weight:800;letter-spacing:.8px;padding:3px 8px;border-radius:5px}
+.badge.alto{background:#FCECEC;color:var(--bad)}.badge.medio{background:#FBF1DC;color:var(--warn)}
+.rk{display:flex;align-items:center;gap:8px;justify-content:flex-end}
+.rb{width:66px;height:7px;border-radius:4px;background:#F0F3F8;overflow:hidden}
+.rb i{display:block;height:100%;background:linear-gradient(90deg,#F87171,#DC2626);border-radius:4px}
+.rk span{font-weight:700;width:44px;text-align:right}
+.hist{color:var(--tx2);font-size:12px}
+.quad{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap}
+.quad.q0{background:#FBF1DC;color:var(--warn)}.quad.q1{background:#FCECEC;color:var(--bad)}
+.quad.q2{background:var(--acl);color:var(--ac)}.quad.q3{background:#E7F6EE;color:var(--good)}
+.regua{margin-bottom:14px}
+.rt{height:24px;border-radius:7px;background:#F0F3F8;position:relative;overflow:hidden}
+.rt i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#F87171,#DC2626);border-radius:7px}
+.rt u{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ac)}
+.rl{display:flex;justify-content:space-between;font-size:11.5px;color:var(--tx2);margin-top:6px}
+.rl b{color:var(--head)}
+.evid{background:#F7F9FC;border-radius:11px;padding:13px 15px}
+.el{font-size:10.5px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:var(--tx2)}
+.et{font-size:14.5px;color:var(--tx);margin-top:6px;line-height:1.45}.et b{color:var(--head)}
+.pw{display:flex;align-items:center;gap:10px;margin-top:9px;font-size:13px}
+.pn{width:152px;color:var(--tx)}
+.pb{flex:1;height:7px;border-radius:4px;background:#F0F3F8;overflow:hidden}
+.pb i{display:block;height:100%;background:var(--ac);border-radius:4px}
+.pv{width:34px;text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
+.arq{margin-top:26px;background:#fff;border:1px solid var(--line);border-radius:15px;padding:22px 24px}
+.arq h3{font-size:16px;font-weight:800;margin-bottom:6px}
+.arq .fluxo{display:flex;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap}
+.arq .et2{background:#F7F9FC;border:1px solid var(--line);border-radius:10px;padding:11px 15px;font-size:13px}
+.arq .et2 b{display:block;font-size:11px;letter-spacing:.9px;text-transform:uppercase;color:var(--tx2);margin-bottom:3px}
+.arq .fl{color:var(--tx2);font-size:17px}
+.arq p{font-size:13.5px;color:var(--tx);line-height:1.55;margin-top:14px}
+.arq p b{color:var(--head)}
+</style></head><body>
+<aside>
+  <div class="marca"><div class="bi"><svg viewBox="0 0 28 28" fill="none" width="18" height="18">
+    <path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="22" cy="8" r="3" fill="none" stroke="#2563EB" stroke-width="1.6"/></svg></div>
+    <div><span class="bn">Cronos</span><span class="bt">VEJA ANTES · AJA ANTES</span></div></div>
+  <button class="nv on" data-t="brief">
+  <span class="ic"><svg viewBox="0 0 24 24"><path d="M2 12h4l2.5-7 4 14 2.5-7h6"/></svg></span>Morning briefing</button><button class="nv " data-t="fila">
+  <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>Fila de risco</button><button class="nv " data-t="saude">
+  <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.6-7-9.4A4 4 0 0 1 12 8a4 4 0 0 1 7 2.6C19 15.4 12 20 12 20z"/></svg></span>Saúde por produto</button><button class="nv " data-t="causas">
+  <span class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span>Causas e recorrentes</button><button class="nv off" title="depende da API de previsão em tempo real">
+  <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 3 6-8"/><path d="M15 7h6v6"/></svg></span>Previsão de volume
+  <span class="soon">fase 2</span></button>
+  <div class="rodape">Mockup do aplicativo Django planejado.<br>
+    Todos os números vêm dos parquets gerados pelos notebooks 04 a 07.</div>
+</aside>
+<main>
+  <div class="topo"><h1 id="titulo">Morning briefing</h1>
+    <span class="fonte">dados de outubro a dezembro de 2025</span></div>
+  <div class="tela" id="t-brief" >
+    <div class="grid2">
+      <div class="card wide">
+        <div class="ch"><span class="dot v"></span>Morning briefing · gerado às 07h00</div>
+        <div class="brief">
+          <p><b>Ontem</b> entraram 83 incidentes elegíveis à meta, dentro do padrão de dia útil.
+          Nenhum dos 4 casos de maior risco violou o OLA.</p>
+          <p><b>Hoje</b> a previsão é de <b>87 incidentes</b> no P3 e <b>14</b> no P2, com faixa de
+          confiança de 80%. A fila de risco começa com <b>INC8595245</b>, no ativo
+          <b>IC00840</b>, que já registrou <b>21 violações em 66</b>
+          incidentes.</p>
+          <p><b>Atenção</b> à projeção do P3: a estimativa de fechamento do ano está em
+          <b>208,0</b> contra meta de <b>200</b>. A faixa vai de
+          191 a 225, portanto o resultado ainda pode
+          fechar dentro.</p>
+          <div class="acoes">
+            <div class="al">Ações sugeridas</div>
+            <div class="ai">Revisar os 5 primeiros da fila de risco, todos no ativo IC00840</div>
+            <div class="ai">Verificar o produto lssl, última posição no ranking de saúde</div>
+          </div>
+        </div>
+        <div class="nota">Texto redigido pela Claude API a partir dos números dos modelos.
+          A API não conversa com o usuário: ela escreve o resumo.</div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="ch">Projeção do ano contra a meta</div>
+          <div class="meta-row">
+            <span class="mp">P2</span>
+            <div class="mt"><i style="width:77%;
+              background:#15A05B"></i>
+              <u style="left:80%"></u></div>
+            <span class="mv">43,5<small>meta 45</small></span>
+          </div><div class="meta-row">
+            <span class="mp">P3</span>
+            <div class="mt"><i style="width:83%;
+              background:#DC2626"></i>
+              <u style="left:80%"></u></div>
+            <span class="mv">208,0<small>meta 200</small></span>
+          </div>
+          <div class="legenda">a marca vertical é o limite da meta</div>
+        </div>
+        <div class="card">
+          <div class="ch">Piores notas de saúde</div>
+          <div class="sr"><span class="sn">lsaa</span>
+            <div class="sb"><i style="width:24%;background:#DC2626"></i></div>
+            <span class="sv">23,5</span></div><div class="sr"><span class="sn">lvps</span>
+            <div class="sb"><i style="width:21%;background:#DC2626"></i></div>
+            <span class="sv">21,2</span></div><div class="sr"><span class="sn">lrdo</span>
+            <div class="sb"><i style="width:20%;background:#DC2626"></i></div>
+            <span class="sv">20,0</span></div><div class="sr"><span class="sn">lssl</span>
+            <div class="sb"><i style="width:15%;background:#DC2626"></i></div>
+            <span class="sv">15,3</span></div>
+        </div>
+      </div>
+    </div></div><div class="tela" id="t-fila" hidden>
+    <div class="card wide">
+      <div class="ch">Fila de risco · 5.183 incidentes do período, ordenados</div>
+      <table class="tb">
+        <tr><th></th><th>Incidente</th><th>Faixa</th><th>Risco estimado</th><th>Equipe</th>
+            <th>Produto</th><th>Categoria</th><th>Histórico do ativo</th></tr>
+        <tr class="hot">
+      <td class="pos">1º</td><td class="inc">INC8595245</td>
+      <td><span class="badge alto">ALTO</span></td>
+      <td class="rk"><div class="rb"><i style="width:100%"></i></div><span>56,1%</span></td>
+      <td>Team11</td><td>lsin</td><td>cat31</td>
+      <td class="hist">21 de 66 violaram</td></tr><tr class="hot">
+      <td class="pos">2º</td><td class="inc">INC8607669</td>
+      <td><span class="badge alto">ALTO</span></td>
+      <td class="rk"><div class="rb"><i style="width:90%"></i></div><span>50,4%</span></td>
+      <td>Team11</td><td>lsin</td><td>cat31</td>
+      <td class="hist">21 de 66 violaram</td></tr><tr class="hot">
+      <td class="pos">3º</td><td class="inc">INC8579361</td>
+      <td><span class="badge alto">ALTO</span></td>
+      <td class="rk"><div class="rb"><i style="width:84%"></i></div><span>47,2%</span></td>
+      <td>Team11</td><td>lsin</td><td>cat31</td>
+      <td class="hist">21 de 66 violaram</td></tr><tr class="hot">
+      <td class="pos">4º</td><td class="inc">INC8599520</td>
+      <td><span class="badge alto">ALTO</span></td>
+      <td class="rk"><div class="rb"><i style="width:76%"></i></div><span>42,9%</span></td>
+      <td>Team11</td><td>lsin</td><td>cat31</td>
+      <td class="hist">21 de 66 violaram</td></tr><tr class="hot">
+      <td class="pos">5º</td><td class="inc">INC8601345</td>
+      <td><span class="badge alto">ALTO</span></td>
+      <td class="rk"><div class="rb"><i style="width:72%"></i></div><span>40,4%</span></td>
+      <td>Team11</td><td>lsin</td><td>cat31</td>
+      <td class="hist">21 de 66 violaram</td></tr><tr class="">
+      <td class="pos">6º</td><td class="inc">INC8614082</td>
+      <td><span class="badge alto">ALTO</span></td>
+      <td class="rk"><div class="rb"><i style="width:59%"></i></div><span>33,1%</span></td>
+      <td>Team07</td><td>lhco</td><td>cat71</td>
+      <td class="hist">30 de 478 violaram</td></tr>
+      </table>
+      <div class="nota">A operação define até onde percorrer. Nos 50 primeiros estão 15 das 50
+        violações do período, contra 6 da melhor regra simples e 1 da ordenação por prioridade.</div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="ch">Detalhe · INC8595245</div>
+        <div class="regua">
+          <div class="rt"><i style="width:56%"></i><u style="left:1.7%"></u></div>
+          <div class="rl"><span>média da base <b>0,97%</b></span><span>estimado <b>56,1%</b></span></div>
+        </div>
+        <div class="evid"><div class="el">O que já aconteceu com casos iguais</div>
+          <div class="et">Dos <b>66</b> incidentes do ativo <b>IC00840</b>,
+            <b>21 violaram</b> o OLA.</div></div>
+        <div class="el" style="margin-top:16px">Por que está no topo</div>
+        <div class="pw"><span class="pn">categoria cat31</span>
+      <div class="pb"><i style="width:100%"></i></div><span class="pv">38%</span></div><div class="pw"><span class="pn">produto lsin</span>
+      <div class="pb"><i style="width:50%"></i></div><span class="pv">19%</span></div><div class="pw"><span class="pn">subcategoria sub388</span>
+      <div class="pb"><i style="width:32%"></i></div><span class="pv">12%</span></div><div class="pw"><span class="pn">equipe Team11</span>
+      <div class="pb"><i style="width:29%"></i></div><span class="pv">11%</span></div><div class="pw"><span class="pn">aberto no sábado</span>
+      <div class="pb"><i style="width:21%"></i></div><span class="pv">8%</span></div>
+      </div>
+      <div class="card">
+        <div class="ch">Grupos críticos · produto, categoria e prioridade</div>
+        <table class="tb sm">
+          <tr><th>Grupo</th><th>Incidentes</th><th>Taxa</th><th>vs média</th></tr>
+          <tr><td class="inc">lsaa / cat31 / P3</td><td>110</td>
+            <td class="bad">3,64%</td><td>3,75x</td></tr><tr><td class="inc">lvps / cat74 / P3</td><td>117</td>
+            <td class="bad">3,42%</td><td>3,53x</td></tr><tr><td class="inc">lrev / cat35 / P3</td><td>121</td>
+            <td class="bad">3,31%</td><td>3,41x</td></tr><tr><td class="inc">lrdo / cat31 / P3</td><td>111</td>
+            <td class="bad">2,70%</td><td>2,79x</td></tr><tr><td class="inc">lhvp / cat19 / P3</td><td>126</td>
+            <td class="bad">2,38%</td><td>2,46x</td></tr>
+        </table>
+        <div class="nota">Sete grupos concentram 13% das violações em 5% da base. O modelo
+          concentra 72% nos 20% de maior risco: a regra fixa não substitui o modelo.</div>
+      </div>
+    </div></div><div class="tela" id="t-saude" hidden>
+    <div class="card wide">
+      <div class="ch">Saúde por produto · 17 produtos com volume suficiente, 95% do total</div>
+      <table class="tb">
+        <tr><th></th><th>Produto</th><th>Nota</th><th>Situação</th><th>Incidentes</th>
+            <th>Violações</th><th>Taxa</th><th>Problemas novos</th></tr>
+        <tr>
+      <td class="pos">1º</td><td class="inc">lcho</td>
+      <td class="rk"><div class="rb"><i style="width:71%;
+        background:#15A05B"></i></div>
+        <span>70,6</span></td>
+      <td><span class="quad q3">estável</span></td>
+      <td>511</td><td>3</td>
+      <td class="bad">0,59%</td>
+      <td>17,4%</td></tr><tr>
+      <td class="pos">2º</td><td class="inc">lcem</td>
+      <td class="rk"><div class="rb"><i style="width:69%;
+        background:#15A05B"></i></div>
+        <span>69,4</span></td>
+      <td><span class="quad q0">risco latente</span></td>
+      <td>3.496</td><td>18</td>
+      <td class="bad">0,51%</td>
+      <td>43,8%</td></tr><tr>
+      <td class="pos">3º</td><td class="inc">lgoa</td>
+      <td class="rk"><div class="rb"><i style="width:68%;
+        background:#15A05B"></i></div>
+        <span>68,2</span></td>
+      <td><span class="quad q2">problema conhecido e recorrente</span></td>
+      <td>397</td><td>7</td>
+      <td class="bad">1,76%</td>
+      <td>20,2%</td></tr><tr>
+      <td class="pos">4º</td><td class="inc">lhvp</td>
+      <td class="rk"><div class="rb"><i style="width:67%;
+        background:#15A05B"></i></div>
+        <span>67,1</span></td>
+      <td><span class="quad q3">estável</span></td>
+      <td>1.888</td><td>14</td>
+      <td class="bad">0,74%</td>
+      <td>28,0%</td></tr><tr>
+      <td class="pos">5º</td><td class="inc">lrev</td>
+      <td class="rk"><div class="rb"><i style="width:60%;
+        background:#D9930B"></i></div>
+        <span>60,0</span></td>
+      <td><span class="quad q3">estável</span></td>
+      <td>1.821</td><td>9</td>
+      <td class="bad">0,49%</td>
+      <td>25,5%</td></tr><tr>
+      <td class="pos">5º</td><td class="inc">lsmt</td>
+      <td class="rk"><div class="rb"><i style="width:60%;
+        background:#D9930B"></i></div>
+        <span>60,0</span></td>
+      <td><span class="quad q3">estável</span></td>
+      <td>203</td><td>2</td>
+      <td class="bad">0,99%</td>
+      <td>14,8%</td></tr><tr>
+      <td class="pos">5º</td><td class="inc">lemn</td>
+      <td class="rk"><div class="rb"><i style="width:60%;
+        background:#D9930B"></i></div>
+        <span>60,0</span></td>
+      <td><span class="quad q2">problema conhecido e recorrente</span></td>
+      <td>243</td><td>3</td>
+      <td class="bad">1,23%</td>
+      <td>16,0%</td></tr><tr>
+      <td class="pos">8º</td><td class="inc">lhco</td>
+      <td class="rk"><div class="rb"><i style="width:58%;
+        background:#D9930B"></i></div>
+        <span>57,6</span></td>
+      <td><span class="quad q3">estável</span></td>
+      <td>8.131</td><td>54</td>
+      <td class="bad">0,66%</td>
+      <td>35,2%</td></tr><tr>
+      <td class="pos">9º</td><td class="inc">lcsi</td>
+      <td class="rk"><div class="rb"><i style="width:51%;
+        background:#D9930B"></i></div>
+        <span>50,6</span></td>
+      <td><span class="quad q0">risco latente</span></td>
+      <td>1.058</td><td>1</td>
+      <td class="bad">0,09%</td>
+      <td>56,0%</td></tr><tr>
+      <td class="pos">10º</td><td class="inc">lrel</td>
+      <td class="rk"><div class="rb"><i style="width:46%;
+        background:#D9930B"></i></div>
+        <span>45,9</span></td>
+      <td><span class="quad q0">risco latente</span></td>
+      <td>499</td><td>5</td>
+      <td class="bad">1,00%</td>
+      <td>43,7%</td></tr><tr>
+      <td class="pos">11º</td><td class="inc">lsin</td>
+      <td class="rk"><div class="rb"><i style="width:41%;
+        background:#D9930B"></i></div>
+        <span>41,2</span></td>
+      <td><span class="quad q2">problema conhecido e recorrente</span></td>
+      <td>3.190</td><td>62</td>
+      <td class="bad">1,94%</td>
+      <td>28,2%</td></tr><tr>
+      <td class="pos">12º</td><td class="inc">lcsp</td>
+      <td class="rk"><div class="rb"><i style="width:35%;
+        background:#DC2626"></i></div>
+        <span>35,3</span></td>
+      <td><span class="quad q0">risco latente</span></td>
+      <td>272</td><td>2</td>
+      <td class="bad">0,74%</td>
+      <td>54,8%</td></tr><tr>
+      <td class="pos">13º</td><td class="inc">lemg</td>
+      <td class="rk"><div class="rb"><i style="width:34%;
+        background:#DC2626"></i></div>
+        <span>34,1</span></td>
+      <td><span class="quad q1">problema já materializado</span></td>
+      <td>388</td><td>4</td>
+      <td class="bad">1,03%</td>
+      <td>62,6%</td></tr><tr>
+      <td class="pos">14º</td><td class="inc">lsaa</td>
+      <td class="rk"><div class="rb"><i style="width:24%;
+        background:#DC2626"></i></div>
+        <span>23,5</span></td>
+      <td><span class="quad q2">problema conhecido e recorrente</span></td>
+      <td>554</td><td>8</td>
+      <td class="bad">1,44%</td>
+      <td>30,7%</td></tr><tr>
+      <td class="pos">15º</td><td class="inc">lvps</td>
+      <td class="rk"><div class="rb"><i style="width:21%;
+        background:#DC2626"></i></div>
+        <span>21,2</span></td>
+      <td><span class="quad q1">problema já materializado</span></td>
+      <td>418</td><td>10</td>
+      <td class="bad">2,39%</td>
+      <td>46,9%</td></tr><tr>
+      <td class="pos">16º</td><td class="inc">lrdo</td>
+      <td class="rk"><div class="rb"><i style="width:20%;
+        background:#DC2626"></i></div>
+        <span>20,0</span></td>
+      <td><span class="quad q1">problema já materializado</span></td>
+      <td>482</td><td>8</td>
+      <td class="bad">1,66%</td>
+      <td>63,9%</td></tr><tr>
+      <td class="pos">17º</td><td class="inc">lssl</td>
+      <td class="rk"><div class="rb"><i style="width:15%;
+        background:#DC2626"></i></div>
+        <span>15,3</span></td>
+      <td><span class="quad q1">problema já materializado</span></td>
+      <td>454</td><td>9</td>
+      <td class="bad">1,98%</td>
+      <td>64,1%</td></tr>
+      </table>
+      <div class="nota">Nota por posição relativa dentro do conjunto: 100 é o melhor dos 17, não um
+        produto sem problemas. Clicar na linha abre a decomposição da nota nos cinco componentes.</div>
+    </div></div><div class="tela" id="t-causas" hidden>
+    <div class="grid2">
+      <div class="card">
+        <div class="ch">Causas · volume não é risco</div>
+        <table class="tb sm">
+          <tr><th>Causa</th><th>Incidentes</th><th>% base</th><th>% violações</th>
+              <th>Taxa</th><th>vs média</th></tr>
+          <tr><td class="inc">Falha de Aplicação</td>
+      <td>15.151</td><td>59,2%</td>
+      <td class="bad">52,0%</td>
+      <td>0,85%</td><td>0,88x</td></tr><tr><td class="inc">Falha de Sistema Operacional</td>
+      <td>3.050</td><td>11,9%</td>
+      <td class="bad">2,8%</td>
+      <td>0,23%</td><td>0,24x</td></tr><tr><td class="inc">Outro</td>
+      <td>1.995</td><td>7,8%</td>
+      <td class="bad">21,8%</td>
+      <td>2,71%</td><td>2,79x</td></tr><tr><td class="inc">Falha causada pelo cliente</td>
+      <td>1.226</td><td>4,8%</td>
+      <td class="bad">2,0%</td>
+      <td>0,41%</td><td>0,42x</td></tr><tr><td class="inc">Falha não reproduzida</td>
+      <td>1.132</td><td>4,4%</td>
+      <td class="bad">2,8%</td>
+      <td>0,62%</td><td>0,64x</td></tr><tr><td class="inc">Falha de Cloud</td>
+      <td>508</td><td>2,0%</td>
+      <td class="bad">1,2%</td>
+      <td>0,59%</td><td>0,61x</td></tr>
+        </table>
+        <div class="nota">"Outro" é 7,8% do volume e 21,8% das violações. Campo preenchido no
+          fechamento, então serve a diagnóstico e não a previsão.</div>
+      </div>
+      <div class="card">
+        <div class="ch">Watchlist · problemas que mais repetem</div>
+        <table class="tb sm">
+          <tr><th>Problema</th><th>Vezes</th><th>Ativos</th><th>Violações</th><th>Taxa</th></tr>
+          <tr><td class="inc pb2">problem: error backup full bacula</td>
+      <td>753</td><td>451</td>
+      <td>6</td><td>0,80%</td></tr><tr><td class="inc pb2">problem: unavailable by icmp ping</td>
+      <td>626</td><td>421</td>
+      <td>6</td><td>0,96%</td></tr><tr><td class="inc pb2">problem: error backup inc bacula</td>
+      <td>565</td><td>397</td>
+      <td>3</td><td>0,53%</td></tr><tr><td class="inc pb2">problem: check: http type: tcp on port: <n> not runn</td>
+      <td>436</td><td>203</td>
+      <td>0</td><td>0,00%</td></tr><tr><td class="inc pb2">problem: apache busy workers</td>
+      <td>426</td><td>221</td>
+      <td>0</td><td>0,00%</td></tr><tr><td class="inc pb2">problem: hank instalation recipes::domains::domain::</td>
+      <td>411</td><td>12</td>
+      <td>0</td><td>0,00%</td></tr>
+        </table>
+        <div class="nota">Os 20 mais recorrentes cobrem 26% do volume e violam 0,40%, menos da
+          metade da média. Candidatos naturais a automação de resposta.</div>
+      </div>
+    </div></div>
+  <div class="arq">
+    <h3>Como o Django é servido</h3>
+    <div class="fluxo">
+      <div class="et2"><b>notebooks</b>treinam e preveem</div><span class="fl">→</span>
+      <div class="et2"><b>data/interim</b>gravam .parquet</div><span class="fl">→</span>
+      <div class="et2"><b>Django</b>lê e renderiza</div><span class="fl">→</span>
+      <div class="et2"><b>Render</b>URL pública</div>
+    </div>
+    <p>O container do Django leva apenas <b>django, pandas e pyarrow</b>. Ele não executa Prophet nem
+    scikit-learn, porque as previsões já estão gravadas. Isso mantém a imagem pequena o suficiente
+    para plano gratuito, e preserva a entrega por Docker, que roda em qualquer provedor.</p>
+    <p>A tela de <b>previsão de volume</b> aparece desabilitada porque exige recalcular o Prophet a
+    cada dia, o que pertence à fase de re-treino agendado e não ao MVP preliminar.</p>
+  </div>
+</main>
+<script>
+  const titulos = {"brief": "Morning briefing", "fila": "Fila de risco", "saude": "Saúde por produto", "causas": "Causas e recorrentes"};
+  document.querySelectorAll('.nv[data-t]').forEach(b => b.onclick = () => {
+    document.querySelectorAll('.nv').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    const t = b.dataset.t;
+    document.querySelectorAll('.tela').forEach(p => p.hidden = p.id !== 't-' + t);
+    document.getElementById('titulo').textContent = titulos[t];
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+</script>
+</body></html>
