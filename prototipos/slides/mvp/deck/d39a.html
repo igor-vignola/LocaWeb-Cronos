@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>39 Conclusao</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+:root{--accent:#2563EB;--accent2:#3B82F6;--accent3:#60A5FA;--accent-l:#EFF6FF;
+ --good:#15A05B;--good-l:#E7F6EE;--warn:#D9930B;--warn-l:#FBF1DC;--bad:#DC2626;--bad-l:#FCECEC;
+ --ink:#0A0E17;--pg:#F4F7FC;--line:#E5EAF1;--tx:#4A5568;--tx2:#6B7688;--head:#0B1220;
+ --font:'Outfit',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.slide{width:1600px;height:900px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.mesh,.grid-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.dark{background:var(--ink);color:#E8ECF3}
+.dark .grid-bg{background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:48px 48px}
+.dark .mesh{background:radial-gradient(1100px 680px at 4% -12%,rgba(37,99,235,.3),transparent 55%),radial-gradient(900px 640px at 116% 118%,rgba(37,99,235,.16),transparent 55%)}
+.light{background:var(--pg);color:var(--head)}
+.light .mesh{background:radial-gradient(1200px 760px at 100% -16%,rgba(37,99,235,.16),transparent 54%),radial-gradient(880px 640px at -12% 112%,rgba(37,99,235,.10),transparent 56%),radial-gradient(700px 520px at 50% -30%,rgba(96,165,250,.10),transparent 60%)}
+.light .grid-bg{background-image:linear-gradient(rgba(17,24,39,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(17,24,39,.026) 1px,transparent 1px);background-size:48px 48px}
+.hd{position:relative;z-index:3;display:flex;align-items:center;gap:11px;padding:40px 64px 0}
+.hd .bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.dark .hd .bi{background:#fff}.light .hd .bi{background:var(--ink)}
+.hd .bi svg{width:19px;height:19px}
+.hd .bn{font-size:18px;font-weight:800;letter-spacing:-.3px}.dark .hd .bn{color:#fff}.light .hd .bn{color:#000}
+.hd .bt{font-size:13px;font-weight:600;letter-spacing:1.5px;margin-left:2px}.dark .hd .bt{color:#5b647a}.light .hd .bt{color:#9AA6B6}
+.hd .tag{margin-left:auto;font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:7px 15px;border-radius:999px}
+.dark .hd .tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#B8C0CE}
+.light .hd .tag{background:#fff;border:1px solid var(--line);color:var(--accent);box-shadow:0 4px 14px -8px rgba(37,99,235,.3)}
+.body{position:relative;z-index:2;flex:1;padding:24px 64px 46px;display:flex;flex-direction:column;min-height:0}
+.eb{display:inline-flex;align-items:center;gap:12px;font-size:13.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+.dark .eb{color:var(--accent3)}.light .eb{color:var(--accent)}
+.eb::before{content:'';width:26px;height:2px;border-radius:2px;background:currentColor;opacity:.7}
+.tt{font-size:40px;font-weight:800;letter-spacing:-1.4px;line-height:1.05;margin-top:14px}
+.dark .tt{color:#fff}.light .tt{color:var(--head)}.tt .hl{color:var(--accent)}.dark .tt .hl{color:var(--accent2)}
+.lead{font-size:18px;line-height:1.5;margin-top:14px;max-width:720px}
+.dark .lead{color:#98A2B3}.light .lead{color:var(--tx)}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.num{font-variant-numeric:tabular-nums}
+b,strong{font-weight:700}
+.vp{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:999px;letter-spacing:.2px}
+.vp .ic{width:14px;height:14px}.vp .ic svg{width:14px;height:14px;stroke-width:2.4}
+.vp.good{background:var(--good-l);color:var(--good)}
+.vp.warn{background:var(--warn-l);color:var(--warn)}
+.vp.bad{background:var(--bad-l);color:var(--bad)}
+.vp.focus{background:var(--accent-l);color:var(--accent)}
+.vp.ctx{background:#EEF2F7;color:var(--tx2)}
+.dark .vp.good{background:rgba(21,160,91,.16);color:#4ADE80}.dark .vp.bad{background:rgba(220,38,38,.16);color:#F87171}
+.dark .vp.focus{background:rgba(37,99,235,.18);color:#93C5FD}.dark .vp.ctx{background:rgba(255,255,255,.07);color:#9AA6B6}
+.mplfig{display:block;width:100%;height:100%;object-fit:contain}
+.sub{font-size:16.5px;line-height:1.55;color:var(--tx);margin-top:12px;max-width:1180px}
+.sub b{color:var(--head)}
+
+.f39 .body{padding-top:14px;padding-bottom:88px}
+.f39 h1{font-size:52px;font-weight:900;letter-spacing:-2px;line-height:1.02;color:#fff;margin-top:14px;max-width:900px}
+.f39 h1 .hl{background:linear-gradient(90deg,#60A5FA,#2563EB);-webkit-background-clip:text;background-clip:text;color:transparent}
+.f39 .lead2{font-size:18px;color:#98A2B3;line-height:1.5;margin-top:16px;max-width:820px}
+.f39 .lead2 b{color:#D5DBE5;font-weight:600}
+.f39 .trilha{margin-top:auto;display:flex;gap:12px}
+.f39 .et{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:15px;padding:18px 18px 16px}
+.f39 .et .num{font-size:11px;font-weight:800;letter-spacing:1.6px;color:#5b647a}
+.f39 .et h4{font-size:14.5px;font-weight:800;color:#fff;margin-top:8px;letter-spacing:-.2px;line-height:1.25}
+.f39 .et .vl{font-size:26px;font-weight:900;letter-spacing:-1.3px;margin-top:12px;line-height:1}
+.f39 .et .ds{font-size:11.5px;color:#8E97A8;margin-top:5px;line-height:1.4}
+.f39 .et.a .vl{color:#93C5FD}.f39 .et.b .vl{color:#4ADE80}.f39 .et.c .vl{color:#F87171}
+.f39 .et.d .vl{color:#FBBF24}.f39 .et.e .vl{color:#A78BFA}
+.f39 .tese{margin-top:22px;background:linear-gradient(120deg,rgba(37,99,235,.16),rgba(37,99,235,.04));border:1px solid rgba(96,165,250,.26);border-radius:18px;padding:24px 28px;display:flex;align-items:center;gap:20px}
+.f39 .tese .ci{width:48px;height:48px;border-radius:13px;background:rgba(96,165,250,.18);color:#93C5FD;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.f39 .tese .ci svg{width:24px;height:24px}
+.f39 .tese p{font-size:19px;color:#D5DBE5;line-height:1.45;font-weight:500}
+.f39 .tese p b{color:#fff;font-weight:800}
+.f39 .foot{position:absolute;bottom:36px;left:64px;right:64px;z-index:3;display:flex;justify-content:space-between;font-size:12.5px;color:#5b647a;border-top:1px solid rgba(255,255,255,.08);padding-top:14px}
+.f39 .foot b{color:#8E97A8;font-weight:700}
+</style></head><body><div class="slide dark d1 f39"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">MVP Preliminar · Sprint 3</div></div><div class="body">
+      <div class="eb">O que este MVP entrega</div>
+      <h1>Dois modelos, cinco perguntas<br>respondidas com <span class="hl">número</span></h1>
+      <div class="lead2">Cada seção deste deck fecha uma pergunta com medição própria, validada fora do período de treino. <b>Nenhum número aqui foi estimado de memória:</b> todos saem de célula executada nos sete notebooks do projeto.</div>
+      <div class="trilha"><div class="et a"><div class="num">SEÇÃO 01</div><h4>Exploração</h4><div class="vl num">25.600</div><div class="ds">dos 122.543 incidentes valem para a meta de OLA</div></div><div class="et b"><div class="num">SEÇÃO 02</div><h4>Previsão de volume</h4><div class="vl num">4 e 11</div><div class="ds">incidentes de erro por dia, no P2 e no P3</div></div><div class="et c"><div class="num">SEÇÃO 03</div><h4>Risco por incidente</h4><div class="vl num">15 de 50</div><div class="ds">quebras nas 50 primeiras posições da fila</div></div><div class="et d"><div class="num">SEÇÃO 04</div><h4>Causas e recorrência</h4><div class="vl num">4,6x</div><div class="ds">mais violação no problema inédito que no de rotina</div></div><div class="et e"><div class="num">SEÇÃO 05</div><h4>Projeção e saúde</h4><div class="vl num">7 de 10</div><div class="ds">projeções acertam a situação da meta</div></div></div>
+      <div class="tese"><span class="ic ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
+        <p>O que a operação já reconhece, ela resolve dentro do prazo. <b>O que fura prazo é o caso que ninguém marcou</b> — e é exatamente esse que o Cronos aponta antes.</p></div>
+    </div>
+    <div class="foot"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Todos os números deste deck saem de célula executada · <b>7 notebooks</b></span></div></div></body></html>
