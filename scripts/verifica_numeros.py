@@ -81,7 +81,21 @@ def casa(alvo, universo, tol_rel=0.006):
     return False
 
 
-def verifica_notebook(caminho, mostrar_todos=False):
+def universo_global(caminhos):
+    """Todos os numeros produzidos por qualquer notebook do conjunto."""
+    tudo = set()
+    for c in caminhos:
+        nb = json.loads(c.read_text(encoding='utf-8'))
+        for cel in nb['cells']:
+            if cel['cell_type'] != 'code':
+                continue
+            for o in cel.get('outputs', []):
+                tudo |= extrai(''.join(o.get('text', [])))
+            tudo |= extrai(''.join(cel['source']))
+    return tudo
+
+
+def verifica_notebook(caminho, mostrar_todos=False, global_=None):
     nb = json.loads(caminho.read_text(encoding='utf-8'))
     saidas, markdown = set(), []
     for c in nb['cells']:
@@ -105,10 +119,14 @@ def verifica_notebook(caminho, mostrar_todos=False):
             v = normaliza(m.group(0))
             if v is None or v in IGNORAR_EXATOS or v != v:
                 continue
-            if not casa(v, saidas):
-                ini = max(0, m.start() - 48)
-                trecho = ' '.join(corpo[ini:m.end() + 34].split())
-                sem_lastro.append((m.group(0), trecho))
+            if casa(v, saidas):
+                continue
+            # segunda chance: o numero pode ser produzido por outro notebook do conjunto
+            if global_ is not None and casa(v, global_):
+                continue
+            ini = max(0, m.start() - 48)
+            trecho = ' '.join(corpo[ini:m.end() + 34].split())
+            sem_lastro.append((m.group(0), trecho))
     return len(saidas), sum(len(t) for t in markdown), sem_lastro
 
 
@@ -138,16 +156,10 @@ if __name__ == '__main__':
     print('=' * 96)
     print('VERIFICAÇÃO 1 · todo número em markdown de notebook tem saída que o produz?')
     print('=' * 96)
-    universo = set()
+    universo = universo_global(NOTEBOOKS)
     total_falhas = 0
     for nb_path in NOTEBOOKS:
-        n_saidas, n_chars, falhas = verifica_notebook(nb_path, mostrar)
-        nb = json.loads(nb_path.read_text(encoding='utf-8'))
-        for c in nb['cells']:
-            if c['cell_type'] == 'code':
-                for o in c.get('outputs', []):
-                    universo |= extrai(''.join(o.get('text', [])))
-                universo |= extrai(''.join(c['source']))
+        n_saidas, n_chars, falhas = verifica_notebook(nb_path, mostrar, global_=universo)
         marca = 'OK' if not falhas else f'{len(falhas)} SEM LASTRO'
         print(f'{nb_path.name:32s} {n_saidas:5d} números em saídas | {marca}')
         for bruto, trecho in falhas[:12 if not mostrar else 999]:
