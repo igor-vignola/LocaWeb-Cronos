@@ -205,3 +205,16 @@ HORAS = [{'h': int(i), 'abertos': int(r['abertos']), 'violacoes': int(r['violaco
          for i, r in _h.iterrows()]
 HORA_PICO = max(HORAS, key=lambda x: x['abertos'])
 HORA_RISCO = max((x for x in HORAS if x['abertos'] >= 100), key=lambda x: x['taxa'])
+
+
+# ── fila pontuada fora da amostra (scripts/gera_fila_pontuada.py) ──────────
+import json as _json
+
+fila = pd.read_parquet(DI / '04_fila_pontuada.parquet')
+fila['sinais'] = fila['sinais'].map(_json.loads)
+FILA_TODA = fila
+FILA_HOJE = fila[fila['dia'] == CORTE].reset_index(drop=True)
+ACIMA_10 = fila[fila['risco'] >= 10]
+TOP50_PEGA = int(fila.head(50)['violou'].sum())
+VIOL_PERIODO = int(fila['violou'].sum())
+N_FILA = len(fila)

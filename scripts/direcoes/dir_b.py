@@ -22,8 +22,8 @@ from dados import (ATIVOS, BASE_20, COMPONENTES, DELTA_TAXA, DIA_HOJE, ELEG_30, 
 from fundo import CSS_CAMPO, campo
 from icones import CSS_ICO_CLARO, chip, ico
 
-OUT = Path.cwd() / 'prototipos' / 'telas' / 'direcoes' / 'b-previsao-do-dia.html'
-OUT.parent.mkdir(parents=True, exist_ok=True)
+DEST = Path.cwd() / 'prototipos' / 'telas' / 'direcoes'
+DEST.mkdir(parents=True, exist_ok=True)
 topo = FILA[0]
 pior = saude.index[-1]
 MX_H = max(x['abertos'] for x in HORAS)
@@ -78,6 +78,192 @@ def relogio(tam=340):
       </svg>
       <div class="rl-in"><b>{pt(HOJE3['valor'], 0)}</b><span>previstos hoje</span>
         <em>faixa de {pt(HOJE3['baixo'], 0)} a {pt(HOJE3['alto'], 0)}</em></div>
+    </div>'''
+
+
+
+def heroi_linha(tam=360):
+    """B1 · A marca virada heroi: a propria linha do Cronos em escala. O medido em traco
+    cheio, o no pulsando no agora e a previsao saindo dele."""
+    sr = REAL3.tail(24)['valor'].rolling(5, min_periods=1).mean()
+    real = REAL3.tail(24).assign(valor=sr).iloc[::2].reset_index(drop=True)
+    fut = FUT3.head(6).reset_index(drop=True)
+    w, h = tam, tam * .78
+    esc = [*real['valor'], *fut['valor'], *fut['alto'], *fut['baixo']]
+    lo, hi = min(esc), max(esc)
+    vao = (hi - lo) or 1
+    n = len(real) + len(fut)
+    px = lambda i: 16 + i / (n - 1) * (w - 32)
+    py = lambda v: h - 46 - (v - lo) / vao * (h - 98)
+    pr = [(px(i), py(v)) for i, v in enumerate(real['valor'])]
+    no = pr[-1]
+    pf = [no] + [(px(len(real) + i), py(v)) for i, v in enumerate(fut['valor'])]
+    hip = [(px(len(real) + i), py(v)) for i, v in enumerate(fut['alto'])]
+    lop = [(px(len(real) + i), py(v)) for i, v in enumerate(fut['baixo'])]
+    suave = lambda ps: (f'M{ps[0][0]:.1f} {ps[0][1]:.1f}' + ''.join(
+        f' C{(ps[i-1][0]+ps[i][0])/2:.1f} {ps[i-1][1]:.1f} {(ps[i-1][0]+ps[i][0])/2:.1f} '
+        f'{ps[i][1]:.1f} {ps[i][0]:.1f} {ps[i][1]:.1f}' for i in range(1, len(ps))))
+    bd = (f'M{no[0]:.1f} {no[1]:.1f} L' + ' L'.join(f'{x:.1f} {y:.1f}' for x, y in hip)
+          + ' L' + ' L'.join(f'{x:.1f} {y:.1f}' for x, y in reversed(lop)) + ' Z')
+    return f'''<div class="hl">
+      <svg viewBox="0 0 {w:.0f} {h:.0f}">
+        <path class="hl-bd" d="{bd}"/>
+        <path class="hl-l" d="{suave(pr)}"/>
+        <path class="hl-f" d="{suave(pf)}"/>
+        <circle class="hl-o3" cx="{no[0]:.1f}" cy="{no[1]:.1f}" r="27"/>
+        <circle class="hl-o2" cx="{no[0]:.1f}" cy="{no[1]:.1f}" r="18"/>
+        <circle class="hl-o1" cx="{no[0]:.1f}" cy="{no[1]:.1f}" r="10"/>
+        <circle class="hl-n" cx="{no[0]:.1f}" cy="{no[1]:.1f}" r="5.2"/>
+        <text class="hl-x" x="16" y="{h - 14:.0f}">{dm(real['dia'].iloc[0])}</text>
+        <text class="hl-x ag" x="{no[0]:.1f}" y="{h - 14:.0f}" text-anchor="middle">agora</text>
+        <text class="hl-x" x="{w - 16}" y="{h - 14:.0f}" text-anchor="end">{dm(fut['dia'].iloc[-1])}</text>
+      </svg>
+      <div class="hl-v"><b>{pt(HOJE3['valor'], 0)}</b>
+        <span>previstos hoje · faixa {pt(HOJE3['baixo'], 0)} a {pt(HOJE3['alto'], 0)}</span></div>
+    </div>'''
+
+
+def heroi_faixa(w=360):
+    """B2 · O dia esticado em linha reta: mesma informacao do relogio, mas linear.
+    Uma barra por hora, altura pelo volume, cor pela taxa de violacao."""
+    h = 214
+    lar = (w - 20) / 24
+    barras = []
+    for x in HORAS:
+        alt = 12 + (h - 82) * (x['abertos'] / MX_H)
+        tom = 'no' if x['taxa'] >= 1.6 else ('wn' if x['taxa'] >= 1.1 else 'ok')
+        barras.append(
+            f'<rect class="hf-b t-{tom}" style="--i:{x["h"]}" x="{10 + x["h"]*lar + 1.4:.1f}" '
+            f'y="{h - 42 - alt:.1f}" width="{lar - 2.8:.1f}" height="{alt:.1f}" rx="3">'
+            f'<title>{x["h"]:02d}h · {mil(x["abertos"])} abertos · {pt(x["taxa"], 2)}% violaram</title>'
+            f'</rect>')
+    rot = ''.join(
+        f'<text class="hf-x" x="{10 + hh*lar + lar/2:.1f}" y="{h - 24}" text-anchor="middle">'
+        f'{hh:02d}h</text>' for hh in (0, 4, 8, 12, 16, 20))
+    ax = 10 + 7 * lar + lar / 2
+    return f'''<div class="hf">
+      <svg viewBox="0 0 {w} {h}">
+        <line class="hf-ag" x1="{ax:.1f}" y1="16" x2="{ax:.1f}" y2="{h - 46}"/>
+        {''.join(barras)}{rot}
+        <circle class="hf-n" cx="{ax:.1f}" cy="16" r="4"/>
+        <text class="hf-al" x="{ax:.1f}" y="8" text-anchor="middle">agora</text>
+      </svg>
+      <div class="hf-l">
+        <span><i class="t-ok"></i>abaixo de 1,1%</span><span><i class="t-wn"></i>1,1 a 1,6%</span>
+        <span><i class="t-no"></i>acima de 1,6%</span></div>
+      <div class="hf-v"><b>{pt(HOJE3['valor'], 0)}</b><span>previstos hoje no P3</span></div>
+    </div>'''
+
+
+def heroi_medidor(tam=340):
+    """B3 · Um veredito em vez de uma distribuicao. Ponteiro no volume previsto e zonas
+    nomeadas derivadas da linha de base dos ultimos vinte dias uteis."""
+    leve, cheio = BASE_20 * .8, BASE_20 * 1.2
+    topo_esc = BASE_20 * 1.55
+    c, r = tam / 2, tam * .375
+    ang = lambda v: min(v / topo_esc, 1) * 232 - 116
+    pol = lambda a, rr=r: (c + rr * math.sin(math.radians(a)), c - rr * math.cos(math.radians(a)))
+    zonas = [(0, leve, 'ok', 'dia leve'), (leve, cheio, 'ac', 'dia normal'),
+             (cheio, topo_esc, 'no', 'dia cheio')]
+    arcos = ''.join(
+        f'<path class="md-z z-{k}" d="M{pol(ang(a))[0]:.1f} {pol(ang(a))[1]:.1f} '
+        f'A{r} {r} 0 0 1 {pol(ang(b))[0]:.1f} {pol(ang(b))[1]:.1f}"/>' for a, b, k, _ in zonas)
+    v = float(HOJE3['valor'])
+    xb, yb = pol(ang(HOJE3['baixo']))
+    xa, ya = pol(ang(HOJE3['alto']))
+    xv, yv = pol(ang(v))
+    ix, iy = pol(ang(v), r * .40)
+    zona = next(z for z in zonas if z[0] <= v < z[1])
+    mx1, my1 = pol(ang(BASE_20), r * .84)
+    mx2, my2 = pol(ang(BASE_20), r * 1.13)
+    tx, ty = pol(ang(BASE_20), r * 1.3)
+    return f'''<div class="mdd">
+      <svg viewBox="0 0 {tam} {tam * .8:.0f}">
+        {arcos}
+        <path class="md-fx" d="M{xb:.1f} {yb:.1f} A{r} {r} 0 0 1 {xa:.1f} {ya:.1f}"/>
+        <line class="md-md" x1="{mx1:.1f}" y1="{my1:.1f}" x2="{mx2:.1f}" y2="{my2:.1f}"/>
+        <text class="md-ml" x="{tx:.1f}" y="{ty:.1f}" text-anchor="middle">média {pt(BASE_20, 0)}</text>
+        <line class="md-p" x1="{ix:.1f}" y1="{iy:.1f}" x2="{xv:.1f}" y2="{yv:.1f}"/>
+        <circle class="md-c" cx="{xv:.1f}" cy="{yv:.1f}" r="6.5"/>
+      </svg>
+      <div class="mdd-in"><b>{pt(v, 0)}</b>
+        <span class="mdd-z z-{zona[2]}">{zona[3]}</span>
+        <em>faixa de {pt(HOJE3['baixo'], 0)} a {pt(HOJE3['alto'], 0)} · a média dos últimos
+          vinte dias úteis é {pt(BASE_20, 0)}</em></div>
+    </div>'''
+
+
+
+def heroi_completo(tam=380):
+    """B1 completa. Tres camadas de tempo: a linha dos ultimos dias com o no no agora,
+    o veredito do dia em uma palavra, e as 24 horas de hoje como base."""
+    sr = REAL3.tail(24)['valor'].rolling(5, min_periods=1).mean()
+    real = REAL3.tail(24).assign(valor=sr).iloc[::2].reset_index(drop=True)
+    fut = FUT3.head(6).reset_index(drop=True)
+    w, h = tam, 176
+    esc = [*real['valor'], *fut['valor'], *fut['alto'], *fut['baixo']]
+    lo, hi = min(esc), max(esc)
+    vao = (hi - lo) or 1
+    n = len(real) + len(fut)
+    px = lambda i: 18 + i / (n - 1) * (w - 36)
+    py = lambda v: h - 30 - (v - lo) / vao * (h - 66)
+    pr = [(px(i), py(v)) for i, v in enumerate(real['valor'])]
+    no = pr[-1]
+    pf = [no] + [(px(len(real) + i), py(v)) for i, v in enumerate(fut['valor'])]
+    hip = [(px(len(real) + i), py(v)) for i, v in enumerate(fut['alto'])]
+    lop = [(px(len(real) + i), py(v)) for i, v in enumerate(fut['baixo'])]
+    suave = lambda ps: (f'M{ps[0][0]:.1f} {ps[0][1]:.1f}' + ''.join(
+        f' C{(ps[i-1][0]+ps[i][0])/2:.1f} {ps[i-1][1]:.1f} {(ps[i-1][0]+ps[i][0])/2:.1f} '
+        f'{ps[i][1]:.1f} {ps[i][0]:.1f} {ps[i][1]:.1f}' for i in range(1, len(ps))))
+    bd = (f'M{no[0]:.1f} {no[1]:.1f} L' + ' L'.join(f'{x:.1f} {y:.1f}' for x, y in hip)
+          + ' L' + ' L'.join(f'{x:.1f} {y:.1f}' for x, y in reversed(lop)) + ' Z')
+
+    # veredito: a mesma regra da B3, derivada da linha de base recente
+    v = float(HOJE3['valor'])
+    leve, cheio = BASE_20 * .8, BASE_20 * 1.2
+    zona = ('ok', 'dia leve') if v < leve else (('ac', 'dia normal') if v < cheio
+                                                else ('no', 'dia cheio'))
+
+    # faixa de 24h como base: as horas de hoje, cor pela taxa de violacao
+    fw, fh = tam, 62
+    lar = (fw - 16) / 24
+    barras = ''.join(
+        f'<rect class="hc-b t-{"no" if x["taxa"] >= 1.6 else ("wn" if x["taxa"] >= 1.1 else "ok")}"'
+        f' style="--i:{x["h"]}" x="{8 + x["h"]*lar + 1.1:.1f}"'
+        f' y="{fh - 18 - (6 + 30 * x["abertos"] / MX_H):.1f}" width="{lar - 2.2:.1f}"'
+        f' height="{6 + 30 * x["abertos"] / MX_H:.1f}" rx="2.5">'
+        f'<title>{x["h"]:02d}h · {mil(x["abertos"])} abertos · {pt(x["taxa"], 2)}% violaram</title>'
+        f'</rect>' for x in HORAS)
+    ax = 8 + 7 * lar + lar / 2
+    marcas = ''.join(
+        f'<text class="hc-x" x="{8 + hh*lar + lar/2:.1f}" y="{fh - 4}" text-anchor="middle">'
+        f'{hh:02d}h</text>' for hh in (0, 6, 12, 18))
+    return f'''<div class="hc">
+      <svg class="hc-l" viewBox="0 0 {w:.0f} {h}">
+        <path class="hl-bd" d="{bd}"/>
+        <path class="hl-l" d="{suave(pr)}"/>
+        <path class="hl-f" d="{suave(pf)}"/>
+        <circle class="hl-o3" cx="{no[0]:.1f}" cy="{no[1]:.1f}" r="27"/>
+        <circle class="hl-o2" cx="{no[0]:.1f}" cy="{no[1]:.1f}" r="18"/>
+        <circle class="hl-o1" cx="{no[0]:.1f}" cy="{no[1]:.1f}" r="10"/>
+        <circle class="hl-n" cx="{no[0]:.1f}" cy="{no[1]:.1f}" r="5.2"/>
+        <text class="hl-x" x="18" y="{h - 6}">{dm(real['dia'].iloc[0])}</text>
+        <text class="hl-x ag" x="{no[0]:.1f}" y="{h - 6}" text-anchor="middle">agora</text>
+        <text class="hl-x" x="{w - 18:.0f}" y="{h - 6}" text-anchor="end">{dm(fut['dia'].iloc[-1])}</text>
+      </svg>
+      <div class="hc-v">
+        <b>{pt(v, 0)}</b>
+        <div class="hc-vt"><span class="hc-z z-{zona[0]}">{zona[1]}</span>
+          <em>previstos hoje · faixa {pt(HOJE3['baixo'], 0)} a {pt(HOJE3['alto'], 0)}</em></div>
+      </div>
+      <div class="hc-f">
+        <span class="hc-fl">as 24 horas de hoje</span>
+        <svg viewBox="0 0 {fw} {fh}">
+          <line class="hc-ag" x1="{ax:.1f}" y1="4" x2="{ax:.1f}" y2="{fh - 16}"/>
+          {barras}{marcas}
+          <circle class="hc-n" cx="{ax:.1f}" cy="4" r="3.4"/>
+        </svg>
+      </div>
     </div>'''
 
 
@@ -438,6 +624,108 @@ body{background:var(--pg);color:var(--hd);min-height:100dvh;overflow-x:hidden;
 .bt.sc{background:var(--c);border:1px solid var(--ln);color:var(--tx)}
 .bt.sc:hover{background:var(--pg);color:var(--hd)}
 .bt:active{transform:scale(.98)}
+
+/* B1 · a marca virada heroi */
+.hl{position:relative;width:360px;flex-shrink:0}
+.hl svg{width:100%;height:auto;overflow:visible}
+.hl-l{fill:none;stroke:var(--ac);stroke-width:4.2;stroke-linecap:round;stroke-linejoin:round;
+ stroke-dasharray:900;stroke-dashoffset:900;animation:dw 1.9s var(--e) .3s forwards}
+.hl-f{fill:none;stroke:var(--ac);stroke-width:3;stroke-linecap:round;stroke-dasharray:7 7;
+ opacity:0;animation:fd .9s ease 1.7s forwards;--o:.55}
+.hl-bd{fill:var(--ac);opacity:0;animation:fd 1s ease 1.8s forwards;--o:.11}
+.hl-n{fill:var(--ac);opacity:0;animation:pn .5s var(--e2) 1.6s forwards}
+.hl-o1{fill:none;stroke:var(--ac);stroke-width:2;opacity:0;
+ animation:fd .5s ease 1.8s forwards;--o:.45}
+.hl-o2,.hl-o3{fill:var(--ac);opacity:0;transform-box:fill-box;transform-origin:center}
+.hl-o2{animation:on 3.2s ease-out 2s infinite}
+.hl-o3{animation:on 3.2s ease-out 2.5s infinite}
+@keyframes on{0%{opacity:.22;transform:scale(.45)}70%,100%{opacity:0;transform:scale(1.5)}}
+.hl-x{fill:var(--tx3);font-size:10px;font-weight:600;letter-spacing:.08em;
+ text-transform:uppercase;font-family:'Outfit',sans-serif}
+.hl-x.ag{fill:var(--ac);font-weight:700}
+.hl-v{text-align:center;margin-top:-4px}
+.hl-v b{font-size:54px;font-weight:700;letter-spacing:-.05em;line-height:1;display:block}
+.hl-v span{font-size:11.5px;color:var(--tx2);display:block;margin-top:6px}
+/* B2 · o dia esticado */
+.hf{width:360px;flex-shrink:0}
+.hf svg{width:100%;height:auto;overflow:visible}
+.hf-b{transform-origin:bottom;animation:hb .55s var(--e) both;
+ animation-delay:calc(var(--i)*24ms);cursor:pointer;transition:filter .25s var(--e)}
+@keyframes hb{from{opacity:0;transform:scaleY(.2)}}
+.hf-b:hover{filter:brightness(.88)}
+.hf-b.t-ok{fill:#B9CFFA}.hf-b.t-wn{fill:#F2C486}.hf-b.t-no{fill:#EE7C74}
+.hf-ag{stroke:var(--ink);stroke-width:1.4;stroke-dasharray:3 3;opacity:0;
+ animation:fd .5s ease .9s forwards;--o:.5}
+.hf-n{fill:var(--ink);opacity:0;animation:pn .4s var(--e2) 1s forwards}
+.hf-al{fill:var(--ink);font-size:9.5px;font-weight:700;letter-spacing:.09em;
+ text-transform:uppercase;font-family:'Outfit',sans-serif;opacity:0;
+ animation:fd .5s ease 1.1s forwards;--o:1}
+.hf-x{fill:var(--tx3);font-size:9.5px;font-weight:600;font-family:'Outfit',sans-serif}
+.hf-l{display:flex;gap:13px;justify-content:center;margin-top:4px;flex-wrap:wrap}
+.hf-l span{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:var(--tx2)}
+.hf-l i{width:9px;height:9px;border-radius:3px}
+.hf-l i.t-ok{background:#B9CFFA}.hf-l i.t-wn{background:#F2C486}.hf-l i.t-no{background:#EE7C74}
+.hf-v{text-align:center;margin-top:14px}
+.hf-v b{font-size:48px;font-weight:700;letter-spacing:-.05em;line-height:1;display:block}
+.hf-v span{font-size:11.5px;color:var(--tx2);display:block;margin-top:5px}
+/* B3 · o veredito */
+.mdd{position:relative;width:340px;flex-shrink:0}
+.mdd svg{width:100%;height:auto;overflow:visible}
+.md-z{fill:none;stroke-width:16;stroke-linecap:butt;opacity:.22}
+.md-z.z-ok{stroke:var(--ok)}.md-z.z-ac{stroke:var(--ac)}.md-z.z-no{stroke:var(--no)}
+.md-fx{fill:none;stroke:var(--ac);stroke-width:16;stroke-linecap:round;opacity:0;
+ animation:fd .9s ease .7s forwards;--o:.8}
+.md-p{stroke:var(--ink);stroke-width:3.2;stroke-linecap:round;transform-origin:center;
+ animation:gi 1.3s var(--e) .4s both}
+@keyframes gi{from{transform:rotate(-42deg)}to{transform:rotate(0)}}
+.md-c{fill:var(--ink);opacity:0;animation:pn .5s var(--e2) 1.3s forwards}
+.md-md{stroke:var(--tx3);stroke-width:1.4;stroke-dasharray:2 2}
+.md-ml{fill:var(--tx3);font-size:9.5px;font-weight:600;font-family:'Outfit',sans-serif}
+.mdd-in{text-align:center;margin-top:-62px}
+.mdd-in b{font-size:58px;font-weight:700;letter-spacing:-.055em;line-height:1;display:block}
+.mdd-z{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.08em;
+ text-transform:uppercase;padding:4px 12px;border-radius:8px;margin-top:10px}
+.mdd-z.z-ok{background:var(--okl);color:var(--ok)}
+.mdd-z.z-ac{background:var(--acl);color:var(--ac)}
+.mdd-z.z-no{background:var(--nol);color:var(--no)}
+.mdd-in em{display:block;font-size:10.5px;color:var(--tx3);font-style:normal;margin-top:9px;
+ max-width:32ch;margin-inline:auto;line-height:1.55}
+@media (max-width:1100px){.hl,.hf,.mdd{width:100%;max-width:360px}}
+@media (prefers-reduced-motion:reduce){
+ .hl-l{stroke-dashoffset:0!important}
+ .hl-f,.hl-bd,.hl-n,.hl-o1,.hf-ag,.hf-n,.hf-al,.md-fx,.md-c{opacity:1!important}
+ .hl-bd{opacity:.11!important}.hl-o2,.hl-o3{opacity:0!important}
+ .hf-b{opacity:1!important;transform:none!important}.md-p{transform:none!important}}
+
+/* B1 completa · tres escalas de tempo empilhadas */
+.hc{width:380px;flex-shrink:0}
+.hc svg{width:100%;height:auto;overflow:visible;display:block}
+.hc-v{display:flex;align-items:center;gap:14px;justify-content:center;margin-top:2px}
+.hc-v b{font-size:58px;font-weight:700;letter-spacing:-.055em;line-height:.9}
+.hc-vt{text-align:left}
+.hc-z{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;
+ text-transform:uppercase;padding:4px 11px;border-radius:8px}
+.hc-z.z-ok{background:var(--okl);color:var(--ok)}
+.hc-z.z-ac{background:var(--acl);color:var(--ac)}
+.hc-z.z-no{background:var(--nol);color:var(--no)}
+.hc-vt em{display:block;font-size:10.5px;color:var(--tx3);font-style:normal;margin-top:5px;
+ line-height:1.45;max-width:22ch}
+.hc-f{margin-top:14px;padding-top:13px;border-top:1px solid var(--ln);position:relative}
+.hc-fl{position:absolute;top:-7px;left:50%;transform:translateX(-50%);background:var(--pg);
+ padding:0 9px;font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+ color:var(--tx3)}
+.hc-b{transform-origin:bottom;animation:hb .5s var(--e) both;
+ animation-delay:calc(1.9s + var(--i)*20ms);cursor:pointer;transition:filter .25s var(--e)}
+@keyframes hb{from{opacity:0;transform:scaleY(.15)}}
+.hc-b:hover{filter:brightness(.86)}
+.hc-b.t-ok{fill:#BCD1FA}.hc-b.t-wn{fill:#F2C486}.hc-b.t-no{fill:#EE7C74}
+.hc-ag{stroke:var(--ink);stroke-width:1.3;stroke-dasharray:2 3;opacity:0;
+ animation:fd .5s ease 2.3s forwards;--o:.5}
+.hc-n{fill:var(--ink);opacity:0;animation:pn .4s var(--e2) 2.4s forwards}
+.hc-x{fill:var(--tx3);font-size:9px;font-weight:600;font-family:'Outfit',sans-serif}
+@media (max-width:1100px){.hc{width:100%;max-width:380px}}
+@media (prefers-reduced-motion:reduce){
+ .hc-b{opacity:1!important;transform:none!important}.hc-ag,.hc-n{opacity:1!important}}
 @media (max-width:1100px){.hr,.g2,.g3{grid-template-columns:1fr}.rl{width:100%;max-width:340px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}
  .t-l{stroke-dashoffset:0!important}
@@ -480,9 +768,10 @@ def meta(p):
     </div>'''
 
 
-HTML = f'''<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+def pagina(heroi, titulo):
+    return f'''<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cronos · previsão do dia</title>
+<title>Cronos · {titulo}</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>{CSS}{CSS_ICO_CLARO}{CSS_CAMPO}</style></head><body>
@@ -531,7 +820,7 @@ HTML = f'''<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
           <div><em>risco acima de 10%</em><b>4<u>casos</u></b></div></div>
       </div>
     </div>
-    {relogio()}
+    {heroi}
   </div>
 
   <div class="ato"><span class="ato-n">01</span>
@@ -722,5 +1011,12 @@ document.querySelectorAll('.da').forEach(b=>b.onclick=()=>{{
   document.querySelectorAll('.da').forEach(x=>x.classList.remove('on'));b.classList.add('on');}});
 </script></body></html>'''
 
-OUT.write_text(HTML, encoding='utf-8')
-print(f'B: {OUT}')
+VARIANTES = [('b1-completa', heroi_completo, 'previsão do dia'),
+             ('b-relogio-24h', relogio, 'previsão do dia · relógio de 24h'),
+             ('b1-linha-da-marca', heroi_linha, 'previsão do dia · linha da marca'),
+             ('b2-dia-esticado', heroi_faixa, 'previsão do dia · dia esticado'),
+             ('b3-veredito', heroi_medidor, 'previsão do dia · veredito')]
+for nome, fn, tit in VARIANTES:
+    alvo = DEST / f'{nome}.html'
+    alvo.write_text(pagina(fn(), tit), encoding='utf-8')
+    print(f'  {alvo.name}')
