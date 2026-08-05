@@ -3,7 +3,7 @@
 <title>Cronos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -15,7 +15,7 @@
  --shh:0 30px 60px -20px rgba(15,23,42,.14),0 3px 8px -3px rgba(15,23,42,.05);
  --ease:cubic-bezier(.16,1,.3,1);--r:30px}
 html{-webkit-font-smoothing:antialiased}
-body{background:var(--pg);font-family:'Outfit',system-ui,sans-serif;color:var(--head);display:flex;min-height:100dvh}
+body{background:var(--pg);font-family:'Geist','Geist Fallback',system-ui,sans-serif;font-weight:400;color:var(--head);display:flex;min-height:100dvh}
 .mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums;letter-spacing:-.2px}
 /* ───────────────────── sidebar */
 aside{width:262px;flex-shrink:0;background:var(--ink);padding:28px 18px 24px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100dvh}
@@ -71,9 +71,8 @@ main{flex:1;padding:34px 40px 72px;min-width:0;max-width:1560px}
 .c-hero{display:flex;flex-direction:column;background:
  radial-gradient(680px 300px at 100% -14%,rgba(37,99,235,.05),transparent 60%),var(--card)}
 .hero-top{display:flex;align-items:center;gap:12px}
-.live{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:1.2px;
- text-transform:uppercase;color:var(--ac);background:var(--acl);padding:6px 12px;border-radius:999px}
-.live .dot{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:bre 2.4s ease-in-out infinite}
+.live{font-size:11.5px;font-weight:600;letter-spacing:.4px;color:var(--tx2);
+ font-family:'JetBrains Mono',monospace}
 .hero-h{font-size:31px;font-weight:800;letter-spacing:-1.2px;margin-top:20px;line-height:1.14}
 .hero-h .mut{color:var(--tx2);font-weight:600}
 .hero-body{margin-top:16px}
@@ -87,8 +86,8 @@ main{flex:1;padding:34px 40px 72px;min-width:0;max-width:1560px}
  animation-delay:calc(320ms + var(--i)*80ms)}
 .acao:hover{background:#fff;border-color:rgba(37,99,235,.3);color:var(--head);transform:translateX(3px);box-shadow:var(--sh)}
 .acao:active{transform:translateX(3px) scale(.985)}
-.acao .an{width:20px;height:20px;border-radius:6px;background:var(--ac);color:#fff;font-size:11px;
- font-weight:800;display:grid;place-items:center;flex-shrink:0}
+.acao .ad{font-size:10px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:var(--ac);
+ background:var(--acl);padding:4px 8px;border-radius:5px;flex-shrink:0;white-space:nowrap}
 .acao .ic{margin-left:auto;color:var(--tx2)}
 /* meta */
 .mb{margin-top:20px;animation:up .6s var(--ease) both;animation-delay:calc(200ms + var(--i)*100ms)}
@@ -225,8 +224,8 @@ main{flex:1;padding:34px 40px 72px;min-width:0;max-width:1560px}
  padding:0 4px;box-shadow:0 0 0 2px var(--pg)}
 .sino.lido .badge-n{display:none}
 /* ─── dashboard */
-.b-dash{grid-template-columns:1.28fr 1.5fr .92fr}
-.c-kpi{grid-row:span 2}.c-top{grid-row:span 2}
+.b-dash{grid-template-columns:1.3fr 1.5fr 1fr;align-items:start}
+.c-mini{grid-column:1}.c-lat2{grid-column:2/4}
 .linkb{margin-left:auto;display:inline-flex;align-items:center;gap:5px;background:none;border:0;
  font:inherit;font-size:12px;font-weight:700;color:var(--ac);cursor:pointer;padding:3px 0;
  transition:gap .3s var(--ease)}
@@ -241,12 +240,42 @@ main{flex:1;padding:34px 40px 72px;min-width:0;max-width:1560px}
 .tf-v small{font-size:12px}
 .duo{display:flex;gap:22px;margin-top:14px}
 .nm{flex:1}
-.nv{font-size:38px;font-weight:800;letter-spacing:-1.9px;line-height:.94;display:block}
-.nm.sm .nv{font-size:27px;letter-spacing:-1.2px}
+.dv{font-size:38px;font-weight:800;letter-spacing:-1.9px;line-height:.94;display:block}
+.nm.sm .dv{font-size:27px;letter-spacing:-1.2px}
 .nl{font-size:11.5px;color:var(--tx2);font-weight:600;display:block;margin-top:7px;line-height:1.4}
 .nl em{display:block;font-style:normal;opacity:.78;font-weight:500}
 .sep-h{height:1px;background:var(--line);margin:20px 0 0}
-@media (max-width:1240px){.b-dash{grid-template-columns:1fr 1fr}.c-kpi,.c-top{grid-row:auto}}
+@media (max-width:1240px){.b-dash{grid-template-columns:1fr 1fr}
+ .c-mini,.c-lat2{grid-column:auto}}
+
+/* ─── tipografia: display com carater, UI neutra, numero monoespacado */
+.dsp,.topo h1,.mdl-h,.marca b,.dv,.mb-v,.bn,.tf-v,.hero-h{
+ font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto}
+.topo h1{font-weight:800;letter-spacing:-1.4px}
+.mdl-h{font-weight:800;letter-spacing:-1.3px}
+.marca b{font-weight:800;letter-spacing:-.5px}
+.lbl,.mb-p,.nl,.fonte-tag,.mdl-nota,.nota,.tf-d{font-family:'Geist',system-ui,sans-serif}
+/* ─── textura de grade, a mesma linguagem das divisorias do deck */
+main{position:relative}
+main::before{content:'';position:fixed;inset:0 0 0 262px;z-index:0;pointer-events:none;
+ background-image:linear-gradient(rgba(15,20,32,.022) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(15,20,32,.022) 1px,transparent 1px);background-size:44px 44px;
+ mask-image:radial-gradient(900px 620px at 78% -6%,#000 12%,transparent 72%)}
+main>*{position:relative;z-index:1}
+/* ─── o traco da marca como divisor, em vez de linha reta generica */
+.rule{height:14px;margin:2px 0 0;opacity:.5}
+.rule svg{height:14px;width:100%;overflow:visible}
+.rule path{fill:none;stroke:var(--ac);stroke-width:1.6;stroke-linecap:round}
+.rule circle{fill:var(--ac)}
+/* ─── etiqueta de secao com o nodo da marca */
+.lbl{display:inline-flex;align-items:center;gap:9px}
+.lbl::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--ac);
+ box-shadow:0 0 0 3px rgba(37,99,235,.13);flex-shrink:0}
+.lbl-row .lbl{margin-bottom:0}
+/* ─── canto assimetrico nos cards, quebra a uniformidade do raio */
+.card{border-radius:26px 26px 26px 8px}
+.mdl{border-radius:30px 30px 30px 10px}
+.arq{border-radius:26px 26px 26px 8px}
 /* motion */
 @keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @keyframes sl{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
@@ -280,7 +309,7 @@ main{flex:1;padding:34px 40px 72px;min-width:0;max-width:1560px}
 <main>
   <div class="topo"><h1 id="titulo">Painel</h1>
     <span class="per">outubro a dezembro de 2025</span>
-    <button class="sino" id="reabrir" title="reabrir o briefing de hoje"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6z"/><path d="M10 20a2.4 2.4 0 0 0 4 0"/></svg></span>
+    <button class="sino" id="reabrir" title="reabrir o resumo de hoje"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6z"/><path d="M10 20a2.4 2.4 0 0 0 4 0"/></svg></span>
       <span class="badge-n">1</span></button></div>
   <section class="tela" id="t-dash" >
     <div class="bento b-dash">
@@ -308,8 +337,8 @@ main{flex:1;padding:34px 40px 72px;min-width:0;max-width:1560px}
       </article>
 
       <article class="card c-top" style="--i:1">
-        <div class="lbl-row"><div class="lbl">Topo da fila de risco</div>
-          <button class="linkb" data-go="fila">ver a fila<span class="ic xs"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button></div>
+        <div class="lbl-row"><div class="lbl">Início da fila de risco</div>
+          <button class="linkb" data-go="fila">fila completa<span class="ic xs"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button></div>
         <div class="tf" style="--i:0">
           <span class="tf-o mono">1</span>
           <div class="tf-c"><span class="tf-n mono">INC8595245</span>
@@ -332,21 +361,21 @@ main{flex:1;padding:34px 40px 72px;min-width:0;max-width:1560px}
       </article>
 
       <article class="card c-num" style="--i:2">
-        <div class="lbl">Hoje</div>
+        <div class="lbl">Volume previsto para hoje</div>
         <div class="duo">
-          <div class="nm"><span class="nv mono">87</span><span class="nl">P3 previstos<em>faixa 71 a 103</em></span></div>
-          <div class="nm"><span class="nv mono">14</span><span class="nl">P2 previstos<em>faixa 8 a 20</em></span></div>
+          <div class="nm"><span class="dv mono">87</span><span class="nl">incidentes P3<em>faixa de 71 a 103</em></span></div>
+          <div class="nm"><span class="dv mono">14</span><span class="nl">incidentes P2<em>faixa de 8 a 20</em></span></div>
         </div>
-        <div class="sep-h"></div>
+        <div class="rule"><svg viewBox="0 0 300 14" preserveAspectRatio="none"><path d="M2 11 L86 11 L104 3 L118 9 L142 2"/><circle cx="142" cy="2" r="2.6"/><path d="M160 11 L298 11" stroke-dasharray="2 5"/></svg></div>
         <div class="duo">
-          <div class="nm sm"><span class="nv mono neg">4</span><span class="nl">em faixa alta<em>risco acima de 10%</em></span></div>
-          <div class="nm sm"><span class="nv mono">1.129</span><span class="nl">em aberto<em>fila do dia</em></span></div>
+          <div class="nm sm"><span class="dv mono neg">4</span><span class="nl">com risco acima de 10%<em>na fila de hoje</em></span></div>
+          <div class="nm sm"><span class="dv mono">1.129</span><span class="nl">em atendimento<em>abertos e não resolvidos</em></span></div>
         </div>
       </article>
 
       <article class="card c-mini" style="--i:3">
         <div class="lbl-row"><div class="lbl">Piores notas de saúde</div>
-          <button class="linkb" data-go="saude">ver todas<span class="ic xs"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button></div>
+          <button class="linkb" data-go="saude">ranking completo<span class="ic xs"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button></div>
         <div class="mini-rank">
           <div class="mr" style="--i:0">
             <span class="mr-n">lssl</span>
@@ -366,7 +395,8 @@ main{flex:1;padding:34px 40px 72px;min-width:0;max-width:1560px}
 
       <article class="card c-lat2" style="--i:4">
         <div class="lbl">Risco latente</div>
-        <p class="expl">Problema novo em alta e violação ainda baixa. O inédito viola <b>4,6x mais</b>.</p>
+        <p class="expl">Problema novo em alta e violação ainda baixa. O inédito viola <b>4,6x mais</b>, então estes produtos carregam exposição que ainda não se materializou.</p>
+        <div class="lat-row">
         <div class="lat" style="--i:0"><span class="lat-p mono">lcsi</span>
           <div class="lat-d"><span>56,0% novos</span>
             <span class="dim">violação 0,09%</span></div></div><div class="lat" style="--i:1"><span class="lat-p mono">lcsp</span>
@@ -383,37 +413,37 @@ main{flex:1;padding:34px 40px 72px;min-width:0;max-width:1560px}
           <tbody><tr style="--i:0" class="top">
       <td class="ord">1</td>
       <td class="mono forte">INC8595245</td>
-      <td><span class="pill no">alto</span></td>
+      <td><span class="pill no">&gt; 10%</span></td>
       <td class="risco"><div class="rb"><i style="--w:100%"></i></div><span class="mono">56,1%</span></td>
       <td class="dim">Team11</td><td class="dim">lsin</td>
       <td class="dim mono">21/66 violaram</td></tr><tr style="--i:1" class="">
       <td class="ord">2</td>
       <td class="mono forte">INC8607669</td>
-      <td><span class="pill no">alto</span></td>
+      <td><span class="pill no">&gt; 10%</span></td>
       <td class="risco"><div class="rb"><i style="--w:90%"></i></div><span class="mono">50,4%</span></td>
       <td class="dim">Team11</td><td class="dim">lsin</td>
       <td class="dim mono">21/66 violaram</td></tr><tr style="--i:2" class="">
       <td class="ord">3</td>
       <td class="mono forte">INC8579361</td>
-      <td><span class="pill no">alto</span></td>
+      <td><span class="pill no">&gt; 10%</span></td>
       <td class="risco"><div class="rb"><i style="--w:84%"></i></div><span class="mono">47,2%</span></td>
       <td class="dim">Team11</td><td class="dim">lsin</td>
       <td class="dim mono">21/66 violaram</td></tr><tr style="--i:3" class="">
       <td class="ord">4</td>
       <td class="mono forte">INC8599520</td>
-      <td><span class="pill no">alto</span></td>
+      <td><span class="pill no">&gt; 10%</span></td>
       <td class="risco"><div class="rb"><i style="--w:76%"></i></div><span class="mono">42,9%</span></td>
       <td class="dim">Team11</td><td class="dim">lsin</td>
       <td class="dim mono">21/66 violaram</td></tr><tr style="--i:4" class="">
       <td class="ord">5</td>
       <td class="mono forte">INC8601345</td>
-      <td><span class="pill no">alto</span></td>
+      <td><span class="pill no">&gt; 10%</span></td>
       <td class="risco"><div class="rb"><i style="--w:72%"></i></div><span class="mono">40,4%</span></td>
       <td class="dim">Team11</td><td class="dim">lsin</td>
       <td class="dim mono">21/66 violaram</td></tr><tr style="--i:5" class="">
       <td class="ord">6</td>
       <td class="mono forte">INC8614082</td>
-      <td><span class="pill no">alto</span></td>
+      <td><span class="pill no">&gt; 10%</span></td>
       <td class="risco"><div class="rb"><i style="--w:59%"></i></div><span class="mono">33,1%</span></td>
       <td class="dim">Team07</td><td class="dim">lhco</td>
       <td class="dim mono">30/478 violaram</td></tr></tbody></table>
@@ -669,10 +699,10 @@ main{flex:1;padding:34px 40px 72px;min-width:0;max-width:1560px}
     <div class="ovl" id="ovl">
       <div class="mdl" role="dialog" aria-label="Morning briefing">
         <div class="mdl-top">
-          <div class="live"><span class="ic sm"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2"/></svg></span><span class="dot"></span>gerado às 07h00</div>
-          <span class="fonte-tag">Claude API</span>
+          <div class="live">Resumo de 05/08 · 07h00</div>
+          <span class="fonte-tag">texto gerado</span>
         </div>
-        <h2 class="mdl-h">Bom dia. <span class="mut">Três coisas para hoje.</span></h2>
+        <h2 class="mdl-h">Situação da operação <span class="mut">em três pontos</span></h2>
         <div class="mdl-body">
           <p><em>Ontem</em> entraram <b>83</b> incidentes elegíveis, dentro do padrão de dia útil.
              Nenhum dos quatro casos de maior risco violou o prazo.</p>
@@ -683,11 +713,11 @@ main{flex:1;padding:34px 40px 72px;min-width:0;max-width:1560px}
              contra meta de <b>200</b>. A faixa ainda comporta fechar dentro.</p>
         </div>
         <div class="acoes">
-          <button class="acao" data-go="fila" style="--i:0"><span class="an">1</span>Revisar os cinco primeiros da fila, todos no ativo IC00840<span class="ic xs"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button><button class="acao" data-go="saude" style="--i:1"><span class="an">2</span>Verificar o produto lssl, última posição no ranking de saúde<span class="ic xs"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button>
+          <button class="acao" data-go="fila" style="--i:0"><span class="ad">fila de risco</span>Cinco primeiros da fila concentrados no ativo IC00840<span class="ic xs"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button><button class="acao" data-go="saude" style="--i:1"><span class="ad">saúde por produto</span>Produto lssl na última posição do ranking<span class="ic xs"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button>
         </div>
         <div class="mdl-fim">
-          <span class="mdl-nota">Texto redigido pela Claude API a partir dos números dos modelos.</span>
-          <button class="btn-p" id="fechar">Ir para o painel<span class="ic xs"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button>
+          <span class="mdl-nota">Redação automática sobre a saída dos modelos. Sem interação por conversa.</span>
+          <button class="btn-p" id="fechar">Abrir o painel<span class="ic xs"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button>
         </div>
 
       </div>
