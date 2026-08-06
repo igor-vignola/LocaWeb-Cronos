@@ -1,0 +1,23 @@
+{% load br %}{% comment %}Previsto contra realizado ao longo do dia.{% endcomment %}
+<div class="acp">
+  <svg viewBox="0 0 {{ acomp.w }} {{ acomp.h }}">
+    {% for m in acomp.marcas %}
+      <line class="ac-g" x1="30" y1="{{ m.y }}" x2="{{ acomp.w }}" y2="{{ m.y }}"/>
+      <text class="ac-gy" x="24" y="{{ m.y|add:4 }}" text-anchor="end">{{ m.v }}</text>
+    {% endfor %}
+    <path class="ac-bd" d="{{ acomp.banda }}"/>
+    <path class="ac-es" d="{{ acomp.esperado }}"/>
+    <path class="ac-re" d="{{ acomp.realizado }}"/>
+    <line class="ac-ag" x1="{{ acomp.ax }}" y1="10" x2="{{ acomp.ax }}" y2="{{ acomp.y_fim }}"/>
+    <circle class="ac-pe" cx="{{ acomp.ax }}" cy="{{ acomp.ey }}" r="4"/>
+    <circle class="ac-pr" cx="{{ acomp.ax }}" cy="{{ acomp.ay }}" r="5.5"/>
+    {% for r in acomp.rotulos %}
+      <text class="ac-x" x="{{ r.x }}" y="{{ acomp.h|add:"-6" }}" text-anchor="middle">{{ r.rot }}</text>
+    {% endfor %}
+  </svg>
+  <div class="acp-l">
+    <span><i class="l-re"></i>já entrou · {{ ac.ate_agora }}</span>
+    <span><i class="l-es"></i>esperado até agora · {{ ac.esperado_agora|num }}</span>
+    <span><i class="l-bd"></i>faixa do dia · {{ ac.baixo|num:0 }} a {{ ac.alto|num:0 }}</span>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+{% load br %}{% comment %}O morning brief é a porta de entrada: abre na frente do painel.{% endcomment %}
+<div class="br-ov" id="brov">
+  <div class="brf" role="dialog" aria-label="Resumo do dia">
+    <button class="md-x" id="brx" aria-label="fechar">{% icone 'fechar' 16 %}</button>
+    <div class="brf-t"><span class="brf-s">{{ hoje.completo }} · 07h00</span>
+      <span class="ct">redação automática</span></div>
+    <h2>Situação da operação<br><span class="mu">em três pontos</span></h2>
+    <div class="brf-b">
+      <p><em>Ontem</em> entraram <b>{{ ontem.total }}</b> incidentes elegíveis e
+        <b>{{ ontem.violou }}</b> violaram o prazo. São <b>{{ base.em_atendimento|mil }}</b>
+        em atendimento agora, e a operação acumula <b>{{ base.sem_violacao_dias }} dias úteis</b>
+        sem violação.</p>
+      <p><em>Hoje</em> devem entrar entre <b>{{ hoje.baixo_p3|num:0 }}</b> e
+        <b>{{ hoje.alto_p3|num:0 }}</b> incidentes no P3, com valor central em
+        {{ hoje.previsto_p3|num:0 }}. Às 7h já entraram <b>{{ p.acompanhamento.ate_agora }}</b>,
+        contra {{ p.acompanhamento.esperado_agora|num }} esperados a esta altura.</p>
+      <p><em>Atenção</em> ao P3: a projeção de fechamento do ano está em
+        <b>{{ p.projecao.1.projecao|num }}</b> contra meta de {{ p.projecao.1.meta|num:0 }}.
+        A faixa vai de {{ p.projecao.1.baixo|num:0 }} a {{ p.projecao.1.alto|num:0 }}, então
+        fechar dentro ainda cabe.</p>
+    </div>
+    <div class="brf-a">
+      <a class="ax" href="/fila/"><span class="ax-d">fila de risco</span>
+        Ver os casos ordenados por chance de estourar o prazo{% icone 'seta' 15 %}</a>
+      <a class="ax" href="/saude/"><span class="ax-d">saúde</span>
+        Ver o ranking dos dezessete produtos{% icone 'seta' 15 %}</a>
+    </div>
+    <div class="brf-f"><span class="ct">Sem interação por conversa. O texto é escrito sobre a
+      saída dos modelos.</span>
+      <button class="bt pr" id="brf-ok">Abrir o painel{% icone 'seta' 15 %}</button></div>
+  </div>
+</div>

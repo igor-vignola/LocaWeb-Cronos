@@ -1,0 +1,103 @@
+{% extends 'painel/base.html' %}{% load br %}
+{% block titulo %}Fila de risco{% endblock %}
+
+{% block conteudo %}
+{% include 'painel/_ato.html' with n='01' titulo='A fila inteira' pergunta='Incidentes pontuados fora da amostra, do maior para o menor risco.' %}
+
+<div class="fxs">
+  {% for f in faixas %}
+    <a class="fx {% if faixa_sel == f.lo|stringformat:'s' %}on{% endif %}"
+       href="?faixa={% if faixa_sel == f.lo|stringformat:'s' %}{% else %}{{ f.lo }}{% endif %}{% if pri %}&amp;pri={{ pri }}{% endif %}">
+      <em class="f-{{ f.k }}">{{ f.rot }}</em><b>{{ f.n|mil }}</b>
+      <span>{{ f.violou }} violaram</span></a>
+  {% endfor %}
+</div>
+
+<div class="gr">
+  <article class="cd">
+    <div class="hdr">
+      <div class="hdr-t">{% icone 'fila' 16 %}
+        <div><h3>Incidentes ordenados por risco</h3>
+          <p>O modelo pontua cada caso com o que existia na abertura. Clique em qualquer linha
+            para abrir a decomposição do escore.</p></div></div>
+      <form class="bsc" method="get">
+        {% if faixa_sel %}<input type="hidden" name="faixa" value="{{ faixa_sel }}">{% endif %}
+        {% if pri %}<input type="hidden" name="pri" value="{{ pri }}">{% endif %}
+        {% icone 'lupa' 14 %}
+        <input name="q" value="{{ q }}" placeholder="incidente, produto, equipe ou ativo"
+          aria-label="buscar na fila"></form>
+      <div class="fg">
+        <a class="fb {% if not pri %}on{% endif %}" href="?{% if faixa_sel %}faixa={{ faixa_sel }}{% endif %}">todas</a>
+        <a class="fb {% if pri == 'P2' %}on{% endif %}" href="?pri=P2{% if faixa_sel %}&amp;faixa={{ faixa_sel }}{% endif %}">P2</a>
+        <a class="fb {% if pri == 'P3' %}on{% endif %}" href="?pri=P3{% if faixa_sel %}&amp;faixa={{ faixa_sel }}{% endif %}">P3</a>
+      </div>
+    </div>
+
+    {% if linhas %}
+      <div class="tbw"><table class="tb">
+        <thead><tr><th>#</th><th>Incidente</th><th>Risco</th><th>Prio</th><th>Produto</th>
+          <th>Equipe</th><th>Ativo</th><th>Aberto</th><th>Histórico do ativo</th></tr></thead>
+        <tbody>
+        {% for r in linhas %}
+          <tr data-mod="incidente" data-k="{{ r.incidente }}" style="--i:{{ forloop.counter0 }}">
+            <td class="o">{{ r.posicao }}</td>
+            <td><b class="id">{{ r.incidente }}</b></td>
+            <td class="rc"><span class="rb"><i
+              style="--w:{{ r.risco|num:0 }}%;--c:{{ r.risco|tom_nota }}"></i></span>
+              {{ r.risco|num }}<small>%</small></td>
+            <td class="dm">{{ r.prioridade }}</td>
+            <td class="dm">{{ r.produto }}</td>
+            <td class="dm">{{ r.equipe }}</td>
+            <td class="dm id">{{ r.ativo|default:'—' }}</td>
+            <td class="dm">{{ r.dm }} · {{ r.hora }}h</td>
+            <td class="dm">{% if r.ativo_passagens %}{{ r.ativo_violacoes }}/{{ r.ativo_passagens|mil }}{% else %}sem histórico{% endif %}</td>
+          </tr>
+        {% endfor %}
+        </tbody></table></div>
+
+      <div class="pag">
+        {% if anterior %}<a href="?p={{ anterior }}{% if pri %}&amp;pri={{ pri }}{% endif %}{% if faixa_sel %}&amp;faixa={{ faixa_sel }}{% endif %}{% if q %}&amp;q={{ q }}{% endif %}">anterior</a>{% endif %}
+        {% if proxima %}<a href="?p={{ proxima }}{% if pri %}&amp;pri={{ pri }}{% endif %}{% if faixa_sel %}&amp;faixa={{ faixa_sel }}{% endif %}{% if q %}&amp;q={{ q }}{% endif %}">próxima{% icone 'seta' 14 %}</a>{% endif %}
+        <span class="cnt">mostrando {{ de|mil }} a {{ ate|mil }} de {{ total|mil }} ·
+          página {{ pagina }} de {{ paginas }}</span>
+      </div>
+      <p class="nt">Nos cinquenta primeiros da fila estão <b>{{ base.top50_pega }} das
+        {{ base.viol_periodo }}</b> violações do período. Ordenar por prioridade declarada
+        pegaria bem menos: é isso que a ordenação por risco compra.</p>
+    {% else %}
+      {% include 'painel/_vazio.html' with icone='lupa' titulo='Nenhum caso com esse filtro' texto='Tente outra faixa de risco, outra prioridade, ou limpe a busca.' %}
+    {% endif %}
+  </article>
+</div>
+
+{% include 'painel/_ato.html' with n='02' titulo='Como ler um risco de 10%' pergunta='A régua que falta na cabeça de quem olha a fila pela primeira vez.' %}
+<div class="gr g2">
+  <article class="cd">
+    {% include 'painel/_cab.html' with icone='balanca' titulo='As quatro faixas' oque='Onde cada faixa começa, quantos casos tem e quanto isso é em relação à média da base.' %}
+    <div class="reg">
+      {% for f in faixas %}
+        <div class="rg-l"><span class="rg-b f-{{ f.k }}"></span>
+          <div><b>{{ f.rot }}</b><span>a partir de {{ f.lo }}% de chance ·
+            {{ f.n|mil }} casos · {{ f.violou }} violaram</span></div>
+          <em>{{ f.lo|vezes:base.media_violacao }}x a média</em></div>
+      {% endfor %}
+    </div>
+    <p class="nt">A média da base é <b>{{ base.media_violacao|num:2 }}%</b>. Um caso de 10% é
+      <b>dez vezes</b> mais provável que o incidente comum — por isso a faixa crítica tem poucos
+      casos e merece atenção.</p>
+  </article>
+  <article class="cd">
+    {% include 'painel/_cab.html' with icone='alvo' titulo='Grupos críticos' oque='Combinações de produto, categoria e prioridade com taxa acima da média da base.' %}
+    <table class="tb sm"><thead><tr><th>Produto · categoria · prioridade</th><th>Taxa</th>
+      <th>vs média</th></tr></thead><tbody>
+      {% for g in grupos %}
+        <tr><td class="id">{{ g.grupo }}</td>
+          <td class="no">{{ g|item:'taxa %'|num:2 }}%</td>
+          <td class="dm">{{ g|item:'vezes a média'|num:2 }}x</td></tr>
+      {% endfor %}
+    </tbody></table>
+    <p class="nt">Sete grupos concentram <b>13%</b> das violações em <b>5%</b> da base. Não é o
+      produto sozinho nem a categoria sozinha: é a combinação que concentra.</p>
+  </article>
+</div>
+{% endblock %}

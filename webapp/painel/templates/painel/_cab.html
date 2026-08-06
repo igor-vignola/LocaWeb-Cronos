@@ -1,0 +1,6 @@
+{% load br %}{% comment %}Cabeçalho de card: sempre diz em uma linha o que o card é.{% endcomment %}
+<div class="hdr">
+  <div class="hdr-t">{% icone icone 16 %}
+    <div><h3>{{ titulo }}</h3><p>{{ oque }}</p></div></div>
+  {% if link %}<a class="lk" href="/{% if link != 'hoje' %}{{ link }}/{% endif %}">{{ link_rot }}{% icone 'seta' 14 %}</a>{% endif %}
+</div>

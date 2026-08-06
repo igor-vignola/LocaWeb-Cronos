@@ -1,0 +1,71 @@
+{% load static br %}<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block titulo %}Cronos{% endblock %} · Cronos</title>
+<meta name="description" content="Inteligência preditiva de incidentes operacionais.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'painel/cronos.css' %}">
+</head>
+<body data-dia="{{ hoje.dia }}">
+{% include 'painel/_campo.html' %}
+
+<div class="sh">
+  <header class="tp">
+    <div class="br">
+      <div class="br-m"><svg viewBox="0 0 28 28" width="18" height="18" fill="none">
+        <path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"
+          stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#6EA0FF" stroke-width="1.9"/>
+        <circle cx="22" cy="8" r="1.3" fill="#6EA0FF"/></svg></div>
+      <div><b>Cronos</b><em>VEJA ANTES · AJA ANTES</em></div>
+    </div>
+
+    <nav class="pil" aria-label="seções">
+      <a href="{% url 'hoje' %}" class="{% if aba == 'hoje' %}on{% endif %}">{% icone 'agora' 15 %}Hoje</a>
+      <a href="{% url 'fila' %}" class="{% if aba == 'fila' %}on{% endif %}">{% icone 'fila' 15 %}Fila de risco</a>
+      <a href="{% url 'saude' %}" class="{% if aba == 'saude' %}on{% endif %}">{% icone 'coracao' 15 %}Saúde por produto</a>
+      <a href="{% url 'causas' %}" class="{% if aba == 'causas' %}on{% endif %}">{% icone 'lupa' 15 %}Causas e recorrentes</a>
+      <a href="{% url 'previsao' %}" class="{% if aba == 'previsao' %}on{% endif %}">{% icone 'previsao' 15 %}Previsão de volume</a>
+    </nav>
+
+    <div class="tp-r">
+      <button class="stl" id="abrepl" title="buscar (Ctrl+K)">{% icone 'lupa' 14 %}buscar
+        <span class="pl-k">Ctrl K</span></button>
+      <span class="stl"><i></i>carga de {{ ontem.dm }} · 23h59</span>
+      {% if aba == 'hoje' %}<button class="bl" id="sino" title="reabrir o resumo do dia">{% icone 'sino' 17 %}<b>1</b></button>{% else %}<a class="bl" href="{% url 'hoje' %}" title="ver o resumo do dia">{% icone 'sino' 17 %}</a>{% endif %}
+    </div>
+  </header>
+
+  <main>{% block conteudo %}{% endblock %}</main>
+
+  <footer class="rod">
+    <span>Protótipo do MVP · corte em {{ hoje.completo }}. Os números vêm dos parquets
+      gerados pelos notebooks 02 a 07; o contêiner apenas lê.</span>
+    <span>Cronos · Super Data Bros · Challenge FIAP 2026 com Locaweb</span>
+  </footer>
+</div>
+
+{% if aba == 'hoje' %}{% include 'painel/_brief.html' %}{% endif %}
+
+<div class="ov" id="ov" hidden>
+  <div class="md" role="dialog" aria-modal="true" aria-label="detalhe">
+    <button class="md-x" id="mx" aria-label="fechar">{% icone 'fechar' 16 %}</button>
+    <div id="mc"><div class="md-carga">carregando…</div></div>
+  </div>
+</div>
+
+<div class="pl" id="pl" hidden>
+  <div class="pl-c">
+    <div class="pl-i">{% icone 'lupa' 18 %}
+      <input id="plq" placeholder="Buscar incidente, ativo, produto ou seção…" autocomplete="off"
+        aria-label="buscar">
+      <span class="pl-k">Esc</span></div>
+    <div class="pl-r" id="plr"></div>
+  </div>
+</div>
+
+<script src="{% static 'painel/cronos.js' %}" defer></script>
+</body>
+</html>

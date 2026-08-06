@@ -1,0 +1,20 @@
+{% load br %}
+<div class="fx24">
+  <svg viewBox="0 0 {{ faixa.w }} {{ faixa.h }}">
+    <line class="h24-ag" x1="{{ faixa.ax }}" y1="6" x2="{{ faixa.ax }}" y2="{{ faixa.y_fim }}"/>
+    {% for b in faixa.barras %}
+      <rect class="h24 t-{{ b.tom }}" style="--i:{{ b.h }}" x="{{ b.x }}" y="{{ b.y }}"
+        width="{{ b.w }}" height="{{ b.alt }}" rx="3">
+        <title>{{ b.h }}h · {{ b.abertos|mil }} abertos · {{ b.taxa|num:2 }}% violaram</title>
+      </rect>
+    {% endfor %}
+    {% for r in faixa.rotulos %}
+      <text class="h24-x" x="{{ r.x }}" y="{{ faixa.y_rot }}" text-anchor="middle">{{ r.h }}h</text>
+    {% endfor %}
+    <circle class="h24-n" cx="{{ faixa.ax }}" cy="6" r="3.6"/>
+    <text class="h24-al" x="{{ faixa.ax|add:6 }}" y="10">agora</text>
+  </svg>
+  <div class="h24-l"><span><i class="t-ok"></i>abaixo de 1,1%</span>
+    <span><i class="t-wn"></i>1,1 a 1,6%</span><span><i class="t-no"></i>acima de 1,6%</span>
+    <span class="dica">passe o cursor em qualquer hora</span></div>
+</div>

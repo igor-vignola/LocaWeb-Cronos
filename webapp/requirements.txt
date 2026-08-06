@@ -1,0 +1,8 @@
+# Só o que a aplicação precisa em produção.
+# Prophet, scikit-learn e xgboost ficam de fora de propósito: eles rodam nos notebooks,
+# gravam parquet, e o contêiner apenas lê. É isso que mantém a imagem pequena.
+Django==6.1
+pandas==2.2.3
+pyarrow==25.0.0
+gunicorn==23.0.0
+whitenoise==6.9.0

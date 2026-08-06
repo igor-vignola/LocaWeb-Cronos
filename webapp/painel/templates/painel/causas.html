@@ -1,0 +1,58 @@
+{% extends 'painel/base.html' %}{% load br %}
+{% block titulo %}Causas e recorrentes{% endblock %}
+
+{% block conteudo %}
+{% include 'painel/_ato.html' with n='01' titulo='Por que os incidentes fecham' pergunta='A causa registrada no fechamento serve a diagnóstico, não a previsão: ela só existe depois que o caso acabou.' %}
+<div class="gr g2">
+  <article class="cd">
+    {% include 'painel/_cab.html' with icone='lupa' titulo='Causa de fechamento' oque='Quanto cada causa representa do volume e quanto representa das violações. Quando os dois não batem, há concentração de risco.' %}
+    <table class="tb sm"><thead><tr><th>Causa</th><th>% base</th><th>% violações</th>
+      <th>Taxa</th><th>vs média</th></tr></thead><tbody>
+      {% for c in causas %}
+        <tr><td>{{ c|item:'Código de fechamento' }}</td>
+          <td class="dm">{{ c|item:'% da base'|num }}%</td>
+          <td class="no">{{ c|item:'% das quebras'|num }}%</td>
+          <td>{{ c|item:'taxa de quebra %'|num:2 }}%</td>
+          <td class="dm">{{ c|item:'vezes a média'|num:2 }}x</td></tr>
+      {% endfor %}
+    </tbody></table>
+    <p class="nt"><b>Outro</b> responde por 7,8% do volume e 21,8% das violações. É o campo que
+      mais esconde: quando o time não sabe classificar, a chance de ter estourado o prazo é
+      quase três vezes a média.</p>
+  </article>
+  <article class="cd">
+    {% include 'painel/_cab.html' with icone='tendencia' titulo='Problemas que mais repetem' oque='Texto do problema normalizado: número de chamado e código de ativo trocados por marcador, para agrupar o que é a mesma coisa.' %}
+    <div class="rcs">
+      {% for r in recorrentes %}
+        <div class="rc2" style="--i:{{ forloop.counter0 }}">
+          <span class="rc2-t id">{{ r.problema|truncatechars:56 }}</span>
+          <span class="rc2-m"><b>{{ r.incidentes|mil }}</b> vezes ·
+            <b>{{ r.ativos }}</b> ativos ·
+            <b class="{% if r.quebras %}no{% else %}ok{% endif %}">{{ r.quebras }}</b>
+            violações</span></div>
+      {% endfor %}
+    </div>
+    <p class="nt">Os vinte mais recorrentes cobrem <b>26%</b> do volume e violam <b>0,40%</b>,
+      menos da metade da média. São candidatos a <b>automação de resposta</b>: muito volume,
+      pouco risco, resposta sempre igual.</p>
+  </article>
+</div>
+
+{% include 'painel/_ato.html' with n='02' titulo='O que isso muda na operação' pergunta='Volume e risco não são a mesma coisa, e tratar os dois igual desperdiça atenção.' %}
+<div class="gr">
+  <article class="cd dk">
+    {% include 'painel/_cab.html' with icone='balanca' titulo='A leitura que o dado sustenta' oque='Três achados que mudam onde a equipe gasta tempo.' %}
+    <div class="ach">
+      <div class="ac2"><b>Volume não prevê violação</b>
+        <span>R² de 0,025 entre incidentes do dia e violações do dia. O volume dimensiona a
+          equipe; ele não aponta o caso.</span></div>
+      <div class="ac2"><b>O inédito viola 4,6 vezes mais</b>
+        <span>Problema que nunca apareceu antes é o sinal mais forte que encontramos, e
+          sobreviveu a sete verificações independentes.</span></div>
+      <div class="ac2"><b>O recorrente é barato</b>
+        <span>26% do volume com metade da taxa média. Automatizar resposta aqui libera gente
+          para o que realmente arrisca.</span></div>
+    </div>
+  </article>
+</div>
+{% endblock %}

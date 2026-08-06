@@ -1,0 +1,82 @@
+{% extends 'painel/base.html' %}{% load br %}
+{% block titulo %}Saúde por produto{% endblock %}
+
+{% block conteudo %}
+{% include 'painel/_ato.html' with n='01' titulo='A nota de cada produto' pergunta='Dezessete produtos que respondem por 95% do volume, do melhor ao pior.' %}
+<div class="gr">
+  <article class="cd">
+    <div class="hdr">
+      <div class="hdr-t">{% icone 'coracao' 16 %}
+        <div><h3>Ranking de saúde</h3>
+          <p>A nota combina cinco componentes por posição relativa. Clique em qualquer produto
+            para ver quanto cada componente pesou.</p></div></div>
+      <div class="fg">
+        <a class="fb {% if not quad %}on{% endif %}" href="?">todos</a>
+        <a class="fb {% if quad == 'materializado' %}on{% endif %}" href="?quad=materializado">materializado</a>
+        <a class="fb {% if quad == 'latente' %}on{% endif %}" href="?quad=latente">latente</a>
+        <a class="fb {% if quad == 'recorrente' %}on{% endif %}" href="?quad=recorrente">recorrente</a>
+        <a class="fb {% if quad == 'estável' %}on{% endif %}" href="?quad=estável">estável</a>
+      </div>
+    </div>
+    {% if lista %}
+      <div class="tbw"><table class="tb">
+        <thead><tr><th>#</th><th>Produto</th><th>Nota</th><th>Situação</th><th>Incidentes</th>
+          <th>Violação</th><th>Inéditos</th><th>Duração</th></tr></thead><tbody>
+        {% for x in lista %}
+          <tr data-mod="produto" data-k="{{ x.produto }}" style="--i:{{ forloop.counter0 }}">
+            <td class="o">{{ x.posicao }}</td>
+            <td><b class="id">{{ x.produto }}</b></td>
+            <td class="rc"><span class="rb"><i
+              style="--w:{{ x.nota|num:0 }}%;--c:{{ x.nota|tom_nota }}"></i></span>{{ x.nota|num }}</td>
+            <td><span class="tag {% if 'materializado' in x.quadrante %}no{% elif 'latente' in x.quadrante %}wn{% elif 'recorrente' in x.quadrante %}az{% else %}ok{% endif %}"
+              title="{{ x.quadrante }}">{{ x.quadrante }}</span></td>
+            <td class="dm">{{ x.incidentes|mil }}</td>
+            <td class="no">{{ x.taxa_violacao|pc:2 }}%</td>
+            <td class="dm">{{ x.prop_inedito|pc:0 }}%</td>
+            <td class="dm">{{ x.duracao_mediana_h|num }}h</td>
+          </tr>
+        {% endfor %}
+      </tbody></table></div>
+      <p class="nt">A nota é <b>relativa</b>: 100 seria o melhor dos dezessete em todos os cinco
+        componentes, não um produto sem problema nenhum.</p>
+    {% else %}
+      {% include 'painel/_vazio.html' with icone='lupa' titulo='Nenhum produto nesta situação' texto='Troque o filtro para ver os outros quadrantes.' %}
+    {% endif %}
+  </article>
+</div>
+
+{% include 'painel/_ato.html' with n='02' titulo='O que a nota esconde' pergunta='Produto com pouca violação hoje mas muito problema inédito carrega risco que ainda não apareceu.' %}
+<div class="gr g2">
+  <article class="cd">
+    {% include 'painel/_cab.html' with icone='novo' titulo='Risco latente' oque='Muito problema novo e violação ainda baixa. O inédito viola 4,6 vezes mais, então estes produtos carregam exposição não materializada.' %}
+    <div class="ml">
+      {% for x in latentes %}
+        <button class="mr cl" data-mod="produto" data-k="{{ x.produto }}">
+          {% chip 'novo' 'wn' 18 %}
+          <div class="mr-t"><b class="id">{{ x.produto }}</b>
+            <span>{{ x.prop_inedito|pc:0 }}% de problemas inéditos ·
+              {{ x.taxa_violacao|pc:2 }}% de violação</span></div>
+          <span class="mr-v wn">{{ x.nota|num }}</span>
+          <span class="sq">{% icone 'seta' 14 %}</span></button>
+      {% empty %}
+        {% include 'painel/_vazio.html' with icone='escudo_ok' titulo='Nenhum produto em risco latente' texto='Todos os produtos com muito problema inédito já mostram violação compatível.' %}
+      {% endfor %}
+    </div>
+  </article>
+  <article class="cd">
+    {% include 'painel/_cab.html' with icone='balanca' titulo='Os cinco componentes' oque='O que entra na nota, e por que cada um está lá.' %}
+    <div class="cps">
+      <div class="cp"><b>Taxa de violação</b><span>o que já estourou o prazo</span></div>
+      <div class="cp"><b>Problemas inéditos</b><span>quanto do que entra é problema novo, que
+        viola 4,6 vezes mais que o rotineiro</span></div>
+      <div class="cp"><b>Fechados sem causa</b><span>quanto some do diagnóstico e volta
+        depois</span></div>
+      <div class="cp"><b>Duração mediana</b><span>quanto tempo o produto ocupa a operação</span></div>
+      <div class="cp"><b>Tendência</b><span>se a taxa vem subindo ou caindo ao longo do ano</span></div>
+    </div>
+    <p class="nt">Cada componente vira posição relativa entre os dezessete e a nota é a média
+      dessas posições. <b>Incidentes por ativo saiu</b> da conta: tinha correlação de 0,85 com
+      duração e estava contando a mesma coisa duas vezes.</p>
+  </article>
+</div>
+{% endblock %}

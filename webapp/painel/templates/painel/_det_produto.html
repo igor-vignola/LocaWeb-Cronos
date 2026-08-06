@@ -1,0 +1,31 @@
+{% load br %}{# Detalhe do produto: os cinco componentes da nota, por posição relativa. #}
+<span class="md-k">produto · posição {{ p.posicao }} de {{ total }}</span>
+<h3 class="id">{{ p.produto }}</h3>
+<p class="sub">{{ p.quadrante }} · {{ p.incidentes|mil }} incidentes elegíveis,
+  {{ p.violacoes }} violaram o prazo.</p>
+
+<div class="md-g">
+  <div class="md-s"><em>nota</em><b>{{ p.nota|num }}</b></div>
+  <div class="md-s"><em>posição</em><b>{{ p.posicao }}º</b></div>
+  <div class="md-s"><em>incidentes</em><b>{{ p.incidentes|mil }}</b></div>
+</div>
+
+<div class="md-h">os cinco componentes da nota</div>
+{% for c in p.componentes %}
+  <div class="sg"><span class="sg-t">{{ c.rot }}
+    <span style="color:#A3ABBA"> {{ c.v }}{{ c.u }}</span></span>
+    <span class="sg-b"><i style="width:{{ c.pos }}%;background:{% if c.pos > 66 %}#DC2626{% elif c.pos > 33 %}#B45309{% else %}#059669{% endif %}"></i></span>
+    <span class="sg-v">{{ c.pos }}</span></div>
+{% endfor %}
+<p class="sub" style="margin-top:8px">A barra mostra a posição relativa entre os
+  {{ total }} produtos: quanto mais cheia, pior comparado aos outros. A nota é a média
+  dessas posições.</p>
+
+<div class="cx">{% chip "balanca" "ac" 18 %}
+  <p>A nota é <b>relativa</b>: 100 seria o melhor dos {{ total }} em todos os cinco
+    componentes, não um produto sem problema nenhum.</p></div>
+
+<div class="md-f">
+  <a class="bt pr" href="/causas/">{% icone "lupa" 15 %}Ver causas</a>
+  <a class="bt sc" href="/saude/">{% icone "coracao" 15 %}Comparar no ranking</a>
+</div>

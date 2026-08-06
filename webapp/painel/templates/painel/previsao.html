@@ -1,0 +1,128 @@
+{% extends 'painel/base.html' %}{% load br %}
+{% block titulo %}Previsão de volume{% endblock %}
+
+{% block conteudo %}
+{% include 'painel/_ato.html' with n='01' titulo='O dia acontecendo' pergunta='A previsão só vale se der para conferir durante o turno se ela está se realizando.' %}
+<div class="gr g2">
+  <article class="cd">
+    {% include 'painel/_cab.html' with icone='previsao' titulo='Previsto contra realizado' oque='A área clara é a faixa prevista distribuída pelas horas do dia. A linha escura é o que já entrou de verdade.' %}
+    {% include 'painel/_acompanhamento.html' %}
+    <p class="nt">
+      Às {{ ac.hora_agora }}h entraram <b>{{ ac.ate_agora }}</b> contra
+      <b>{{ ac.esperado_agora|num }}</b> esperados a esta altura.
+      {% if ac.confiavel %}No ritmo de agora o dia fecha em <b>{{ ac.ritmo_fecha|num:0 }}</b>,
+        {% if ac.no_ritmo %}dentro da faixa prevista.{% else %}<b>fora</b> da faixa de
+        {{ ac.baixo|num:0 }} a {{ ac.alto|num:0 }}.{% endif %}
+      {% else %}Com apenas <b>{{ ac.dia_decorrido|num }}%</b> do dia decorrido, extrapolar o
+        fechamento ainda não vale: a conta é instável de manhã e só firma perto do meio-dia.
+      {% endif %}
+    </p>
+  </article>
+  <article class="cd">
+    {% include 'painel/_cab.html' with icone='alvo' titulo='A faixa de hoje' oque='O modelo entrega um intervalo, não um número. É o intervalo que deve guiar a escala do turno.' %}
+    <div class="fxg">
+      <div class="fxg-l">
+        <span class="fxg-t">entre</span>
+        <b>{{ hoje.baixo_p3|num:0 }}</b>
+        <span class="fxg-t">e</span>
+        <b>{{ hoje.alto_p3|num:0 }}</b>
+        <span class="fxg-t">incidentes no P3</span>
+      </div>
+      <div class="fxg-c">valor central <b>{{ hoje.previsto_p3|num:0 }}</b> · confiança de 80% ·
+        largura de <b>{{ hoje.largura_p3|num:0 }}</b> incidentes</div>
+    </div>
+    <div class="ml" style="margin-top:14px">
+      <div class="mr">{% chip 'entrada' 'ac' 18 %}
+        <div class="mr-t"><b>Já entraram hoje</b><span>até as {{ ac.hora_agora }}h</span></div>
+        <span class="mr-v">{{ ac.ate_agora }}</span></div>
+      <div class="mr">{% chip 'balanca' 'nt' 18 %}
+        <div class="mr-t"><b>Esperado a esta altura</b>
+          <span>{{ ac.dia_decorrido|num }}% do dia decorrido</span></div>
+        <span class="mr-v">{{ ac.esperado_agora|num }}</span></div>
+      <div class="mr">{% chip 'previsao' 'nt' 18 %}
+        <div class="mr-t"><b>Média dos últimos vinte dias úteis</b>
+          <span>a referência de um dia normal</span></div>
+        <span class="mr-v">{{ base.base_20_dias|num:0 }}</span></div>
+    </div>
+    <p class="nt">A banda é larga de propósito. Fingir precisão em previsão diária de incidente
+      seria desonesto: o que o modelo sabe é a ordem de grandeza do dia.</p>
+  </article>
+</div>
+
+{% include 'painel/_ato.html' with n='02' titulo='Quanto trabalho vem' pergunta='Prophet treinado em 2025 com sazonalidade semanal e feriados nacionais, banda de 80%.' %}
+<div class="gr">
+  <article class="cd">
+    {% include 'painel/_cab.html' with icone='previsao' titulo='Volume elegível por dia · P3' oque='A linha cheia é o medido. A pontilhada é a previsão e a área em volta é a margem de erro do modelo.' %}
+    <div class="tr">
+      <svg viewBox="0 0 {{ trilho.w }} {{ trilho.h }}" preserveAspectRatio="none">
+        <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#2563EB" stop-opacity=".2"/>
+          <stop offset="1" stop-color="#2563EB" stop-opacity="0"/></linearGradient></defs>
+        <path class="t-a" d="{{ trilho.area }}" fill="url(#ga)"/>
+        <path class="t-bd" d="{{ trilho.banda }}"/>
+        <line class="t-ag" x1="{{ trilho.cx }}" y1="8" x2="{{ trilho.cx }}" y2="{{ trilho.h|add:'-14' }}"/>
+        <path class="t-l" d="{{ trilho.linha }}"/>
+        <path class="t-f" d="{{ trilho.futuro }}"/>
+        <circle class="t-h" cx="{{ trilho.cx }}" cy="{{ trilho.cy }}" r="11"/>
+        <circle class="t-n" cx="{{ trilho.cx }}" cy="{{ trilho.cy }}" r="4.5"/>
+      </svg>
+      <div class="anp" style="left:{{ trilho.px_hoje }}%;top:{{ trilho.py_hoje }}%">
+        {{ hoje.baixo_p3|num:0 }} a {{ hoje.alto_p3|num:0 }} hoje</div>
+      <div class="tr-x"><span>30 dias atrás</span>
+        <span class="ag" style="left:{{ trilho.corte_pc }}%">{{ hoje.dm }}</span>
+        <span>+8 dias</span></div>
+    </div>
+    <p class="nt">Ontem entraram <b>{{ ontem.total }}</b> elegíveis contra
+      <b>{{ base.base_20_dias|num:0 }}</b> de média dos últimos vinte dias úteis.</p>
+  </article>
+</div>
+
+<div class="gr g2">
+  <article class="cd">
+    {% include 'painel/_cab.html' with icone='calendario' titulo='Os próximos oito dias' oque='Faixa de cada dia. A última coluna é a largura da faixa: quanto maior, menos o modelo sabe.' %}
+    <table class="tb sm"><thead><tr><th>Data</th><th>Faixa</th><th>Central</th>
+      <th>Largura</th></tr></thead><tbody>
+      {% for d in proximos %}
+        <tr><td>{{ d.rot }} · {{ d.dm }}</td>
+          <td><b>{{ d.baixo|num:0 }} a {{ d.alto|num:0 }}</b></td>
+          <td class="dm">{{ d.valor|num:0 }}</td>
+          <td class="dm">{{ d.largura|num:0 }}</td></tr>
+      {% endfor %}
+    </tbody></table>
+    <p class="nt">A faixa vem primeiro na tabela de propósito: é ela que a operação usa para
+      decidir escala. O valor central serve para comparar dias entre si, não para planejar.</p>
+  </article>
+  <article class="cd">
+    {% include 'painel/_cab.html' with icone='tendencia' titulo='Carga por dia da semana' oque='Média de incidentes P3 por dia da semana em 2025.' %}
+    <div class="sms">
+      {% for s in semana %}
+        <div class="sm" style="--h:{% widthratio s.media max_semana 100 %}%;--i:{{ forloop.counter0 }}">
+          <i></i><span>{{ s.dia }}</span><em>{{ s.media|num:0 }}</em></div>
+      {% endfor %}
+    </div>
+    <p class="nt">A diferença que existe é <b>dia útil contra fim de semana</b>, não segunda
+      contra quinta. É por isso que o modelo usa dia da semana e feriado como sinal, e não a
+      data em si.</p>
+  </article>
+</div>
+
+{% include 'painel/_ato.html' with n='03' titulo='O que a previsão de volume não faz' pergunta='O limite do modelo, dito antes que alguém descubra sozinho.' %}
+<div class="gr">
+  <article class="cd">
+    {% include 'painel/_cab.html' with icone='balanca' titulo='Volume dimensiona carga, não aponta o caso' oque='Testamos se dias mais cheios violam mais. Não violam.' %}
+    <div class="ml">
+      <div class="mr">{% chip 'tendencia' 'nt' 18 %}
+        <div class="mr-t"><b>Correlação entre volume do dia e violações do dia</b>
+          <span>R² de 0,025: praticamente nenhuma relação</span></div>
+        <span class="mr-v">0,025</span></div>
+      <div class="mr">{% chip 'novo' 'nt' 18 %}
+        <div class="mr-t"><b>Acúmulo de fila prevendo violação</b>
+          <span>testado a pedido da mentoria: r = −0,139 em dias úteis</span></div>
+        <span class="mr-v">−0,139</span></div>
+    </div>
+    <p class="nt">Por isso existem dois modelos e não um. O Prophet responde <b>quanta gente
+      escalar</b>. A regressão logística responde <b>em qual caso olhar</b>. Trocar um pelo
+      outro é o erro mais comum nesse tipo de projeto.</p>
+  </article>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% load br %}{% comment %}
+Detalhe do incidente. A decomposição vem do parquet: contribuição de cada sinal é
+peso × (valor − média do treino), e a soma reconstrói o escore.
+{% endcomment %}
+<span class="md-k">incidente · posição {{ c.posicao }} na fila</span>
+<h3 class="id">{{ c.incidente }}</h3>
+<p class="sub">{{ c.produto }} · {{ c.categoria }} · equipe {{ c.equipe }}
+  {% if c.ativo %}· ativo <span class="id">{{ c.ativo }}</span>{% endif %}
+  · aberto em {{ c.dm }} às {{ c.hora }}h</p>
+
+<div class="md-g">
+  <div class="md-s {{ c.ftom }}"><em>risco</em><b>{{ c.risco|num }}%</b></div>
+  <div class="md-s"><em>vs média</em><b>{{ c.vezes }}x</b></div>
+  <div class="md-s"><em>prioridade</em><b>{{ c.prioridade }}</b></div>
+</div>
+
+<div class="cx">{% chip 'alvo' 'ac' 18 %}
+  <p>Em <b>100 casos parecidos com este</b>, o modelo espera que
+    <b>{{ c.em100 }} estourem o prazo</b>. No incidente comum da base seriam
+    {{ base.media_violacao|num:2 }} em 100.</p></div>
+
+<div class="md-h">o que pesa neste caso</div>
+{% for s in c.sinais %}
+  <div class="sg"><span class="sg-t">{{ s.sinal }}</span>
+    <span class="sg-b"><i style="width:{% widthratio s.peso 50 100 %}%"></i></span>
+    <span class="sg-v">{{ s.peso|num }}%</span></div>
+{% empty %}
+  <p class="sub">Nenhum sinal empurra este caso para cima: o risco vem da base.</p>
+{% endfor %}
+<p class="sub" style="margin-top:10px">Os sinais acima explicam
+  <b>{{ c.sinais_cobertura|num:0 }}%</b> do empurrão para cima. O resto vem de dezenas de
+  contribuições pequenas demais para listar — a soma de todas reconstrói o escore exato.</p>
+
+{% if hist %}
+  <div class="md-h">histórico do ativo {{ c.ativo }}</div>
+  <svg class="mh" viewBox="0 0 {{ hist.w }} {{ hist.h }}">
+    {% for b in hist.barras %}
+      <rect class="mh-p" x="{{ b.x }}" y="{{ b.yp }}" width="{{ b.w }}" height="{{ b.hp }}" rx="3"/>
+      <rect class="mh-v" x="{{ b.x }}" y="{{ b.yv }}" width="{{ b.w }}" height="{{ b.hv }}" rx="3"/>
+      <text class="mh-l" x="{{ b.cx }}" y="{{ hist.y_rot }}" text-anchor="middle">{{ meses|item:b.mes|slice:':3' }}</text>
+    {% endfor %}
+  </svg>
+  <p class="sub" style="margin-top:8px">{{ c.ativo_violacoes }} de {{ c.ativo_passagens }}
+    passagens por este ativo violaram o prazo. <b>Este histórico não entra no modelo</b>: é
+    contexto para quem decide.</p>
+{% endif %}
+
+<div class="md-f">
+  <button class="bt pr">{% icone 'pessoas' 15 %}Escalar para {{ c.equipe }}</button>
+  <button class="bt sc">{% icone 'sino' 15 %}Avisar se passar de 60%</button>
+  <button class="bt sc">{% icone 'resolvido' 15 %}Marcar como tratado</button>
+</div>
