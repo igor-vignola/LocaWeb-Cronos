@@ -10,7 +10,7 @@ from prophet import Prophet
 warnings.filterwarnings('ignore')
 
 CORTE = pd.Timestamp('2025-10-01')      # mesmo corte da projecao do notebook 06
-HORIZONTE = 10                          # dias corridos previstos a frente do corte
+HORIZONTE = 92                          # todo o periodo de teste: 01/10 a 31/12
 
 df = pd.read_parquet('data/interim/incidentes_kpi.parquet')
 df['dia'] = pd.to_datetime(df['Aberto']).dt.normalize()
@@ -32,12 +32,14 @@ for tag in ('P2', 'P3'):
     fc = m.predict(pd.DataFrame({'ds': futuro}))
 
     # dias ja realizados: os 25 ultimos antes do corte
-    for dia, valor in treino.tail(25).items():
+    for dia, valor in treino.tail(45).items():
         linhas.append({'prioridade': tag, 'dia': dia, 'tipo': 'realizado',
                        'valor': float(valor), 'baixo': None, 'alto': None})
+    real_futuro = serie.reindex(futuro).fillna(0)
     for dia, yhat, lo, hi in zip(futuro, fc['yhat'], fc['yhat_lower'], fc['yhat_upper']):
         linhas.append({'prioridade': tag, 'dia': dia, 'tipo': 'previsto',
-                       'valor': max(yhat, 0.0), 'baixo': max(lo, 0.0), 'alto': max(hi, 0.0)})
+                       'valor': max(yhat, 0.0), 'baixo': max(lo, 0.0), 'alto': max(hi, 0.0),
+                       'real': float(real_futuro[dia])})
 
 saida = pd.DataFrame(linhas)
 saida.to_parquet('data/interim/03_previsao_diaria.parquet', index=False)
