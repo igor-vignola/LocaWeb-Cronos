@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cronos · três corações para a aba Fila</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--pg:#F6F7F9;--c:#FFF;--ink:#0C1017;--ln:rgba(12,16,23,.09);--ln2:rgba(12,16,23,.18);
+ --tx:#4E586B;--tx2:#7B8598;--tx3:#A3ABBA;--hd:#0C1017;--ac:#2563EB;--acl:#EFF4FF;
+ --no:#DC2626;--nol:#FEF2F2;--wn:#B45309;--ok:#059669;--okl:#ECFDF5;
+ --e:cubic-bezier(.19,1,.22,1);--e2:cubic-bezier(.34,1.56,.64,1);
+ --s1:0 1px 2px rgba(12,16,23,.04),0 10px 26px -14px rgba(12,16,23,.14);
+ --s2:0 2px 6px rgba(12,16,23,.06),0 28px 54px -20px rgba(12,16,23,.2)}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--pg);color:var(--hd);font-family:'Outfit',system-ui,sans-serif;
+ font-size:15px;letter-spacing:-.011em;padding:34px 30px 90px}
+.wrap{max-width:1120px;margin:0 auto}
+h1{font-size:28px;font-weight:650;letter-spacing:-.035em}
+.sub{font-size:14.5px;color:var(--tx);margin-top:9px;max-width:78ch;line-height:1.62}
+.sub b{color:var(--hd);font-weight:650}
+.op{margin-top:36px;background:var(--c);border:1px solid var(--ln);border-radius:24px;
+ padding:26px 28px 26px;box-shadow:var(--s1)}
+.op-h{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px}
+.op-n{font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--ac);background:var(--acl);
+ border:1px solid rgba(37,99,235,.2);border-radius:10px;padding:6px 12px;flex-shrink:0}
+.op-h h2{font-size:20px;font-weight:650;letter-spacing:-.03em}
+.op-h p{font-size:13px;color:var(--tx2);margin-top:3px;max-width:78ch;line-height:1.55}
+.pro{font-size:12px;color:var(--tx2);margin-top:20px;padding-top:15px;
+ border-top:1px solid var(--ln);display:flex;gap:28px;flex-wrap:wrap}
+.pro b{color:var(--hd);font-weight:650;display:block;font-size:11px;letter-spacing:.06em;
+ text-transform:uppercase;margin-bottom:3px}
+.pro div{max-width:36ch;line-height:1.5}
+
+/* ══ 01 · instrumento ══════════════════════════════════════════════════ */
+.ins{display:grid;grid-template-columns:1fr 300px;gap:26px;align-items:center}
+.ins-q{font-size:22px;font-weight:600;letter-spacing:-.03em;margin-bottom:18px}
+.ins-q b{color:var(--ac);font-variant-numeric:tabular-nums}
+.rg{position:relative;height:56px}
+.rg .trilho{position:absolute;inset:22px 0 auto 0;height:10px;border-radius:5px;
+ background:linear-gradient(90deg,#DC2626 0%,#F0A02A 8%,#CBD5E1 26%,#E7EAF0 100%)}
+.rg .cortado{position:absolute;inset:22px auto auto 0;height:10px;border-radius:5px 0 0 5px;
+ background:linear-gradient(90deg,rgba(12,16,23,.82),rgba(12,16,23,.5));
+ transition:width .08s linear}
+.rg input{position:absolute;inset:14px -8px auto -8px;width:calc(100% + 16px);margin:0}
+.rg .marcas{position:absolute;inset:auto 0 8px 0;height:11px}
+.rg .marcas i{position:absolute;bottom:0;width:2px;height:11px;background:var(--no);
+ opacity:.8;border-radius:1px}
+.rg-x{display:flex;justify-content:space-between;font-size:10px;color:var(--tx3);
+ letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+.res{display:flex;flex-direction:column;gap:11px}
+.res-b{background:var(--pg);border:1px solid var(--ln);border-radius:15px;padding:14px 16px}
+.res-b em{font-size:10px;font-style:normal;font-weight:700;letter-spacing:.1em;
+ text-transform:uppercase;color:var(--tx3);display:block}
+.res-b b{font-size:30px;font-weight:700;letter-spacing:-.045em;display:block;margin-top:4px;
+ line-height:1;font-variant-numeric:tabular-nums}
+.res-b span{font-size:11.5px;color:var(--tx2);display:block;margin-top:4px;line-height:1.45}
+.res-b.dk{background:var(--ink);border-color:var(--ink)}
+.res-b.dk em{color:#8D97A8}.res-b.dk b{color:#fff}.res-b.dk span{color:#8D97A8}
+.res-b.dk b.no{color:#FF7D74}
+.cmp{display:flex;gap:10px;margin-top:16px}
+.cmp div{flex:1;background:var(--pg);border:1px solid var(--ln);border-radius:13px;
+ padding:11px 13px}
+.cmp em{font-size:10px;font-style:normal;letter-spacing:.08em;text-transform:uppercase;
+ color:var(--tx3);font-weight:700;display:block}
+.cmp b{font-size:19px;font-weight:650;display:block;margin-top:3px;
+ font-variant-numeric:tabular-nums}
+.cmp span{font-size:10.5px;color:var(--tx2)}
+
+/* ══ 02 · manifesto ════════════════════════════════════════════════════ */
+.man{text-align:center;padding:8px 0 4px}
+.man-n{font-size:96px;font-weight:800;letter-spacing:-.06em;line-height:.86;
+ background:linear-gradient(100deg,#0C1017 30%,#2563EB);-webkit-background-clip:text;
+ background-clip:text;color:transparent}
+.man-f{font-size:20px;font-weight:500;color:var(--tx);margin-top:12px;line-height:1.45}
+.man-f b{color:var(--hd);font-weight:650}
+.faixa{margin:28px 0 6px;position:relative}
+.faixa-b{height:60px;border-radius:10px;overflow:hidden;position:relative;
+ background:linear-gradient(90deg,#DC2626 0%,#F0A02A 6%,#93A3BC 22%,#DDE2EA 100%)}
+.faixa-b i{position:absolute;top:0;bottom:0;width:2px;background:#0C1017;
+ animation:sobe .5s var(--e2) both}
+@keyframes sobe{from{transform:scaleY(0)}}
+.faixa-l{display:flex;justify-content:space-between;font-size:10.5px;color:var(--tx3);
+ margin-top:7px;letter-spacing:.05em;text-transform:uppercase}
+.faixa-c{position:absolute;top:-9px;bottom:-9px;border-left:2px dashed var(--ink);
+ padding-left:9px;font-size:11px;font-weight:650;color:var(--ink);white-space:nowrap}
+.man-g{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px}
+.man-g div{background:var(--pg);border:1px solid var(--ln);border-radius:16px;
+ padding:16px 18px;text-align:left}
+.man-g em{font-size:10px;font-style:normal;font-weight:700;letter-spacing:.1em;
+ text-transform:uppercase;color:var(--tx3);display:block}
+.man-g b{font-size:26px;font-weight:700;letter-spacing:-.04em;display:block;margin-top:5px;
+ line-height:1;font-variant-numeric:tabular-nums}
+.man-g span{font-size:11.5px;color:var(--tx2);display:block;margin-top:4px;line-height:1.45}
+.man-g .no b{color:var(--no)}.man-g .ok b{color:var(--ok)}
+
+/* ══ 03 · ambiente ═════════════════════════════════════════════════════ */
+.amb{position:relative;height:290px;border-radius:18px;overflow:hidden;
+ background:radial-gradient(120% 90% at 8% 50%,#101725,#070A10)}
+.amb canvas{position:absolute;inset:0;width:100%;height:100%}
+.amb-t{position:absolute;inset:auto auto 18px 20px;color:#E8ECF3;pointer-events:none}
+.amb-t b{font-size:30px;font-weight:700;letter-spacing:-.04em;display:block;line-height:1}
+.amb-t span{font-size:12.5px;color:#8D97A8;display:block;margin-top:5px}
+.amb-l{position:absolute;inset:18px 20px auto auto;display:flex;gap:14px;color:#8D97A8;
+ font-size:11px}
+.amb-l span{display:inline-flex;align-items:center;gap:6px}
+.amb-l i{width:8px;height:8px;border-radius:50%}
+.amb-h{position:absolute;inset:18px auto auto 20px;font-size:10px;font-weight:700;
+ letter-spacing:.14em;text-transform:uppercase;color:#5F697C}
+
+.leg{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;font-size:11px;color:var(--tx2)}
+.leg span{display:inline-flex;align-items:center;gap:6px}
+.leg i{width:12px;height:8px;border-radius:2px}
+input[type=range]{-webkit-appearance:none;appearance:none;background:0;cursor:pointer;height:20px}
+input[type=range]::-webkit-slider-runnable-track{height:20px;background:0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;
+ border-radius:50%;background:var(--c);border:3px solid var(--ink);
+ box-shadow:0 3px 10px rgba(12,16,23,.3);margin-top:0}
+@media (max-width:880px){.ins{grid-template-columns:1fr}.man-g{grid-template-columns:1fr}}
+</style></head><body>
+<div class="wrap">
+  <h1>Três corações para a aba Fila</h1>
+  <p class="sub">O mesmo achado, contado de três jeitos. O achado é este: ordenar por risco
+    concentra as violações no começo da fila. Nos <b>50 primeiros de 5.183</b> estão
+    <b>13 das 50</b> violações do trimestre — <b>27 vezes</b> o que o acaso daria. Ordenar
+    pela prioridade declarada pega <b>zero</b> nos mesmos 50. Escolha a natureza e ela vira o
+    padrão das quatro abas.</p>
+
+  <section class="op">
+    <div class="op-h"><span class="op-n">01</span>
+      <div><h2>Instrumento · se mexe e ensina</h2>
+        <p>A pergunta que a operação faz de verdade é "até onde eu desço a fila hoje?".
+          Arraste o corte e veja o que você pega, o que deixa passar e como isso se compara
+          a trabalhar pela prioridade declarada.</p></div></div>
+
+    <div class="ins">
+      <div>
+        <div class="ins-q">Olhando os <b id="i-k">50</b> primeiros da fila
+          <span style="color:var(--tx3);font-weight:400">· <span id="i-pc">1,0</span>% do total</span></div>
+        <div class="rg">
+          <div class="trilho"></div><div class="cortado" id="cortado"></div>
+          <input type="range" id="sl" min="10" max="2000" value="50" step="10">
+          <div class="marcas" id="marcas"></div>
+        </div>
+        <div class="rg-x"><span>1º</span><span>cada risco vermelho é uma violação real</span>
+          <span>2.000º</span></div>
+        <div class="cmp">
+          <div><em>pela prioridade</em><b id="i-pri">0</b><span>o critério de hoje</span></div>
+          <div><em>pelo acaso</em><b id="i-aca">0,5</b><span>se fosse sorteio</span></div>
+          <div><em>teto possível</em><b id="i-teto">50</b><span>se soubesse o futuro</span></div>
+        </div>
+      </div>
+      <div class="res">
+        <div class="res-b dk"><em>você pega</em><b class="no"><span id="i-pega">13</span> de 50</b>
+          <span><span id="i-share">26</span>% das violações do trimestre</span></div>
+        <div class="res-b"><em>ganho sobre o acaso</em><b><span id="i-lift">27,0</span>×</b>
+          <span>quantas vezes melhor que sortear</span></div>
+      </div>
+    </div>
+    <div class="pro">
+      <div><b>a favor</b>Responde a pergunta operacional real e o usuário descobre o achado
+        sozinho, mexendo. Vira ferramenta de decisão, não gráfico.</div>
+      <div><b>contra</b>Se ninguém arrastar, a aba não diz nada. Depende de intenção.</div>
+    </div>
+  </section>
+
+  <section class="op">
+    <div class="op-h"><span class="op-n">02</span>
+      <div><h2>Manifesto · afirma e prova</h2>
+        <p>A fila inteira desenhada como uma faixa: da esquerda, maior risco, para a direita,
+          menor. Cada traço preto é uma violação real. Elas se amontoam no começo — a prova
+          visual de que a ordenação funciona, sem precisar de legenda.</p></div></div>
+
+    <div class="man">
+      <div class="man-n">27×</div>
+      <div class="man-f">é o quanto ordenar por risco supera o acaso<br>
+        nos <b>50 primeiros</b> casos da fila</div>
+      <div class="faixa">
+        <div class="faixa-b" id="fx"></div>
+        <div class="faixa-c" style="left:0.96%">50º</div>
+      </div>
+      <div class="faixa-l"><span>maior risco</span><span>5.183 incidentes do trimestre</span>
+        <span>menor risco</span></div>
+      <div class="man-g">
+        <div class="no"><em>nos 50 primeiros</em><b>13</b>
+          <span>de 50 violações · 1% da fila guardando 26% do risco</span></div>
+        <div><em>metade das violações</em><b>337º</b>
+          <span>posição até onde está metade de tudo que estourou</span></div>
+        <div class="ok"><em>pela prioridade declarada</em><b>0</b>
+          <span>violações capturadas nos mesmos 50 primeiros</span></div>
+      </div>
+    </div>
+    <div class="pro">
+      <div><b>a favor</b>Impressiona no primeiro segundo e a prova está no desenho: dá para
+        ver os traços se amontoando à esquerda. Não depende de ninguém interagir.</div>
+      <div><b>contra</b>Diz uma coisa só. Depois de ver duas vezes, já foi.</div>
+    </div>
+  </section>
+
+  <section class="op">
+    <div class="op-h"><span class="op-n">03</span>
+      <div><h2>Ambiente · reage e respira</h2>
+        <p>Cada ponto é um incidente da fila, se acomodando na posição por risco. Os que
+          violaram o prazo pulsam em vermelho. Não pede nada do usuário: cria a sensação de
+          operação viva e situa antes de qualquer número.</p></div></div>
+
+    <div class="amb">
+      <canvas id="cv"></canvas>
+      <div class="amb-h">a fila do trimestre</div>
+      <div class="amb-l"><span><i style="background:#F0A02A"></i>risco acima de 10%</span>
+        <span><i style="background:#FF786E"></i>violou o prazo</span>
+        <span><i style="background:rgba(120,140,175,.5)"></i>rotina</span></div>
+      <div class="amb-t"><b>5.183 incidentes</b>
+        <span>ordenados por risco, da esquerda para a direita ·
+          os 50 vermelhos são as violações reais</span></div>
+    </div>
+    <div class="pro">
+      <div><b>a favor</b>Dá vida e identidade imediata, e é o mais fora do padrão dos três.
+        Funciona como plano de fundo de qualquer aba.</div>
+      <div><b>contra</b>Bonito mas pouco preciso: você não lê número nenhum dele. Precisaria
+        de um segundo elemento em cima para informar.</div>
+    </div>
+  </section>
+</div>
+<script>
+const C = {"n":5183,"v":50,"x":[1,27,53,79,105,131,157,183,209,235,261,287,313,339,365,391,417,443,469,495,521,547,573,599,625,652,678,704,730,756,782,808,834,860,886,912,938,964,990,1016,1042,1068,1094,1120,1146,1172,1198,1224,1250,1276,1303,1329,1355,1381,1407,1433,1459,1485,1511,1537,1563,1589,1615,1641,1667,1693,1719,1745,1771,1797,1823,1849,1875,1901,1927,1954,1980,2006,2032,2058,2084,2110,2136,2162,2188,2214,2240,2266,2292,2318,2344,2370,2396,2422,2448,2474,2500,2526,2552,2578,2605,2631,2657,2683,2709,2735,2761,2787,2813,2839,2865,2891,2917,2943,2969,2995,3021,3047,3073,3099,3125,3151,3177,3203,3229,3256,3282,3308,3334,3360,3386,3412,3438,3464,3490,3516,3542,3568,3594,3620,3646,3672,3698,3724,3750,3776,3802,3828,3854,3880,3907,3933,3959,3985,4011,4037,4063,4089,4115,4141,4167,4193,4219,4245,4271,4297,4323,4349,4375,4401,4427,4453,4479,4505,4531,4558,4584,4610,4636,4662,4688,4714,4740,4766,4792,4818,4844,4870,4896,4922,4948,4974,5000,5026,5052,5078,5104,5130,5156,5183],"risco":[1,13,13,15,16,18,18,19,19,20,22,24,24,25,27,27,27,28,28,28,31,31,33,33,33,33,33,33,33,34,35,35,36,36,36,36,36,37,38,38,38,38,39,39,39,39,39,40,40,40,40,40,40,41,41,41,41,41,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,43,43,43,43,43,45,45,45,45,45,45,45,45,45,47,47,47,47,48,48,48,48,49,49,49,49,49,49,49,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50],"prioridade":[0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,3,3,3,3,4,4,4,5,6,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,10,11,11,11,11,11,12,14,14,15,15,16,16,16,16,16,16,16,17,18,18,18,18,18,18,18,18,18,18,18,18,18,19,19,19,19,19,19,20,20,20,20,20,21,23,24,24,24,24,24,24,24,25,25,25,25,26,26,26,26,26,26,26,27,27,27,27,27,27,28,28,28,30,30,32,33,33,33,33,33,33,33,33,33,33,33,35,35,35,36,37,37,39,40,40,40,41,41,41,41,43,43,44,44,44,44,44,44,45,45,45,47,48,48,48,48,48,48,50],"teto":[1,27,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50],"acaso":[0.0,0.3,0.5,0.8,1.0,1.3,1.5,1.8,2.0,2.3,2.5,2.8,3.0,3.3,3.5,3.8,4.0,4.3,4.5,4.8,5.0,5.3,5.5,5.8,6.0,6.3,6.5,6.8,7.0,7.3,7.5,7.8,8.0,8.3,8.5,8.8,9.0,9.3,9.6,9.8,10.1,10.3,10.6,10.8,11.1,11.3,11.6,11.8,12.1,12.3,12.6,12.8,13.1,13.3,13.6,13.8,14.1,14.3,14.6,14.8,15.1,15.3,15.6,15.8,16.1,16.3,16.6,16.8,17.1,17.3,17.6,17.8,18.1,18.3,18.6,18.9,19.1,19.4,19.6,19.9,20.1,20.4,20.6,20.9,21.1,21.4,21.6,21.9,22.1,22.4,22.6,22.9,23.1,23.4,23.6,23.9,24.1,24.4,24.6,24.9,25.1,25.4,25.6,25.9,26.1,26.4,26.6,26.9,27.1,27.4,27.6,27.9,28.1,28.4,28.6,28.9,29.1,29.4,29.6,29.9,30.1,30.4,30.6,30.9,31.1,31.4,31.7,31.9,32.2,32.4,32.7,32.9,33.2,33.4,33.7,33.9,34.2,34.4,34.7,34.9,35.2,35.4,35.7,35.9,36.2,36.4,36.7,36.9,37.2,37.4,37.7,37.9,38.2,38.4,38.7,38.9,39.2,39.4,39.7,39.9,40.2,40.4,40.7,41.0,41.2,41.5,41.7,42.0,42.2,42.5,42.7,43.0,43.2,43.5,43.7,44.0,44.2,44.5,44.7,45.0,45.2,45.5,45.7,46.0,46.2,46.5,46.7,47.0,47.2,47.5,47.7,48.0,48.2,48.5,48.7,49.0,49.2,49.5,49.7,50.0],"marcas":[0,1,2,3,4,5,6,7,8,11,16,18,20,56,60,99,110,118,170,231,257,258,261,286,325,347,354,435,503,510,512,547,550,735,773,825,938,964,1087,1217,1360,1510,1908,2039,2042,2266,2270,2389,2495,2670],"pontos":[[62.97,1],[36.41,1],[16.72,0],[12.86,1],[10.71,0],[10.01,0],[8.71,0],[8.27,0],[8.07,0],[7.8,0],[7.33,1],[7.14,0],[6.82,0],[6.25,0],[6.0,0],[5.7,0],[5.58,0],[5.45,0],[5.38,0],[5.19,0],[5.06,0],[4.98,0],[4.94,0],[4.85,0],[4.75,0],[4.69,0],[4.51,0],[4.45,0],[4.38,0],[4.2,0],[4.08,0],[4.01,0],[3.93,0],[3.84,0],[3.74,0],[3.69,0],[3.65,0],[3.61,0],[3.56,0],[3.5,0],[3.42,0],[3.39,0],[3.35,0],[3.31,1],[3.29,0],[3.22,0],[3.19,0],[3.16,0],[3.11,0],[3.05,0],[3.04,0],[3.01,0],[2.98,0],[2.92,0],[2.89,0],[2.84,0],[2.82,0],[2.76,0],[2.73,0],[2.72,1],[2.67,0],[2.64,0],[2.6,0],[2.58,0],[2.55,0],[2.54,0],[2.51,0],[2.48,0],[2.47,0],[2.46,0],[2.43,0],[2.42,0],[2.38,0],[2.35,0],[2.34,0],[2.32,0],[2.29,0],[2.26,0],[2.24,0],[2.22,0],[2.2,0],[2.19,0],[2.16,0],[2.14,0],[2.12,0],[2.08,1],[2.07,0],[2.05,0],[2.03,0],[1.99,0],[1.98,0],[1.96,0],[1.95,0],[1.94,0],[1.93,0],[1.92,0],[1.91,0],[1.88,0],[1.87,0],[1.85,0],[1.83,0],[1.82,0],[1.8,0],[1.79,0],[1.77,0],[1.76,0],[1.75,0],[1.74,0],[1.73,0],[1.71,0],[1.69,0],[1.69,0],[1.67,0],[1.65,0],[1.65,0],[1.64,0],[1.63,0],[1.63,0],[1.62,0],[1.61,0],[1.61,0],[1.59,0],[1.59,0],[1.58,0],[1.57,0],[1.55,0],[1.54,0],[1.53,0],[1.53,0],[1.51,0],[1.5,0],[1.49,0],[1.47,0],[1.46,0],[1.45,0],[1.45,0],[1.43,0],[1.42,0],[1.41,0],[1.4,0],[1.39,0],[1.38,0],[1.37,0],[1.36,0],[1.36,0],[1.35,0],[1.34,0],[1.34,0],[1.33,0],[1.31,0],[1.3,0],[1.3,0],[1.28,0],[1.27,0],[1.27,0],[1.26,0],[1.25,0],[1.25,0],[1.24,0],[1.24,0],[1.23,0],[1.23,0],[1.22,0],[1.21,0],[1.2,0],[1.2,0],[1.19,0],[1.18,0],[1.18,0],[1.17,0],[1.17,0],[1.16,0],[1.16,0],[1.14,0],[1.13,0],[1.12,0],[1.11,0],[1.11,0],[1.1,0],[1.09,0],[1.09,0],[1.08,0],[1.07,0],[1.06,0],[1.06,0],[1.05,0],[1.05,0],[1.05,0],[1.04,0],[1.03,0],[1.03,0],[1.02,0],[1.02,0],[1.02,0],[1.01,0],[1.01,0],[1.0,0],[0.99,0],[0.99,0],[0.99,0],[0.98,0],[0.98,0],[0.97,0],[0.97,0],[0.96,0],[0.96,0],[0.96,0],[0.95,0],[0.95,0],[0.94,0],[0.93,0],[0.93,0],[0.93,0],[0.92,0],[0.91,0],[0.91,0],[0.9,0],[0.9,0],[0.9,0],[0.89,0],[0.88,0],[0.88,0],[0.87,0],[0.87,0],[0.87,0],[0.86,0],[0.86,0],[0.86,0],[0.85,0],[0.85,0],[0.84,0],[0.84,0],[0.83,0],[0.83,0],[0.83,0],[0.83,0],[0.82,0],[0.82,0],[0.81,0],[0.81,0],[0.81,0],[0.8,0],[0.8,0],[0.8,0],[0.79,0],[0.79,0],[0.79,0],[0.78,0],[0.78,0],[0.77,0],[0.77,0],[0.76,0],[0.76,0],[0.75,0],[0.75,0],[0.75,0],[0.74,0],[0.74,0],[0.74,0],[0.73,0],[0.73,0],[0.73,0],[0.73,0],[0.72,0],[0.71,0],[0.71,0],[0.71,0],[0.7,0],[0.7,0],[0.7,0],[0.69,0],[0.69,0],[0.69,0],[0.69,0],[0.68,0],[0.68,0],[0.68,0],[0.67,0],[0.67,0],[0.67,0],[0.66,0],[0.66,0],[0.66,0],[0.66,0],[0.65,0],[0.65,0],[0.65,0],[0.65,0],[0.64,0],[0.64,0],[0.63,0],[0.63,0],[0.63,0],[0.63,0],[0.63,0],[0.62,0],[0.62,0],[0.62,0],[0.62,0],[0.62,0],[0.62,0],[0.61,0],[0.61,0],[0.61,0],[0.61,0],[0.61,0],[0.61,0],[0.6,0],[0.6,0],[0.6,0],[0.59,0],[0.59,0],[0.59,0],[0.59,0],[0.59,0],[0.58,0],[0.58,0],[0.58,0],[0.58,1],[0.57,0],[0.57,0],[0.56,0],[0.56,0],[0.56,0],[0.56,0],[0.55,0],[0.55,0],[0.55,0],[0.55,0],[0.55,0],[0.54,0],[0.54,0],[0.54,0],[0.54,0],[0.53,0],[0.53,0],[0.52,0],[0.52,0],[0.52,0],[0.52,0],[0.51,0],[0.51,0],[0.51,0],[0.51,0],[0.5,0],[0.5,0],[0.5,0],[0.5,0],[0.49,0],[0.49,0],[0.49,0],[0.49,0],[0.49,0],[0.49,0],[0.49,0],[0.49,0],[0.49,0],[0.49,0],[0.48,0],[0.48,0],[0.48,0],[0.48,0],[0.47,0],[0.47,0],[0.47,0],[0.47,0],[0.47,0],[0.46,0],[0.46,0],[0.46,0],[0.46,0],[0.46,0],[0.45,0],[0.45,0],[0.45,0],[0.45,0],[0.44,0],[0.44,0],[0.44,0],[0.44,0],[0.44,0],[0.43,0],[0.43,0],[0.43,0],[0.43,0],[0.42,0],[0.42,0],[0.42,0],[0.41,0],[0.41,0],[0.41,0],[0.41,0],[0.41,0],[0.41,0],[0.41,0],[0.4,0],[0.4,0],[0.4,0],[0.4,0],[0.4,0],[0.4,0],[0.4,0],[0.39,0],[0.39,0],[0.39,0],[0.39,0],[0.39,0],[0.38,0],[0.38,0],[0.38,0],[0.38,0],[0.38,0],[0.37,0],[0.37,0],[0.37,0],[0.37,0],[0.36,0],[0.36,0],[0.36,0],[0.36,0],[0.36,0],[0.36,0],[0.35,0],[0.35,0],[0.35,0],[0.35,0],[0.35,0],[0.34,0],[0.34,0],[0.34,0],[0.34,0],[0.34,0],[0.34,0],[0.33,0],[0.33,0],[0.33,0],[0.33,0],[0.33,0],[0.33,0],[0.32,0],[0.32,0],[0.32,0],[0.32,0],[0.32,0],[0.32,0],[0.32,1],[0.31,0],[0.31,0],[0.31,0],[0.31,0],[0.31,0],[0.31,0],[0.31,0],[0.3,0],[0.3,0],[0.3,0],[0.3,0],[0.3,0],[0.3,0],[0.3,0],[0.29,0],[0.29,0],[0.29,0],[0.29,0],[0.29,0],[0.29,0],[0.28,0],[0.28,0],[0.28,0],[0.28,0],[0.28,0],[0.28,0],[0.28,0],[0.28,0],[0.27,0],[0.27,0],[0.27,0],[0.27,0],[0.27,0],[0.27,0],[0.27,0],[0.27,0],[0.26,0],[0.26,0],[0.26,0],[0.26,0],[0.26,0],[0.26,0],[0.26,0],[0.26,0],[0.25,0],[0.25,0],[0.25,0],[0.25,0],[0.25,0],[0.25,0],[0.25,0],[0.24,0],[0.24,0],[0.24,0],[0.24,0],[0.24,0],[0.24,0],[0.24,0],[0.24,0],[0.23,0],[0.23,0],[0.23,0],[0.23,0],[0.23,0],[0.23,0],[0.23,0],[0.23,0],[0.22,0],[0.22,0],[0.22,0],[0.22,0],[0.22,0],[0.22,0],[0.22,0],[0.22,0],[0.22,0],[0.22,0],[0.21,0],[0.21,0],[0.21,0],[0.21,0],[0.21,0],[0.21,0],[0.21,0],[0.21,0],[0.21,0],[0.21,0],[0.21,0],[0.2,0],[0.2,0],[0.2,0],[0.2,0],[0.2,0],[0.2,0],[0.2,0],[0.2,0],[0.2,0],[0.2,0],[0.19,0],[0.19,0],[0.19,0],[0.19,0],[0.19,0],[0.19,0],[0.19,0],[0.19,0],[0.19,0],[0.19,0],[0.19,0],[0.18,0],[0.18,0],[0.18,0],[0.18,0],[0.18,0],[0.18,0],[0.18,0],[0.18,0],[0.18,0],[0.18,0],[0.17,0],[0.17,0],[0.17,0],[0.17,0],[0.17,0],[0.17,0],[0.17,0],[0.17,0],[0.17,0],[0.17,0],[0.17,0],[0.17,0],[0.16,0],[0.16,0],[0.16,0],[0.16,0],[0.16,0],[0.16,0],[0.16,0],[0.16,0],[0.16,0],[0.16,0],[0.16,0],[0.16,0],[0.16,0],[0.16,0],[0.16,0],[0.16,0],[0.15,0],[0.15,0],[0.15,0],[0.15,0],[0.15,0],[0.15,0],[0.15,0],[0.15,0],[0.15,0],[0.15,0],[0.15,0],[0.15,0],[0.15,0],[0.15,0],[0.15,0],[0.14,0],[0.14,0],[0.14,0],[0.14,0],[0.14,0],[0.14,0],[0.14,0],[0.14,0],[0.14,0],[0.14,0],[0.14,0],[0.14,0],[0.14,0],[0.14,0],[0.14,0],[0.14,0],[0.13,0],[0.13,0],[0.13,0],[0.13,0],[0.13,0],[0.13,0],[0.13,0],[0.13,0],[0.13,0],[0.13,0],[0.13,0],[0.13,0],[0.13,0],[0.13,0],[0.13,0],[0.13,0],[0.13,0],[0.13,0],[0.13,0],[0.13,0],[0.13,0],[0.12,0],[0.12,0],[0.12,0],[0.12,0],[0.12,0],[0.12,0],[0.12,0],[0.12,0],[0.12,0],[0.12,0],[0.12,0],[0.12,0],[0.12,0],[0.12,0],[0.12,0],[0.12,0],[0.12,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.11,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.1,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.09,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.08,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.07,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.06,0],[0.05,0],[0.05,0],[0.05,0],[0.05,0],[0.05,0],[0.05,0],[0.05,0],[0.05,0],[0.05,0],[0.05,0],[0.05,0],[0.05,0],[0.05,0],[0.05,0],[0.05,0],[0.05,0],[0.05,0],[0.05,0],[0.05,0],[0.04,0],[0.04,0],[0.04,0],[0.04,0],[0.04,0],[0.04,0],[0.04,0],[0.04,0],[0.04,0],[0.04,0],[0.04,0],[0.04,0],[0.04,0],[0.04,0],[0.04,0],[0.04,0],[0.04,0],[0.03,0],[0.03,0],[0.03,0],[0.03,0],[0.03,0],[0.03,0],[0.03,0],[0.03,0],[0.03,0],[0.02,0],[0.02,0],[0.02,0],[0.02,0],[0.02,0],[0.01,0]]};
+const nb = (v, c = 0) => v.toFixed(c).replace('.', ',');
+const N = C.n, V = C.v;
+
+/* ── 01 · instrumento ─────────────────────────────────────────────────── */
+const sl = document.getElementById('sl');
+function interp(arr, k) {           // curva amostrada em 200 pontos
+  let i = 0; while (i < C.x.length - 1 && C.x[i + 1] < k) i++;
+  return arr[i];
+}
+function atualiza() {
+  const k = +sl.value;
+  const pega = interp(C.risco, k), pri = interp(C.prioridade, k),
+        aca = k * V / N, teto = Math.min(k, V);
+  document.getElementById('i-k').textContent = k.toLocaleString('pt-BR');
+  document.getElementById('i-pc').textContent = nb(k / N * 100, 1);
+  document.getElementById('i-pega').textContent = pega;
+  document.getElementById('i-share').textContent = nb(pega / V * 100, 0);
+  document.getElementById('i-lift').textContent = nb(pega / aca, 1);
+  document.getElementById('i-pri').textContent = pri;
+  document.getElementById('i-aca').textContent = nb(aca, 1);
+  document.getElementById('i-teto').textContent = teto;
+  document.getElementById('cortado').style.width = (k / N * 100) + '%';
+}
+sl.oninput = atualiza; atualiza();
+// as marcas de violacao na regua
+document.getElementById('marcas').innerHTML = C.marcas
+  .map(p => `<i style="left:${(p / N * 100).toFixed(3)}%"></i>`).join('');
+
+/* ── 02 · manifesto ───────────────────────────────────────────────────── */
+document.getElementById('fx').innerHTML = C.marcas
+  .map((p, j) => `<i style="left:${(p / N * 100).toFixed(3)}%;animation-delay:${j * 22}ms"></i>`)
+  .join('');
+
+/* ── 03 · ambiente ────────────────────────────────────────────────────── */
+const cv = document.getElementById('cv'), cx = cv.getContext('2d');
+let W, H, pts = [], t0 = performance.now();
+function dim() {
+  const r = cv.getBoundingClientRect(), dpr = devicePixelRatio || 1;
+  W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr;
+  cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const n = C.pontos.length;
+  pts = C.pontos.map((p, i) => {
+    const col = Math.floor(i / 26), lin = i % 26;
+    return { risco: p[0], viol: p[1],
+             ax: 40 + col * ((W - 80) / Math.ceil(n / 26)), ay: 26 + lin * ((H - 90) / 25),
+             fase: Math.random() * 6.28, amp: .6 + Math.random() * 1.1,
+             x: Math.random() * W, y: Math.random() * H };
+  });
+}
+function pinta(t) {
+  const dt = Math.min((t - t0) / 1400, 1), s = 1 - Math.pow(1 - dt, 3);
+  cx.clearRect(0, 0, W, H);
+  for (const p of pts) {
+    const x = p.x + (p.ax - p.x) * s + Math.sin(t / 1600 + p.fase) * p.amp;
+    const y = p.y + (p.ay - p.y) * s + Math.cos(t / 1900 + p.fase) * p.amp;
+    const alto = p.risco >= 10, medio = p.risco >= 3;
+    if (p.viol) {
+      const pulso = .55 + .45 * Math.sin(t / 620 + p.fase);
+      cx.beginPath(); cx.arc(x, y, 6.5, 0, 6.29);
+      cx.fillStyle = `rgba(240,72,62,${.13 * pulso})`; cx.fill();
+      cx.beginPath(); cx.arc(x, y, 2.6, 0, 6.29);
+      cx.fillStyle = `rgba(255,120,110,${.75 + .25 * pulso})`; cx.fill();
+    } else {
+      cx.beginPath(); cx.arc(x, y, alto ? 2.4 : medio ? 1.9 : 1.5, 0, 6.29);
+      cx.fillStyle = alto ? 'rgba(240,160,42,.72)'
+                   : medio ? 'rgba(120,150,210,.5)' : 'rgba(120,140,175,.26)';
+      cx.fill();
+    }
+  }
+  requestAnimationFrame(pinta);
+}
+addEventListener('resize', dim);
+dim(); requestAnimationFrame(pinta);
+</script></body></html>
