@@ -9,7 +9,7 @@
       </rect>
     {% endfor %}
     {% for r in faixa.rotulos %}
-      <text class="h24-x" x="{{ r.x }}" y="{{ faixa.y_rot }}" text-anchor="middle">{{ r.h }}h</text>
+      <text class="h24-x" x="{{ r.x }}" y="{{ faixa.y_rot }}" text-anchor="middle">{{ r.h }}</text>
     {% endfor %}
     <circle class="h24-n" cx="{{ faixa.ax }}" cy="6" r="3.6"/>
     <text class="h24-al" x="{{ faixa.ax|add:6 }}" y="10">agora</text>

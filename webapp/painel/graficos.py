@@ -6,6 +6,12 @@ desenho poder mudar sem mexer em Python e para nao existir HTML dentro de string
 """
 
 
+# Coordenada de SVG tem de sair como texto com ponto decimal. O Django localiza numero
+# em template conforme LANGUAGE_CODE, e em pt-BR "240.6" vira "240,6" — o que quebra todo
+# path e todo rect silenciosamente. Devolver string ja formatada imuniza contra isso.
+cd = lambda v: f'{float(v):.1f}'
+
+
 def _suave(pts):
     """Curva de Bezier horizontal entre pontos: evita a poligonal dura."""
     if len(pts) < 2:
@@ -41,9 +47,9 @@ def trilho(realizado, previsto, w=1000, h=150, n_real=20, n_prev=8):
     return {
         'w': w, 'h': h, 'linha': _suave(pr), 'futuro': _suave(pf), 'banda': banda,
         'area': _suave(pr) + f' L{corte[0]:.1f} {h} L6 {h} Z',
-        'cx': round(corte[0], 1), 'cy': round(corte[1], 1),
-        'corte_pc': round(corte[0] / w * 100, 1),
-        'px_hoje': round(pf[1][0] / w * 100, 1), 'py_hoje': round((pf[1][1] - 40) / h * 100),
+        'cx': cd(corte[0]), 'cy': cd(corte[1]),
+        'corte_pc': cd(corte[0] / w * 100),
+        'px_hoje': cd(pf[1][0] / w * 100), 'py_hoje': cd((pf[1][1] - 40) / h * 100),
         'ini': real[0]['dia'], 'fim': fut[-1]['dia'],
     }
 
@@ -73,7 +79,7 @@ def heroi(realizado, previsto, w=380, h=244):
              + ' L'.join(f'{x:.1f} {y:.1f}' for x, y in altos) + ' L'
              + ' L'.join(f'{x:.1f} {y:.1f}' for x, y in reversed(baixos)) + ' Z')
     return {'w': w, 'h': h, 'linha': _suave(pr), 'futuro': _suave(pf), 'banda': banda,
-            'nx': round(no[0], 1), 'ny': round(no[1], 1),
+            'nx': cd(no[0]), 'ny': cd(no[1]),
             'ini': real[0]['dia'], 'fim': fut[-1]['dia']}
 
 
@@ -85,14 +91,15 @@ def faixa_24h(horas, agora=7, w=560, h=132):
     for x in horas:
         alt = 10 + (h - 56) * x['abertos'] / mx
         barras.append({
-            'h': x['h'], 'x': round(8 + x['h'] * lar + 1.6, 1), 'y': round(h - 26 - alt, 1),
-            'w': round(lar - 3.2, 1), 'alt': round(alt, 1), 'abertos': x['abertos'],
+            'h': x['h'], 'x': cd(8 + x['h'] * lar + 1.6), 'y': cd(h - 26 - alt),
+            'w': cd(lar - 3.2), 'alt': cd(alt), 'abertos': x['abertos'],
             'taxa': x['taxa'],
             'tom': 'no' if x['taxa'] >= 1.6 else ('wn' if x['taxa'] >= 1.1 else 'ok'),
         })
-    rotulos = [{'h': hh, 'x': round(8 + hh * lar + lar / 2, 1)} for hh in (0, 3, 6, 9, 12, 15, 18, 21)]
+    rotulos = [{'h': f'{hh:02d}h', 'x': cd(8 + hh * lar + lar / 2)}
+               for hh in (0, 3, 6, 9, 12, 15, 18, 21)]
     return {'w': w, 'h': h, 'barras': barras, 'rotulos': rotulos,
-            'ax': round(8 + agora * lar + lar / 2, 1), 'y_rot': h - 8, 'y_fim': h - 30}
+            'ax': cd(8 + agora * lar + lar / 2), 'y_rot': h - 8, 'y_fim': h - 30}
 
 
 def acompanhamento(ac, w=560, h=190):
@@ -114,13 +121,13 @@ def acompanhamento(ac, w=560, h=190):
     baixos = [(px(i), py(ac['baixo'] * f)) for i, f in enumerate(frac)]
     banda = ('M' + ' L'.join(f'{x:.1f} {y:.1f}' for x, y in altos) + ' L'
              + ' L'.join(f'{x:.1f} {y:.1f}' for x, y in reversed(baixos)) + ' Z')
-    marcas = [{'v': int(v), 'y': round(py(v), 1)}
+    marcas = [{'v': int(v), 'y': cd(py(v))}
               for v in (0, round(teto / 2 / 10) * 10, round(teto * .9 / 10) * 10) if v <= teto]
     return {
         'w': w, 'h': h, 'esperado': _suave(p_esp), 'realizado': _suave(p_real), 'banda': banda,
-        'ax': round(px(ag), 1), 'ay': round(py(realizado[-1]), 1) if realizado else py(0),
-        'ey': round(py(ac['esperado_agora']), 1), 'y_fim': h - 26, 'marcas': marcas,
-        'rotulos': [{'h': hh, 'rot': f'{hh:02d}h', 'x': round(px(hh), 1)}
+        'ax': cd(px(ag)), 'ay': cd(py(realizado[-1]) if realizado else py(0)),
+        'ey': cd(py(ac['esperado_agora'])), 'y_fim': h - 26, 'marcas': marcas,
+        'rotulos': [{'h': hh, 'rot': f'{hh:02d}h', 'x': cd(px(hh))}
                     for hh in (0, 6, 12, 18)],
     }
 
@@ -132,19 +139,19 @@ def barras_mes(hist, w=560, h=92):
     mx = max(m['passagens'] for m in hist) or 1
     lar = w / len(hist)
     return {'w': w, 'h': h, 'barras': [{
-        'x': round(i * lar + 3, 1), 'w': round(lar - 6, 1),
-        'yp': round(h - 16 - m['passagens'] / mx * (h - 20), 1),
-        'hp': round(m['passagens'] / mx * (h - 20), 1),
-        'yv': round(h - 16 - m['violacoes'] / mx * (h - 20), 1),
-        'hv': round(m['violacoes'] / mx * (h - 20), 1),
-        'cx': round(i * lar + lar / 2, 1), 'mes': m['mes'],
+        'x': cd(i * lar + 3), 'w': cd(lar - 6),
+        'yp': cd(h - 16 - m['passagens'] / mx * (h - 20)),
+        'hp': cd(m['passagens'] / mx * (h - 20)),
+        'yv': cd(h - 16 - m['violacoes'] / mx * (h - 20)),
+        'hv': cd(m['violacoes'] / mx * (h - 20)),
+        'cx': cd(i * lar + lar / 2), 'mes': m['mes'],
     } for i, m in enumerate(hist)], 'y_rot': h - 2}
 
 
 def arco_meta(p, w=560):
     """Barra de intervalo: a projecao e uma faixa, nao um ponto."""
     esc = p['meta'] * 1.35
-    return {'baixo_pc': round(p['baixo'] / esc * 100, 1),
-            'largura_pc': round((p['alto'] - p['baixo']) / esc * 100, 1),
-            'proj_pc': round(p['projecao'] / esc * 100, 1),
-            'meta_pc': round(p['meta'] / esc * 100, 1)}
+    return {'baixo_pc': cd(p['baixo'] / esc * 100),
+            'largura_pc': cd((p['alto'] - p['baixo']) / esc * 100),
+            'proj_pc': cd(p['projecao'] / esc * 100),
+            'meta_pc': cd(p['meta'] / esc * 100)}

@@ -48,6 +48,11 @@ DATABASES = {}          # sem banco: a aplicacao so le arquivo
 LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
+# Numero em template NAO pode ser localizado: coordenada de SVG com virgula
+# decimal quebra path e rect sem avisar. Data continua em pt-BR pelo LANGUAGE_CODE.
+USE_THOUSAND_SEPARATOR = False
+DECIMAL_SEPARATOR = '.'
+NUMBER_GROUPING = 0
 USE_TZ = True
 
 STATIC_URL = 'estatico/'

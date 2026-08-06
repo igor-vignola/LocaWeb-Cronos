@@ -64,7 +64,7 @@ CSS_APP = r"""
 .lk:hover{gap:9px}
 /* faixa de 24h no card */
 .fx24 svg{width:100%;height:auto;overflow:visible;display:block}
-.h24{transform-origin:bottom;animation:hb .55s var(--e) both;
+.h24{transform-box:fill-box;transform-origin:bottom;animation:hb .55s var(--e) both;
  animation-delay:calc(var(--i)*22ms);cursor:pointer;transition:filter .25s var(--e)}
 @keyframes hb{from{opacity:0;transform:scaleY(.15)}}
 .h24:hover{filter:brightness(.86)}
