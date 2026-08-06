@@ -36,8 +36,8 @@
     </div>
   </div>
 
-  {# a faixa vem antes do número: a previsão é um intervalo, não um ponto.
-     Clicar no gráfico troca o painel para o modo "o modelo no tempo". #}
+  {% comment %}A faixa vem antes do número: a previsão é um intervalo, não um ponto.
+  Clicar no gráfico troca o painel para o modo "o modelo no tempo".{% endcomment %}
   <button class="hc" id="abre-modo" title="ver como a previsão se comportou no trimestre">
     <span class="hc-dica">{% icone 'alvo' 13 %}ver o modelo no tempo</span>
     <svg class="hc-l" viewBox="0 0 {{ heroi.w }} {{ heroi.h }}">
