@@ -1,4 +1,4 @@
-{% extends 'painel/base.html' %}{% load br %}
+{% extends 'painel/base.html' %}{% load br static %}
 {% block titulo %}Hoje{% endblock %}
 
 {% block conteudo %}
@@ -36,8 +36,10 @@
     </div>
   </div>
 
-  {# a faixa vem antes do número: a previsão é um intervalo, não um ponto #}
-  <div class="hc">
+  {# a faixa vem antes do número: a previsão é um intervalo, não um ponto.
+     Clicar no gráfico troca o painel para o modo "o modelo no tempo". #}
+  <button class="hc" id="abre-modo" title="ver como a previsão se comportou no trimestre">
+    <span class="hc-dica">{% icone 'alvo' 13 %}ver o modelo no tempo</span>
     <svg class="hc-l" viewBox="0 0 {{ heroi.w }} {{ heroi.h }}">
       <path class="hl-bd" d="{{ heroi.banda }}"/>
       <path class="hl-l" d="{{ heroi.linha }}"/>
@@ -59,9 +61,10 @@
       <span class="fxv-c">valor central <b>{{ hoje.previsto_p3|num:0 }}</b> ·
         confiança de 80%</span>
     </div>
-  </div>
+  </button>
 </section>
 
+<div id="modo-dia">
 {% include 'painel/_ato.html' with n='01' titulo='O dia acontecendo' pergunta='O que já entrou contra o que era esperado a esta altura, hora a hora.' %}
 <div class="gr g2">
   <article class="cd">
@@ -172,4 +175,12 @@
       viola <b>4,6 vezes mais</b> que o rotineiro, e é isso que separa o fim da lista do começo.</p>
   </article>
 </div>
+</div>{# fim de modo-dia #}
+
+<div id="modo-tempo" hidden>{% include 'painel/_maquina.html' %}</div>
+{% endblock %}
+
+{% block js %}
+<script>const DIAS = {{ dias_json|safe }};</script>
+<script src="{% static 'painel/maquina.js' %}" defer></script>
 {% endblock %}

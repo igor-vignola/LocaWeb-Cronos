@@ -1,4 +1,9 @@
-{% load br %}{% comment %}Cabeçalho de card: sempre diz em uma linha o que o card é.{% endcomment %}
+{% load br %}{% comment %}
+Cabeçalho de card. O ícone aparece duas vezes: pequeno ao lado do título e gigante
+ao fundo, cortado pelo canto, em tom sobre tom. A marca d'água dá peso ao card sem
+disputar com o conteúdo — quem passa o olho não registra, mas sente.
+{% endcomment %}
+{% if icone %}<span class="dagua">{% icone icone 190 %}</span>{% endif %}
 <div class="hdr">
   <div class="hdr-t">{% icone icone 16 %}
     <div><h3>{{ titulo }}</h3><p>{{ oque }}</p></div></div>

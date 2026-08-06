@@ -4,6 +4,8 @@
 Cada aba e uma pagina propria com URL propria — dá para mandar o link da fila filtrada
 por P2 para alguem. Os detalhes vem como fragmento, para o modal buscar sem recarregar.
 """
+import json
+
 from django.http import Http404, JsonResponse
 from django.shortcuts import render
 
@@ -34,6 +36,11 @@ def hoje(req):
         'calmo': not any(f['risco'] >= 10 for f in s.fila_de_hoje(200)),
         'maior_hoje': max((f['risco'] for f in s.fila_de_hoje(200)), default=0),
     })
+    # o modo "o modelo no tempo" mora dentro desta aba: clicar no gráfico do herói
+    # troca o conteúdo no lugar, em vez de abrir uma aba a mais
+    d = s.dias()
+    ctx.update({'r': d['resumo'], 'meses': d['meses'],
+                'dias_json': json.dumps(d['dias'], ensure_ascii=False)})
     return render(req, 'painel/hoje.html', ctx)
 
 

@@ -28,12 +28,23 @@ def campo(cor='#2563EB', opacidade=.1, altura=1000, largura=1800, n=16):
         linhas.append(
             f'<path class="cv" d="{d}" style="--o:{opacidade * (1 - prof * .55):.3f};'
             f'--d:{28 + i * 3.5:.0f}s;--x:{-14 - i * 2}px;--t:{i * .22:.2f}s"/>')
+    # tres camadas: a da frente anda o dobro da do fundo quando o tempo muda
+    por_camada = [[], [], []]
+    for i, marcacao in enumerate(linhas):
+        por_camada[min(2, i * 3 // max(len(linhas), 1))].append(marcacao)
+    grupos = ''.join(
+        f'<g class="cam" style="--prof:{p:.2f}">{"".join(c)}</g>'
+        for p, c in zip((1.0, .58, .3), por_camada))
     return (f'<svg class="campo" viewBox="0 0 {largura} {altura}" preserveAspectRatio="none" '
-            f'aria-hidden="true" style="--cv:{cor}">{"".join(linhas)}</svg>')
+            f'aria-hidden="true" style="--cv:{cor}">{grupos}</svg>')
 
 
 CSS_CAMPO = """
 .campo{position:fixed;inset:-4% -6%;width:112%;height:108%;z-index:0;pointer-events:none}
+/* viajar no tempo desloca as camadas em velocidades diferentes. O paralaxe e o que
+   produz a sensacao de movimento — uma camada so pareceria a pagina inteira escorregando. */
+.campo .cam{transform:translate3d(calc(var(--viagem,0px) * var(--prof)),0,0);
+ transition:transform .9s cubic-bezier(.08,.92,.16,1)}
 .campo .cv{fill:none;stroke:var(--cv);stroke-width:1.4;stroke-linecap:round;opacity:0;
  stroke-dasharray:4200;stroke-dashoffset:4200;
  animation:cvd 2.6s cubic-bezier(.19,1,.22,1) var(--t) forwards,
@@ -43,5 +54,6 @@ CSS_CAMPO = """
 @keyframes cvo{to{opacity:var(--o)}}
 @keyframes cvm{to{transform:translate3d(var(--x),-6px,0)}}
 @media (prefers-reduced-motion:reduce){
- .campo .cv{animation:none;opacity:var(--o);stroke-dashoffset:0}}
+ .campo .cv{animation:none;opacity:var(--o);stroke-dashoffset:0}
+ .campo .cam{transition:none}}
 """

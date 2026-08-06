@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#F6F7FA;}
+body{font-family:Outfit,system-ui,sans-serif;color:#0F172A;-webkit-font-smoothing:antialiased;}
+a{color:#2563EB;text-decoration:none}a:hover{color:#1D4ED8;text-decoration:underline}
+@keyframes cr-drift{from{transform:translateX(0)}to{transform:translateX(-1200px)}}
+@keyframes cr-drift2{from{transform:translateX(0)}to{transform:translateX(-1600px)}}
+@keyframes cr-pulse{0%{r:5;opacity:1}70%{r:16;opacity:0}100%{r:16;opacity:0}}
+@keyframes cr-blink{0%,100%{opacity:1}50%{opacity:.35}}
+</style>
+</helmet>
+
+<div style="position:relative;min-height:100vh;background:#F6F7FA">
+
+  <div style="position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden">
+    <div style="position:absolute;inset:0;transform:translate3d({{ shiftFar }},0,0);transition:transform .9s cubic-bezier(.08,.92,.16,1)">
+      <svg viewBox="0 0 2400 1040" preserveAspectRatio="none" style="position:absolute;top:0;left:-900%;width:1900%;height:100%;animation:cr-drift2 210s linear infinite">
+        <sc-for list="{{ linesFar }}" as="l" hint-placeholder-count="8"><path d="{{ l.d }}" fill="none" stroke="{{ l.stroke }}" stroke-width="{{ l.w }}" opacity="{{ l.o }}" stroke-linejoin="round" stroke-linecap="round"></path></sc-for>
+      </svg>
+    </div>
+    <div style="position:absolute;inset:0;transform:translate3d({{ shiftNear }},0,0);transition:transform .9s cubic-bezier(.08,.92,.16,1)">
+      <svg viewBox="0 0 2400 1040" preserveAspectRatio="none" style="position:absolute;top:0;left:-900%;width:1900%;height:100%;animation:cr-drift 120s linear infinite">
+        <sc-for list="{{ linesNear }}" as="l" hint-placeholder-count="9"><path d="{{ l.d }}" fill="none" stroke="{{ l.stroke }}" stroke-width="{{ l.w }}" opacity="{{ l.o }}" stroke-linejoin="round" stroke-linecap="round"></path></sc-for>
+      </svg>
+    </div>
+  </div>
+
+  <div style="position:relative;z-index:1;max-width:1420px;min-width:1300px;margin:0 auto;padding:0 32px 72px">
+
+    <header style="display:flex;align-items:center;justify-content:space-between;gap:28px;padding:18px 0 22px;position:sticky;top:0;z-index:20;background:linear-gradient(#F6F7FAF2,#F6F7FAE6 70%,#F6F7FA00);backdrop-filter:blur(6px)">
+      <div style="display:flex;align-items:center;gap:11px;flex:none">
+        <div style="width:38px;height:38px;border-radius:11px;background:#0F172A;display:flex;align-items:center;justify-content:center">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M3 18 L8 13 L12 15 L18 6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="18" cy="6" r="3" fill="#2563EB" stroke="#fff" stroke-width="1.6"></circle></svg>
+        </div>
+        <div>
+          <div style="font-size:17px;font-weight:600;letter-spacing:-.02em;line-height:1.1">Cronos</div>
+          <div style="font-size:9.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#94A3B8;margin-top:2px">Veja antes · Aja antes</div>
+        </div>
+      </div>
+
+      <nav style="display:flex;align-items:center;gap:4px;background:#FFFFFFCC;border:1px solid #E4E8F0;border-radius:12px;padding:4px;white-space:nowrap;flex:none">
+        <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:9px;background:#0F172A;color:#fff;font-size:13px;font-weight:500;cursor:default">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6"></circle><path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+          Hoje
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:9px;color:#475569;font-size:13px;font-weight:400;cursor:pointer;transition:background .15s,color .15s" style-hover="background:#F1F5F9;color:#0F172A">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h11M4 17h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+          Fila de risco
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:9px;color:#475569;font-size:13px;font-weight:400;cursor:pointer;transition:background .15s,color .15s" style-hover="background:#F1F5F9;color:#0F172A">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 12h4l2.5-6 4 12 2.5-6h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          Saúde por produto
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:9px;color:#475569;font-size:13px;font-weight:400;cursor:pointer;transition:background .15s,color .15s" style-hover="background:#F1F5F9;color:#0F172A">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 4v5m0 0-4 4v3m4-7 4 4v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="19" r="1.6" stroke="currentColor" stroke-width="1.6"></circle></svg>
+          Causas e recorrentes
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:9px;color:#475569;font-size:13px;font-weight:400;cursor:pointer;transition:background .15s,color .15s" style-hover="background:#F1F5F9;color:#0F172A">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 16 L9 10 L13 13 L20 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M4 20h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".4"></path></svg>
+          Desempenho do modelo
+        </div>
+      </nav>
+
+      <div style="display:flex;align-items:center;gap:10px;flex:none;background:#FFFFFFCC;border:1px solid #E4E8F0;border-radius:12px;padding:7px 10px 7px 8px">
+        <div style="display:flex;align-items:center;gap:2px">
+          <div onClick="{{ prevDay }}" style="width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#64748B;transition:background .15s" style-hover="background:#F1F5F9;color:#0F172A">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M14.5 5 8 12l6.5 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+          <div style="text-align:center;min-width:104px;line-height:1.15">
+            <div style="font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#94A3B8">{{ dayName }}</div>
+            <div style="font-size:13.5px;font-weight:600;letter-spacing:-.01em">{{ dateLabel }}</div>
+          </div>
+          <div onClick="{{ nextDay }}" style="width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#64748B;transition:background .15s" style-hover="background:#F1F5F9;color:#0F172A">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M9.5 5 16 12l-6.5 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+        </div>
+        <div style="width:1px;height:26px;background:#E4E8F0"></div>
+        <div style="display:flex;align-items:center;gap:9px">
+          <div onMouseDown="{{ onScrub }}" style="position:relative;width:150px;height:26px;display:flex;align-items:center;cursor:ew-resize;touch-action:none">
+            <div style="position:absolute;left:0;right:0;height:4px;border-radius:3px;background:#E9EDF4"></div>
+            <div style="position:absolute;left:0;height:4px;border-radius:3px;background:#2563EB;width:{{ hourPct }}"></div>
+            <div style="position:absolute;top:3px;height:20px;width:20px;margin-left:-10px;left:{{ hourPct }};border-radius:50%;background:#fff;border:2px solid #2563EB;box-shadow:0 1px 4px #2563EB33"></div>
+          </div>
+          <div style="min-width:52px;font-size:13.5px;font-weight:600;letter-spacing:-.01em;font-variant-numeric:tabular-nums">{{ hourLabel }}</div>
+        </div>
+      </div>
+    </header>
+
+    <section style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:48px;align-items:center;padding:26px 0 42px">
+      <div>
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:20px">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 18 L8 13 L12 15 L18 6" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="18" cy="6" r="2.6" fill="#2563EB"></circle></svg>
+          <span style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#2563EB">01/10/2025 · {{ hourLabel }}</span>
+        </div>
+        <h1 style="margin:0;font-size:58px;line-height:1.02;font-weight:600;letter-spacing:-.035em;max-width:15ch">Dia de volume normal,<br><span style="color:#94A3B8">sem caso crítico.</span></h1>
+        <p style="margin:22px 0 0;font-size:17px;line-height:1.6;color:#475569;max-width:56ch;text-wrap:pretty">Devem entrar cerca de <strong style="color:#0F172A;font-weight:600">77 incidentes elegíveis</strong> hoje, dentro do padrão da base. Nenhum caso aberto passa de 10% de chance de estourar o prazo — o maior está em <strong style="color:#0F172A;font-weight:600">8,1%</strong>.</p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:28px">
+          <div style="display:flex;align-items:center;gap:10px;background:#FFFFFFE6;border:1px solid #E4E8F0;border-radius:11px;padding:10px 14px 10px 11px;transition:border-color .15s,transform .15s" style-hover="border-color:#C7D5F0;transform:translateY(-1px)">
+            <span style="width:26px;height:26px;border-radius:7px;background:#EEF3FE;display:flex;align-items:center;justify-content:center;flex:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h12m0 0-4-4m4 4-4 4" stroke="#2563EB" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+            <span><span style="display:block;font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#94A3B8">Entraram ontem</span><span style="font-size:14.5px;font-weight:600">84</span> <span style="font-size:12px;color:#64748B">elegíveis</span></span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:#FFFFFFE6;border:1px solid #E4E8F0;border-radius:11px;padding:10px 14px 10px 11px;transition:border-color .15s,transform .15s" style-hover="border-color:#C7D5F0;transform:translateY(-1px)">
+            <span style="width:26px;height:26px;border-radius:7px;background:#ECFAF3;display:flex;align-items:center;justify-content:center;flex:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3.5 19 6v6c0 4.2-2.9 7.3-7 8.5-4.1-1.2-7-4.3-7-8.5V6l7-2.5Z" stroke="#059669" stroke-width="1.6" stroke-linejoin="round"></path><path d="m9 12 2 2 4-4.5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+            <span><span style="display:block;font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#94A3B8">Sem violar</span><span style="font-size:14.5px;font-weight:600">4</span> <span style="font-size:12px;color:#64748B">dias úteis</span></span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:#FFFFFFE6;border:1px solid #E4E8F0;border-radius:11px;padding:10px 14px 10px 11px;transition:border-color .15s,transform .15s" style-hover="border-color:#C7D5F0;transform:translateY(-1px)">
+            <span style="width:26px;height:26px;border-radius:7px;background:#F1F5F9;display:flex;align-items:center;justify-content:center;flex:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 7h14M5 12h9M5 17h5" stroke="#475569" stroke-width="1.7" stroke-linecap="round"></path></svg></span>
+            <span><span style="display:block;font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#94A3B8">Em atendimento</span><span style="font-size:14.5px;font-weight:600">1.129</span> <span style="font-size:12px;color:#64748B">abertos</span></span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:#FFFFFFE6;border:1px solid #E4E8F0;border-radius:11px;padding:10px 14px 10px 11px;transition:border-color .15s,transform .15s" style-hover="border-color:#C7D5F0;transform:translateY(-1px)">
+            <span style="width:26px;height:26px;border-radius:7px;background:#F1F5F9;display:flex;align-items:center;justify-content:center;flex:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 4v16M6 9l-3 5h6l-3-5Zm12 0-3 5h6l-3-5Z" stroke="#475569" stroke-width="1.5" stroke-linejoin="round"></path><path d="M6 9h12" stroke="#475569" stroke-width="1.5"></path></svg></span>
+            <span><span style="display:block;font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#94A3B8">Média da base</span><span style="font-size:14.5px;font-weight:600">0,97</span> <span style="font-size:12px;color:#64748B">% de violação</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;align-items:stretch;gap:0">
+        <svg viewBox="0 0 480 210" style="width:100%;height:auto;display:block">
+          <defs>
+            <linearGradient id="crBand" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#2563EB" stop-opacity=".22"></stop>
+              <stop offset="100%" stop-color="#2563EB" stop-opacity=".06"></stop>
+            </linearGradient>
+          </defs>
+          <path d="M250,108 290,94 330,82 370,68 410,52 450,36 470,28 470,120 450,118 410,116 370,114 330,112 290,110 Z" fill="url(#crBand)"></path>
+          <polyline points="10,182 40,176 70,170 100,158 130,162 160,146 190,138 220,120 250,108" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></polyline>
+          <polyline points="250,108 290,102 330,96 370,88 410,80 450,70 470,66" fill="none" stroke="#2563EB" stroke-width="2.2" stroke-dasharray="5 6" stroke-linecap="round"></polyline>
+          <line x1="250" y1="18" x2="250" y2="196" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3 4"></line>
+          <circle cx="250" cy="108" r="5" fill="#2563EB" opacity=".35" style="animation:cr-pulse 2.8s ease-out infinite;transform-origin:250px 108px"></circle>
+          <circle cx="250" cy="108" r="6" fill="#fff" stroke="#2563EB" stroke-width="3"></circle>
+          <text x="250" y="207" text-anchor="middle" font-family="Outfit" font-size="9.5" font-weight="600" letter-spacing="1.6" fill="#2563EB">AGORA</text>
+          <text x="12" y="207" font-family="Outfit" font-size="9.5" font-weight="500" letter-spacing="1.2" fill="#94A3B8">−6 DIAS</text>
+          <text x="468" y="207" text-anchor="end" font-family="Outfit" font-size="9.5" font-weight="500" letter-spacing="1.2" fill="#94A3B8">+6 DIAS</text>
+        </svg>
+
+        <div style="margin-top:6px;padding:20px 22px;background:#FFFFFFE6;border:1px solid #E4E8F0;border-radius:14px">
+          <div style="font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#94A3B8">Previsão de hoje</div>
+          <div style="display:flex;align-items:baseline;gap:10px;margin-top:8px;flex-wrap:wrap">
+            <span style="font-size:15px;color:#64748B">entre</span>
+            <span style="font-size:52px;font-weight:600;letter-spacing:-.04em;line-height:1">58</span>
+            <span style="font-size:15px;color:#64748B">e</span>
+            <span style="font-size:52px;font-weight:600;letter-spacing:-.04em;line-height:1">97</span>
+            <span style="font-size:15px;color:#64748B">incidentes</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:12px">
+            <div style="position:relative;flex:1;height:8px;border-radius:5px;background:#E9EDF4;overflow:hidden">
+              <div style="position:absolute;left:12%;right:14%;top:0;bottom:0;background:#2563EB;opacity:.28"></div>
+              <div style="position:absolute;left:47%;top:-3px;width:2px;height:14px;background:#2563EB"></div>
+            </div>
+            <span style="font-size:12.5px;color:#64748B">valor central <strong style="color:#0F172A;font-weight:600">77</strong> · confiança 80%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div style="display:flex;align-items:baseline;gap:16px;padding:14px 0 20px;border-top:1px solid #E4E8F0">
+      <span style="font-size:11px;font-weight:600;letter-spacing:.1em;color:#2563EB;border:1px solid #C7D5F0;border-radius:6px;padding:3px 7px;background:#EEF3FE">01</span>
+      <div>
+        <h2 style="margin:0;font-size:22px;font-weight:600;letter-spacing:-.02em">O dia acontecendo</h2>
+        <p style="margin:4px 0 0;font-size:13.5px;color:#64748B">O que já entrou contra o que era esperado a esta altura, hora a hora.</p>
+      </div>
+    </div>
+
+    <section style="display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:20px;margin-bottom:44px">
+
+      <article style="position:relative;overflow:hidden;background:#fff;border:1px solid #E4E8F0;border-radius:16px;padding:22px 24px 20px;transition:border-color .18s,box-shadow .18s,transform .18s" style-hover="border-color:#C7D5F0;box-shadow:0 10px 30px -18px #0F172A40;transform:translateY(-2px)">
+        <svg viewBox="0 0 24 24" fill="none" style="position:absolute;top:-46px;right:-38px;width:250px;height:250px;color:#0F172A;opacity:.045;pointer-events:none"><path d="M3 18 L9 11 L13 14 L21 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3 21h18" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg>
+        <header style="display:flex;align-items:flex-start;gap:10px;position:relative">
+          <span style="margin-top:1px;color:#2563EB;flex:none"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M3 18 L9 11 L13 14 L21 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+          <div>
+            <h3 style="margin:0;font-size:16.5px;font-weight:600;letter-spacing:-.015em">Previsto contra realizado</h3>
+            <p style="margin:3px 0 0;font-size:13px;color:#64748B">A curva prevista foi fechada à meia-noite e não se move; o realizado sobe por cima dela.</p>
+          </div>
+        </header>
+
+        <div style="position:relative;margin-top:18px">
+          <svg viewBox="0 0 780 240" style="width:100%;height:auto;display:block">
+            <line x1="40" y1="210" x2="750" y2="210" stroke="#E9EDF4" stroke-width="1"></line>
+            <line x1="40" y1="115" x2="750" y2="115" stroke="#F1F5F9" stroke-width="1"></line>
+            <line x1="40" y1="20" x2="750" y2="20" stroke="#F1F5F9" stroke-width="1"></line>
+            <text x="34" y="214" text-anchor="end" font-family="Outfit" font-size="10" fill="#94A3B8">0</text>
+            <text x="34" y="119" text-anchor="end" font-family="Outfit" font-size="10" fill="#94A3B8">50</text>
+            <text x="34" y="24" text-anchor="end" font-family="Outfit" font-size="10" fill="#94A3B8">100</text>
+
+            <path d="M40,210 69,206 98,203 128,201 157,198 186,195 215,190 244,183 273,173 303,158 332,142 361,124 390,108 419,92 448,77 477,63 507,51 536,41 565,34 594,30 623,28 652,27 682,26 711,26 740,26 740,100 711,100 682,100 652,101 623,101 594,103 565,105 536,109 507,115 477,122 448,130 419,140 390,149 361,159 332,169 303,179 273,188 244,194 215,198 186,201 157,203 128,204 98,206 69,208 40,210 Z" fill="#2563EB" opacity=".1"></path>
+            <polyline points="40,210 69,207 98,205 128,203 157,201 186,198 215,194 244,189 273,180 303,169 332,156 361,142 390,129 419,116 448,104 477,93 507,84 536,76 565,71 594,67 623,66 652,65 682,64 711,64 740,64" fill="none" stroke="#2563EB" stroke-width="2" stroke-dasharray="5 6" stroke-linecap="round"></polyline>
+            <polyline points="40,210 69,210 98,208 128,208 157,206 186,204 215,202 244,201" fill="none" stroke="#0F172A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
+            <circle cx="244" cy="201" r="4.5" fill="#0F172A"></circle>
+            <line x1="244" y1="16" x2="244" y2="216" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3 4"></line>
+            <text x="252" y="26" font-family="Outfit" font-size="9.5" font-weight="600" letter-spacing="1.4" fill="#0F172A">AGORA · 07H</text>
+            <text x="40" y="230" font-family="Outfit" font-size="10" fill="#94A3B8">00h</text>
+            <text x="215" y="230" font-family="Outfit" font-size="10" fill="#94A3B8">06h</text>
+            <text x="390" y="230" text-anchor="middle" font-family="Outfit" font-size="10" fill="#94A3B8">12h</text>
+            <text x="565" y="230" text-anchor="middle" font-family="Outfit" font-size="10" fill="#94A3B8">18h</text>
+            <text x="750" y="230" text-anchor="end" font-family="Outfit" font-size="10" fill="#94A3B8">23h</text>
+          </svg>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:18px;align-items:center;margin-top:10px;font-size:12px;color:#64748B">
+          <span style="display:flex;align-items:center;gap:7px"><span style="width:18px;height:3px;border-radius:2px;background:#0F172A"></span>já entrou · <strong style="color:#0F172A;font-weight:600">5</strong></span>
+          <span style="display:flex;align-items:center;gap:7px"><span style="width:18px;height:0;border-top:2px dashed #2563EB"></span>esperado até agora · <strong style="color:#0F172A;font-weight:600">11,1</strong></span>
+          <span style="display:flex;align-items:center;gap:7px"><span style="width:18px;height:9px;border-radius:2px;background:#2563EB;opacity:.18"></span>faixa do dia · 58 a 97</span>
+        </div>
+
+        <div style="display:flex;gap:12px;align-items:flex-start;margin-top:16px;padding:13px 15px;background:#F8FAFC;border:1px solid #EDF1F7;border-radius:11px">
+          <span style="flex:none;margin-top:1px;color:#B45309"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.6" stroke="currentColor" stroke-width="1.6"></circle><path d="M12 7.6v5.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path><circle cx="12" cy="16.3" r="1.05" fill="currentColor"></circle></svg></span>
+          <p style="margin:0;font-size:13px;line-height:1.55;color:#475569">Às 7h entraram <strong style="color:#0F172A;font-weight:600">5</strong> contra <strong style="color:#0F172A;font-weight:600">11,1</strong> esperados a esta altura. Com <strong style="color:#0F172A;font-weight:600">14,4%</strong> do dia decorrido ainda é cedo para extrapolar o fechamento — a conta só firma perto do meio-dia.</p>
+        </div>
+      </article>
+
+      <article style="position:relative;overflow:hidden;background:#fff;border:1px solid #E4E8F0;border-radius:16px;padding:22px 24px 20px;transition:border-color .18s,box-shadow .18s,transform .18s" style-hover="border-color:#C7D5F0;box-shadow:0 10px 30px -18px #0F172A40;transform:translateY(-2px)">
+        <svg viewBox="0 0 24 24" fill="none" style="position:absolute;top:-44px;right:-40px;width:240px;height:240px;color:#0F172A;opacity:.045;pointer-events:none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.3"></circle><path d="M12 6.4V12l4 2.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path></svg>
+        <header style="display:flex;align-items:flex-start;gap:10px;position:relative">
+          <span style="margin-top:1px;color:#2563EB;flex:none"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.6" stroke="currentColor" stroke-width="1.7"></circle><path d="M12 7.2V12l3.2 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg></span>
+          <div>
+            <h3 style="margin:0;font-size:16.5px;font-weight:600;letter-spacing:-.015em">As 24 horas do dia</h3>
+            <p style="margin:3px 0 0;font-size:13px;color:#64748B">Altura é volume no ano; cor é a taxa de violação daquela hora.</p>
+          </div>
+        </header>
+
+        <div style="position:relative;margin-top:22px">
+          <div style="position:absolute;top:-14px;bottom:22px;left:{{ nowPct }};width:1px;background:#CBD5E1;border-left:1px dashed #CBD5E1"></div>
+          <div style="position:absolute;top:-24px;left:{{ nowPct }};transform:translateX(-50%);font-size:9px;font-weight:600;letter-spacing:.14em;color:#0F172A;white-space:nowrap">AGORA</div>
+          <div style="display:flex;align-items:flex-end;gap:3px;height:150px">
+            <sc-for list="{{ hours }}" as="h" hint-placeholder-count="24">
+              <div title="{{ h.title }}" style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%;cursor:default">
+                <div style="width:100%;border-radius:3px 3px 0 0;background:{{ h.color }};height:{{ h.h }};transition:filter .15s" style-hover="filter:brightness(.85)"></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:7px;font-size:10px;color:#94A3B8">
+            <span>00h</span><span>06h</span><span>12h</span><span>18h</span><span>23h</span>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;font-size:11.5px;color:#64748B">
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:2px;background:#BFD3F7"></span>abaixo de 1,1%</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:2px;background:#B45309"></span>1,1 a 1,6%</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:2px;background:#DC2626"></span>acima de 1,6%</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px">
+          <div style="padding:13px 14px;background:#F8FAFC;border:1px solid #EDF1F7;border-radius:11px">
+            <div style="font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#94A3B8">Pico de movimento</div>
+            <div style="font-size:20px;font-weight:600;letter-spacing:-.02em;margin-top:5px">11h</div>
+            <div style="font-size:12.5px;color:#475569;margin-top:2px">1.609 incidentes no ano</div>
+          </div>
+          <div style="padding:13px 14px;background:#FEF6F6;border:1px solid #F7DEDE;border-radius:11px">
+            <div style="font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C08585">Maior taxa</div>
+            <div style="font-size:20px;font-weight:600;letter-spacing:-.02em;margin-top:5px;color:#DC2626">2h</div>
+            <div style="font-size:12.5px;color:#475569;margin-top:2px">2,00% contra 0,97% da média</div>
+          </div>
+        </div>
+        <p style="margin:12px 0 0;font-size:12.5px;line-height:1.5;color:#64748B">A madrugada tem pouco volume e o maior risco por caso: às 2h a chance de estourar é o dobro da média da base.</p>
+      </article>
+    </section>
+
+    <div style="display:flex;align-items:baseline;gap:16px;padding:14px 0 20px;border-top:1px solid #E4E8F0">
+      <span style="font-size:11px;font-weight:600;letter-spacing:.1em;color:#2563EB;border:1px solid #C7D5F0;border-radius:6px;padding:3px 7px;background:#EEF3FE">02</span>
+      <div>
+        <h2 style="margin:0;font-size:22px;font-weight:600;letter-spacing:-.02em">O que fazer hoje</h2>
+        <p style="margin:4px 0 0;font-size:13.5px;color:#64748B">Em qual incidente olhar primeiro e onde o risco costuma se acumular.</p>
+      </div>
+    </div>
+
+    <section style="display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:20px;margin-bottom:44px">
+
+      <article style="position:relative;overflow:hidden;background:#fff;border:1px solid #E4E8F0;border-radius:16px;padding:22px 0 18px;transition:border-color .18s,box-shadow .18s,transform .18s" style-hover="border-color:#C7D5F0;box-shadow:0 10px 30px -18px #0F172A40;transform:translateY(-2px)">
+        <svg viewBox="0 0 24 24" fill="none" style="position:absolute;top:-44px;right:-40px;width:240px;height:240px;color:#0F172A;opacity:.045;pointer-events:none"><path d="M4 6.5h16M4 12h12M4 17.5h8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path></svg>
+        <header style="display:flex;align-items:flex-start;gap:10px;position:relative;padding:0 24px">
+          <span style="margin-top:1px;color:#2563EB;flex:none"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 6.5h16M4 12h12M4 17.5h8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg></span>
+          <div>
+            <h3 style="margin:0;font-size:16.5px;font-weight:600;letter-spacing:-.015em">Fila de hoje</h3>
+            <p style="margin:3px 0 0;font-size:13px;color:#64748B">Incidentes abertos ordenados pela chance de estourar o prazo.</p>
+          </div>
+        </header>
+
+        <div style="display:flex;align-items:center;gap:10px;margin:16px 24px 0;padding:11px 14px;background:#ECFAF3;border:1px solid #CFEBDF;border-radius:11px">
+          <span style="color:#059669;flex:none"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.6" stroke="currentColor" stroke-width="1.6"></circle><path d="m8.6 12.2 2.3 2.3 4.5-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+          <p style="margin:0;font-size:13px;color:#166049">Dia calmo: o maior risco aberto é <strong style="font-weight:600">8,1%</strong> e nenhum caso passa de 10%.</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:78px 1fr 96px;gap:0;padding:16px 24px 7px;font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#94A3B8">
+          <span>Risco</span><span>Incidente</span><span style="text-align:right">Abertura</span>
+        </div>
+
+        <sc-for list="{{ queue }}" as="q" hint-placeholder-count="5">
+          <div style="display:grid;grid-template-columns:78px 1fr 96px;align-items:center;padding:11px 24px;border-top:1px solid #F1F5F9;cursor:pointer;transition:background .14s" style-hover="background:#F8FAFC">
+            <div style="display:flex;align-items:baseline;gap:1px">
+              <span style="font-size:23px;font-weight:600;letter-spacing:-.03em;color:{{ q.color }};font-variant-numeric:tabular-nums">{{ q.risk }}</span>
+              <span style="font-size:12px;font-weight:500;color:{{ q.color }}">%</span>
+            </div>
+            <div style="min-width:0">
+              <div style="display:flex;align-items:center;gap:9px">
+                <span style="font-size:14px;font-weight:600;letter-spacing:-.01em">{{ q.code }}</span>
+                <span style="font-size:11px;font-weight:500;color:#2563EB;background:#EEF3FE;border-radius:5px;padding:2px 7px">{{ q.product }}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:14px;margin-top:4px;font-size:12px;color:#64748B">
+                <span style="display:flex;align-items:center;gap:5px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8.5" r="3.2" stroke="currentColor" stroke-width="1.6"></circle><path d="M3.6 19c.7-3 2.9-4.6 5.4-4.6S13.7 16 14.4 19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path><path d="M16 6.2a3 3 0 0 1 0 5.6M18 14.6c1.7.7 2.8 2.2 3.2 4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>{{ q.team }}</span>
+                <span style="display:flex;align-items:center;gap:5px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="4.5" width="17" height="6" rx="1.6" stroke="currentColor" stroke-width="1.6"></rect><rect x="3.5" y="13.5" width="17" height="6" rx="1.6" stroke="currentColor" stroke-width="1.6"></rect><path d="M7 7.5h.01M7 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>{{ q.asset }}</span>
+              </div>
+            </div>
+            <div style="text-align:right;font-size:13px;color:#475569;font-variant-numeric:tabular-nums">{{ q.time }}</div>
+          </div>
+        </sc-for>
+        <p style="margin:14px 24px 0;font-size:12px;color:#94A3B8">Ordenado por chance de violação do OLA no fechamento previsto do caso.</p>
+      </article>
+
+      <article style="position:relative;overflow:hidden;background:#fff;border:1px solid #E4E8F0;border-radius:16px;padding:22px 24px 20px;transition:border-color .18s,box-shadow .18s,transform .18s" style-hover="border-color:#C7D5F0;box-shadow:0 10px 30px -18px #0F172A40;transform:translateY(-2px)">
+        <svg viewBox="0 0 24 24" fill="none" style="position:absolute;top:-44px;right:-40px;width:240px;height:240px;color:#0F172A;opacity:.045;pointer-events:none"><circle cx="12" cy="12" r="8.6" stroke="currentColor" stroke-width="1.2"></circle><circle cx="12" cy="12" r="4.6" stroke="currentColor" stroke-width="1.2"></circle><circle cx="12" cy="12" r="1.2" fill="currentColor"></circle></svg>
+        <header style="display:flex;align-items:flex-start;gap:10px;position:relative">
+          <span style="margin-top:1px;color:#2563EB;flex:none"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.6" stroke="currentColor" stroke-width="1.7"></circle><circle cx="12" cy="12" r="4.4" stroke="currentColor" stroke-width="1.7"></circle><circle cx="12" cy="12" r="1.3" fill="currentColor"></circle></svg></span>
+          <div>
+            <h3 style="margin:0;font-size:16.5px;font-weight:600;letter-spacing:-.015em">Onde o risco se concentra</h3>
+            <p style="margin:3px 0 0;font-size:13px;color:#64748B">Ativos com a maior taxa de violação histórica na base.</p>
+          </div>
+        </header>
+
+        <div style="margin-top:20px;padding:18px 18px 16px;border:1px solid #F7DEDE;background:#FEF8F8;border-radius:13px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+            <span style="font-size:17px;font-weight:600;letter-spacing:-.015em">IC00840</span>
+            <span style="font-size:34px;font-weight:600;letter-spacing:-.035em;color:#DC2626;line-height:1">33,3<span style="font-size:16px;font-weight:500">%</span></span>
+          </div>
+          <div style="margin-top:12px;height:9px;border-radius:5px;background:#F3DADA;overflow:hidden">
+            <div style="width:33.3%;height:100%;background:#DC2626;border-radius:5px"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:9px;font-size:12.5px;color:#475569">
+            <span><strong style="color:#0F172A;font-weight:600">21</strong> de <strong style="color:#0F172A;font-weight:600">63</strong> passagens violaram</span>
+            <span style="color:#94A3B8">média da base 0,97%</span>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:11px;align-items:flex-start;margin-top:16px;padding:13px 15px;background:#F8FAFC;border:1px solid #EDF1F7;border-radius:11px">
+          <span style="flex:none;margin-top:1px;color:#B45309"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.6" stroke="currentColor" stroke-width="1.6"></circle><path d="M12 7.6v5.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path><circle cx="12" cy="16.3" r="1.05" fill="currentColor"></circle></svg></span>
+          <p style="margin:0;font-size:12.5px;line-height:1.55;color:#475569">O modelo <strong style="color:#0F172A;font-weight:600">não usa</strong> essa taxa como entrada. Ela é contexto para quem decide, não parte da previsão.</p>
+        </div>
+        <p style="margin:14px 0 0;font-size:12.5px;line-height:1.55;color:#64748B">Nenhum outro ativo passa do limiar de destaque nesta janela — por isso a lista tem uma linha só.</p>
+      </article>
+    </section>
+
+    <div style="display:flex;align-items:baseline;gap:16px;padding:14px 0 20px;border-top:1px solid #E4E8F0">
+      <span style="font-size:11px;font-weight:600;letter-spacing:.1em;color:#2563EB;border:1px solid #C7D5F0;border-radius:6px;padding:3px 7px;background:#EEF3FE">03</span>
+      <div>
+        <h2 style="margin:0;font-size:22px;font-weight:600;letter-spacing:-.02em">Para onde o ano vai</h2>
+        <p style="margin:4px 0 0;font-size:13.5px;color:#64748B">Projeção de fechamento contra a meta e os produtos que puxam a nota para baixo.</p>
+      </div>
+    </div>
+
+    <section style="display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:20px">
+
+      <article style="position:relative;overflow:hidden;background:#0F172A;color:#E2E8F0;border:1px solid #0F172A;border-radius:16px;padding:22px 24px 22px;transition:box-shadow .18s,transform .18s" style-hover="box-shadow:0 16px 40px -20px #0F172A99;transform:translateY(-2px)">
+        <svg viewBox="0 0 24 24" fill="none" style="position:absolute;top:-46px;right:-38px;width:250px;height:250px;color:#fff;opacity:.06;pointer-events:none"><path d="M6 21V4.5h11l-1.8 3.2L17 11H6" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"></path></svg>
+        <header style="display:flex;align-items:flex-start;gap:10px;position:relative">
+          <span style="margin-top:1px;color:#7FA6F5;flex:none"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M6 21V4.5h11l-1.8 3.2L17 11H6" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path></svg></span>
+          <div>
+            <h3 style="margin:0;font-size:16.5px;font-weight:600;letter-spacing:-.015em;color:#fff">Fechamento contra a meta</h3>
+            <p style="margin:3px 0 0;font-size:13px;color:#94A3B8">Onde cada prioridade deve terminar o ano — a faixa é o corpo, a meta é a marca.</p>
+          </div>
+        </header>
+
+        <div style="margin-top:26px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+            <div style="display:flex;align-items:baseline;gap:10px">
+              <span style="font-size:13px;font-weight:600;letter-spacing:.1em;color:#94A3B8">P2</span>
+              <span style="font-size:26px;font-weight:600;letter-spacing:-.03em;color:#fff">38 a 49</span>
+            </div>
+            <span style="display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:#34D399;background:#05966922;border:1px solid #05966955;border-radius:20px;padding:4px 11px">Dentro da meta</span>
+          </div>
+          <div style="position:relative;margin-top:14px;height:34px">
+            <div style="position:absolute;top:13px;left:0;right:0;height:8px;border-radius:5px;background:#1E293B"></div>
+            <div style="position:absolute;top:9px;left:14%;width:36%;height:16px;border-radius:8px;background:#2563EB;opacity:.55"></div>
+            <div style="position:absolute;top:5px;left:32%;width:2px;height:24px;background:#fff"></div>
+            <div style="position:absolute;top:0;left:37%;width:2px;height:34px;background:#34D399"></div>
+            <div style="position:absolute;top:-2px;left:37%;transform:translateX(-50%);margin-top:-14px;font-size:10px;font-weight:600;letter-spacing:.08em;color:#34D399">META 45</div>
+          </div>
+          <div style="display:flex;gap:18px;margin-top:6px;font-size:12px;color:#94A3B8">
+            <span>valor central <strong style="color:#E2E8F0;font-weight:600">43,5</strong></span>
+            <span>meta <strong style="color:#E2E8F0;font-weight:600">45</strong></span>
+          </div>
+        </div>
+
+        <div style="height:1px;background:#1E293B;margin:26px 0 22px"></div>
+
+        <div>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+            <div style="display:flex;align-items:baseline;gap:10px">
+              <span style="font-size:13px;font-weight:600;letter-spacing:.1em;color:#94A3B8">P3</span>
+              <span style="font-size:26px;font-weight:600;letter-spacing:-.03em;color:#fff">191 a 225</span>
+            </div>
+            <span style="display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:#F0A868;background:#B4530922;border:1px solid #B4530977;border-radius:20px;padding:4px 11px">Acima da meta</span>
+          </div>
+          <div style="position:relative;margin-top:14px;height:34px">
+            <div style="position:absolute;top:13px;left:0;right:0;height:8px;border-radius:5px;background:#1E293B"></div>
+            <div style="position:absolute;top:9px;left:22%;width:44%;height:16px;border-radius:8px;background:#B45309;opacity:.7"></div>
+            <div style="position:absolute;top:5px;left:44%;width:2px;height:24px;background:#fff"></div>
+            <div style="position:absolute;top:0;left:34%;width:2px;height:34px;background:#34D399"></div>
+            <div style="position:absolute;top:-2px;left:34%;transform:translateX(-50%);margin-top:-14px;font-size:10px;font-weight:600;letter-spacing:.08em;color:#34D399">META 200</div>
+          </div>
+          <div style="display:flex;gap:18px;margin-top:6px;font-size:12px;color:#94A3B8">
+            <span>valor central <strong style="color:#E2E8F0;font-weight:600">208,0</strong></span>
+            <span>meta <strong style="color:#E2E8F0;font-weight:600">200</strong></span>
+          </div>
+        </div>
+
+        <p style="margin:24px 0 0;font-size:12.5px;line-height:1.55;color:#64748B">A projeção é uma faixa, não um número. P3 fecha acima da meta em toda a faixa provável; P2 fecha abaixo dela na maior parte.</p>
+      </article>
+
+      <article style="position:relative;overflow:hidden;background:#fff;border:1px solid #E4E8F0;border-radius:16px;padding:22px 24px 20px;transition:border-color .18s,box-shadow .18s,transform .18s" style-hover="border-color:#C7D5F0;box-shadow:0 10px 30px -18px #0F172A40;transform:translateY(-2px)">
+        <svg viewBox="0 0 24 24" fill="none" style="position:absolute;top:-44px;right:-40px;width:240px;height:240px;color:#0F172A;opacity:.045;pointer-events:none"><path d="M4 20V9M10 20V4M16 20v-8M22 20h-20" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path></svg>
+        <header style="display:flex;align-items:flex-start;gap:10px;position:relative">
+          <span style="margin-top:1px;color:#2563EB;flex:none"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 19V9M10 19V4M16 19v-8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path><path d="M3 21h18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg></span>
+          <div>
+            <h3 style="margin:0;font-size:16.5px;font-weight:600;letter-spacing:-.015em">Produtos com pior nota</h3>
+            <p style="margin:3px 0 0;font-size:13px;color:#64748B">Nota de 0 a 100 por posição relativa; quanto menor, pior o produto está.</p>
+          </div>
+        </header>
+
+        <div style="display:flex;flex-direction:column;gap:2px;margin-top:20px">
+          <sc-for list="{{ products }}" as="p" hint-placeholder-count="5">
+            <div style="padding:11px 12px;margin:0 -12px;border-radius:10px;cursor:pointer;transition:background .14s" style-hover="background:#F8FAFC">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+                <span style="font-size:14.5px;font-weight:600;letter-spacing:-.01em">{{ p.name }}</span>
+                <span style="display:flex;align-items:baseline;gap:8px">
+                  <span style="font-size:12px;color:#94A3B8">{{ p.rate }}</span>
+                  <span style="font-size:19px;font-weight:600;letter-spacing:-.025em;color:{{ p.color }};font-variant-numeric:tabular-nums">{{ p.score }}</span>
+                </span>
+              </div>
+              <div style="margin-top:7px;height:7px;border-radius:4px;background:#F1F5F9;overflow:hidden">
+                <div style="height:100%;border-radius:4px;background:{{ p.color }};width:{{ p.w }}"></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <p style="margin:16px 0 0;font-size:12.5px;line-height:1.55;color:#64748B">lssl é o pior da lista: nota 15,3 com 1,98% de violação, o dobro da média da base.</p>
+      </article>
+    </section>
+
+    <footer style="display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:44px;padding-top:20px;border-top:1px solid #E4E8F0;font-size:12px;color:#94A3B8">
+      <span>Cronos · previsão gerada à meia-noite de 01/10/2025 · faixa com 80% de confiança</span>
+      <span style="display:flex;align-items:center;gap:7px"><span style="width:7px;height:7px;border-radius:50%;background:#059669;animation:cr-blink 2.6s ease-in-out infinite"></span>dados de operação atualizados às {{ hourLabel }}</span>
+    </footer>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;hour&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:7,&quot;min&quot;:0,&quot;max&quot;:23,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Controle de tempo&quot;}}">
+class Component extends DCLogic {
+  state = { hour: 7, day: 0 };
+
+  componentDidMount() {
+    if (typeof this.props.hour === 'number') this.setState({ hour: this.props.hour });
+  }
+
+  series(seed, baseY, amp, w, stroke, o) {
+    let s = seed;
+    const rnd = () => { s = (s * 1664525 + 1013904223) % 4294967296; return s / 4294967296; };
+    const n = 1400, step = 2400 / n;
+    let v = 0, pts = [];
+    for (let i = 0; i <= n; i++) {
+      v = v * 0.72 + (rnd() - 0.5) * amp;
+      const spike = rnd() > 0.94 ? (rnd() - 0.5) * amp * 2.2 : 0;
+      pts.push((i * step).toFixed(1) + ',' + (baseY + v + spike).toFixed(1));
+    }
+    return { d: 'M' + pts.join(' L'), w: w, stroke: stroke, o: o };
+  }
+
+  buildLines(seedBase, count, opts) {
+    const out = [];
+    for (let i = 0; i < count; i++) {
+      const y = 40 + (i * 960) / count + ((i % 3) * 18);
+      out.push(this.series(seedBase + i * 7919, y, opts.amp + (i % 4) * 6, opts.w[i % opts.w.length], i % 3 === 0 ? '#2563EB' : '#0F172A', opts.o[i % opts.o.length]));
+    }
+    return out;
+  }
+
+  scrub(e, el) {
+    const r = el.getBoundingClientRect();
+    const p = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+    this.setState({ hour: Math.round(p * 23) });
+  }
+
+  renderVals() {
+    const hour = this.state.hour;
+    const day = this.state.day;
+    const pad = n => (n < 10 ? '0' + n : '' + n);
+    const base = new Date(2025, 9, 1);
+    const d = new Date(base.getFullYear(), base.getMonth(), base.getDate() + day);
+    const weekdays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+    const travel = day * 2200 + hour * 10;
+    const heights = [14,10,8,7,8,12,26,44,70,86,94,100,88,82,86,84,78,66,50,38,30,24,20,16];
+    const buckets = ['m','m','h','m','m','m','l','l','l','l','l','l','l','l','l','l','l','l','l','l','l','m','m','m'];
+    const colors = { l: '#BFD3F7', m: '#B45309', h: '#DC2626' };
+    const hours = heights.map((h, i) => ({
+      h: h + '%',
+      color: colors[buckets[i]],
+      title: pad(i) + 'h'
+    }));
+
+    const queue = [
+      { risk: '8,1', code: 'INC0093412', product: 'lssl', team: 'Armazenamento', asset: 'IC00840', time: '04h12', color: '#B45309' },
+      { risk: '6,4', code: 'INC0093458', product: 'lrdo', team: 'Redes', asset: 'IC00317', time: '05h02', color: '#B45309' },
+      { risk: '5,2', code: 'INC0093471', product: 'lvps', team: 'Virtualização', asset: 'IC00126', time: '05h47', color: '#475569' },
+      { risk: '4,3', code: 'INC0093486', product: 'lsaa', team: 'Aplicações', asset: 'IC00982', time: '06h20', color: '#475569' },
+      { risk: '3,1', code: 'INC0093504', product: 'lemg', team: 'Banco de dados', asset: 'IC00455', time: '06h58', color: '#475569' }
+    ];
+
+    const products = [
+      { name: 'lssl', score: '15,3', rate: '1,98% de violação', w: '15.3%', color: '#DC2626' },
+      { name: 'lrdo', score: '20,0', rate: '', w: '20%', color: '#DC2626' },
+      { name: 'lvps', score: '21,2', rate: '', w: '21.2%', color: '#B45309' },
+      { name: 'lsaa', score: '23,5', rate: '', w: '23.5%', color: '#B45309' },
+      { name: 'lemg', score: '34,1', rate: '', w: '34.1%', color: '#B45309' }
+    ];
+
+    if (!this._lines) {
+      this._lines = {
+        near: this.buildLines(20251001, 9, { amp: 34, w: [1.2, 0.9, 1.4, 1.05], o: [0.11, 0.075, 0.13, 0.09] }),
+        far: this.buildLines(770977, 8, { amp: 26, w: [0.85, 0.7, 1], o: [0.06, 0.045, 0.07] })
+      };
+    }
+
+    return {
+      hours, queue, products,
+      linesNear: this._lines.near,
+      linesFar: this._lines.far,
+      hourLabel: pad(hour) + 'h00',
+      hourPct: (hour / 23) * 100 + '%',
+      nowPct: ((hour + 0.5) / 24) * 100 + '%',
+      shiftNear: -travel + 'px',
+      shiftFar: -travel * 0.42 + 'px',
+      dayName: weekdays[d.getDay()],
+      dateLabel: pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear(),
+      prevDay: () => this.setState(s => ({ day: Math.max(-5, s.day - 1) })),
+      nextDay: () => this.setState(s => ({ day: Math.min(5, s.day + 1) })),
+      onScrub: e => {
+        const el = e.currentTarget;
+        this.scrub(e, el);
+        const move = ev => this.scrub(ev, el);
+        const up = () => { window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up); };
+        window.addEventListener('mousemove', move);
+        window.addEventListener('mouseup', up);
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

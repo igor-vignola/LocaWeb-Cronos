@@ -1,0 +1,85 @@
+{% load br %}{% comment %}
+Modo "o modelo no tempo". Não é aba: entra no lugar do conteúdo da Hoje quando o
+usuário clica no gráfico do herói. Menos é mais aqui — quatro blocos, não oito.
+{% endcomment %}
+<div class="modo-h">
+  <div><span class="kk">{% icone 'alvo' 14 %}o modelo no tempo</span>
+    <h2>Como a previsão se comportou no trimestre</h2>
+    <p>Aperte play. A cada dia que passa, a taxa de acerto se refaz na sua frente.</p></div>
+  <button class="bt sc" id="voltar">{% icone 'seta' 15 %}voltar para o dia de hoje</button>
+</div>
+
+<section class="maq">
+  <div class="maq-p">
+    <button class="play" id="play" aria-label="rodar o trimestre">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+    <div class="maq-d"><b id="m-dia">qua 01/10</b><span id="m-pos">dia 1 de 92</span></div>
+    <div class="maq-t"><div class="lin" id="lin">
+      <div class="base"></div><div class="feito" id="feito"></div>
+      <div class="cab" id="cab"></div></div></div>
+    <div class="vel" role="group" aria-label="velocidade">
+      <button data-v="260">1×</button><button class="on" data-v="130">2×</button>
+      <button data-v="45">6×</button></div>
+  </div>
+  <div class="maq-l">
+    <span><i class="l-ok"></i>a faixa conteve o real</span>
+    <span><i class="l-no"></i>o real ficou fora</span>
+    <span class="dica">clique em qualquer ponto da linha para saltar</span></div>
+</section>
+
+<div class="gr g3" style="margin-top:16px">
+  <article class="cd maq-c">
+    {% include 'painel/_cab.html' with icone='alvo' titulo='Acerto acumulado' oque='Quantos dias, até aqui, tiveram o real dentro da faixa prevista.' %}
+    <div class="big-n"><b id="m-acum">100,0</b><u>%</u></div>
+    <div class="bar"><i id="m-bar" style="width:100%"></i></div>
+    <p class="nt" id="m-acum-t">1 de 1 dia dentro da faixa.</p>
+  </article>
+  <article class="cd maq-c">
+    {% include 'painel/_cab.html' with icone='previsao' titulo='O dia em que você está' oque='O que o modelo previu naquele dia e o que de fato entrou.' %}
+    <div class="par">
+      <div><em>previsto</em><b id="m-prev">77</b><span id="m-faixa">faixa 59 a 96</span></div>
+      <div><em>real</em><b id="m-real">70</b><span id="m-erro">−7,4 de diferença</span></div>
+    </div>
+    <div class="ver-l"><span class="ver" id="m-ver">dentro da faixa</span></div>
+  </article>
+  <article class="cd maq-c">
+    {% include 'painel/_cab.html' with icone='fila' titulo='A fila daquele dia' oque='Quantos casos o modelo de risco pontuou e quantos violaram o prazo.' %}
+    <div class="par">
+      <div><em>casos na fila</em><b id="m-casos">81</b><span id="m-a10">nenhum acima de 10%</span></div>
+      <div><em>violaram</em><b id="m-viol">0</b><span id="m-maior">maior risco 8,1%</span></div>
+    </div>
+  </article>
+</div>
+
+<div class="gr g2" style="margin-top:16px">
+  <article class="cd">
+    {% include 'painel/_cab.html' with icone='calendario' titulo='O modelo envelhece' oque='Cobertura mês a mês. Ele foi treinado com janeiro a setembro e não foi retreinado.' %}
+    <div class="mes-l">
+      {% for m in meses %}
+        <div class="mes">
+          <div class="mes-h"><b>{{ m.mes }}</b>
+            <span class="{% if m.cobertura >= 80 %}ok{% elif m.cobertura >= 55 %}wn{% else %}no{% endif %}">{{ m.cobertura|num }}%</span></div>
+          <div class="bar sm"><i style="width:{{ m.cobertura|num:0 }}%;background:{% if m.cobertura >= 80 %}var(--ok){% elif m.cobertura >= 55 %}var(--wn){% else %}var(--no){% endif %}"></i></div>
+          <div class="mes-f">real médio <b>{{ m.real|num }}</b> contra previsto
+            <b>{{ m.prev|num }}</b></div>
+        </div>
+      {% endfor %}
+    </div>
+    <p class="nt">O modelo não piorou: <b>a operação mudou</b>. O volume caiu de 54,5 para
+      34,2 por dia e a previsão ficou parada em 62. É o melhor argumento para o Cronos existir
+      como sistema que retreina, e não como análise entregue uma vez.</p>
+  </article>
+  <article class="cd dk">
+    {% include 'painel/_cab.html' with icone='balanca' titulo='Ele nunca prevê de menos' oque='Dos 92 dias, em nenhum o volume real superou o teto da faixa.' %}
+    <div class="lados">
+      <div class="lado"><em>entrou menos</em><b>{{ r.abaixo }}</b>
+        <span>dias fora da faixa, todos para baixo</span></div>
+      <div class="lado sep"><em>entrou mais</em><b class="zero">{{ r.acima }}</b>
+        <span>nenhum dia estourou o teto</span></div>
+    </div>
+    <p class="nt">Para dimensionar equipe, errar sobrando é o lado seguro de errar. Mas é um
+      viés, e viés a gente mostra em vez de esconder. Cobertura real de
+      <b>{{ r.cobertura|num }}%</b> contra os 80% que o rótulo promete.</p>
+  </article>
+</div>

@@ -28,6 +28,12 @@ def painel():
 
 
 @lru_cache(maxsize=1)
+def dias():
+    """Os 92 dias do trimestre com previsão, real, veredito e taxa acumulada."""
+    return json.loads((DADOS / 'dias.json').read_text(encoding='utf-8'))
+
+
+@lru_cache(maxsize=1)
 def fila():
     """A fila pontuada, 5.183 linhas. Os sinais vem como JSON dentro da coluna."""
     df = pd.read_parquet(DADOS / 'fila.parquet')
