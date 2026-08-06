@@ -66,13 +66,45 @@ CSS_APP = r"""
 /* o heroi vira botao */
 button.hc{background:0;border:0;font:inherit;color:inherit;text-align:inherit;cursor:pointer;
  padding:8px;border-radius:20px;position:relative;transition:background .3s var(--e)}
-button.hc:hover{background:rgba(37,99,235,.045)}
+button.hc:hover{background:var(--c);box-shadow:0 0 0 1px rgba(37,99,235,.28),var(--s2)}
 button.hc:active{transform:scale(.995)}
-.hc-dica{position:absolute;top:10px;right:12px;display:inline-flex;align-items:center;gap:6px;
+.hc-dica{position:absolute;bottom:6px;left:50%;transform:translateX(-50%) translateY(4px);display:inline-flex;align-items:center;gap:6px;
  font-size:10.5px;font-weight:650;letter-spacing:.04em;color:var(--ac);background:var(--acl);
  border:1px solid rgba(37,99,235,.2);padding:5px 10px;border-radius:999px;opacity:0;
  transform:translateY(-4px);transition:all .3s var(--e);pointer-events:none}
-button.hc:hover .hc-dica{opacity:1;transform:none}
+button.hc:hover .hc-dica{opacity:1;transform:translateX(-50%)}
+/* o dia por dentro, no modo tempo */
+.dia-g svg{width:100%;height:auto;display:block;overflow:visible}
+.g-grade{stroke:var(--ln);stroke-width:1}
+.g-y,.g-x{fill:var(--tx3);font-size:9.5px;font-family:'Outfit',sans-serif}
+.g-bd{fill:var(--ac);opacity:.12}
+.g-prev{fill:none;stroke:var(--ac);stroke-width:2.2;stroke-dasharray:6 5;opacity:.7}
+.g-real{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.g-ag{stroke:var(--ln2);stroke-width:1;stroke-dasharray:2 3}
+.g-no{fill:var(--ink);stroke:#fff;stroke-width:2.5}
+.leg{display:flex;gap:15px;margin-top:10px;flex-wrap:wrap}
+.leg span{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;color:var(--tx2)}
+.leg i{width:14px;height:3px;border-radius:2px}
+.leg .l-r{background:var(--ink)}.leg .l-p{background:var(--ac);opacity:.7}
+.leg .l-b{background:var(--ac);opacity:.2;height:9px;border-radius:3px}
+/* a coluna de numeros do dia */
+.kvs{display:flex;flex-direction:column}
+.kv2{display:flex;align-items:baseline;gap:12px;padding:9px 0;
+ border-bottom:1px solid var(--ln)}
+.kv2:last-child{border:0}
+.kv2 em{font-size:12.5px;font-style:normal;color:var(--tx2);flex:1}
+.kv2 b{font-size:21px;font-weight:700;letter-spacing:-.035em;
+ font-variant-numeric:tabular-nums}
+.kv2.destaque{padding:11px 0}
+.kv2 .marca{font-size:19px}
+.kv2 .marca.sim{color:var(--ok)}.kv2 .marca.nao{color:var(--no)}
+.acum{margin-top:14px;padding-top:14px;border-top:1px solid var(--ln)}
+.acum-h{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
+.acum-h span{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+ color:var(--tx3)}
+.acum-h b{margin-left:auto;font-size:22px;font-weight:700;letter-spacing:-.04em;
+ font-variant-numeric:tabular-nums}
+.acum .nt{margin-top:8px;padding-top:0;border:0}
 /* ══ maquina do tempo · aba Desempenho ══════════════════════════════════ */
 .maq{background:var(--ink);border-radius:20px;padding:16px 20px 14px;box-shadow:var(--s2)}
 .maq-p{display:flex;align-items:center;gap:16px}

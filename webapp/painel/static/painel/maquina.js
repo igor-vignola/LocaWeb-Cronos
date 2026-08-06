@@ -1,71 +1,122 @@
-// Máquina do tempo da aba Desempenho.
-// Nada é recalculado: os 92 dias já vêm agregados do servidor. Viajar no tempo é
-// indexar um vetor. O paralaxe do campo de linhas ao fundo é o que dá a sensação
-// de deslocamento — as três camadas andam em velocidades diferentes.
+// Máquina do tempo: o dia por dentro, hora a hora, atravessando o trimestre.
+//
+// Nada é recalculado. Os 92 dias já vêm agregados com a chegada de cada hora, e a curva
+// esperada é a distribuição histórica por hora aplicada ao total previsto daquele dia.
+// Viajar no tempo é indexar dois vetores.
+//
+// Escopo próprio: cronos.js já declara q no escopo global, e const redeclarado derruba
+// este arquivo inteiro com SyntaxError antes da primeira linha rodar.
 'use strict';
 (() => {
 
 const q = (id) => document.getElementById(id);
 const nb = (v, c = 0) => Number(v).toFixed(c).replace('.', ',');
-const N = DIAS.length;
-let i = 0, tocando = null, vel = 130;
+const N = DIAS.length, PASSOS = N * 24;
+let d = 0, h = 0, tocando = null, vel = 70;
 
-const lin = q('lin'), cab = q('cab'), feito = q('feito'), campo = document.querySelector('.campo');
+// curva de chegada média do trimestre: distribui a previsão do dia pelas 24 horas
+const SOMA = new Array(24).fill(0);
+DIAS.forEach((x) => x.hora.forEach((v, k) => { SOMA[k] += v; }));
+const TT = SOMA.reduce((a, b) => a + b, 0) || 1;
+const ACUM = [];
+SOMA.reduce((a, v, k) => (ACUM[k] = a + v / TT), 0);
 
-/* ── a linha do trimestre: uma marca por dia que saiu da faixa ────────────── */
-lin.insertAdjacentHTML('beforeend', DIAS.map((d, k) => d.dentro ? '' :
+const lin = q('lin'), cab = q('cab'), feito = q('feito');
+const campo = document.querySelector('.campo');
+const dia = q('modo-dia'), tempo = q('modo-tempo'), abre = q('abre-modo');
+
+lin.insertAdjacentHTML('beforeend', DIAS.map((x, k) => x.dentro ? '' :
   `<span class="falha" style="left:${(k / (N - 1) * 100).toFixed(2)}%"></span>`).join('')
   + [['out', 0], ['nov', 31], ['dez', 61]].map(([m, k]) =>
     `<span class="mes-r" style="left:${(k / (N - 1) * 100).toFixed(2)}%">${m}</span>`).join(''));
 
-function pinta() {
-  const d = DIAS[i], p = i / (N - 1) * 100;
-  cab.style.left = p + '%';
-  feito.style.width = p + '%';
+/* ── o dia por dentro ───────────────────────────────────────────────────── */
+const W = 620, H = 210;
+const suave = (p) => p.length < 2 ? '' :
+  `M${p[0][0].toFixed(1)} ${p[0][1].toFixed(1)}` + p.slice(1).map((pt, k) => {
+    const a = p[k], m = (a[0] + pt[0]) / 2;
+    return ` C${m.toFixed(1)} ${a[1].toFixed(1)} ${m.toFixed(1)} ${pt[1].toFixed(1)}` +
+           ` ${pt[0].toFixed(1)} ${pt[1].toFixed(1)}`;
+  }).join('');
 
-  // o campo de linhas desliza: cada camada num fator diferente, e é a diferença
-  // entre elas que o olho lê como movimento no tempo
-  campo?.style.setProperty('--viagem', (-i * 26) + 'px');
+function desenhaDia() {
+  const x = DIAS[d];
+  const esperado = ACUM.map((a) => x.prev * a);
+  const real = []; let t = 0;
+  x.hora.forEach((v) => { t += v; real.push(t); });
+  const mx = (Math.max(x.alto, esperado[23], real[23]) * 1.1) || 1;
+  const px = (k) => 34 + k / 23 * (W - 46);
+  const py = (v) => H - 26 - v / mx * (H - 46);
 
-  q('m-dia').textContent = `${d.rot} ${d.dm}`;
-  q('m-pos').textContent = `dia ${i + 1} de ${N}`;
+  const pe = esperado.map((v, k) => [px(k), py(v)]);
+  const pr = real.slice(0, h + 1).map((v, k) => [px(k), py(v)]);
+  const alto = ACUM.map((a, k) => [px(k), py(x.alto * a)]);
+  const baixo = ACUM.map((a, k) => [px(k), py(x.baixo * a)]).reverse();
+  const marcas = [0, Math.round(mx / 2 / 10) * 10, Math.round(mx * .85 / 10) * 10];
 
-  q('m-acum').textContent = nb(d.acum, 1);
-  q('m-bar').style.width = d.acum + '%';
-  const dentroAte = DIAS.slice(0, i + 1).filter((x) => x.dentro).length;
-  q('m-acum-t').textContent =
-    `${dentroAte} de ${i + 1} ${i ? 'dias' : 'dia'} com o real dentro da faixa prevista.`;
-  q('m-bar').style.background =
-    d.acum >= 80 ? 'var(--ok)' : d.acum >= 55 ? 'var(--wn)' : 'var(--no)';
-
-  q('m-prev').textContent = nb(d.prev);
-  q('m-faixa').textContent = `faixa ${nb(d.baixo)} a ${nb(d.alto)}`;
-  q('m-real').textContent = d.real;
-  q('m-erro').textContent = `${d.erro > 0 ? '+' : '−'}${nb(Math.abs(d.erro), 1)} de diferença`;
-
-  const v = q('m-ver');
-  v.textContent = d.dentro ? 'dentro da faixa'
-    : (d.real < d.baixo ? 'entrou menos que o previsto' : 'entrou mais que o previsto');
-  v.className = 'ver ' + (d.dentro ? 'ok' : 'no');
-
-  q('m-casos').textContent = d.casos;
-  q('m-a10').textContent = d.acima10
-    ? `${d.acima10} acima de 10% de risco` : 'nenhum acima de 10%';
-  q('m-viol').textContent = d.violou;
-  q('m-maior').textContent = d.maior ? `maior risco ${nb(d.maior, 1)}%` : 'fila vazia';
-
-  document.querySelectorAll('.maq-c').forEach((c) => {
-    c.classList.remove('pisca');
-    void c.offsetWidth;               // reinicia a animação
-    c.classList.add('pisca');
-  });
+  q('dia-g').innerHTML = `<svg viewBox="0 0 ${W} ${H}">
+    ${marcas.map((v) => `<line class="g-grade" x1="30" y1="${py(v).toFixed(1)}" x2="${W}" y2="${py(v).toFixed(1)}"/>
+      <text class="g-y" x="24" y="${(py(v) + 3.5).toFixed(1)}" text-anchor="end">${v}</text>`).join('')}
+    <path class="g-bd" d="M${alto.concat(baixo).map((p) => `${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' L')} Z"/>
+    <path class="g-prev" d="${suave(pe)}"/>
+    ${pr.length > 1 ? `<path class="g-real" d="${suave(pr)}"/>` : ''}
+    <line class="g-ag" x1="${px(h).toFixed(1)}" y1="10" x2="${px(h).toFixed(1)}" y2="${H - 22}"/>
+    <circle class="g-no" cx="${px(h).toFixed(1)}" cy="${py(real[h]).toFixed(1)}" r="5.5"/>
+    ${[0, 6, 12, 18, 23].map((k) => `<text class="g-x" x="${px(k).toFixed(1)}" y="${H - 6}" text-anchor="middle">${String(k).padStart(2, '0')}h</text>`).join('')}
+  </svg>`;
+  return { real: real[h], esp: esperado[h] };
 }
 
-function vai(k) { i = Math.min(N - 1, Math.max(0, k)); pinta(); }
+function pinta() {
+  const x = DIAS[d], r = desenhaDia();
+
+  q('m-dia').textContent = `${x.rot} ${x.dm}`;
+  q('m-pos').textContent = `${String(h).padStart(2, '0')}h · dia ${d + 1} de ${N}`;
+
+  const passo = (d * 24 + h) / (PASSOS - 1) * 100;
+  cab.style.left = passo + '%';
+  feito.style.width = passo + '%';
+  // as três camadas do campo deslizam em fatores diferentes: é o paralaxe que o olho
+  // lê como movimento, não o deslocamento em si
+  campo?.style.setProperty('--viagem', (-(d * 24 + h) * 1.2) + 'px');
+
+  q('k-real').textContent = r.real;
+  q('k-esp').textContent = nb(r.esp, 1);
+  q('k-faixa').textContent = `${nb(x.baixo)} a ${nb(x.alto)}`;
+  q('k-fim').textContent = x.real;
+
+  const frac = ACUM[h];
+  const ritmo = frac > .12 ? r.real / frac : null;
+  q('k-ritmo').textContent = ritmo === null ? 'cedo demais' : nb(ritmo);
+
+  const v = q('k-ver');
+  if (ritmo === null) { v.textContent = 'cedo para dizer'; v.className = 'ver wn'; }
+  else if (ritmo < x.baixo) { v.textContent = 'abaixo do previsto'; v.className = 'ver no'; }
+  else if (ritmo > x.alto) { v.textContent = 'acima do previsto'; v.className = 'ver no'; }
+  else { v.textContent = 'no ritmo'; v.className = 'ver ok'; }
+
+  const ok = q('k-ok');
+  ok.textContent = x.dentro ? '✓' : '✕';
+  ok.className = 'marca ' + (x.dentro ? 'sim' : 'nao');
+
+  q('k-acum').textContent = nb(x.acum, 1) + '%';
+  q('k-bar').style.width = x.acum + '%';
+  q('k-bar').style.background =
+    x.acum >= 80 ? 'var(--ok)' : x.acum >= 55 ? 'var(--wn)' : 'var(--no)';
+  const dentroAte = DIAS.slice(0, d + 1).filter((y) => y.dentro).length;
+  q('k-acum-t').textContent =
+    `${dentroAte} de ${d + 1} ${d ? 'dias' : 'dia'} com o real dentro da faixa prevista.`;
+}
+
+function vaiPasso(p) {
+  p = Math.min(PASSOS - 1, Math.max(0, p));
+  d = Math.floor(p / 24); h = p % 24;
+  pinta();
+}
 
 lin.addEventListener('click', (e) => {
   const b = lin.getBoundingClientRect();
-  vai(Math.round((e.clientX - b.left) / b.width * (N - 1)));
+  vaiPasso(Math.round((e.clientX - b.left) / b.width * (PASSOS - 1)));
 });
 
 const play = q('play');
@@ -73,31 +124,31 @@ const PLAY = '<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor
 const PAUSE = '<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><rect x="6.5" y="5" width="4" height="14" rx="1"/><rect x="13.5" y="5" width="4" height="14" rx="1"/></svg>';
 
 function para() { clearInterval(tocando); tocando = null; play.innerHTML = PLAY; }
+function anda() {
+  const p = d * 24 + h;
+  if (p >= PASSOS - 1) return para();
+  vaiPasso(p + 1);
+}
 play.addEventListener('click', () => {
   if (tocando) return para();
-  if (i >= N - 1) i = 0;
+  if (d * 24 + h >= PASSOS - 1) { d = 0; h = 0; }
   play.innerHTML = PAUSE;
-  tocando = setInterval(() => { i >= N - 1 ? para() : vai(i + 1); }, vel);
+  tocando = setInterval(anda, vel);
 });
-
 document.querySelectorAll('.vel button').forEach((b) => b.addEventListener('click', () => {
   document.querySelectorAll('.vel button').forEach((x) => x.classList.remove('on'));
-  b.classList.add('on');
-  vel = +b.dataset.v;
-  if (tocando) { clearInterval(tocando); tocando = setInterval(() => { i >= N - 1 ? para() : vai(i + 1); }, vel); }
+  b.classList.add('on'); vel = +b.dataset.v;
+  if (tocando) { clearInterval(tocando); tocando = setInterval(anda, vel); }
 }));
 
 addEventListener('keydown', (e) => {
-  if (e.target.tagName === 'INPUT') return;
-  if (e.key === 'ArrowRight') { para(); vai(i + 1); }
-  if (e.key === 'ArrowLeft') { para(); vai(i - 1); }
+  if (e.target.tagName === 'INPUT' || tempo.hidden) return;
+  if (e.key === 'ArrowRight') { para(); vaiPasso(d * 24 + h + 1); }
+  if (e.key === 'ArrowLeft') { para(); vaiPasso(d * 24 + h - 1); }
   if (e.key === ' ') { e.preventDefault(); play.click(); }
 });
 
-pinta();
-
 /* ── troca de modo, no lugar, sem navegar ───────────────────────────────── */
-const dia = q('modo-dia'), tempo = q('modo-tempo'), abre = q('abre-modo');
 function modo(paraTempo) {
   const sai = paraTempo ? dia : tempo, entra = paraTempo ? tempo : dia;
   sai.classList.add('saindo');
@@ -105,12 +156,14 @@ function modo(paraTempo) {
     sai.hidden = true; sai.classList.remove('saindo');
     entra.hidden = false; entra.classList.add('entrando');
     setTimeout(() => entra.classList.remove('entrando'), 480);
-    if (paraTempo) entra.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    else scrollTo({ top: 0, behavior: 'smooth' });
+    if (paraTempo) pinta();
+    scrollTo({ top: 0, behavior: 'smooth' });
   }, 220);
   abre.classList.toggle('ativo', paraTempo);
 }
 abre?.addEventListener('click', () => modo(true));
 q('voltar')?.addEventListener('click', () => { para(); modo(false); });
+
+pinta();
 
 })();
