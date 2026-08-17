@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Brief A · relatório executivo · Cronos</title>
+<!--
+  VERSÃO A — RELATÓRIO EXECUTIVO
+  Fusão do "Dependência TIM · Relatório Executivo" com a linguagem do Cronos.
+
+  O que veio do relatório:
+    · sobrancelha em caixa alta, azul, com entrelinha larga
+    · título pesado em preto com UMA expressão colorida dentro
+    · o bloco RESPOSTA: painel tingido logo abaixo do título, com o veredito por escrito
+    · pílula de referência (corte, base) como metadado, não como frase
+    · linhas com selo quadrado tingido à esquerda, número grande, e explicação em cinza
+    · o painel de atenção quebrando o ritmo da lista exatamente onde é preciso olhar
+
+  O que ficou do Cronos:
+    · Outfit, paleta, raio de 22px, vidro claro, números tabulares
+    · a estrutura de três momentos (ontem · hoje · atenção) — objetiva, sem prosa corrida
+    · o rodapé de ações e a nota de origem do texto
+
+  Números reais do corte de 01/10/2025, iguais aos do _brief.html.
+-->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --hd: #0C1017;
+    --tx: #3D4657;
+    --tx2: #626D80;
+    --tx3: #8D97A8;
+    --ln: #E9EDF3;
+    --ln2: #DCE2EB;
+    --c: #FFFFFF;
+    --ac: #2563EB;
+    --acl: #EFF6FF;
+    --ok: #059669;
+    --okl: #ECFDF5;
+    --wn: #B45309;
+    --wnl: #FFFBEB;
+    --wnb: #FDE68A;
+    --e: cubic-bezier(.23, 1, .32, 1);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: 40px 20px;
+    background: #EEF1F6;
+    font-family: Outfit, system-ui, sans-serif;
+    color: var(--tx);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* o fundo só existe para o cartão ler como modal e não como página */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(60% 50% at 20% 0%, rgba(37, 99, 235, .07), transparent 70%),
+      radial-gradient(50% 40% at 90% 100%, rgba(12, 16, 23, .05), transparent 70%);
+    pointer-events: none;
+  }
+
+  .brf {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    padding: 32px 34px 26px;
+    border-radius: 24px;
+    background: var(--c);
+    border: 1px solid #fff;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, .9),
+      0 2px 4px rgba(12, 16, 23, .04),
+      0 40px 80px -32px rgba(12, 16, 23, .32);
+    opacity: 0;
+    transform: translateY(10px);
+    animation: en .28s var(--e) forwards;
+  }
+  @keyframes en { to { opacity: 1; transform: none } }
+
+  .x {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--ln);
+    border-radius: 11px;
+    background: var(--c);
+    color: var(--tx3);
+    cursor: pointer;
+    transition: color .12s var(--e), border-color .12s var(--e);
+  }
+  .x:hover { color: var(--hd); border-color: var(--ln2); }
+  .x:active { transform: scale(.94); }
+
+  /* ── sobrancelha e título: o padrão do relatório ───────────────────────── */
+  .ey {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--ac);
+  }
+
+  h1 {
+    margin: 14px 0 0;
+    font-size: 31px;
+    font-weight: 800;
+    letter-spacing: -.028em;
+    line-height: 1.12;
+    color: var(--hd);
+    max-width: 26ch;
+  }
+  h1 i { font-style: normal; color: var(--wn); }
+
+  /* o bloco RESPOSTA: o veredito por escrito, tingido, colado no título.
+     Azul e não âmbar: âmbar aqui e no painel de atenção deixaria a tela inteira em tom de
+     alarme, e o resumo do dia não é alarme — é resumo. O âmbar fica reservado para o único
+     número que pede decisão, e aparece dentro deste parágrafo só nele. */
+  .rsp {
+    margin-top: 18px;
+    padding: 15px 18px;
+    border-radius: 14px;
+    background: #F6F9FF;
+    border: 1px solid #E3EAFB;
+  }
+  .rsp-k {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ac);
+  }
+  .rsp p {
+    margin: 7px 0 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--tx);
+  }
+  .rsp b { font-weight: 700; color: var(--hd); font-variant-numeric: tabular-nums; }
+  .rsp b.al { color: var(--wn); }
+
+  .ref {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding: 7px 13px 7px 11px;
+    border-radius: 999px;
+    background: #F4F6FA;
+    font-size: 12px;
+    color: var(--tx2);
+  }
+  .ref svg { color: var(--tx3); }
+  .ref b { font-weight: 600; color: var(--tx); font-variant-numeric: tabular-nums; }
+
+  /* ── os três momentos ──────────────────────────────────────────────────── */
+  .sec {
+    margin: 26px 0 4px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .sec h2 { margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -.015em; color: var(--hd); }
+  .sec span { font-size: 12.5px; color: var(--tx3); }
+
+  .mm { display: grid; }
+
+  .m {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    align-items: start;
+    gap: 0 14px;
+    padding: 15px 0;
+    border-top: 1px solid var(--ln);
+  }
+  .m:first-child { border-top: 0; }
+
+  /* selo quadrado tingido: o relatório usa isso em toda linha de dado */
+  .sl {
+    width: 34px;
+    height: 34px;
+    border-radius: 11px;
+    display: grid;
+    place-items: center;
+    background: #F4F6FA;
+    color: var(--tx2);
+  }
+  .m.ok .sl { background: var(--okl); color: var(--ok); }
+  .m.ac .sl { background: var(--acl); color: var(--ac); }
+  .m.wn .sl { background: var(--wnl); color: var(--wn); }
+
+  .m-k {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--tx3);
+  }
+  .m-v {
+    display: block;
+    margin-top: 3px;
+    font-size: 27px;
+    font-weight: 700;
+    letter-spacing: -.032em;
+    line-height: 1.05;
+    color: var(--hd);
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .m-v u {
+    text-decoration: none;
+    margin-left: 9px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--tx2);
+  }
+  .m-e { display: block; margin-top: 5px; font-size: 13px; line-height: 1.5; color: var(--tx2); }
+  .m-e b { font-weight: 600; color: var(--tx); font-variant-numeric: tabular-nums; }
+
+  /* o momento que pede atenção sai da lista e vira painel: o ritmo quebra onde deve */
+  .m.al {
+    margin-top: 10px;
+    padding: 16px 18px;
+    border: 1px solid var(--wnb);
+    border-radius: 16px;
+    background: linear-gradient(180deg, #FFFDF5, var(--wnl));
+  }
+  .m.al .m-v { color: var(--wn); }
+
+  /* a barra da meta: cinza até a marca, cor só no que passa */
+  .bar {
+    position: relative;
+    height: 8px;
+    margin: 13px 0 22px;
+    border-radius: 999px;
+    background: #F1E7CE;
+  }
+  /* filho direto em todo segmento: `.bar b` pegava também os números da legenda e os
+     transformava em pílulas âmbar de 3% de largura */
+  .bar > i, .bar > b { position: absolute; top: 0; bottom: 0; border-radius: 999px; }
+  .bar > i { left: 0; width: 74.1%; background: #D8C49A; }
+  .bar > b { left: 74.1%; width: 3.0%; background: var(--wn); }
+  .bar > u {
+    position: absolute;
+    top: -5px;
+    bottom: -3px;
+    left: 74.1%;
+    width: 2px;
+    border-radius: 1px;
+    background: #6B4416;
+  }
+  .bar > s {
+    position: absolute;
+    top: 13px;
+    left: 70.6%;
+    width: 12.8%;
+    height: 3px;
+    border-radius: 999px;
+    background: #B98F3F;
+    opacity: .5;
+  }
+  .bar-f {
+    position: absolute;
+    top: 22px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11.5px;
+    color: #8A6B2E;
+  }
+  .bar-f b { font-weight: 700; color: #6B4416; font-variant-numeric: tabular-nums; }
+
+  /* ── rodapé ────────────────────────────────────────────────────────────── */
+  .ft {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid var(--ln);
+  }
+  .lk {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--ln);
+    background: var(--c);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--tx);
+    text-decoration: none;
+    transition: border-color .12s var(--e), color .12s var(--e);
+  }
+  .lk:hover { border-color: var(--ln2); color: var(--hd); }
+  .lk:active { transform: scale(.97); }
+  .lk svg { color: var(--tx3); }
+
+  .bt {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 18px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--hd);
+    color: #fff;
+    font: inherit;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .12s var(--e), box-shadow .12s var(--e);
+    box-shadow: 0 8px 18px -8px rgba(12, 16, 23, .5);
+  }
+  .bt:hover { transform: translateY(-1px); box-shadow: 0 12px 24px -10px rgba(12, 16, 23, .55); }
+  .bt:active { transform: scale(.97); }
+  .bt svg { transition: transform .12s var(--e); }
+  .bt:hover svg { transform: translateX(3px); }
+
+  .nt { display: block; margin-top: 14px; font-size: 11px; color: var(--tx3); line-height: 1.5; }
+
+  @media (max-width: 560px) {
+    .brf { padding: 24px 20px 20px; }
+    h1 { font-size: 25px; }
+    .ft .bt { margin-left: 0; width: 100%; justify-content: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .brf { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<article class="brf">
+  <button class="x" aria-label="fechar">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.9" stroke-linecap="round"><path d="M6.4 6.4l11.2 11.2M17.6 6.4L6.4 17.6"/></svg>
+  </button>
+
+  <span class="ey">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.3"/>
+      <path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4"/>
+      <path d="M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7"/></svg>
+    resumo do dia · 01/10/2025 · 07h00
+  </span>
+
+  <h1>O dia começa dentro do normal. O ano fecha <i>acima da meta</i>.</h1>
+
+  <div class="rsp">
+    <span class="rsp-k">resposta</span>
+    <p>Volume normal para uma quarta nas duas prioridades do KPI, e ontem fechou sem nenhuma
+      violação. O que pede decisão é dezembro: <b class="al">208</b> quebras de P3
+      projetadas contra meta de <b>200</b>.</p>
+  </div>
+
+  <span class="ref">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3.4" y="5.4" width="17.2" height="15.2" rx="3"/>
+      <path d="M3.4 10.4h17.2M8.4 3.4v4M15.6 3.4v4"/></svg>
+    Carga de <b>30/09 · 23h59</b> · <b>19.973</b> incidentes elegíveis ao KPI
+  </span>
+
+  <div class="mm">
+    <div class="m ok">
+      <span class="sl">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20.6c-4.8-1.3-7.4-4.4-7.4-9V6.2L12 3.4l7.4 2.8v5.4c0 4.6-2.6 7.7-7.4 9z"/>
+          <path d="M9 12.1l2.2 2.2 4-4.3"/></svg>
+      </span>
+      <span>
+        <span class="m-k">ontem</span>
+        <span class="m-v">84<u>entraram · 0 violaram o prazo</u></span>
+        <span class="m-e"><b>4</b> dias úteis seguidos sem violação.</span>
+      </span>
+    </div>
+
+    <div class="m ac">
+      <span class="sl">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3.4 16.2l4.6-5.2 3.4 2.6 4-5.4 5.2 3"/><circle cx="19.4" cy="7.4" r="2.2"/></svg>
+      </span>
+      <span>
+        <span class="m-k">hoje</span>
+        <span class="m-v">59 a 96<u>previstos no P3</u></span>
+        <span class="m-e">Às 7h entraram <b>5</b>, contra <b>11,1</b> esperados a esta
+          altura do dia.</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="m al wn">
+    <span class="sl">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.2"/>
+        <circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg>
+    </span>
+    <span>
+      <span class="m-k">atenção · fechamento do ano</span>
+      <span class="m-v">208<u>quebras de P3 projetadas até dezembro</u></span>
+      <span class="m-e">A meta é <b>200</b>, então o cenário mais provável estoura por
+        <b>8,0</b>. A faixa vai de <b>191</b> a <b>225</b>: fechar dentro ainda cabe.</span>
+
+      <div class="bar" role="img" aria-label="projeção de 208 quebras contra meta de 200,
+        faixa de 191 a 225">
+        <i></i><b></b><u></u><s></s>
+        <span class="bar-f"><span>faixa de <b>191</b> a <b>225</b></span>
+          <span>a marca é a meta de <b>200</b></span></span>
+      </div>
+    </span>
+  </div>
+
+  <div class="ft">
+    <a class="lk" href="#">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h11M4 17h6"/></svg>
+      fila de risco
+    </a>
+    <a class="lk" href="#">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 20.2S4.8 15.4 4.8 10.4A4.1 4.1 0 0 1 12 7.8a4.1 4.1 0 0 1 7.2 2.6c0 5-7.2 9.8-7.2 9.8z"/></svg>
+      saúde por produto
+    </a>
+    <button class="bt">Abrir o painel
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h13"/><path d="M13 6.4l6 5.6-6 5.6"/></svg>
+    </button>
+  </div>
+
+  <span class="nt">Texto escrito sobre a saída dos modelos. O Cronos não espera pergunta.</span>
+</article>
+
+</body>
+</html>

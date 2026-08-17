@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Brief B · amanhecer · Cronos</title>
+<!--
+  VERSÃO B — AMANHECER
+  O brief é das 7h, e essa é a única tela do produto que tem hora marcada. Aqui a hora vira
+  a forma: cabeça escura com o nascer do sol e o campo de linhas do Cronos, corpo claro
+  embaixo. É o mesmo par de superfícies das divisórias do deck — escuro para anunciar,
+  claro para informar.
+
+  Ontem e hoje viram trilha vertical: um trilho à esquerda com um nó por momento, porque os
+  dois são a mesma linha do tempo e um puxa o outro. Dezembro saiu do trilho — não é o passo
+  seguinte de ontem, é outro horizonte — e virou card próprio embaixo, com a mesma barra de
+  meta do cartão de prioridade no Panorama.
+
+  Números reais do corte de 01/10/2025, iguais aos do _brief.html.
+-->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --hd: #0C1017;
+    --tx: #3D4657;
+    --tx2: #626D80;
+    --tx3: #8D97A8;
+    --ln: #E9EDF3;
+    --ln2: #DCE2EB;
+    --c: #FFFFFF;
+    --ac: #2563EB;
+    --acl: #EFF6FF;
+    --ok: #059669;
+    --okl: #ECFDF5;
+    --wn: #B45309;
+    --wnl: #FFFBEB;
+    --wnb: #FDE68A;
+    --luz: #6EA0FF;
+    --e: cubic-bezier(.23, 1, .32, 1);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: 40px 20px;
+    background: #EEF1F6;
+    font-family: Outfit, system-ui, sans-serif;
+    color: var(--tx);
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(60% 50% at 20% 0%, rgba(37, 99, 235, .07), transparent 70%),
+      radial-gradient(50% 40% at 90% 100%, rgba(12, 16, 23, .05), transparent 70%);
+    pointer-events: none;
+  }
+
+  .brf {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    border-radius: 26px;
+    overflow: hidden;
+    background: var(--c);
+    box-shadow:
+      0 2px 4px rgba(12, 16, 23, .04),
+      0 44px 88px -34px rgba(12, 16, 23, .42);
+    opacity: 0;
+    transform: translateY(10px);
+    animation: en .28s var(--e) forwards;
+  }
+  @keyframes en { to { opacity: 1; transform: none } }
+
+  /* ── a cabeça: o nascer do dia ──────────────────────────────────────────── */
+  .hero {
+    position: relative;
+    padding: 30px 32px 28px;
+    background: #0C1017;
+    isolation: isolate;
+  }
+  /* a luz do amanhecer vem de baixo, quente, e some antes de virar brilho decorativo */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(90% 130% at 12% 118%, rgba(217, 152, 68, .28), transparent 62%),
+      radial-gradient(70% 110% at 82% 0%, rgba(37, 99, 235, .22), transparent 66%),
+      linear-gradient(170deg, #121A28, #0A0E15);
+  }
+  /* o campo de linhas do Cronos, na mesma função de sempre: dar profundidade sem falar */
+  .hero svg.campo {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+  }
+
+  .x {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, .16);
+    border-radius: 11px;
+    background: rgba(255, 255, 255, .06);
+    color: rgba(255, 255, 255, .7);
+    cursor: pointer;
+    transition: color .12s var(--e), background .12s var(--e);
+  }
+  .x:hover { color: #fff; background: rgba(255, 255, 255, .12); }
+  .x:active { transform: scale(.94); }
+
+  .ey {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, .62);
+  }
+  /* o sol em disco próprio: é o glifo da tela, não mais um ícone de rótulo */
+  .sol {
+    width: 26px;
+    height: 26px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(232, 168, 84, .16);
+    color: #F0B767;
+    box-shadow: inset 0 0 0 1px rgba(240, 183, 103, .3);
+  }
+
+  .hero h1 {
+    margin: 15px 0 0;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -.03em;
+    line-height: 1.1;
+    color: #fff;
+  }
+  .hero p {
+    margin: 11px 0 0;
+    max-width: 46ch;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, .68);
+  }
+  .hero p b { color: #fff; font-weight: 600; }
+
+  .selos { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+  .sel {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, .14);
+    background: rgba(255, 255, 255, .05);
+    font-size: 12px;
+    color: rgba(255, 255, 255, .78);
+  }
+  .sel b { font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; }
+  .sel i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #37D39B;
+    animation: pulso 3.2s ease-in-out infinite;
+  }
+  .sel.wn i { background: #F0B767; animation: none; }
+  @keyframes pulso { 0%, 100% { opacity: .45 } 50% { opacity: 1 } }
+
+  /* ── o corpo: a trilha do dia ──────────────────────────────────────────── */
+  .corpo { padding: 26px 32px 24px; }
+
+  .trilha { position: relative; display: grid; }
+
+  .m {
+    position: relative;
+    display: grid;
+    grid-template-columns: 31px 1fr;
+    gap: 0 16px;
+    padding: 0 0 22px;
+  }
+  .m:last-child { padding-bottom: 0; }
+  /* o trilho nasce em cada nó e morre no seguinte. Um trilho único no container sobrava
+     depois do último nó e lia como cauda solta apontando para nada. */
+  .m:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 37px;
+    bottom: -3px;
+    width: 1px;
+    background: var(--ln2);
+  }
+
+  .no {
+    position: relative;
+    z-index: 1;
+    width: 31px;
+    height: 31px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--c);
+    box-shadow: inset 0 0 0 1.5px var(--ln2);
+    color: var(--tx3);
+  }
+  .m.ok .no { box-shadow: inset 0 0 0 1.5px #A7E3CB; color: var(--ok); background: var(--okl); }
+  .m.ac .no { box-shadow: inset 0 0 0 1.5px #BFD4FB; color: var(--ac); background: var(--acl); }
+  .m.wn .no { box-shadow: inset 0 0 0 1.5px var(--wnb); color: var(--wn); background: var(--wnl); }
+
+  .m-k {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--tx3);
+    padding-top: 8px;
+  }
+  .m-v {
+    display: block;
+    margin-top: 2px;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -.034em;
+    line-height: 1.05;
+    color: var(--hd);
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .m-v u {
+    text-decoration: none;
+    margin-left: 9px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--tx2);
+  }
+  .m.wn .m-v { color: var(--wn); }
+  .m-e { display: block; margin-top: 6px; font-size: 13px; line-height: 1.55; color: var(--tx2); }
+  .m-e b { font-weight: 600; color: var(--tx); font-variant-numeric: tabular-nums; }
+
+  /* a distância até a meta, ao lado do número: chip, não frase */
+  .dl {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 10px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #FFF6E0;
+    border: 1px solid var(--wnb);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0;
+    color: var(--wn);
+    vertical-align: 5px;
+  }
+
+  /* ── o ano: card próprio, fora da trilha ────────────────────────────────────
+     Ontem e hoje são a mesma linha do tempo; dezembro não é o passo seguinte dela — é outro
+     horizonte, que some do trilho e vira objeto. O card carrega a mesma barra de meta do
+     cartão de prioridade no Panorama: quem leu lá, lê aqui. */
+  .ano {
+    margin-top: 22px;
+    padding: 17px 19px 15px;
+    border-radius: 18px;
+    border: 1px solid var(--wnb);
+    background: linear-gradient(180deg, #FFFDF6, var(--wnl));
+  }
+  .ano-h { display: flex; align-items: center; gap: 10px; }
+  .ano-i {
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    background: #FFF3D8;
+    color: var(--wn);
+  }
+  .ano-k {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: #8A6B2E;
+  }
+  .ano-n { margin-top: 12px; }
+  .ano-n b {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -.034em;
+    color: var(--wn);
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .ano-n u {
+    text-decoration: none;
+    margin-left: 10px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--tx2);
+  }
+  .ano-e { display: block; margin-top: 7px; font-size: 13px; line-height: 1.55; color: #6B5433; }
+  .ano-e b { font-weight: 700; color: #4E3B1D; font-variant-numeric: tabular-nums; }
+
+  /* a barra: neutra até a meta, cor só no que passa, e a marca escura é a meta */
+  .bar { position: relative; height: 8px; margin: 16px 0 26px; border-radius: 999px; background: #F2E8D0; }
+  .bar > i, .bar > b { position: absolute; top: 0; bottom: 0; border-radius: 999px; }
+  .bar > i { left: 0; width: 74.1%; background: #D9C8A3; }
+  .bar > b { left: 74.1%; width: 3%; background: var(--wn); }
+  .bar > u {
+    position: absolute;
+    top: -5px;
+    bottom: -3px;
+    left: 74.1%;
+    width: 2px;
+    border-radius: 1px;
+    background: #4E3B1D;
+  }
+  .bar > s {
+    position: absolute;
+    top: 13px;
+    left: 70.6%;
+    width: 12.8%;
+    height: 3px;
+    border-radius: 999px;
+    background: #A98A4C;
+    opacity: .55;
+  }
+  .bar-f {
+    position: absolute;
+    top: 21px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11.5px;
+    color: #8A6B2E;
+  }
+  .bar-f b { font-weight: 700; color: #4E3B1D; font-variant-numeric: tabular-nums; }
+
+  /* ── rodapé ────────────────────────────────────────────────────────────── */
+  .ft {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid var(--ln);
+  }
+  .lk {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--ln);
+    background: var(--c);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--tx);
+    text-decoration: none;
+    transition: border-color .12s var(--e), color .12s var(--e);
+  }
+  .lk:hover { border-color: var(--ln2); color: var(--hd); }
+  .lk:active { transform: scale(.97); }
+  .lk svg { color: var(--tx3); }
+
+  .bt {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 18px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--hd);
+    color: #fff;
+    font: inherit;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .12s var(--e), box-shadow .12s var(--e);
+    box-shadow: 0 8px 18px -8px rgba(12, 16, 23, .5);
+  }
+  .bt:hover { transform: translateY(-1px); box-shadow: 0 12px 24px -10px rgba(12, 16, 23, .55); }
+  .bt:active { transform: scale(.97); }
+  .bt svg { transition: transform .12s var(--e); }
+  .bt:hover svg { transform: translateX(3px); }
+
+  .nt { display: block; margin-top: 14px; font-size: 11px; color: var(--tx3); line-height: 1.5; }
+
+  @media (max-width: 560px) {
+    .hero { padding: 24px 20px 22px; }
+    .hero h1 { font-size: 25px; }
+    .corpo { padding: 22px 20px 20px; }
+    .ft .bt { margin-left: 0; width: 100%; justify-content: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .brf { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<article class="brf">
+
+  <header class="hero">
+    <svg class="campo" viewBox="0 0 700 230" preserveAspectRatio="none" aria-hidden="true">
+      <g fill="none" stroke="#6EA0FF" stroke-width="1.2" opacity=".2">
+        <path d="M-20 196C80 188 150 150 236 158s140 44 226 26 190-72 268-58"/>
+        <path d="M-20 216C90 212 160 182 250 186s150 38 232 22 180-56 258-44"/>
+      </g>
+      <g fill="none" stroke="#F0B767" stroke-width="1.1" opacity=".16">
+        <path d="M-20 172C70 160 148 122 240 132s136 50 224 30 186-80 276-64"/>
+      </g>
+    </svg>
+
+    <button class="x" aria-label="fechar">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="1.9" stroke-linecap="round"><path d="M6.4 6.4l11.2 11.2M17.6 6.4L6.4 17.6"/></svg>
+    </button>
+
+    <span class="ey">
+      <span class="sol">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.3"/>
+          <path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4"/>
+          <path d="M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7"/></svg>
+      </span>
+      resumo do dia · 01/10/2025 · 07h00
+    </span>
+
+    <h1>Situação da operação</h1>
+    <p>Volume dentro do normal para uma quarta nas duas prioridades do KPI. O que pede
+      decisão hoje é o <b>fechamento do ano</b>, não o dia.</p>
+
+    <div class="selos">
+      <span class="sel"><i></i>carga de <b>30/09 · 23h59</b></span>
+      <span class="sel"><b>19.973</b> elegíveis ao KPI</span>
+      <span class="sel wn"><i></i>1 ponto de atenção</span>
+    </div>
+  </header>
+
+  <div class="corpo">
+    <div class="trilha">
+
+      <div class="m ok">
+        <span class="no">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5.5 12.4l4 4 9-9"/></svg>
+        </span>
+        <span>
+          <span class="m-k">ontem</span>
+          <span class="m-v">84<u>entraram · 0 violaram o prazo</u></span>
+          <span class="m-e"><b>4</b> dias úteis seguidos sem violação.</span>
+        </span>
+      </div>
+
+      <div class="m ac">
+        <span class="no">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3.4 16.2l4.6-5.2 3.4 2.6 4-5.4 5.2 3"/></svg>
+        </span>
+        <span>
+          <span class="m-k">hoje</span>
+          <span class="m-v">59 a 96<u>previstos no P3</u></span>
+          <span class="m-e">Às 7h entraram <b>5</b>, contra <b>11,1</b> esperados a esta
+            altura do dia.</span>
+        </span>
+      </div>
+
+    </div>
+
+    <section class="ano">
+      <div class="ano-h">
+        <span class="ano-i">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.2"/>
+            <circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </span>
+        <span class="ano-k">o ano · fechamento em dezembro</span>
+      </div>
+
+      <div class="ano-n">
+        <b>208</b><span class="dl">estoura por 8,0</span>
+        <u>quebras de P3 projetadas · a meta é 200</u>
+      </div>
+
+      <span class="ano-e">Estourar é o cenário mais provável, não o certo: a ponta baixa da
+        faixa ainda fecha dentro da meta.</span>
+
+      <div class="bar" role="img" aria-label="projeção de 208 quebras contra meta de 200,
+        faixa de 191 a 225">
+        <i></i><b></b><u></u><s></s>
+        <span class="bar-f">
+          <span>faixa de <b>191</b> a <b>225</b></span>
+          <span>a marca escura é a meta</span>
+        </span>
+      </div>
+    </section>
+
+    <div class="ft">
+      <a class="lk" href="#">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h11M4 17h6"/></svg>
+        fila de risco
+      </a>
+      <a class="lk" href="#">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20.2S4.8 15.4 4.8 10.4A4.1 4.1 0 0 1 12 7.8a4.1 4.1 0 0 1 7.2 2.6c0 5-7.2 9.8-7.2 9.8z"/></svg>
+        saúde por produto
+      </a>
+      <button class="bt">Abrir o painel
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h13"/><path d="M13 6.4l6 5.6-6 5.6"/></svg>
+      </button>
+    </div>
+
+    <span class="nt">Texto escrito sobre a saída dos modelos. O Cronos não espera pergunta.</span>
+  </div>
+
+</article>
+
+</body>
+</html>
