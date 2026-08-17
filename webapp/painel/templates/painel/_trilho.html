@@ -1,0 +1,48 @@
+{% load br %}{% comment %}
+Histórico recente emendado na previsão, para UMA prioridade do KPI. Recebe:
+
+  t    · a geometria de graficos.trilho()
+  ac   · o acompanhamento daquela prioridade, para o número de hoje
+  hb   · piso do intervalo previsto para hoje
+  ha   · teto do intervalo previsto para hoje
+  pri  · 'P3' ou 'P2'
+
+É o único desenho da aba que existe no relógio da tela: o que já aconteceu de um lado, o que o
+modelo aposta do outro, e o corte no meio. A faixa acompanha só o lado previsto — incerteza é
+propriedade da previsão, e o que já aconteceu não tem intervalo.
+{% endcomment %}
+<article class="pn-v pv-tr">
+  <div class="pv-tr-h">
+    <span class="esc {{ pri|lower }}">{{ pri }}</span>
+    <div>
+      <b>{{ ac.previsto|num:1 }}</b> previstos hoje
+      <em>Intervalo de {{ hb|num:0 }} a {{ ha|num:0 }} · {{ ac.ate_agora }} registrados até
+        as {{ ac.hora_agora }}h</em>
+    </div>
+  </div>
+
+  <svg viewBox="0 0 {{ t.w }} {{ t.h }}" class="pv-tr-g" role="img"
+    aria-label="Volume diário de incidentes {{ pri }}: histórico de {{ t.ini }} a hoje e
+    previsão até {{ t.fim }}, com intervalo de 80%">
+    {% comment %}O campo do que ainda não aconteceu, tingido: separa passado de aposta sem
+    gastar uma linha de legenda.{% endcomment %}
+    <rect class="pv-tr-f" x="{{ t.fut_x }}" y="0" width="{{ t.fut_w }}" height="{{ t.y_fim }}"/>
+
+    {% for m in t.marcas %}
+      <line class="pn-mk" x1="26" y1="{{ m.y }}" x2="{{ t.w }}" y2="{{ m.y }}"/>
+      <text class="pn-eix" x="0" y="{{ m.y }}" dy="4">{{ m.v }}</text>
+    {% endfor %}
+
+    <path class="pn-gl-b" d="{{ t.banda }}"/>
+    <path class="pv-tr-r" d="{{ t.linha }}"/>
+    <path class="pn-gl-e" d="{{ t.futuro }}"/>
+
+    <line class="pn-ag" x1="{{ t.cx }}" y1="6" x2="{{ t.cx }}" y2="{{ t.y_fim }}"/>
+    <circle class="pn-no" cx="{{ t.cx }}" cy="{{ t.cy }}" r="4"/>
+
+    {% for r in t.rotulos %}
+      <text class="pn-eix {% if r.fut %}fut{% endif %}" x="{{ r.x }}" y="{{ t.h }}"
+        text-anchor="middle">{{ r.rot }}</text>
+    {% endfor %}
+  </svg>
+</article>

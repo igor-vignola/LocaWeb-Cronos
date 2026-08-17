@@ -1,16 +1,16 @@
 {% load br %}{# Detalhe do ativo: histórico mês a mês e o alerta de que o modelo não usa a taxa. #}
-<span class="md-k">ativo de configuração</span>
+<span class="md-k">Ativo de configuração</span>
 <h3 class="id">{{ a.ativo }}</h3>
 <p class="sub">{{ a.passagens }} incidentes elegíveis passaram por este ativo em 2025 até o corte.</p>
 
 <div class="md-g">
-  <div class="md-s"><em>passagens</em><b>{{ a.passagens }}</b></div>
-  <div class="md-s no"><em>violaram</em><b>{{ a.violacoes }}</b></div>
-  <div class="md-s no"><em>taxa</em><b>{{ a.taxa|num }}%</b></div>
+  <div class="md-s"><em>Passagens</em><b>{{ a.passagens }}</b></div>
+  <div class="md-s no"><em>Violaram</em><b>{{ a.violacoes }}</b></div>
+  <div class="md-s no"><em>Taxa</em><b>{{ a.taxa|num }}%</b></div>
 </div>
 
 {% if hist %}
-  <div class="md-h">histórico mês a mês</div>
+  <div class="md-h">Histórico mês a mês</div>
   <svg class="mh" viewBox="0 0 {{ hist.w }} {{ hist.h }}">
     {% for b in hist.barras %}
       <rect class="mh-p" x="{{ b.x }}" y="{{ b.yp }}" width="{{ b.w }}" height="{{ b.hp }}" rx="3"/>
@@ -19,7 +19,7 @@
     {% endfor %}
   </svg>
   <p class="sub" style="margin-top:10px">A barra clara é o volume do mês. A parte vermelha
-    embaixo é a fração que violou o prazo.</p>
+    embaixo é a fração que violou o OLA.</p>
 {% else %}
   {% include "painel/_vazio.html" with icone="lupa" titulo="Sem histórico registrado" texto="Este ativo não acumulou passagens suficientes até o corte." %}
 {% endif %}
@@ -27,9 +27,11 @@
 <div class="cx">{% chip "balanca" "ac" 18 %}
   <p>Este ativo viola <b>{{ a.vezes }} vezes mais</b> que a média da base, que é
     {{ base.media_violacao|num:2 }}%. <b>O modelo não usa essa taxa</b>: ele usa a identidade
-    do ativo, e só quando ela aparece o bastante para virar coluna própria.</p></div>
+    do ativo, e só quando ela aparece com frequência suficiente para virar coluna própria.</p></div>
 
+{# "Avisar em novo incidente" saiu em 17/08: era <button> sem ouvinte nenhum. Botão que #}
+{# promete e não entrega é o oposto de credibilidade — a mesma regra já aplicada aos dois #}
+{# botões de escalar e de marcar como tratado. #}
 <div class="md-f">
   <a class="bt pr" href="/fila/?q={{ a.ativo }}">{% icone "fila" 15 %}Ver incidentes deste ativo</a>
-  <button class="bt sc">{% icone "sino" 15 %}Avisar quando abrir outro</button>
 </div>

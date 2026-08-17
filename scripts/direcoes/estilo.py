@@ -8,20 +8,58 @@ modal de aprofundamento, linha de metrica com icone tingido."""
 CSS = r"""
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--pg:#F6F7F9;--c:#FFF;--ink:#0C1017;--ln:rgba(12,16,23,.08);--ln2:rgba(12,16,23,.16);
- --tx:#4E586B;--tx2:#7B8598;--tx3:#A3ABBA;--hd:#0C1017;
- --ac:#2563EB;--acl:#EFF4FF;--no:#DC2626;--nol:#FEF2F2;--wn:#B45309;--wnl:#FFFAEC;
- --ok:#059669;--okl:#ECFDF5;
+ /* A rampa de cinzas foi escurecida em 14/08 depois de medir o contraste real de cada texto
+    contra o fundo em que ele de fato aparece. Os valores antigos reprovavam em AA na tela
+    inteira, e nao em um canto: --tx3 dava 2,15:1 sobre --pg (alvo 4,5) e era a cor de todo
+    rotulo pequeno — as 147 legendas da Fila, os "casos" de Causas, as colunas de Saude.
+    --tx2 dava 3,47:1 e pegava o paragrafo de apoio de todos os cabecalhos e os links da
+    navegacao. Os tres degraus continuam distintos: 6,68 / 5,55 / 4,53 sobre --pg. */
+ --tx:#4E586B;--tx2:#5A6478;--tx3:#667288;--hd:#0C1017;
+ /* --no medido sobre --nol, nao sobre branco: e nessa dupla que ele aparece. */
+ --ac:#2563EB;--acl:#EFF4FF;--no:#D62222;--nol:#FEF2F2;--wn:#B45309;--wnl:#FFFAEC;
+ --ok:#04835C;--okl:#ECFDF5;
  --e:cubic-bezier(.19,1,.22,1);--e2:cubic-bezier(.34,1.56,.64,1);
  --s1:0 1px 2px rgba(12,16,23,.04),0 10px 26px -14px rgba(12,16,23,.14);
  --s2:0 2px 6px rgba(12,16,23,.06),0 28px 54px -20px rgba(12,16,23,.22)}
 html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
 body{background:var(--pg);color:var(--hd);min-height:100dvh;overflow-x:hidden;
  font-family:'Outfit',system-ui,sans-serif;font-size:15px;letter-spacing:-.011em}
+/* foco de teclado, uma regra para a folha inteira.
+   A folha base nao tinha nenhuma: quem navega por Tab percorria o painel sem ver onde
+   estava, porque `outline:0` aparece espalhado nos componentes e nada repunha o anel.
+   `:focus-visible` e nao `:focus` para o clique de mouse nao acender o anel. O `offset`
+   afasta do proprio raio do elemento, senao o anel encosta no conteudo. Sem tocar em
+   `border-radius`: o outline ja acompanha o raio do elemento sozinho, e herdar o raio aqui
+   deformaria o proprio botao no momento em que ele recebe foco. */
+:focus-visible{outline:2px solid var(--ac);outline-offset:3px}
+/* linha de tabela nao aceita outline no Chromium: o anel some no `border-collapse`.
+   Sombra interna faz o mesmo papel e respeita o raio da celula. */
+tr:focus-visible{outline:0;box-shadow:inset 0 0 0 2px var(--ac)}
+/* Movimento reduzido, guarda global.
+   O bloco que existia em monta_app.py e uma lista de classes: cada animacao nova
+   precisava ser lembrada ali, e a esquecida ficava rodando. Pior, desligar `animation`
+   num keyframe com `both` que parte de `opacity:0` deixa o elemento INVISIVEL. Por isso
+   aqui a animacao nao e cancelada: e encurtada, e o `both` aplica o estado final. */
+@media (prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;
+  animation-iteration-count:1!important;transition-duration:.01ms!important;
+  transition-delay:0ms!important;scroll-behavior:auto!important}}
 .id{font-weight:600;letter-spacing:.05em;font-variant-numeric:tabular-nums lining-nums}
 .nb{font-variant-numeric:tabular-nums lining-nums}
 .sh{position:relative;z-index:1;max-width:1420px;margin:0 auto;padding:0 32px 80px}
+/* Atalho de teclado: invisivel ate receber foco, e entao pousa acima de tudo. Serve a listas
+   longas — a Fila tem uma parada de Tab por caso. */
+.pula{position:absolute;left:-9999px;top:0;z-index:60;background:var(--ink);color:#fff;
+ font-size:12.5px;font-weight:600;padding:9px 14px;border-radius:10px;text-decoration:none}
+.pula:focus{left:0;outline:2px solid var(--ac);outline-offset:3px}
+/* 32px de cada lado sao 13% da largura util num telefone de 480px */
+@media (max-width:640px){.sh{padding:0 16px 60px}}
 /* topo */
-.tp{display:flex;align-items:center;gap:14px;padding:16px 0;margin-bottom:6px;
+/* `flex-wrap` porque em 480px a barra media 860px numa viewport de 480, e `overflow-x:hidden`
+   no body tornava as ultimas abas INALCANCAVEIS — nao apenas cortadas: `scrollTo` devolvia
+   zero. Quebrar a linha resolve sem tirar nada de lugar no desktop. */
+.tp{display:flex;align-items:center;gap:14px;padding:16px 0;margin-bottom:6px;flex-wrap:wrap;
  position:sticky;top:0;z-index:30;
  background:linear-gradient(180deg,rgba(246,247,249,.97) 58%,transparent);backdrop-filter:blur(8px)}
 .br{display:flex;align-items:center;gap:11px}
@@ -29,8 +67,22 @@ body{background:var(--pg);color:var(--hd);min-height:100dvh;overflow-x:hidden;
  place-items:center;box-shadow:var(--s1)}
 .br b{font-size:17px;font-weight:700;letter-spacing:-.04em;display:block;line-height:1}
 .br em{font-size:8.5px;letter-spacing:.16em;color:var(--tx3);font-style:normal;font-weight:600}
+/* A navegacao tem seis destinos e mede 625px numa peca so — em 480px ela sozinha estourava a
+   pagina, e com `overflow-x:hidden` no body as ultimas abas ficavam inalcancaveis. Rolagem
+   dentro da propria pilula: o dedo arrasta a navegacao sem levar a pagina junto. A barra de
+   rolagem fica escondida porque a pilula tem 44px de altura e a barra comeria um terco. */
 .pil{display:flex;gap:2px;background:var(--c);border:1px solid var(--ln);border-radius:13px;
- padding:4px;box-shadow:var(--s1)}
+ padding:4px;box-shadow:var(--s1);max-width:100%;overflow-x:auto;scrollbar-width:none;
+ overscroll-behavior-x:contain;scroll-snap-type:x proximity}
+.pil::-webkit-scrollbar{display:none}
+.pil>a{scroll-snap-align:center}
+/* A barra de rolagem esta escondida, entao em 390px a navegacao mostrava tres das seis abas e
+   NADA dizia que havia mais: nao ha barra, nao ha corte visivel, e a pilula termina numa borda
+   arredondada que parece o fim da peca. A mascara desfaz a ultima aba na borda direita, que e o
+   sinal universal de "continua". Some sozinha quando tudo cabe, porque ai nao ha rolagem. */
+@media (max-width:820px){
+ .pil{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 22px),transparent);
+  mask-image:linear-gradient(90deg,#000 calc(100% - 22px),transparent)}}
 .pil button{display:inline-flex;align-items:center;gap:7px;background:0;border:0;font:inherit;
  font-size:13px;font-weight:500;color:var(--tx2);padding:8px 14px;border-radius:9px;
  cursor:pointer;transition:all .34s var(--e);white-space:nowrap}
@@ -114,7 +166,7 @@ body{background:var(--pg);color:var(--hd);min-height:100dvh;overflow-x:hidden;
 .g3{grid-template-columns:1fr 1fr 1fr}
 .cd{display:flex;flex-direction:column;background:var(--c);border:1px solid var(--ln);
  border-radius:22px;padding:20px 22px;box-shadow:var(--s1);position:relative;overflow:hidden;
- transition:box-shadow .5s var(--e),transform .5s var(--e)}
+ transition:box-shadow .18s var(--e),transform .18s var(--e)}
 .cd:hover{box-shadow:var(--s2);transform:translateY(-2px)}
 .cd>.nt{margin-top:auto}
 /* o card escuro no meio dos claros, de plataforma-card-escuro-meta */
@@ -129,8 +181,9 @@ body{background:var(--pg);color:var(--hd);min-height:100dvh;overflow-x:hidden;
 .fg{display:flex;gap:2px;background:var(--pg);border:1px solid var(--ln);border-radius:10px;
  padding:3px;flex-shrink:0}
 .fb{background:0;border:0;font:inherit;font-size:11px;font-weight:600;color:var(--tx2);
- padding:5px 10px;border-radius:7px;cursor:pointer;transition:all .3s var(--e);white-space:nowrap}
-.fb:hover{color:var(--hd)}.fb.on{background:var(--c);color:var(--hd);box-shadow:var(--s1)}
+ padding:5px 10px;border-radius:7px;cursor:pointer;white-space:nowrap;
+ transition:background .16s var(--e),color .16s var(--e),transform .12s var(--e)}
+.fb:hover{color:var(--hd)}.fb:active{transform:scale(.97)}.fb.on{background:var(--c);color:var(--hd);box-shadow:var(--s1)}
 .vr{font-size:10.5px;font-weight:700;padding:3px 7px;border-radius:6px;margin-left:6px}
 .vr.ok{background:var(--okl);color:var(--ok)}.vr.no{background:var(--nol);color:var(--no)}
 /* trilho */
@@ -182,7 +235,9 @@ body{background:var(--pg);color:var(--hd);min-height:100dvh;overflow-x:hidden;
 /* fila */
 .fl{display:flex;flex-direction:column;gap:8px}
 .it{display:flex;align-items:center;gap:12px;background:var(--pg);border:1px solid var(--ln);
- border-radius:15px;padding:11px 13px;cursor:pointer;transition:all .34s var(--e);width:100%;
+ border-radius:15px;padding:11px 13px;cursor:pointer;width:100%;
+ transition:background .16s var(--e),border-color .16s var(--e),box-shadow .16s var(--e),
+  transform .16s var(--e);
  font:inherit;color:inherit;text-align:left;animation:sl .5s var(--e) both;
  animation-delay:calc(140ms + var(--i)*58ms)}
 .it:hover{background:var(--c);border-color:var(--ln2);box-shadow:var(--s1);transform:translateX(4px)}
@@ -257,7 +312,9 @@ body{background:var(--pg);color:var(--hd);min-height:100dvh;overflow-x:hidden;
 @keyframes mu{from{opacity:0;transform:translateY(18px) scale(.976)}}
 .md-x{position:absolute;top:18px;right:18px;width:32px;height:32px;border-radius:10px;
  background:var(--pg);border:1px solid var(--ln);color:var(--tx);cursor:pointer;display:grid;
- place-items:center;transition:all .3s var(--e)}
+ place-items:center;
+ transition:background .16s var(--e),color .16s var(--e),transform .12s var(--e)}
+.md-x:active{transform:scale(.94)}
 .md-x:hover{background:#E9ECF1;color:var(--hd)}
 .md-k{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ac)}
 .md h3{font-size:26px;font-weight:650;letter-spacing:-.035em;margin-top:7px}
@@ -291,13 +348,19 @@ body{background:var(--pg);color:var(--hd);min-height:100dvh;overflow-x:hidden;
 .cx p{font-size:12.5px;color:var(--tx);line-height:1.6}.cx p b{color:var(--hd);font-weight:650}
 .md-f{margin-top:20px;padding-top:15px;border-top:1px solid var(--ln);display:flex;gap:9px;
  flex-wrap:wrap}
+/* `text-decoration:none` nao era declarado, e a classe serve tanto <button> quanto <a>: nos
+   modais de produto e de ativo, que usam <a>, o botao vinha com o sublinhado padrao do
+   navegador, e nos de brief e incidente, que usam <button>, nao vinha. Dois botoes do mesmo
+   desenho saindo diferentes no mesmo sistema. */
 .bt{display:inline-flex;align-items:center;gap:7px;font:inherit;font-size:12.5px;font-weight:600;
- padding:10px 15px;border-radius:11px;cursor:pointer;transition:all .3s var(--e)}
+ padding:10px 15px;border-radius:11px;cursor:pointer;text-decoration:none;
+ transition:background .16s var(--e),color .16s var(--e),box-shadow .16s var(--e),
+  transform .12s var(--e)}
 .bt.pr{background:var(--ink);border:1px solid var(--ink);color:#fff}
 .bt.pr:hover{transform:translateY(-1px);box-shadow:var(--s2)}
 .bt.sc{background:var(--c);border:1px solid var(--ln);color:var(--tx)}
 .bt.sc:hover{background:var(--pg);color:var(--hd)}
-.bt:active{transform:scale(.98)}
+.bt:active{transform:scale(.97)}
 
 /* B1 · a marca virada heroi */
 .hl{position:relative;width:360px;flex-shrink:0}

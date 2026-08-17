@@ -1,0 +1,29 @@
+{% load br %}{% comment %}
+Como a meta do KPI é medida, para UMA prioridade. Abre pela Projeção, ao toque.
+
+Estava no corpo da página, ocupando o último terço dos dois cartões: doze linhas de tabela para
+uma regra que não muda de um dia para o outro. Referência não é leitura de turno — quem abre a
+Projeção quer saber onde o ano fecha, e a regra do KPI só é consultada quando alguém duvida do
+número. Aqui ela está a um clique de quem duvidar, e fora do caminho de quem não.
+
+A regra vem do dicionário oficial da Locaweb, tabela "Metas Anuais de KPI · Incidentes com OLA
+quebrados no ano", e mora em `servicos.ESCADA`.
+{% endcomment %}
+<span class="md-k">{{ o.prioridade }} · Regra do KPI anual</span>
+<h3>Como a meta é medida</h3>
+<p class="sub">A nota do ano cai conforme as violações sobem. <b>100% é a meta contratada</b>:
+  acima dela o indicador é batido, abaixo é perdido.</p>
+
+<div class="md-g">
+  <div class="md-s"><em>Já aconteceram</em><b>{{ o.ja|num:0 }}</b></div>
+  <div class="md-s"><em>Nota hoje</em><b>{{ o.at_ja.pc }}%</b></div>
+  <div class="md-s {{ o.tom }}"><em>Nota projetada</em><b>{{ o.at.pc }}%</b></div>
+</div>
+
+{% comment %}Sem divisória "A escada inteira": ela era a terceira camada de título para o mesmo
+objeto, depois do h3 e do cabeçalho interno da régua.{% endcomment %}
+{% include 'painel/_regua_kpi.html' with o=o v=regua sem_cabeca=1 %}
+
+<div class="cx">{% chip 'balanca' 'ac' 18 %}
+  <p>Os degraus são os do dicionário oficial da Locaweb. O Cronos não define a régua —
+    ele só diz em qual degrau o ano está e em qual ele deve terminar.</p></div>

@@ -1,9 +1,29 @@
 # -*- coding: utf-8 -*-
 """Filtros de formatacao no padrao pt-BR e um par de utilidades de template."""
+import os
+
 from django import template
+from django.contrib.staticfiles import finders
+from django.templatetags.static import static
 
 registro = template.Library()
 register = registro
+
+
+@registro.simple_tag
+def folha(caminho):
+    """Como o {% static %}, mais a marca de tempo do arquivo.
+
+    Em DEBUG o {% static %} devolve o caminho cru, sem hash. Como a resposta do dev server
+    nao traz Cache-Control, o navegador segura a folha antiga e a tela aparece com o HTML
+    novo e o CSS velho — sem estilo, sem erro nenhum no log. Isso custou uma ida e volta.
+
+    A marca de tempo troca a URL a cada gravacao, entao um F5 comum ja basta. Em producao o
+    ManifestStaticFilesStorage versiona pelo hash e o parametro so acompanha.
+    """
+    url = static(caminho)
+    arq = finders.find(caminho)
+    return f'{url}?v={int(os.path.getmtime(arq))}' if arq else url
 
 
 @registro.filter

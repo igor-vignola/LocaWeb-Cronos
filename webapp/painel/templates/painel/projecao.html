@@ -1,0 +1,140 @@
+{% extends 'painel/base.html' %}{% load br %}
+{% block titulo %}Projeção{% endblock %}
+
+{% comment %}
+PROJEÇÃO — onde o ano fecha contra o KPI, nas duas prioridades.
+
+A tela responde três perguntas, nesta ordem: quanto já teve, qual o máximo, quanto está
+projetado. Cada uma tem ícone, rótulo e número, separadas por divisória — para se entender sem
+ler o parágrafo.
+
+A barra É a decomposição: três segmentos emendados que somam a projeção — o que já aconteceu,
+o risco da fila aberta no corte e o volume que ainda entra até dezembro. Antes eram uma barra
+e uma lista embaixo dizendo a mesma conta duas vezes.
+
+Histórico do que foi corrigido aqui:
+
+1. A meta era teto único e errado. O notebook 06 reduziu o KPI a `{'P2': 45, 'P3': 200}` e pegou
+   degraus DIFERENTES em cada prioridade — 200 no P3 é o teto dos 150%, 45 no P2 é o teto dos
+   75%. A tela pintava de âmbar o P3, que projeta 125%, e de verde o P2, que projeta 75%.
+2. O número grande era a projeção, não o realizado.
+3. O P3 tinha 56% da largura e número 65% maior que o P2.
+4. O rodapé usava o ano fechado e cortes de novembro e dezembro — dado posterior ao corte.
+5. Uma escada de seis degraus desenhada em escala substituiu o teto único, e era ilegível: seis
+   blocos coloridos para dizer o que cabe numa barra com uma linha de máximo.
+{% endcomment %}
+
+{% block conteudo %}
+<div class="pj">
+
+  {% comment %}Cabeça escura, no mesmo padrão das outras abas. Era clara, sobre o campo de
+  linhas do fundo, e as ondas passavam por dentro do texto. Mais simples que a da Previsão —
+  aqui não há placar, porque os dois cartões logo abaixo já são o placar.{% endcomment %}
+  <header class="pj-h noite">
+    <span class="pj-ey">{% icone 'alvo' 14 %}Meta anual de OLA · Corte em 01/10/2025</span>
+    {% comment %}"Quanto do LIMITE já foi consumido" era a origem da leitura errada: ela ensina
+    o leitor a tratar o atingimento como percentual de um teto, e é exatamente por isso que a
+    escada parecia invertida — "50%" ao lado de "291 a 320" vira "usei metade do limite". Não
+    é: é a nota do ano, e ela cai conforme as violações sobem.{% endcomment %}
+    <h1>Onde o ano fecha</h1>
+    <p>As violações de OLA já acumuladas em cada prioridade, e a nota em que dezembro deve
+      terminar.</p>
+  </header>
+
+  <div class="pj-g">
+    {% for o in projecao %}
+      <section class="pn-v pj-c">
+        <div class="pj-c-h">
+          <span class="esc {{ o.prioridade|lower }}">{{ o.prioridade }}</span>
+          <span class="pj-c-r">Violações de OLA no ano</span>
+          <span class="pj-c-e {{ o.tom }}">{% if o.regua.estoura %}{% icone 'alerta' 13 %}
+            {% else %}{% icone 'escudo_ok' 13 %}{% endif %}{{ o.at.pc }}% de atingimento</span>
+        </div>
+
+        {% comment %}Três colunas, cada uma com ícone, rótulo e número. Uma cor só carrega
+        veredito — a do projetado — e as outras duas são neutras: com três números coloridos o
+        leitor não sabe qual deles é o alarme.{% endcomment %}
+        <div class="pj-n">
+          <div class="pj-n-c">
+            <span class="pj-n-k">{% icone 'escudo_ok' 14 %}Já aconteceram</span>
+            <b>{{ o.ja|num:0 }}</b>
+            <em>Até 30/09/2025</em>
+          </div>
+          <div class="pj-n-c">
+            {% comment %}"Teto do ano" e "Máximo do ano" dizem a mesma coisa errada: este número
+            não é o limite do ano, é o fim da faixa de 100% de atingimento. Passar dele não zera
+            o KPI — derruba para 75%, depois 50%, e só depois de 53 no P2 e 320 no P3 o
+            atingimento chega a zero. A escada logo abaixo mostra isso inteiro; o rótulo do
+            número grande precisa concordar com ela.{% endcomment %}
+            <span class="pj-n-k">{% icone 'alvo' 14 %}Limite para 100%</span>
+            <b>{{ o.regua.alvo }}</b>
+            <em>Acima disso o atingimento cai para 75%</em>
+          </div>
+          <div class="pj-n-c {% if o.regua.estoura %}fora{% else %}dentro{% endif %}">
+            <span class="pj-n-k">{% icone 'tendencia' 14 %}Projetadas</span>
+            <b>{{ o.projecao|num:0 }}</b>
+            <em>Entre {{ o.baixo|num:0 }} e {{ o.alto|num:0 }} até dezembro</em>
+          </div>
+        </div>
+
+        {% comment %}A barra mostra o que decide: o que já aconteceu em traço cheio, a área em
+        que a projeção pode cair, e onde o máximo corta. O intervalo é um campo com largura
+        real — antes era um fio de 3px embaixo da barra, e a incerteza do modelo, que é o
+        assunto de uma projeção, aparecia como detalhe.{% endcomment %}
+        <div class="pj-rg">
+          <div class="pj-rg-b">
+            <span class="pj-rg-ja" style="width:{{ o.regua.ja_w }}%"></span>
+            <span class="pj-rg-fx" style="left:{{ o.regua.baixo_x }}%;width:{{ o.regua.faixa_w }}%">
+              <em>{{ o.baixo|num:0 }} a {{ o.alto|num:0 }}</em></span>
+            <span class="pj-rg-pr" style="left:{{ o.regua.proj_x }}%"></span>
+            <span class="pj-rg-al {% if o.regua.estoura %}fora{% endif %}"
+              style="left:{{ o.regua.alvo_x }}%"><i></i><u>100% até {{ o.regua.alvo }}</u></span>
+          </div>
+
+          <div class="pj-rg-l">
+            <span><i class="c-ja"></i>Já aconteceram</span>
+            <span><i class="c-fx"></i>Intervalo da projeção</span>
+            <span><i class="c-pr"></i>Projeção central</span>
+          </div>
+        </div>
+
+        {% comment %}A decomposição é o conteúdo próprio desta aba — é ela que impede ler a
+        projeção como se fosse tudo aposta. Fica em faixa compacta, abaixo da barra, porque é
+        leitura de segundo nível.{% endcomment %}
+        <div class="pj-dec">
+          <span>{{ o.ja|num:0 }} <em>já aconteceram</em></span>
+          <span>+ {{ o.fila|num:1 }} <em>de risco na fila aberta</em></span>
+          <span>+ {{ o.entra|num:1 }} <em>do volume que ainda entra</em></span>
+        </div>
+
+        <p class="pj-t {% if o.regua.estoura %}fora{% endif %}">
+          {% if o.regua.estoura %}{% icone 'alerta' 15 %}<span>A projeção passa do limite dos
+            100% por <b>{{ o.regua.passa|num:1 }}</b> violações. Ainda cabem
+            <b>{{ o.regua.cabem|num:1 }}</b> antes de o atingimento cair.</span>
+          {% else %}{% icone 'escudo_ok' 15 %}<span>A projeção fica dentro dos 100%, com
+            <b>{{ o.at.margem|num:1 }}</b> violações de folga.</span>{% endif %}
+        </p>
+
+        {% comment %}A régua fica DENTRO do cartão da prioridade, atrás de uma divisória
+        nomeada. Em cartão próprio, ela virava uma quarta caixa solta na tela e o leitor tinha
+        de descobrir sozinho que a tabela de baixo pertencia ao cartão de cima. A divisória
+        separa as duas leituras — o veredito e a prova — sem soltar uma da outra.{% endcomment %}
+        {% comment %}A ESCADA SAIU DO CORPO DA PÁGINA em 17/08.
+
+        Ela ocupava o último terço dos dois cartões — doze linhas de tabela para explicar uma
+        regra que não muda de um dia para o outro. É referência, não leitura de turno: quem abre
+        a Projeção quer saber onde o ano fecha, e a regra do KPI só é consultada quando alguém
+        duvida do número. Agora ela abre ao toque, no mesmo padrão de folha do resto do sistema.
+
+        O que ficou na página: os três números, a barra e o veredito — que é o que decide.
+
+        A regra em si continua conferida contra o dicionário oficial da Locaweb, tabela "Metas
+        Anuais de KPI · Incidentes com OLA quebrados no ano", e mora em `servicos.ESCADA`.
+        {% endcomment %}
+        <button class="pn-lk pj-lk" data-mod="meta" data-k="{{ o.prioridade }}">
+          Como a meta é medida{% icone 'seta' 14 %}</button>
+      </section>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

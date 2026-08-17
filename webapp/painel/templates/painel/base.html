@@ -3,11 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{% block titulo %}Cronos{% endblock %} · Cronos</title>
+{% comment %}O bloco não tem mais conteúdo padrão: com "Cronos" dentro dele, qualquer tela que
+esquecesse de definir o título abria uma aba chamada "Cronos · Cronos".{% endcomment %}
+<title>{% block titulo %}{% endblock %} · Cronos</title>
 <meta name="description" content="Inteligência preditiva de incidentes operacionais.">
+{# a marca do topo também na aba do navegador; era o único 404 do sistema #}
+<link rel="icon" href="{% folha 'painel/favicon.svg' %}" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'painel/cronos.css' %}">
+<link rel="stylesheet" href="{% folha 'painel/cronos.css' %}">
+<link rel="stylesheet" href="{% folha 'painel/topo.css' %}">
+<link rel="stylesheet" href="{% folha 'painel/panorama.css' %}">
+<link rel="stylesheet" href="{% folha 'painel/previsao.css' %}">
 </head>
 <body data-dia="{{ hoje.dia }}">
 {% include 'painel/_campo.html' %}
@@ -22,51 +29,71 @@
       <div><b>Cronos</b><em>VEJA ANTES · AJA ANTES</em></div>
     </div>
 
-    <nav class="pil" aria-label="seções">
-      <a href="{% url 'hoje' %}" class="{% if aba == 'hoje' %}on{% endif %}">{% icone 'agora' 15 %}Hoje</a>
-      <a href="{% url 'fila' %}" class="{% if aba == 'fila' %}on{% endif %}">{% icone 'fila' 15 %}Fila de risco</a>
-      <a href="{% url 'saude' %}" class="{% if aba == 'saude' %}on{% endif %}">{% icone 'coracao' 15 %}Saúde por produto</a>
-      <a href="{% url 'causas' %}" class="{% if aba == 'causas' %}on{% endif %}">{% icone 'lupa' 15 %}Causas e recorrentes</a>
-      <a href="{% url 'previsao' %}" class="{% if aba == 'previsao' %}on{% endif %}">{% icone 'previsao' 15 %}Previsão de volume</a>
+    {% comment %}
+      Rótulo curto e substantivo — o rótulo longo ("Saúde por produto") empurrava a
+      navegação para 5 blocos de texto e competia com o conteúdo. As divisórias agrupam
+      em zonas: onde estamos · o que vem · onde agir · onde o problema mora.
+    {% endcomment %}
+    {% comment %}`aria-current="page"` na aba ativa: sem ele, o leitor de tela anuncia seis
+    links iguais e não diz em qual seção a pessoa está — a informação existia só na cor de
+    fundo.{% endcomment %}
+    <nav class="pil" aria-label="Seções">
+      <a href="{% url 'panorama' %}" class="{% if aba == 'panorama' %}on{% endif %}"{% if aba == 'panorama' %} aria-current="page"{% endif %}>{% icone 'agora' 15 %}Panorama</a>
+      <span class="pil-d"></span>
+      <a href="{% url 'previsao' %}" class="{% if aba == 'previsao' %}on{% endif %}"{% if aba == 'previsao' %} aria-current="page"{% endif %}>{% icone 'previsao' 15 %}Previsão</a>
+      <a href="{% url 'projecao' %}" class="{% if aba == 'projecao' %}on{% endif %}"{% if aba == 'projecao' %} aria-current="page"{% endif %}>{% icone 'alvo' 15 %}Projeção</a>
+      <span class="pil-d"></span>
+      <a href="{% url 'fila' %}" class="{% if aba == 'fila' %}on{% endif %}"{% if aba == 'fila' %} aria-current="page"{% endif %}>{% icone 'fila' 15 %}Fila</a>
+      <span class="pil-d"></span>
+      <a href="{% url 'saude' %}" class="{% if aba == 'saude' %}on{% endif %}"{% if aba == 'saude' %} aria-current="page"{% endif %}>{% icone 'coracao' 15 %}Saúde</a>
+      <a href="{% url 'causas' %}" class="{% if aba == 'causas' %}on{% endif %}"{% if aba == 'causas' %} aria-current="page"{% endif %}>{% icone 'lupa' 15 %}Causas</a>
     </nav>
 
     <div class="tp-r">
-      <button class="stl" id="abrepl" title="buscar (Ctrl+K)">{% icone 'lupa' 14 %}buscar
-        <span class="pl-k">Ctrl K</span></button>
-      <span class="stl"><i></i>carga de {{ ontem.dm }} · 23h59</span>
-      {% if aba == 'hoje' %}<button class="bl" id="sino" title="reabrir o resumo do dia">{% icone 'sino' 17 %}<b>1</b></button>{% else %}<a class="bl" href="{% url 'hoje' %}" title="ver o resumo do dia">{% icone 'sino' 17 %}</a>{% endif %}
+      {% comment %}
+        Controle de tempo. Ocupa o lugar que era da busca. Ele nao mexe em nada da tela:
+        so publica o evento 'cronos:tempo' no document e escuta o mesmo evento para
+        acompanhar quem mudar o tempo por outro caminho (o player do modo tempo).
+        Fica escondido nas abas que nao trazem a constante DIAS.
+      {% endcomment %}
+      <div class="tc" id="tc" role="group" aria-label="Tempo" hidden>
+        <button class="tc-s ant" id="tc-ant" type="button" title="Dia anterior"
+          aria-label="Dia anterior">{% icone 'seta' 14 %}</button>
+        <span class="tc-d" id="tc-dia" aria-live="polite">—</span>
+        <button class="tc-s" id="tc-pro" type="button" title="Dia seguinte"
+          aria-label="Dia seguinte">{% icone 'seta' 14 %}</button>
+      </div>
+      {% comment %}A barra do topo dizia "carga de 30/09 · 23h59", que é hora de pipeline: não muda
+      decisão nenhuma e obrigava a fazer a conta de que dia é hoje. Agora diz o dia, por extenso. O
+      ponto verde continua sendo o sinal de que o pacote está carregado.{% endcomment %}
+      <span class="stl"><i></i>{{ hoje.dia_semana }}, {{ hoje.dia_mes }}</span>
+      {% if aba == 'panorama' %}<button class="bl" id="sino" title="Reabrir o resumo do dia">{% icone 'sol' 17 %}<b>1</b></button>{% else %}<a class="bl" href="{% url 'panorama' %}" title="Ver o resumo do dia">{% icone 'sol' 17 %}</a>{% endif %}
     </div>
   </header>
 
   <main>{% block conteudo %}{% endblock %}</main>
 
+  {% comment %}O rodapé dizia "os números vêm dos parquets gerados pelos notebooks 02 a 07; o
+  contêiner apenas lê", em todas as seis páginas. É uma nota de proveniência excelente — e é
+  vocabulário de quem construiu, não de quem usa. A informação que serve ao turno é uma só: até
+  quando o dado vai. A procedência técnica continua no README e no deck, onde a banca a
+  procura.{% endcomment %}
   <footer class="rod">
-    <span>Protótipo do MVP · corte em {{ hoje.completo }}. Os números vêm dos parquets
-      gerados pelos notebooks 02 a 07; o contêiner apenas lê.</span>
+    <span>Protótipo do MVP · Dados até {{ hoje.completo }}</span>
     <span>Cronos · Super Data Bros · Challenge FIAP 2026 com Locaweb</span>
   </footer>
 </div>
 
-{% if aba == 'hoje' %}{% include 'painel/_brief.html' %}{% endif %}
+{% if aba == 'panorama' %}{% include 'painel/_brief.html' %}{% endif %}
 
 <div class="ov" id="ov" hidden>
-  <div class="md" role="dialog" aria-modal="true" aria-label="detalhe">
-    <button class="md-x" id="mx" aria-label="fechar">{% icone 'fechar' 16 %}</button>
-    <div id="mc"><div class="md-carga">carregando…</div></div>
+  <div class="md" role="dialog" aria-modal="true" aria-label="Detalhe">
+    <button class="md-x" id="mx" aria-label="Fechar">{% icone 'fechar' 16 %}</button>
+    <div id="mc"><div class="md-carga">Carregando…</div></div>
   </div>
 </div>
 
-<div class="pl" id="pl" hidden>
-  <div class="pl-c">
-    <div class="pl-i">{% icone 'lupa' 18 %}
-      <input id="plq" placeholder="Buscar incidente, ativo, produto ou seção…" autocomplete="off"
-        aria-label="buscar">
-      <span class="pl-k">Esc</span></div>
-    <div class="pl-r" id="plr"></div>
-  </div>
-</div>
-
-<script src="{% static 'painel/cronos.js' %}" defer></script>
+<script src="{% folha 'painel/cronos.js' %}" defer></script>
 {% block js %}{% endblock %}
 </body>
 </html>

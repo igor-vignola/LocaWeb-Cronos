@@ -1,30 +1,62 @@
 {% extends 'painel/base.html' %}{% load br static %}
 {% block titulo %}Hoje{% endblock %}
 
+{% comment %}
+Aba Hoje, versão 2. A v1 está em hoje-v1.html.bak.
+
+A v1 tinha oito cards e quarenta números, em escopos misturados: o herói falava do P3
+e os chips ao lado eram a base inteira, sem nada dizendo isso. Esta versão responde
+quatro perguntas e para:
+
+  1. quanto vem hoje       → o herói, com P2 e P3 separados e a faixa antes do número
+  2. está se cumprindo?    → ato 01, previsto contra realizado hora a hora
+  3. onde eu ajo agora     → ato 02, a fila por risco e a prova de que a ordem funciona
+  4. o ano fecha na meta?  → ato 03, projeção contra as metas de P2 e P3
+
+Saíram daqui: o trilho de dias (o controle de tempo do topo faz isso), as 24 horas do
+dia, os ativos de maior taxa (vão para a Fila) e os produtos com pior nota (vão para a
+Saúde).
+
+Escopo é explícito em todo número: ou o rótulo diz P2/P3, ou o bloco carrega a etiqueta
+`todas as prioridades`. Era o defeito mais grave da v1.
+{% endcomment %}
+
 {% block conteudo %}
-<div class="dias">
-  <a class="da" href="{% url 'previsao' %}"><em>ontem · {{ ontem.dm }}</em>
-    <b>{{ ontem.total }}</b><span>entraram · {{ ontem.violou }} violaram</span></a>
-  <span class="da on"><em>hoje · {{ hoje.dm }}</em><b>{{ hoje.previsto_p3|num:0 }}</b>
-    <span>previstos no P3</span></span>
-  {% for d in p.trilho.previsto|slice:"1:5" %}
-    <a class="da" href="{% url 'previsao' %}"><em>{{ d.rot }} · {{ d.dm }}</em>
-      <b>{{ d.valor|num:0 }}</b><span>{{ d.baixo|num:0 }} a {{ d.alto|num:0 }}</span></a>
-  {% endfor %}
-</div>
+<div id="modo-dia">
 
 <section class="hr">
   <div>
-    <span class="kk">{% icone 'agora' 14 %}{{ hoje.completo }} · 07h00</span>
-    <h1>Dia de volume normal,<br>
+    <span class="kk">{% icone 'agora' 14 %}<b id="hz-data">{{ hoje.completo }}</b>
+      <span id="hz-hora">· 07h</span></span>
+    <h1 id="hz-h1">Dia de volume normal,<br>
       <span class="mu">{% if calmo %}sem caso crítico.{% else %}com risco concentrado.{% endif %}</span></h1>
-    <p class="lead">Devem entrar cerca de <b>{{ hoje.previsto_p3|num:0 }} incidentes elegíveis</b>
-      no P3 e <b>{{ hoje.previsto_p2|num:0 }}</b> no P2, dentro do padrão de uma
-      {{ hoje.dia_semana }}-feira.
-      {% if calmo %}Nenhum caso aberto hoje passa de 10% de risco: o maior está em
-        <b>{{ maior_hoje|num }}%</b>.{% else %}
-        <span class="cr">Há casos acima de 10% de risco</span> pedindo atenção.{% endif %}</p>
+    <p class="lead" id="hz-lead">
+      {% if calmo %}Nenhum dos <b>{{ n_hoje }}</b> incidentes abertos hoje passa de 10% de
+        chance de estourar o prazo — o maior está em <b>{{ maior_hoje|num }}%</b>.
+      {% else %}<span class="cr">Há casos acima de 10% de risco</span> entre os
+        <b>{{ n_hoje }}</b> abertos hoje. O maior está em <b>{{ maior_hoje|num }}%</b>.
+      {% endif %}</p>
+
+    {% comment %}A faixa vem antes do número em cada prioridade: previsão é intervalo,
+    não ponto. P2 e P3 aparecem separadas porque a série é separada — somar as duas
+    esconderia o P2, que é sete vezes menor.{% endcomment %}
+    <div class="prv">
+      <div class="prv-c">
+        <em><span class="esc p3">P3</span>devem entrar hoje</em>
+        <b id="hz-fx3">{{ hoje.baixo_p3|num:0 }} <u>a</u> {{ hoje.alto_p3|num:0 }}</b>
+        <span>central <b>{{ hoje.previsto_p3|num:0 }}</b> · confiança de 80%</span>
+      </div>
+      <div class="prv-c">
+        <em><span class="esc p2">P2</span>devem entrar hoje</em>
+        <b>{{ hoje.baixo_p2|num:0 }} <u>a</u> {{ hoje.alto_p2|num:0 }}</b>
+        <span class="prv-n">central <b>{{ hoje.previsto_p2|num:0 }}</b> · confiança de 80%</span>
+        <span class="prv-n av">a série do P2 ainda não está agregada por dia · fixa em
+          {{ hoje.dm }}</span>
+      </div>
+    </div>
+
     <div class="chips">
+      <span class="chips-e">{% icone 'fila' 12 %}contexto da operação · todas as prioridades</span>
       <div class="ch">{% chip 'entrada' 'ac' 16 %}
         <div><em>entraram ontem</em><b>{{ ontem.total }}<u>elegíveis</u></b></div></div>
       <div class="ch">{% chip 'escudo_ok' 'ok' 16 %}
@@ -36,8 +68,6 @@
     </div>
   </div>
 
-  {% comment %}A faixa vem antes do número: a previsão é um intervalo, não um ponto.
-  Clicar no gráfico troca o painel para o modo "o modelo no tempo".{% endcomment %}
   <button class="hc" id="abre-modo" title="ver como a previsão se comportou no trimestre">
     <span class="hc-dica">{% icone 'alvo' 13 %}ver o modelo no tempo</span>
     <svg class="hc-l" viewBox="0 0 {{ heroi.w }} {{ heroi.h }}">
@@ -52,23 +82,15 @@
       <text class="hl-x ag" x="{{ heroi.nx }}" y="{{ heroi.h|add:'-8' }}" text-anchor="middle">agora</text>
       <text class="hl-x" x="{{ heroi.w|add:'-18' }}" y="{{ heroi.h|add:'-8' }}" text-anchor="end">+6 dias</text>
     </svg>
-    <div class="fxv">
-      <span class="fxv-r">entre</span>
-      <b>{{ hoje.baixo_p3|num:0 }}</b><span class="fxv-e">e</span><b>{{ hoje.alto_p3|num:0 }}</b>
-      <span class="fxv-r">incidentes hoje</span>
-    </div>
-    <div class="fxv-b">
-      <span class="fxv-c">valor central <b>{{ hoje.previsto_p3|num:0 }}</b> ·
-        confiança de 80%</span>
-    </div>
+    <div class="hc-p"><span class="esc p3">P3</span>volume elegível ao KPI, dia a dia ·
+      a área clara é a faixa de 80%</div>
   </button>
 </section>
 
-<div id="modo-dia">
-{% include 'painel/_ato.html' with n='01' titulo='O dia acontecendo' pergunta='O que já entrou contra o que era esperado a esta altura, hora a hora.' %}
+{% include 'painel/_ato.html' with n='01' titulo='O dia está se cumprindo?' pergunta='O que já entrou contra o que a previsão esperava a esta altura, hora a hora.' %}
 <div class="gr g2">
   <article class="cd">
-    {% include 'painel/_cab.html' with icone='previsao' titulo='Previsto contra realizado' oque='A área clara é a faixa prevista distribuída pelas horas do dia. A linha escura é o que já entrou de verdade.' %}
+    {% include 'painel/_cab.html' with icone='previsao' titulo='Previsto contra realizado' escopo='P3' oque='A curva esperada foi fechada à meia-noite e não se move. A linha escura é o que de fato entrou.' %}
     {% include 'painel/_acompanhamento.html' %}
     <p class="nt">
       Às {{ ac.hora_agora }}h entraram <b>{{ ac.ate_agora }}</b> contra
@@ -78,26 +100,32 @@
         {% if ac.no_ritmo %}dentro da faixa prevista.{% else %}<b>fora</b> da faixa de
         {{ ac.baixo|num:0 }} a {{ ac.alto|num:0 }}.{% endif %}
       {% else %}
-        Com apenas <b>{{ ac.dia_decorrido|num }}%</b> do dia decorrido, extrapolar o
-        fechamento ainda não vale: a conta é instável de manhã e só firma perto do meio-dia.
+        Com <b>{{ ac.dia_decorrido|num }}%</b> do dia decorrido, extrapolar o fechamento
+        ainda não vale: a conta é instável de manhã e só firma perto do meio-dia.
       {% endif %}
     </p>
   </article>
 
   <article class="cd">
-    {% include 'painel/_cab.html' with icone='relogio' titulo='As 24 horas do dia' oque='Cada barra é uma hora. A altura é quanto entra, a cor é a taxa de violação daquela hora ao longo do ano.' %}
-    {% include 'painel/_faixa24.html' %}
-    <p class="nt">A madrugada tem pouco volume e a <b>maior taxa do dia</b>: às
-      {{ hora_risco.h }}h a chance de estourar é
-      <b>{{ hora_risco.taxa|vezes:base.media_violacao }} vezes</b> a média da base. O pico de
-      movimento é às {{ hora_pico.h }}h, com {{ hora_pico.abertos|mil }} incidentes no ano.</p>
+    {% include 'painel/_cab.html' with icone='alvo' titulo='A faixa segurou o dia?' escopo='P3' oque='A previsão só vale se o realizado cair dentro dela. Medido nos 92 dias fora da amostra de treino.' %}
+    <div class="big-n"><b>{{ r.cobertura|num }}<u>%</u></b>
+      <span>dos {{ r.total }} dias fecharam dentro da faixa prevista</span></div>
+    <div class="kvs">
+      <div class="kv2"><em>erro médio por dia</em><b>{{ r.mae|num }}</b></div>
+      <div class="kv2"><em>dias abaixo da faixa</em><b>{{ r.abaixo }}</b></div>
+      <div class="kv2"><em>dias acima da faixa</em><b>{{ r.acima }}</b></div>
+    </div>
+    <p class="nt">Todos os {{ r.abaixo }} erros são para baixo, nenhum para cima: o modelo
+      previu mais do que veio. Em novembro o volume caiu de 54 para 34 por dia e a previsão,
+      treinada até setembro, não tinha como saber. <b>A faixa não é garantia</b> — é por isso
+      que ela aparece junto do número, e não no lugar dele.</p>
   </article>
 </div>
 
-{% include 'painel/_ato.html' with n='02' titulo='O que fazer hoje' pergunta='Os casos abertos com maior chance de estourar o prazo, na ordem em que valem atenção.' %}
+{% include 'painel/_ato.html' with n='02' titulo='Onde agir agora' pergunta='Os casos abertos com maior chance de estourar o prazo, na ordem em que valem atenção.' %}
 <div class="gr g2">
   <article class="cd">
-    {% include 'painel/_cab.html' with icone='fila' titulo='Fila de hoje' oque='Ordenada pela chance de estourar o prazo. Clique em qualquer caso para ver por que o modelo pontuou assim.' link='fila' link_rot='fila completa' %}
+    {% include 'painel/_cab.html' with icone='fila' titulo='A fila de hoje' escopo='todas' oque='Ordenada pela chance de estourar o prazo. Clique em qualquer caso para ver por que o modelo pontuou assim.' link='fila' link_rot='fila completa' %}
     <div class="fl">
       {% for c in fila %}
         <button class="it" style="--i:{{ forloop.counter0 }}" data-mod="incidente" data-k="{{ c.incidente }}">
@@ -106,46 +134,47 @@
             <span><u>{% icone 'produto' 12 %}{{ c.produto }}</u>
               <u>{% icone 'pessoas' 12 %}{{ c.equipe }}</u>
               <u>{% icone 'ativo' 12 %}<span class="id">{{ c.ativo|default:'sem ativo' }}</span></u></span></span>
-          <span class="it-b"><em>{{ c.dm }} · {{ c.hora }}h</em><b>{{ c.prioridade }}</b></span>
+          <span class="it-b"><em>{{ c.dm }} · {{ c.hora }}h</em>
+            <b class="esc {{ c.prioridade|lower }}">{{ c.prioridade }}</b></span>
           <span class="sq">{% icone 'seta' 15 %}</span>
         </button>
       {% empty %}
         {% include 'painel/_vazio.html' with icone='escudo_ok' titulo='Nenhum caso aberto hoje' texto='Quando entrar o primeiro incidente elegível do dia, ele aparece aqui já pontuado.' %}
       {% endfor %}
     </div>
+    <p class="nt av">{% icone 'alerta' 13 %}A fila não acompanha a viagem no tempo: ela é
+      sempre a de {{ hoje.dm }}. Pontuar todos os dias do trimestre é o passo seguinte.</p>
     <p class="nt">O maior risco de hoje é <b>{{ maior_hoje|num }}%</b> contra uma média de base
       de <b>{{ base.media_violacao|num:2 }}%</b>: alto em termos relativos, longe da faixa
       crítica. Dizer que o dia está calmo também é resposta.</p>
   </article>
 
   <article class="cd">
-    {% include 'painel/_cab.html' with icone='alerta' titulo='Onde o risco se concentra' oque='Os ativos com maior taxa de violação conhecida até hoje. Clique para abrir o histórico mês a mês.' %}
-    <div class="ml">
-      {% for a in ativos %}
-        <button class="mr cl" data-mod="ativo" data-k="{{ a.ativo }}">
-          {% chip 'ativo' 'no' 18 %}
-          <div class="mr-t"><b class="id">{{ a.ativo }}</b>
-            <span>{{ a.violacoes }} de {{ a.passagens|mil }} passagens violaram</span></div>
-          <span class="mr-v no">{{ a.taxa|num }}<u>%</u></span>
-          <span class="sq">{% icone 'seta' 14 %}</span>
-        </button>
-      {% endfor %}
+    {% include 'painel/_cab.html' with icone='balanca' titulo='Por que confiar nessa ordem' escopo='todas' oque='O que a ordenação por risco captura, medida no trimestre fora da amostra de treino.' %}
+    <div class="pv">
+      <div class="pv-n">{{ ganho_vezes }}<u>×</u></div>
+      <p class="pv-f">é o quanto ordenar por risco supera o acaso<br>
+        nos <b>50 primeiros</b> casos da fila</p>
     </div>
-    <p class="nt">O modelo <b>não usa a taxa do ativo como entrada</b>: ele usa a identidade do
-      ativo, e só quando ela aparece o bastante para virar coluna própria. O histórico acima é
-      contexto para quem decide, não sinal do modelo.</p>
+    <div class="pv-c">
+      <div><em>a fila pega</em><b>{{ base.top50_pega }} <u>de {{ base.viol_periodo }}</u></b></div>
+      <div class="zero"><em>por prioridade</em><b>0 <u>de {{ base.viol_periodo }}</u></b></div>
+    </div>
+    <p class="nt">Nos 50 primeiros de <b>{{ fila_total|mil }}</b> incidentes do trimestre estão
+      <b>{{ base.top50_pega }} das {{ base.viol_periodo }}</b> violações. Ordenar pela
+      prioridade declarada, que é o que a operação faz hoje, não pega nenhuma.</p>
   </article>
 </div>
 
-{% include 'painel/_ato.html' with n='03' titulo='Para onde o ano vai' pergunta='Se nada mudar, onde o KPI fecha em dezembro e quais produtos puxam para baixo.' %}
-<div class="gr g2">
-  <article class="cd dk">
-    {% include 'painel/_cab.html' with icone='alvo' titulo='Fechamento contra a meta' oque='Soma o que já fechou, o risco da fila aberta e o volume que ainda entra no ano.' %}
+{% include 'painel/_ato.html' with n='03' titulo='O ano fecha na meta?' pergunta='Somando o que já fechou, o risco da fila aberta e o volume que ainda entra até dezembro.' %}
+<article class="cd dk">
+  {% include 'painel/_cab.html' with icone='alvo' titulo='Fechamento contra a meta anual' oque='Uma projeção por prioridade, cada uma contra a sua meta. A linha branca é o limite; passar dela é estourar o KPI.' %}
+  <div class="mts">
     {% for m in projecao %}
       <div class="mt">
         <div class="mt-h"><span class="mt-p">{{ m.prioridade }}</span>
           <span class="mt-v {% if m.dentro %}ok{% else %}no{% endif %}">{{ m.projecao|num }}</span>
-          <span class="mt-l">de {{ m.meta|num:0 }}</span>
+          <span class="mt-l">de {{ m.meta|num:0 }} permitidas</span>
           <span class="tg {% if m.dentro %}ok{% else %}no{% endif %}">{% if m.dentro %}dentro{% else %}acima{% endif %}</span></div>
         <div class="mt-b">
           <s class="{% if m.dentro %}ok{% else %}no{% endif %}"
@@ -153,28 +182,17 @@
           <i class="{% if m.dentro %}ok{% else %}no{% endif %}" style="left:{{ m.proj_pc }}%"></i>
           <u style="left:{{ m.meta_pc }}%"></u></div>
         <div class="mt-f">a barra é a faixa de {{ m.baixo|num:0 }} a {{ m.alto|num:0 }} ·
-          o traço fino é a projeção · a linha branca é a meta</div>
+          o traço fino é a projeção</div>
       </div>
     {% endfor %}
-    <p class="nt">Em três das dez projeções testadas o traço cruzaria a meta sem que o ano
-      cruzasse. Por isso a faixa aparece junto: ela é a parte honesta da previsão.</p>
-  </article>
+  </div>
+  <p class="nt">O P2 fecha dentro, com folga de <b>{{ folga_p2|num }}</b>. O P3 estoura por
+    <b>{{ estouro_p3|num }}</b>, mas a ponta baixa da faixa ({{ p3.baixo|num:0 }}) ainda cabe
+    na meta: estourar é o cenário mais provável, não o certo. Em três das dez projeções
+    testadas o traço central cruzou a meta sem que o ano cruzasse — a faixa aparece junto
+    justamente por isso.</p>
+</article>
 
-  <article class="cd">
-    {% include 'painel/_cab.html' with icone='coracao' titulo='Produtos com pior nota' oque='Nota de 0 a 100 por posição relativa entre os dezessete produtos. Clique para abrir os cinco componentes.' link='saude' link_rot='ranking' %}
-    {% for x in piores %}
-      <button class="rw" style="--i:{{ forloop.counter0 }}" data-mod="produto" data-k="{{ x.produto }}">
-        <span class="rw-p id">{{ x.produto }}</span>
-        <span class="rw-b"><i style="--w:{{ x.nota|num:0 }}%;--c2:{{ x.nota|tom_nota }}"></i></span>
-        <span class="rw-v">{{ x.nota|num }}</span>
-        <span class="rw-q">{{ x.taxa_violacao|pc:2 }}% violação</span>
-        <span class="sq">{% icone 'seta' 14 %}</span>
-      </button>
-    {% endfor %}
-    <p class="nt"><b>100 é o melhor dos dezessete</b>, não um produto sem problema. O inédito
-      viola <b>4,6 vezes mais</b> que o rotineiro, e é isso que separa o fim da lista do começo.</p>
-  </article>
-</div>
 </div>{# fim de modo-dia #}
 
 <div id="modo-tempo" hidden>{% include 'painel/_maquina.html' %}</div>

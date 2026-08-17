@@ -45,7 +45,9 @@ CSS_CAMPO = """
    produz a sensacao de movimento — uma camada so pareceria a pagina inteira escorregando. */
 .campo .cam{transform:translate3d(calc(var(--viagem,0px) * var(--prof)),0,0);
  transition:transform .9s cubic-bezier(.08,.92,.16,1)}
-.campo .cv{fill:none;stroke:var(--cv);stroke-width:1.4;stroke-linecap:round;opacity:0;
+/* traco de 1.4 com opacidade baixa desaparecia atras do vidro dos cartoes: sobrava linha visivel
+   so nas margens da pagina. 1.8 mantem a linha discreta e a faz existir. */
+.campo .cv{fill:none;stroke:var(--cv);stroke-width:1.8;stroke-linecap:round;opacity:0;
  stroke-dasharray:4200;stroke-dashoffset:4200;
  animation:cvd 2.6s cubic-bezier(.19,1,.22,1) var(--t) forwards,
            cvo .9s ease var(--t) forwards,

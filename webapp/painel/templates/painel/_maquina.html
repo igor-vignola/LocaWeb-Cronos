@@ -1,6 +1,24 @@
 {% load br %}{% comment %}
-Modo "o modelo no tempo". Não é aba: entra no lugar do conteúdo da Hoje quando o
-usuário clica no card do herói.
+FORA DO SISTEMA DESDE 13/08/2026 — PEÇA DE APRESENTAÇÃO.
+
+Este fragmento e o `maquina.js` não são mais incluídos por nenhuma tela. Eles percorrem os 92
+dias do trimestre de teste exibindo o volume REALIZADO de cada um — dado posterior a 01/10/2025,
+que é o relógio simulado do sistema. Um gerente sentado na ferramenta às 15h daquele dia não
+tem esses desfechos, e cartão com dado que não existe destrói a credibilidade da tela inteira.
+
+Continuam no repositório de propósito: é a melhor demonstração que o projeto tem do modelo
+medindo a si mesmo, e o lugar dela é o deck, onde a pergunta é "o modelo funciona?" em vez de
+"o que eu faço neste turno?". Para usar na apresentação, basta incluir este arquivo e carregar
+o `maquina.js` com o `DIAS` no contexto.
+
+Ver a regra 11 do CLAUDE.md.
+
+--- documentação original ---
+O modelo no tempo — herói da aba Previsão.
+
+Antes era um "modo" escondido dentro da Hoje, acionado por um clique no card do herói:
+ninguém achava, e quem achava não entendia que tinha trocado de contexto. Agora é a
+própria página, e o botão "voltar para hoje" virou link de navegação normal.
 
 O gráfico é o dia por dentro — previsto contra realizado, hora a hora. O player anda
 hora a hora e vira o dia quando chega às 23h, atravessando o trimestre inteiro.
@@ -10,7 +28,6 @@ hora a hora e vira o dia quando chega às 23h, atravessando o trimestre inteiro.
     <h2>A previsão de cada dia, se cumprindo ou não</h2>
     <p>Aperte play. O dia passa hora a hora e vira sozinho — e a taxa de acerto se refaz
       na sua frente.</p></div>
-  <button class="bt sc" id="voltar">{% icone 'seta' 15 %}voltar para hoje</button>
 </div>
 
 <section class="maq">

@@ -259,7 +259,12 @@ button.hc:hover .hc-dica{opacity:1;transform:translateX(-50%)}
 .tb tbody tr{transition:background .25s var(--e)}
 .tb tbody tr[data-mod]{cursor:pointer}
 .tb tbody tr[data-mod]:hover{background:var(--pg)}
-.tb .o{color:var(--tx3);font-size:11.5px;width:34px;font-variant-numeric:tabular-nums}
+/* a posicao carrega o denominador junto: "46o" sozinho, numa busca que devolve uma linha so,
+   le como a linha do resultado em vez do rank do caso no trimestre */
+.tb .o{color:var(--tx);font-size:12.5px;font-weight:600;width:96px;
+ font-variant-numeric:tabular-nums}
+.tb .o u{text-decoration:none;display:block;margin-top:1px;font-size:10.5px;font-weight:400;
+ color:var(--tx3)}
 .tb .dm{color:var(--tx2)}
 .tb .no{color:var(--no);font-weight:600}
 .tb .rc{display:flex;align-items:center;gap:9px;justify-content:flex-end;font-weight:650;
@@ -274,6 +279,10 @@ button.hc:hover .hc-dica{opacity:1;transform:translateX(-50%)}
  text-transform:uppercase;white-space:nowrap}
 .tag.ok{background:var(--okl);color:var(--ok)}.tag.no{background:var(--nol);color:var(--no)}
 .tag.wn{background:var(--wnl);color:var(--wn)}.tag.az{background:var(--acl);color:var(--ac)}
+/* neutro: estado que existe, nao e alarme e nao e saida de modelo. O selo "Recorrente" da Saude
+   usava `az`, e no sistema de cor deste projeto o azul significa UMA coisa — o modelo falando.
+   Marcar historia medida de azul punha duas semanticas na mesma cor, na mesma tela. */
+.tag.nt{background:var(--pg);color:var(--tx2);box-shadow:inset 0 0 0 1px var(--ln2)}
 /* resumo por faixa */
 .fxs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
 .fx{background:var(--c);border:1px solid var(--ln);border-radius:16px;padding:14px 16px;
@@ -320,16 +329,16 @@ button.hc:hover .hc-dica{opacity:1;transform:translateX(-50%)}
 .ac2 span{font-size:12px;color:#98A2B3;line-height:1.55;display:block;margin-top:6px}
 /* barras por dia da semana */
 .sms{display:flex;align-items:flex-end;gap:9px;height:120px;margin-top:8px}
-.sm{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;
+.sms .sm{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;
  justify-content:flex-end}
-.sm i{width:62%;height:var(--h);border-radius:8px 8px 3px 3px;background:#DFE4EC;
+.sms .sm i{width:62%;height:var(--h);border-radius:8px 8px 3px 3px;background:#DFE4EC;
  transform:scaleY(0);transform-origin:bottom;animation:gu .8s var(--e) both;
  animation-delay:calc(300ms + var(--i)*55ms)}
 @keyframes gu{to{transform:scaleY(1)}}
-.sm span{font-size:10.5px;color:var(--tx2)}
-.sm em{font-size:11px;font-style:normal;color:var(--tx3);font-variant-numeric:tabular-nums}
-.sm.ag i{background:var(--ac)}.sm.ag span{color:var(--ac);font-weight:650}
-.sm.ag em{color:var(--ac)}
+.sms .sm span{font-size:10.5px;color:var(--tx2)}
+.sms .sm em{font-size:11px;font-style:normal;color:var(--tx3);font-variant-numeric:tabular-nums}
+.sms .sm.ag i{background:var(--ac)}.sms .sm.ag span{color:var(--ac);font-weight:650}
+.sms .sm.ag em{color:var(--ac)}
 /* estado vazio */
 .vz{display:flex;flex-direction:column;align-items:center;text-align:center;padding:34px 20px;
  gap:4px}
@@ -397,9 +406,17 @@ button.hc:hover .hc-dica{opacity:1;transform:translateX(-50%)}
  border-top:1px solid var(--ln)}
 .brf-f .ct{font-size:11px;color:var(--tx3);max-width:36ch;line-height:1.5}
 .brf-f .bt{margin-left:auto}
+/* `text-decoration:none` porque a classe serve <button> no Panorama e <a> nas outras cinco
+   abas — sem a declaracao, a versao <a> herdava o sublinhado do navegador. Nao aparecia porque
+   o elemento so tem icone, mas e a mesma omissao que deixava os botoes do modal sublinhados. */
 .bl{position:relative;background:var(--c);border:1px solid var(--ln);border-radius:11px;
  width:36px;height:36px;display:grid;place-items:center;cursor:pointer;color:var(--tx);
- box-shadow:var(--s1);transition:all .3s var(--e)}
+ box-shadow:var(--s1);text-decoration:none;
+ /* `all` e 300ms num alvo de 36px: propriedades nomeadas e .16s, mais o retorno ao
+    clique que faltava. 0.94 e nao 0.97 porque em botao pequeno a escala precisa ser
+    mais funda para ser percebida — o mesmo valor ja usado no fechar do modal. */
+ transition:color .16s var(--e),box-shadow .16s var(--e),transform .12s var(--e)}
+.bl:active{transform:scale(.94)}
 .bl:hover{color:var(--ac);transform:translateY(-1px);box-shadow:var(--s2)}
 .bl b{position:absolute;top:-4px;right:-4px;min-width:16px;height:16px;border-radius:8px;
  background:var(--no);color:#fff;font-size:9.5px;font-weight:700;display:grid;place-items:center;
@@ -408,9 +425,12 @@ button.hc:hover .hc-dica{opacity:1;transform:translateX(-50%)}
 /* ── ajustes da aplicacao Django: a navegacao virou <a> ─────────────────── */
 .pil a,.da,.ax,.lk{text-decoration:none;color:inherit}
 .pil a{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:500;
- color:var(--tx2);padding:8px 14px;border-radius:9px;transition:all .34s var(--e);
- white-space:nowrap}
+ color:var(--tx2);padding:8px 14px;border-radius:9px;white-space:nowrap;
+ /* o elemento mais clicado do painel, e o unico sem retorno ao toque. `all .34s` virou
+    tres propriedades nomeadas em .16s: abaixo do teto de 300ms e sem animar layout. */
+ transition:background .16s var(--e),color .16s var(--e),transform .12s var(--e)}
 .pil a:hover{color:var(--hd)}
+.pil a:active{transform:scale(.97)}
 .pil a.on{background:var(--ink);color:#fff}
 a.da{display:block}
 .lk{color:var(--ac)}
@@ -465,7 +485,7 @@ a.da{display:block}
 @media (max-width:1100px){.hc{width:100%;max-width:380px}.fxs,.ach{grid-template-columns:1fr 1fr}}
 @media (max-width:680px){.fxs,.ach{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){
- .h24,.sm i,.rc2{opacity:1!important;transform:none!important}
+ .h24,.sms .sm i,.rc2{opacity:1!important;transform:none!important}
  .hl-l{stroke-dashoffset:0!important}
  .hl-f,.hl-bd,.hl-n,.hl-o1,.h24-ag,.h24-n,.h24-al{opacity:1!important}
  .hl-bd{opacity:.11!important}.hl-o2,.hl-o3{opacity:0!important}
@@ -663,6 +683,14 @@ function abre(tipo,k){{
 document.addEventListener('click',e=>{{
   const b=e.target.closest('[data-mod]');
   if(b)abre(b.dataset.mod,b.dataset.k);
+}});
+/* O mesmo alvo pelo teclado. `tr` e `div` com data-mod nao disparam click no Enter — so
+   `button` e `a` fazem isso — entao a acao principal de algumas abas (abrir a decomposicao do
+   escore, abrir a nota do produto) so existia no ponteiro. */
+document.addEventListener('keydown',e=>{{
+  if(e.key!=='Enter'&&e.key!==' ')return;
+  const b=e.target.closest&&e.target.closest('[data-mod][tabindex]');
+  if(b){{e.preventDefault();abre(b.dataset.mod,b.dataset.k);}}
 }});
 
 /* ── filtros ──────────────────────────────────────────────────────────── */

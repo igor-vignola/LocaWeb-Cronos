@@ -1,0 +1,100 @@
+{% load br %}{% comment %}
+A RÉGUA DO KPI — as três direções em avaliação, no lugar em que ela de fato vive.
+
+Recebe `o` (uma prioridade, saída de views._ola, já com `escada` e `marcas`) e `v`, a variante.
+`?regua=a|b|c` na Projeção troca entre elas; sem o parâmetro, vale o padrão da view.
+
+O QUE AS TRÊS PRECISAM RESOLVER, e é o único critério: a escada lia como invertida. O leitor
+pareia "50%" com "291 a 320" e pergunta como 291 violações pode ser menos da metade de um teto
+de 320. Não é percentual de teto nenhum — é a NOTA da operação no ano, e ela cai conforme as
+violações sobem. Conferido degrau a degrau contra a tabela "Metas Anuais de KPI" do dicionário
+oficial da Locaweb.
+
+  A · tabela com trilho   o sentido vem do eixo nomeado: melhor em cima, pior embaixo
+  B · termômetro          o sentido vem do eixo único: os dois números na mesma barra
+  C · degraus             o sentido vem da forma: a ALTURA do degrau é a própria nota
+{% endcomment %}
+
+{% comment %}O invólucro NÃO carrega `rk-{{ v }}`: com v='c' ele receberia a classe `rk-c`, que é
+o nome do contêiner da escada de degraus — e o invólucro herdava `display:flex`, jogando o
+cabeçalho e a escada lado a lado. Modificador de variante e nome de componente não podem
+compartilhar espaço de nomes.{% endcomment %}
+<div class="rk">
+  {% comment %}O cabeçalho próprio só entra quando o contexto ao redor não nomeia o objeto.
+  Dentro da folha, o `h3` do modal já diz "Como a meta é medida" e o `sub` já traz a regra — com
+  o cabeçalho ligado, o mesmo título aparecia duas vezes na mesma tela, com a mesma frase
+  embaixo.{% endcomment %}
+  {% if not sem_cabeca %}
+    <div class="rk-h">
+      <span class="rk-t">Como a meta é medida</span>
+      <span class="rk-s">A nota do ano cai conforme as violações sobem.
+        <b>100% é a meta contratada.</b></span>
+    </div>
+  {% endif %}
+
+  {% if v == 'b' %}
+    {% comment %}TERMÔMETRO. As seis faixas em largura proporcional ao intervalo de violações —
+    é por isso que a de 150% ocupa metade da barra: ela vai de zero a 200, e as outras cinco
+    dividem o resto. Hoje e projeção são marcas na posição real, na mesma escala.{% endcomment %}
+    <div class="rk-b">
+      <span class="rk-b-mk rk-b-ja" style="left:{{ o.marcas.ja_x }}%">
+        <u>{{ o.ja|num:0 }} hoje</u><i></i></span>
+
+      <div class="rk-b-t">
+        {% for l in o.escada %}
+          <span class="rk-b-f t-{{ l.k }}" style="left:{{ l.ini }}%;width:{{ l.larg }}%">
+            <em>{{ l.pc }}%</em>{% if l.teto_num %}<s>{{ l.teto_num }}</s>{% endif %}</span>
+        {% endfor %}
+        <span class="rk-b-fx" style="left:{{ o.marcas.baixo_x }}%;width:{{ o.marcas.faixa_w }}%"></span>
+        <span class="rk-b-al" style="left:{{ o.marcas.meta_x }}%"></span>
+      </div>
+
+      <span class="rk-b-mk rk-b-pj" style="left:{{ o.marcas.proj_x }}%">
+        <i></i><u>{{ o.projecao|num:0 }} projetadas</u></span>
+
+      <div class="rk-b-e">
+        <span>0 violações</span>
+        <span class="rk-b-e-a" style="left:{{ o.marcas.meta_x }}%">meta · {{ o.marcas.meta }}</span>
+        <span>{{ o.marcas.fim }}</span>
+      </div>
+    </div>
+
+  {% elif v == 'c' %}
+    {% comment %}DEGRAUS. A altura de cada um É a nota: 150% é o degrau cheio, 0% é o piso. Não
+    é decoração — é o mesmo número desenhado duas vezes, em tamanho e em texto, e é o que faz
+    "mais violação, menos nota" aparecer antes de qualquer leitura.{% endcomment %}
+    <div class="rk-c">
+      <span class="rk-c-meta" style="bottom:{{ o.marcas.alt_meta }}%"><span>Meta contratada</span></span>
+      {% for l in o.escada %}
+        <div class="rk-c-b t-{{ l.k }}{% if l.hoje or l.proj %} on{% endif %}"
+          style="--a:{{ l.alt }}%">
+          {% if l.hoje %}<u class="mk-h">{{ o.ja|num:0 }} hoje</u>{% endif %}
+          {% if l.proj %}<u class="mk-p">{{ o.projecao|num:0 }} projetadas</u>{% endif %}
+          <span class="rk-c-t"><b>{{ l.pc }}%</b></span>
+          <em>{{ l.rot }}</em>
+        </div>
+      {% endfor %}
+    </div>
+
+  {% else %}
+    {% comment %}TABELA COM TRILHO. O eixo é nomeado nos dois extremos e o trilho cai de verde a
+    vermelho entre eles. É a variante que menos muda a estrutura atual da página.{% endcomment %}
+    <div class="rk-a">
+      <div class="rk-a-eixo"><span>Melhor</span><i></i><span>Pior</span></div>
+      <div class="rk-a-c">
+        {% for l in o.escada %}
+          <div class="rk-a-l t-{{ l.k }}{% if l.hoje or l.proj %} on{% endif %}{% if l.pc == 100 %} meta{% endif %}">
+            <span class="rk-a-tr"><i></i></span>
+            <b class="rk-a-pc">{{ l.pc }}%</b>
+            <span class="rk-a-rot">{{ l.rot }}</span>
+            <span class="rk-a-mk">
+              {% if l.pc == 100 %}<em class="mk-t">Meta contratada</em>{% endif %}
+              {% if l.hoje %}<em class="mk-h">{{ o.ja|num:0 }} hoje</em>{% endif %}
+              {% if l.proj %}<em class="mk-p">{{ o.projecao|num:0 }} projetadas</em>{% endif %}
+            </span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</div>

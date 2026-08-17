@@ -6,6 +6,7 @@ disputar com o conteúdo — quem passa o olho não registra, mas sente.
 {% if icone %}<span class="dagua">{% icone icone 190 %}</span>{% endif %}
 <div class="hdr">
   <div class="hdr-t">{% icone icone 16 %}
-    <div><h3>{{ titulo }}</h3><p>{{ oque }}</p></div></div>
-  {% if link %}<a class="lk" href="/{% if link != 'hoje' %}{{ link }}/{% endif %}">{{ link_rot }}{% icone 'seta' 14 %}</a>{% endif %}
+    <div><h3>{{ titulo }}{% if escopo %}<span class="esc {{ escopo|lower }}">{{ escopo }}</span>{% endif %}</h3>
+      <p>{{ oque }}</p></div></div>
+  {% if link %}<a class="lk" href="/{% if link != 'panorama' %}{{ link }}/{% endif %}">{{ link_rot }}{% icone 'seta' 14 %}</a>{% endif %}
 </div>

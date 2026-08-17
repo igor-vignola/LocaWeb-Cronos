@@ -1,0 +1,40 @@
+{% load br %}{% comment %}
+O ano contra o teto. Espera `o`: uma prioridade, saída de views._ola.
+
+Três elementos, um por pergunta, e nenhum deles fino:
+
+  barra escura   quanto já teve
+  marca vertical qual é o teto
+  BLOCO colorido onde o ano fecha — o intervalo, com a projeção central marcada dentro
+
+O bloco é a correção da versão anterior. Ali o intervalo era um traço de 3px abaixo da barra, e
+um traço fino não se anuncia como sendo o intervalo em que o ano vai cair: lia como enfeite. O
+intervalo é a informação menos certa e a mais importante do desenho, então ganhou o corpo maior.
+
+As parcelas intermediárias saíram. Separar "risco da fila aberta" de "volume que ainda entra" é
+detalhe de notebook, e a aba Projeção existe para isso.
+
+A cor sai do veredito: verde quando o intervalo fecha o ano dentro do teto, âmbar quando passa.
+{% endcomment %}
+<div class="en-cb-w {{ o.tom }}">
+  <div class="en-cb" role="img" aria-label="Do limite de {{ o.meta|num:0 }} violações para 100%
+    de atingimento, {{ o.ja|num:0 }} já aconteceram; a projeção fica entre {{ o.baixo|num:0 }} e
+    {{ o.alto|num:0 }}, com centro em {{ o.projecao|num:0 }}">
+    <i class="ja" style="width:{{ o.ja_pc }}%"></i>
+
+    {% comment %}O bloco do intervalo, com a projeção central como marca dentro dele.{% endcomment %}
+    <s style="left:{{ o.baixo_x }}%;width:{{ o.faixa_pc }}%">
+      <i class="pj" style="left:{{ o.proj_na_faixa }}%"></i>
+      <em class="de">{{ o.baixo|num:0 }}</em>
+      <em class="ate">{{ o.alto|num:0 }}</em>
+    </s>
+
+    <u style="left:{{ o.meta_x }}%"><em>100% até {{ o.meta|num:0 }}</em></u>
+  </div>
+
+  <div class="en-cb-l">
+    <span><i class="ja"></i><b>{{ o.ja|num:0 }}</b> já aconteceram</span>
+    <span><i class="en-iv"></i>Projeção entre <b>{{ o.baixo|num:0 }}</b> e
+      <b>{{ o.alto|num:0 }}</b>, com <b>{{ o.projecao|num:0 }}</b> no centro</span>
+  </div>
+</div>

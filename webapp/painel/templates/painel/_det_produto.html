@@ -1,16 +1,16 @@
 {% load br %}{# Detalhe do produto: os cinco componentes da nota, por posição relativa. #}
-<span class="md-k">produto · posição {{ p.posicao }} de {{ total }}</span>
+<span class="md-k">Produto · Posição {{ p.posicao }} de {{ total }}</span>
 <h3 class="id">{{ p.produto }}</h3>
-<p class="sub">{{ p.quadrante }} · {{ p.incidentes|mil }} incidentes elegíveis,
-  {{ p.violacoes }} violaram o prazo.</p>
+<p class="sub">{{ p.quadrante|capfirst }} · {{ p.incidentes|mil }} incidentes elegíveis,
+  {{ p.violacoes }} violaram o OLA.</p>
 
 <div class="md-g">
-  <div class="md-s"><em>nota</em><b>{{ p.nota|num }}</b></div>
-  <div class="md-s"><em>posição</em><b>{{ p.posicao }}º</b></div>
-  <div class="md-s"><em>incidentes</em><b>{{ p.incidentes|mil }}</b></div>
+  <div class="md-s"><em>Nota</em><b>{{ p.nota|num }}</b></div>
+  <div class="md-s"><em>Posição</em><b>{{ p.posicao }}º</b></div>
+  <div class="md-s"><em>Incidentes</em><b>{{ p.incidentes|mil }}</b></div>
 </div>
 
-<div class="md-h">os cinco componentes da nota</div>
+<div class="md-h">Os cinco componentes da nota</div>
 {% for c in p.componentes %}
   <div class="sg"><span class="sg-t">{{ c.rot }}
     <span style="color:#A3ABBA"> {{ c.v }}{{ c.u }}</span></span>
@@ -18,14 +18,18 @@
     <span class="sg-v">{{ c.pos }}</span></div>
 {% endfor %}
 <p class="sub" style="margin-top:8px">A barra mostra a posição relativa entre os
-  {{ total }} produtos: quanto mais cheia, pior comparado aos outros. A nota é a média
+  {{ total }} produtos: quanto mais cheia, pior a posição relativa. A nota é a média
   dessas posições.</p>
 
 <div class="cx">{% chip "balanca" "ac" 18 %}
   <p>A nota é <b>relativa</b>: 100 seria o melhor dos {{ total }} em todos os cinco
-    componentes, não um produto sem problema nenhum.</p></div>
+    componentes, e não a ausência de problemas.</p></div>
 
+{# "Comparar no ranking" apontava para /saude/ — a página de onde este modal é aberto. O botão #}
+{# fechava o modal e não levava a lugar nenhum. No lugar entra a fila filtrada pelo produto, #}
+{# que é a única ação de turno possível a partir daqui. #}
 <div class="md-f">
-  <a class="bt pr" href="/causas/">{% icone "lupa" 15 %}Ver causas</a>
-  <a class="bt sc" href="/saude/">{% icone "coracao" 15 %}Comparar no ranking</a>
+  <a class="bt pr" href="/fila/?q={{ p.produto|urlencode }}">{% icone "fila" 15 %}
+    Ver casos abertos de {{ p.produto }}</a>
+  <a class="bt sc" href="/causas/">{% icone "lupa" 15 %}Ver as causas que se repetem</a>
 </div>

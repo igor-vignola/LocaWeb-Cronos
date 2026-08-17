@@ -35,7 +35,11 @@ prev = pd.read_parquet(DI / '03_previsao_diaria.parquet').sort_values('dia')
 P3 = prev[prev['prioridade'] == 'P3'].reset_index(drop=True)
 P2 = prev[prev['prioridade'] == 'P2'].reset_index(drop=True)
 REAL3 = P3[P3['tipo'] == 'realizado'].reset_index(drop=True)
+REAL2 = P2[P2['tipo'] == 'realizado'].reset_index(drop=True)
 FUT3 = P3[P3['tipo'] == 'previsto'].reset_index(drop=True)
+# a serie prevista do P2 existe no parquet com a mesma estrutura da do P3. Nao era exportada, e
+# era so por isso que as telas de previsao viviam so com P3.
+FUT2 = P2[P2['tipo'] == 'previsto'].reset_index(drop=True)
 ONTEM = REAL3.iloc[-1]
 HOJE3 = FUT3.iloc[0]
 HOJE2 = P2[P2['tipo'] == 'previsto'].reset_index(drop=True).iloc[0]
@@ -108,6 +112,13 @@ _idx = pd.date_range('2025-01-01', CORTE - pd.Timedelta(days=1), freq='D')
 _serie = _serie.reindex(_idx, fill_value=0)
 SEMANA = _serie.groupby(_serie.index.dayofweek).mean().round(1)
 
+# o mesmo para o P2. Sem isto a tela so consegue dizer "esta alto?" para o P3, e o P2 fica
+# como numero solto — que e exatamente o que a regua existe para evitar.
+_p2_2025 = ATE_CORTE[(ATE_CORTE['ano'] == 2025)
+                     & ATE_CORTE['Prioridade'].astype(str).str.startswith('2')]
+_serie2 = _p2_2025.groupby('dia').size().reindex(_idx, fill_value=0)
+SEMANA2 = _serie2.groupby(_serie2.index.dayofweek).mean().round(1)
+
 # ── fila pontuada e decomposicao: saida do notebook 04 ─────────────────────
 # TODO: trocar por parquet quando o 04 passar a gravar a fila pontuada
 FILA = [
@@ -133,7 +144,14 @@ for _c in FILA:
 # peso relativo de cada sinal no escore do primeiro da fila
 SINAIS = [('categoria cat31', 38), ('produto lsin', 19), ('subcategoria sub388', 12),
           ('equipe Team11', 11), ('sábado, 19h', 8)]
-MEDIA_BASE = 0.97          # taxa de violacao da base elegivel, em %
+# Taxa de violacao da base elegivel, em %, DERIVADA do recorte que a tela enxerga.
+#
+# Era `0.97` escrito a mao, e o numero vinha da base inteira — 248 violacoes em 25.600
+# incidentes de 2023 a 2025, ou seja, com out-dez dentro. Na janela que a tela pode ver a taxa e
+# 0,94%. A diferenca parece pequena e nao e: esta constante e o denominador do "x vezes a media"
+# que aparece na fila, no Panorama, em Causas e nos dois modais — e um numero cravado a mao, que
+# nenhuma celula reproduz, e exatamente o que a regra do projeto proibe.
+MEDIA_BASE = round(TOTAL_VIOL / ELEGIVEIS * 100, 2)
 INEDITO_X = 4.6            # quantas vezes o problema inedito viola mais que o rotineiro
 
 if __name__ == '__main__':

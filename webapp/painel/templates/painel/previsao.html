@@ -1,128 +1,127 @@
 {% extends 'painel/base.html' %}{% load br %}
-{% block titulo %}Previsão de volume{% endblock %}
+{% block titulo %}Previsão{% endblock %}
+
+{% comment %}
+PREVISÃO — reconstruída em 13/08/2026.
+
+A aba mostra o que o modelo de volume prevê, nas duas prioridades do KPI, com o que já foi
+medido ao lado. Nada aqui depende de dado posterior ao corte de 01/10/2025 às 15h.
+
+O QUE SAIU, E POR QUÊ:
+
+1. A MÁQUINA DO TEMPO. Era a peça mais forte da tela: o modelo medindo a si mesmo, dia a dia,
+   ao longo do trimestre. E é feita inteira de dado do futuro — ela percorre 92 dias exibindo o
+   realizado de outubro a dezembro, que às 15h de 01/10 não existe. Avaliação de modelo é
+   assunto da apresentação, não da ferramenta que a operação usa. O `_maquina.html` e o
+   `maquina.js` seguem no repositório para a demonstração do deck.
+
+2. A COBERTURA DA FAIXA, O VIÉS E A QUEDA MÊS A MÊS. Mesma razão: são medidas do trimestre de
+   teste, calculadas contra desfechos que a tela não conhece.
+
+3. "CARGA POR DIA DA SEMANA" COMO BLOCO SEPARADO. Ele e "os próximos oito dias" diziam o mesmo
+   fato: com sazonalidade semanal ligada e anual desligada, a previsão de um dia É a média
+   histórica daquele dia da semana mais uma tendência. Conferido linha a linha — quarta 77,4
+   contra média 73,9; sábado 35,4 contra 33,7; domingo 20,4 contra 18,4. Aqui os dois viram um
+   bloco só, em que a média da semana é a régua da previsão.
+
+O QUE ENTROU: as duas prioridades em tudo. Antes a aba inteira era P3 — e o P2 tem série
+prevista com a mesma estrutura no mesmo parquet, que nunca era publicada.
+{% endcomment %}
 
 {% block conteudo %}
-{% include 'painel/_ato.html' with n='01' titulo='O dia acontecendo' pergunta='A previsão só vale se der para conferir durante o turno se ela está se realizando.' %}
-<div class="gr g2">
-  <article class="cd">
-    {% include 'painel/_cab.html' with icone='previsao' titulo='Previsto contra realizado' oque='A área clara é a faixa prevista distribuída pelas horas do dia. A linha escura é o que já entrou de verdade.' %}
-    {% include 'painel/_acompanhamento.html' %}
-    <p class="nt">
-      Às {{ ac.hora_agora }}h entraram <b>{{ ac.ate_agora }}</b> contra
-      <b>{{ ac.esperado_agora|num }}</b> esperados a esta altura.
-      {% if ac.confiavel %}No ritmo de agora o dia fecha em <b>{{ ac.ritmo_fecha|num:0 }}</b>,
-        {% if ac.no_ritmo %}dentro da faixa prevista.{% else %}<b>fora</b> da faixa de
-        {{ ac.baixo|num:0 }} a {{ ac.alto|num:0 }}.{% endif %}
-      {% else %}Com apenas <b>{{ ac.dia_decorrido|num }}%</b> do dia decorrido, extrapolar o
-        fechamento ainda não vale: a conta é instável de manhã e só firma perto do meio-dia.
-      {% endif %}
-    </p>
-  </article>
-  <article class="cd">
-    {% include 'painel/_cab.html' with icone='alvo' titulo='A faixa de hoje' oque='O modelo entrega um intervalo, não um número. É o intervalo que deve guiar a escala do turno.' %}
-    <div class="fxg">
-      <div class="fxg-l">
-        <span class="fxg-t">entre</span>
-        <b>{{ hoje.baixo_p3|num:0 }}</b>
-        <span class="fxg-t">e</span>
-        <b>{{ hoje.alto_p3|num:0 }}</b>
-        <span class="fxg-t">incidentes no P3</span>
+<div class="pv">
+
+  {% comment %}O texto da cabeça tinha 45 palavras e explicava a metodologia antes de dar um
+  número. Quem abre esta aba quer saber quanto trabalho vem — a explicação de por que a previsão
+  é intervalo, e não número único, migrou para uma linha só. O nome do modelo continua na
+  sobrancelha, em caixa pequena: é procedência, e a banca precisa dela; não é manchete.
+  {% endcomment %}
+  <header class="pv-h noite">
+    <div class="pv-h-t">
+      <span class="pv-ey">{% icone 'alvo' 14 %}Previsão de volume · Prophet</span>
+      <h1>Quanto entra nos próximos dias</h1>
+      <p>Cada dia sai como intervalo, e não como número único: é a largura dele que dimensiona
+        a escala da equipe.</p>
+    </div>
+
+    {% comment %}As duas prioridades no placar, com o mesmo peso, e o terceiro campo diz de onde
+    a previsão sai — que é a única coisa desta tela que não é número do dia.{% endcomment %}
+    <div class="pv-h-n">
+      <div class="pv-n">
+        <b>{{ ac.previsto|num:1 }}</b>
+        <span>previstos hoje no <u>P3</u></span>
+        <em>Intervalo de {{ hoje.baixo_p3|num:0 }} a {{ hoje.alto_p3|num:0 }} ·
+          {{ ac.ate_agora }} registrados até as {{ ac.hora_agora }}h</em>
       </div>
-      <div class="fxg-c">valor central <b>{{ hoje.previsto_p3|num:0 }}</b> · confiança de 80% ·
-        largura de <b>{{ hoje.largura_p3|num:0 }}</b> incidentes</div>
+      <div class="pv-n">
+        <b>{{ ac2.previsto|num:1 }}</b>
+        <span>previstos hoje no <u>P2</u></span>
+        <em>Intervalo de {{ hoje.baixo_p2|num:0 }} a {{ hoje.alto_p2|num:0 }} ·
+          {{ ac2.ate_agora }} registrados até as {{ ac2.hora_agora }}h</em>
+      </div>
+      {% comment %}Era "2 características no modelo". Número de destaque que não muda decisão
+      nenhuma no turno — é metadado do modelo, e o lugar dele é o deck. No mesmo espaço entra o
+      dia mais cheio que vem pela frente, que é a única informação desta aba com a qual dá para
+      fazer alguma coisa: escala de equipe.{% endcomment %}
+      <div class="pv-n">
+        <b>{{ pico.baixo|num:0 }}<u> a </u>{{ pico.alto|num:0 }}</b>
+        <span>no dia mais cheio da semana</span>
+        <em>{{ pico.rot }} {{ pico.dm }}, somando P2 e P3 · o mais vazio é
+          {{ vale.rot }} {{ vale.dm }}, com {{ vale.baixo|num:0 }} a {{ vale.alto|num:0 }}.</em>
+      </div>
     </div>
-    <div class="ml" style="margin-top:14px">
-      <div class="mr">{% chip 'entrada' 'ac' 18 %}
-        <div class="mr-t"><b>Já entraram hoje</b><span>até as {{ ac.hora_agora }}h</span></div>
-        <span class="mr-v">{{ ac.ate_agora }}</span></div>
-      <div class="mr">{% chip 'balanca' 'nt' 18 %}
-        <div class="mr-t"><b>Esperado a esta altura</b>
-          <span>{{ ac.dia_decorrido|num }}% do dia decorrido</span></div>
-        <span class="mr-v">{{ ac.esperado_agora|num }}</span></div>
-      <div class="mr">{% chip 'previsao' 'nt' 18 %}
-        <div class="mr-t"><b>Média dos últimos vinte dias úteis</b>
-          <span>a referência de um dia normal</span></div>
-        <span class="mr-v">{{ base.base_20_dias|num:0 }}</span></div>
-    </div>
-    <p class="nt">A banda é larga de propósito. Fingir precisão em previsão diária de incidente
-      seria desonesto: o que o modelo sabe é a ordem de grandeza do dia.</p>
-  </article>
-</div>
+  </header>
 
-{% include 'painel/_ato.html' with n='02' titulo='Quanto trabalho vem' pergunta='Prophet treinado em 2025 com sazonalidade semanal e feriados nacionais, banda de 80%.' %}
-<div class="gr">
-  <article class="cd">
-    {% include 'painel/_cab.html' with icone='previsao' titulo='Volume elegível por dia · P3' oque='A linha cheia é o medido. A pontilhada é a previsão e a área em volta é a margem de erro do modelo.' %}
-    <div class="tr">
-      <svg viewBox="0 0 {{ trilho.w }} {{ trilho.h }}" preserveAspectRatio="none">
-        <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#2563EB" stop-opacity=".2"/>
-          <stop offset="1" stop-color="#2563EB" stop-opacity="0"/></linearGradient></defs>
-        <path class="t-a" d="{{ trilho.area }}" fill="url(#ga)"/>
-        <path class="t-bd" d="{{ trilho.banda }}"/>
-        <line class="t-ag" x1="{{ trilho.cx }}" y1="8" x2="{{ trilho.cx }}" y2="{{ trilho.h|add:'-14' }}"/>
-        <path class="t-l" d="{{ trilho.linha }}"/>
-        <path class="t-f" d="{{ trilho.futuro }}"/>
-        <circle class="t-h" cx="{{ trilho.cx }}" cy="{{ trilho.cy }}" r="11"/>
-        <circle class="t-n" cx="{{ trilho.cx }}" cy="{{ trilho.cy }}" r="4.5"/>
-      </svg>
-      <div class="anp" style="left:{{ trilho.px_hoje }}%;top:{{ trilho.py_hoje }}%">
-        {{ hoje.baixo_p3|num:0 }} a {{ hoje.alto_p3|num:0 }} hoje</div>
-      <div class="tr-x"><span>30 dias atrás</span>
-        <span class="ag" style="left:{{ trilho.corte_pc }}%">{{ hoje.dm }}</span>
-        <span>+8 dias</span></div>
+  {% comment %}O desenho principal: histórico emendado na previsão, uma placa por prioridade.
+  {% endcomment %}
+  <section class="pv-bl">
+    <div class="pv-bl-h">
+      <span class="chp t-ac">{% icone 'previsao' 18 %}</span>
+      <div>
+        <h2>Histórico recente e previsão</h2>
+        <p>Trinta dias medidos e duas semanas previstas. A faixa só existe do lado previsto:
+          o que já aconteceu não tem incerteza.</p>
+      </div>
+      <span class="leg">
+        <span><i class="l-r"></i>Registrados</span>
+        <span><i class="l-p"></i>Previsão do modelo</span>
+        <span><i class="l-b"></i>Intervalo de 80%</span>
+      </span>
     </div>
-    <p class="nt">Ontem entraram <b>{{ ontem.total }}</b> elegíveis contra
-      <b>{{ base.base_20_dias|num:0 }}</b> de média dos últimos vinte dias úteis.</p>
-  </article>
-</div>
 
-<div class="gr g2">
-  <article class="cd">
-    {% include 'painel/_cab.html' with icone='calendario' titulo='Os próximos oito dias' oque='Faixa de cada dia. A última coluna é a largura da faixa: quanto maior, menos o modelo sabe.' %}
-    <table class="tb sm"><thead><tr><th>Data</th><th>Faixa</th><th>Central</th>
-      <th>Largura</th></tr></thead><tbody>
-      {% for d in proximos %}
-        <tr><td>{{ d.rot }} · {{ d.dm }}</td>
-          <td><b>{{ d.baixo|num:0 }} a {{ d.alto|num:0 }}</b></td>
-          <td class="dm">{{ d.valor|num:0 }}</td>
-          <td class="dm">{{ d.largura|num:0 }}</td></tr>
-      {% endfor %}
-    </tbody></table>
-    <p class="nt">A faixa vem primeiro na tabela de propósito: é ela que a operação usa para
-      decidir escala. O valor central serve para comparar dias entre si, não para planejar.</p>
-  </article>
-  <article class="cd">
-    {% include 'painel/_cab.html' with icone='tendencia' titulo='Carga por dia da semana' oque='Média de incidentes P3 por dia da semana em 2025.' %}
-    <div class="sms">
-      {% for s in semana %}
-        <div class="sm" style="--h:{% widthratio s.media max_semana 100 %}%;--i:{{ forloop.counter0 }}">
-          <i></i><span>{{ s.dia }}</span><em>{{ s.media|num:0 }}</em></div>
-      {% endfor %}
+    <div class="pv-g2">
+      {% include 'painel/_trilho.html' with t=tr3 ac=ac hb=hoje.baixo_p3 ha=hoje.alto_p3 pri='P3' %}
+      {% include 'painel/_trilho.html' with t=tr2 ac=ac2 hb=hoje.baixo_p2 ha=hoje.alto_p2 pri='P2' %}
     </div>
-    <p class="nt">A diferença que existe é <b>dia útil contra fim de semana</b>, não segunda
-      contra quinta. É por isso que o modelo usa dia da semana e feriado como sinal, e não a
-      data em si.</p>
-  </article>
-</div>
+  </section>
 
-{% include 'painel/_ato.html' with n='03' titulo='O que a previsão de volume não faz' pergunta='O limite do modelo, dito antes que alguém descubra sozinho.' %}
-<div class="gr">
-  <article class="cd">
-    {% include 'painel/_cab.html' with icone='balanca' titulo='Volume dimensiona carga, não aponta o caso' oque='Testamos se dias mais cheios violam mais. Não violam.' %}
-    <div class="ml">
-      <div class="mr">{% chip 'tendencia' 'nt' 18 %}
-        <div class="mr-t"><b>Correlação entre volume do dia e violações do dia</b>
-          <span>R² de 0,025: praticamente nenhuma relação</span></div>
-        <span class="mr-v">0,025</span></div>
-      <div class="mr">{% chip 'novo' 'nt' 18 %}
-        <div class="mr-t"><b>Acúmulo de fila prevendo violação</b>
-          <span>testado a pedido da mentoria: r = −0,139 em dias úteis</span></div>
-        <span class="mr-v">−0,139</span></div>
+  {% comment %}De onde a previsão sai. Um bloco só, com a média da semana servindo de régua para
+  os próximos dias — e não dois blocos dizendo o mesmo em formatos diferentes.{% endcomment %}
+  <section class="pv-bl">
+    <div class="pv-bl-h">
+      <span class="chp t-ok">{% icone 'balanca' 18 %}</span>
+      <div>
+        <h2>Base da previsão: a sazonalidade semanal</h2>
+        <p>O que o modelo enxerga é dia útil contra fim de semana. O tique em cada barra é a
+          média daquele dia da semana.</p>
+      </div>
     </div>
-    <p class="nt">Por isso existem dois modelos e não um. O Prophet responde <b>quanta gente
-      escalar</b>. A regressão logística responde <b>em qual caso olhar</b>. Trocar um pelo
-      outro é o erro mais comum nesse tipo de projeto.</p>
-  </article>
+
+    <div class="pv-g2">
+      {% include 'painel/_semana.html' with semana=semana prox=prox3 pri='P3' max_semana=max_semana max_prox=max_prox %}
+      {% include 'painel/_semana.html' with semana=semana_p2 prox=prox2 pri='P2' max_semana=max_semana2 max_prox=max_prox2 %}
+    </div>
+  </section>
+
+  {% comment %}Saíram o R² de 0,025 e o r de −0,139. O achado é a espinha do projeto e continua
+  inteiro nos notebooks e no deck — mas quem está no plantão às 15h não lê coeficiente, e o mesmo
+  fato dito em português muda a decisão do mesmo jeito. É a regra das duas plateias: o sistema é
+  a ferramenta, os slides são a avaliação do modelo.{% endcomment %}
+  <aside class="pn-fa pv-fa">
+    {% icone 'balanca' 16 %}
+    <p><b>Dia cheio não é dia de violação.</b> Esta aba dimensiona a equipe. Quem diz em qual
+      caso olhar é a fila.</p>
+    <a class="pn-lk" href="{% url 'fila' %}">Ver a fila de hoje{% icone 'seta' 14 %}</a>
+  </aside>
 </div>
 {% endblock %}

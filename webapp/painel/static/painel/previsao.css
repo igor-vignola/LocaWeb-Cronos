@@ -1,0 +1,388 @@
+/* Cronos · Previsao, versao B.
+   Folha propria, escrita a mao — o cronos.css nasce de scripts/direcoes/ e e sobrescrito pelo
+   publica_estatico.py. Prefixo .pv-.
+
+   A tela toda responde uma pergunta so: o modelo de volume acerta? Por isso o desenho gasta o
+   peso onde esta a medida (a cabeca escura com o placar, e o bloco dos tres meses) e economiza
+   onde esta a aplicacao (a semana e os proximos dias, que sao apoio).
+
+   Reaproveita do cronos.css o que o maquina.js ja pinta: .lin, .base, .feito, .cab, .falha,
+   .mes-r, .vel e .ver. Esses seletores vivem soltos la, sem ancestral, entao continuam valendo
+   dentro de outro recipiente. O `.play` nao — la ele e `.maq .play`, e aqui e redefinido. */
+
+.pv { display: grid; gap: 26px; }
+
+/* ── a cabeca: console, e nao manchete ──────────────────────────────────────
+   Mesma superficie escura do Panorama, para a cor do produto se manter, com outra anatomia:
+   la e veredito a esquerda e numeros a direita, uma faixa so. Aqui e titulo em cima, tres
+   medidas em linha no meio e o transporte embaixo — porque o assunto desta tela e operar o
+   tempo, e o transporte e o instrumento, nao um rodape.
+
+   Sem o campo de ondas do Panorama: duas telas com a mesma textura na abertura leem como a
+   mesma tela. A luz aqui e so o radial frio, e o corte horizontal marca o console. */
+.pv-h {
+  /* mesma régua das outras cinco abas, fechada em 14/08 */
+  padding: 24px 30px 22px;
+  border-radius: var(--vd);
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(12, 16, 23, .06), 0 26px 60px -30px rgba(12, 16, 23, .5);
+}
+.pv-h::before {
+  background:
+    radial-gradient(52% 130% at 82% -10%, rgba(37, 99, 235, .3), transparent 66%),
+    radial-gradient(40% 120% at 12% 120%, rgba(37, 99, 235, .1), transparent 62%),
+    linear-gradient(168deg, #131C2A, #0A0E15 70%);
+}
+@supports (corner-shape: squircle) {
+  .pv-h, .pv-c, .pv-dr { corner-shape: squircle; }
+}
+
+.pv-h-t { max-width: 660px; }
+.pv-ey {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .5);
+}
+.pv-ey svg { color: #6EA0FF; }
+.pv-ey .esc {
+  background: rgba(255, 255, 255, .12);
+  color: rgba(255, 255, 255, .88);
+  border-color: rgba(255, 255, 255, .2);
+}
+.pv-h-t h1 {
+  margin: 11px 0 7px;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -.035em;
+  line-height: 1.06;
+  color: #fff;
+}
+.pv-h-t p { font-size: 14px; line-height: 1.55; color: rgba(255, 255, 255, .68); }
+.pv-h-t p b { color: #fff; font-weight: 600; }
+
+/* o placar: tres medidas na horizontal, divididas por 1px. Em coluna elas viravam lista de
+   metricas; em linha, com a mesma altura, elas se leem como um placar — que e o que sao. */
+.pv-h-n {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+  margin: 22px 0 20px;
+  padding: 18px 0 2px;
+  border-top: 1px solid rgba(255, 255, 255, .1);
+}
+.pv-n { position: relative; }
+.pv-n + .pv-n { padding-left: 26px; border-left: 1px solid rgba(255, 255, 255, .1); }
+.pv-n > b {
+  display: block;
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -.045em;
+  line-height: 1;
+  color: #fff;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.pv-n > b u { text-decoration: none; font-size: 17px; font-weight: 600; margin-left: 2px; }
+.pv-n > span {
+  display: block;
+  margin-top: 8px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, .74);
+}
+/* o sublinhado marca a palavra que carrega o achado: o erro tem lado */
+.pv-n > span u { text-decoration: none; color: #F3C98A; font-weight: 600; }
+.pv-n > em {
+  display: block;
+  margin-top: 4px;
+  font-style: normal;
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, .5);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── o transporte ─────────────────────────────────────────────────────────── */
+.pv-mq {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 255, 255, .07);
+}
+.pv-mq .play {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--ac);
+  color: #fff;
+  cursor: pointer;
+  transition: transform .16s cubic-bezier(.23, 1, .32, 1), box-shadow .16s ease-out;
+}
+.pv-mq .play:hover { transform: translateY(-1px); box-shadow: 0 8px 20px -8px rgba(37, 99, 235, .8); }
+.pv-mq .play:active { transform: scale(.95); }
+
+.pv-mq-d { flex-shrink: 0; min-width: 128px; color: #E8ECF3; }
+.pv-mq-d b { display: block; font-size: 16px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.pv-mq-d span { font-size: 11px; color: #8D97A8; font-variant-numeric: tabular-nums; }
+.pv-mq-t { flex: 1; min-width: 0; }
+
+.pv-mq-l { display: flex; gap: 18px; margin-top: 11px; flex-wrap: wrap; align-items: center; }
+.pv-mq-l span { display: inline-flex; align-items: center; gap: 7px; font-size: 10.5px; color: #8D97A8; }
+.pv-mq-l span:last-child { margin-left: auto; color: #5F697C; }
+.pv-mq-l i { width: 9px; height: 9px; border-radius: 2px; background: rgba(240, 72, 62, .8); }
+
+/* ── os cartoes claros ────────────────────────────────────────────────────── */
+.pv-g2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap, 18px); }
+.pv-c, .pv-dr { padding: 20px 22px 18px; background: var(--g); }
+
+.pv-c-h { display: flex; align-items: flex-start; gap: 13px; margin-bottom: 16px; }
+/* o veredito do dia mora no cabecalho, encostado na direita: e o estado do cartao, e nao mais
+   uma linha da lista */
+.pv-c-h .ver { margin-left: auto; flex-shrink: 0; }
+.pv-c-h h2 { font-size: 16px; font-weight: 700; letter-spacing: -.02em; color: var(--hd); }
+.pv-c-h p { margin-top: 4px; font-size: 12.5px; line-height: 1.5; color: var(--tx2); max-width: 62ch; }
+.pv-c-h p b { color: var(--hd); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* a leitura do dia: par rotulo-valor, divisoria entre linhas e nada mais */
+.pv-kv { display: grid; }
+.pv-kv > div {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--ln);
+}
+.pv-kv em { font-style: normal; font-size: 12.5px; color: var(--tx2); }
+.pv-kv b {
+  margin-left: auto;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--hd);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+/* a ultima linha nao leva divisoria: com ela, sobra um risco duplo contra a borda do bloco
+   do acumulado, logo abaixo */
+.pv-kv > div:last-child { border-bottom: 0; }
+.pv-kv .marca { font-size: 18px; }
+.pv-kv .marca.sim { color: var(--ok); }
+.pv-kv .marca.nao { color: var(--no); }
+
+/* as marcas de falha na linha do tempo sao o achado da tela: outubro limpo, dezembro cravado
+   delas. Vale um pouco mais de presenca do que o padrao do cronos.css. */
+.pv-mq .lin .falha { height: 12px; bottom: 18px; opacity: .95; }
+
+.pv-ac { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--ln); }
+.pv-ac-h { display: flex; align-items: baseline; gap: 10px; }
+.pv-ac-h span {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--tx3);
+}
+.pv-ac-h b {
+  margin-left: auto;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -.04em;
+  color: var(--hd);
+  font-variant-numeric: tabular-nums;
+}
+.pv-ac-b { height: 6px; margin: 9px 0 8px; border-radius: 3px; background: rgba(12, 16, 23, .07); overflow: hidden; }
+.pv-ac-b i { display: block; height: 100%; border-radius: 3px; background: var(--ok); transition: width .2s ease-out; }
+.pv-ac p { font-size: 11.5px; line-height: 1.5; color: var(--tx3); }
+/* o fechamento do trimestre fica ao lado do acumulado: sozinho, o acumulado abre em 100% e
+   parece invencao */
+.pv-ac-f { margin-top: 6px; padding-top: 7px; border-top: 1px dashed var(--ln); }
+.pv-ac-f b { color: var(--hd); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* ── o bloco dos tres meses: onde o modelo perde o passo ───────────────────── */
+.pv-dr-g { display: grid; gap: 4px; }
+.pv-mes {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr) 190px;
+  align-items: center;
+  gap: 22px;
+  padding: 14px 0;
+}
+.pv-mes + .pv-mes { border-top: 1px solid var(--ln); }
+.pv-mes-k { font-size: 14px; font-weight: 700; color: var(--hd); }
+
+.pv-mes-b { display: grid; gap: 7px; }
+.pv-bar { display: grid; grid-template-columns: 62px minmax(0, 1fr) 44px; align-items: center; gap: 12px; }
+.pv-bar em { font-style: normal; font-size: 11px; color: var(--tx3); }
+.pv-bar > span { height: 9px; border-radius: 5px; background: rgba(12, 16, 23, .05); overflow: hidden; }
+.pv-bar > span i { display: block; height: 100%; border-radius: 5px; }
+.pv-bar > b {
+  text-align: right;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--tx);
+  font-variant-numeric: tabular-nums;
+}
+/* previsto e barra oca, real e barra cheia: a mesma convencao do desenho do dia, em que marca
+   oca e previsao e marca cheia e fato. O tracejado que estava aqui virava uma lagarta pontilhada
+   de ponta a ponta — ruido em cima de tres barras que ja sao quase do mesmo tamanho, que e
+   justamente o que a linha tem a dizer. */
+.pv-bar.prev > span { background: 0; border: 1px dashed rgba(37, 99, 235, .35); }
+.pv-bar.prev > span i { background: rgba(37, 99, 235, .13); border-radius: 5px 4px 4px 5px; }
+.pv-bar.prev > b { color: var(--ac); }
+.pv-bar.real > span i { background: var(--hd); }
+.pv-bar.real > b { color: var(--hd); font-weight: 700; }
+
+.pv-mes-c { text-align: right; --t: var(--tx2); }
+.pv-mes-c.ok { --t: var(--ok); }
+.pv-mes-c.wn { --t: var(--wn); }
+.pv-mes-c.no { --t: var(--no); }
+.pv-mes-c b {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -.035em;
+  color: var(--t);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.pv-mes-c b u { text-decoration: none; font-size: 14px; font-weight: 600; }
+.pv-mes-c em { display: block; margin-top: 2px; font-style: normal; font-size: 11.5px; color: var(--tx3); }
+
+.pv-dr-n {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--ln);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--tx2);
+}
+.pv-dr-n b { color: var(--hd); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* ── a semana: a parte que o modelo acerta ────────────────────────────────── */
+/* O grafico mentia, e a auditoria de 17/08 mediu.
+   `--h` e a porcentagem que a view calcula contra o maior dia da semana, e ela resolvia contra
+   a altura da COLUNA INTEIRA (128px) — que carrega tambem o nome do dia e o valor. Quando a
+   barra mais os dois rotulos passavam da altura disponivel, o flex encolhia a barra, e todas as
+   barras altas empatavam no mesmo teto de 88px: no P3, 68 · 76 · 74 · 75 · 66 saiam identicas;
+   no P2, 17 e 14 tambem, e o domingo (53% da segunda) aparecia com 82% da altura dela.
+
+   Grid com `1fr auto auto` da a barra um trilho de altura PROPRIA e definida: a porcentagem
+   passa a resolver contra o trilho, os rotulos ficam fora dele, e a proporcao desenhada volta a
+   ser a proporcao do numero impresso embaixo. */
+.pv-sem { display: flex; align-items: stretch; gap: 10px; height: 128px; margin-top: 4px; }
+.pv-sd {
+  flex: 1;
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  justify-items: center;
+  align-items: end;
+  gap: 6px;
+  height: 100%;
+}
+.pv-sd i {
+  width: 66%;
+  height: var(--h);
+  /* dia de volume quase nulo continua sendo um traco visivel, e nao o nada */
+  min-height: 3px;
+  align-self: end;
+  border-radius: 7px 7px 3px 3px;
+  background: #DFE4EC;
+  animation: pv-sobe .5s cubic-bezier(.23, 1, .32, 1) both;
+  animation-delay: calc(var(--i) * 45ms);
+  transform-origin: bottom;
+}
+/* o fim de semana ganha o tom: e nele que a cobertura do modelo e de 88,5% */
+.pv-sd.fds i { background: #BFD3FA; }
+.pv-sd span { font-size: 10.5px; color: var(--tx2); }
+.pv-sd em { font-style: normal; font-size: 11px; color: var(--tx3); font-variant-numeric: tabular-nums; }
+@keyframes pv-sobe { from { transform: scaleY(.2); opacity: 0 } }
+
+.pv-sem-n { margin-top: 13px; font-size: 11.5px; line-height: 1.55; color: var(--tx3); }
+
+/* ── os proximos dias: a faixa flutuando, com a media da semana como tique ─── */
+.pv-prox { display: grid; gap: 2px; }
+.pv-pd { display: grid; grid-template-columns: 74px minmax(0, 1fr) 82px; align-items: center; gap: 14px; padding: 5px 0; }
+.pv-pd em { font-style: normal; font-size: 11.5px; color: var(--tx2); font-variant-numeric: tabular-nums; }
+/* a barra e a FAIXA, e nao o central: e a largura dela que decide escala, e o ponto central
+   sozinho esconde que ela tem 37 de amplitude */
+.pv-pf { position: relative; height: 12px; border-radius: 6px; background: rgba(12, 16, 23, .04); }
+.pv-pf i { position: absolute; top: 0; bottom: 0; border-radius: 6px; background: var(--ac); opacity: .22; }
+.pv-pf u {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 2px;
+  margin-left: -1px;
+  border-radius: 1px;
+  background: var(--hd);
+  opacity: .55;
+}
+.pv-pd b {
+  text-align: right;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--hd);
+  font-variant-numeric: tabular-nums;
+}
+.pv-pd b s { text-decoration: none; margin: 0 3px; font-weight: 400; color: var(--tx3); }
+
+.pv-fa { margin-top: 0; }
+
+@media (max-width: 1120px) {
+  .pv-g2 { grid-template-columns: 1fr; }
+  .pv-h-n { grid-template-columns: 1fr; gap: 16px; }
+  .pv-n + .pv-n { padding-left: 0; padding-top: 16px; border-left: 0; border-top: 1px solid rgba(255, 255, 255, .1); }
+  .pv-mes { grid-template-columns: 1fr; gap: 12px; }
+  .pv-mes-c { text-align: left; }
+}
+@media (max-width: 680px) {
+  .pv-h { padding: 22px 18px 16px; }
+  .pv-h-t h1 { font-size: 26px; }
+  .pv-mq { flex-wrap: wrap; }
+  .pv-mq-t { order: 3; flex: 1 0 100%; }
+  .pv-pd { grid-template-columns: 66px minmax(0, 1fr); }
+  .pv-pd b { grid-column: 2; text-align: left; }
+}
+
+/* ── blocos claros da aba, fora da cabeca escura ───────────────────────────── */
+.pv-bl { display: grid; gap: 14px; }
+/* mesma gramatica do `.en-bl-h` do Panorama: selo que nao encolhe, texto que cresce, apoio a
+   direita e quebra de linha pelo apoio. Duas folhas resolviam o mesmo cabecalho de jeitos
+   diferentes, e por isso o mesmo elemento saia com alturas diferentes de aba para aba. */
+.pv-bl-h { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 13px; padding: 0 4px; }
+.pv-bl-h > div { flex: 1 1 260px; min-width: 0; }
+.pv-bl-h > .chp { margin-top: -1px; }
+.pv-bl-h h2 { font-size: 17px; font-weight: 700; letter-spacing: -.022em; color: var(--hd); }
+.pv-bl-h p { margin-top: 4px; max-width: 78ch; font-size: 13px; line-height: 1.55; color: var(--tx2); }
+.pv-bl-h .leg { margin: 2px 0 0 auto; gap: 14px; flex-shrink: 0; }
+
+/* ── o trilho: medido de um lado, previsto do outro ────────────────────────── */
+.pv-tr { padding: 16px 18px 12px; background: var(--g); }
+.pv-tr-h { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; font-size: 13px; color: var(--tx2); }
+.pv-tr-h > div { min-width: 0; }
+.pv-tr-h b { font-size: 21px; font-weight: 700; letter-spacing: -.035em; color: var(--hd); font-variant-numeric: tabular-nums lining-nums; }
+.pv-tr-h em {
+  display: block;
+  margin-top: 2px;
+  font-style: normal;
+  font-size: 11.5px;
+  color: var(--tx3);
+  font-variant-numeric: tabular-nums;
+}
+.pv-tr-g { display: block; width: 100%; height: auto; overflow: visible; }
+/* o campo do que ainda nao aconteceu */
+.pv-tr-f { fill: rgba(37, 99, 235, .028); }
+/* o medido e traco cheio e escuro; o previsto reusa o tracejado azul do resto do sistema */
+.pv-tr-r { fill: none; stroke: var(--hd); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.pn-eix.fut { fill: var(--ac); opacity: .7; }
+
+/* ── a semana e os proximos dias, no mesmo cartao ──────────────────────────── */
+.pv-c-h2 { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--ln); }
+.pv-c-h h3 { font-size: 14px; font-weight: 650; letter-spacing: -.015em; color: var(--hd); }
+.pv-c-h p { margin-top: 3px; font-size: 12px; line-height: 1.5; color: var(--tx3); }

@@ -1,0 +1,53 @@
+{% load br %}{% comment %}
+A sazonalidade semanal e os próximos oito dias, para UMA prioridade. Recebe:
+
+  semana · média histórica por dia da semana
+  prox   · os oito dias previstos, cada um já com `media_semana` do seu dia da semana
+  pri    · 'P3' ou 'P2'
+
+Os dois eram blocos separados e diziam o mesmo fato: com sazonalidade semanal ligada e anual
+desligada, a previsão de um dia É a média daquele dia da semana mais uma tendência. Aqui a média
+vira o tique dentro da barra do intervalo — a distância entre os dois passa a ser legível como
+o que ela é.
+
+A escala é PRÓPRIA de cada prioridade, e o teto dela vai escrito no cartão. Compartilhada, o P2
+virava uma fileira de tocos — ele é cerca de um quinto do P3 em volume — e estes dois blocos
+existem para mostrar a FORMA, não o nível: onde a semana cai, quanto o intervalo é largo. O
+nível já está comparado na cabeça da aba, em 77,4 contra 15,8.
+{% endcomment %}
+<article class="pn-v pv-c">
+  <div class="pv-c-h">
+    <span class="esc {{ pri|lower }}">{{ pri }}</span>
+    <div><h3>Média por dia da semana</h3>
+      <p>Escala do cartão até {{ max_semana|num:0 }} incidentes por dia.</p></div>
+  </div>
+
+  <div class="pv-sem">
+    {% for s in semana %}
+      <div class="pv-sd {% if s.dia == 'sáb' or s.dia == 'dom' %}fds{% endif %}"
+        style="--h:{% widthratio s.media max_semana 100 %}%;--i:{{ forloop.counter0 }}">
+        <i></i><span>{{ s.dia }}</span><em>{{ s.media|num:0 }}</em>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="pv-c-h pv-c-h2">
+    {% comment %}O número sai do próprio laço: escrito à mão, o título mentiria no dia em que a
+    view mudasse o horizonte da previsão.{% endcomment %}
+    <div><h3>Os próximos {{ prox|length }} dias</h3>
+      <p>A barra é o intervalo previsto. O tique é a média do dia da semana.</p></div>
+  </div>
+
+  <div class="pv-prox">
+    {% for d in prox %}
+      <div class="pv-pd">
+        <em>{{ d.rot }} {{ d.dm }}</em>
+        <span class="pv-pf">
+          <i style="left:{% widthratio d.baixo max_prox 100 %}%;width:{% widthratio d.largura max_prox 100 %}%"></i>
+          <u style="left:{% widthratio d.media_semana max_prox 100 %}%"></u>
+        </span>
+        <b>{{ d.baixo|num:0 }}<s>a</s>{{ d.alto|num:0 }}</b>
+      </div>
+    {% endfor %}
+  </div>
+</article>

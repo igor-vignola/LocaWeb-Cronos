@@ -2,102 +2,218 @@
 {% block titulo %}Fila de risco{% endblock %}
 
 {% block conteudo %}
-{% include 'painel/_ato.html' with n='01' titulo='A fila inteira' pergunta='Incidentes pontuados fora da amostra, do maior para o menor risco.' %}
+{% comment %}
+FILA DE RISCO — reconstruída em 13/08/2026.
 
-<div class="fxs">
-  {% for f in faixas %}
-    <a class="fx {% if faixa_sel == f.lo|stringformat:'s' %}on{% endif %}"
-       href="?faixa={% if faixa_sel == f.lo|stringformat:'s' %}{% else %}{{ f.lo }}{% endif %}{% if pri %}&amp;pri={{ pri }}{% endif %}">
-      <em class="f-{{ f.k }}">{{ f.rot }}</em><b>{{ f.n|mil }}</b>
-      <span>{{ f.violou }} violaram</span></a>
-  {% endfor %}
-</div>
+A aba é a saída do modelo de risco de OLA aplicada ao dia corrente. Ela responde uma pergunta
+operacional: entre os casos abertos até agora, em quais olhar primeiro.
 
-<div class="gr">
-  <article class="cd">
-    <div class="hdr">
-      <div class="hdr-t">{% icone 'fila' 16 %}
-        <div><h3>Incidentes ordenados por risco</h3>
-          <p>O modelo pontua cada caso com o que existia na abertura. Clique em qualquer linha
-            para abrir a decomposição do escore.</p></div></div>
-      <form class="bsc" method="get">
-        {% if faixa_sel %}<input type="hidden" name="faixa" value="{{ faixa_sel }}">{% endif %}
-        {% if pri %}<input type="hidden" name="pri" value="{{ pri }}">{% endif %}
-        {% icone 'lupa' 14 %}
-        <input name="q" value="{{ q }}" placeholder="incidente, produto, equipe ou ativo"
-          aria-label="buscar na fila"></form>
-      <div class="fg">
-        <a class="fb {% if not pri %}on{% endif %}" href="?{% if faixa_sel %}faixa={{ faixa_sel }}{% endif %}">todas</a>
-        <a class="fb {% if pri == 'P2' %}on{% endif %}" href="?pri=P2{% if faixa_sel %}&amp;faixa={{ faixa_sel }}{% endif %}">P2</a>
-        <a class="fb {% if pri == 'P3' %}on{% endif %}" href="?pri=P3{% if faixa_sel %}&amp;faixa={{ faixa_sel }}{% endif %}">P3</a>
-      </div>
+O que saiu, e por quê:
+
+1. O PAINEL DO GANHO ("27× · 13 das 50 violações do trimestre"). Era o herói da aba, ocupava a
+   primeira dobra inteira e media outubro a dezembro — o futuro, no relógio desta tela. É
+   evidência de modelo, e evidência de modelo mora na apresentação. Junto foram a nota de rodapé
+   sobre o trimestre e a divisória de ato que só existia para introduzi-lo.
+
+2. O CARTÃO "GRUPOS CRÍTICOS". Mesma origem: o notebook 05, sem corte. Além disso não muda
+   nenhuma decisão às 15h — combinação de produto e categoria é assunto de prevenção, e o lugar
+   dela é a aba Causas.
+
+3. A PAGINAÇÃO. Quarenta linhas por página numa lista de 49 deixava nove numa segunda página.
+
+4. O "N VIOLARAM" DOS CHIPS. O desfecho do OLA só se conhece na resolução; um caso aberto às 14h
+   não violou nem deixou de violar às 15h. Os quatro chips mostravam "0 violaram", que se lê como
+   "nenhuma violação" quando a resposta correta é "ainda não se sabe".
+
+O que entrou: o resumo por prioridade. Na fila de hoje o topo é integralmente P3 — o maior P2
+está em décimo terceiro — então quem lê só a primeira tela nunca via um P2. As duas entram no
+KPI com metas próprias.
+{% endcomment %}
+
+<div class="fl">
+
+  {% comment %}Uma linha de escopo antes de qualquer número: população, relógio e as duas
+  prioridades. É o que impede a aba de ser lida como "a fila do trimestre".{% endcomment %}
+  {% comment %}`noite`: a Fila era a única das seis abas sem o cartão escuro de cabeçalho — o
+  título saía direto sobre o fundo da página, e trocar de aba mudava a estrutura da tela, não
+  só o conteúdo.{% endcomment %}
+  <header class="fl-h noite">
+    <div>
+      {% comment %}A sobrancelha lidera com o que a aba FAZ e mantém o nome do modelo atrás do
+      ponto: procedência em caixa pequena, que a banca precisa e o turno não lê. O parágrafo caiu
+      de 33 para 16 palavras — "a pontuação usa apenas o que existia no momento da abertura" é
+      metodologia, e migrou para a nota de rodapé da lista, onde já mora a explicação da
+      diferença entre risco e violação.{% endcomment %}
+      <span class="fl-ey">{% icone 'fila' 14 %}Risco de violação por incidente ·
+        regressão logística</span>
+      <h1>Em qual caso olhar primeiro</h1>
+      <p>Os <b>{{ n_ate_agora|mil }}</b> casos abertos até as <b>{{ hora_corte }}h</b>,
+        do maior risco para o menor.</p>
+    </div>
+  </header>
+
+  {% comment %}O resumo responde "8,1% é muito?" antes da lista, e responde para as DUAS
+  prioridades. A régua é a mesma dos dois: da média da base ao corte da faixa crítica.
+  {% endcomment %}
+  <section class="fl-rs">
+    {% for r in resumo_fila.linhas %}
+      <article class="pn-v fl-rc {% if r.maior %}{{ r.ftom }}{% endif %}">
+        <div class="fl-rc-h">
+          <span class="esc {{ r.pri|lower }}">{{ r.pri }}</span>
+          <span>{{ r.n }} caso{{ r.n|pluralize }} na fila de hoje</span>
+        </div>
+
+        {% if r.maior %}
+          <div class="fl-rc-n">
+            <b>{{ r.maior|num:1 }}<u>%</u></b>
+            <span>de risco no maior caso<em>{{ r.vezes|num:1 }}× a média da base</em></span>
+          </div>
+
+          {% comment %}A régua vai de zero ao corte crítico, com a média da base marcada nela.
+          Sem essa marca, um número de um dígito parece pequeno para quem não carrega a média
+          de 0,94% na cabeça.{% endcomment %}
+          <div class="fl-rg">
+            <span class="fl-rg-t">
+              <i style="width:{{ r.barra }}%"></i>
+              <u style="left:{{ resumo_fila.media_x }}%"></u>
+            </span>
+            <div class="fl-rg-l">
+              {% comment %}"Corte crítico" era vocabulário nosso: aparecia quatro vezes na
+              interface e não era definido em nenhuma. É o limiar acima do qual o caso entra na
+              faixa crítica — dito assim, não precisa de glossário.{% endcomment %}
+              <span>Média da base {{ resumo_fila.media|num:2 }}%</span>
+              <span>Limite de alerta {{ resumo_fila.corte }}%</span>
+            </div>
+          </div>
+
+          <button class="fl-rc-b" data-mod="incidente" data-k="{{ r.incidente }}">
+            <span class="en-i-fx {{ r.ftom }}">{{ r.faixa }}</span>
+            <b class="id">{{ r.incidente }}</b>
+            <em>{{ r.produto|capfirst }} · {{ r.equipe }} · Aberto às {{ r.hora }}h</em>
+            {% icone 'seta' 14 %}
+          </button>
+        {% else %}
+          <p class="fl-rc-v">Nenhum caso de {{ r.pri }} aberto até as {{ hora_corte }}h.</p>
+        {% endif %}
+      </article>
+    {% endfor %}
+  </section>
+
+  {% comment %}Um controle só, e não dois blocos separados por um cartão: prioridade, faixa e
+  busca decidem juntos o que a tabela mostra. Todos os links preservam os outros filtros — antes
+  trocar de faixa descartava o termo buscado.{% endcomment %}
+  <section class="pn-v fl-ct">
+    <div class="fl-ct-g" role="group" aria-label="Filtrar por prioridade">
+      <a class="fl-fb {% if not pri %}on{% endif %}"
+         href="?{% if faixa_sel %}faixa={{ faixa_sel }}&amp;{% endif %}{% if q %}q={{ q }}{% endif %}">Todas</a>
+      <a class="fl-fb {% if pri == 'P2' %}on{% endif %}"
+         href="?pri=P2{% if faixa_sel %}&amp;faixa={{ faixa_sel }}{% endif %}{% if q %}&amp;q={{ q }}{% endif %}">P2</a>
+      <a class="fl-fb {% if pri == 'P3' %}on{% endif %}"
+         href="?pri=P3{% if faixa_sel %}&amp;faixa={{ faixa_sel }}{% endif %}{% if q %}&amp;q={{ q }}{% endif %}">P3</a>
     </div>
 
-    {% if linhas %}
-      <div class="tbw"><table class="tb">
-        <thead><tr><th>#</th><th>Incidente</th><th>Risco</th><th>Prio</th><th>Produto</th>
-          <th>Equipe</th><th>Ativo</th><th>Aberto</th><th>Histórico do ativo</th></tr></thead>
-        <tbody>
-        {% for r in linhas %}
-          <tr data-mod="incidente" data-k="{{ r.incidente }}" style="--i:{{ forloop.counter0 }}">
-            <td class="o">{{ r.posicao }}</td>
-            <td><b class="id">{{ r.incidente }}</b></td>
-            <td class="rc"><span class="rb"><i
-              style="--w:{{ r.risco|num:0 }}%;--c:{{ r.risco|tom_nota }}"></i></span>
-              {{ r.risco|num }}<small>%</small></td>
-            <td class="dm">{{ r.prioridade }}</td>
-            <td class="dm">{{ r.produto }}</td>
-            <td class="dm">{{ r.equipe }}</td>
-            <td class="dm id">{{ r.ativo|default:'—' }}</td>
-            <td class="dm">{{ r.dm }} · {{ r.hora }}h</td>
-            <td class="dm">{% if r.ativo_passagens %}{{ r.ativo_violacoes }}/{{ r.ativo_passagens|mil }}{% else %}sem histórico{% endif %}</td>
-          </tr>
-        {% endfor %}
-        </tbody></table></div>
-
-      <div class="pag">
-        {% if anterior %}<a href="?p={{ anterior }}{% if pri %}&amp;pri={{ pri }}{% endif %}{% if faixa_sel %}&amp;faixa={{ faixa_sel }}{% endif %}{% if q %}&amp;q={{ q }}{% endif %}">anterior</a>{% endif %}
-        {% if proxima %}<a href="?p={{ proxima }}{% if pri %}&amp;pri={{ pri }}{% endif %}{% if faixa_sel %}&amp;faixa={{ faixa_sel }}{% endif %}{% if q %}&amp;q={{ q }}{% endif %}">próxima{% icone 'seta' 14 %}</a>{% endif %}
-        <span class="cnt">mostrando {{ de|mil }} a {{ ate|mil }} de {{ total|mil }} ·
-          página {{ pagina }} de {{ paginas }}</span>
-      </div>
-      <p class="nt">Nos cinquenta primeiros da fila estão <b>{{ base.top50_pega }} das
-        {{ base.viol_periodo }}</b> violações do período. Ordenar por prioridade declarada
-        pegaria bem menos: é isso que a ordenação por risco compra.</p>
-    {% else %}
-      {% include 'painel/_vazio.html' with icone='lupa' titulo='Nenhum caso com esse filtro' texto='Tente outra faixa de risco, outra prioridade, ou limpe a busca.' %}
-    {% endif %}
-  </article>
-</div>
-
-{% include 'painel/_ato.html' with n='02' titulo='Como ler um risco de 10%' pergunta='A régua que falta na cabeça de quem olha a fila pela primeira vez.' %}
-<div class="gr g2">
-  <article class="cd">
-    {% include 'painel/_cab.html' with icone='balanca' titulo='As quatro faixas' oque='Onde cada faixa começa, quantos casos tem e quanto isso é em relação à média da base.' %}
-    <div class="reg">
+    <div class="fl-fx" role="group" aria-label="Filtrar por faixa de risco">
       {% for f in faixas %}
-        <div class="rg-l"><span class="rg-b f-{{ f.k }}"></span>
-          <div><b>{{ f.rot }}</b><span>a partir de {{ f.lo }}% de chance ·
-            {{ f.n|mil }} casos · {{ f.violou }} violaram</span></div>
-          <em>{{ f.lo|vezes:base.media_violacao }}x a média</em></div>
+        {% comment %}Faixa vazia não vira link: clicar levava ao estado vazio de propósito.
+        O glifo separa "alta" de "atenção", que dividem o mesmo tom âmbar.{% endcomment %}
+        {% if f.n %}
+          <a class="fl-fc {{ f.k }} {% if faixa_sel == f.lo|stringformat:'s' %}on{% endif %}"
+             href="?{% if faixa_sel == f.lo|stringformat:'s' %}{% else %}faixa={{ f.lo }}&amp;{% endif %}{% if pri %}pri={{ pri }}&amp;{% endif %}{% if q %}q={{ q }}{% endif %}"
+             {% if faixa_sel == f.lo|stringformat:'s' %}aria-current="true"{% endif %}>
+            {% icone f.ico 14 %}
+            <b>{{ f.rot|capfirst }}</b>
+            <span>{{ f.lo }}{% if f.hi %} a {{ f.hi }}{% else %}% ou mais{% endif %}{% if f.hi %}%{% endif %}</span>
+            <u class="nb">{{ f.n }}</u>
+          </a>
+        {% else %}
+          <span class="fl-fc {{ f.k }} vazia">
+            {% icone f.ico 14 %}
+            <b>{{ f.rot|capfirst }}</b>
+            <span>{{ f.lo }}{% if f.hi %} a {{ f.hi }}{% else %}% ou mais{% endif %}{% if f.hi %}%{% endif %}</span>
+            <u class="nb">0</u>
+          </span>
+        {% endif %}
       {% endfor %}
     </div>
-    <p class="nt">A média da base é <b>{{ base.media_violacao|num:2 }}%</b>. Um caso de 10% é
-      <b>dez vezes</b> mais provável que o incidente comum — por isso a faixa crítica tem poucos
-      casos e merece atenção.</p>
-  </article>
-  <article class="cd">
-    {% include 'painel/_cab.html' with icone='alvo' titulo='Grupos críticos' oque='Combinações de produto, categoria e prioridade com taxa acima da média da base.' %}
-    <table class="tb sm"><thead><tr><th>Produto · categoria · prioridade</th><th>Taxa</th>
-      <th>vs média</th></tr></thead><tbody>
-      {% for g in grupos %}
-        <tr><td class="id">{{ g.grupo }}</td>
-          <td class="no">{{ g|item:'taxa %'|num:2 }}%</td>
-          <td class="dm">{{ g|item:'vezes a média'|num:2 }}x</td></tr>
+
+    <form class="fl-bs" method="get" role="search">
+      {% if faixa_sel %}<input type="hidden" name="faixa" value="{{ faixa_sel }}">{% endif %}
+      {% if pri %}<input type="hidden" name="pri" value="{{ pri }}">{% endif %}
+      {% icone 'lupa' 14 %}
+      <input name="q" value="{{ q }}" placeholder="Incidente, produto, equipe ou ativo"
+        aria-label="Buscar na fila de hoje">
+      {% if q %}<a class="fl-bs-x" href="?{% if pri %}pri={{ pri }}&amp;{% endif %}{% if faixa_sel %}faixa={{ faixa_sel }}{% endif %}"
+        aria-label="Limpar a busca">×</a>{% endif %}
+    </form>
+  </section>
+
+  {% if linhas %}
+    {% comment %}A fila tem uma parada de tabulação por caso: com 49 casos abertos, chegar ao
+    rodapé pelo teclado custava cinquenta Tabs. O atalho aparece só ao receber foco, como o
+    "pular para o conteúdo" de que ele é parente.{% endcomment %}
+    <a class="pula" href="#fl-fim">Pular a lista de casos</a>
+
+    <section class="pn-v fl-tb">
+      {% comment %}Cada linha é um botão: a ação principal da aba — abrir a decomposição do
+      escore — só existia no ponteiro, porque `tr` não recebe foco de teclado.{% endcomment %}
+      <div class="fl-tb-h">
+        <span>Posição</span>
+        <span>Risco de violação<em>Escala até o limite de alerta, {{ resumo_fila.corte }}%</em></span>
+        <span>Caso</span>
+        <span>Fator dominante</span>
+        <span>Ativo</span>
+        <span></span>
+      </div>
+
+      {% for r in linhas %}
+        <button class="fl-l {{ r.ftom }}" data-mod="incidente" data-k="{{ r.incidente }}">
+          <span class="fl-l-p nb">{{ r.posicao }}º</span>
+
+          {% comment %}A faixa vai escrita, e não só na cor do número.
+
+          Com uma casa decimal, um caso de 1,04% e outro de 0,98% imprimem o MESMO "1,0%" — e o
+          corte entre atenção e rotina é exatamente 1%. A tela mostrava dois números idênticos,
+          um laranja e outro verde, sem nada que explicasse a diferença: quem lê conclui que a
+          tela errou, e passa a desconfiar da coluna inteira. Mais casa decimal resolveria a
+          contradição e não resolveria a pergunta de quem está no turno, que não é "1,04 ou
+          0,98" e sim "esse aqui pede ação?". O nome da faixa responde a pergunta certa.
+          {% endcomment %}
+          <span class="fl-l-r">
+            <b>{{ r.risco|num:1 }}<u>%</u></b>
+            <span class="en-fl-b"><i style="width:{{ r.barra }}%"></i></span>
+            <em class="fl-l-fx">{{ r.faixa }}</em>
+          </span>
+
+          <span class="fl-l-c">
+            <b class="esc {{ r.prioridade|lower }}">{{ r.prioridade }}</b>
+            <b class="id">{{ r.incidente }}</b>
+            <em>{{ r.produto|capfirst }} · {{ r.equipe }} · {{ r.hora }}h</em>
+          </span>
+
+          <span class="fl-l-m">{% if r.sinais %}<b>{{ r.sinais.0.sinal|capfirst }}</b>
+            <em>{{ r.sinais.0.peso|num:0 }}% do peso</em>{% else %}<em>—</em>{% endif %}</span>
+
+          <span class="fl-l-a"><b class="id">{{ r.ativo|default:'—' }}</b>
+            {% if r.ativo_passagens %}<em>{{ r.ativo_violacoes }} em
+              {{ r.ativo_passagens|mil }} passagens</em>
+            {% comment %}"Sem histórico" pesava igual a "0 em 2 passagens", e são coisas
+            opostas: um é ausência de informação, o outro é informação boa.{% endcomment %}
+            {% else %}<em>Primeira passagem</em>{% endif %}</span>
+
+          <span class="pn-i-s">{% icone 'seta' 15 %}</span>
+        </button>
       {% endfor %}
-    </tbody></table>
-    <p class="nt">Sete grupos concentram <b>13%</b> das violações em <b>5%</b> da base. Não é o
-      produto sozinho nem a categoria sozinha: é a combinação que concentra.</p>
-  </article>
+
+      <p class="fl-tb-f" id="fl-fim" tabindex="-1">{{ total|mil }} caso{{ total|pluralize }}
+        {% if pri or faixa_sel or q %}no filtro atual, de {{ n_ate_agora|mil }}{% endif %}
+        · Corte às {{ hora_corte }}h de hoje. O desfecho do OLA não é conhecido enquanto o caso
+        está em aberto, então a fila mostra risco, e não violação.</p>
+    </section>
+  {% else %}
+    <div class="pn-v">
+      {% include 'painel/_vazio.html' with icone='lupa' titulo='Nenhum caso neste filtro' texto='Ajuste a faixa de risco, a prioridade ou o termo buscado.' %}
+    </div>
+  {% endif %}
+
 </div>
 {% endblock %}

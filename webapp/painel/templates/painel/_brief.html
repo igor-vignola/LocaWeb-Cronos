@@ -1,32 +1,112 @@
-{% load br %}{% comment %}O morning brief é a porta de entrada: abre na frente do painel.{% endcomment %}
+{% load br %}{% comment %}
+O morning brief: a porta de entrada, abre por cima do Panorama na primeira visita do dia.
+
+Esta é a única tela do produto com hora marcada, e aqui a hora virou a forma: cabeça escura
+com o nascer do dia, corpo claro embaixo — o mesmo par de superfícies das divisórias do deck.
+
+Ontem e hoje são trilha vertical, porque são a mesma linha do tempo e um puxa o outro.
+Dezembro saiu do trilho: não é o passo seguinte de ontem, é outro horizonte, e virou cartão
+próprio com a mesma barra de meta do cartão de prioridade no Panorama — quem leu lá, lê aqui.
+
+Nada foi inventado no texto: todo número sai do painel.json, e a prioridade que aparece no
+cartão do ano é a que o modelo aponta como mais apertada, não uma escolhida à mão.
+
+Os ids brov / brx / brf-ok / sino são contrato com o cronos.js. Não renomear — o botão do
+topo continua sendo #sino, só o glifo virou sol: o brief é das 7h, e sol diz a hora do dia
+onde o sino só dizia que algo apitou.
+{% endcomment %}
 <div class="br-ov" id="brov">
-  <div class="brf" role="dialog" aria-label="Resumo do dia">
-    <button class="md-x" id="brx" aria-label="fechar">{% icone 'fechar' 16 %}</button>
-    <div class="brf-t"><span class="brf-s">{{ hoje.completo }} · 07h00</span>
-      <span class="ct">redação automática</span></div>
-    <h2>Situação da operação<br><span class="mu">em três pontos</span></h2>
-    <div class="brf-b">
-      <p><em>Ontem</em> entraram <b>{{ ontem.total }}</b> incidentes elegíveis e
-        <b>{{ ontem.violou }}</b> violaram o prazo. São <b>{{ base.em_atendimento|mil }}</b>
-        em atendimento agora, e a operação acumula <b>{{ base.sem_violacao_dias }} dias úteis</b>
-        sem violação.</p>
-      <p><em>Hoje</em> devem entrar entre <b>{{ hoje.baixo_p3|num:0 }}</b> e
-        <b>{{ hoje.alto_p3|num:0 }}</b> incidentes no P3, com valor central em
-        {{ hoje.previsto_p3|num:0 }}. Às 7h já entraram <b>{{ p.acompanhamento.ate_agora }}</b>,
-        contra {{ p.acompanhamento.esperado_agora|num }} esperados a esta altura.</p>
-      <p><em>Atenção</em> ao P3: a projeção de fechamento do ano está em
-        <b>{{ p.projecao.1.projecao|num }}</b> contra meta de {{ p.projecao.1.meta|num:0 }}.
-        A faixa vai de {{ p.projecao.1.baixo|num:0 }} a {{ p.projecao.1.alto|num:0 }}, então
-        fechar dentro ainda cabe.</p>
+  <div class="brf pn-br" role="dialog" aria-label="Resumo do dia">
+
+    <header class="pn-bh noite">
+      {% comment %}Duas curvas e uma quente, no mesmo desenho do campo de linhas do fundo.
+      preserveAspectRatio="none" porque aqui elas são textura, não dado.{% endcomment %}
+      <svg class="pn-bh-cp" viewBox="0 0 660 220" preserveAspectRatio="none" aria-hidden="true">
+        <g fill="none" stroke="#6EA0FF" stroke-width="1.2" opacity=".2">
+          <path d="M-20 188C70 180 142 144 222 152s132 42 214 24 180-69 254-55"/>
+          <path d="M-20 207C82 203 152 174 236 178s142 36 220 21 170-53 244-42"/>
+        </g>
+        <g fill="none" stroke="#F0B767" stroke-width="1.1" opacity=".16">
+          <path d="M-20 164C64 153 140 117 227 126s129 48 212 29 176-76 261-61"/>
+        </g>
+      </svg>
+
+      <button class="md-x" id="brx" aria-label="Fechar">{% icone 'fechar' 16 %}</button>
+
+      <span class="pn-br-ey"><span class="pn-bh-sol">{% icone 'sol' 15 %}</span>
+        Resumo do dia · {{ hoje.completo }} · 07h00</span>
+
+      <h2 class="pn-br-h">Situação da operação</h2>
+
+      {% comment %}`sub` vem de views._entrada, o mesmo construtor das duas versões da entrada.
+      Antes eram `veredito` e `veredito_sub`, que deixaram de existir quando o construtor foi
+      unificado — e o brief ficou publicando uma frase que começava com ponto.{% endcomment %}
+      {% comment %}A segunda frase apontava para o cartão do fechamento do ano, que saiu daqui.
+      Sem o cartão, ela mandava o leitor procurar na tela um bloco que não existe mais.{% endcomment %}
+      <p class="pn-bh-p">{{ sub }}</p>
+
+      <div class="pn-bh-s">
+        <span class="pn-bh-c"><i></i><b>{{ hoje.dia_semana }}, {{ hoje.dia_mes }}</b></span>
+        <span class="pn-bh-c"><b>{{ base.elegiveis|mil }}</b> elegíveis ao KPI</span>
+        {% if n_atencao %}
+          <span class="pn-bh-c wn"><i></i>{{ n_atencao }}
+            ponto{{ n_atencao|pluralize }} de atenção</span>
+        {% endif %}
+      </div>
+    </header>
+
+    <div class="pn-bc">
+      <div class="pn-bt">
+        <div class="pn-bm ok">
+          <span class="pn-bn">{% icone 'escudo_ok' 15 %}</span>
+          <span>
+            <span class="pn-br-k">Ontem</span>
+            <span class="pn-bm-v">{{ ontem.total }}<u>registrados ·
+              {{ ontem.violou }} violaram o OLA</u></span>
+            <span class="pn-bm-e"><b>{{ base.sem_violacao_dias }}</b> dias úteis seguidos
+              sem violação.</span>
+          </span>
+        </div>
+
+        {% comment %}As DUAS prioridades do KPI, e não só o P3. O bloco anunciava "59 a 96
+        previstos" sem dizer que aquilo era metade do indicador — e o P2, que é o lado hoje sob
+        pressão contra a própria meta, não aparecia no resumo da manhã.{% endcomment %}
+        <div class="pn-bm ac">
+          <span class="pn-bn">{% icone 'tendencia' 15 %}</span>
+          <span>
+            <span class="pn-br-k">Hoje</span>
+            <span class="pn-bm-v">{{ hoje.baixo_p3|num:0 }} a
+              {{ hoje.alto_p3|num:0 }}<u>previstos no P3</u></span>
+            <span class="pn-bm-v seg">{{ hoje.baixo_p2|num:0 }} a
+              {{ hoje.alto_p2|num:0 }}<u>previstos no P2</u></span>
+            <span class="pn-bm-e">Às {{ ac.hora_agora }}h foram registrados
+              <b>{{ ac.ate_agora }}</b> no P3 e <b>{{ ac2.ate_agora }}</b> no P2, contra
+              <b>{{ ac.esperado_agora|num }}</b> e <b>{{ ac2.esperado_agora|num }}</b>
+              previstos a esta altura.</span>
+          </span>
+        </div>
+      </div>
+
+      {% comment %}O cartão do fechamento do ano saiu do brief em 13/08.
+
+      Dois motivos. O primeiro é de escopo: ele mostrava UMA prioridade — a mais apertada contra
+      a própria meta, que hoje é o P2 — e bloco de uma prioridade só quebra a regra de que as
+      duas do KPI andam juntas. Mostrar as duas aqui resolveria o escopo e agravaria o segundo
+      motivo, que é altura: o brief passava da tela e nascia com barra de rolagem, o que num
+      resumo de 7h da manhã é o oposto do que ele promete.
+
+      O fechamento do ano não se perde: ele tem cartão próprio no Panorama, com as duas
+      prioridades lado a lado, e página inteira em Projeção.{% endcomment %}
+
+      <div class="pn-br-f">
+        <a class="pn-br-a" href="{% url 'fila' %}">{% icone 'fila' 14 %}Fila de risco</a>
+        <a class="pn-br-a" href="{% url 'saude' %}">{% icone 'coracao' 14 %}Saúde por produto</a>
+        <button class="bt pr" id="brf-ok">Abrir o painel{% icone 'seta' 15 %}</button>
+      </div>
+
+      <span class="pn-br-n">Resumo gerado automaticamente a partir da saída dos modelos, sem
+        consulta do usuário.</span>
     </div>
-    <div class="brf-a">
-      <a class="ax" href="/fila/"><span class="ax-d">fila de risco</span>
-        Ver os casos ordenados por chance de estourar o prazo{% icone 'seta' 15 %}</a>
-      <a class="ax" href="/saude/"><span class="ax-d">saúde</span>
-        Ver o ranking dos dezessete produtos{% icone 'seta' 15 %}</a>
-    </div>
-    <div class="brf-f"><span class="ct">Sem interação por conversa. O texto é escrito sobre a
-      saída dos modelos.</span>
-      <button class="bt pr" id="brf-ok">Abrir o painel{% icone 'seta' 15 %}</button></div>
+
   </div>
 </div>

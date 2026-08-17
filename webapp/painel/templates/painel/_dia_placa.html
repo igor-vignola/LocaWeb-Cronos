@@ -1,0 +1,99 @@
+{% load br %}{% comment %}
+Uma placa do dia hora a hora, para UMA prioridade do KPI. Recebe:
+
+  acomp  · a geometria vinda de graficos.acompanhamento()
+  ac     · o acompanhamento daquela prioridade (painel.json)
+  pri    · 'P3' ou 'P2', só para o rótulo
+  pts    · o id do json_script com os 24 pontos, que o dia.js lê pelo data-pts
+
+Existe como partial porque as DUAS prioridades entram no KPI com o mesmo peso, e a placa é
+idêntica nas duas: mudar o desenho em uma e esquecer a outra seria questão de tempo.
+
+Nada de id fixo aqui dentro. O dia.js varre `.en-g[data-pts]` e liga cada placa à fonte dela —
+com id único a segunda placa herdaria os elementos da primeira e as duas leriam o mesmo dado.
+{% endcomment %}
+<div class="pn-v en-g" data-pts="{{ pts }}">
+  <div class="en-g-k"><span class="esc {{ pri|lower }}">{{ pri }}</span>
+    <b>{{ ac.previsto|num:1 }}</b> previstos hoje<em>Intervalo de {{ ac.baixo|num:0 }} a
+      {{ ac.alto|num:0 }}</em></div>
+
+  <div class="en-g-p" tabindex="0" role="group"
+    aria-label="Gráfico do dia hora a hora em {{ pri }}. Use as setas para ler cada hora.">
+    <svg class="dia-svg" viewBox="0 0 {{ acomp.w }} {{ acomp.h }}" role="img"
+      data-agora="{{ acomp.agora }}"
+      aria-label="Volume acumulado de incidentes {{ pri }} ao longo do dia: {{ ac.ate_agora }}
+      registrados até {{ ac.hora_agora }}h, contra {{ ac.esperado_agora|num }} previstos,
+      e o dia deve fechar em {{ ac.previsto|num:1 }}">
+      <defs>
+        <linearGradient id="ar-{{ pri|lower }}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0C1017" stop-opacity=".16"/>
+          <stop offset="1" stop-color="#0C1017" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+
+      <rect class="en-fut" x="{{ acomp.fut_x }}" y="{{ acomp.topo }}"
+        width="{{ acomp.fut_w }}" height="{{ acomp.y_fim }}"/>
+
+      {% for m in acomp.marcas %}
+        <line class="pn-mk" x1="34" y1="{{ m.y }}" x2="{{ acomp.w }}" y2="{{ m.y }}"/>
+        <text class="pn-eix" x="0" y="{{ m.y }}" dy="4">{{ m.v }}</text>
+      {% endfor %}
+
+      <path class="pn-gl-b" d="{{ acomp.banda }}"/>
+      <path class="pn-gl-e" d="{{ acomp.esperado }}"/>
+      <path class="en-area" d="{{ acomp.area }}" fill="url(#ar-{{ pri|lower }})"/>
+      <path class="pn-gl-r" d="{{ acomp.realizado }}"/>
+
+      <line class="pn-ag" x1="{{ acomp.ax }}" y1="16" x2="{{ acomp.ax }}" y2="{{ acomp.y_fim }}"/>
+      <text class="en-ag-r" x="{{ acomp.ax }}" y="10" text-anchor="middle">Agora</text>
+
+      <circle class="en-fan" cx="{{ acomp.ax }}" cy="{{ acomp.ey }}" r="4.5"/>
+      <circle class="pn-no-h" cx="{{ acomp.ax }}" cy="{{ acomp.ay }}" r="11"/>
+      <circle class="pn-no" cx="{{ acomp.ax }}" cy="{{ acomp.ay }}" r="4.5"/>
+
+      {% for r in acomp.rotulos %}
+        <text class="pn-eix" x="{{ r.x }}" y="{{ acomp.h }}" text-anchor="middle">{{ r.rot }}</text>
+      {% endfor %}
+
+      {% comment %}A leitura sob o cursor nasce invisível e só aparece quando o ponteiro entra
+      na placa. O dia.js move estes cinco elementos, e nada mais.{% endcomment %}
+      <g class="en-cx" aria-hidden="true">
+        <line class="en-cx-l" y1="16" y2="{{ acomp.y_fim }}"/>
+        <circle class="en-cx-eh" r="11"/>
+        <circle class="en-cx-e" r="5"/>
+        <circle class="en-cx-rh" r="11"/>
+        <circle class="en-cx-r" r="5"/>
+      </g>
+    </svg>
+
+    <div class="en-tt" aria-hidden="true">
+      <div class="en-tt-c">
+        <div class="en-tt-h"><b class="tt-hora">00h</b><span class="en-tt-ag">Agora</span></div>
+        <div class="en-tt-ls">
+          <div class="en-tt-l tt-lr"><i class="s-r"></i><span class="tt-krot">Registrados</span>
+            <b class="tt-real">—</b></div>
+          <div class="en-tt-l tt-lh"><i></i><span>Registrados nesta hora</span>
+            <b class="tt-nah">—</b></div>
+          <div class="en-tt-l"><i class="s-p"></i><span>Previsão do modelo</span>
+            <b class="tt-esp">—</b></div>
+          <div class="en-tt-l"><i class="s-b"></i><span>Intervalo de 80%</span>
+            <b class="tt-faixa">—</b></div>
+        </div>
+        <p class="en-tt-v"><i></i><span class="tt-vd"></span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="en-g-f">
+    <span class="en-g-t">{% if ac.confiavel %}No ritmo atual o dia fecha em
+        <b>{{ ac.ritmo_fecha|num:0 }}</b>, {% if ac.no_ritmo %}dentro do intervalo previsto.
+        {% else %}{% if ac.ritmo_fecha < ac.baixo %}abaixo{% else %}acima{% endif %} do
+        intervalo previsto de {{ ac.baixo|num:0 }} a {{ ac.alto|num:0 }}.{% endif %}
+      {% else %}Com <b>{{ ac.dia_decorrido|num }}%</b> do dia decorrido, a extrapolação do
+        fechamento ainda não é confiável.{% endif %}</span>
+
+    {% comment %}A mesma leitura em texto corrido, invisível na tela e viva para o leitor de
+    tela: o cartão é posicionado a pixel e não serve para quem navega por voz.{% endcomment %}
+    <span class="en-g-r" aria-live="polite"></span>
+  </div>
+</div>

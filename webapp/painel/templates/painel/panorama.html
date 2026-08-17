@@ -1,0 +1,253 @@
+{% extends 'painel/base.html' %}{% load br static %}
+{% block titulo %}Panorama{% endblock %}
+
+{% comment %}
+VERSÃO A DA ENTRADA — O PLANTÃO
+
+Coluna única, na ordem em que a decisão acontece dentro de um turno:
+
+  1. como está o dia        → cabeça escura, com o veredito e os três números do momento
+  2. quando o volume sobe   → o dia hora a hora
+  3. o que pede ação agora  → a fila pontuada pelo modelo de risco
+  4. como fecha o ano       → a régua da meta, uma por prioridade
+  5. onde o problema mora   → o que não muda de um dia para o outro
+
+A fila vem ANTES do ano de propósito. O ano é o que se cobra em dezembro; a fila é o que muda
+o ano, e é a única coisa desta tela em que dá para agir dentro do turno.
+
+A cabeça escura carrega dois números que o projeto provou serem coisas diferentes: o volume
+previsto e o maior risco aberto. Volume dimensiona carga e não prevê quebra — a regressão do
+volume contra quebra deu R² de 0,025. Por isso os dois aparecem lado a lado e nunca somados.
+
+Nenhum número desta tela é escrito à mão: todos saem do painel.json pelas contas de
+views._entrada, e as duas versões da entrada leem o mesmo construtor.
+{% endcomment %}
+
+{% block conteudo %}
+<div class="en">
+
+{% comment %}A cabeça. Mesmo par de superfícies do morning brief — escuro anuncia, claro
+informa — para quem viu o brief reconhecer a tela que abre atrás dele.{% endcomment %}
+<header class="en-h noite pn-en">
+  <svg class="en-h-cp" viewBox="0 0 1180 190" preserveAspectRatio="none" aria-hidden="true">
+    <g fill="none" stroke="#6EA0FF" stroke-width="1.3" opacity=".2">
+      <path d="M-20 150C120 142 250 106 396 114s236 38 382 20 190-56 452-44"/>
+      <path d="M-20 174C150 169 268 141 420 145s254 31 392 18 304-46 436-36"/>
+    </g>
+    <g fill="none" stroke="#F0B767" stroke-width="1.2" opacity=".15">
+      <path d="M-20 128C110 116 248 82 402 91s230 41 378 24 314-64 466-52"/>
+    </g>
+  </svg>
+
+  {% comment %}Veredito à esquerda, números à direita, na mesma faixa. Empilhados, a cabeça
+  passava de 600px e empurrava o gráfico do dia para fora da primeira tela; lado a lado ela cabe
+  em 350 e o primeiro cartão entra sem rolagem.
+
+  Os selos ficam DENTRO da coluna da esquerda, e não numa terceira linha embaixo de tudo. Fora
+  dela, a faixa dos números centrava só contra o texto e sobrava a altura dos selos livre
+  embaixo: o 77,4 nascia colado no topo do cartão, com um vão morto sob ele.{% endcomment %}
+  <div class="en-h-t">
+    <div class="en-h-l">
+      <div>
+        <span class="en-ey"><span class="pn-bh-sol">{% icone 'sol' 15 %}</span>
+          {{ hoje.dia_semana }}, {{ hoje.extenso }} · {{ ac.hora_agora }}h ·
+          Incidentes elegíveis ao KPI</span>
+
+        <h1 class="en-t">{{ titulo }}</h1>
+        <p class="en-s">{{ sub }}</p>
+      </div>
+
+      {% comment %}O selo "carga de 30/09 · 23h59" saiu. A sobrancelha já diz que dia é hoje, o
+      rodapé já diz o corte, e a hora da carga é detalhe de pipeline: não muda decisão
+      nenhuma.{% endcomment %}
+      <div class="en-chips">
+        {% comment %}"até o corte", não "em 2025": o número é len(kpi[dia < CORTE]), ou seja tudo
+        que abriu antes de 01/10. Escrever "em 2025" incluiria três meses que a conta não
+        tem.{% endcomment %}
+        <span class="pn-bh-c"><b>{{ base.elegiveis|mil }}</b> elegíveis ao KPI até o corte</span>
+        {% comment %}Não é link: os pontos de atenção moram em abas diferentes (o ano em Projeção,
+        a nota em Saúde), e um link só levaria para o lugar errado na metade dos casos. Eles
+        aparecem nomeados mais abaixo, cada um com o seu caminho.{% endcomment %}
+        {% if n_atencao %}
+          <span class="pn-bh-c wn"><i></i>{{ n_atencao }}
+            ponto{{ n_atencao|pluralize }} de atenção</span>
+        {% endif %}
+      </div>
+    </div>
+
+  {% comment %}As DUAS prioridades do KPI com o mesmo peso. O P3 é cerca de cinco vezes o P2
+  em volume, e é tentador dar a ele o número grande — mas as duas entram no KPI e as duas têm
+  meta própria, então uma tela que destaca só o P3 ensina o leitor a ignorar metade do
+  indicador. Mesmo tamanho, mesma faixa, badge em cada uma.
+
+  À direita, o KPI que já fechou: ontem e a sequência. Menores porque não há o que fazer com
+  eles — o previsto é o único número aqui em que ainda dá tempo de mexer.
+
+  O maior risco aberto ficou fora da cabeça: ele depende de quantos casos já entraram, então
+  cedo no turno diz "nada demais" e não sustenta a abertura de uma tela. Mora no bloco da fila,
+  onde cabe explicar que a pontuação acontece na entrada.{% endcomment %}
+    <div class="en-nums">
+      <div class="en-prev">
+        {% for g in reguas %}
+          <div class="en-pv">
+            <span class="esc {{ g.pri|lower }}">{{ g.pri }}</span>
+            <b>{{ g.previsto|num:1 }}</b>
+            <span>previstos hoje<em>Intervalo de {{ g.baixo|num:0 }} a
+              {{ g.alto|num:0 }}</em></span>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="en-fatos">
+        <div class="en-f">
+          <span class="en-n2-k">Violações ontem</span>
+          <b>{{ ontem.violou }}</b>
+          <em>Em {{ ontem.total }} registrados</em>
+        </div>
+        <div class="en-f">
+          <span class="en-n2-k">Sem violação</span>
+          <b>{{ base.sem_violacao_dias }}<u>dias úteis</u></b>
+          <em>Seguidos, até o corte</em>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+{% comment %}O dia por dentro, nas DUAS prioridades do KPI.
+
+A curva prevista foi fechada à meia-noite e não se move; a linha escura é o que de fato entrou.
+A forma diz o que é fato e o que é previsão — cheio contra tracejado.
+
+Eram uma placa só, do P3, ocupando a largura inteira. As duas prioridades entram no KPI, cada
+uma tem meta própria, e o P2 aparecia aqui apenas como um número previsto na cabeça, sem curva
+para comparar contra ele. Agora são duas placas do mesmo tamanho: nenhuma das duas é a
+principal.
+
+E a curva de chegada por hora passou a ser medida DENTRO de cada prioridade. Antes havia uma
+só, calculada sobre a base inteira, e este comentário afirmava que ela era do P3 — não era. O
+P2 chega mais cedo: às 06h ele já acumulou 23% do dia contra 11% do P3.
+{% endcomment %}
+<section class="en-bl pn-en" style="animation-delay:.05s">
+  <div class="en-bl-h">
+    <span class="chp t-ac">{% icone 'previsao' 18 %}</span>
+    <div class="en-bl-t">
+      <h2>O dia hora a hora</h2>
+      <p>A curva prevista foi fechada à meia-noite e não se move. A linha escura é o volume
+        já registrado, hora a hora.</p>
+    </div>
+    <span class="leg en-g-leg">
+      <span><i class="l-r"></i>Registrados</span>
+      <span><i class="l-p"></i>Previsão do modelo</span>
+      <span><i class="l-b"></i>Intervalo de 80%</span>
+    </span>
+    {% comment %}Era "Ver o modelo dia a dia" — herança do modo dia-a-dia, que saiu quando a
+    máquina do tempo virou peça de apresentação. O link leva à Previsão, que é outra coisa.
+    Mesma fórmula do bloco da meta logo abaixo ("Abrir a projeção"), para os dois links da
+    página nomearem o destino do mesmo jeito.{% endcomment %}
+    <a class="pn-lk" href="{% url 'previsao' %}">Abrir a previsão{% icone 'seta' 14 %}</a>
+  </div>
+
+  <div class="en-duo">
+    {% include 'painel/_dia_placa.html' with acomp=acomp ac=ac pri='P3' pts='dia-pts-p3' %}
+    {% include 'painel/_dia_placa.html' with acomp=acomp2 ac=ac2 pri='P2' pts='dia-pts-p2' %}
+  </div>
+</section>
+
+{% include 'painel/_agir.html' with atraso='.1s' %}
+
+{% comment %}A meta do ano.
+
+Esta era a parte ilegível da tela, e o defeito não estava no desenho: estava em nunca enunciar
+a regra. A tela mostrava "208 · quebras projetadas até dezembro · meta 200" e esperava que o
+leitor soubesse, por conta própria, que existe um teto anual de quebras de OLA, que 200 é esse
+teto e não uma expectativa, e que passar dele é o que se cobra. Nada disso estava escrito.
+
+Agora o bloco abre dizendo a regra com os dois números, e o cartão traz a comparação já feita:
+"208 de no máximo 200". Não é possível ler isso errado.
+
+O selo colorido de "estoura por 8,0" saiu. Ele era pílula genérica repetindo em cor o que a
+frase abaixo já diz em palavra, e pílula colorida gasta a única cor forte do cartão num dado
+que não é alarme — o estouro projetado é de 4%, com a faixa cobrindo a meta.
+{% endcomment %}
+<section class="en-bl pn-en" style="animation-delay:.15s">
+  <div class="en-bl-h">
+    <span class="chp {% if ola_ano.folga %}t-ok{% else %}t-wn{% endif %}">
+      {% icone 'alvo' 18 %}</span>
+    <div class="en-bl-t">
+      {% comment %}33 palavras para dizer uma coisa: o KPI é escada, não teto. O resto — "cada
+      faixa vale uma porcentagem", "o modelo projeta em qual delas" — o próprio cartão agora
+      mostra, com o 150% de hoje e o 125% projetado lado a lado.{% endcomment %}
+      <h2>A meta de violações do ano</h2>
+      <p>O KPI é uma escada de faixas, e não um teto único: passar de uma faixa não zera o
+        indicador, derruba um degrau.</p>
+    </div>
+    <a class="pn-lk" href="{% url 'projecao' %}">Abrir a projeção{% icone 'seta' 14 %}</a>
+  </div>
+
+  <div class="pn-pri pn-par">
+    {% for g in reguas %}
+      {% comment %}O selo carrega o ATINGIMENTO projetado, e não "dentro ou fora do teto".
+
+      A tela media as duas prioridades contra o campo `meta` do notebook 06, que reduziu o KPI a
+      um teto por prioridade — e pegou degraus diferentes em cada uma: 200 no P3 é o teto dos
+      150%, 45 no P2 é o teto dos 75%. O resultado era inverter os dois vereditos ao mesmo
+      tempo: o P3 saía em âmbar valendo 125% de atingimento, e o P2 saía em verde valendo 75%,
+      que é o primeiro degrau de perda. A tela mandava correr atrás da prioridade que ia bem.
+      {% endcomment %}
+      <section class="pn-v pn-p">
+        <div class="pn-p-h">
+          <span class="esc {{ g.pri|lower }}">{{ g.pri }}</span>
+          <span class="pn-p-r">Violações de OLA no ano</span>
+          <span class="pn-p-e {{ g.ola.tom }}">{{ g.ola.at.pc }}% de atingimento projetado</span>
+        </div>
+
+        {% comment %}O número grande é o que JÁ aconteceu, e não a projeção: fato ocupa o lugar
+        de destaque, e a projeção vem na frase abaixo, onde cabe dizer que é aposta.{% endcomment %}
+        <div class="en-meta">
+          <b>{{ g.ola.ja|num:0 }}</b>
+          <span>já aconteceram<em>Faixa de 100%: até {{ g.ola.at.teto_100 }}</em></span>
+        </div>
+
+        {% comment %}A margem é a leitura que decide: não é "estourou ou não", é quantas quebras
+        ainda cabem antes de escorregar um degrau. No P2 são 1,5 — é o número mais apertado do
+        KPI inteiro, e a tela anterior o exibia como folga, em verde.{% endcomment %}
+        {% comment %}Era uma frase só, com cinco números e três faixas dentro dela — o leitor
+        tinha de montar de cabeça a comparação entre "onde está" e "onde vai parar" enquanto
+        lia. Agora são os dois estados lado a lado, cada um com o seu atingimento, e a margem
+        embaixo como a única linha de texto. É a mesma informação em três leituras curtas.
+        {% endcomment %}
+        <div class="en-meta-c">
+          <div><em>Hoje</em><b>{{ g.ola.at_ja.pc }}%</b>
+            <span>de atingimento</span></div>
+          <span class="en-meta-s">{% icone 'seta' 15 %}</span>
+          <div class="{{ g.ola.tom }}"><em>Projeção de dezembro</em><b>{{ g.ola.at.pc }}%</b>
+            <span>com {{ g.ola.projecao|num:0 }} violações</span></div>
+        </div>
+        {% if g.ola.at.margem is not None %}
+          <p class="en-meta-t">Ainda cabem <b>{{ g.ola.at.margem|num:1 }}</b> violações antes de
+            cair para {{ g.ola.at.proximo_pc }}%.</p>
+        {% endif %}
+
+        {% include 'painel/_regua_ano.html' with o=g.ola %}
+      </section>
+    {% endfor %}
+  </div>
+</section>
+
+{% comment %}Uma fonte de pontos por placa. O dia.js liga cada `.en-g` à sua pelo data-pts.
+{% endcomment %}
+{{ acomp.pontos|json_script:"dia-pts-p3" }}
+{{ acomp2.pontos|json_script:"dia-pts-p2" }}
+
+{% comment %}O bloco "Onde o problema mora" saiu do Panorama em 13/08. Ele carregava o pior
+produto e o código de fechamento que concentra quebra — assunto estrutural, que não se resolve
+no turno e que já tem página própria em Saúde e em Causas. Numa tela cuja ordem é a da decisão
+dentro do turno, ele era o único bloco sem ação possível, e fechava a leitura com dois links
+para outras abas. As duas análises seguem intactas nas abas delas e na navegação do topo.
+{% endcomment %}
+
+</div>
+{% endblock %}
+
+{% block js %}<script src="{% folha 'painel/dia.js' %}" defer></script>{% endblock %}

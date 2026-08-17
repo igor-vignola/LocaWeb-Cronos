@@ -67,8 +67,43 @@ function desenhaDia() {
   return { real: real[h], esp: esperado[h] };
 }
 
+/* ── o herói acompanha o tempo ──────────────────────────────────────────────
+   Só o que o dado sustenta se move. A faixa do P3, a manchete e a contagem de casos
+   vêm de DIAS e mudam junto. A faixa do P2, a fila e a projeção do ano não estão
+   agregadas por dia: ficam paradas, e a página avisa isso em vez de fingir. */
+const DIA_POR_EXTENSO = { seg: 'segunda', ter: 'terça', qua: 'quarta', qui: 'quinta',
+  sex: 'sexta', 'sáb': 'sábado', dom: 'domingo' };
+
+function pintaHeroi() {
+  const x = DIAS[d];
+  const alvo = (id, txt) => { const e = q(id); if (e) e.textContent = txt; };
+
+  alvo('hz-data', `${x.dm} · ${DIA_POR_EXTENSO[x.rot] || x.rot}`);
+  alvo('hz-hora', `· ${String(h).padStart(2, '0')}h`);
+
+  const h1 = q('hz-h1');
+  if (h1) h1.innerHTML = x.acima10
+    ? 'Dia de volume normal,<br><span class="mu">com risco concentrado.</span>'
+    : 'Dia de volume normal,<br><span class="mu">sem caso crítico.</span>';
+
+  const lead = q('hz-lead');
+  if (lead) lead.innerHTML = x.acima10
+    ? `<span class="cr">${x.acima10} caso${x.acima10 > 1 ? 's' : ''} acima de 10% de
+       risco</span> entre os <b>${x.casos}</b> abertos no dia. O maior está em
+       <b>${nb(x.maior, 1)}%</b>.`
+    : `Nenhum dos <b>${x.casos}</b> incidentes abertos no dia passa de 10% de chance de
+       estourar o prazo — o maior está em <b>${nb(x.maior, 1)}%</b>.`;
+
+  const fx = q('hz-fx3');
+  if (fx) fx.innerHTML = `${nb(x.baixo)} <u>a</u> ${nb(x.alto)}`;
+
+  // o dia do corte é o presente; qualquer outro é viagem, e a página assume isso
+  document.body.classList.toggle('viajando', d !== 0);
+}
+
 function pinta() {
   const x = DIAS[d], r = desenhaDia();
+  pintaHeroi();
 
   q('m-dia').textContent = `${x.rot} ${x.dm}`;
   q('m-pos').textContent = `${String(h).padStart(2, '0')}h · dia ${d + 1} de ${N}`;
@@ -108,11 +143,32 @@ function pinta() {
     `${dentroAte} de ${d + 1} ${d ? 'dias' : 'dia'} com o real dentro da faixa prevista.`;
 }
 
+/* ── um só relógio para a página inteira ────────────────────────────────────
+   O controle do topo (cronos.js) e o player daqui movem o mesmo tempo. Cada um
+   publica 'cronos:tempo' quando o movimento nasce nele e escuta quando nasce no
+   outro. `deFora` corta a ida e volta. */
+let deFora = false;
+
 function vaiPasso(p) {
   p = Math.min(PASSOS - 1, Math.max(0, p));
   d = Math.floor(p / 24); h = p % 24;
   pinta();
+  if (!deFora) {
+    document.dispatchEvent(new CustomEvent('cronos:tempo', { detail: { dia: d, hora: h } }));
+  }
 }
+
+document.addEventListener('cronos:tempo', (e) => {
+  if (!deFora) {
+    const t = e.detail || {};
+    const novo = (t.dia === undefined ? d : t.dia) * 24 + (t.hora === undefined ? h : t.hora);
+    if (novo === d * 24 + h) return;
+    deFora = true;
+    para();
+    vaiPasso(novo);
+    deFora = false;
+  }
+});
 
 lin.addEventListener('click', (e) => {
   const b = lin.getBoundingClientRect();

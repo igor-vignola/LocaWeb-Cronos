@@ -1,0 +1,118 @@
+{% load br %}{% comment %}
+ONDE AGIR AGORA — a saída do modelo de risco de OLA, que é o coração do produto.
+
+Vem antes do fechamento do ano de propósito. O ano é o que se cobra em dezembro; a fila é o que
+muda o ano, e é a única coisa desta tela em que dá para agir dentro do turno.
+
+O bloco responde uma pergunta antes de listar: "8,1% é muito?". Ela não é retórica — risco de
+violação é evento raro, a base inteira tem média de 0,97%, e um número de um dígito parece
+pequeno para quem não carrega essa média na cabeça.
+
+A resposta era um parágrafo em faixa verde: "o maior está em 8,1%, faixa alta, cerca de 8× a
+taxa média da base (0,97%)". Prosa é o pior formato para isso — o leitor monta a comparação de
+cabeça enquanto lê, e "8,1%" segue parecendo pequeno até ele chegar no "8×", duas linhas
+depois. Agora são três barras na mesma escala: este caso, a média da base e o corte da faixa
+crítica. Barra longa ao lado de barra que é quase um ponto responde "é muito" antes de qualquer
+número ser lido.
+
+Por que o maior caso ganha cartão e os outros não: numa fila em que o topo é 8,1% e o sexto é
+3,2%, tratar os seis igual é dizer que valem o mesmo. Valem não — o primeiro é o único a menos
+de dois pontos do corte crítico. A assimetria do desenho é o veredito.
+
+Escolhido em 13/08 entre quatro estruturas testadas na tela (prancheta com régua, quadro de
+triagem por faixa, espectro do dia e esta). Compartilhado pelas duas versões da entrada.
+{% endcomment %}
+<section class="en-bl pn-en" style="animation-delay:{{ atraso|default:'.1s' }}">
+  <div class="en-bl-h">
+    <span class="chp {% if calmo %}t-nt{% else %}t-no{% endif %}">{% icone 'fila' 18 %}</span>
+    <div class="en-bl-t">
+      <h2>Onde agir agora</h2>
+      {% comment %}"O modelo pontua cada caso na entrada, portanto a fila cresce ao longo do
+      dia" é metodologia, e já está dita no rodapé da própria Fila, onde a lista mora.
+      {% endcomment %}
+      <p>{{ n_hoje }} caso{{ n_hoje|pluralize }} aberto{{ n_hoje|pluralize }} até
+        {{ ac.hora_agora }}h, somando P2 e P3.</p>
+    </div>
+    <a class="pn-lk" href="{% url 'fila' %}">Ver os {{ n_hoje }} casos de hoje
+      {% icone 'seta' 14 %}</a>
+  </div>
+
+  {% if fila %}
+    {% with c=fila.0 %}
+    <div class="en-dp">
+      <article class="pn-v en-dp-c {{ c.ftom }}">
+        <header class="en-dp-h">
+          <span class="en-dp-k">Maior risco de hoje</span>
+          <span class="en-i-fx {{ c.ftom }}">Faixa {{ c.faixa }}</span>
+        </header>
+
+        <div class="en-dp-n">
+          <b>{{ c.risco|num:1 }}<u>%</u></b>
+          <span>de risco de violação<em>{{ c.vezes|num:1 }}× a média da base</em></span>
+        </div>
+
+        {% comment %}As três barras dividem a mesma escala, que vai até o corte crítico. É a
+        comparação inteira em três linhas: o caso, o normal, e o limite.
+
+        Largura vai SEM o filtro `num`: ele é o formato de exibição pt-BR e devolve vírgula
+        decimal, e `width:81,3%` é declaração inválida — o navegador descarta em silêncio. Os
+        valores já chegam como texto com ponto, pelo `cd` de graficos.py.{% endcomment %}
+        <div class="en-dp-cmp">
+          <div class="en-dp-l on">
+            <em>Este caso</em>
+            <span><i style="width:{{ c.barra }}%"></i></span>
+            <b>{{ c.risco|num:1 }}%</b>
+          </div>
+          <div class="en-dp-l">
+            <em>Média da base</em>
+            <span><i style="width:{{ media_x }}%"></i></span>
+            <b>{{ base.media_violacao|num:2 }}%</b>
+          </div>
+          <div class="en-dp-l ct">
+            {% comment %}"Corte crítico" era termo de projeto que nunca foi definido na tela.
+            "Limite de alerta" diz a mesma coisa e se explica sozinho.{% endcomment %}
+            <em>Limite de alerta</em>
+            <span><i style="width:100%"></i></span>
+            <b>{{ corte_critico }}%</b>
+          </div>
+        </div>
+
+        <footer class="en-dp-f">
+          <span class="en-dp-id"><b class="esc {{ c.prioridade|lower }}">{{ c.prioridade }}</b>
+            <b class="id">{{ c.incidente }}</b></span>
+          <span>{{ c.produto|capfirst }} · {{ c.equipe }} · Aberto às {{ c.hora }}h</span>
+          {% if c.top %}<span>Fator dominante: <b>{{ c.top.sinal|capfirst }}</b>,
+            {{ c.top.peso|num:0 }}% do peso</span>{% endif %}
+          {% comment %}O histórico do ativo decide se o caso pede olhar o registro ou olhar a
+          máquina: ativo que já violou 21 de 63 passagens é reincidente, e isso não está no
+          risco — o risco resume, o histórico prova.{% endcomment %}
+          <span>Ativo {{ c.ativo }}{% if c.ativo_passagens %} · {{ c.ativo_violacoes }}
+            violações em {{ c.ativo_passagens }} passagens{% endif %}</span>
+          <button class="pn-lk en-dp-b" data-mod="incidente" data-k="{{ c.incidente }}">
+            Abrir a decomposição do escore{% icone 'seta' 14 %}</button>
+        </footer>
+      </article>
+
+      {% comment %}Os demais em coluna estreita, sem cartão: eles existem para dar contexto ao
+      primeiro — mostrar de quanto ele se destaca — e não para competir com ele.{% endcomment %}
+      <div class="pn-v en-dp-r">
+        <div class="en-dp-rh">Os outros {{ fila|length|add:"-1" }} de maior risco</div>
+        {% for o in fila %}{% if not forloop.first %}
+          <button class="en-dp-i {{ o.ftom }}" data-mod="incidente" data-k="{{ o.incidente }}">
+            <span class="en-dp-iv">{{ o.risco|num:1 }}<u>%</u></span>
+            <span class="en-fl-b"><i style="width:{{ o.barra }}%"></i></span>
+            <span class="en-dp-ic"><b class="id">{{ o.incidente }}</b>
+              <em>{{ o.produto|capfirst }} · {{ o.equipe }} · {{ o.hora }}h</em></span>
+            <span class="en-dp-ix">{{ o.vezes|num:1 }}×<em>a média</em></span>
+            <span class="pn-i-s">{% icone 'seta' 15 %}</span>
+          </button>
+        {% endif %}{% endfor %}
+      </div>
+    </div>
+    {% endwith %}
+  {% else %}
+    <div class="pn-v">
+      {% include 'painel/_vazio.html' with icone='escudo_ok' titulo='Nenhum caso aberto hoje' texto='Quando entrar o primeiro incidente elegível do dia, ele aparece aqui já pontuado.' %}
+    </div>
+  {% endif %}
+</section>
