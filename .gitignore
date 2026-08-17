@@ -52,3 +52,21 @@ staticfiles/
 media/
 # Laboratório de modelagem (não comitado — vira notebook limpo no fim)
 notebooks/lab/
+
+# Backups de editor e de mão. Vinham sujando o `git status` desde a reconstrução do
+# webapp — `hoje-v1.html.bak` é a versão intermediária de uma aba que já não existe.
+*.bak
+*.orig
+*.rej
+
+# Saídas temporárias de análise
+data/**/_tmp_*
+_tmp_*
+
+# Ruído de sistema de arquivos
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Worktrees do Claude Code — estava só em .git/info/exclude, que não vai para o remoto
+.claude/worktrees/
