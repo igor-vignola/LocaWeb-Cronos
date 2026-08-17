@@ -52,6 +52,25 @@ Estas decisões já estão tomadas. **Não revisitar sem motivo forte.**
 7. **Feriados não estão no dataset** — engineering via lib `holidays` BR ou `country_holidays='BR'` do Prophet.
 8. **Claude API apenas nos bastidores** — para gerar texto dos alertas e morning brief. NÃO é interface de chat com usuário.
 9. **Sem interface conversacional** — Cronos empurra insights proativamente, não espera perguntas.
+10. **P2 e P3 SEMPRE juntos, com o mesmo peso.** Toda tela, bloco, gráfico, tabela ou número que
+    fala de P3 tem de mostrar P2 do lado. As duas prioridades entram no KPI, cada uma tem meta
+    própria, e o P2 é tão ou mais cobrado que o P3. Nunca entregar análise só de P3 — nem "por
+    enquanto", nem "porque o dado do P2 dá mais trabalho". Se o dado do P2 não estiver publicado,
+    publicar (o `03_previsao_diaria.parquet` já traz P2 com a mesma estrutura, e o `dados.py` já
+    calcula `SEMANA2`). Igor já corrigiu isso várias vezes; é o erro que mais se repete.
+11. **O SISTEMA NÃO ENXERGA O FUTURO. Os slides enxergam.** São dois artefatos com regras
+    diferentes e não se misturam:
+    - **Sistema (Django):** simula um relógio parado em **01/10/2025 às 15h**. Só pode mostrar o
+      que existe nesse instante — histórico até 30/09, o dia de hoje até as 15h, e previsões para
+      frente. **Proibido** exibir realizado de data posterior ao corte: cobertura do modelo
+      medida em out–dez, "13 das 50 violações do trimestre", fila com incidente aberto em 08/11,
+      máquina do tempo que roda 92 dias com o real. Um líder da Locaweb sentado na ferramenta não
+      tem esses dados — e cartão com dado que não existe destrói a credibilidade da tela toda.
+    - **Slides/notebooks:** é onde mora a avaliação dos modelos — cobertura, MAE, viés, ROC AUC,
+      PR-AUC, backtest, ganho da fila contra o acaso. Ali o período de teste inteiro é legítimo,
+      porque o assunto é "o modelo funciona?", não "o que faço no turno".
+    Antes de publicar qualquer bloco novo, perguntar: **isso existiria na tela às 15h de
+    01/10/2025?** Se a resposta for não, o lugar é o deck.
 
 ---
 

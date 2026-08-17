@@ -145,4 +145,56 @@ Estilo de referência: **dashboards de consumo (TIM, Unifique)** — interativo,
 
 ---
 
-*Última atualização: 21/07/2026*
+---
+
+## Duas regras de escopo do produto (13/08/2026)
+
+Decididas depois de encontrar as duas violações repetidas vezes na tela. Valem para tudo.
+
+### 1. P2 e P3 sempre juntos, com o mesmo peso
+
+Toda tela, bloco, gráfico, tabela e número que fala de P3 mostra P2 do lado. As duas entram no
+KPI e cada uma tem meta própria — uma tela que destaca só o P3 ensina o leitor a ignorar metade
+do indicador.
+
+O dado do P2 **já existe** e é onde o esquecimento nasce:
+
+- `03_previsao_diaria.parquet` traz P2 com a mesma estrutura (92 dias previstos com faixa,
+  45 realizados)
+- `dados.py` já calcula `SEMANA2`, `HOJE2`, `REAL2`
+- o `gera_dados_app.py` publicava só a série do P3 em `trilho.previsto` — daí as telas nascerem
+  P3-only
+
+Medição que justifica mostrar os dois: a faixa do P2 conteve o real em **87,0%** dos dias do
+trimestre de teste contra **59,8%** do P3. O modelo de P2 se sustenta melhor, e publicar só P3
+escondia esse contraste.
+
+### 2. O sistema não enxerga o futuro; os slides enxergam
+
+São dois artefatos com regras diferentes.
+
+**Sistema (webapp Django):** simula um relógio parado em **01/10/2025 às 15h**. Só mostra o que
+existe nesse instante — histórico até 30/09, o dia corrente até as 15h, previsão para frente.
+É a ferramenta que a liderança da Locaweb senta e usa, e numa situação real não há dado do
+futuro. Fica **proibido** exibir realizado posterior ao corte.
+
+**Slides e notebooks:** é onde mora a avaliação dos modelos — cobertura da faixa, MAE, viés,
+ROC AUC, PR-AUC, backtest, ganho da fila contra o acaso. O trimestre de teste inteiro é legítimo
+ali, porque a pergunta é "o modelo funciona?" e não "o que faço no turno?".
+
+Violações encontradas na auditoria de 13/08/2026:
+
+| Onde | O que era | Destino |
+|---|---|---|
+| Fila | listava incidente aberto em 08/11, 38 dias após o corte | corrigido — `fila_ate_agora()` corta no relógio |
+| Fila | painel "27× · 13 das 50 violações do trimestre" | medida de out–dez → deck |
+| Previsão | máquina do tempo rodando 92 dias com o realizado | peça de apresentação → sai do sistema |
+| Previsão | cobertura 59,8%, viés de superprevisão, queda mês a mês | avaliação → deck |
+| Causas | soma 246 quebras, mais que as 238 do ano inteiro | a verificar |
+
+**Teste antes de publicar qualquer bloco:** *isso existiria na tela às 15h de 01/10/2025?* Se
+não, o lugar é o deck.
+
+---
+
+*Última atualização: 13/08/2026*

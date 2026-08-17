@@ -3,7 +3,7 @@
 > Primeiro arquivo a consultar para retomar o trabalho. Atualizar a cada bloco concluído.
 > O detalhamento técnico da sprint corrente fica em `docs/sprint-3-mvp.md`; a preparação para a banca, em `docs/dossie-banca.md`.
 
-**Atualizado em:** 29/07/2026
+**Atualizado em:** 14/08/2026
 
 ---
 
@@ -35,6 +35,68 @@
 ### Deck da sprint
 - **`prototipos/slides/mvp/deck/viewer.html`** · 19 slides navegáveis (seta para baixo troca slide, seta lateral troca variação). Seções: Análise Exploratória e Previsão de Volume.
 - Linguagem visual definida: divisória escura com painel de preview, conteúdo em fundo claro com gradiente azul, número sempre rotulado com cor semântica. Gráficos pesados são exportações reais do matplotlib dos notebooks. Ver `memory/deck-mvp-v2-linguagem.md`.
+
+### Aplicação Django — auditoria e reconstrução (11 a 14/08/2026)
+Seis abas no ar (`/`, `/previsao/`, `/projecao/`, `/fila/`, `/saude/`, `/causas/`), todas reconstruídas depois de uma auditoria que procurou uma coisa só: número que a tela não poderia saber.
+
+- **A escada de atingimento do KPI estava invertida.** O notebook 06 media P2 contra a faixa de 75% e P3 contra a de 150%. Isso trocava os vereditos: o P3, que está em 125%, aparecia em alarme âmbar; o P2, que está em 75% e é onde a pressão realmente está, aparecia em verde. Agora a escada inteira, com os seis degraus, está em `servicos.py: ESCADA` e desenhada na aba Projeção.
+- **Três notebooks produziam dado fora do relógio.** O 05 (causas) não tinha filtro de data nenhum e rodava sobre 2023–2025; o 07 (saúde) incluía outubro a dezembro, 20% da base. Recortados em 30/09/2025 e reexecutados. Consequências: a saúde caiu de 17 para 15 produtos, o pior produto mudou de `lssl` (15,3) para `lvps` (21,3), e o achado de que os grupos críticos eram 100% P3 se revelou artefato da janela.
+- **A taxa média da base era um número cravado à mão** (`0,97`, vindo da base inteira). Passou a ser derivada: **0,94%**. É o denominador do "× a média" em quatro telas.
+- **P2 entrou em todas as telas.** O dado já estava no pacote desde sempre — série prevista, sazonalidade, causas, saúde — e nenhuma tela usava. Também se descobriu que a curva de chegada hora a hora era medida no agregado, embora o código dissesse P3; as curvas por prioridade diferem de verdade (às 06h o P3 tem 11% do dia, o P2 tem 23%).
+- **A máquina do tempo saiu do sistema.** Era a peça mais forte da tela e é feita inteira de futuro: percorria 92 dias exibindo o realizado de outubro a dezembro. Continua no repositório marcada como peça de apresentação (`_maquina.html`, `maquina.js`).
+- Registro navegável do trabalho: `scratchpad/auditoria.html`, publicado como artifact.
+
+### Auditoria visual e lapidação da aplicação (17/08/2026)
+
+Varredura das seis abas com o servidor no ar: 41 capturas em quatro larguras, com modais
+abertos, hover, foco, filtros e estado vazio, mais medição de DOM elemento a elemento.
+**32 achados**, dos quais os 6 apontados pelo Igor. Registro: artifact da auditoria visual.
+
+**Consertado (grupo A e B — defeito, não gosto):**
+
+- **O cabeçalho de seção da aba Panorama saía 144 px fora do alinhamento.** `.en-bl-h` era grid
+  de três colunas e o bloco "O dia hora a hora" é o único com quatro filhos; o quarto
+  transbordava e a primeira coluna passava a valer a largura do link. Em 390 px o título era
+  medido com **largura zero e 105 px de altura** — uma palavra por linha. Virou flex.
+- **O gráfico de sazonalidade da Previsão contradizia o próprio rótulo.** A altura da barra era
+  porcentagem da coluna inteira, que também carrega os rótulos; acima de ~88 px o flex
+  encolhia. No P3, 68 · 76 · 74 · 75 · 66 saíam idênticas; no P2, 17 e 14 também. Trilho de
+  altura própria em grid resolveu — proporção desenhada voltou a ser a do número impresso.
+- **Três opacidades diferentes para a mesma superfície** (.62, .84, .88) faziam o campo de
+  linhas do fundo atravessar número, parágrafo e barra. Cartão de dado passou a ser opaco; o
+  campo continua vivo nas margens.
+- `.bt` não declarava `text-decoration`, então em `<a>` vinha sublinhado e em `<button>` não.
+  Mesma omissão em `.bl`.
+- **Dois botões sem ouvinte nenhum** ("Avisar se passar de 60%", "Avisar em novo incidente") e
+  um link circular ("Comparar no ranking" apontando para a página de onde o modal abria).
+- **Dois casos de "1,0%" com cores opostas** na Fila: 1,04 e 0,98 imprimem o mesmo valor e o
+  corte da faixa é 1%. O nome da faixa passou a vir escrito ao lado do número.
+- **Ordem P2/P3 divergia entre abas.** Centralizada em `servicos.ORDEM_PRI`.
+- O gerador de ícones escrevia em `static/painel/icones.svg`, que nenhum template referencia;
+  o sprite em uso (`templates/painel/_sprite.svg`) não era gerado por script nenhum e já estava
+  um glifo atrasado. `publica_estatico.py` passou a escrever no arquivo certo.
+
+**Linguagem (grupo D):** 38 ocorrências de vocabulário nosso na tela → **zero**. "Corte
+crítico" virou "limite de alerta"; "percentil 93" virou a posição real ("2º pior de 15",
+derivada do rank exato do parquet); R² e r saíram do sistema e ficaram no deck; os quatro
+estados da Saúde ganharam legenda no ponto de uso. Parágrafos com 22+ palavras: 17 → 7, e o
+maior caiu de 66 para 29 palavras.
+
+**A régua do KPI lia como invertida — e o dado estava certo.** Conferido contra o dicionário
+oficial (`Dicionário de Dados - v2.docx`, "Metas Anuais de KPI · Incidentes com OLA quebrados
+no ano"): 3-Média `< 201 → 150%`, `201 a 230 → 125%`, `231 a 263 → 100%`, `264 a 290 → 75%`,
+`291 a 320 → 50%`, `> 320 → 0%`, batendo degrau a degrau com `servicos.ESCADA`. O defeito era
+de rótulo: a coluna "% de atingimento" é a **nota da operação no ano**, não percentual de um
+teto, e a tela nunca disse isso. A escada saiu do corpo da Projeção e virou folha ao toque
+(`/detalhe/meta/<pri>/`), em três variantes selecionáveis por `?regua=a|b|c` — padrão `c`, a
+escada de degraus, em que a **altura do degrau é a própria nota**.
+
+**Identidade de produto.** Os 15 códigos de quatro letras não tinham nada que os separasse.
+Agrupar por família de produto foi descartado com dado: os 51 códigos são opacos e a coluna
+`Categoria` **também é anonimizada** (`cat71`, `cat103`); o agrupamento por categoria dominante
+devolve 13 grupos para 15 produtos. No lugar entrou **quem atende**, derivado de
+`Grupo designado` na mesma janela da nota — dominância de 40% a 100%, com selo colorido por
+equipe (matiz por ângulo áureo, saturação baixa para não competir com a cor de estado).
 
 ### Preparação para a banca
 - **`docs/dossie-banca.md`** · dossiê v2 (100 KB). Produzido por revisão adversarial com quatro perfis de avaliador (machine learning, gestor Locaweb, metodologia acadêmica e cético), cinco auditorias de artefato e uma matriz de conformidade com as 51 exigências das três fontes oficiais. Dos 114 achados brutos, 73 foram verificados um a um contra o dado: 63 confirmados e 10 derrubados. Placar da conformidade: 17 atendidas, 21 parciais, 13 pendentes.
