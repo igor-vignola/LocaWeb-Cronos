@@ -70,10 +70,10 @@ Não há censura à direita: **100% dos 122.543 registros têm `Encerrado` preen
 
 | Prioridade | Cobertura observada | Nominal | Leitura |
 |---|---|---|---|
-| P2 | **entre 86% e 88%** | 80% | calibrada, e até conservadora |
-| P3 | **entre 59% e 61%** | 80% | **sub-cobre**: subestima a incerteza |
+| P2 | **84,8%** | 80% | calibrada, e até conservadora |
+| P3 | **60,9%** | 80% | **sub-cobre**: subestima a incerteza |
 
-Calculada na seção 4.10.1 do notebook 03. Reportamos duas medições porque o ajuste do Prophet não é determinístico (a otimização parte de inicialização aleatória) e a cobertura oscila cerca de 1 ponto percentual entre execuções. Se a banca perguntar por um número único, a resposta correta é o valor da execução comitada mais a explicação da variação, não um valor de aparência precisa.
+Calculada na seção 4.10.1 do notebook 03. Em 17/08/2026 a causa da variação foi medida e a explicação anterior estava errada: **o ajuste do Prophet é determinístico** (MAE e `sigma_obs` idênticos entre processos). O que não era reproduzível é a banda, construída por amostragem posterior sobre o gerador aleatório do numpy. Com a semente fixada antes de cada previsão, o notebook reproduz os valores acima, e eles conferem com um script isolado que refaz a conta. Se a banca perguntar por um número único, é este, com a ressalva de que a cobertura é estimativa sobre 92 dias e o que decide é a leitura (P2 acima, P3 abaixo do nominal).
 
 **Causa da sub-cobertura em P3:** a mudança de nível de novembro e dezembro está fora do que o treino (janeiro a setembro) permitia prever, a mesma razão do item 1.3.
 
@@ -457,9 +457,9 @@ Achados verificados um a um contra o arquivo e contra o dado. Agrupados por arte
 | Onde | Severidade | Problema | Correção |
 |---|---|---|---|
 | `notebooks/03_previsao_volume.ipynb`, células 41 e 48 | ~~Alta~~ **RESOLVIDO** | O texto de cobertura divergia do output da célula acima, porque o ajuste do Prophet não é determinístico (medimos 58,7%, 59,8% e 60,9% no P3 em três execuções da mesma célula) | Corrigido na raiz: o texto passou a reportar faixa, com a razão da variação declarada, e o valor exato fica só no output. Mesma correção aplicada em `docs/sprint-3-mvp.md` e neste dossiê |
-| `notebooks/01_eda.ipynb`, célula 26 | **Alta** | Valor de sábado errado: o texto diz 35, que é a média do fim de semana inteiro (34,6). Sábado real é 41,9, e a própria figura da seção mostra a barra em cerca de 42. Erro propagado para `docs/sprint-3-mvp.md` e para o gabarito da sprint | Corrigir para sábado 42, domingo 27, feriado 29, ou usar o agregado que a célula imprime (fim de semana 35). Imprimir a tabela de média por dia da semana para amarrar o texto a um número visível |
+| `notebooks/01_eda.ipynb`, célula 26 | ~~Alta~~ **RESOLVIDO 17/08** | Valor de sábado errado: o texto diz 35, que é a média do fim de semana inteiro (34,6). Sábado real é 41,9, e a própria figura da seção mostra a barra em cerca de 42. Erro propagado para `docs/sprint-3-mvp.md` e para o gabarito da sprint | Corrigir para sábado 42, domingo 27, feriado 29, ou usar o agregado que a célula imprime (fim de semana 35). Imprimir a tabela de média por dia da semana para amarrar o texto a um número visível |
 | `notebooks/03_previsao_volume.ipynb`, células 36 e 48 | Média | A comparação final elege o sazonal-7 como baseline das duas séries, quando a seção 4.3 do mesmo notebook concluiu que no P2 o baseline de referência é a média-7. Isso infla o ganho do P2 de 15% para 26% | Usar o melhor baseline de cada série, ou manter o sazonal-7 como referência única declarando isso e citando a média-7 ao lado. Plotar as três curvas evita a leitura de escolha conveniente |
-| `notebooks/01_eda.ipynb`, célula 34 | Média | O achado justifica a concentração por equipe dizendo que sustenta "o roteamento por especialização", funcionalidade que não existe no MVP e que foi descartada por falta de dado de capacidade | Remover a menção a roteamento, mantendo o índice de saúde por produto e a leitura de risco por equipe |
+| `notebooks/01_eda.ipynb`, célula 34 | ~~Média~~ **RESOLVIDO 17/08** | O achado justifica a concentração por equipe dizendo que sustenta "o roteamento por especialização", funcionalidade que não existe no MVP e que foi descartada por falta de dado de capacidade | Remover a menção a roteamento, mantendo o índice de saúde por produto e a leitura de risco por equipe |
 
 ### 4.3 Deck e slides
 

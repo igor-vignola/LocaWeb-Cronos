@@ -163,10 +163,10 @@ Medição da fração de dias do período de teste (out a dez, 92 dias) em que o
 
 | Prioridade | Cobertura observada | Nominal | Leitura |
 |---|---|---|---|
-| P2 | entre 86% e 88% | 80% | calibrada, até conservadora |
-| P3 | **entre 59% e 61%** | 80% | **subestima a incerteza** |
+| P2 | 84,8% | 80% | calibrada, até conservadora |
+| P3 | **60,9%** | 80% | **subestima a incerteza** |
 
-Observação metodológica: o ajuste do Prophet não é determinístico (a otimização parte de inicialização aleatória), então a cobertura oscila alguns pontos percentuais entre execuções. Por isso reportamos faixa, e não um valor único; o número exato de cada execução fica no output da célula. A conclusão é estável: P2 calibrada, P3 sub-cobrindo.
+Observação metodológica: o ajuste do Prophet é determinístico. O ponto previsto, o MAE e o `sigma_obs` saem idênticos entre execuções e entre processos; medimos isso em 17/08/2026. Quem não era reproduzível é a banda, que vem de amostragem posterior e usa o gerador aleatório do numpy. O notebook fixa a semente antes de cada previsão, e os valores acima coincidem com os de um script isolado que refaz a mesma conta. A cobertura continua sendo estimativa sobre 92 dias, com ruído de amostragem de alguns pontos, então o que vale é a leitura (P2 acima e P3 abaixo do nominal), não a casa decimal.
 
 Leitura: em P2 a banda está bem calibrada. Em **P3 a banda subestima a incerteza**, e a causa é a mesma da seção anterior: a queda de nível de novembro e dezembro está fora do que o treino permitia prever, então o intervalo construído sobre jan a set fica estreito para o período. Encaminhamento: reportar a cobertura junto do MAE (a banda não é garantia), e reavaliar com re-treino contínuo, que é o modo de operação real do Cronos.
 
@@ -216,26 +216,26 @@ A leitura inicial foi que a priorização evita o estouro. Ao estratificar por f
 
 | Frequência do problema | P2 | P3 | Composição da faixa |
 |---|---|---|---|
-| único | **2,27%** | 1,54% | 7,9% é P2 |
-| 2 a 4 vezes | **1,92%** | 1,21% | 17,9% é P2 |
-| 5 a 19 vezes | 0,73% | 0,85% | 23,4% é P2 |
-| 20 vezes ou mais | 0,34% | 0,36% | 30,8% é P2 |
+| único | **2,11%** | 1,40% | 7,5% é P2 |
+| 2 a 4 vezes | **1,96%** | 1,33% | 17,8% é P2 |
+| 5 a 19 vezes | 0,81% | 1,01% | 25,6% é P2 |
+| 20 vezes ou mais | 0,38% | 0,29% | 29,9% é P2 |
 
 A vantagem agregada do P2 vem da composição: ele está concentrado nos problemas que repetem, que são os que não estouram. Dentro de cada faixa a diferença desaparece, e nas duas faixas de caso inédito ela inverte. É um paradoxo de Simpson.
 
 ### O que sobrevive
 
-- **A duração menor do P2 é real** e vale dentro de todas as quatro faixas (3.125 contra 7.345, 2.431 contra 7.099, 1.680 contra 5.834, 1.317 contra 5.432).
+- **A duração menor do P2 é real** e vale dentro de todas as quatro faixas, em segundos (2.957 contra 6.860, 2.500 contra 6.692, 1.476 contra 5.387, 1.248 contra 5.374).
 - **O AUC de 0,4693 é fato medido.**
-- **A novidade do caso é a variável explicativa**, e resistiu a todos os controles aplicados: gradiente de 6,7x dentro do P2, 4,3x dentro do P3, 4,9x dentro dos abertos manualmente e 5,8x dentro dos abertos por monitoramento.
+- **A novidade do caso é a variável explicativa**, e resistiu a todos os controles aplicados: gradiente de 5,6x dentro do P2, 4,8x dentro do P3, 10,0x dentro dos abertos manualmente e 7,7x dentro dos abertos por monitoramento.
 
-Limitação declarada: a inversão nas faixas inéditas se apoia em 17 e 9 quebras. O que está estabelecido é que o agregado é efeito de composição, não que o P2 seja pior.
+Limitação declarada: a inversão nas duas primeiras faixas se apoia em 12 e 7 quebras de P2. O que está estabelecido é que o agregado é efeito de composição, não que o P2 seja pior.
 
 **Uso no deck.** Continua sendo o argumento que responde "por que não basta olhar a prioridade?", com a tese corrigida: o que a operação já viu, ela resolve; o que fura prazo é o caso inédito. Slide 21 da seção de risco, refeito em 04/08/2026.
 
 ### Um segundo artefato derrubado no mesmo teste
 
-A origem da abertura parecia predizer quebra: os abertos manualmente eram 81,9% das quebras contra 62,6% dos não quebrados, uma diferença de 19 pontos. O efeito também é composição — 96,5% dos casos inéditos são manuais. Controlando por frequência, o manual estoura **menos** que o monitoramento na faixa de caso inédito (1,58% contra 2,09%). A origem permanece no modelo como característica, mas não é apresentada como achado.
+A origem da abertura parecia predizer quebra: os abertos manualmente eram 81,4% das quebras contra 63,6% dos não quebrados, uma diferença de 17,7 pontos. O efeito também é composição, porque 96,4% dos casos inéditos são manuais. Controlando por frequência, o manual estoura **menos** que o monitoramento na faixa de caso inédito (1,40% contra 2,92%). A origem permanece no modelo como característica, mas não é apresentada como achado.
 
 ## Causas e incidentes recorrentes (notebook 05, 04/08/2026)
 
@@ -247,16 +247,16 @@ O `05_causas_recorrentes.ipynb` fecha quatro dos pontos exigidos na página 9 da
 |---|---|---|---|
 | `Código de fechamento` | 16 códigos em português | 306 (1,2%) | agrupar causa; é o único interpretável |
 | `Categoria` / `Subcategoria` | 119 / 383, mascarados | 40 / 38 | agrupar, sem dizer o que o grupo significa |
-| `Solução` | 2 (Contorno, Definitiva) | 15.665 (61,2%) | indicador de tipo de solução, não texto |
-| `Descrição resumida` | 12.630 textos | 0 | identificar o problema recorrente |
+| `Solução` | 2 (Contorno, Definitiva) | 15.117 (75,7%) | indicador de tipo de solução, não texto |
+| `Descrição resumida` | 10.071 textos | 0 | identificar o problema recorrente |
 
 Os campos de causa são preenchidos no fechamento. Servem a diagnóstico e não a previsão, e é por isso que ficaram fora do modelo de risco.
 
 ### Causas: volume e risco não coincidem
 
-Três causas somam 79% do volume, e "Falha de Aplicação" sozinha 59%. Mas a ordem por taxa de quebra é outra: "Falha de Sistema Operacional" é 11,9% do volume com taxa de 0,23%, um quarto da média, enquanto "Falha de Hardware" é 0,5% do volume com 7,14%, a maior da base. Atacar a causa mais frequente não é a estratégia para reduzir quebras.
+Três causas somam 79% do volume, e "Falha de Aplicação" sozinha 60,3%. Mas a ordem por taxa de quebra é outra: "Falha de Sistema Operacional" é 11,0% do volume com taxa de 0,18%, um quinto da média, enquanto "Falha de Hardware" é 0,4% do volume com 8,24%, a maior da janela. Atacar a causa mais frequente não é a estratégia para reduzir quebras.
 
-**Incidentes sem causa identificada concentram um quarto das quebras.** Os fechados como "Outro" são 7,8% do volume e 21,8% das quebras, taxa 2,79 vezes a média. A direção causal não é determinável: o campo é preenchido no fechamento, então "causa difícil atrasa e estoura" e "incidente se arrastou e ninguém achou a raiz" explicam o mesmo número. Fica registrado como diagnóstico de processo e como pergunta para a Locaweb.
+**Incidentes sem causa identificada concentram quase um quarto das quebras.** Os fechados como "Outro" são 8,0% do volume e 22,9% das quebras, taxa 2,86 vezes a média. A direção causal não é determinável: o campo é preenchido no fechamento, então "causa difícil atrasa e estoura" e "incidente se arrastou e ninguém achou a raiz" explicam o mesmo número. Fica registrado como diagnóstico de processo e como pergunta para a Locaweb.
 
 ### O gradiente de familiaridade
 
@@ -264,14 +264,16 @@ Achado central. Agrupando os incidentes pela frequência com que aquele problema
 
 | Familiaridade | Incidentes | % do volume | % das quebras | Taxa |
 |---|---|---|---|---|
-| único | 9.493 | 37,1% | **61,3%** | **1,60%** |
-| 2 a 4 vezes | 2.616 | 10,2% | 14,1% | 1,34% |
-| 5 a 19 vezes | 2.928 | 11,4% | 9,7% | 0,82% |
-| 20 vezes ou mais | 10.563 | 41,3% | 14,9% | **0,35%** |
+| único | 7.627 | 38,2% | **59,0%** | **1,46%** |
+| 2 a 4 vezes | 2.008 | 10,1% | 15,4% | 1,44% |
+| 5 a 19 vezes | 2.401 | 12,0% | 12,2% | 0,96% |
+| 20 vezes ou mais | 7.937 | 39,7% | 13,3% | **0,31%** |
 
-Queda de 4,6 vezes, monotônica. Os casos inéditos são 37% do volume e concentram 61% das quebras; a rotina conhecida é 41% do volume e 15% das quebras.
+Queda de 4,7 vezes, monotônica. Os casos inéditos são 38% do volume e concentram 59% das quebras; a rotina conhecida é 40% do volume e 13% das quebras.
 
-**O achado resistiu a cinco verificações independentes:** três tratamentos de texto, com gradiente entre 3,9x e 4,6x, incluindo o agrupamento pela descrição bruta sem nenhuma normalização; e quatro estratos de controle, com gradiente de 6,7x dentro do P2, 4,3x dentro do P3, 4,9x nos abertos manualmente e 5,8x nos abertos por monitoramento.
+**O achado resistiu a sete verificações independentes:** três tratamentos de texto, com gradiente entre 4,1x e 4,7x, incluindo o agrupamento pela descrição bruta sem nenhuma normalização; e quatro estratos de controle, com gradiente de 5,6x dentro do P2, 4,8x dentro do P3, 10,0x nos abertos manualmente e 7,7x nos abertos por monitoramento. A monotonicidade vale nos dois estratos de prioridade e não vale nos de origem, onde o valor sobe em uma das faixas intermediárias; a queda entre os extremos permanece nos quatro.
+
+Janela: incidentes elegíveis abertos entre 01/01/2025 e 30/09/2025, acompanhando o corte da aplicação.
 
 Ressalva: a familiaridade é calculada sobre a base inteira e portanto incorpora informação posterior a cada incidente. Como característica preditiva exigiria contagem retroativa, testada no notebook 04 com ganho marginal. Aqui o uso é descritivo.
 
@@ -308,7 +310,7 @@ Registrado para honestidade e para não repetir caminho já verificado.
 
 ## EDA — demais achados (notebook 01, seções 4.3–4.6)
 
-- **Sazonalidade (4.3):** na série elegível ao KPI de 2025, os dias úteis têm volume parecido entre si (média de 84/dia, variando de 77 a 87 conforme o dia); sábado (42), domingo (27) e feriado (29) ficam abaixo. A variação separa dia útil de dia não útil, não um dia específico da semana. Orienta as features de calendário (`dia_semana` + `is_feriado`).
+- **Sazonalidade (4.3):** na série elegível ao KPI de 2025, os dias úteis têm volume parecido entre si (média de 84/dia, variando de 77 a 87 conforme o dia); sábado (41,8) e domingo (26,6) ficam abaixo. Feriado precisa de leitura separada: 4 dos 10 feriados de 2025 caem em fim de semana, e agregá-los todos numa categoria daria 28,8/dia, número que mistura os dois regimes. **Feriado em dia útil roda a 31,5/dia, 37% de um dia útil comum.** A variação separa dia útil de dia não útil, não um dia específico da semana, e orienta as features de calendário (`dia_semana` + `is_feriado`).
 - **Distribuição operacional (4.4):** P4 (52,9%) e P3 (34,1%) concentram o volume; P2 é 12,8%. 65,6% fecham como "Sem Intervenção" e 85,1% vêm de Monitoramento.
 - **Produtos e grupos (4.5):** o Team14 concentra 75,7% do volume; entre produtos preenchidos, lhco, lsin e lcem lideram.
 - **Violações de OLA (4.6):** 248 violações (0,97% dos elegíveis), concentradas em P3 (206), nos times Team11 e Team09, e nos produtos lsin e lhco. É a variável-alvo do modelo de risco.
