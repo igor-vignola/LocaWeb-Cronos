@@ -144,11 +144,10 @@ Consequência: **a previsão de volume dimensiona carga e projeta o atingimento 
 
 Em ordem de impacto na nota:
 
-- [ ] **Notebook oficial do risco de OLA** (`04_risco_ola.ipynb`). O modelo está fechado e medido no laboratório: ROC AUC 0,8693, PR-AUC 0,2958, 72% das quebras nos 20% de maior risco, 15 quebras nos 50 primeiros contra 6 da melhor regra simples. Falta destilar o laboratório no notebook limpo. O SHAP foi dispensado: para modelo linear a contribuição é `peso × desvio da média`, calculada de forma exata na seção 9 do laboratório (erro de reconstrução na ordem de 10⁻¹⁵).
+- [ ] **Atualizar os anexos das Sprints 1 e 2 antes de enviar.** Os dois `.pptx` seguem intocados (24/04 e 22/07) e ainda declaram XGBoost para risco, tslearn/DTW e o detector de cascata. O slide 8 do deck da Sprint 3 **afirma que eles vão atualizados junto**. Se forem como estão, o próprio material se contradiz na mesa da banca.
 - [ ] **Decisão a tomar sobre versionamento do dado (LGPD).** O dataset bruto está versionado e o diretório `data/` não está no `.gitignore`, então o parquet entra no próximo commit. A Sprint 4 exige repositório público. A varredura de 29/07/2026 não encontrou PII (zero e-mails, CPF, telefone ou IP; nenhuma coluna de pessoa; `Aberto por` só tem Manual e Monitoramento), então não há exposição, mas a posição formal precisa ser decidida e registrada. Ver `docs/dossie-banca.md`, seção 2.5.
 - [ ] Repetir a varredura de PII no campo `Solução` (texto livre ainda não coberto).
-- [ ] Projeção de atingimento das metas anuais a partir da previsão de volume.
-- [ ] Score de saúde por produto (segundo diferencial).
+- [ ] Referências bibliográficas: não há nenhuma em todo o material (artigo do Prophet, definição de MAE, protocolo de backtest).
 - [ ] Tratamento da cauda recente da série no desenho do pipeline: o rótulo de elegibilidade depende do fechamento do incidente, então em produção os últimos dias ficam incompletos.
 - [ ] **Print atualizado do quadro do Trello.** O slide 9 do deck conta a gestão por marcos datados, mas não leva imagem do quadro: o board mostra os cartões da Sprint 2. O espaço no slide está reservado.
 - [ ] **Publicar a aplicação, ou assumir o risco.** A moldura de navegador dos slides de print exibe `cronos-locaweb.onrender.com`, a pedido do Igor, para a tela aparecer como se estivesse no ar. Hoje o endereço não responde.
