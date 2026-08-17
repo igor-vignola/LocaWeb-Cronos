@@ -70,3 +70,7 @@ desktop.ini
 
 # Worktrees do Claude Code — estava só em .git/info/exclude, que não vai para o remoto
 .claude/worktrees/
+
+# PNG dos slides do deck: derivado do HTML ao lado, regenerado por
+# scripts/monta_deck_sprint3.py. Sao 22 MB que nao precisam de historico.
+sprints/*/slides/png/
