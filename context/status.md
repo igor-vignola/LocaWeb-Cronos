@@ -100,13 +100,27 @@ equipe (matiz por ângulo áureo, saturação baixa para não competir com a cor
 
 ### Deck da entrega, fechado em 17/08/2026
 
-`sprints/EC_Sprint_3_2TSCOA_Evidencias_Construcao_Cronos_SuperDataBros.pptx` · **32 slides**,
+`sprints/EC_Sprint_3_2TSCOA_mvp_preliminar_Cronos_SuperDataBros.pptx` · **65 slides**,
 13,333 × 7,5 in, na ordem e com os títulos do template oficial. Mesmo formato da Sprint 2: um
-PNG sangrado por slide, gerado de HTML.
+PNG sangrado por slide, gerado de HTML. 44 MB, contra 35 MB da Sprint 2.
+
+São **duas fontes reunidas em um arquivo só**, e é bom saber disso antes de mexer:
+
+- **27 slides escritos em `scripts/monta_deck_sprint3.py`** · identificação, contexto, gestão
+  ágil, arquitetura, os dez prints da aplicação, o mockup, a amostra de dados e o fecho.
+- **38 slides do bloco analítico**, que já existiam em `prototipos/slides/mvp/deck/`,
+  construídos em julho. São eles que carregam os gráficos exportados do matplotlib dos
+  notebooks, e é o que a dica do slide 13 do template pede ao listar "algoritmos utilizando
+  modelos matemáticos e estatísticos" e "imagens das visualizações obtidas". O builder os
+  **lê de onde estão**, sem copiar, para não criar uma segunda cópia que envelheça sozinha.
+  A ordem e a variação escolhida de cada um estão na constante `ANALISE`.
+
+Os cinco slides de resumo de modelo que o builder tinha no começo foram removidos: o bloco
+analítico diz a mesma coisa em 38 slides e com o gráfico ao lado.
 
 Reprodutível por dois scripts. `scripts/captura_telas.py` fotografa a aplicação (seis abas e
 quatro modais, 3200 × 2000, enquadrados em 16:10 para entrarem inteiros no slide);
-`scripts/monta_deck_sprint3.py` escreve o HTML de cada slide, renderiza e monta o `.pptx`.
+`scripts/monta_deck_sprint3.py` escreve os slides próprios, renderiza os 65 e monta o `.pptx`.
 O estilo mora em `scripts/deck_estilo.py`, separado do conteúdo.
 
 Decisões tomadas com o Igor na montagem:

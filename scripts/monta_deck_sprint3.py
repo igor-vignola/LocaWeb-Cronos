@@ -37,7 +37,30 @@ RAIZ = Path(__file__).resolve().parents[1]
 PRINTS = RAIZ / "sprints" / "sprint-3" / "prints"
 SAIDA = RAIZ / "sprints" / "sprint-3" / "slides"
 SAIDA_PNG = SAIDA / "png"
-PPTX = RAIZ / "sprints" / "EC_Sprint_3_2TSCOA_Evidencias_Construcao_Cronos_SuperDataBros.pptx"
+PPTX = RAIZ / "sprints" / "EC_Sprint_3_2TSCOA_mvp_preliminar_Cronos_SuperDataBros.pptx"
+
+# O bloco de análise e modelagem não é escrito aqui: ele já existia, construído em julho, e
+# mora em `prototipos/slides/mvp/deck/`. São os slides que carregam os gráficos de verdade,
+# exportados do matplotlib dos notebooks, e é o que a dica do slide 13 do template pede ao
+# listar "algoritmos utilizando modelos matemáticos e estatísticos" e "imagens das
+# visualizações obtidas". Aqui entram apenas os identificadores, na ordem do `viewer.html`,
+# escolhendo a primeira variação de cada slide, que é a que o viewer abre.
+DECK_ANALISE = RAIZ / "prototipos" / "slides" / "mvp" / "deck"
+ANALISE = [
+    # Análise exploratória
+    "d01a", "d02a", "d03m", "d04r", "d04m", "d05m", "d06m", "d07m", "d08m", "d09a",
+    "d10a", "d11a",
+    # Previsão de volume
+    "d12a", "d13a", "d14m", "d15m", "d15n", "d17a",
+    # Risco de estouro de OLA
+    "d20a", "d21a", "d22a", "d23a", "d24a", "d25a", "d26a", "d27a", "d28a",
+    # Causas e recorrência
+    "d29a", "d30a", "d31a", "d32a", "d33a",
+    # Projeção do KPI e saúde por produto
+    "d34a", "d35a", "d36a", "d37a", "d38a",
+    # Fechamento do bloco analítico
+    "d39a",
+]
 
 RODAPE_ESQ = "Cronos · Super Data Bros · 2TSCOA"
 RODAPE_DIR = "Challenge FIAP 2026 com Locaweb"
@@ -1182,50 +1205,84 @@ def s32_fecho() -> str:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-def monta_slides() -> list[tuple[str, str]]:
-    """A lista final, na ordem do template. Nome do arquivo e HTML do slide."""
-    itens: list[tuple[str, str]] = [
-        ("01-capa", s01_capa()),
-        ("02-equipe", s02_equipe()),
-        ("03-contexto", s03_contexto()),
-        ("04-problema", s04_problema()),
-        ("05-escopo", s05_escopo()),
-        ("06-solucao", s06_solucao()),
-        ("07-mudou", s07_mudou()),
-        ("08-gestao-documentacao", s08_gestao_doc()),
-        ("09-gestao-planejamento", s09_gestao_plano()),
-        ("10-arquitetura-visao", s10_arq_visao()),
-        ("11-arquitetura-desenho", s11_arq_desenho()),
-        ("12-arquitetura-tecnologias", s12_arq_tec()),
-        ("13-arquitetura-dados", s13_arq_dados()),
-        ("14-divisoria-mvp", s14_div_mvp()),
-        ("15-modelo-volume", s15_volume()),
-        ("16-modelo-risco", s16_risco()),
-        ("17-modelo-projecao", s17_projecao()),
-        ("18-analises", s18_analises()),
-        ("19-divisoria-telas", s19_div_telas()),
-    ]
-    n = 20
+def slides_proprios() -> dict[str, str]:
+    """Os slides escritos aqui, por nome. O bloco analítico vem pronto de outro lugar."""
+    proprios = {
+        "capa": s01_capa(),
+        "equipe": s02_equipe(),
+        "contexto": s03_contexto(),
+        "problema": s04_problema(),
+        "escopo": s05_escopo(),
+        "solucao": s06_solucao(),
+        "mudou": s07_mudou(),
+        "gestao-documentacao": s08_gestao_doc(),
+        "gestao-planejamento": s09_gestao_plano(),
+        "arquitetura-visao": s10_arq_visao(),
+        "arquitetura-desenho": s11_arq_desenho(),
+        "arquitetura-tecnologias": s12_arq_tec(),
+        "arquitetura-dados": s13_arq_dados(),
+        "divisoria-telas": s19_div_telas(),
+        "mockup": s30_mockup(),
+        "dados": s31_dados(),
+        "fecho": s32_fecho(),
+    }
     for nome, eb, tt, cap, tag in TELAS + MODAIS:
-        itens.append((f"{n}-{nome}", slide_print(nome, eb, tt, cap, tag)))
-        n += 1
-    itens.append(("30-mockup", s30_mockup()))
-    itens.append(("31-dados", s31_dados()))
-    itens.append(("32-fecho", s32_fecho()))
-    return itens
+        proprios[nome] = slide_print(nome, eb, tt, cap, tag)
+    return proprios
+
+
+def ordem() -> list[str]:
+    """A sequência final do deck, na ordem do template da FIAP.
+
+    Os cinco slides de resumo de modelo que existiam aqui saíram: o bloco analítico de julho
+    diz a mesma coisa em 38 slides e com os gráficos dos notebooks ao lado. Manter os dois
+    seria dizer duas vezes, uma delas pior.
+    """
+    return (
+        [
+            "capa",                      # template 1 e 2
+            "equipe",
+            "contexto",                  # template 3
+            "problema",                  # template 4
+            "escopo",
+            "solucao",                   # template 5
+            "mudou",
+            "gestao-documentacao",       # template 6
+            "gestao-planejamento",       # template 7
+            "arquitetura-visao",         # template 8
+            "arquitetura-desenho",       # template 9
+            "arquitetura-tecnologias",   # template 10
+            "arquitetura-dados",         # template 11
+        ]
+        + ANALISE                        # template 12 e 13: a evidência analítica
+        + ["divisoria-telas"]            # template 13: a aplicação
+        + [nome for nome, *_ in TELAS + MODAIS]
+        + ["mockup", "dados", "fecho"]   # template 14
+    )
 
 
 def escreve_html() -> list[Path]:
+    """Grava os slides próprios e devolve a sequência inteira já resolvida em caminho.
+
+    Slide do bloco analítico não é reescrito: ele é lido de onde está. Copiar o HTML para cá
+    criaria uma segunda cópia que envelheceria em silêncio.
+    """
     SAIDA.mkdir(parents=True, exist_ok=True)
-    caminhos = []
-    for nome, corpo in monta_slides():
-        destino = SAIDA / f"{nome}.html"
-        destino.write_text(pagina(corpo, nome), encoding="utf-8")
-        caminhos.append(destino)
+    proprios = slides_proprios()
+    caminhos: list[tuple[str, Path]] = []
+    for pos, nome in enumerate(ordem(), 1):
+        if nome in proprios:
+            destino = SAIDA / f"{pos:02d}-{nome}.html"
+            destino.write_text(pagina(proprios[nome], nome), encoding="utf-8")
+        else:
+            destino = DECK_ANALISE / f"{nome}.html"
+            if not destino.exists():
+                raise FileNotFoundError(f"slide do bloco analítico não encontrado: {destino}")
+        caminhos.append((f"{pos:02d}-{nome}", destino))
     return caminhos
 
 
-def renderiza_png(caminhos: list[Path]) -> list[Path]:
+def renderiza_png(caminhos: list[tuple[str, Path]]) -> list[Path]:
     """Cada HTML vira um PNG em 2×, que é o que entra no .pptx."""
     from playwright.sync_api import sync_playwright
 
@@ -1237,15 +1294,15 @@ def renderiza_png(caminhos: list[Path]) -> list[Path]:
             viewport={"width": LARGURA, "height": ALTURA},
             device_scale_factor=2,
         ).new_page()
-        for html in caminhos:
+        for nome, html in caminhos:
             page.goto(html.resolve().as_uri(), wait_until="networkidle")
             page.evaluate("document.fonts.ready")
             page.wait_for_timeout(450)
-            destino = SAIDA_PNG / f"{html.stem}.png"
-            page.locator(".slide").screenshot(path=str(destino))
+            destino = SAIDA_PNG / f"{nome}.png"
+            page.locator(".slide").first.screenshot(path=str(destino))
             pngs.append(destino)
-            print(f"  {destino.name}")
         navegador.close()
+    print(f"     {len(pngs)} slides renderizados")
     return pngs
 
 
@@ -1267,9 +1324,10 @@ def monta_pptx(pngs: list[Path]) -> None:
 
 
 def main() -> None:
-    print("1/3 · escrevendo HTML dos slides")
+    print("1/3 · escrevendo HTML dos slides próprios")
     caminhos = escreve_html()
-    print(f"     {len(caminhos)} slides em {SAIDA}")
+    proprios = sum(1 for _, p in caminhos if p.parent == SAIDA)
+    print(f"     {proprios} próprios + {len(caminhos)-proprios} do bloco analítico")
     print("2/3 · renderizando PNG")
     pngs = renderiza_png(caminhos)
     print("3/3 · montando o .pptx")
