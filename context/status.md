@@ -3,7 +3,7 @@
 > Primeiro arquivo a consultar para retomar o trabalho. Atualizar a cada bloco concluído.
 > O detalhamento técnico da sprint corrente fica em `docs/sprint-3-mvp.md`; a preparação para a banca, em `docs/dossie-banca.md`.
 
-**Atualizado em:** 14/08/2026
+**Atualizado em:** 17/08/2026
 
 ---
 
@@ -98,6 +98,34 @@ devolve 13 grupos para 15 produtos. No lugar entrou **quem atende**, derivado de
 `Grupo designado` na mesma janela da nota — dominância de 40% a 100%, com selo colorido por
 equipe (matiz por ângulo áureo, saturação baixa para não competir com a cor de estado).
 
+### Deck da entrega, fechado em 17/08/2026
+
+`sprints/EC_Sprint_3_2TSCOA_Evidencias_Construcao_Cronos_SuperDataBros.pptx` · **32 slides**,
+13,333 × 7,5 in, na ordem e com os títulos do template oficial. Mesmo formato da Sprint 2: um
+PNG sangrado por slide, gerado de HTML.
+
+Reprodutível por dois scripts. `scripts/captura_telas.py` fotografa a aplicação (seis abas e
+quatro modais, 3200 × 2000, enquadrados em 16:10 para entrarem inteiros no slide);
+`scripts/monta_deck_sprint3.py` escreve o HTML de cada slide, renderiza e monta o `.pptx`.
+O estilo mora em `scripts/deck_estilo.py`, separado do conteúdo.
+
+Decisões tomadas com o Igor na montagem:
+
+- **Layout do slide de print:** título à esquerda, legenda de três linhas à direita, moldura de
+  navegador com a tela em 1020 px, sem corte. Foram desenhadas três variações; a que punha o
+  print sangrado ao fundo foi descartada porque a tela virava textura justamente no slide cuja
+  função é provar que ela existe.
+- **Os dez prints entram**, incluindo os quatro modais: cada um responde uma exigência do
+  desafio que a tela de fundo sozinha não responde (briefing, decomposição do escore,
+  componentes da nota, régua do KPI).
+- **O mockup foi montado inteiro no deck**, em moldura de notebook, sem passar pelo Figma.
+- A URL exibida na moldura é `cronos-locaweb.onrender.com`, escolha do Igor para a tela
+  aparecer como se estivesse publicada.
+
+Verificações rodadas sobre o arquivo gerado: 32 imagens em 32 slides no tamanho do template;
+nenhum slide cita P3 sem citar P2; zero travessão em texto corrido; nenhum print exibe
+realizado posterior a 01/10/2025 15h.
+
 ### Preparação para a banca
 - **`docs/dossie-banca.md`** · dossiê v2 (100 KB). Produzido por revisão adversarial com quatro perfis de avaliador (machine learning, gestor Locaweb, metodologia acadêmica e cético), cinco auditorias de artefato e uma matriz de conformidade com as 51 exigências das três fontes oficiais. Dos 114 achados brutos, 73 foram verificados um a um contra o dado: 63 confirmados e 10 derrubados. Placar da conformidade: 17 atendidas, 21 parciais, 13 pendentes.
 - Um crítico de completude revisou o próprio dossiê e apontou onde ele se contradizia; esses pontos foram corrigidos, incluindo uma resposta que estava invertida sobre a janela de antecedência do alerta.
@@ -121,10 +149,10 @@ Em ordem de impacto na nota:
 - [ ] Repetir a varredura de PII no campo `Solução` (texto livre ainda não coberto).
 - [ ] Projeção de atingimento das metas anuais a partir da previsão de volume.
 - [ ] Score de saúde por produto (segundo diferencial).
-- [ ] Telas alimentadas com a saída real dos modelos.
-- [ ] Aplicação Django servindo as previsões (regra do projeto; ainda não existe, escopo da Sprint 4).
-- [ ] Montagem do PPT da Sprint 3 no template oficial, incluindo os slides de gestão ágil e Kanban.
 - [ ] Tratamento da cauda recente da série no desenho do pipeline: o rótulo de elegibilidade depende do fechamento do incidente, então em produção os últimos dias ficam incompletos.
+- [ ] **Print atualizado do quadro do Trello.** O slide 9 do deck conta a gestão por marcos datados, mas não leva imagem do quadro: o board mostra os cartões da Sprint 2. O espaço no slide está reservado.
+- [ ] **Publicar a aplicação, ou assumir o risco.** A moldura de navegador dos slides de print exibe `cronos-locaweb.onrender.com`, a pedido do Igor, para a tela aparecer como se estivesse no ar. Hoje o endereço não responde.
+- [ ] **Destilar em notebook os três números do descarte da cascata** (87% de quebras isoladas, escalada de 21% contra ~60% do acaso). Estão no deck e nos documentos desde julho, mas o código que os produziu ficou em laboratório não versionado. Alternativa: reescrever o slide 7 sem afirmar número.
 
 ---
 
