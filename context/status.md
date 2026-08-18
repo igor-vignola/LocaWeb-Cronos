@@ -108,6 +108,28 @@ São **duas fontes reunidas em um arquivo só**, e é bom saber disso antes de m
 
 - **25 slides escritos em `scripts/monta_deck_sprint3.py`** · identificação, contexto, gestão
   ágil, arquitetura, os dez prints da aplicação, o mockup, a amostra de dados e o fecho.
+**Auditoria dos números do bloco analítico (17/08).** Os slides de julho foram conferidos um
+a um contra os parquets e notebooks reexecutados. O achado: **os slides de causas,
+recorrência e saúde tinham sido construídos sobre a base inteira de 25.600 elegíveis de 2023
+a 2025**, e os notebooks 05, 06 e 07 passaram a medir a janela de 01/01 a 30/09/2025, com
+19.973 incidentes e 188 quebras. Foram **50 substituições em sete slides** e **seis figuras
+matplotlib reexportadas**. Duas afirmações caíram por não se sustentarem no dado novo: "a
+segunda maior concentração de quebras da base" e "todos descendo", que deixou de valer em
+dois dos quatro recortes. Os blocos de EDA, previsão de volume e risco de OLA passaram
+limpos: o `0,97%` e os `25.600` que aparecem neles são da base de todos os anos, que é a
+janela que esses slides declaram.
+
+Duas divergências ficam registradas e **não foram resolvidas**, porque resolver muda análise
+e não texto:
+
+- **A meta do P3 tem duas definições vivas.** O notebook 06 usa 200 (teto do degrau de 150%)
+  e a aplicação usa 263 (teto do degrau de 100%, o `teto_100` de `servicos.ESCADA`). Com
+  208,0 projetadas, o deck diz "acima da meta" e a tela diz 125% de atingimento. Cada um está
+  certo pela própria régua, mas contam histórias opostas sobre o mesmo número.
+- **O gradiente de familiaridade aparece com dois multiplicadores.** `d22a` diz 4,6 vezes
+  porque declara a base de todos os anos (248 quebras); `d31a` diz 4,7 na janela da
+  aplicação.
+
 - **38 slides do bloco analítico**, que já existiam em `prototipos/slides/mvp/deck/`,
   construídos em julho. São eles que carregam os gráficos exportados do matplotlib dos
   notebooks, e é o que a dica do slide 13 do template pede ao listar "algoritmos utilizando
