@@ -62,24 +62,24 @@
 .pa .read p b{color:var(--head);font-weight:700}
 
 /* metas */
-.pa .mw{flex:0 0 210px;display:flex;flex-direction:column;gap:11px;margin-top:18px}
+.pa .mw{flex:0 0 182px;display:flex;flex-direction:column;gap:11px;margin-top:18px}
 .pa .mk{font-size:11.5px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;
   color:var(--accent)}
 .pa .mrow{flex:1;display:flex;gap:16px;min-height:0}
 .pa .mt{flex:1;background:#fff;border:1px solid var(--line);border-radius:17px;
-  padding:0 26px;display:flex;flex-direction:column;justify-content:center;
+  padding:0 28px;display:flex;align-items:center;gap:20px;
   box-shadow:0 18px 42px -32px rgba(15,23,42,.3)}
 .pa .mt.due{background:linear-gradient(158deg,#F7FAFF,#EFF6FF);border-color:#BFDBFE}
-.pa .mt .tl{width:40px;height:40px;border-radius:12px;background:var(--accent-l);
-  color:var(--accent)}
+.pa .mt .tl{width:48px;height:48px;border-radius:14px;flex-shrink:0;
+  background:var(--accent-l);color:var(--accent)}
 .pa .mt.due .tl{background:#DBEAFE}
-.pa .mt .tl svg{width:22px;height:22px}
-.pa .mt .mv{font-size:46px;font-weight:800;letter-spacing:-2.2px;line-height:1;margin-top:14px;
+.pa .mt .tl svg{width:26px;height:26px}
+.pa .mt .mv{font-size:44px;font-weight:800;letter-spacing:-2px;line-height:1;
   color:var(--head);font-variant-numeric:tabular-nums}
 .pa .mt .mv i{font-style:normal;font-size:17px;font-weight:600;letter-spacing:-.2px;
   color:var(--tx2);margin-right:6px}
-.pa .mt.due .mv{font-size:38px;letter-spacing:-1.6px;color:var(--accent)}
-.pa .mt .ml{font-size:14.5px;line-height:1.35;color:var(--tx);margin-top:9px}
+.pa .mt.due .mv{font-size:36px;letter-spacing:-1.4px;color:var(--accent)}
+.pa .mt .ml{font-size:14.5px;line-height:1.35;color:var(--tx);margin-top:7px}
 </style>
 </head><body>
 <section class="slide light pa">
@@ -146,18 +146,18 @@
       <div class="mrow">
         <div class="mt">
           <span class="ic tl"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg></span>
-          <div class="mv">39</div>
-          <div class="ml">Violações no P2, faixa de 100%</div>
+          <div><div class="mv">39</div>
+          <div class="ml">Violações no P2, faixa de 100%</div></div>
         </div>
         <div class="mt">
           <span class="ic tl"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg></span>
-          <div class="mv">200</div>
-          <div class="ml">Violações no P3, faixa de 150%</div>
+          <div><div class="mv">200</div>
+          <div class="ml">Violações no P3, faixa de 150%</div></div>
         </div>
         <div class="mt due">
           <span class="ic tl"><svg viewBox="0 0 24 24"><path d="M3.4 15.4l4.6-4.2 3.4 2.4"/><path d="M11.4 13.6l3-3.6"/><path d="M15.4 9.4l5.2 1.2M20.6 10.6l-1.4 5"/></svg></span>
-          <div class="mv"><i>antes de</i>novembro</div>
-          <div class="ml">Saber a faixa do fechamento</div>
+          <div><div class="mv"><i>antes de</i>novembro</div>
+          <div class="ml">Saber a faixa do fechamento</div></div>
         </div>
       </div>
     </div>
