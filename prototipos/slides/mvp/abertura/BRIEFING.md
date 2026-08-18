@@ -167,7 +167,9 @@ Violações de OLA no ano e a nota que cada faixa vale:
   cmdstanpy 1.3.0, scikit-learn 1.6.1, XGBoost 3.0.2, scipy 1.18, statsmodels 0.14.6,
   matplotlib 3.10, seaborn 0.13, plotly 6.0, Django 6.1, gunicorn 23.0, whitenoise 6.9,
   Docker sobre `python:3.13-slim`.
-- O pacote que a aplicação lê tem **295 kB**, carregado uma vez por processo.
+- O pacote que a aplicação lê tem **350 kB**, carregado uma vez por processo. São três
+  arquivos: `painel.json` (85 kB), `dias.json` (24 kB) e `fila.parquet` (241 kB).
+  `fila_curvas.json` está na pasta mas nenhum código da aplicação o lê.
 - Seis abas: `/`, `/previsao/`, `/projecao/`, `/fila/`, `/saude/`, `/causas/`. Mais quatro
   rotas de detalhe que abrem como modal, e um índice de busca.
 - A aplicação simula um relógio parado em **01/10/2025 às 15h**.

@@ -9,8 +9,8 @@
 .ch .tt{font-size:36px;margin-top:12px}
 .ch .lead{max-width:1180px;font-size:16.5px;margin-top:10px}
 
-.ch .chain{position:relative;display:flex;gap:48px;margin-top:16px;height:390px;flex-shrink:0}
-.ch .arrows{position:absolute;left:0;top:0;width:1472px;height:390px;pointer-events:none}
+.ch .chain{position:relative;display:flex;gap:48px;margin-top:16px;height:332px;flex-shrink:0}
+.ch .arrows{position:absolute;left:0;top:0;width:1472px;height:332px;pointer-events:none}
 .ch .nd{width:332px;flex-shrink:0;background:#fff;border:1px solid var(--line);border-radius:18px;
   padding:20px 22px 18px;box-shadow:0 18px 44px -32px rgba(15,23,42,.3);
   display:flex;flex-direction:column}
@@ -50,6 +50,10 @@
 .ch .band{display:flex;gap:34px;margin-top:20px;background:#fff;border:1px solid var(--line);
   border-radius:18px;padding:26px 28px;box-shadow:0 18px 44px -32px rgba(15,23,42,.3);
   flex-shrink:0}
+.ch .band .bv{width:420px;flex-shrink:0;padding-right:28px;border-right:1px solid var(--line)}
+.ch .band .vol{display:block;width:400px;margin-top:14px}
+.ch .band .vol text{font-family:var(--font);font-variant-numeric:tabular-nums}
+.ch .band .bn2{font-size:12.5px;line-height:1.45;color:var(--tx2);margin-top:8px}
 .ch .band .bl{flex:1;min-width:0}
 .ch .band .bk{font-size:11.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
   color:var(--tx2)}
@@ -73,13 +77,13 @@
     <div class="lead">A investigação de causa raiz da maior anomalia da base. Cada elo traz o valor de agosto ao lado do de setembro de 2025.</div>
 
     <div class="chain">
-      <svg class="arrows" viewBox="0 0 1472 390" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <line x1="340" y1="190" x2="360" y2="190" stroke="#B9C4D2" stroke-width="2.2" stroke-linecap="round"/>
-        <polygon points="358,183 372,190 358,197" fill="#B9C4D2"/>
-        <line x1="720" y1="190" x2="740" y2="190" stroke="#B9C4D2" stroke-width="2.2" stroke-linecap="round"/>
-        <polygon points="738,183 752,190 738,197" fill="#B9C4D2"/>
-        <line x1="1100" y1="190" x2="1120" y2="190" stroke="#B9C4D2" stroke-width="2.2" stroke-linecap="round"/>
-        <polygon points="1118,183 1132,190 1118,197" fill="#B9C4D2"/>
+      <svg class="arrows" viewBox="0 0 1472 332" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="340" y1="166" x2="360" y2="166" stroke="#B9C4D2" stroke-width="2.2" stroke-linecap="round"/>
+        <polygon points="358,159 372,166 358,173" fill="#B9C4D2"/>
+        <line x1="720" y1="166" x2="740" y2="166" stroke="#B9C4D2" stroke-width="2.2" stroke-linecap="round"/>
+        <polygon points="738,159 752,166 738,173" fill="#B9C4D2"/>
+        <line x1="1100" y1="166" x2="1120" y2="166" stroke="#B9C4D2" stroke-width="2.2" stroke-linecap="round"/>
+        <polygon points="1118,159 1132,166 1118,173" fill="#B9C4D2"/>
       </svg>
 
       <div class="nd">
@@ -122,12 +126,34 @@
         <div class="cex">O campo oficial <b>Entrou para KPI</b> já descarta o que fecha como Sem Intervenção, e o excedente de setembro não passa nesse filtro.</div>
         <div class="mv">
           <div class="mvv num">2.330 <i>para</i> 2.324</div>
-          <div class="mvl">incidentes elegíveis ao KPI. A causa foi concluída: <b>mais evento capturado</b>, não mais falha na operação</div>
+          <div class="mvl">incidentes elegíveis ao KPI. A causa foi concluída como <b>expansão de cobertura</b>: o monitoramento passou a capturar mais eventos</div>
         </div>
       </div>
     </div>
 
     <div class="band">
+      <div class="bv">
+        <div class="bk">Volume mensal em 2025, em milhares</div>
+        <svg class="vol" viewBox="0 0 400 146" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="118.5" x2="400" y2="118.5" stroke="#DDE4ED" stroke-width="1"/>
+          <rect x="6" y="106" width="62" height="12" rx="3" fill="#C3CDDC"/>
+          <rect x="90" y="42" width="62" height="76" rx="3" fill="#B4780A" opacity=".85"/>
+          <rect x="174" y="37" width="62" height="81" rx="3" fill="#B4780A" opacity=".85"/>
+          <rect x="258" y="43" width="62" height="75" rx="3" fill="#B4780A" opacity=".85"/>
+          <rect x="342" y="22" width="52" height="96" rx="3" fill="#B4780A" opacity=".85"/>
+          <text x="37" y="99" text-anchor="middle" font-size="15" font-weight="800" fill="#6B7688">3,5</text>
+          <text x="121" y="35" text-anchor="middle" font-size="15" font-weight="800" fill="#B4780A">21,6</text>
+          <text x="205" y="30" text-anchor="middle" font-size="15" font-weight="800" fill="#B4780A">23,0</text>
+          <text x="289" y="36" text-anchor="middle" font-size="15" font-weight="800" fill="#B4780A">21,5</text>
+          <text x="368" y="15" text-anchor="middle" font-size="15" font-weight="800" fill="#B4780A">27,3</text>
+          <text x="37" y="136" text-anchor="middle" font-size="12" font-weight="600" fill="#6B7688">jan a ago</text>
+          <text x="121" y="136" text-anchor="middle" font-size="12" font-weight="600" fill="#6B7688">set</text>
+          <text x="205" y="136" text-anchor="middle" font-size="12" font-weight="600" fill="#6B7688">out</text>
+          <text x="289" y="136" text-anchor="middle" font-size="12" font-weight="600" fill="#6B7688">nov</text>
+          <text x="368" y="136" text-anchor="middle" font-size="12" font-weight="600" fill="#6B7688">dez</text>
+        </svg>
+        <div class="bn2">A primeira barra é a média por mês de janeiro a agosto. O patamar não voltou em nenhum mês seguinte.</div>
+      </div>
       <div class="bl">
         <div class="bk">O que sobra para quem opera</div>
         <div class="bp">A tela do dia passa de <b>3.996</b> para <b>21.561</b> registros no mês e não ganha nenhum sinal novo. O volume diário explica <b>2,5%</b> da variação de violações, com r de <b>0,159</b>. E ordenar a fila por prioridade, o padrão de qualquer ITSM, tem ROC AUC de <b>0,4693</b>, abaixo dos <b>0,5063</b> de uma fila sorteada.</div>

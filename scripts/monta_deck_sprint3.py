@@ -558,7 +558,7 @@ def s09_arquitetura() -> str:
         '<p style="font-size:15.5px;line-height:1.45;color:var(--tx);text-align:right;'
         'max-width:600px;flex-shrink:0;padding-bottom:3px">'
         "As três etapas do meio rodam fora do ar e gravam arquivo. <b>Só a última fica de "
-        "pé em produção</b>, e ela não treina nada: lê 295 kB de Parquet e serve tela.</p>"
+        "pé em produção</b>, e ela não treina nada: lê 350 kB de Parquet e serve tela.</p>"
         "</div>"
         '<div class="flow">'
         + '<div class="lane"><div class="lk">1 · fonte</div><div class="nodes">'
