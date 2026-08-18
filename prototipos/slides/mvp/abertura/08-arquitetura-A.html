@@ -22,6 +22,10 @@
 .fd .src .sn{font-size:19px;font-weight:800;letter-spacing:-.5px;color:var(--head);
   line-height:1.15;margin-top:2px}
 .fd .src .sn span{color:var(--accent)}
+.fd .src .smeta{display:flex;gap:20px;margin-top:7px}
+.fd .src .smeta span{font-size:12.5px;font-weight:600;color:var(--tx);
+  font-variant-numeric:tabular-nums}
+.fd .src .smeta span b{color:var(--head);font-weight:700}
 .fd .src .pls{display:flex;gap:26px;flex-shrink:0}
 .pl{width:36px;height:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .pl img{width:100%;height:100%;object-fit:contain;display:block}
@@ -115,6 +119,7 @@
           <div class="sinfo">
             <div class="sk2">Fonte interna</div>
             <div class="sn">LW-DATASET<span>.xlsx</span></div>
+            <div class="smeta"><span><b>122.543</b> incidentes</span><span><b>19</b> colunas</span><span>jan/2023 a dez/2025</span></div>
           </div>
           <div class="pls">
             <div class="plw"><span class="pl"><span class="cs xl">xl</span></span><span class="pln">openpyxl<em>3.1.5</em></span></div>
@@ -125,6 +130,7 @@
           <div class="sinfo">
             <div class="sk2">Fonte externa</div>
             <div class="sn">holidays</div>
+            <div class="smeta"><span>Feriado nacional</span><span>País <b>BR</b></span></div>
           </div>
           <div class="pls">
             <div class="plw"><span class="pl"><img src="../../../../brand/logos/holidays.png" alt="holidays"></span><span class="pln">holidays<em>0.97</em></span></div>

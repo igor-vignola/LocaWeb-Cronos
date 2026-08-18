@@ -1,0 +1,232 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>03 Contexto · B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+.iv .body{padding:16px 64px 62px}
+.iv .tt{font-size:38px;margin-top:13px}
+.iv .cols{display:flex;gap:32px;margin-top:16px;flex:1;min-height:0}
+.iv .ck{font-size:11.5px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
+  color:var(--accent);margin-bottom:12px}
+
+/* ── coluna esquerda: contexto em três blocos numa folha só ────────────── */
+.iv .lft{width:520px;flex-shrink:0;display:flex;flex-direction:column}
+.iv .sheet{flex:1;min-height:0;background:#fff;border:1px solid var(--line);
+  border-radius:20px;padding:24px 26px;box-shadow:0 20px 48px -34px rgba(15,23,42,.3);
+  display:flex;flex-direction:column;justify-content:space-between}
+.iv .hr{height:1px;background:var(--line);flex-shrink:0}
+.iv .rk{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--tx2)}
+.iv .rw p{font-size:16.5px;line-height:1.42;color:var(--tx);margin-top:9px}
+.iv .rw p b{color:var(--head);font-weight:700}
+
+/* régua de doze meses, só para dizer que a apuração fecha em dezembro */
+.iv .yr{display:flex;align-items:flex-end;gap:6px;margin-top:15px}
+.iv .yr s{flex:1;height:9px;border-radius:3px;background:#E1E7F0;text-decoration:none}
+.iv .yr s.on{height:17px;background:var(--accent)}
+.iv .ymk{display:flex;justify-content:space-between;margin-top:7px;font-size:11px;
+  font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:var(--tx2)}
+.iv .ymk b{color:var(--accent);font-weight:700}
+
+/* números da operação */
+.iv .ops{margin-top:14px;display:flex;flex-direction:column;gap:9px}
+.iv .op{display:flex;align-items:baseline;gap:12px}
+.iv .op .ov{width:118px;flex-shrink:0;font-size:24px;font-weight:800;letter-spacing:-1px;
+  line-height:1;color:var(--head);font-variant-numeric:tabular-nums;text-align:right}
+.iv .op.acc .ov{color:var(--accent)}
+.iv .op .ov i{font-style:normal;font-size:13.5px;font-weight:600;letter-spacing:0;
+  color:var(--tx2);margin:0 2px}
+.iv .op .ok2{font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+  color:var(--tx2);line-height:1.3}
+
+/* transições de setembro */
+.iv .trs{margin-top:14px;display:flex;gap:14px}
+.iv .tr1{flex:1;background:#F3F6FA;border:1px solid #E3E9F1;border-radius:13px;
+  padding:12px 14px;min-width:0}
+.iv .tr1 .tv{font-size:19px;font-weight:800;letter-spacing:-.7px;line-height:1;
+  color:var(--head);font-variant-numeric:tabular-nums;white-space:nowrap}
+.iv .tr1.flat .tv{color:var(--accent)}
+.iv .tr1 .tv i{font-style:normal;font-size:12.5px;font-weight:600;letter-spacing:0;
+  color:var(--tx2);margin:0 2px}
+.iv .tr1 .tk{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  color:var(--tx2);margin-top:7px;line-height:1.3}
+
+/* ── coluna direita: Ishikawa com espinha vertical ───────────────────────── */
+.iv .rgt{flex:1;min-width:0;display:flex;flex-direction:column}
+.iv .fish{position:relative;flex:1;min-height:0}
+.iv .bones{position:absolute;left:0;top:0;width:920px;height:637px}
+
+.iv .cd{position:absolute;width:412px;height:96px;background:#fff;
+  border:1px solid var(--line);border-radius:16px;padding:0 18px;display:flex;
+  align-items:center;gap:13px;box-shadow:0 18px 42px -32px rgba(15,23,42,.32)}
+.iv .cd.l{left:0}
+.iv .cd.r{left:508px}
+.iv .cd .tl{width:40px;height:40px;border-radius:12px;flex-shrink:0;
+  background:var(--accent-l);color:var(--accent)}
+.iv .cd .tl svg{width:22px;height:22px}
+.iv .cd .tx{min-width:0}
+.iv .cd .cat{font-size:10.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;
+  color:var(--tx2)}
+.iv .cd .val{font-size:24px;font-weight:800;letter-spacing:-1px;line-height:1.05;
+  margin-top:3px;color:var(--head);white-space:nowrap;font-variant-numeric:tabular-nums}
+.iv .cd.bad .val{color:var(--bad)}
+.iv .cd.warn .val{color:var(--warn)}
+.iv .cd .val i{font-style:normal;font-size:13.5px;font-weight:600;letter-spacing:0;
+  color:var(--tx2);margin:0 3px}
+.iv .cd .ph{font-size:12.5px;line-height:1.3;color:var(--tx);margin-top:5px}
+.iv .cd .duo{display:flex;align-items:baseline;gap:26px;margin-top:5px}
+.iv .cd .dr{display:flex;align-items:baseline;gap:9px}
+.iv .cd .dk{font-size:10.5px;font-weight:800;letter-spacing:.8px;color:var(--tx2)}
+.iv .cd .dv2{font-size:19px;font-weight:800;letter-spacing:-.6px;line-height:1;
+  color:var(--bad);font-variant-numeric:tabular-nums;white-space:nowrap}
+.iv .cd .dv2 i{font-style:normal;font-size:12px;font-weight:600;letter-spacing:0;
+  color:var(--tx2);margin:0 2px}
+
+.iv .head{position:absolute;left:0;top:545px;width:920px;height:92px;
+  background:linear-gradient(120deg,#0B1220,#141E33);border-radius:18px;padding:0 26px;
+  display:flex;align-items:center;gap:26px;box-shadow:0 26px 60px -34px rgba(11,18,32,.7)}
+.iv .head .hl{min-width:0}
+.iv .head .hk{display:flex;align-items:center;gap:7px;font-size:10.5px;font-weight:700;
+  letter-spacing:1.7px;text-transform:uppercase;color:#F0B767}
+.iv .head .hk svg{width:14px;height:14px;stroke-width:2}
+.iv .head .ht{font-size:21px;font-weight:800;letter-spacing:-.6px;line-height:1.15;
+  color:#fff;margin-top:7px;white-space:nowrap}
+.iv .head .hs{margin-left:auto;display:flex;align-items:center;gap:24px;flex-shrink:0}
+.iv .head .hp{text-align:right}
+.iv .head .hv{font-size:32px;font-weight:900;letter-spacing:-1.5px;line-height:1;
+  color:#F87171;font-variant-numeric:tabular-nums}
+.iv .head .hp.ok .hv{color:#4ADE80}
+.iv .head .hl3{font-size:11.5px;line-height:1.35;color:#8E97A8;margin-top:6px;
+  white-space:nowrap}
+.iv .head .hl3 b{color:#fff;font-weight:700}
+.iv .head .vr2{width:1px;height:52px;background:rgba(255,255,255,.14)}
+</style>
+</head><body>
+<section class="slide light iv">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 3</div></div>
+  <div class="body">
+    <div class="eb">Contextualização</div>
+    <div class="tt">Contexto da operação e causas do <span class="hl">estouro de OLA</span></div>
+
+    <div class="cols">
+      <div class="lft">
+        <div class="ck">Contexto</div>
+        <div class="sheet">
+          <div class="rw">
+            <div class="rk">O problema</div>
+            <p>O KPI de OLA é <b>anual, por faixa, e fecha em dezembro</b>.</p>
+            <div class="yr"><s></s><s></s><s></s><s></s><s></s><s></s><s></s><s></s><s></s><s></s><s></s><s class="on"></s></div>
+            <div class="ymk"><span>jan</span><b>dez · apuração</b></div>
+          </div>
+          <div class="hr"></div>
+          <div class="rw">
+            <div class="rk">A operação</div>
+            <p>A Locaweb opera hospedagem e cloud 24 por 7 para pequeno e médio negócio.</p>
+            <div class="ops">
+              <div class="op"><div class="ov num">122.543</div><div class="ok2">Incidentes registrados, 2023 a 2025</div></div>
+              <div class="op acc"><div class="ov num">25.600</div><div class="ok2">Contam para a meta do ano</div></div>
+              <div class="op"><div class="ov num">4 h <i>e</i> 12 h</div><div class="ok2">Prazo de OLA no P2 e no P3</div></div>
+            </div>
+          </div>
+          <div class="hr"></div>
+          <div class="rw">
+            <div class="rk">Fator histórico · setembro de 2025</div>
+            <p>Em setembro a expansão do monitoramento <b>multiplicou o registro</b>,
+               sem mover a série elegível.</p>
+            <div class="trs">
+              <div class="tr1"><div class="tv num">3.996 <i>para</i> 21.561</div><div class="tk">Volume registrado no mês</div></div>
+              <div class="tr1 flat"><div class="tv num">2.330 <i>para</i> 2.324</div><div class="tk">Série elegível ao KPI</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rgt">
+        <div class="ck">Causas raiz · diagrama de Ishikawa</div>
+        <div class="fish">
+          <svg class="bones" viewBox="0 0 920 637" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="460" y1="6" x2="460" y2="508" stroke="#0B1220" stroke-width="2.6" stroke-linecap="round"/>
+            <polygon points="446,506 474,506 460,536" fill="#0B1220"/>
+            <line x1="412" y1="48" x2="460" y2="98" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+            <line x1="412" y1="208" x2="460" y2="258" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+            <line x1="412" y1="368" x2="460" y2="418" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+            <line x1="508" y1="128" x2="460" y2="178" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+            <line x1="508" y1="288" x2="460" y2="338" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+            <line x1="508" y1="448" x2="460" y2="498" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="460" cy="98" r="4.2" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+            <circle cx="460" cy="178" r="4.2" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+            <circle cx="460" cy="258" r="4.2" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+            <circle cx="460" cy="338" r="4.2" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+            <circle cx="460" cy="418" r="4.2" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+            <circle cx="460" cy="498" r="4.2" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+          </svg>
+
+          <div class="cd l bad" style="top:0">
+            <span class="ic tl"><svg viewBox="0 0 24 24"><rect x="3.4" y="5.4" width="17.2" height="15.2" rx="3"/><path d="M3.4 10.4h17.2M8.4 3.4v4M15.6 3.4v4"/></svg></span>
+            <div class="tx"><div class="cat">Medição</div>
+              <div class="duo">
+                <span class="dr"><span class="dk">P2</span><span class="dv2 num">35 <i>para</i> 41</span></span>
+                <span class="dr"><span class="dk">P3</span><span class="dv2 num">164 <i>para</i> 179</span></span>
+              </div>
+              <div class="ph">O acumulado do P2 cruza duas faixas num mês</div></div>
+          </div>
+
+          <div class="cd r bad" style="top:80px">
+            <span class="ic tl"><svg viewBox="0 0 24 24"><path d="M4 6.4h16M4 12h11M4 17.6h7"/><circle cx="19" cy="17.6" r="1.9"/></svg></span>
+            <div class="tx"><div class="cat">Priorização · ROC AUC</div>
+              <div class="val num">0,4693</div>
+              <div class="ph">Ordenação por prioridade fica abaixo do sorteio</div></div>
+          </div>
+
+          <div class="cd l warn" style="top:160px">
+            <span class="ic tl"><svg viewBox="0 0 24 24"><circle cx="9.2" cy="8.6" r="3.2"/><path d="M3.6 20c0-3.1 2.5-5.6 5.6-5.6s5.6 2.5 5.6 5.6"/><path d="M16.4 6.2a3.2 3.2 0 0 1 0 6.2M17.4 14.8c1.8.7 3 2.4 3 4.4"/></svg></span>
+            <div class="tx"><div class="cat">Concentração · Team11</div>
+              <div class="val num">46% <i>com</i> 8%</div>
+              <div class="ph">Uma equipe concentra violações com pouco volume</div></div>
+          </div>
+
+          <div class="cd r" style="top:240px">
+            <span class="ic tl"><svg viewBox="0 0 24 24"><path d="M4 12h11"/><path d="M11 8l4 4-4 4"/><path d="M19 4.6v14.8"/></svg></span>
+            <div class="tx"><div class="cat">Volume e ruído</div>
+              <div class="val num">85,1%</div>
+              <div class="ph">Quase todo registro vem do monitoramento</div></div>
+          </div>
+
+          <div class="cd l" style="top:320px">
+            <span class="ic tl"><svg viewBox="0 0 24 24"><path d="M12 4.2v15.6M6.6 19.8h10.8"/><path d="M4 8.6h16"/><path d="M4 8.6l-2.4 4.6h4.8zM20 8.6l-2.4 4.6h4.8z"/></svg></span>
+            <div class="tx"><div class="cat">Sinal fraco · R²</div>
+              <div class="val num">2,5%</div>
+              <div class="ph">Volume diário explica pouco da variação</div></div>
+          </div>
+
+          <div class="cd r warn" style="top:400px">
+            <span class="ic tl"><svg viewBox="0 0 24 24"><path d="M12 3.4v4.2M12 16.4v4.2M4.6 12h4.2M15.2 12h4.2"/><path d="M6.8 6.8l3 3M14.2 14.2l3 3M17.2 6.8l-3 3M9.8 14.2l-3 3"/></svg></span>
+            <div class="tx"><div class="cat">Conhecimento</div>
+              <div class="val num">1,46%</div>
+              <div class="ph">Problema inédito viola mais que rotina</div></div>
+          </div>
+
+          <div class="head">
+            <div class="hl">
+              <div class="hk"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.8l8.8 15.4H3.2z"/><path d="M12 10v3.8"/><circle cx="12" cy="16.8" r=".9" fill="currentColor" stroke="none"/></svg></span> Efeito</div>
+              <div class="ht">Estouro de OLA no fechamento do ano</div>
+            </div>
+            <div class="hs">
+              <div class="hp"><div class="hv num">42</div><div class="hl3">P2 em 2025 · <b>nota 75%</b></div></div>
+              <div class="vr2"></div>
+              <div class="hp ok"><div class="hv num">196</div><div class="hl3">P3 em 2025 · <b>nota 150%</b></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

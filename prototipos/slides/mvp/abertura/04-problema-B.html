@@ -8,7 +8,7 @@
 .ic{display:inline-flex;align-items:center;justify-content:center}
 .ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
-.pb .body{padding:16px 64px 44px}
+.pb .body{padding:16px 64px 62px}
 .pb .tt{font-size:38px;margin-top:13px}
 .pb .lead{font-size:17.5px;max-width:1310px;margin-top:12px}
 .pb .lead .dn{color:var(--bad);font-weight:800}
@@ -35,7 +35,7 @@
 .pb .chip.c150{background:#D6F0E2;color:#0E7A45}
 .pb .chip.c75{background:#FBE4E4;color:#DC2626}
 
-.pb .plot{position:relative;flex:1;min-height:0;margin-top:12px}
+.pb .plot{position:relative;flex:1;min-height:0;margin-top:22px}
 .pb .zn{position:absolute;left:0;right:0;border-top:1px solid rgba(15,23,42,.07);
   display:flex;align-items:center;justify-content:flex-end}
 .pb .zn:first-of-type{border-top:none}
@@ -45,14 +45,14 @@
   font-variant-numeric:tabular-nums}
 .pb .zn .zl s{text-decoration:none;font-size:10.5px;font-weight:600;color:var(--tx2);
   font-variant-numeric:tabular-nums;width:26px;text-align:right}
-.pb .z150{background:#E7F6EE} .pb .z150 b{color:#0E7A45}
-.pb .z125{background:#F3FAF6} .pb .z125 b{color:#15A05B}
+.pb .z150{background:#DFF2E8} .pb .z150 b{color:#0E7A45}
+.pb .z125{background:#EDF8F2} .pb .z125 b{color:#15A05B}
 .pb .z100{background:#EDF3FE} .pb .z100 b{color:#2563EB}
 .pb .z75{background:#FCEDED} .pb .z75 b{color:#DC2626}
 .pb .z50{background:#F9DEDE} .pb .z50 b{color:#C11F1F}
 .pb .z0{background:#F4CFCF} .pb .z0 b{color:#9E1717}
 
-.pb .zh{position:absolute;top:-17px;right:0;width:78px;text-align:right;font-size:9.5px;
+.pb .zh{position:absolute;top:-16px;right:0;width:78px;text-align:right;font-size:9.5px;
   font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:var(--tx2)}
 
 .pb .bars{position:absolute;left:0;right:78px;top:0;bottom:0;display:flex;
@@ -84,6 +84,7 @@
 .pb .obj .bk{width:150px;flex-shrink:0;font-size:11.5px;font-weight:700;letter-spacing:2px;
   text-transform:uppercase;color:var(--accent);line-height:1.4}
 .pb .obj .li{flex:1;display:flex;align-items:center;gap:14px;min-width:0}
+.pb .obj .li.fit{flex:0 0 auto}
 .pb .obj .tl{width:34px;height:34px;border-radius:10px;flex-shrink:0;background:#DBEAFE;
   color:var(--accent)}
 .pb .obj .tl svg{width:19px;height:19px}
@@ -171,7 +172,7 @@
 
     <div class="obj">
       <div class="bk">Objetivos<br>para 2026</div>
-      <div class="li">
+      <div class="li fit">
         <span class="ic tl"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg></span>
         <p>Fechar o ano com até <b>39</b> violações no P2 e até <b>200</b> no P3.</p>
       </div>
