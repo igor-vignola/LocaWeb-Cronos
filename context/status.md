@@ -100,13 +100,13 @@ equipe (matiz por ângulo áureo, saturação baixa para não competir com a cor
 
 ### Deck da entrega, fechado em 17/08/2026
 
-`sprints/EC_Sprint_3_2TSCOA_mvp_preliminar_Cronos_SuperDataBros.pptx` · **65 slides**,
+`sprints/EC_Sprint_3_2TSCOA_mvp_preliminar_Cronos_SuperDataBros.pptx` · **63 slides**,
 13,333 × 7,5 in, na ordem e com os títulos do template oficial. Mesmo formato da Sprint 2: um
-PNG sangrado por slide, gerado de HTML. 44 MB, contra 35 MB da Sprint 2.
+PNG sangrado por slide, gerado de HTML. 43 MB, contra 35 MB da Sprint 2.
 
 São **duas fontes reunidas em um arquivo só**, e é bom saber disso antes de mexer:
 
-- **27 slides escritos em `scripts/monta_deck_sprint3.py`** · identificação, contexto, gestão
+- **25 slides escritos em `scripts/monta_deck_sprint3.py`** · identificação, contexto, gestão
   ágil, arquitetura, os dez prints da aplicação, o mockup, a amostra de dados e o fecho.
 - **38 slides do bloco analítico**, que já existiam em `prototipos/slides/mvp/deck/`,
   construídos em julho. São eles que carregam os gráficos exportados do matplotlib dos
@@ -117,6 +117,30 @@ São **duas fontes reunidas em um arquivo só**, e é bom saber disso antes de m
 
 Os cinco slides de resumo de modelo que o builder tinha no começo foram removidos: o bloco
 analítico diz a mesma coisa em 38 slides e com o gráfico ao lado.
+
+**O bloco de abertura foi refeito em 17/08**, depois que o Igor apontou que os treze
+primeiros slides estavam genéricos. O defeito era estrutural antes de ser de texto: oito
+deles usavam a mesma composição (título, três cartões de número, três cartões numerados com
+cabeçalho em negrito seguido de parágrafo), que é o molde que a máquina produz sozinha. Cada
+slide passou a ter a composição que o conteúdo dele pede, e dois trocaram texto por dado:
+
+- **Contexto** virou a escada de seis degraus do KPI, P3 e P2 em cartões separados, com a
+  altura da barra sendo a própria nota.
+- **Problema** virou gráfico (`scripts/figuras_deck.py`): violações acumuladas mês a mês em
+  2025 contra as faixas da meta. O achado que o gráfico revelou e que não estava em lugar
+  nenhum do material: **o P2 sai de 35 violações em outubro para 41 em novembro e atravessa
+  duas faixas de uma vez**, caindo de 125% para 75%. Seis violações num mês custaram 50
+  pontos de nota.
+- **Proposta** virou o mapa das quatro exigências do desafio contra a peça que responde cada
+  uma; **o que mudou desde a Sprint 2** virou lista de "de" e "para" com o número que
+  derrubou cada ideia; **gestão** ganhou linha do tempo das quatro sprints; **arquitetura e
+  desenho** fundiram num slide só.
+- Saiu o slide de escopo, que repetia o `d17a` do bloco analítico.
+
+O texto passou pela skill `humanizer`. Caíram os paralelismos do tipo "não é X, é Y", o
+título em regra de três e os cartões com cabeçalho em negrito seguido de parágrafo. Também
+saiu do deck a frase que afirmava que os anexos das Sprints 1 e 2 iam atualizados junto, o
+que não é verdade até que alguém os atualize.
 
 Reprodutível por dois scripts. `scripts/captura_telas.py` fotografa a aplicação (seis abas e
 quatro modais, 3200 × 2000, enquadrados em 16:10 para entrarem inteiros no slide);

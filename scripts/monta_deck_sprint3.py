@@ -323,7 +323,7 @@ def s04_problema() -> str:
         "<div class=\"pz\"><b>Seis violações num mês custaram 50 pontos.</b> "
         "Nenhuma delas foi grande o suficiente para chamar atenção sozinha.</div>"
         "<div class=\"pz\"><b>É esse intervalo que o Cronos ataca.</b> "
-        "Prever o volume, ordenar o risco e projetar o fechamento antes de novembro.</div>"
+        "Projetar onde o ano fecha enquanto ainda existe mês para mudar o resultado.</div>"
         "</div>"
     )
     return _sl(conteudo, tag="Template · slide 4", classe="fg")
@@ -335,7 +335,7 @@ def s05_solucao() -> str:
             "Antecipar incidentes · D+1 e D+7",
             "Prophet, <em>duas séries</em>",
             "Uma para P3 e outra para P2, com sazonalidade semanal e feriados nacionais. "
-            "Erro de <b>11,8 e 4,2 por dia</b>, medido em rolling backtest.",
+            "Erro de <b>11,8 por dia no P3 e 4,2 no P2</b>, medido em rolling backtest.",
         ),
         (
             "Identificar tendência por prioridade",
@@ -364,9 +364,9 @@ def s05_solucao() -> str:
     conteudo = (
         cabecalho(
             "Proposta de solução",
-            "Cada exigência do desafio tem um dono",
-            "O Cronos não tem caixa de perguntas. Ele publica o que vem pela frente e diz "
-            "onde agir, na entrada do turno.",
+            "O desafio pede quatro coisas",
+            "Uma peça responde cada uma. O Cronos não tem caixa de perguntas: ele publica o "
+            "que vem pela frente na entrada do turno.",
         )
         + f'<div class="grid">{grade}</div>'
     )
@@ -502,9 +502,10 @@ def s08_gestao_plano() -> str:
     conteudo = (
         cabecalho(
             "Planejamento e gestão do projeto",
-            "Scrum para o ritmo, Kanban para o estado",
-            "Quadro no Trello com cinco colunas, do backlog ao concluído, com etiqueta por "
-            "sprint, responsável e checklist de validação por entregável.",
+            "Uma sprint por entrega da FIAP, num quadro Trello",
+            "Cinco colunas, do backlog ao concluído, com etiqueta por sprint, responsável e "
+            "checklist de validação por entregável. O Scrum dá a cadência, o quadro mostra "
+            "em que pé cada coisa está.",
         )
         + '<div class="duo">'
         + '<div class="passos"><div style="font-size:12px;font-weight:700;letter-spacing:1.5px;'
