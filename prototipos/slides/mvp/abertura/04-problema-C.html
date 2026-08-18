@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>04 Problema · C</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.pc .body{padding-top:18px}
+.pc .tt{font-size:34px;margin-top:11px}
+.pc .lead{max-width:1300px;font-size:16.5px;margin-top:9px}
+
+.pc .cmp{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:18px;
+  padding:22px 24px 20px;box-shadow:0 18px 44px -32px rgba(15,23,42,.3);flex-shrink:0}
+.pc .rw{display:grid;grid-template-columns:208px 1fr 1fr;column-gap:26px;align-items:start}
+.pc .hdr .ch2{font-size:11.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
+  padding-bottom:12px}
+.pc .hdr .ch2.a{color:var(--tx2)}
+.pc .hdr .ch2.b{color:var(--accent)}
+.pc .rw.dl{border-top:1px solid var(--line);padding:19px 0 18px}
+.pc .dk{font-size:15.5px;font-weight:700;letter-spacing:-.2px;color:var(--head);line-height:1.3}
+.pc .cell{font-size:13.5px;line-height:1.5;color:var(--tx)}
+.pc .cell.a b{color:var(--head);font-weight:800;font-variant-numeric:tabular-nums}
+.pc .cell.a b.dg{color:var(--bad)}
+.pc .cell.b b{color:var(--accent);font-weight:800;font-variant-numeric:tabular-nums}
+.pc .cell em{font-style:normal;color:var(--head);font-weight:700}
+
+.pc .goals{margin-top:20px;background:#fff;border:1px solid var(--line);border-radius:18px;
+  padding:18px 26px 17px;box-shadow:0 18px 44px -32px rgba(15,23,42,.3);flex-shrink:0}
+.pc .goals .gk{font-size:11.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
+  color:var(--tx2)}
+.pc .grow{display:flex;margin-top:12px}
+.pc .gi{flex:1;min-width:0;padding:0 26px}
+.pc .gi:first-child{padding-left:0} .pc .gi:last-child{padding-right:0}
+.pc .gi + .gi{border-left:1px solid var(--line)}
+.pc .gtop{display:flex;align-items:center;gap:11px}
+.pc .gq{width:26px;height:26px;border-radius:8px;background:var(--accent-l);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:800;
+  flex-shrink:0;font-variant-numeric:tabular-nums}
+.pc .gv{font-size:29px;font-weight:800;letter-spacing:-1.2px;line-height:1;color:var(--head);
+  font-variant-numeric:tabular-nums}
+.pc .gv em{font-style:normal;font-size:16px;font-weight:700;color:var(--tx2);margin:0 4px}
+.pc .gtx{font-size:13.5px;line-height:1.45;color:var(--tx);margin-top:9px}
+.pc .gtx b{color:var(--head);font-weight:700}
+</style>
+</head><body>
+<section class="slide light pc">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 4</div></div>
+  <div class="body">
+    <div class="eb">Problema a ser resolvido · o que muda na mesa de quem opera</div>
+    <div class="tt">Cinco decisões do turno, <span class="hl">hoje e com o Cronos</span></div>
+    <div class="lead">Cada linha é uma decisão do dia a dia, com o número que a sustenta em cada um dos dois cenários.</div>
+
+    <div class="cmp">
+      <div class="rw hdr">
+        <div></div>
+        <div class="ch2 a">Hoje, na ferramenta em uso</div>
+        <div class="ch2 b">Com o Cronos</div>
+      </div>
+
+      <div class="rw dl">
+        <div class="dk">A fila do turno</div>
+        <div class="cell a">Ordenada pela prioridade declarada na abertura. ROC AUC de <b class="dg">0,4693</b>, abaixo dos <b>0,5063</b> de uma fila sorteada, e <b class="dg">1</b> violação nas 50 primeiras posições.</div>
+        <div class="cell b">Ordenada pelo risco previsto para cada incidente. ROC AUC de <b>0,8693</b> e <b>15</b> violações nas 50 primeiras posições.</div>
+      </div>
+
+      <div class="rw dl">
+        <div class="dk">Onde o risco está</div>
+        <div class="cell a">Diluído nos <b>25.600</b> incidentes elegíveis: <b>85,1%</b> das aberturas vêm de monitoramento e <b>65,6%</b> fecham como Sem Intervenção.</div>
+        <div class="cell b">Os <b>20%</b> de maior risco concentram <b>72%</b> das violações. PR-AUC de <b>0,2958</b>, <b>31</b> vezes a taxa da base.</div>
+      </div>
+
+      <div class="rw dl">
+        <div class="dk">A carga da semana</div>
+        <div class="cell a">Sem previsão. O volume diário explica <b class="dg">2,5%</b> da variação de violações, com r de <b>0,159</b>, então dimensionar por volume não aponta o caso.</div>
+        <div class="cell b">Volume previsto de D+1 a D+7 nas duas prioridades. Erro médio de <b>4,2</b> por dia no <em>P2</em> e <b>11,8</b> no <em>P3</em>.</div>
+      </div>
+
+      <div class="rw dl">
+        <div class="dk">O fechamento do ano</div>
+        <div class="cell a">A conta aparece em dezembro. Em 2025 o <em>P2</em> fechou com <b class="dg">42</b> violações, nota 75%, e o <em>P3</em> com <b>196</b>, nota 150%.</div>
+        <div class="cell b">Projeção do ano em três parcelas, checada em 5 datas e 2 prioridades: situação da meta acertada em <b>7 de 10</b>, erro máximo de <b>15,0%</b>, nenhum otimista.</div>
+      </div>
+
+      <div class="rw dl">
+        <div class="dk">A nota de cada produto</div>
+        <div class="cell a">Não existe nota por produto. O ranking do que precisa de atenção é montado na conversa do turno.</div>
+        <div class="cell b"><b>15</b> produtos acima de 200 incidentes cobrem <b>94%</b> do volume. Pior nota <em>lvps</em> com <b>21,3</b>, melhor <em>lcho</em> com <b>69,3</b>, e <b>5</b> abaixo de 40.</div>
+      </div>
+    </div>
+
+    <div class="goals">
+      <div class="gk">O que essas linhas viram como meta para 2026</div>
+      <div class="grow">
+        <div class="gi">
+          <div class="gtop"><span class="gq">01</span><div class="gv">39 <em>e</em> 200</div></div>
+          <div class="gtx"><b>Fechar o ano dentro da faixa.</b> Os tetos de 100% no P2 e de 150% no P3, contra os 42 e 196 de 2025.</div>
+        </div>
+        <div class="gi">
+          <div class="gtop"><span class="gq">02</span><div class="gv">7 <em>de</em> 10</div></div>
+          <div class="gtx"><b>Enxergar o degrau antes de novembro.</b> Acertos da projeção na situação da meta, sem nenhum erro no sentido otimista.</div>
+        </div>
+        <div class="gi">
+          <div class="gtop"><span class="gq">03</span><div class="gv">15 <em>de</em> 50</div></div>
+          <div class="gtx"><b>Gastar o turno no caso que estoura.</b> Violações nas 50 primeiras posições pelo risco, contra 1 da ordenação de hoje.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

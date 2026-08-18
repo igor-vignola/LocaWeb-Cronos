@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>08 Arquitetura · A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.a8a .body{padding-bottom:56px}
+.a8a .tt{font-size:34px}
+.a8a .lead{max-width:1120px;margin-top:10px;font-size:16.5px}
+.a8a .fon{display:flex;gap:18px;margin-top:18px}
+.a8a .fc2{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 24px;
+  box-shadow:0 18px 42px -32px rgba(15,23,42,.28);display:flex;flex-direction:column;min-width:0}
+.a8a .fc2.p{flex:1.42}
+.a8a .fc2.s{flex:1}
+.a8a .k{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  color:var(--tx2)}
+.a8a .fc2.p .k{color:var(--accent)}
+.a8a .fn{font-family:var(--mono);font-size:23px;font-weight:600;letter-spacing:-.6px;
+  color:var(--head);margin-top:8px}
+.a8a .fsb{font-size:13.5px;color:var(--tx2);margin-top:4px}
+.a8a .sp2{display:grid;grid-template-columns:104px 1fr;gap:14px;padding:10px 0;
+  border-top:1px solid var(--line)}
+.a8a .sp2:first-of-type{margin-top:13px}
+.a8a .fc2.s .sp2{grid-template-columns:118px 1fr}
+.a8a .sp2 .sk2{font-size:11.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--tx2);padding-top:2px}
+.a8a .sp2 .sv2{font-size:14px;line-height:1.45;color:var(--tx);min-width:0}
+.a8a .sp2 .sv2 b{color:var(--head);font-weight:700}
+.a8a .mn{font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--accent);
+  background:var(--accent-l);border-radius:5px;padding:1px 6px;white-space:nowrap}
+.a8a .rule{margin-top:auto;background:linear-gradient(150deg,#F7FAFF,#EFF6FF);
+  border:1px solid #D8E6FB;border-radius:14px;padding:14px 17px;display:flex;gap:18px;
+  align-items:center}
+.a8a .rule .rn2{font-size:12.5px;line-height:1.45;color:var(--tx);flex:1}
+.a8a .rule .rn2 b{color:var(--head);font-weight:700}
+.a8a .rule .rv2{display:flex;align-items:baseline;gap:9px;flex-shrink:0}
+.a8a .rule .rv2 .a{font-size:20px;font-weight:700;color:var(--tx2);
+  font-variant-numeric:tabular-nums}
+.a8a .rule .rv2 .ar{font-size:15px;color:#A9BBD6}
+.a8a .rule .rv2 .b2{font-size:29px;font-weight:900;letter-spacing:-1.3px;color:var(--accent);
+  font-variant-numeric:tabular-nums}
+.a8a .lgpd{margin-top:auto;font-size:13px;line-height:1.45;color:var(--tx2);
+  border-top:1px solid var(--line);padding-top:13px}
+.a8a .lgpd b{color:var(--head);font-weight:700}
+.a8a .why{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 24px 6px;
+  box-shadow:0 18px 42px -32px rgba(15,23,42,.28);margin-top:18px;flex:1;
+  display:flex;flex-direction:column;min-height:0}
+.a8a .wr{display:grid;grid-template-columns:312px 1fr;gap:22px;padding:13px 0;
+  border-top:1px solid var(--line);align-items:baseline}
+.a8a .wr:first-of-type{border-top:none;padding-top:11px}
+.a8a .wr .wc{font-size:15.5px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
+.a8a .wr .wy{font-size:14px;line-height:1.45;color:var(--tx)}
+.a8a .wr .wy b{color:var(--head);font-weight:700}
+</style>
+</head><body>
+<section class="slide light a8a">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><span class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></span><span class="bn">Cronos</span><span class="bt">VEJA ANTES · AJA ANTES</span><span class="tag">Template · slide 8</span></div>
+  <div class="body">
+    <span class="eb">Arquitetura da solução · fontes de dados</span>
+    <h1 class="tt">Tudo que o Cronos afirma vem de <span class="hl">um arquivo</span> e de uma lista de feriados</h1>
+    <p class="lead">Não há coleta nova, integração com sistema em produção nem banco de dados. A entrada é o arquivo que a Locaweb entregou, e a única dependência externa é a biblioteca de feriados nacionais.</p>
+    <div class="fon">
+      <div class="fc2 p">
+        <span class="k">Fonte primária</span>
+        <div class="fn">LW-DATASET.xlsx</div>
+        <div class="fsb">Aba Dataset Geral · arquivo oficial entregue pela Locaweb</div>
+        <div class="sp2"><span class="sk2">Volume</span><span class="sv2"><b class="num">122.543</b> incidentes em <b class="num">19</b> colunas</span></div>
+        <div class="sp2"><span class="sk2">Período</span><span class="sv2">jan/2023 a dez/2025, dia a dia</span></div>
+        <div class="sp2"><span class="sk2">O que sai daí</span><span class="sv2">Prioridade, status, <span class="mn">Incidente Pai</span>, equipe, produto, item de configuração, origem, descrição e código de fechamento. Os prazos de OLA vêm do mesmo arquivo: <b>P2 em 4 horas</b> e <b>P3 em 12 horas</b>.</span></div>
+        <div class="rule">
+          <div class="rn2">A régua que decide o que a solução mede é a coluna <span class="mn">Entrou para KPI?</span> deste mesmo arquivo. Filtrar só por <span class="mn">Incidente Pai</span> vazio devolveria <b class="num">107.416</b>, ou 88% da base, e é o erro clássico.</div>
+          <div class="rv2"><span class="a num">122.543</span><span class="ar">→</span><span class="b2 num">25.600</span></div>
+        </div>
+      </div>
+      <div class="fc2 s">
+        <span class="k">Fonte externa · a única</span>
+        <div class="fn">holidays 0.97</div>
+        <div class="fsb">Biblioteca Python de feriados nacionais</div>
+        <div class="sp2"><span class="sk2">Conteúdo</span><span class="sv2">Feriados nacionais do Brasil, ano a ano</span></div>
+        <div class="sp2"><span class="sk2">Por que entra</span><span class="sv2">O dataset não traz a coluna, e o volume de um feriado não se parece com o de um dia útil</span></div>
+        <div class="sp2"><span class="sk2">Onde é usada</span><span class="sv2">Vira característica de calendário na previsão de volume, nas duas séries, <b>P3</b> e <b>P2</b></span></div>
+        <div class="lgpd">Varredura de dado pessoal nas duas fontes: <b>zero</b> e-mail, CPF, telefone ou endereço IP. Nenhuma coluna identifica pessoa, e a origem só tem Manual e Monitoramento.</div>
+      </div>
+    </div>
+    <div class="why">
+      <span class="k">Por que cada peça é assim</span>
+      <div class="wr"><span class="wc">Agnóstica de provedor de nuvem</span><span class="wy">A Locaweb <b>é</b> uma nuvem. Amarrar a entrega a AWS, GCP ou Azure inviabilizaria a adoção, então só entram serviços portáveis, e o Docker sobre <span class="mn">python:3.13-slim</span> sobe em qualquer lugar.</span></div>
+      <div class="wr"><span class="wc">Django, em vez de Streamlit</span><span class="wy">Cada uma das <b>seis abas</b> tem URL própria, então o link da fila já filtrada pode ser enviado a alguém.</span></div>
+      <div class="wr"><span class="wc">Modelo treina fora do contêiner</span><span class="wy">Os notebooks treinam e gravam Parquet. A aplicação só lê: são <b class="num">295 kB</b> carregados uma vez por processo, e a imagem fica pequena.</span></div>
+      <div class="wr"><span class="wc">Sem banco de dados</span><span class="wy">O volume cabe em Parquet, e um banco acrescentaria operação sem acrescentar capacidade. A ausência de banco é escolha registrada, com esse motivo.</span></div>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

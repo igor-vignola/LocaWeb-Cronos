@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>06 Gestão do projeto · B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.s6b .tt{font-size:32px;margin-top:10px}
+.s6b .body{padding-bottom:50px}
+.s6b .tw{margin-top:16px;padding:16px 6px 12px;flex-shrink:0}
+.s6b thead th{font-size:11px;padding:0 14px 9px}
+.s6b tbody td{font-size:13.5px;padding:9px 14px;white-space:nowrap}
+.s6b tbody td .sn{font-size:14.5px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
+.s6b tbody td .sq{font-size:12px;font-weight:600;color:var(--tx2);letter-spacing:.2px}
+.s6b tbody td.n{text-align:right;font-weight:800}
+.s6b tbody td.n .g{color:var(--good)} .s6b tbody td.n .f{color:var(--accent)}
+.s6b tbody td.n .c{color:var(--tx2);font-weight:700}
+.s6b tbody td b{color:var(--head)}
+.s6b .low{display:flex;gap:26px;margin-top:18px;flex-shrink:0;height:450px}
+.s6b .tr{width:800px;height:450px;flex-shrink:0;border:1.5px dashed #B4C2D6;
+  border-radius:16px;background:rgba(255,255,255,.55);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:7px}
+.s6b .mk2{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:18px;
+  padding:20px 24px 18px;box-shadow:0 18px 44px -32px rgba(15,23,42,.28);display:flex;
+  flex-direction:column}
+.s6b .mk2 .mh2{font-size:19px;font-weight:800;letter-spacing:-.45px;color:var(--head)}
+.s6b .mk2 .ms{font-size:13.5px;line-height:1.45;color:var(--tx);margin-top:5px}
+.s6b .mk2 .ms b{color:var(--head);font-weight:700}
+.s6b .mk2 .lst2{margin-top:12px;flex:1;display:flex;flex-direction:column;
+  justify-content:space-between}
+.s6b .mk2 .ps2{display:grid;grid-template-columns:88px 1fr;gap:14px;padding:9px 0;
+  border-top:1px solid var(--line)}
+.s6b .mk2 .ps2:first-child{border-top:none}
+.s6b .mk2 .q{font-size:13px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;
+  padding-top:1px}
+.s6b .mk2 .o{font-size:14px;line-height:1.4;color:var(--tx)}
+.s6b .mk2 .o b{color:var(--head);font-weight:700}
+.s6b .tr .trl{font-size:17px;font-weight:700;letter-spacing:-.2px;color:#6B7688}
+.s6b .tr .trs{font-size:13.5px;color:#93A0B2}
+.s6b .tr .tra{font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--accent);
+  background:var(--accent-l);border-radius:8px;padding:4px 11px;margin-top:4px}
+</style>
+</head><body>
+<section class="slide light s6b">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 6</div></div>
+  <div class="body">
+    <div class="eb">Gerenciamento do projeto · documentação atualizada</div>
+    <div class="tt">O que foi planejado, o que foi executado e o que foi <span class="hl">entregue</span> em cada sprint</div>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>Sprint</th><th>Planejado</th><th>Executado</th><th>Entregue</th><th style="text-align:right">Nota</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="sn">Sprint 1</span> <span class="sq">Ideação</span></td>
+            <td>Problema, proposta de valor e diferenciais</td>
+            <td>Ideação e escopo do produto</td>
+            <td><b>Deck da Sprint 1</b>, em 27/04</td>
+            <td class="n num"><span class="g">5,00</span></td>
+          </tr>
+          <tr>
+            <td><span class="sn">Sprint 2</span> <span class="sq">Arquitetura</span></td>
+            <td>Arquitetura da solução e protótipo das telas</td>
+            <td>Pilha definida e telas navegáveis</td>
+            <td><b>Deck da Sprint 2</b>, em 24/05</td>
+            <td class="n num"><span class="g">5,00</span></td>
+          </tr>
+          <tr>
+            <td><span class="sn">Sprint 3</span> <span class="sq">MVP preliminar</span></td>
+            <td>Modelos treinados no dado real e ligados à tela</td>
+            <td>Seis marcos entre 20/07 e 17/08</td>
+            <td><b>Notebooks, aplicação e deck</b>, em 23/08</td>
+            <td class="n"><span class="f">em curso</span></td>
+          </tr>
+          <tr>
+            <td><span class="sn">Sprint 4</span> <span class="sq">Solução final</span></td>
+            <td>Solução final em Docker e apresentação de fecho</td>
+            <td>Atividades cadastradas, nenhuma iniciada</td>
+            <td><b>Entrega prevista</b> em 08/09</td>
+            <td class="n"><span class="c">a iniciar</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="low">
+      <div class="tr">
+        <div class="trl">Quadro do projeto no Trello</div>
+        <div class="trs">Área reservada para a captura, proporção 16 por 9</div>
+        <div class="tra">Endereço do quadro · [verificar]</div>
+      </div>
+      <div class="mk2">
+        <div class="mh2">Como a Sprint 3 foi executada</div>
+        <div class="ms">Cada marco abaixo é um cartão do quadro, movido para concluído na data
+        indicada. É o detalhe da linha <b>Sprint 3</b> da tabela acima.</div>
+        <div class="lst2">
+          <div class="ps2"><div class="q">20 e 21/07</div><div class="o">Alvo e escopo da modelagem definidos</div></div>
+          <div class="ps2"><div class="q">29/07</div><div class="o">Verificações de robustez e dossiê de banca</div></div>
+          <div class="ps2"><div class="q">03 e 04/08</div><div class="o">Modelo de risco medido, notebooks 04, 05 e 06</div></div>
+          <div class="ps2"><div class="q">05/08</div><div class="o">Saúde por produto</div></div>
+          <div class="ps2"><div class="q">11 a 14/08</div><div class="o">Auditoria dos números e reconstrução das seis abas</div></div>
+          <div class="ps2"><div class="q">17/08</div><div class="o">Auditoria visual, <b>41</b> capturas e <b>32</b> achados corrigidos</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

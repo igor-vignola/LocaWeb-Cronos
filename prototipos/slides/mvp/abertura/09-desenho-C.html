@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>09 Desenho da arquitetura · C</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.c9 .hd{padding-top:30px}
+.c9 .body{padding:12px 64px 54px}
+.c9 .tt{font-size:33px;margin-top:10px;letter-spacing:-1.2px}
+.c9 .sub{font-size:15px;line-height:1.45;color:var(--tx);margin-top:8px;max-width:1160px}
+.c9 .sub b{color:var(--head);font-weight:700}
+.c9 .main{flex:1;min-height:0;display:flex;align-items:stretch;margin-top:14px}
+.c9 .box{border-radius:20px;padding:16px 20px 18px;display:flex;flex-direction:column;min-width:0}
+.c9 .box.off{flex:1;border:1.5px dashed #9DB3D2;background:rgba(255,255,255,.34)}
+.c9 .box.prd{width:452px;flex-shrink:0;border:1.5px solid var(--accent);
+  background:linear-gradient(160deg,rgba(255,255,255,.94),#F1F7FF)}
+.c9 .bh{display:flex;align-items:baseline;gap:12px;padding-bottom:13px;flex-shrink:0}
+.c9 .bh .bt2{font-size:19px;font-weight:800;letter-spacing:-.5px;color:var(--head)}
+.c9 .bh .bs{font-size:12.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;
+  margin-left:auto;white-space:nowrap}
+.c9 .box.off .bh .bs{color:#5C7397}
+.c9 .box.prd .bh .bs{color:var(--accent)}
+.c9 .stack{flex:1;display:flex;flex-direction:column;min-height:0}
+.c9 .row4{flex:1;display:grid;grid-template-columns:32px 190px 1fr;gap:16px;align-items:center;
+  border-top:1px solid #DCE4EF;padding:10px 0;min-height:0}
+.c9 .row4:first-child{border-top:none}
+.c9 .row4 .sn{width:26px;height:26px;border-radius:8px;background:var(--ink);color:#fff;
+  font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.c9 .row4 .nm{font-size:16px;font-weight:800;letter-spacing:-.3px;color:var(--head);line-height:1.15}
+.c9 .row4 .chs{display:flex;flex-direction:column;align-items:flex-start;gap:5px;
+  margin-top:7px}
+.c9 .row4 p{font-size:13.5px;line-height:1.45;color:var(--tx)}
+.c9 .row4 p b{color:var(--head);font-weight:700}
+.c9 .cp{font-family:var(--mono);font-size:11.5px;font-weight:500;color:var(--accent);
+  background:var(--accent-l);border:1px solid #D6E4FE;border-radius:7px;padding:3px 8px;
+  white-space:nowrap}
+.c9 .bridge{width:258px;flex-shrink:0;position:relative;display:flex;flex-direction:column;
+  align-items:center;justify-content:center}
+.c9 .bridge .fl{position:absolute;top:-6px;bottom:-6px;left:50%;width:0;
+  border-left:2px dashed #9AAEC9}
+.c9 .bridge .flk{position:absolute;top:2px;left:50%;transform:translateX(-50%);font-size:10.5px;
+  font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#8798AF;background:#F4F7FC;
+  padding:3px 8px;border-radius:6px;white-space:nowrap}
+.c9 .pk{position:relative;z-index:2;background:#fff;border:1px solid #BFDBFE;border-radius:14px;
+  padding:14px 16px 13px;text-align:center;box-shadow:0 18px 40px -26px rgba(37,99,235,.42);
+  width:236px}
+.c9 .pk .pv{font-size:34px;font-weight:900;letter-spacing:-1.6px;color:var(--accent);line-height:1}
+.c9 .pk .pl{font-size:11px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;
+  color:var(--tx2);margin-top:6px}
+.c9 .pk .pf{font-family:var(--mono);font-size:11.5px;font-weight:500;color:var(--head);margin-top:6px}
+.c9 .bridge .arrow{position:relative;z-index:2;margin-top:12px;color:var(--accent)}
+.c9 .bridge .arrow svg{width:236px;height:22px;display:block}
+.c9 .pk .pn{font-size:12px;color:var(--tx);line-height:1.4;margin-top:10px;padding-top:9px;
+  border-top:1px solid #E3EBF7}
+.c9 .prd .pblk{border-top:1px solid #D5E3F7;padding:11px 0;flex:1;display:flex;flex-direction:column;
+  justify-content:center}
+.c9 .prd .pblk:first-child{border-top:none}
+.c9 .prd .ph2{font-size:16px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
+.c9 .prd .pblk p{font-size:13.5px;line-height:1.45;color:var(--tx);margin-top:4px}
+.c9 .prd .pblk p b{color:var(--head);font-weight:700}
+.c9 .prd .tabs{font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--accent);
+  margin-top:6px;line-height:1.6}
+.c9 .foot{display:flex;margin-top:13px;flex-shrink:0;background:#fff;
+  border:1px solid var(--line);border-radius:14px;padding:14px 4px;
+  box-shadow:0 14px 32px -30px rgba(15,23,42,.3)}
+.c9 .fcd{flex:1;padding:0 20px;border-left:1px solid var(--line)}
+.c9 .fcd:first-child{border-left:none}
+.c9 .fcd .fk{font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--tx2)}
+.c9 .fcd p{font-size:13.5px;line-height:1.45;color:var(--tx);margin-top:6px}
+.c9 .fcd p b{color:var(--head);font-weight:700}
+.c9 .srcline{font-size:12px;color:var(--tx2);margin-top:10px;line-height:1.4}
+.c9 .srcline b{color:var(--head);font-weight:700}
+</style>
+</head><body>
+<section class="slide light c9">
+<div class="mesh"></div><div class="grid-bg"></div>
+<div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 9</div></div>
+<div class="body">
+  <div class="eb">Desenho da arquitetura da solução</div>
+  <div class="tt">Quatro etapas rodam fora do ar, e a tela recebe <span class="hl">um pacote de 295 kB</span></div>
+  <div class="sub">A decisão mais forte do desenho é a fronteira. Do lado esquerdo, o que executa nos notebooks quando o dado muda. Do lado direito, o único processo que fica de pé, e ele só sabe ler.</div>
+  <div class="main">
+    <div class="box off">
+      <div class="bh"><span class="bt2">Fora do ar, nos notebooks</span><span class="bs">Executa quando o dado muda</span></div>
+      <div class="stack">
+        <div class="row4"><span class="sn">1</span>
+          <div class="nm">Fonte<span class="chs"><span class="cp">openpyxl 3.1.5</span><span class="cp">holidays 0.97</span></span></div>
+          <p>Aba <b>Dataset Geral</b> da planilha oficial da Locaweb, com <b class="num">122.543</b> incidentes em <b class="num">19</b> colunas. O feriado nacional vem da biblioteca <b>holidays</b>, única fonte externa.</p></div>
+        <div class="row4"><span class="sn">2</span>
+          <div class="nm">Preparo<span class="chs"><span class="cp">pandas 2.2.3</span></span></div>
+          <p>Colunas tipadas, cinco derivadas de calendário, e o campo oficial <b>Entrou para KPI?</b> levando <b class="num">122.543</b> a <b class="num">25.600</b>. Dois <b>assert</b> travam as contagens.</p></div>
+        <div class="row4"><span class="sn">3</span>
+          <div class="nm">Modelos<span class="chs"><span class="cp">Prophet 1.3.0</span><span class="cp">scikit-learn 1.6.1</span><span class="cp">pandas 2.2.3</span></span></div>
+          <p>Volume de <b>D+1 a D+7</b> em duas séries, <b>P2</b> e <b>P3</b>. Risco por incidente por regressão logística, <b class="num">10</b> características na abertura e <b class="num">136</b> colunas codificadas. O pandas fecha projeção, saúde e causas.</p></div>
+        <div class="row4"><span class="sn">4</span>
+          <div class="nm">Pacote<span class="chs"><span class="cp">pyarrow 25.0</span></span></div>
+          <p>O resultado é reescrito em Parquet e JSON dentro de <b>data/app</b>. Aqui termina tudo o que precisa de biblioteca de modelagem.</p></div>
+      </div>
+    </div>
+    <div class="bridge">
+      <div class="fl"></div><div class="flk">Fronteira</div>
+      <div class="pk"><div class="pv num">295 kB</div><div class="pl">Único artefato que atravessa</div>
+        <div class="pf">Parquet · JSON</div>
+        <div class="pn">Gravado pelos notebooks, lido uma vez por processo quando a aplicação sobe.</div></div>
+      <div class="arrow"><svg viewBox="0 0 236 22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h212"/><path d="M208 4l8 7-8 7"/></svg></div>
+    </div>
+    <div class="box prd">
+      <div class="bh"><span class="bt2">De pé, no contêiner</span><span class="bs">Responde a cada visita</span></div>
+      <div class="stack">
+        <div class="pblk"><div class="ph2">Django 6.1, seis abas</div>
+          <div class="tabs">/ · /previsao/ · /projecao/<br>/fila/ · /saude/ · /causas/</div>
+          <p>Mais <b class="num">quatro</b> rotas de detalhe em modal e um índice de busca por incidente.</p></div>
+        <div class="pblk"><div class="ph2">Gráfico em SVG no servidor</div>
+          <p>A resposta já sai desenhada. O navegador não recebe biblioteca de gráfico nem cálculo.</p></div>
+        <div class="pblk"><div class="ph2">Um contêiner que só lê</div>
+          <p>Servido por gunicorn 23.0 e whitenoise 6.9 sobre <b>python:3.13-slim</b>. Nenhum modelo é ajustado aqui, e o relógio da aplicação fica fixo em <b>01/10/2025, 15h</b>.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="fcd"><div class="fk">O que atravessa</div>
+      <p>Tabelas prontas de <b class="num">295 kB</b>, com previsão de volume, fila pontuada, projeção do KPI, nota por produto e causas. Todas em formato de leitura.</p></div>
+    <div class="fcd"><div class="fk">O que fica do lado de fora</div>
+      <p>O Excel de <b class="num">122.543</b> linhas, o ajuste do Prophet e o treino da regressão logística. A tela não executa nenhum deles, então uma visita nunca depende de treino.</p></div>
+    <div class="fcd"><div class="fk">Por que assim</div>
+      <p>Reprocessar é rodar notebook e trocar arquivo. O que está no ar continua servindo o pacote anterior enquanto isso, sem depender de banco de dados.</p></div>
+  </div>
+  <div class="srcline">Fonte do dado: <b>LW-DATASET.xlsx</b>, base oficial da Locaweb, de jan/2023 a dez/2025. Feriado nacional pela biblioteca <b>holidays</b>.</div>
+</div>
+<div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

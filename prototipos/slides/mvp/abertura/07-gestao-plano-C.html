@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>07 Gestão do projeto · C</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.g7c .body{padding-bottom:56px}
+.g7c .tt{font-size:35px}
+.g7c .lead{max-width:1040px;margin-top:11px}
+.g7c .duo{display:flex;gap:20px;margin-top:20px;flex:1;min-height:0;align-items:stretch}
+.g7c .cd{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 24px;
+  box-shadow:0 18px 42px -32px rgba(15,23,42,.28)}
+.g7c .k{font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--tx2)}
+.g7c .lft{flex:1;min-width:0;display:flex;flex-direction:column}
+.g7c .vt{margin-top:15px;flex:1;display:flex;flex-direction:column;min-height:0}
+.g7c .vi{display:grid;grid-template-columns:98px 24px 1fr;align-items:start;flex:1;min-height:0}
+.g7c .vd{font-size:13px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;
+  text-align:right;padding:1px 16px 0 0;white-space:nowrap}
+.g7c .dot{position:relative;display:flex;justify-content:center;align-self:stretch}
+.g7c .dot::before{content:'';position:absolute;top:7px;bottom:0;width:2px;background:#E4EAF4}
+.g7c .vi:last-child .dot::before{display:none}
+.g7c .dot i{position:relative;z-index:1;width:11px;height:11px;border-radius:50%;background:#fff;
+  border:3px solid var(--accent);margin-top:2px}
+.g7c .vi.tgt .vd{color:var(--head)}
+.g7c .vi.tgt .dot i{background:var(--accent);box-shadow:0 0 0 4px rgba(37,99,235,.14)}
+.g7c .vx{font-size:14.5px;line-height:1.42;color:var(--tx);padding:0 0 0 15px}
+.g7c .vx b{color:var(--head);font-weight:700}
+.g7c .vi.tgt{flex:0 0 auto}
+.g7c .vi.tgt .vx{font-weight:700;color:var(--head)}
+.g7c .rgt{width:508px;flex-shrink:0;display:flex;flex-direction:column;gap:17px}
+.g7c .fr{display:flex;flex-direction:column}
+.g7c .fi{padding:15px 0 0;border-top:1px solid var(--line);margin-top:15px}
+.g7c .fi:first-of-type{border-top:none;margin-top:13px;padding-top:0}
+.g7c .fh{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.g7c .fn{font-size:16.5px;font-weight:800;letter-spacing:-.35px;color:var(--head)}
+.g7c .who{display:inline-flex;align-items:center;padding:4px 12px;border-radius:9px;
+  border:1px dashed #BCCADD;background:#FAFCFF;color:var(--tx2);font-size:13.5px;font-weight:600;
+  white-space:nowrap;flex-shrink:0}
+.g7c .fs{font-size:14px;line-height:1.45;color:var(--tx);margin-top:6px}
+.g7c .fs b{color:var(--head);font-weight:700}
+.g7c .pr2{flex:1;display:flex;flex-direction:column;justify-content:center}
+.g7c .pi{margin-top:15px}
+.g7c .pi:first-of-type{margin-top:13px}
+.g7c .pk{font-size:14.5px;font-weight:800;color:var(--accent);letter-spacing:-.2px}
+.g7c .pi p{font-size:14.5px;line-height:1.45;color:var(--tx);margin-top:4px}
+.g7c .pi p b{color:var(--head);font-weight:700}
+</style>
+</head><body>
+<section class="slide light g7c">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><span class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></span><span class="bn">Cronos</span><span class="bt">VEJA ANTES · AJA ANTES</span><span class="tag">Template · slide 7</span></div>
+  <div class="body">
+    <span class="eb">Planejamento e gestão do projeto</span>
+    <h1 class="tt">Cada marco tem data, e cada frente tem <span class="hl">um responsável</span></h1>
+    <p class="lead">O Scrum dá a cadência, com uma sprint por entrega da FIAP. À esquerda, o que a Sprint 3 executou desde 20/07. À direita, como o trabalho foi repartido e por onde passa a conversa com a Locaweb.</p>
+    <div class="duo">
+      <div class="cd lft">
+        <span class="k">Marcos executados na Sprint 3</span>
+        <div class="vt">
+          <div class="vi"><span class="vd num">20 e 21/07</span><span class="dot"><i></i></span>
+            <div class="vx">Alvo e escopo da modelagem fechados sobre a base elegível ao KPI.</div></div>
+          <div class="vi"><span class="vd num">29/07</span><span class="dot"><i></i></span>
+            <div class="vx">Verificações de robustez e o dossiê de defesa para a banca.</div></div>
+          <div class="vi"><span class="vd num">03 e 04/08</span><span class="dot"><i></i></span>
+            <div class="vx">Modelo de risco de OLA medido. Notebooks <b>04, 05 e 06</b> escritos.</div></div>
+          <div class="vi"><span class="vd num">05/08</span><span class="dot"><i></i></span>
+            <div class="vx">Saúde por produto, o segundo diferencial do produto.</div></div>
+          <div class="vi"><span class="vd num">11 a 14/08</span><span class="dot"><i></i></span>
+            <div class="vx">Auditoria dos números e reconstrução das <b>seis abas</b> da aplicação.</div></div>
+          <div class="vi"><span class="vd num">17/08</span><span class="dot"><i></i></span>
+            <div class="vx">Auditoria visual: <b>41 capturas</b> e <b>32 achados</b> corrigidos.</div></div>
+          <div class="vi tgt"><span class="vd num">23/08</span><span class="dot"><i></i></span>
+            <div class="vx">Entrega da Sprint 3.</div></div>
+        </div>
+      </div>
+      <div class="rgt">
+        <div class="cd fr">
+          <span class="k">Divisão do trabalho por frente</span>
+          <div class="fi">
+            <div class="fh"><span class="fn">Base e análise exploratória</span><span class="who">[responsável]</span></div>
+            <div class="fs">Leitura do arquivo oficial, filtro de elegibilidade ao KPI e os notebooks de exploração.</div>
+          </div>
+          <div class="fi">
+            <div class="fh"><span class="fn">Modelagem preditiva</span><span class="who">[responsável]</span></div>
+            <div class="fs">Previsão de volume, risco por incidente, projeção do KPI e saúde por produto.</div>
+          </div>
+          <div class="fi">
+            <div class="fh"><span class="fn">Aplicação e entregáveis</span><span class="who">[responsável]</span></div>
+            <div class="fs">As <b>seis abas</b> em Django, o contêiner, o deck e a validação contra o checklist.</div>
+          </div>
+        </div>
+        <div class="cd pr2">
+          <span class="k">Cadência e canal com a Locaweb</span>
+          <div class="pi"><span class="pk">Uma sprint por entrega da FIAP</span>
+            <p>O quadro do projeto guarda backlog, etiqueta de sprint, responsável e checklist de validação por entregável.</p></div>
+          <div class="pi"><span class="pk">Mentoria com Douglas Gouveia</span>
+            <p>O contato passa pelo Scrum Master do grupo. Da mentoria saíram <b>duas hipóteses</b>, e as duas entraram no backlog e foram testadas.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>09 Desenho da arquitetura · B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.b9 .hd{padding-top:30px}
+.b9 .body{padding:12px 64px 54px}
+.b9 .tt{font-size:33px;margin-top:10px;letter-spacing:-1.2px}
+.b9 .sub{font-size:15px;line-height:1.45;color:var(--tx);margin-top:8px;max-width:1180px}
+.b9 .sub b{color:var(--head);font-weight:700}
+.b9 .grd{flex:1;min-height:0;margin-top:13px;display:grid;grid-template-columns:36px 1fr;
+  column-gap:13px;
+  grid-template-rows:minmax(0,1fr) 20px minmax(0,1fr) 20px minmax(0,1fr) 20px minmax(0,1fr) 20px minmax(0,1fr)}
+.b9 .brk{grid-column:1;border:1.5px dashed #9DB3D2;border-right:none;border-radius:15px 0 0 15px;
+  display:flex;align-items:center;justify-content:center;color:#5C7397;font-size:10.5px;
+  font-weight:800;letter-spacing:1.4px;text-transform:uppercase;writing-mode:vertical-rl;
+  transform:rotate(180deg);white-space:nowrap}
+.b9 .brk.prd{border:1.5px solid var(--accent);border-right:none;color:var(--accent)}
+.b9 .lane{grid-column:2;display:grid;grid-template-columns:150px 1fr 278px;align-items:center;
+  gap:20px;background:#fff;border:1px solid var(--line);border-radius:15px;padding:13px 20px;
+  box-shadow:0 14px 32px -28px rgba(15,23,42,.3);min-height:0}
+.b9 .lane.prod{border-color:#BFDBFE;background:linear-gradient(150deg,#fff,#F4F9FF)}
+.b9 .kx{display:flex;align-items:center;gap:10px;min-width:0}
+.b9 .kx .sn{width:26px;height:26px;border-radius:8px;background:var(--ink);color:#fff;
+  font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0}
+.b9 .lane.prod .kx .sn{background:var(--accent)}
+.b9 .kx .kn{font-size:17px;font-weight:800;letter-spacing:-.4px;color:var(--head);line-height:1.1}
+.b9 .kx .kn small{display:block;font-size:11.5px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--tx2);margin-top:2px}
+.b9 .mid{min-width:0}
+.b9 .mid p{font-size:13.5px;line-height:1.45;color:var(--tx)}
+.b9 .mid p b{color:var(--head);font-weight:700}
+.b9 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.b9 .cp{font-family:var(--mono);font-size:11.5px;font-weight:500;color:var(--accent);
+  background:var(--accent-l);border:1px solid #D6E4FE;border-radius:7px;padding:3px 8px;
+  white-space:nowrap}
+.b9 .art{border-left:1.5px dashed #C7D3E4;padding-left:20px;min-width:0;align-self:stretch;
+  display:flex;flex-direction:column;justify-content:center}
+.b9 .art .ak{font-size:10.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;
+  color:var(--tx2)}
+.b9 .art .av{font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--head);
+  margin-top:5px;line-height:1.5;overflow-wrap:break-word}
+.b9 .art .as{font-size:12.5px;color:var(--tx);margin-top:5px;line-height:1.35}
+.b9 .art .as b{color:var(--head);font-weight:700}
+.b9 .arw{grid-column:2;display:flex;align-items:center;padding-left:31px;color:#AEBDD1}
+.b9 .arw svg{width:18px;height:18px}
+.b9 .lg{display:flex;align-items:baseline;gap:26px;margin-top:11px;font-size:12.5px;
+  color:var(--tx2);line-height:1.4}
+.b9 .lg b{color:var(--head);font-weight:700}
+.b9 .lg .src2{margin-left:auto;text-align:right;flex-shrink:0}
+</style>
+</head><body>
+<section class="slide light b9">
+<div class="mesh"></div><div class="grid-bg"></div>
+<div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 9</div></div>
+<div class="body">
+  <div class="eb">Desenho da arquitetura da solução</div>
+  <div class="tt">Cada etapa deixa um arquivo gravado, e <span class="hl">a tela lê só o último</span></div>
+  <div class="sub">O fluxo desce da planilha oficial até o contêiner. À direita, o artefato que cada etapa entrega para a seguinte: enquanto o arquivo não muda, a etapa anterior não precisa rodar de novo.</div>
+  <div class="grd">
+    <div class="lane">
+      <div class="kx"><span class="sn">1</span><span class="kn">Fonte<small>Origem do dado</small></span></div>
+      <div class="mid"><p>Aba <b>Dataset Geral</b> da planilha oficial da Locaweb, com <b class="num">122.543</b> incidentes em <b class="num">19</b> colunas, de jan/2023 a dez/2025. O feriado nacional entra por biblioteca, porque o dataset não traz a data.</p>
+        <div class="chips"><span class="cp">openpyxl 3.1.5</span><span class="cp">holidays 0.97</span></div></div>
+      <div class="art"><div class="ak">Artefato</div><div class="av">LW-DATASET.xlsx</div>
+        <div class="as">Arquivo de entrada, lido inteiro de uma vez.</div></div>
+    </div>
+    <div class="arw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9l7 7 7-7"/></svg></div>
+    <div class="brk" style="grid-row:3 / 8">Fora do ar · notebooks</div>
+    <div class="lane">
+      <div class="kx"><span class="sn">2</span><span class="kn">Preparo<small>pandas</small></span></div>
+      <div class="mid"><p>As <b class="num">19</b> colunas são tipadas, o campo oficial <b>Entrou para KPI?</b> reduz <b class="num">122.543</b> para <b class="num">25.600</b>, e nascem cinco colunas de calendário. Dois <b>assert</b> travam as contagens antes e depois do filtro.</p>
+        <div class="chips"><span class="cp">pandas 2.2.3</span><span class="cp">dia · dia_semana · hora · ano · mes</span></div></div>
+      <div class="art"><div class="ak">Artefato</div><div class="av">data/interim/<br>incidentes_kpi.parquet</div>
+        <div class="as"><b class="num">25.600</b> linhas elegíveis ao KPI.</div></div>
+    </div>
+    <div class="arw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9l7 7 7-7"/></svg></div>
+    <div class="lane">
+      <div class="kx"><span class="sn">3</span><span class="kn">Modelos<small>Treino offline</small></span></div>
+      <div class="mid"><p>Prophet prevê volume de <b>D+1 a D+7</b> em duas séries diárias, <b>P2</b> e <b>P3</b>. A regressão logística pontua risco por incidente com <b class="num">10</b> características da abertura, <b class="num">136</b> colunas depois da codificação. O pandas fecha projeção do KPI, saúde por produto e causas.</p>
+        <div class="chips"><span class="cp">Prophet 1.3.0</span><span class="cp">cmdstanpy 1.3.0</span><span class="cp">scikit-learn 1.6.1</span><span class="cp">pandas 2.2.3</span></div></div>
+      <div class="art"><div class="ak">Artefatos</div><div class="av">03_previsao_diaria.parquet<br>04_fila_pontuada.parquet</div>
+        <div class="as">Uma tabela por notebook, em <b>data/interim</b>.</div></div>
+    </div>
+    <div class="arw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9l7 7 7-7"/></svg></div>
+    <div class="lane">
+      <div class="kx"><span class="sn">4</span><span class="kn">Pacote<small>pyarrow</small></span></div>
+      <div class="mid"><p>O que a tela precisa é reescrito num formato só de leitura, em Parquet e JSON. É o contrato entre a modelagem e o produto: a aplicação não conhece nada além destes arquivos.</p>
+        <div class="chips"><span class="cp">pyarrow 25.0</span><span class="cp">Parquet</span><span class="cp">JSON</span></div></div>
+      <div class="art"><div class="ak">Artefato</div><div class="av">data/app/</div>
+        <div class="as"><b class="num">295 kB</b>, carregados uma vez por processo.</div></div>
+    </div>
+    <div class="arw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9l7 7 7-7"/></svg></div>
+    <div class="brk prd" style="grid-row:9">De pé</div>
+    <div class="lane prod">
+      <div class="kx"><span class="sn">5</span><span class="kn">Produto<small>Django em Docker</small></span></div>
+      <div class="mid"><p>Seis abas para a coordenação de operações, com gráfico em SVG desenhado no servidor e <b class="num">quatro</b> rotas de detalhe em modal. O relógio da aplicação fica fixo em <b>01/10/2025, 15h</b>, e nenhum modelo é ajustado aqui.</p>
+        <div class="chips"><span class="cp">Django 6.1</span><span class="cp">gunicorn 23.0</span><span class="cp">whitenoise 6.9</span><span class="cp">python:3.13-slim</span></div></div>
+      <div class="art"><div class="ak">Na tela</div><div class="av">/ · /previsao/ · /projecao/<br>/fila/ · /saude/ · /causas/</div>
+        <div class="as">Mais um índice de busca por incidente.</div></div>
+    </div>
+  </div>
+  <div class="lg">
+    <span>Coluna da direita: o arquivo que a etapa deixa em disco. A moldura tracejada marca o que executa nos notebooks.</span>
+    <span class="src2">Fonte do dado: <b>LW-DATASET.xlsx</b>, base oficial da Locaweb. Feriado nacional pela biblioteca <b>holidays</b>.</span>
+  </div>
+</div>
+<div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

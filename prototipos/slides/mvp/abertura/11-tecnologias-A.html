@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>11 Tecnologias · A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.a11 .hd{padding-top:30px}
+.a11 .body{padding:12px 64px 54px}
+.a11 .tt{font-size:33px;margin-top:10px;letter-spacing:-1.2px}
+.a11 .sub{font-size:15px;line-height:1.45;color:var(--tx);margin-top:8px;max-width:1180px}
+.a11 .sub b{color:var(--head);font-weight:700}
+.a11 .cols{display:flex;gap:16px;margin-top:14px;min-height:0}
+.a11 .tc{flex:1;background:#fff;border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 16px 38px -32px rgba(15,23,42,.28);overflow:hidden;display:flex;
+  flex-direction:column}
+.a11 .th{display:grid;grid-template-columns:1fr 78px 1fr;background:#F3F7FD;
+  border-bottom:1px solid #E4EBF5}
+.a11 .th div{font-size:10.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--tx2);padding:9px 18px}
+.a11 .gh{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--accent);padding:11px 18px 6px;background:#FBFCFE;
+  border-bottom:1px solid #EEF2F8;border-top:1px solid #EEF2F8}
+.a11 .tc .gh:first-of-type{border-top:none}
+.a11 .tr{display:grid;grid-template-columns:1fr 78px 1fr;align-items:center;
+  border-top:1px solid #F0F3F8}
+.a11 .tr .nmm{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--head);
+  padding:7px 18px}
+.a11 .tr .vr{font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--accent);
+  padding:7px 0;font-variant-numeric:tabular-nums}
+.a11 .tr .pp{font-size:13px;color:var(--tx);padding:7px 18px 7px 0;line-height:1.35}
+.a11 .band{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:16px;
+  padding:15px 4px;display:flex;box-shadow:0 16px 38px -32px rgba(15,23,42,.28);flex-shrink:0}
+.a11 .bi2{flex:1;padding:0 20px;border-left:1px solid var(--line)}
+.a11 .bi2:first-child{border-left:none}
+.a11 .bi2 .bk{font-size:10.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--tx2)}
+.a11 .bi2 .bv{font-size:15.5px;font-weight:800;letter-spacing:-.35px;color:var(--head);
+  margin-top:5px;line-height:1.15}
+.a11 .bi2 .bv.g{color:var(--good)}
+.a11 .bi2 p{font-size:12.5px;line-height:1.42;color:var(--tx);margin-top:5px}
+.a11 .bi2 p b{color:var(--head);font-weight:700}
+.a11 .bi2 p .out{color:var(--bad);font-weight:700}
+.a11 .bt3{font-size:12px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;
+  color:var(--head);margin-top:15px;padding:0 18px}
+.a11 .th.sec{margin-top:9px;border-top:1px solid #E4EBF5}
+</style>
+</head><body>
+<section class="slide light a11">
+<div class="mesh"></div><div class="grid-bg"></div>
+<div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 11</div></div>
+<div class="body">
+  <div class="eb">Descrição da arquitetura · elementos</div>
+  <div class="tt">Cada peça da solução, com <span class="hl">versão e papel declarados</span></div>
+  <div class="sub">As bibliotecas estão agrupadas pela camada onde atuam. Nenhuma versão é aproximada: é a que está no ambiente que gerou os resultados do deck.</div>
+  <div class="cols">
+    <div class="tc">
+      <div class="th"><div>Tecnologia</div><div>Versão</div><div>Papel</div></div>
+      <div class="gh">Ingestão e preparo</div>
+      <div class="tr"><span class="nmm">pandas</span><span class="vr">2.2.3</span><span class="pp">Tipagem, filtro de elegibilidade e colunas de calendário</span></div>
+      <div class="tr"><span class="nmm">openpyxl</span><span class="vr">3.1.5</span><span class="pp">Leitura da aba Dataset Geral do arquivo oficial</span></div>
+      <div class="tr"><span class="nmm">holidays</span><span class="vr">0.97</span><span class="pp">Feriado nacional, ausente no dataset</span></div>
+      <div class="gh">Armazenamento</div>
+      <div class="tr"><span class="nmm">pyarrow</span><span class="vr">25.0</span><span class="pp">Escrita e leitura de Parquet nas duas camadas</span></div>
+      <div class="gh">Modelagem</div>
+      <div class="tr"><span class="nmm">Prophet</span><span class="vr">1.3.0</span><span class="pp">Volume diário de D+1 a D+7, em P2 e P3</span></div>
+      <div class="tr"><span class="nmm">cmdstanpy</span><span class="vr">1.3.0</span><span class="pp">Motor de ajuste que o Prophet usa por baixo</span></div>
+      <div class="tr"><span class="nmm">scikit-learn</span><span class="vr">1.6.1</span><span class="pp">Regressão logística de risco e as métricas</span></div>
+      <div class="tr"><span class="nmm">XGBoost</span><span class="vr">3.0.2</span><span class="pp">Baseline de comparação do modelo de risco</span></div>
+      <div class="tr"><span class="nmm">scipy</span><span class="vr">1.18</span><span class="pp">Testes e correlações das verificações</span></div>
+      <div class="tr"><span class="nmm">statsmodels</span><span class="vr">0.14.6</span><span class="pp">Diagnóstico das séries temporais</span></div>
+    </div>
+    <div class="tc">
+      <div class="th"><div>Tecnologia</div><div>Versão</div><div>Papel</div></div>
+      <div class="gh">Visualização</div>
+      <div class="tr"><span class="nmm">matplotlib</span><span class="vr">3.10</span><span class="pp">Figuras dos notebooks que vão para o deck</span></div>
+      <div class="tr"><span class="nmm">seaborn</span><span class="vr">0.13</span><span class="pp">Apoio estatístico aos gráficos da análise</span></div>
+      <div class="tr"><span class="nmm">plotly</span><span class="vr">6.0</span><span class="pp">Exploração interativa durante a modelagem</span></div>
+      <div class="gh">Aplicação e entrega</div>
+      <div class="tr"><span class="nmm">Django</span><span class="vr">6.1</span><span class="pp">Seis abas, quatro modais e o gráfico em SVG no servidor</span></div>
+      <div class="tr"><span class="nmm">gunicorn</span><span class="vr">23.0</span><span class="pp">Servidor de aplicação no contêiner</span></div>
+      <div class="tr"><span class="nmm">whitenoise</span><span class="vr">6.9</span><span class="pp">Entrega do estático sem servidor extra</span></div>
+      <div class="tr"><span class="nmm">Docker</span><span class="vr">slim</span><span class="pp">Imagem base python:3.13-slim, agnóstica de provedor de cloud</span></div>
+      <div class="bt3">Tratamento do dado</div>
+      <div class="th sec"><div>Controle</div><div>Valor</div><div>O que garante</div></div>
+      <div class="tr" style="border-top:none"><span class="nmm">Entrou para KPI?</span><span class="vr">oficial</span><span class="pp">Campo da Locaweb que junta prioridade, incidente pai e status</span></div>
+      <div class="tr"><span class="nmm">assert</span><span class="vr">2</span><span class="pp">Invariantes de contagem, na leitura e depois do filtro</span></div>
+    </div>
+  </div>
+  <div class="band">
+    <div class="bi2"><div class="bk">O corte que define a base</div>
+      <div class="bv"><span class="num">122.543</span> para <span class="num">25.600</span></div>
+      <p>O campo oficial <b>Entrou para KPI?</b> exige prioridade <b>1, 2 ou 3</b>, <b>Incidente Pai</b> vazio e status diferente de Sem Intervenção. Filtrar apenas pelo incidente pai devolveria <span class="out num">107.416</span> linhas.</p></div>
+    <div class="bi2"><div class="bk">Colunas derivadas</div>
+      <div class="bv">Cinco, todas de <span class="num">Aberto</span></div>
+      <p>dia, dia_semana, hora, ano e mes. São elas que sustentam a série diária de <b>P2</b> e <b>P3</b> e o efeito do dia da semana no Prophet.</p></div>
+    <div class="bi2"><div class="bk">Dado pessoal</div>
+      <div class="bv g">Nenhum campo identifica pessoa</div>
+      <p>A varredura das <b class="num">19</b> colunas não encontrou e-mail, CPF, telefone ou endereço IP. O campo de origem tem apenas <b>Manual</b> e <b>Monitoramento</b>.</p></div>
+  </div>
+</div>
+<div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

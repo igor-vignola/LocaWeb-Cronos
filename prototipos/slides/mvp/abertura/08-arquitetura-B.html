@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>08 Arquitetura · B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.a8b .body{padding-bottom:56px}
+.a8b .tt{font-size:34px}
+.a8b .lead{max-width:1090px;margin-top:10px;font-size:16.5px}
+.a8b .k{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  color:var(--tx2)}
+.a8b .mn{font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--accent);
+  background:var(--accent-l);border-radius:5px;padding:1px 6px;white-space:nowrap}
+.a8b .src{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:18px;
+  padding:18px 24px 20px;box-shadow:0 18px 42px -32px rgba(15,23,42,.28)}
+.a8b .srow{display:flex;gap:26px;margin-top:14px;align-items:stretch}
+.a8b .si{flex:1;min-width:0}
+.a8b .si+.si{border-left:1px solid var(--line);padding-left:26px}
+.a8b .note2{margin-top:12px;padding-top:11px;border-top:1px solid var(--line);
+  font-size:13.5px;line-height:1.5;color:var(--tx)}
+.a8b .note2 b{color:var(--head);font-weight:700}
+.a8b .sn{font-family:var(--mono);font-size:18px;font-weight:600;letter-spacing:-.4px;
+  color:var(--head)}
+.a8b .st2{font-size:12px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;
+  color:var(--accent);margin-bottom:5px}
+.a8b .si p{font-size:14px;line-height:1.5;color:var(--tx);margin-top:7px}
+.a8b .si p b{color:var(--head);font-weight:700}
+.a8b .si.nt2 .st2{color:var(--tx2)}
+.a8b .tbl{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:18px;
+  padding:19px 24px 8px;box-shadow:0 18px 42px -32px rgba(15,23,42,.28);flex:1;
+  display:flex;flex-direction:column;min-height:0}
+.a8b .th2,.a8b .tr2{display:grid;grid-template-columns:158px 232px 214px 1fr;gap:20px}
+.a8b .th2{padding-bottom:10px}
+.a8b .th2 span{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--tx2)}
+.a8b .tr2{padding:12px 0;border-top:1px solid var(--line);align-items:baseline}
+.a8b .tr2 .c1{font-size:13.5px;font-weight:700;color:var(--tx2);letter-spacing:.1px}
+.a8b .tr2 .c2{font-size:15.5px;font-weight:800;letter-spacing:-.3px;color:var(--head);
+  line-height:1.25}
+.a8b .tr2 .c2 .u2{display:block;font-size:12.5px;font-weight:600;color:var(--accent);
+  margin-top:3px;font-variant-numeric:tabular-nums}
+.a8b .tr2 .c3{font-size:14.5px;color:var(--tx2);line-height:1.25}
+.a8b .tr2 .c3 .x{text-decoration:line-through;text-decoration-color:#C9D2DE}
+.a8b .tr2 .c3 .u3{display:block;font-size:12.5px;font-weight:600;color:var(--bad);
+  margin-top:3px;font-variant-numeric:tabular-nums}
+.a8b .tr2 .c4{font-size:14px;line-height:1.45;color:var(--tx)}
+.a8b .tr2 .c4 b{color:var(--head);font-weight:700}
+</style>
+</head><body>
+<section class="slide light a8b">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><span class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></span><span class="bn">Cronos</span><span class="bt">VEJA ANTES · AJA ANTES</span><span class="tag">Template · slide 8</span></div>
+  <div class="body">
+    <span class="eb">Arquitetura da solução · fontes e escolhas</span>
+    <h1 class="tt">Duas fontes de dados, e cada peça com a alternativa que <span class="hl">ficou de fora</span></h1>
+    <p class="lead">A entrada é um arquivo, e a saída sobe em qualquer provedor. Entre as duas pontas, cinco decisões com o que ficou de fora.</p>
+    <div class="src">
+      <span class="k">Fontes de dados</span>
+      <div class="srow">
+        <div class="si">
+          <div class="st2">Fonte primária</div>
+          <div class="sn">LW-DATASET.xlsx</div>
+          <p>Aba Dataset Geral: <b class="num">122.543</b> incidentes em <b class="num">19</b> colunas, de jan/2023 a dez/2025. Arquivo oficial entregue pela Locaweb, com prioridade, status, equipe, produto, item de configuração e código de fechamento. Dele saem os prazos de OLA, <b>P2 em 4 horas</b> e <b>P3 em 12 horas</b>.</p>
+        </div>
+        <div class="si">
+          <div class="st2">Fonte externa · a única</div>
+          <div class="sn">holidays 0.97</div>
+          <p>Feriados nacionais do Brasil. O dataset não traz a coluna, e o volume de um feriado não se parece com o de um dia útil, então o feriado entra como característica de calendário na previsão, nas duas séries, <b>P3</b> e <b>P2</b>.</p>
+        </div>
+      </div>
+      <p class="note2"><b>Não há terceira entrada.</b> Nenhuma coleta nova, nenhuma API de sistema em produção e nenhuma base de pessoas: a varredura de dado pessoal fecha em <b>zero</b> e-mail, CPF, telefone ou endereço IP, e o campo de origem só tem Manual e Monitoramento.</p>
+    </div>
+    <div class="tbl">
+      <div class="th2"><span>Decisão</span><span>O que foi escolhido</span><span>Em vez de</span><span>Por quê</span></div>
+      <div class="tr2">
+        <span class="c1">Elegibilidade ao KPI</span>
+        <span class="c2">Campo oficial <span class="mn">Entrou para KPI?</span><span class="u2">25.600 incidentes</span></span>
+        <span class="c3"><span class="x"><span style="font-family:var(--mono);font-size:13px">Incidente Pai</span> vazio</span><span class="u3">107.416, ou 88% da base</span></span>
+        <span class="c4">A régua é da Locaweb, e já traz as três condições juntas. O filtro caseiro devolve quase toda a base e afundaria a medição.</span>
+      </div>
+      <div class="tr2">
+        <span class="c1">Provedor de nuvem</span>
+        <span class="c2">Serviços portáveis, Docker sobre <span class="mn">python:3.13-slim</span></span>
+        <span class="c3"><span class="x">Serviço gerenciado de AWS, GCP ou Azure</span></span>
+        <span class="c4">A Locaweb <b>é</b> uma nuvem. Entregar a solução amarrada a um concorrente inviabilizaria a adoção.</span>
+      </div>
+      <div class="tr2">
+        <span class="c1">Interface</span>
+        <span class="c2">Django, seis abas<span class="u2">Uma rota por aba, mais quatro de detalhe</span></span>
+        <span class="c3"><span class="x">Streamlit</span></span>
+        <span class="c4">Cada aba tem URL própria, então o link da fila já filtrada pode ser enviado a alguém.</span>
+      </div>
+      <div class="tr2">
+        <span class="c1">Persistência</span>
+        <span class="c2">Parquet lido na subida<span class="u2">295 kB por processo</span></span>
+        <span class="c3"><span class="x">Banco de dados</span></span>
+        <span class="c4">O volume cabe em arquivo. Um banco acrescentaria operação sem acrescentar capacidade.</span>
+      </div>
+      <div class="tr2">
+        <span class="c1">Onde o modelo treina</span>
+        <span class="c2">Nos notebooks, fora do ar</span>
+        <span class="c3"><span class="x">Treino dentro do contêiner</span></span>
+        <span class="c4">A aplicação só lê o que já foi gravado. A imagem fica pequena e a subida não depende de recalcular nada.</span>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

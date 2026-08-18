@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="base.css">
 <style>
 .s5b .tt{font-size:36px;margin-top:11px}
+.s5b .body{padding-bottom:56px}
 .s5b .row{flex:1;display:flex;gap:24px;margin-top:16px;min-height:0}
 .s5b .tml{flex:1;background:#fff;border:1px solid var(--line);border-radius:20px;
   padding:8px 26px 10px;box-shadow:0 18px 44px -30px rgba(15,23,42,.26);display:flex;
@@ -42,8 +43,17 @@
 .s5b .hero .hs{font-size:13.5px;color:#98A2B3;line-height:1.5;margin-top:10px}
 .s5b .hero .hs b{color:#fff;font-weight:700}
 .s5b .cd2{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 22px;
+  box-shadow:0 16px 40px -30px rgba(15,23,42,.24);flex:0 0 auto}
+.s5b .cd3{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 22px;
   box-shadow:0 16px 40px -30px rgba(15,23,42,.24);flex:1;display:flex;flex-direction:column;
-  min-height:0}
+  justify-content:space-between;min-height:0}
+.s5b .cd3 .fr{display:grid;grid-template-columns:1fr;gap:3px}
+.s5b .cd3 .fk{font-size:10.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;
+  color:var(--tx2)}
+.s5b .cd3 .fv{font-size:13.5px;line-height:1.45;color:var(--tx)}
+.s5b .cd3 .fv b{color:var(--head);font-weight:700}
+.s5b .cd3 .fv .mn2{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--head);
+  font-variant-numeric:tabular-nums}
 .s5b .cd2 .ck{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
   color:var(--tx2)}
 .s5b .abas{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
@@ -64,7 +74,7 @@
 </head><body>
 <section class="slide light s5b">
   <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· VEJA ANTES · AJA ANTES</span><div class="tag">Template · slide 5</div></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 5</div></div>
   <div class="body">
     <div class="eb">Proposta de solução · o turno de quem usa</div>
     <div class="tt">A solução aparece <span class="hl">na hora em que a decisão é tomada</span></div>
@@ -99,8 +109,8 @@
           <div>
             <div class="mh">A <span>regressão logística</span> diz em qual caso olhar agora</div>
             <div class="mtx">Dez características disponíveis na abertura do incidente, contra
-            prazo de 4 horas no P2 e 12 horas no P3. A fila é ordenada por risco, não por
-            ordem de chegada.</div>
+            prazo de 4 horas no P2 e 12 horas no P3. A ordem da fila passa a ser o risco
+            estimado, no lugar da hora de chegada.</div>
             <div class="mn">
               <div class="u"><div class="uk">Nos 50 primeiros</div><div class="uv num">15<small>violações</small></div></div>
               <div class="u"><div class="uk">Por prioridade, hoje</div><div class="uv b num">1<small>violação</small></div></div>
@@ -110,7 +120,7 @@
         </div>
 
         <div class="mo">
-          <div><div class="hh">Fecho<br>do mês</div><div class="hw">Aba Projeção</div></div>
+          <div><div class="hh">Mês</div><div class="hw">Fecho · aba Projeção</div></div>
           <div>
             <div class="mh">A projeção diz <span>em que degrau o ano fecha</span></div>
             <div class="mtx">Três parcelas: desfecho contado, incidente aberto pelo modelo de
@@ -146,13 +156,12 @@
         <div class="cd2">
           <div class="ck">Seis abas na aplicação</div>
           <div class="abas"><code>/</code><code>/previsao/</code><code>/projecao/</code><code>/fila/</code><code>/saude/</code><code>/causas/</code></div>
-          <p>Mais quatro rotas de detalhe que abrem como modal e um índice de busca. O contêiner
-          só lê Parquet: o pacote de dados tem <b>295 kB</b> e é carregado uma vez por processo.</p>
-          <div class="clk">
-            <div class="cv">01/10/2025 · 15h</div>
-            <div class="cl2">O relógio da aplicação fica parado nesse instante, e a tela só mostra
-            o que existiria nele.</div>
-          </div>
+          <p>Mais quatro rotas de detalhe que abrem como modal, e um índice de busca.</p>
+        </div>
+        <div class="cd3">
+          <div class="fr"><div class="fk">Relógio da aplicação</div><div class="fv"><span class="mn2">01/10/2025 · 15h</span>, parado. A tela só mostra o que existiria nesse instante.</div></div>
+          <div class="fr"><div class="fk">Onde os modelos treinam</div><div class="fv">Nos notebooks, que gravam Parquet. O contêiner só lê, e o pacote tem <b>295 kB</b>.</div></div>
+          <div class="fr"><div class="fk">Fonte externa e dado pessoal</div><div class="fv">Uma fonte só, a biblioteca <b>holidays</b>. A varredura não achou e-mail, CPF, telefone nem IP.</div></div>
         </div>
       </div>
     </div>

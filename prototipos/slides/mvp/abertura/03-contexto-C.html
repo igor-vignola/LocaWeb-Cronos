@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>03 Contexto · C</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.ch .body{padding-top:18px}
+.ch .tt{font-size:36px;margin-top:12px}
+.ch .lead{max-width:1180px;font-size:16.5px;margin-top:10px}
+
+.ch .chain{position:relative;display:flex;gap:48px;margin-top:16px;height:390px;flex-shrink:0}
+.ch .arrows{position:absolute;left:0;top:0;width:1472px;height:390px;pointer-events:none}
+.ch .nd{width:332px;flex-shrink:0;background:#fff;border:1px solid var(--line);border-radius:18px;
+  padding:20px 22px 18px;box-shadow:0 18px 44px -32px rgba(15,23,42,.3);
+  display:flex;flex-direction:column}
+.ch .nd.fin{background:linear-gradient(160deg,#0B1220,#131C2E);border-color:transparent;
+  box-shadow:0 30px 66px -34px rgba(11,18,32,.72)}
+.ch .ck{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--tx2)}
+.ch .nd.fin .ck{color:#8E97A8}
+.ch .qn{width:26px;height:26px;border-radius:8px;background:var(--accent-l);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:800;
+  letter-spacing:0;flex-shrink:0;font-variant-numeric:tabular-nums}
+.ch .nd.fin .qn{background:rgba(96,165,250,.2);color:#93C5FD}
+.ch .chd{font-size:18.5px;font-weight:800;letter-spacing:-.5px;line-height:1.2;color:var(--head);
+  margin-top:12px}
+.ch .nd.fin .chd{color:#fff}
+.ch .cex{font-size:13px;line-height:1.5;color:var(--tx);margin-top:11px}
+.ch .nd.fin .cex{color:#98A2B3}
+.ch .cex b{color:var(--head);font-weight:700}
+.ch .nd.fin .cex b{color:#fff}
+.ch .mv{margin-top:auto;padding-top:15px;border-top:1px solid var(--line)}
+.ch .nd.fin .mv{border-top-color:rgba(255,255,255,.13)}
+.ch .mvv{font-size:26px;font-weight:800;letter-spacing:-1.1px;line-height:1.05;color:var(--head)}
+.ch .mvv i{font-style:normal;font-size:15px;font-weight:700;color:var(--tx2);margin:0 4px}
+.ch .nd.warn .mvv{color:var(--warn)}
+.ch .nd.fin .mvv{color:#4ADE80}
+.ch .nd.fin .mvv i{color:#6B7688}
+.ch .mvl{font-size:12.5px;line-height:1.4;color:var(--tx);margin-top:5px}
+.ch .nd.fin .mvl{color:#98A2B3}
+.ch .mvl b{color:var(--head);font-weight:700}
+.ch .nd.fin .mvl b{color:#fff}
+.ch .sub2{display:flex;flex-direction:column;gap:7px;margin-top:13px}
+.ch .sr{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:12.5px;
+  color:var(--tx)}
+.ch .sr span{color:var(--tx2)}
+.ch .sr b{font-weight:800;color:var(--head);font-variant-numeric:tabular-nums}
+
+.ch .band{display:flex;gap:34px;margin-top:20px;background:#fff;border:1px solid var(--line);
+  border-radius:18px;padding:26px 28px;box-shadow:0 18px 44px -32px rgba(15,23,42,.3);
+  flex-shrink:0}
+.ch .band .bl{flex:1;min-width:0}
+.ch .band .bk{font-size:11.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  color:var(--tx2)}
+.ch .band .bp{font-size:17px;line-height:1.55;color:var(--tx);margin-top:12px}
+.ch .band .bp b{color:var(--head);font-weight:700}
+.ch .band .br2{width:498px;flex-shrink:0;padding-left:34px;border-left:1px solid var(--line)}
+.ch .band .duo{display:flex;gap:26px;margin-top:12px}
+.ch .band .dq{flex:1}
+.ch .band .dv{font-size:40px;font-weight:900;letter-spacing:-1.9px;line-height:1;color:var(--bad)}
+.ch .band .dq.ok .dv{color:var(--good)}
+.ch .band .dl{font-size:13px;line-height:1.45;color:var(--tx);margin-top:8px}
+.ch .band .dl b{color:var(--head);font-weight:700}
+</style>
+</head><body>
+<section class="slide light ch">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 3</div></div>
+  <div class="body">
+    <div class="eb">Contextualização · cadeia causal da anomalia de setembro</div>
+    <div class="tt">Setembro de 2025: <span class="hl">o volume saltou</span> e o indicador não se mexeu</div>
+    <div class="lead">A investigação de causa raiz da maior anomalia da base. Cada elo traz o valor de agosto ao lado do de setembro de 2025.</div>
+
+    <div class="chain">
+      <svg class="arrows" viewBox="0 0 1472 390" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="340" y1="190" x2="360" y2="190" stroke="#B9C4D2" stroke-width="2.2" stroke-linecap="round"/>
+        <polygon points="358,183 372,190 358,197" fill="#B9C4D2"/>
+        <line x1="720" y1="190" x2="740" y2="190" stroke="#B9C4D2" stroke-width="2.2" stroke-linecap="round"/>
+        <polygon points="738,183 752,190 738,197" fill="#B9C4D2"/>
+        <line x1="1100" y1="190" x2="1120" y2="190" stroke="#B9C4D2" stroke-width="2.2" stroke-linecap="round"/>
+        <polygon points="1118,183 1132,190 1118,197" fill="#B9C4D2"/>
+      </svg>
+
+      <div class="nd">
+        <div class="ck"><span class="qn num">01</span>Gatilho · setembro de 2025</div>
+        <div class="chd">O monitoramento automático passa a cobrir ativos que antes ninguém observava</div>
+        <div class="cex">Item de configuração é o ativo vigiado. Aparecer pela primeira vez na base significa que ele entrou na cobertura naquele mês.</div>
+        <div class="mv">
+          <div class="mvv num">458 <i>para</i> 1.693</div>
+          <div class="mvl">itens de configuração aparecendo pela primeira vez na base, de agosto para setembro</div>
+        </div>
+      </div>
+
+      <div class="nd warn">
+        <div class="ck"><span class="qn num">02</span>Efeito no volume</div>
+        <div class="chd">A abertura de incidentes salta, e apenas do lado automático</div>
+        <div class="cex">A abertura feita por pessoa fica onde estava. Todo o excedente entra por Monitoramento.</div>
+        <div class="sub2">
+          <div class="sr"><span>Origem Monitoramento</span><b>2.404 · 20.008</b></div>
+          <div class="sr"><span>Origem Manual</span><b>1.592 · 1.553</b></div>
+        </div>
+        <div class="mv">
+          <div class="mvv num">3.996 <i>para</i> 21.561</div>
+          <div class="mvl">volume total do mês. A abertura por pessoa ficou onde estava</div>
+        </div>
+      </div>
+
+      <div class="nd warn">
+        <div class="ck"><span class="qn num">03</span>Efeito no ruído</div>
+        <div class="chd">O excedente fecha sem que ninguém precise intervir</div>
+        <div class="cex">Uma única descrição responde por boa parte do mês, <b>6.590</b> vezes: Problem: Check Application Monitoring.</div>
+        <div class="mv">
+          <div class="mvv num">47 <i>para</i> 17.838</div>
+          <div class="mvl">incidentes com status <b>Sem Intervenção</b>, que por regra ficam fora da meta</div>
+        </div>
+      </div>
+
+      <div class="nd fin">
+        <div class="ck"><span class="qn num">04</span>Efeito no indicador</div>
+        <div class="chd">Nenhum. A série que vale para a meta atravessa intacta</div>
+        <div class="cex">O campo oficial <b>Entrou para KPI</b> já descarta o que fecha como Sem Intervenção, e o excedente de setembro não passa nesse filtro.</div>
+        <div class="mv">
+          <div class="mvv num">2.330 <i>para</i> 2.324</div>
+          <div class="mvl">incidentes elegíveis ao KPI. A causa foi concluída: <b>mais evento capturado</b>, não mais falha na operação</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="bl">
+        <div class="bk">O que sobra para quem opera</div>
+        <div class="bp">A tela do dia passa de <b>3.996</b> para <b>21.561</b> registros no mês e não ganha nenhum sinal novo. O volume diário explica <b>2,5%</b> da variação de violações, com r de <b>0,159</b>. E ordenar a fila por prioridade, o padrão de qualquer ITSM, tem ROC AUC de <b>0,4693</b>, abaixo dos <b>0,5063</b> de uma fila sorteada.</div>
+      </div>
+      <div class="br2">
+        <div class="bk">O indicador que vale, e ele só fecha em dezembro</div>
+        <div class="duo">
+          <div class="dq"><div class="dv num">42</div><div class="dl">violações no <b>P2</b> em 2025. Nota <b>75%</b>, contra os 39 que valiam 100%</div></div>
+          <div class="dq ok"><div class="dv num">196</div><div class="dl">violações no <b>P3</b> em 2025. Nota <b>150%</b>, com a faixa valendo até 200</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

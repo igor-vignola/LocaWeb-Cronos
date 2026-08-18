@@ -42,8 +42,10 @@ html,body{height:100%;background:var(--bg);font-family:var(--font);overflow:hidd
 #pick:hover{background:rgba(74,222,128,.12)}
 
 #frame{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:18px}
-#frame iframe{width:1600px;height:900px;border:0;background:#fff;border-radius:6px;
-  box-shadow:0 30px 80px -30px rgba(0,0,0,.7);transform-origin:center center}
+/* `flex-shrink:0` e obrigatorio: sem ele o iframe encolhe como item flex, o viewport
+   interno fica menor que 1600 e o slide vaza cortado nas laterais em vez de escalar. */
+#frame iframe{width:1600px;height:900px;flex:0 0 auto;border:0;background:#fff;
+  border-radius:6px;box-shadow:0 30px 80px -30px rgba(0,0,0,.7);transform-origin:center center}
 
 #foot{height:38px;flex-shrink:0;display:flex;align-items:center;gap:20px;padding:0 20px;
   border-top:1px solid var(--line);background:var(--pan);font-size:12px;color:var(--tx2)}

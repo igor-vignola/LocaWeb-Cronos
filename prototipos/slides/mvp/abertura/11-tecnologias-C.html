@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>11 Tecnologias · C</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.c11 .hd{padding-top:30px}
+.c11 .body{padding:12px 64px 54px}
+.c11 .tt{font-size:33px;margin-top:10px;letter-spacing:-1.2px}
+.c11 .sub{font-size:15px;line-height:1.45;color:var(--tx);margin-top:8px;max-width:1180px}
+.c11 .sub b{color:var(--head);font-weight:700}
+.c11 .duo{flex:1;min-height:0;display:flex;gap:18px;margin-top:14px}
+.c11 .rail{flex:1;background:#fff;border:1px solid var(--line);border-radius:18px;
+  padding:16px 22px 18px;box-shadow:0 18px 42px -32px rgba(15,23,42,.3);position:relative;
+  display:flex;flex-direction:column;min-width:0}
+.c11 .rh{font-size:11.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;
+  color:var(--tx2);flex-shrink:0;padding-bottom:4px}
+.c11 .steps{flex:1;display:flex;flex-direction:column;position:relative;min-height:0}
+.c11 .steps::before{content:'';position:absolute;left:15px;top:26px;bottom:26px;width:2px;
+  background:linear-gradient(180deg,#DCE5F2,var(--accent3),var(--accent));border-radius:2px}
+.c11 .stp2{flex:1;display:grid;grid-template-columns:32px 214px 1fr;gap:16px;align-items:center;
+  position:relative;min-height:0}
+.c11 .stp2 .bd{width:32px;height:32px;border-radius:10px;background:#fff;border:2px solid #DCE5F2;
+  color:var(--tx2);font-size:13px;font-weight:800;display:flex;align-items:center;
+  justify-content:center;z-index:2}
+.c11 .stp2.hot .bd{border-color:var(--accent);background:var(--accent);color:#fff}
+.c11 .stp2 .wh{min-width:0}
+.c11 .stp2 .wn{font-size:16px;font-weight:800;letter-spacing:-.35px;color:var(--head);
+  line-height:1.15}
+.c11 .stp2 .cp{display:inline-block;font-family:var(--mono);font-size:11.5px;font-weight:500;
+  color:var(--accent);background:var(--accent-l);border:1px solid #D6E4FE;border-radius:7px;
+  padding:3px 8px;margin-top:6px;white-space:nowrap}
+.c11 .stp2 p{font-size:13.5px;line-height:1.45;color:var(--tx);min-width:0}
+.c11 .stp2 p b{color:var(--head);font-weight:700}
+.c11 .stp2 p .mn{font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--head)}
+.c11 .side{width:352px;flex-shrink:0;display:flex;flex-direction:column;gap:14px}
+.c11 .sc{flex:1;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 20px;
+  box-shadow:0 16px 38px -32px rgba(15,23,42,.28);display:flex;flex-direction:column;
+  justify-content:center}
+.c11 .sc .sk2{font-size:10.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--tx2)}
+.c11 .sc .sh2{font-size:16.5px;font-weight:800;letter-spacing:-.4px;color:var(--head);margin-top:5px;
+  line-height:1.15}
+.c11 .sc p{font-size:13px;line-height:1.45;color:var(--tx);margin-top:7px}
+.c11 .sc p b{color:var(--head);font-weight:700}
+.c11 .sc .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.c11 .sc .cp{font-family:var(--mono);font-size:11.5px;font-weight:500;color:var(--accent);
+  background:var(--accent-l);border:1px solid #D6E4FE;border-radius:7px;padding:3px 8px;
+  white-space:nowrap}
+.c11 .code{font-family:var(--mono);font-size:11.5px;color:var(--head);background:#F5F8FD;
+  border:1px solid #E4EBF5;border-radius:8px;padding:8px 11px;margin-top:9px;line-height:1.7}
+.c11 .code em{font-style:normal;color:var(--accent)}
+.c11 .checks{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.c11 .ck{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;
+  color:var(--good);background:var(--good-l);border-radius:8px;padding:4px 9px;white-space:nowrap}
+.c11 .ck svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.8;
+  stroke-linecap:round;stroke-linejoin:round}
+</style>
+</head><body>
+<section class="slide light c11">
+<div class="mesh"></div><div class="grid-bg"></div>
+<div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 11</div></div>
+<div class="body">
+  <div class="eb">Descrição da arquitetura · elementos</div>
+  <div class="tt">Uma linha do dataset, e <span class="hl">a tecnologia que toca ela em cada ponto</span></div>
+  <div class="sub">O mesmo incidente percorre as sete paradas abaixo. À direita, o que roda em paralelo e o que nunca acompanha a linha.</div>
+  <div class="duo">
+    <div class="rail">
+      <div class="rh">O caminho de um incidente, da planilha à tela</div>
+      <div class="steps">
+        <div class="stp2"><span class="bd">1</span>
+          <div class="wh"><div class="wn">Na planilha</div><span class="cp">openpyxl 3.1.5</span></div>
+          <p>Ela é uma linha entre <b class="num">122.543</b>, com <b class="num">19</b> colunas, na aba <b>Dataset Geral</b>. Chega como texto e número, sem nenhuma conversão.</p></div>
+        <div class="stp2"><span class="bd">2</span>
+          <div class="wh"><div class="wn">Na tipagem</div><span class="cp">pandas 2.2.3</span></div>
+          <p><b>Aberto</b> e <b>Resolvido</b> viram data, prioridade e status viram categoria, e nascem cinco colunas de calendário: <span class="mn">dia, dia_semana, hora, ano, mes</span>.</p></div>
+        <div class="stp2"><span class="bd">3</span>
+          <div class="wh"><div class="wn">Na portaria do KPI</div><span class="cp">pandas 2.2.3</span></div>
+          <p>O campo oficial <b>Entrou para KPI?</b> decide se ela conta para a meta do ano. Se passar, é uma das <b class="num">25.600</b> elegíveis.</p></div>
+        <div class="stp2"><span class="bd">4</span>
+          <div class="wh"><div class="wn">No disco analítico</div><span class="cp">pyarrow 25.0</span></div>
+          <p>Gravada em <span class="mn">data/interim/incidentes_kpi.parquet</span>. Daqui em diante, todo notebook lê este arquivo, e não a planilha.</p></div>
+        <div class="stp2"><span class="bd">5</span>
+          <div class="wh"><div class="wn">No modelo de risco</div><span class="cp">scikit-learn 1.6.1</span></div>
+          <p><b class="num">10</b> características disponíveis na abertura viram <b class="num">136</b> colunas codificadas, e a linha recebe sua probabilidade de violar o OLA.</p></div>
+        <div class="stp2"><span class="bd">6</span>
+          <div class="wh"><div class="wn">No pacote servido</div><span class="cp">pyarrow 25.0</span></div>
+          <p>Entra na fila pontuada, dentro dos <b class="num">295 kB</b> de <span class="mn">data/app</span>, ao lado da previsão de volume e da projeção do KPI.</p></div>
+        <div class="stp2 hot"><span class="bd">7</span>
+          <div class="wh"><div class="wn">Na tela</div><span class="cp">Django 6.1</span></div>
+          <p>A aplicação lê o pacote quando sobe, desenha o gráfico em SVG no servidor, e a linha aparece na aba <span class="mn">/fila/</span> com o prazo que vale para ela: <b class="num">4 horas</b> no P2, <b class="num">12 horas</b> no P3.</p></div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="sc"><div class="sk2">Em paralelo</div>
+        <div class="sh2">O Prophet entra por outro caminho</div>
+        <p>Ele não vê o incidente. Trabalha a contagem diária de <b>P2</b> e <b>P3</b>, devolve o volume de <b>D+1 a D+7</b> e grava no mesmo pacote da parada 6.</p>
+        <div class="chips"><span class="cp">Prophet 1.3.0</span><span class="cp">cmdstanpy 1.3.0</span></div></div>
+      <div class="sc"><div class="sk2">A trava do caminho</div>
+        <div class="sh2">Duas contagens que não podem mudar</div>
+        <p>Uma na leitura da planilha, outra depois do filtro. Se a base ou a regra mudar, o notebook falha antes de publicar.</p>
+        <div class="code">assert len(df_raw) == <em>122_543</em><br>assert len(df_kpi) == <em>25_600</em></div></div>
+      <div class="sc"><div class="sk2">O que não viaja com a linha</div>
+        <div class="sh2">Nenhum dado pessoal</div>
+        <p>A varredura das <b class="num">19</b> colunas não encontrou identificador de pessoa. O campo de origem tem apenas <b>Manual</b> e <b>Monitoramento</b>.</p>
+        <div class="checks"><span class="ck"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Sem e-mail</span><span class="ck"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Sem CPF</span><span class="ck"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Sem telefone</span><span class="ck"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Sem endereço IP</span></div></div>
+    </div>
+  </div>
+</div>
+<div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>
