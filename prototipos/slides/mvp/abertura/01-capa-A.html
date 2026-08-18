@@ -5,57 +5,64 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
-.cA .body{padding:24px 64px 58px}
-.cA .word{font-size:296px;letter-spacing:-15px;margin-top:22px}
-.cA .tag2{font-size:44px;margin-top:2px}
-.cA .sub2{font-size:19px;max-width:700px;margin-top:20px}
-.cA .glass{margin-top:auto;gap:18px}
-.cA .gc{padding:19px 24px 20px}
-.cA .rows{display:flex;flex-direction:column;gap:6px;margin-top:11px}
-.cA .rw{display:flex;align-items:baseline;justify-content:space-between;gap:16px;font-size:14.5px;
-  color:var(--head);font-weight:600}
-.cA .rw .rm{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--accent);
-  letter-spacing:.3px;font-variant-numeric:tabular-nums}
-.cA .gc .gs{font-size:13.5px;margin-top:6px}
-.cA .dte{font-size:26px;font-weight:800;letter-spacing:-.8px;color:var(--head);margin-top:10px;
-  font-variant-numeric:tabular-nums}
+/* Capa da Sprint 2, mantida: composição centrada, fundo claro.
+   Muda só o rótulo da sprint, a pílula (agora no estilo .tag) e sai o card de data. */
+.cvA .mesh{background:
+  radial-gradient(640px 520px at 10% 6%,rgba(37,99,235,.20),transparent 62%),
+  radial-gradient(580px 500px at 92% 92%,rgba(37,99,235,.17),transparent 64%),
+  radial-gradient(820px 560px at 86% -8%,rgba(96,165,250,.14),transparent 60%)}
+.cvA .body{padding:14px 64px 78px;align-items:stretch;justify-content:flex-start}
+.cvA .hero{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center}
+.cvA .plabel{font-size:15.5px;font-weight:600;letter-spacing:.1px;color:var(--accent);
+  background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 22px;
+  box-shadow:0 6px 20px -10px rgba(37,99,235,.32)}
+.cvA .word{font-size:214px;font-weight:900;letter-spacing:-10px;line-height:.9;color:#000;
+  margin-top:28px}
+.cvA .tag2{font-size:38px;font-weight:500;letter-spacing:-.9px;color:#525252;margin-top:14px}
+.cvA .tag2 b{color:#000;font-weight:800}
+.cvA .sub2{font-size:18px;line-height:1.55;color:var(--tx);margin-top:22px;max-width:640px}
+
+.cvA .credits{width:1010px;margin:0 auto;display:grid;
+  grid-template-columns:1fr 1px 1fr;align-items:center;gap:32px;
+  background:rgba(255,255,255,.74);border:1px solid var(--line);border-radius:16px;
+  padding:20px 32px;box-shadow:0 20px 48px -34px rgba(15,23,42,.32)}
+.cvA .cd .ck{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--tx2)}
+.cvA .cd .cn{font-size:17px;font-weight:700;letter-spacing:-.3px;color:var(--head);margin-top:8px}
+.cvA .cd .cs{font-size:13.5px;color:var(--tx);margin-top:5px}
+.cvA .cd.r{text-align:right}
+.cvA .vl{align-self:stretch;background:linear-gradient(180deg,transparent,#D9E0EA,transparent)}
 </style>
 </head><body>
-<section class="slide light cp cA">
+<section class="slide light cp cvA">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span>
-    <div class="tag">Template · slide 1</div>
+    <div class="bn">Cronos</div><span class="bt">SPRINT 03 · MVP PRELIMINAR</span>
+    <div class="tag">Challenge FIAP 2026 com Locaweb</div>
   </div>
   <div class="body">
-    <div class="pill">Sprint 03 · MVP Preliminar</div>
-    <div class="word">Cronos</div>
-    <div class="tag2"><b>Veja antes.</b> Aja antes.</div>
-    <div class="sub2">Lê o histórico operacional da Locaweb e aponta, no instante da abertura,
-      qual incidente vai furar o prazo de OLA.</div>
-    <div class="glass">
-      <div class="gc">
-        <div class="gk">Equipe Super Data Bros · Turma 2TSCOA</div>
-        <div class="rows">
-          <div class="rw"><span>Ana Beatriz Costa de Oliveira</span><span class="rm">RM561310</span></div>
-          <div class="rw"><span>Hygor Abrantes</span><span class="rm">RM565063</span></div>
-          <div class="rw"><span>Igor Vignola</span><span class="rm">RM561428</span></div>
-        </div>
+    <div class="hero">
+      <div class="plabel">Inteligência preditiva para incidentes</div>
+      <div class="word">Cronos</div>
+      <div class="tag2"><b>Veja antes.</b> Aja antes.</div>
+      <div class="sub2">Lê o histórico da Locaweb e avisa antes do KPI estourar.</div>
+    </div>
+    <div class="credits">
+      <div class="cd">
+        <div class="ck">Equipe · Super Data Bros · 2TSCOA</div>
+        <div class="cn">Ana Beatriz Costa · Hygor Abrantes · Igor Vignola</div>
+        <div class="cs">FIAP · Tecnólogo em Data Science</div>
       </div>
-      <div class="gc">
-        <div class="gk">Mentor Locaweb</div>
-        <div class="gv">Douglas Gouveia</div>
-        <div class="gs">Gerente Executivo de Operações</div>
-        <div class="gs">FIAP · Tecnólogo em Data Science</div>
-      </div>
-      <div class="gc">
-        <div class="gk">Entrega</div>
-        <div class="dte">23/08/2026</div>
-        <div class="gs">Terceira das quatro entregas do Challenge</div>
+      <div class="vl"></div>
+      <div class="cd r">
+        <div class="ck">Mentor Locaweb</div>
+        <div class="cn">Douglas Gouveia</div>
+        <div class="cs">Gerente Executivo de Operações</div>
       </div>
     </div>
   </div>
-  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Sprint 03 · MVP preliminar</span></div>
 </section>
 </body></html>

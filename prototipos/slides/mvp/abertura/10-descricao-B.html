@@ -5,94 +5,106 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
-.b10 .hd{padding-top:30px}
-.b10 .body{padding:12px 64px 54px}
-.b10 .tt{font-size:33px;margin-top:10px;letter-spacing:-1.2px}
-.b10 .sub{font-size:15px;line-height:1.45;color:var(--tx);margin-top:8px;max-width:1160px}
-.b10 .sub b{color:var(--head);font-weight:700}
-.b10 .cmp{flex:1;min-height:0;margin-top:14px;background:#fff;border:1px solid var(--line);
-  border-radius:18px;box-shadow:0 18px 42px -32px rgba(15,23,42,.3);display:flex;
-  flex-direction:column;overflow:hidden}
-.b10 .hrow,.b10 .rw{display:grid;grid-template-columns:212px 336px 1fr}
-.b10 .hrow{background:#F6F9FE;border-bottom:1px solid #E4EBF5;flex-shrink:0}
-.b10 .hrow div{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--tx2);padding:12px 22px}
-.b10 .hrow div.ours{color:var(--accent)}
-.b10 .rw{flex:1;border-top:1px solid var(--line);min-height:0}
-.b10 .rw:first-of-type{border-top:none}
-.b10 .rw .c1{padding:12px 22px;display:flex;flex-direction:column;justify-content:center;
-  background:#FBFCFE;border-right:1px solid #EDF1F7}
-.b10 .rw .c1 .cn{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--tx2)}
-.b10 .rw .c1 .cm{font-size:16.5px;font-weight:800;letter-spacing:-.4px;color:var(--head);
-  margin-top:4px;line-height:1.13}
-.b10 .rw .c2{padding:12px 22px;display:flex;flex-direction:column;justify-content:center;
-  border-right:1px dashed #D4DEEC}
-.b10 .rw .c2 .sg{font-family:var(--mono);font-size:13px;font-weight:500;color:#7C8798;
-  line-height:1.5}
-.b10 .rw .c2 .sn{font-size:12.5px;color:var(--tx2);margin-top:5px;line-height:1.35}
-.b10 .rw .c3{padding:12px 22px;display:flex;flex-direction:column;justify-content:center;
-  min-width:0}
-.b10 .rw .c3 .vh{font-size:15.5px;font-weight:800;letter-spacing:-.3px;color:var(--accent);
-  line-height:1.15}
-.b10 .rw .c3 p{font-size:13.5px;line-height:1.45;color:var(--tx);margin-top:5px}
-.b10 .rw .c3 p b{color:var(--head);font-weight:700}
-.b10 .close{flex-shrink:0;margin-top:13px;background:#fff;border:1px solid var(--line);
-  border-radius:16px;padding:16px 22px;display:flex;align-items:center;gap:20px;
-  box-shadow:0 16px 38px -32px rgba(15,23,42,.28)}
-.b10 .close p{font-size:14.5px;line-height:1.5;color:var(--tx)}
-.b10 .close p b{color:var(--head);font-weight:700}
+/* 10 B · a descrição organizada nas cinco camadas, uma faixa por camada */
+.b10 .body{padding-bottom:54px}
+.b10 .tt{font-size:34px;letter-spacing:-1.2px}
+
+.b10 .lay{flex:1;min-height:0;margin-top:20px;display:flex;flex-direction:column;gap:13px}
+.b10 .bn2{flex:1;min-height:0;background:#fff;border:1px solid var(--line);border-radius:16px;
+  padding:16px 24px;box-shadow:0 16px 38px -32px rgba(15,23,42,.3);
+  display:grid;grid-template-columns:300px 1fr auto;gap:26px;align-items:center}
+.b10 .lf{display:flex;align-items:center;gap:12px;min-width:0}
+.b10 .nn{width:27px;height:27px;border-radius:8px;background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;
+  font-variant-numeric:tabular-nums;flex-shrink:0}
+.b10 .ln{font-size:18px;font-weight:800;letter-spacing:-.4px;color:var(--head);line-height:1.15}
+.b10 .im{font-size:14.5px;line-height:1.5;color:var(--tx);min-width:0}
+.b10 .im b{color:var(--head);font-weight:700}
+.b10 .im .mn{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--head)}
+.b10 .fls{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap}
+.b10 .fl{font-family:var(--mono);font-size:11.5px;font-weight:500;color:var(--accent);
+  background:var(--accent-l);border-radius:6px;padding:4px 8px}
+
+/* placas de tecnologia */
+.b10 .tech{display:flex;gap:16px;align-items:flex-start}
+.b10 .tc{width:66px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.b10 .pl{width:52px;height:52px;flex-shrink:0;display:flex;align-items:center;
+  justify-content:center}
+.b10 .pl img{width:100%;height:100%;object-fit:contain;display:block}
+.b10 .tl{width:45px;height:45px;border-radius:11px;background:#fff;border:1px solid #E9EDF3;
+  display:flex;align-items:center;justify-content:center}
+.b10 .tl i{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;
+  justify-content:center;font-style:normal;color:#fff;font-weight:800;font-size:12.5px}
+.b10 .tl i.l3{font-size:10.5px}
+.b10 .tn{font-size:10.5px;font-weight:700;letter-spacing:.2px;color:var(--tx2);
+  text-align:center;line-height:1.2}
+.b10 .sk{background:#F09437}
+.b10 .pa{background:#1B2A4A}
+.b10 .plt{background:#11557C}
+.b10 .xl{background:#217346}
 </style>
 </head><body>
 <section class="slide light b10">
-<div class="mesh"></div><div class="grid-bg"></div>
-<div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 10</div></div>
-<div class="body">
-  <div class="eb">Descrição da arquitetura da solução</div>
-  <div class="tt">As cinco camadas do template, e <span class="hl">por que trocamos a ferramenta de cada uma</span></div>
-  <div class="sub">A coluna do meio traz a tecnologia que a dica do template cita como exemplo. A da direita traz a nossa, com o número que sustentou a escolha.</div>
-  <div class="cmp">
-    <div class="hrow"><div>Camada</div><div>Exemplo citado na dica</div><div class="ours">O que o Cronos usa, e por quê</div></div>
-    <div class="rw">
-      <div class="c1"><div class="cn">01</div><div class="cm">Fontes de Dados</div></div>
-      <div class="c2"><div class="sg">Banco transacional · API · sensor</div>
-        <div class="sn">Origens contínuas, consultadas ao vivo.</div></div>
-      <div class="c3"><div class="vh">Planilha oficial da Locaweb e biblioteca holidays</div>
-        <p>A operação registra no ITSM e exporta a base fechada de <b class="num">122.543</b> incidentes. Não existe endpoint para consultar, então a fonte é o arquivo e o feriado nacional vem de biblioteca.</p></div>
-    </div>
-    <div class="rw">
-      <div class="c1"><div class="cn">02</div><div class="cm">Pipeline de Ingestão</div></div>
-      <div class="c2"><div class="sg">Apache Kafka · Apache NiFi</div>
-        <div class="sn">Ingestão de evento em fluxo.</div></div>
-      <div class="c3"><div class="vh">pandas com openpyxl, leitura única</div>
-        <p>Ferramenta de fluxo serve a um evento que chega a toda hora. Aqui o arquivo é lido inteiro de uma vez, e o filtro oficial deixa <b class="num">25.600</b> linhas prontas em segundos.</p></div>
-    </div>
-    <div class="rw">
-      <div class="c1"><div class="cn">03</div><div class="cm">Armazenamento de Dados</div></div>
-      <div class="c2"><div class="sg">Data lake · data warehouse</div>
-        <div class="sn">Camada para volume que não cabe em memória.</div></div>
-      <div class="c3"><div class="vh">Parquet via pyarrow, em duas pastas</div>
-        <p><b>data/interim</b> para a base analítica e <b>data/app</b> para o que a tela lê, com <b class="num">350 kB</b>. Sem banco de dados: em produção ninguém escreve, só lê.</p></div>
-    </div>
-    <div class="rw">
-      <div class="c1"><div class="cn">04</div><div class="cm">Processamento de Dados</div></div>
-      <div class="c2"><div class="sg">Apache Spark · Hadoop</div>
-        <div class="sn">Processamento distribuído em cluster.</div></div>
-      <div class="c3"><div class="vh">Prophet, scikit-learn e pandas em notebook</div>
-        <p>Duas séries diárias no Prophet, <b>P2</b> e <b>P3</b>, e <b class="num">136</b> colunas codificadas na regressão logística. Cabe num processo só, e distribuir custaria mais coordenação do que cálculo.</p></div>
-    </div>
-    <div class="rw">
-      <div class="c1"><div class="cn">05</div><div class="cm">Visualização e Análise</div></div>
-      <div class="c2"><div class="sg">Tableau · Power BI</div>
-        <div class="sn">Painel montado em ferramenta de BI.</div></div>
-      <div class="c3"><div class="vh">Django com gráfico em SVG no servidor</div>
-        <p>O produto precisa empurrar alerta e fila acionável, com <b class="num">quatro</b> rotas de detalhe e um índice de busca. Ferramenta de BI mostra o painel, mas não guarda essa regra nem entra na imagem Docker.</p></div>
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><span class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></span><span class="bn">Cronos</span><span class="bt">VEJA ANTES · AJA ANTES</span><span class="tag">Template · slide 10</span></div>
+
+  <div class="body">
+    <span class="eb">Descrição da arquitetura</span>
+    <h1 class="tt">As cinco camadas e o que <span class="hl">roda em cada uma</span></h1>
+
+    <div class="lay">
+
+      <div class="bn2">
+        <div class="lf"><span class="nn">1</span><span class="ln">Fontes de dados</span></div>
+        <div class="im">A planilha oficial da Locaweb e a lista de feriados nacionais que ela não traz.</div>
+        <div class="tech">
+          <span class="tc"><span class="pl"><span class="tl"><i class="xl">xl</i></span></span><span class="tn">openpyxl</span></span>
+          <span class="tc"><span class="pl"><img src="../../../../brand/logos/holidays.png" alt="holidays"></span><span class="tn">holidays</span></span>
+        </div>
+      </div>
+
+      <div class="bn2">
+        <div class="lf"><span class="nn">2</span><span class="ln">Pipeline de ingestão</span></div>
+        <div class="im">Leitura, limpeza e o campo <span class="mn">Entrou para KPI?</span>, que deixa <b class="num">25.600</b> elegíveis.</div>
+        <div class="tech">
+          <span class="tc"><span class="pl"><img src="../../../../brand/logos/python.png" alt="Python"></span><span class="tn">Python</span></span>
+          <span class="tc"><span class="pl"><img src="../../../../brand/logos/pandas.png" alt="pandas"></span><span class="tn">pandas</span></span>
+        </div>
+      </div>
+
+      <div class="bn2">
+        <div class="lf"><span class="nn">3</span><span class="ln">Armazenamento</span></div>
+        <div class="im">Parquet e JSON gravados pelos notebooks. A aplicação carrega <b class="num">350 kB</b> uma vez por processo.
+          <div class="fls"><span class="fl">painel.json</span><span class="fl">dias.json</span><span class="fl">fila.parquet</span></div>
+        </div>
+        <div class="tech">
+          <span class="tc"><span class="pl"><span class="tl"><i class="pa">pa</i></span></span><span class="tn">pyarrow</span></span>
+        </div>
+      </div>
+
+      <div class="bn2">
+        <div class="lf"><span class="nn">4</span><span class="ln">Processamento</span></div>
+        <div class="im">Volume diário por prioridade no Prophet, risco por incidente na regressão logística.</div>
+        <div class="tech">
+          <span class="tc"><span class="pl"><img src="../../../../brand/logos/prophet.png" alt="Prophet"></span><span class="tn">Prophet</span></span>
+          <span class="tc"><span class="pl"><span class="tl"><i class="sk">sk</i></span></span><span class="tn">scikit-learn</span></span>
+        </div>
+      </div>
+
+      <div class="bn2">
+        <div class="lf"><span class="nn">5</span><span class="ln">Visualização e análise</span></div>
+        <div class="im">Seis abas com URL própria, gráficos no navegador e uma imagem que sobe em qualquer infraestrutura.</div>
+        <div class="tech">
+          <span class="tc"><span class="pl"><img src="../../../../brand/logos/django.png" alt="Django"></span><span class="tn">Django</span></span>
+          <span class="tc"><span class="pl"><img src="../../../../brand/logos/plotly.png" alt="Plotly"></span><span class="tn">Plotly</span></span>
+          <span class="tc"><span class="pl"><span class="tl"><i class="plt l3">plt</i></span></span><span class="tn">matplotlib</span></span>
+          <span class="tc"><span class="pl"><img src="../../../../brand/logos/docker.png" alt="Docker"></span><span class="tn">Docker</span></span>
+        </div>
+      </div>
+
     </div>
   </div>
-  <div class="close">
-    <span class="vp focus">Leitura da comparação</span>
-    <p>A dica descreve uma arquitetura dimensionada para dado que chega sem parar. A nossa base é um histórico fechado de <b class="num">122.543</b> incidentes que cabe em memória, e cada troca acima está registrada com o motivo, incluindo a de não usar banco de dados.</p>
-  </div>
-</div>
-<div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
 </section>
 </body></html>

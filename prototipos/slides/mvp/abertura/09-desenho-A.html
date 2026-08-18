@@ -5,128 +5,218 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
-.a9 .hd{padding-top:30px}
-.a9 .body{padding:12px 64px 58px}
-.a9 .tt{font-size:33px;margin-top:10px;letter-spacing:-1.2px}
-.a9 .sub{font-size:15px;line-height:1.45;color:var(--tx);margin-top:8px;max-width:1210px}
-.a9 .sub b{color:var(--head);font-weight:700}
-.a9 .diag{flex:1;display:flex;align-items:stretch;min-height:0;margin-top:14px}
-.a9 .zone{display:flex;flex-direction:column;min-width:0;border-radius:18px;padding:11px 13px 13px}
-.a9 .zone.off{flex:1;border:1.5px dashed #9DB3D2;background:rgba(255,255,255,.32)}
-.a9 .zone.prd{width:298px;flex-shrink:0;border:1.5px solid var(--accent);
-  background:linear-gradient(165deg,rgba(255,255,255,.92),#F2F7FF)}
-.a9 .zh{display:flex;align-items:baseline;gap:10px;margin-bottom:9px}
-.a9 .zh .zn{font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
-.a9 .zone.off .zh .zn{color:#5C7397}
-.a9 .zone.prd .zh .zn{color:var(--accent)}
-.a9 .zh .zs{font-size:12.5px;color:var(--tx2);margin-left:auto}
-.a9 .cols{flex:1;display:flex;align-items:stretch;min-height:0}
-.a9 .stg{flex:1;display:flex;flex-direction:column;min-width:0;gap:9px}
-.a9 .stg.src{width:252px;flex:0 0 252px;padding:35px 0 13px}
-.a9 .sh{display:flex;align-items:center;gap:9px;height:26px;flex-shrink:0}
-.a9 .sn{width:23px;height:23px;border-radius:7px;background:var(--ink);color:#fff;font-size:12px;
-  font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.a9 .stg.prod .sn{background:var(--accent)}
-.a9 .snm{font-size:15.5px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
-.a9 .nd{flex:1;background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px 15px;
-  box-shadow:0 12px 28px -26px rgba(15,23,42,.32);display:flex;flex-direction:column;
-  justify-content:center;min-width:0}
-.a9 .nd .nk{font-size:10.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;
-  color:var(--accent)}
-.a9 .nd .nn{font-size:14.5px;font-weight:700;color:var(--head);margin-top:4px;letter-spacing:-.2px;
-  line-height:1.2}
-.a9 .nd p{font-size:12.5px;line-height:1.42;color:var(--tx);margin-top:5px}
-.a9 .nd p b{color:var(--head);font-weight:700}
-.a9 .mn{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:-.2px}
-.a9 .arw{width:32px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
-  color:#AEBDD1}
-.a9 .arw.in{width:24px}
-.a9 .arw svg{width:19px;height:19px}
-.a9 .lg{display:flex;align-items:center;gap:22px;margin-top:12px;font-size:12.5px;color:var(--tx2);
-  line-height:1.4}
-.a9 .lg .kk{display:inline-flex;align-items:center;gap:8px;flex-shrink:0}
-.a9 .lg .sw{width:26px;height:13px;border-radius:4px;flex-shrink:0}
-.a9 .lg .sw.d{border:1.5px dashed #9DB3D2;background:rgba(255,255,255,.4)}
-.a9 .lg .sw.s{border:1.5px solid var(--accent);background:#EFF6FF}
-.a9 .lg b{color:var(--head);font-weight:700}
-.a9 .lg .src2{margin-left:auto;text-align:right;flex-shrink:0}
+/* 09 A · o desenho da Sprint 2 com a faixa de descrição embaixo */
+.d9a .body{padding-bottom:52px}
+.d9a .tt{font-size:33px;letter-spacing:-1.1px}
+.d9a .lead{font-size:16px;margin-top:10px;max-width:980px}
+
+/* ── diagrama em 4 etapas ───────────────────────────────────────────── */
+.d9a .dgm{flex:0 0 386px;margin-top:16px;display:grid;
+  grid-template-columns:1fr 1.05fr 2.42fr 1fr;align-items:stretch}
+.d9a .zn{padding:0 16px;display:flex;flex-direction:column}
+.d9a .zl{display:flex;flex-direction:column;gap:3px;padding-bottom:9px;
+  border-bottom:1px solid var(--line);margin-bottom:2px}
+.d9a .zl .stg{font-size:10px;font-weight:700;letter-spacing:1.9px;text-transform:uppercase;
+  color:#9AA6B6;font-variant-numeric:tabular-nums}
+.d9a .zl .nm{font-size:12.5px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;
+  color:var(--tx)}
+.d9a .zl.r{align-items:flex-end;text-align:right}
+.d9a .zb{flex:1;display:flex;flex-direction:column;gap:16px;justify-content:center}
+
+/* contêiner */
+.d9a .dk{position:relative;align-self:center;width:calc(100% - 20px);margin:22px 10px 6px;
+  padding:28px 20px 20px;border-radius:16px;
+  background:linear-gradient(180deg,rgba(37,99,235,.06),rgba(37,99,235,.015));
+  border:1.5px dashed rgba(37,99,235,.38);
+  box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 16px 38px -16px rgba(37,99,235,.20);
+  display:grid;grid-template-columns:1fr 1.14fr;gap:14px}
+.d9a .dk::before{content:"Etapa 03 · Produto Cronos · contêiner Docker";position:absolute;
+  top:-14px;left:20px;padding:6px 14px;background:#fff;border:1px solid var(--line);
+  border-radius:999px;box-shadow:0 4px 14px -8px rgba(37,99,235,.3);font-size:10.5px;
+  font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--accent);
+  white-space:nowrap;z-index:5}
+
+/* nó */
+.d9a .nd{position:relative;background:#fff;border:1px solid var(--line);border-radius:13px;
+  padding:13px 15px;display:flex;flex-direction:column;gap:8px;
+  box-shadow:0 14px 34px -30px rgba(15,23,42,.32)}
+.d9a .nd.fut{border-style:dashed;border-color:#C6D0DE;background:rgba(255,255,255,.7)}
+.d9a .nn{position:absolute;top:-10px;left:-10px;width:25px;height:25px;border-radius:7px;
+  background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums;
+  box-shadow:0 2px 7px rgba(37,99,235,.35);z-index:4}
+.d9a .nd.fut .nn{background:#A9B4C4;box-shadow:none}
+.d9a .nh{display:flex;align-items:center;gap:10px}
+.d9a .ni{flex-shrink:0;width:36px;height:36px;border-radius:10px;background:#F4F7FC;
+  border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.d9a .ni svg{width:20px;height:20px;stroke:var(--head);fill:none;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round}
+.d9a .nd.fut .ni svg{stroke:var(--tx)}
+.d9a .nt{font-size:13.5px;font-weight:800;letter-spacing:-.2px;color:var(--head);line-height:1.2}
+.d9a .ns{font-size:10.5px;font-weight:600;color:var(--tx2);line-height:1.3;margin-top:1px;
+  font-variant-numeric:tabular-nums}
+.d9a .nx{font-size:11px;font-weight:600;color:var(--tx);line-height:1.5;padding-top:8px;
+  border-top:1px solid #EFF2F7;font-variant-numeric:tabular-nums}
+.d9a .nx b{color:var(--head);font-weight:800}
+.d9a .nx .ac{color:var(--accent);font-weight:800}
+.d9a .nx .mn{font-family:var(--mono);font-size:10px;font-weight:500;color:var(--head)}
+.d9a .abas{padding-top:8px;border-top:1px solid #EFF2F7;display:grid;
+  grid-template-columns:1fr 1fr;gap:4px 14px;font-size:11px;font-weight:600;color:var(--tx)}
+.d9a .nd.usr{align-items:center;text-align:center;padding:22px 16px}
+.d9a .nd.usr .nh{flex-direction:column;gap:10px}
+.d9a .nd.usr .ni{width:50px;height:50px}
+.d9a .nd.usr .ni svg{width:28px;height:28px}
+
+/* ── faixa de descrição ─────────────────────────────────────────────── */
+.d9a .dsc{flex:1;min-height:0;margin-top:14px;padding-top:13px;
+  border-top:1px solid var(--line);display:flex;flex-direction:column;gap:9px}
+.d9a .dh{font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  color:#9AA6B6}
+.d9a .dg2{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);
+  grid-template-rows:1fr 1fr;gap:10px}
+.d9a .dc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 15px;
+  box-shadow:0 14px 30px -28px rgba(15,23,42,.3);display:flex;flex-direction:column;gap:3px;
+  justify-content:center}
+.d9a .dc.fut{border-style:dashed;border-color:#C6D0DE;background:rgba(255,255,255,.7)}
+.d9a .dr{display:flex;align-items:center;gap:8px}
+.d9a .dn{width:19px;height:19px;border-radius:50%;background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:800;
+  font-variant-numeric:tabular-nums;flex-shrink:0}
+.d9a .dc.fut .dn{background:#A9B4C4}
+.d9a .dt2{font-size:12.5px;font-weight:800;letter-spacing:-.2px;color:var(--head)}
+.d9a .db{font-size:11.5px;font-weight:500;color:var(--tx);line-height:1.45;
+  font-variant-numeric:tabular-nums}
+.d9a .db b{color:var(--head);font-weight:700}
+.d9a .db .mn{font-family:var(--mono);font-size:10.5px;font-weight:500;color:var(--head)}
 </style>
 </head><body>
-<section class="slide light a9">
-<div class="mesh"></div><div class="grid-bg"></div>
-<div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 9</div></div>
-<div class="body">
-  <div class="eb">Desenho da arquitetura da solução</div>
-  <div class="tt">Cinco etapas do Excel oficial até a tela, e <span class="hl">só a última fica de pé</span></div>
-  <div class="sub">O preparo, o treino dos modelos e a gravação do pacote acontecem nos notebooks, fora do ar. A aplicação recebe arquivo pronto: ela lê, desenha e serve, sem ajustar modelo durante a visita.</div>
-  <div class="diag">
-    <div class="stg src">
-      <div class="sh"><span class="sn">1</span><span class="snm">Fonte</span></div>
-      <div class="nd"><div class="nk">Planilha oficial</div><div class="nn mn">LW-DATASET.xlsx</div>
-        <p>Aba <b>Dataset Geral</b>, <b class="num">122.543</b> incidentes em <b class="num">19</b> colunas, de jan/2023 a dez/2025.</p></div>
-      <div class="nd"><div class="nk">Biblioteca externa</div><div class="nn mn">holidays BR</div>
-        <p>Feriado nacional, que o dataset não traz. É a única fonte de fora do projeto.</p></div>
-      <div class="nd"><div class="nk">Dicionário da Locaweb</div><div class="nn">Régua de OLA</div>
-        <p>Prazo de <b class="num">4 horas</b> no P2 e <b class="num">12 horas</b> no P3, com meta anual por prioridade.</p></div>
-    </div>
-    <div class="arw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div>
-    <div class="zone off">
-      <div class="zh"><span class="zn">Fora do ar · nos notebooks</span><span class="zs">Roda quando o dado muda</span></div>
-      <div class="cols">
-        <div class="stg">
-          <div class="sh"><span class="sn">2</span><span class="snm">Preparo</span></div>
-          <div class="nd"><div class="nk">pandas</div><div class="nn">Tipagem e elegibilidade</div>
-            <p>Datas, prioridade e status tipados na leitura. O campo oficial <b>Entrou para KPI?</b> corta <b class="num">122.543</b> para <b class="num">25.600</b>.</p></div>
-          <div class="nd"><div class="nk">Calendário</div><div class="nn">Cinco colunas derivadas</div>
-            <p class="mn">dia · dia_semana · hora · ano · mes</p></div>
-          <div class="nd"><div class="nk">Trava</div><div class="nn">Assert nas duas contagens</div>
-            <p>Uma na leitura, <b class="num">122.543</b>, outra depois do filtro, <b class="num">25.600</b>. Divergência para o notebook.</p></div>
-        </div>
-        <div class="arw in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div>
-        <div class="stg">
-          <div class="sh"><span class="sn">3</span><span class="snm">Modelos</span></div>
-          <div class="nd"><div class="nk">Prophet</div><div class="nn">Volume de D+1 a D+7</div>
-            <p>Duas séries diárias, <b>P2</b> e <b>P3</b>, com dia da semana e feriado como característica.</p></div>
-          <div class="nd"><div class="nk">scikit-learn</div><div class="nn">Risco por incidente</div>
-            <p>Regressão logística sobre <b class="num">10</b> características da abertura, <b class="num">136</b> colunas depois da codificação.</p></div>
-          <div class="nd"><div class="nk">pandas</div><div class="nn">Projeção, saúde e causas</div>
-            <p>Projeção do KPI em três parcelas, nota por produto e taxa de violação por causa.</p></div>
-        </div>
-        <div class="arw in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div>
-        <div class="stg">
-          <div class="sh"><span class="sn">4</span><span class="snm">Pacote</span></div>
-          <div class="nd"><div class="nk">pyarrow</div><div class="nn">Parquet analítico</div>
-            <p><span class="mn">data/interim</span>, uma tabela por notebook, da base elegível à fila pontuada.</p></div>
-          <div class="nd"><div class="nk">Parquet e JSON</div><div class="nn"><span class="num">350 kB</span> servidos</div>
-            <p><span class="mn">data/app</span>, gravado pelos notebooks. É o contrato entre a modelagem e a tela.</p></div>
-          <div class="nd"><div class="nk">Leitura</div><div class="nn">Uma vez por processo</div>
-            <p>A aplicação carrega o pacote quando sobe e responde da memória depois disso.</p></div>
+<section class="slide light d9a">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><span class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></span><span class="bn">Cronos</span><span class="bt">VEJA ANTES · AJA ANTES</span><span class="tag">Template · slide 9</span></div>
+
+  <div class="body">
+    <span class="eb">Desenho da arquitetura</span>
+    <h1 class="tt">Do arquivo da Locaweb ao gestor, dentro de <span class="hl">um contêiner</span></h1>
+    <p class="lead">Os notebooks treinam e gravam. A aplicação só lê, em qualquer infraestrutura.</p>
+
+    <div class="dgm">
+
+      <!-- ETAPA 01 -->
+      <div class="zn">
+        <div class="zl"><span class="stg">Etapa 01</span><span class="nm">Fontes de dados</span></div>
+        <div class="zb">
+          <div class="nd">
+            <span class="nn">1</span>
+            <div class="nh">
+              <span class="ni"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1.5"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="14" x2="21" y2="14"/><line x1="9" y1="4" x2="9" y2="20"/><line x1="15" y1="4" x2="15" y2="20"/></svg></span>
+              <span><span class="nt">LW-DATASET.xlsx</span><span class="ns">122.543 incidentes · 19 colunas</span></span>
+            </div>
+          </div>
+          <div class="nd fut">
+            <span class="nn">2</span>
+            <div class="nh">
+              <span class="ni"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="7" ry="2.2"/><path d="M5 5v6c0 1.2 3.1 2.2 7 2.2s7-1 7-2.2V5"/><path d="M5 11v6c0 1.2 3.1 2.2 7 2.2s7-1 7-2.2v-6"/></svg></span>
+              <span><span class="nt">Banco Locaweb</span><span class="ns">base interna · adiante</span></span>
+            </div>
+          </div>
         </div>
       </div>
+
+      <!-- ETAPA 02 -->
+      <div class="zn">
+        <div class="zl"><span class="stg">Etapa 02</span><span class="nm">Processamento</span></div>
+        <div class="zb">
+          <div class="nd">
+            <span class="nn">3</span>
+            <div class="nh">
+              <span class="ni"><svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><circle cx="9" cy="6" r="2"/><line x1="4" y1="12" x2="20" y2="12"/><circle cx="15" cy="12" r="2"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="11" cy="18" r="2"/></svg></span>
+              <span><span class="nt">Pandas · ETL</span><span class="ns">Elegibilidade e calendário</span></span>
+            </div>
+            <div class="nx">
+              Campo <span class="mn">Entrou para KPI?</span><br>
+              122.543 <span class="ac">&rarr;</span> <b>25.600</b> elegíveis<br>
+              Dia da semana e feriado nacional
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ETAPA 03 · contêiner -->
+      <div class="dk">
+        <div class="nd">
+          <span class="nn">4</span>
+          <div class="nh">
+            <span class="ni"><svg viewBox="0 0 24 24"><circle cx="4" cy="6" r="1.8"/><circle cx="4" cy="18" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="20" cy="6" r="1.8"/><circle cx="20" cy="18" r="1.8"/><line x1="5.6" y1="6.6" x2="10.4" y2="11.4"/><line x1="5.6" y1="17.4" x2="10.4" y2="12.6"/><line x1="13.6" y1="11.4" x2="18.4" y2="6.6"/><line x1="13.6" y1="12.6" x2="18.4" y2="17.4"/></svg></span>
+            <span><span class="nt">Modelos</span><span class="ns">volume e risco</span></span>
+          </div>
+          <div class="nx">
+            <b>Prophet</b> volume<br>
+            <b>Regressão logística</b> risco
+          </div>
+        </div>
+
+        <div class="nd">
+          <span class="nn">5</span>
+          <div class="nh">
+            <span class="ni"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="15" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="6.5" y1="13" x2="8.5" y2="13"/><line x1="10.5" y1="13" x2="12.5" y2="13"/><line x1="14.5" y1="13" x2="17.5" y2="13"/></svg></span>
+            <span><span class="nt">Django · seis abas</span><span class="ns">painel do turno</span></span>
+          </div>
+          <div class="abas">
+            <span>Morning brief</span>
+            <span>Fila de risco</span>
+            <span>Score de saúde</span>
+            <span>Projeção de KPI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ETAPA 04 -->
+      <div class="zn">
+        <div class="zl r"><span class="stg">Etapa 04</span><span class="nm">Destinatário</span></div>
+        <div class="zb">
+          <div class="nd usr">
+            <span class="nn">6</span>
+            <div class="nh">
+              <span class="ni"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></span>
+              <span><span class="nt">Gestor operacional</span><span class="ns">Age antes do KPI estourar.</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <div class="arw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div>
-    <div class="zone prd">
-      <div class="zh"><span class="zn">De pé · em produção</span><span class="zs">Roda a cada visita</span></div>
-      <div class="cols">
-        <div class="stg prod">
-          <div class="sh"><span class="sn">5</span><span class="snm">Produto</span></div>
-          <div class="nd"><div class="nk">Django</div><div class="nn">Seis abas</div>
-            <p class="mn">/ · /previsao/ · /projecao/<br>/fila/ · /saude/ · /causas/</p>
-            <p>Mais <b class="num">quatro</b> rotas de detalhe em modal e um índice de busca.</p></div>
-          <div class="nd"><div class="nk">Gráfico</div><div class="nn">SVG desenhado no servidor</div>
-            <p>Nenhuma biblioteca de gráfico no navegador, e nenhum cálculo de modelo no clique.</p></div>
-          <div class="nd"><div class="nk">Docker</div><div class="nn">Um contêiner que só lê</div>
-            <p>Entrega para a coordenação de operações, com relógio fixo em <b>01/10/2025, 15h</b>.</p></div>
+
+    <div class="dsc">
+      <span class="dh">Descrição da arquitetura</span>
+      <div class="dg2">
+        <div class="dc">
+          <div class="dr"><span class="dn">1</span><span class="dt2">LW-DATASET.xlsx</span></div>
+          <div class="db">122.543 incidentes, de jan/2023 a dez/2025.</div>
+        </div>
+        <div class="dc fut">
+          <div class="dr"><span class="dn">2</span><span class="dt2">Banco Locaweb</span></div>
+          <div class="db">Base interna da Locaweb, se virar produto.</div>
+        </div>
+        <div class="dc">
+          <div class="dr"><span class="dn">3</span><span class="dt2">Pandas · ETL</span></div>
+          <div class="db">Aplica <span class="mn">Entrou para KPI?</span> e marca feriado.</div>
+        </div>
+        <div class="dc">
+          <div class="dr"><span class="dn">4</span><span class="dt2">Modelos</span></div>
+          <div class="db">Volume diário no Prophet, risco na logística.</div>
+        </div>
+        <div class="dc">
+          <div class="dr"><span class="dn">5</span><span class="dt2">Django · seis abas</span></div>
+          <div class="db">Brief, previsão, projeção, fila, saúde e causas.</div>
+        </div>
+        <div class="dc">
+          <div class="dr"><span class="dn">6</span><span class="dt2">Gestor operacional</span></div>
+          <div class="db">Abre o painel no começo do turno.</div>
         </div>
       </div>
     </div>
   </div>
-  <div class="lg">
-    <span class="kk"><span class="sw d"></span><span>Executa nos notebooks e grava arquivo</span></span>
-    <span class="kk"><span class="sw s"></span><span>Único processo que fica de pé</span></span>
-    <span class="src2">Fonte do dado: <b>LW-DATASET.xlsx</b>, base oficial da Locaweb. Feriado nacional pela biblioteca <b>holidays</b>.</span>
-  </div>
-</div>
-<div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
 </section>
 </body></html>

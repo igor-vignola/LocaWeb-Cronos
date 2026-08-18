@@ -5,130 +5,144 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
-.i2 .body{padding-top:18px}
-.i2 .tt{font-size:36px;margin-top:12px}
-.i2 .lead{max-width:1300px;font-size:16.5px;margin-top:10px}
-.i2 .row{display:flex;gap:32px;margin-top:14px;flex-shrink:0}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
-.i2 .diag{position:relative;width:1080px;height:600px;flex-shrink:0}
-.i2 .bones{position:absolute;left:0;top:0;width:1080px;height:600px}
-.i2 .cd{position:absolute;width:210px;height:127px;background:#fff;border:1px solid var(--line);
-  border-radius:13px;padding:11px 14px 12px;box-shadow:0 16px 36px -30px rgba(15,23,42,.3)}
-.i2 .cd.up{bottom:456px}
-.i2 .cd.dn{top:464px}
-.i2 .cd .cat{font-size:10.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
-  color:var(--tx2)}
-.i2 .cd .val{font-size:23px;font-weight:800;letter-spacing:-.9px;line-height:1.05;margin-top:5px;
-  color:var(--head)}
-.i2 .cd.bad .val{color:var(--bad)}
-.i2 .cd.warn .val{color:var(--warn)}
-.i2 .cd .val i{font-style:normal;font-size:14px;font-weight:700;color:var(--tx2);margin:0 2px}
-.i2 .cd .why{font-size:12px;line-height:1.38;color:var(--tx);margin-top:6px}
-.i2 .cd .why b{color:var(--head);font-weight:700}
+.is2 .body{padding-top:18px}
+.is2 .tt{font-size:39px;margin-top:12px}
+.is2 .row{flex:1;display:flex;gap:26px;align-items:center;margin-top:10px;min-height:0}
 
-.i2 .head{position:absolute;left:883px;top:148px;width:197px;
-  background:linear-gradient(160deg,#0B1220,#131C2E);border-radius:18px;padding:20px;
-  box-shadow:0 28px 64px -34px rgba(11,18,32,.72)}
-.i2 .head .hk{font-size:10.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
-  color:#F0B767}
-.i2 .head .ht{font-size:17.5px;font-weight:800;letter-spacing:-.5px;line-height:1.2;color:#fff;
-  margin-top:8px}
-.i2 .head .hp{margin-top:14px;padding-top:13px;border-top:1px solid rgba(255,255,255,.12)}
-.i2 .head .hv{font-size:26px;font-weight:900;letter-spacing:-1.2px;line-height:1;color:#F87171}
-.i2 .head .hp.ok .hv{color:#4ADE80}
-.i2 .head .hl3{font-size:11.5px;line-height:1.35;color:#8E97A8;margin-top:5px}
-.i2 .head .hl3 b{color:#fff;font-weight:700}
+.is2 .diag{position:relative;width:1080px;height:540px;flex-shrink:0}
+.is2 .bones{position:absolute;left:0;top:0;width:1080px;height:540px}
 
-.i2 .ctx{width:360px;flex-shrink:0;background:#fff;border:1px solid var(--line);
-  border-radius:18px;padding:22px 24px 18px;box-shadow:0 18px 44px -32px rgba(15,23,42,.3);
-  display:flex;flex-direction:column}
-.i2 .ctx .ck{font-size:11.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
-  color:var(--tx2)}
-.i2 .ctx .cr{padding-top:15px;margin-top:15px;border-top:1px solid var(--line);flex:1}
-.i2 .ctx .cr:first-of-type{border-top:none}
-.i2 .ctx .cv{font-size:31px;font-weight:800;letter-spacing:-1.3px;line-height:1;color:var(--head)}
-.i2 .ctx .cr.acc .cv{color:var(--accent)}
-.i2 .ctx .cr.dg .cv{color:var(--bad)}
-.i2 .ctx .cv em{font-style:normal;font-size:17px;font-weight:700;letter-spacing:-.3px;
-  color:var(--tx2);margin:0 4px}
-.i2 .ctx .cp{font-size:13px;line-height:1.42;color:var(--tx);margin-top:6px}
-.i2 .ctx .cp b{color:var(--head);font-weight:700}
+.is2 .cd{position:absolute;width:186px;height:92px;background:#fff;
+  border:1px solid var(--line);border-radius:13px;padding:0 15px;display:flex;
+  flex-direction:column;justify-content:center;
+  box-shadow:0 16px 36px -28px rgba(15,23,42,.32)}
+.is2 .cd.up{bottom:422px}
+.is2 .cd.dn{top:422px}
+.is2 .cd .r1{display:flex;align-items:center;gap:9px}
+.is2 .cd .tl{width:32px;height:32px;border-radius:10px;flex-shrink:0;
+  background:var(--accent-l);color:var(--accent)}
+.is2 .cd .tl svg{width:19px;height:19px}
+.is2 .cd .cat{font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--tx2);white-space:nowrap}
+.is2 .cd .val{font-size:25px;font-weight:800;letter-spacing:-1.1px;line-height:1.05;
+  margin-top:7px;color:var(--head);white-space:nowrap}
+.is2 .cd.bad .val{color:var(--bad)}
+.is2 .cd.warn .val{color:var(--warn)}
+.is2 .cd .val i{font-style:normal;font-size:14px;font-weight:600;letter-spacing:0;
+  color:var(--tx2);margin:0 2px}
+
+.is2 .head{position:absolute;left:776px;top:144px;width:304px;
+  background:linear-gradient(158deg,#0B1220,#141E33);border-radius:19px;padding:22px 24px 20px;
+  box-shadow:0 30px 66px -34px rgba(11,18,32,.74)}
+.is2 .head .hk{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;
+  letter-spacing:1.7px;text-transform:uppercase;color:#F0B767}
+.is2 .head .hk svg{width:15px;height:15px;stroke-width:2}
+.is2 .head .ht{font-size:22px;font-weight:800;letter-spacing:-.7px;line-height:1.18;
+  color:#fff;margin-top:10px}
+.is2 .head .hsplit{display:flex;gap:16px;margin-top:18px;padding-top:16px;
+  border-top:1px solid rgba(255,255,255,.13)}
+.is2 .head .hp{flex:1}
+.is2 .head .hv{font-size:33px;font-weight:900;letter-spacing:-1.6px;line-height:1;
+  color:#F87171;font-variant-numeric:tabular-nums}
+.is2 .head .hp.ok .hv{color:#4ADE80}
+.is2 .head .hl3{font-size:12px;line-height:1.4;color:#8E97A8;margin-top:7px}
+.is2 .head .hl3 b{color:#fff;font-weight:700}
+
+.is2 .side{flex:1;height:540px;display:flex;flex-direction:column;gap:18px}
+.is2 .sc{flex:1;background:#fff;border:1px solid var(--line);border-radius:17px;
+  padding:0 26px;display:flex;flex-direction:column;justify-content:center;
+  box-shadow:0 18px 42px -32px rgba(15,23,42,.3)}
+.is2 .sc .tl{width:42px;height:42px;border-radius:12px;background:var(--accent-l);
+  color:var(--accent)}
+.is2 .sc .tl svg{width:23px;height:23px}
+.is2 .sc .sv{font-size:44px;font-weight:800;letter-spacing:-2px;line-height:1;margin-top:16px;
+  color:var(--head);font-variant-numeric:tabular-nums}
+.is2 .sc.focus .sv{color:var(--accent)}
+.is2 .sc.bad .sv{color:var(--bad)}
+.is2 .sc .sl{font-size:14.5px;line-height:1.35;color:var(--tx);margin-top:8px}
 </style>
 </head><body>
-<section class="slide light i2">
+<section class="slide light is2">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 3</div></div>
   <div class="body">
-    <div class="eb">Contextualização · Ishikawa sobre o dado da operação</div>
-    <div class="tt">Seis causas para um indicador que <span class="hl">só fecha em dezembro</span></div>
-    <div class="lead">À esquerda, o efeito decomposto em causas medidas. À direita, a escala da operação em que ele acontece.</div>
+    <div class="eb">Contextualização · diagrama de Ishikawa</div>
+    <div class="tt">Seis causas <span class="hl">medidas no histórico</span></div>
 
     <div class="row">
       <div class="diag">
-        <svg class="bones" viewBox="0 0 1080 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <line x1="14" y1="300" x2="845" y2="300" stroke="#0B1220" stroke-width="2.6" stroke-linecap="round"/>
-          <polygon points="843,288 873,300 843,312" fill="#0B1220"/>
-          <line x1="260" y1="296" x2="170" y2="150" stroke="#94A6BA" stroke-width="2" stroke-linecap="round"/>
-          <line x1="490" y1="296" x2="400" y2="150" stroke="#94A6BA" stroke-width="2" stroke-linecap="round"/>
-          <line x1="720" y1="296" x2="630" y2="150" stroke="#94A6BA" stroke-width="2" stroke-linecap="round"/>
-          <line x1="340" y1="304" x2="250" y2="456" stroke="#94A6BA" stroke-width="2" stroke-linecap="round"/>
-          <line x1="570" y1="304" x2="480" y2="456" stroke="#94A6BA" stroke-width="2" stroke-linecap="round"/>
-          <line x1="800" y1="304" x2="710" y2="456" stroke="#94A6BA" stroke-width="2" stroke-linecap="round"/>
-          <circle cx="260" cy="300" r="4.4" fill="#fff" stroke="#0B1220" stroke-width="2"/>
-          <circle cx="490" cy="300" r="4.4" fill="#fff" stroke="#0B1220" stroke-width="2"/>
-          <circle cx="720" cy="300" r="4.4" fill="#fff" stroke="#0B1220" stroke-width="2"/>
-          <circle cx="340" cy="300" r="4.4" fill="#fff" stroke="#0B1220" stroke-width="2"/>
-          <circle cx="570" cy="300" r="4.4" fill="#fff" stroke="#0B1220" stroke-width="2"/>
-          <circle cx="800" cy="300" r="4.4" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+        <svg class="bones" viewBox="0 0 1080 540" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="14" y1="270" x2="730" y2="270" stroke="#0B1220" stroke-width="2.6" stroke-linecap="round"/>
+          <polygon points="728,258 760,270 728,282" fill="#0B1220"/>
+          <line x1="200" y1="265" x2="128" y2="124" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+          <line x1="412" y1="265" x2="340" y2="124" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+          <line x1="624" y1="265" x2="552" y2="124" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+          <line x1="272" y1="275" x2="200" y2="416" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+          <line x1="484" y1="275" x2="412" y2="416" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+          <line x1="696" y1="275" x2="624" y2="416" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="200" cy="270" r="4.2" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+          <circle cx="412" cy="270" r="4.2" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+          <circle cx="624" cy="270" r="4.2" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+          <circle cx="272" cy="270" r="4.2" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+          <circle cx="484" cy="270" r="4.2" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+          <circle cx="696" cy="270" r="4.2" fill="#fff" stroke="#0B1220" stroke-width="2"/>
         </svg>
 
-        <div class="cd up bad" style="left:65px">
-          <div class="cat">Medição</div>
+        <div class="cd up bad" style="left:35px">
+          <div class="r1"><span class="ic tl"><svg viewBox="0 0 24 24"><rect x="3.4" y="5.4" width="17.2" height="15.2" rx="3"/><path d="M3.4 10.4h17.2M8.4 3.4v4M15.6 3.4v4"/></svg></span><span class="cat">Medição</span></div>
           <div class="val num">35 <i>para</i> 41</div>
-          <div class="why">O P2 acumulado em outubro e em novembro, atravessando duas faixas de uma vez.</div>
         </div>
-        <div class="cd up bad" style="left:295px">
-          <div class="cat">Priorização</div>
+        <div class="cd up bad" style="left:247px">
+          <div class="r1"><span class="ic tl"><svg viewBox="0 0 24 24"><path d="M4 6.4h16M4 12h11M4 17.6h7"/><circle cx="19" cy="17.6" r="1.9"/></svg></span><span class="cat">Priorização</span></div>
           <div class="val num">0,4693</div>
-          <div class="why">ROC AUC da fila ordenada por prioridade, abaixo dos <b>0,5063</b> de uma fila sorteada.</div>
         </div>
-        <div class="cd up warn" style="left:525px">
-          <div class="cat">Concentração</div>
+        <div class="cd up warn" style="left:459px">
+          <div class="r1"><span class="ic tl"><svg viewBox="0 0 24 24"><circle cx="9.2" cy="8.6" r="3.2"/><path d="M3.6 20c0-3.1 2.5-5.6 5.6-5.6s5.6 2.5 5.6 5.6"/><path d="M16.4 6.2a3.2 3.2 0 0 1 0 6.2M17.4 14.8c1.8.7 3 2.4 3 4.4"/></svg></span><span class="cat">Concentração</span></div>
           <div class="val num">46% <i>com</i> 8%</div>
-          <div class="why">do Team11 nas violações e no volume. O Team14 tem 75,7% do volume e 10 violações.</div>
         </div>
 
-        <div class="cd dn warn" style="left:145px">
-          <div class="cat">Volume e ruído</div>
+        <div class="cd dn warn" style="left:107px">
+          <div class="r1"><span class="ic tl"><svg viewBox="0 0 24 24"><path d="M4 12h11"/><path d="M11 8l4 4-4 4"/><path d="M19 4.6v14.8"/></svg></span><span class="cat">Volume e ruído</span></div>
           <div class="val num">85,1%</div>
-          <div class="why">das aberturas vêm de monitoramento, e <b>65,6%</b> fecham como Sem Intervenção.</div>
         </div>
-        <div class="cd dn warn" style="left:375px">
-          <div class="cat">Carga sem sinal</div>
+        <div class="cd dn warn" style="left:319px">
+          <div class="r1"><span class="ic tl"><svg viewBox="0 0 24 24"><path d="M12 4.2v15.6M6.6 19.8h10.8"/><path d="M4 8.6h16"/><path d="M4 8.6l-2.4 4.6h4.8zM20 8.6l-2.4 4.6h4.8z"/></svg></span><span class="cat">Sinal fraco</span></div>
           <div class="val num">2,5%</div>
-          <div class="why">da variação de violações é explicada pelo volume diário, com r de <b>0,159</b>.</div>
         </div>
-        <div class="cd dn bad" style="left:605px">
-          <div class="cat">Conhecimento</div>
+        <div class="cd dn bad" style="left:531px">
+          <div class="r1"><span class="ic tl"><svg viewBox="0 0 24 24"><path d="M12 3.4v4.2M12 16.4v4.2M4.6 12h4.2M15.2 12h4.2"/><path d="M6.8 6.8l3 3M14.2 14.2l3 3M17.2 6.8l-3 3M9.8 14.2l-3 3"/></svg></span><span class="cat">Conhecimento</span></div>
           <div class="val num">1,46%</div>
-          <div class="why">é a taxa do problema inédito, contra <b>0,31%</b> da rotina de 20 ou mais ocorrências.</div>
         </div>
 
         <div class="head">
-          <div class="hk">Efeito</div>
+          <div class="hk"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3.8l8.8 15.4H3.2z"/><path d="M12 10v3.8"/><circle cx="12" cy="16.8" r=".9" fill="currentColor" stroke="none"/></svg></span> Efeito</div>
           <div class="ht">Violação de OLA que só aparece no fechamento do ano</div>
-          <div class="hp"><div class="hv num">42</div><div class="hl3">violações no P2 em 2025<br><b>nota 75%</b></div></div>
-          <div class="hp ok"><div class="hv num">196</div><div class="hl3">violações no P3 em 2025<br><b>nota 150%</b></div></div>
+          <div class="hsplit">
+            <div class="hp"><div class="hv num">42</div><div class="hl3">P2 em 2025<br><b>nota 75%</b></div></div>
+            <div class="hp ok"><div class="hv num">196</div><div class="hl3">P3 em 2025<br><b>nota 150%</b></div></div>
+          </div>
         </div>
       </div>
 
-      <div class="ctx">
-        <div class="ck">A operação em que isso acontece</div>
-        <div class="cr"><div class="cv num">122.543</div><div class="cp">incidentes registrados de janeiro de 2023 a dezembro de 2025, em <b>19</b> colunas.</div></div>
-        <div class="cr acc"><div class="cv num">25.600</div><div class="cp">elegíveis à meta pelo campo oficial, <b>21%</b> da base. Filtrar apenas por Incidente Pai vazio devolveria <b>107.416</b>.</div></div>
-        <div class="cr dg"><div class="cv num">248</div><div class="cp">violações de OLA nos elegíveis, <b>0,97%</b>. Em 2025 foram <b>238</b>, e <b>188</b> de janeiro a setembro.</div></div>
-        <div class="cr"><div class="cv num">4 h<em>e</em>12 h</div><div class="cp">o prazo de OLA do <b>P2</b> e do <b>P3</b>. Passado esse tempo, a violação já está contada.</div></div>
-        <div class="cr"><div class="cv num">34,1%<em>e</em>12,8%</div><div class="cp">do volume total é <b>P3</b> e <b>P2</b>, as duas prioridades que contam para a meta. O <b>P4</b> leva os outros 52,9%.</div></div>
+      <div class="side">
+        <div class="sc">
+          <span class="ic tl"><svg viewBox="0 0 24 24"><rect x="3.6" y="3.6" width="7" height="7" rx="2"/><rect x="13.4" y="3.6" width="7" height="7" rx="2"/><rect x="3.6" y="13.4" width="7" height="7" rx="2"/><rect x="13.4" y="13.4" width="7" height="7" rx="2"/></svg></span>
+          <div class="sv">122.543</div>
+          <div class="sl">Incidentes registrados</div>
+        </div>
+        <div class="sc focus">
+          <span class="ic tl"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+          <div class="sv">25.600</div>
+          <div class="sl">Elegíveis ao KPI</div>
+        </div>
+        <div class="sc bad">
+          <span class="ic tl"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.6 1.6"/><path d="M9 3h6"/></svg></span>
+          <div class="sv">248</div>
+          <div class="sl">Violações de OLA</div>
+        </div>
       </div>
     </div>
   </div>

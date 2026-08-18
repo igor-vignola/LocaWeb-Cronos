@@ -1,77 +1,86 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
-<title>07 Gestão do projeto · A</title>
+<title>07 Gestão do plano · A</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
-.g7a .body{padding-bottom:56px}
-.g7a .tt{font-size:35px}
-.g7a .lead{max-width:1030px;margin-top:11px}
-.g7a .trilho{margin-top:22px}
-.g7a .low{display:flex;gap:20px;margin-top:20px;flex:1;min-height:0;align-items:stretch}
-.g7a .fr{flex:1;min-width:0;display:flex;flex-direction:column;padding-top:18px}
-.g7a .fr thead th{padding-bottom:9px}
-.g7a .fr tbody td{padding:31px 16px;vertical-align:top}
-.g7a .fr .fn{font-size:16px;font-weight:800;letter-spacing:-.3px;color:var(--head);white-space:nowrap}
-.g7a .fr .fd{font-size:14px;line-height:1.4;color:var(--tx)}
-.g7a .fr .fd b{color:var(--head);font-weight:700}
-.g7a .side{width:378px;flex-shrink:0;display:flex;flex-direction:column;gap:14px}
-.g7a .nb2{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px 21px;
-  box-shadow:0 16px 38px -30px rgba(15,23,42,.26);flex:1;display:flex;flex-direction:column;
-  justify-content:center}
-.g7a .nb2 .k{font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--tx2)}
-.g7a .nb2 p{font-size:14.5px;line-height:1.45;color:var(--tx);margin-top:8px}
-.g7a .nb2 p b{color:var(--head);font-weight:700}
-.g7a .fnote{font-size:13px;line-height:1.45;color:var(--tx2);margin-top:auto;
-  padding:14px 16px 2px;border-top:1px solid var(--line)}
-.g7a .fnote b{color:var(--head);font-weight:700}
-.g7a .who{display:inline-flex;align-items:center;padding:3px 11px;border-radius:8px;
-  border:1px dashed #BCCADD;background:#FAFCFF;color:var(--tx2);font-size:13.5px;font-weight:600;
-  letter-spacing:.1px;white-space:nowrap}
+.g7 .tt{font-size:34px;max-width:1340px}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+.g7 .row{flex:1;min-height:0;display:flex;gap:40px;margin-top:22px;align-items:flex-start}
+.g7 .lft{width:872px;flex-shrink:0}
+.g7 .rgt{flex:1;min-width:0;height:654px;display:flex;flex-direction:column;gap:20px}
+
+/* area reservada do print · 872 x 654, proporcao 4 por 3 */
+.res{width:872px;height:654px;border:1.5px dashed #B6C5DA;border-radius:18px;
+  background:rgba(255,255,255,.52);display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:15px}
+.res .ri{width:50px;height:50px;border-radius:14px;background:#fff;border:1px solid var(--line);
+  color:var(--accent);box-shadow:0 10px 24px -18px rgba(15,23,42,.4)}
+.res .ri svg{width:25px;height:25px}
+.res .rl{font-size:15.5px;font-weight:700;letter-spacing:.5px;color:var(--tx2)}
+
+.cd{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 24px 16px;
+  box-shadow:0 18px 42px -32px rgba(15,23,42,.28);display:flex;flex-direction:column;min-height:0}
+.cd .ck{font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--tx2);flex-shrink:0}
+
+/* cronograma das sprints */
+.g7 .crono{flex:1.32;justify-content:space-between}
+.g7 .sr{display:grid;grid-template-columns:32px 1fr 118px 132px;gap:14px;align-items:center;
+  padding:12px 0;border-top:1px solid #F0F3F8}
+.g7 .sq{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;
+  justify-content:center;font-size:14px;font-weight:800;background:#F1F5FA;color:var(--tx2);
+  font-variant-numeric:tabular-nums}
+.g7 .sr.ok .sq{background:var(--good-l);color:var(--good)}
+.g7 .sr.now .sq{background:var(--accent-l);color:var(--accent)}
+.g7 .sn{font-size:18px;font-weight:800;letter-spacing:-.4px;color:var(--head)}
+.g7 .sd{font-size:15px;font-weight:600;color:var(--tx);font-variant-numeric:tabular-nums}
+.g7 .sr .vp{justify-self:end}
+
+/* frentes de trabalho */
+.g7 .frt{flex:1;justify-content:space-between}
+.g7 .fr{display:grid;grid-template-columns:36px 1fr auto;gap:14px;align-items:center;
+  padding:11px 0;border-top:1px solid #F0F3F8}
+.g7 .fi{width:36px;height:36px;border-radius:10px;background:var(--accent-l);color:var(--accent);
+  display:flex;align-items:center;justify-content:center}
+.g7 .fi svg{width:20px;height:20px}
+.g7 .fn{font-size:17px;font-weight:700;letter-spacing:-.3px;color:var(--head)}
+.g7 .who{display:inline-flex;align-items:center;padding:5px 13px;border-radius:9px;
+  border:1px dashed #BCCADD;background:#FAFCFF;color:var(--tx2);font-size:13px;font-weight:600;
+  white-space:nowrap}
 </style>
 </head><body>
-<section class="slide light tl g7a">
+<section class="slide light g7">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd"><span class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></span><span class="bn">Cronos</span><span class="bt">VEJA ANTES · AJA ANTES</span><span class="tag">Template · slide 7</span></div>
   <div class="body">
-    <span class="eb">Planejamento e gestão do projeto</span>
-    <h1 class="tt">O plano em <span class="hl">quatro sprints</span>, e quem responde por cada frente</h1>
-    <p class="lead">O Scrum dá a cadência, com uma sprint por entrega da FIAP. Cada sprint abre com o backlog priorizado no quadro do projeto e fecha com revisão dos três integrantes contra o checklist da entrega.</p>
-    <div class="trilho">
-      <div class="marcos">
-        <div class="mc ok"><span class="dt">27/04/2026</span><div class="nm">Ideação</div>
-          <div class="nt">Entregue · <b class="num">5,00</b></div>
-          <div class="nt" style="color:var(--tx2)">Pediram ilustrar o impacto com número e gráfico.</div></div>
-        <div class="mc ok"><span class="dt">24/05/2026</span><div class="nm">Arquitetura</div>
-          <div class="nt">Entregue · <b class="num">5,00</b></div>
-          <div class="nt" style="color:var(--tx2)">Pediram um slide explícito de gestão ágil.</div></div>
-        <div class="mc now"><span class="dt">23/08/2026</span><div class="nm">MVP preliminar</div>
-          <div class="nt"><b>Esta entrega</b></div>
-          <div class="nt" style="color:var(--tx2)">Modelos medidos, aplicação de pé e os dois pedidos atendidos.</div></div>
-        <div class="mc"><span class="dt">08/09/2026</span><div class="nm">Solução final</div>
-          <div class="nt">Planejada</div>
-          <div class="nt" style="color:var(--tx2)">Última entrega do challenge.</div></div>
+    <span class="eb">Planejamento e gestão</span>
+    <h1 class="tt">Uma sprint por entrega da FIAP, e uma pessoa respondendo por <span class="hl">cada frente</span></h1>
+    <div class="row">
+      <div class="lft">
+        <div class="res">
+          <span class="ic ri"><svg viewBox="0 0 24 24"><rect x="3.6" y="3.6" width="7" height="7" rx="2"/><rect x="13.4" y="3.6" width="7" height="7" rx="2"/><rect x="3.6" y="13.4" width="7" height="7" rx="2"/><rect x="13.4" y="13.4" width="7" height="7" rx="2"/></svg></span>
+          <span class="rl">Cartão em andamento</span>
+        </div>
       </div>
-    </div>
-    <div class="low">
-      <div class="tw fr">
-        <table>
-          <thead><tr><th style="width:250px">Frente de trabalho</th><th style="width:172px">Responsável</th><th>O que saiu desta frente na Sprint 3</th></tr></thead>
-          <tbody>
-            <tr><td><span class="fn">Base e análise</span></td><td><span class="who">[responsável]</span></td><td class="fd">Leitura do arquivo oficial, filtro de elegibilidade ao KPI e os notebooks de exploração.</td></tr>
-            <tr><td><span class="fn">Modelagem preditiva</span></td><td><span class="who">[responsável]</span></td><td class="fd">Previsão de volume, risco por incidente, projeção do KPI e saúde por produto.</td></tr>
-            <tr><td><span class="fn">Aplicação e entregáveis</span></td><td><span class="who">[responsável]</span></td><td class="fd">As <b>seis abas</b> em Django, o contêiner, o deck e a validação contra o checklist.</td></tr>
-          </tbody>
-        </table>
-        <p class="fnote">Definição de pronto, valendo para as três frentes: um entregável só fecha quando passa pelo checklist da sprint e quando <b>todo número afirmado tem célula executada que o produza</b>.</p>
-      </div>
-      <div class="side">
-        <div class="nb2"><span class="k">Cadência</span>
-          <p>Uma sprint por entrega da FIAP. O quadro do projeto guarda backlog, etiqueta de sprint, responsável e checklist de validação de cada entregável.</p></div>
-        <div class="nb2"><span class="k">Canal com a Locaweb</span>
-          <p>O contato com <b>Douglas Gouveia</b> passa pelo Scrum Master do grupo. Da mentoria saíram <b>duas hipóteses</b>, e as duas entraram no backlog e foram testadas.</p></div>
+      <div class="rgt">
+        <div class="cd crono">
+          <span class="ck">Cronograma das quatro sprints</span>
+          <div class="sr ok" style="border-top:none"><span class="sq num">1</span><span class="sn">Ideação</span><span class="sd num">27/04/2026</span><span class="vp good">Entregue</span></div>
+          <div class="sr ok"><span class="sq num">2</span><span class="sn">Arquitetura</span><span class="sd num">24/05/2026</span><span class="vp good">Entregue</span></div>
+          <div class="sr now"><span class="sq num">3</span><span class="sn">MVP preliminar</span><span class="sd num">23/08/2026</span><span class="vp focus">Em andamento</span></div>
+          <div class="sr"><span class="sq num">4</span><span class="sn">Solução final</span><span class="sd num">08/09/2026</span><span class="vp ctx">Planejada</span></div>
+        </div>
+        <div class="cd frt">
+          <span class="ck">Frentes de trabalho</span>
+          <div class="fr" style="border-top:none"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h11"/><path d="M11 8l4 4-4 4"/><path d="M19 4.6v14.8"/></svg></span><span class="fn">Base e análise</span><span class="who">[responsável]</span></div>
+          <div class="fr"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 15.4l4.6-4.2 3.4 2.4"/><path d="M11.4 13.6l3-3.6"/><path d="M15.4 9.4l5.2 1.2M20.6 10.6l-1.4 5"/></svg></span><span class="fn">Modelagem preditiva</span><span class="who">[responsável]</span></div>
+          <div class="fr"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.6" y="3.6" width="7" height="7" rx="2"/><rect x="13.4" y="3.6" width="7" height="7" rx="2"/><rect x="3.6" y="13.4" width="7" height="7" rx="2"/><rect x="13.4" y="13.4" width="7" height="7" rx="2"/></svg></span><span class="fn">Aplicação Django</span><span class="who">[responsável]</span></div>
+          <div class="fr"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><path d="M8.4 12.2l2.6 2.6 4.6-5"/></svg></span><span class="fn">Deck e entregáveis</span><span class="who">[responsável]</span></div>
+        </div>
       </div>
     </div>
   </div>

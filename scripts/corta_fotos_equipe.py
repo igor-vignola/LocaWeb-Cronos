@@ -29,7 +29,7 @@ SUAVE = 4     # supersampling da máscara, para a borda não serrar
 # origem, destino, janela (cx, cy, lado), círculo da original (cx, cy, raio)
 PESSOAS = [
     ("ana_beatriz_costa.png", "ana-beatriz.png", (393, 400, 690), (442, 426, 424)),
-    ("hygor_abrantes.png",    "hygor.png",       (526, 296, 422), (510, 430, 424)),
+    ("hygor_abrantes.png",    "hygor.png",       (524, 306, 486), (510, 430, 424)),
     ("igor_vignola.png",      "igor.png",        (225, 180, 240), (243, 237, 221)),
 ]
 

@@ -85,9 +85,9 @@ const SLIDES = [
   {n:10, arq:'10-descricao',       nome:'Descrição, cinco camadas',   tpl:'Template 10'},
   {n:11, arq:'11-tecnologias',     nome:'Descrição, tecnologias',     tpl:'Template 11'},
 ];
-const VERS = ['A','B','C'];
+const VERS = ['A','B'];
 let i = 0, v = 0;
-const escolha = JSON.parse(localStorage.getItem('cronos:abertura') || '{}');
+const escolha = JSON.parse(localStorage.getItem('cronos:abertura2') || '{}');
 
 const rail = document.getElementById('rail');
 SLIDES.forEach((s, k) => {
@@ -109,7 +109,7 @@ VERS.forEach((x, k) => {
 
 document.getElementById('pick').onclick = () => {
   escolha[SLIDES[i].arq] = VERS[v];
-  localStorage.setItem('cronos:abertura', JSON.stringify(escolha));
+  localStorage.setItem('cronos:abertura2', JSON.stringify(escolha));
   render();
 };
 

@@ -5,100 +5,82 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
-.qA .body{padding:24px 64px 58px}
-.qA .top{display:flex;align-items:flex-end;justify-content:space-between;gap:44px;margin-top:16px}
-.qA .lock{display:flex;align-items:center;gap:22px}
-.qA .mk{width:108px;height:108px;border-radius:27px;background:var(--ink);flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 22px 44px -22px rgba(10,14,23,.55)}
-.qA .mk svg{width:60px;height:60px}
-.qA .wm{font-size:68px;font-weight:900;letter-spacing:-3.4px;color:#000;line-height:1}
-.qA .tg{font-size:19px;font-weight:500;letter-spacing:-.3px;color:#525252;margin-top:2px}
-.qA .tg b{color:#000;font-weight:800}
-.qA .tb{text-align:right;flex-shrink:0;padding-bottom:4px}
-.qA .tk{font-size:10.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--tx2)}
-.qA .tn{font-size:30px;font-weight:800;letter-spacing:-1.1px;color:var(--head);margin-top:6px}
-.qA .ts{font-size:14px;color:var(--tx);margin-top:4px}
-.qA .lead{margin-top:18px;max-width:1020px}
-.qA .crew{display:flex;gap:20px;margin-top:24px;flex:1;min-height:0}
-.qA .pc{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:20px;
-  padding:26px 24px;box-shadow:0 20px 48px -30px rgba(15,23,42,.3);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.qA .av{width:156px;height:156px;border-radius:50%;overflow:hidden;flex-shrink:0;
-  box-shadow:0 0 0 2px var(--line)}
-.qA .av img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
-.qA .ini{width:64px;height:64px;border-radius:50%;background:#E7EDF6;border:1px solid #D6DFEA;
-  color:#79879A;font-size:21px;font-weight:800;letter-spacing:.5px;display:flex;
-  align-items:center;justify-content:center;flex-shrink:0}
-.qA .pn{font-size:22px;font-weight:800;letter-spacing:-.5px;color:var(--head);margin-top:20px;
-  line-height:1.2}
-.qA .rm{font-family:var(--mono);font-size:16px;font-weight:600;color:var(--accent);
-  letter-spacing:.5px;margin-top:9px;font-variant-numeric:tabular-nums}
-.qA .men{margin-top:20px;background:#fff;border:1px solid var(--line);border-radius:20px;
-  padding:22px 26px;box-shadow:0 20px 48px -32px rgba(15,23,42,.28);
-  display:flex;align-items:center;gap:22px}
-.qA .men .mi{flex:1;min-width:0}
-.qA .men .mk2{font-size:10.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+/* Coluna esquerda: marca grande, nome da solução e tagline.
+   Coluna direita: um cartão vertical por integrante, foto grande no topo. */
+.eqA .body{padding:20px 64px 62px}
+.eqA .cols{flex:1;min-height:0;display:flex;align-items:center;gap:54px}
+
+.eqA .lft{width:500px;flex-shrink:0}
+.eqA .mark{width:132px;height:132px;border-radius:32px;background:var(--ink);display:flex;
+  align-items:center;justify-content:center;
+  box-shadow:0 26px 56px -30px rgba(10,14,23,.55)}
+.eqA .mark svg{width:74px;height:74px}
+.eqA .sol{font-size:92px;font-weight:900;letter-spacing:-4.2px;line-height:.98;color:#000;
+  margin-top:28px}
+.eqA .tl2{font-size:27px;font-weight:500;letter-spacing:-.7px;color:#525252;margin-top:8px}
+.eqA .tl2 b{color:#000;font-weight:800}
+.eqA .team{margin-top:34px;padding-top:26px;border-top:1px solid var(--line)}
+.eqA .team .tk{font-size:11px;font-weight:700;letter-spacing:1.9px;text-transform:uppercase;
   color:var(--tx2)}
-.qA .men .mn{font-size:22px;font-weight:800;letter-spacing:-.6px;color:var(--head);margin-top:4px}
-.qA .men .ms{font-size:14.5px;color:var(--tx);margin-top:2px}
-.qA .men .dt{text-align:right;flex-shrink:0;padding-left:26px;border-left:1px solid var(--line)}
-.qA .men .dv{font-size:24px;font-weight:800;letter-spacing:-.8px;color:var(--head);margin-top:5px;
-  font-variant-numeric:tabular-nums}
+.eqA .team .tn{font-size:27px;font-weight:800;letter-spacing:-.8px;color:var(--head);
+  margin-top:8px}
+.eqA .team .ts{font-size:15.5px;color:var(--tx);margin-top:6px}
+
+.eqA .vsep{width:1px;align-self:stretch;
+  background:linear-gradient(180deg,transparent,#D5DEEA 18%,#D5DEEA 82%,transparent)}
+
+.eqA .rgt{flex:1;min-width:0}
+.eqA .ppl{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:22px}
+.eqA .pc{background:#fff;border:1px solid var(--line);border-radius:22px;
+  padding:34px 16px 30px;text-align:center;
+  box-shadow:0 22px 50px -34px rgba(15,23,42,.32)}
+.eqA .pc img{width:178px;height:178px;border-radius:50%;object-fit:cover;display:block;
+  margin:0 auto;box-shadow:0 0 0 2px var(--line)}
+.eqA .pc .pn{font-size:20.5px;font-weight:700;letter-spacing:-.4px;line-height:1.25;
+  color:var(--head);margin-top:24px}
+.eqA .pc .rm{font-size:15.5px;font-weight:600;color:var(--tx2);margin-top:11px;
+  font-variant-numeric:tabular-nums;letter-spacing:.2px}
 </style>
 </head><body>
-<section class="slide light qA">
+<section class="slide light eqA">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span>
+    <div class="bn">Cronos</div><span class="bt">SPRINT 03 · MVP PRELIMINAR</span>
     <div class="tag">Template · slide 2</div>
   </div>
   <div class="body">
-    <div class="eb">Identificação da equipe · Sprint 03</div>
-    <div class="top">
-      <div class="lock">
-        <div class="mk"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-        <div>
-          <div class="wm">Cronos</div>
-          <div class="tg"><b>Veja antes.</b> Aja antes.</div>
+    <div class="cols">
+      <div class="lft">
+        <div class="mark"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+        <div class="sol">Cronos</div>
+        <div class="tl2"><b>Veja antes.</b> Aja antes.</div>
+        <div class="team">
+          <div class="tk">Equipe</div>
+          <div class="tn">Super Data Bros</div>
+          <div class="ts">Turma 2TSCOA · Tecnólogo em Data Science</div>
         </div>
       </div>
-      <div class="tb">
-        <div class="tk">Nome da equipe</div>
-        <div class="tn">Super Data Bros</div>
-        <div class="ts">Turma 2TSCOA · FIAP · Tecnólogo em Data Science</div>
-      </div>
-    </div>
-    <div class="lead">Sistema de inteligência preditiva para incidentes operacionais da Locaweb,
-      entregue como aplicação Django em contêiner Docker.</div>
-    <div class="crew">
-      <div class="pc">
-        <div class="av"><img src="../../../../brand/equipe/ana-beatriz.png" alt="Ana Beatriz Costa de Oliveira"></div>
-        <div class="pn">Ana Beatriz<br>Costa de Oliveira</div>
-        <div class="rm">RM561310</div>
-      </div>
-      <div class="pc">
-        <div class="av"><img src="../../../../brand/equipe/hygor.png" alt="Hygor Abrantes"></div>
-        <div class="pn">Hygor<br>Abrantes</div>
-        <div class="rm">RM565063</div>
-      </div>
-      <div class="pc">
-        <div class="av"><img src="../../../../brand/equipe/igor.png" alt="Igor Vignola"></div>
-        <div class="pn">Igor<br>Vignola</div>
-        <div class="rm">RM561428</div>
-      </div>
-    </div>
-    <div class="men">
-      <div class="ini">DG</div>
-      <div class="mi">
-        <div class="mk2">Mentor Locaweb</div>
-        <div class="mn">Douglas Gouveia</div>
-        <div class="ms">Gerente Executivo de Operações</div>
-      </div>
-      <div class="dt">
-        <div class="mk2">Entrega da Sprint 3</div>
-        <div class="dv">23/08/2026</div>
+      <div class="vsep"></div>
+      <div class="rgt">
+        <div class="eb">Integrantes</div>
+        <div class="ppl">
+          <div class="pc">
+            <img src="../../../../brand/equipe/ana-beatriz.png" alt="Ana Beatriz Costa de Oliveira">
+            <div class="pn">Ana Beatriz<br>Costa de Oliveira</div>
+            <div class="rm">RM561310</div>
+          </div>
+          <div class="pc">
+            <img src="../../../../brand/equipe/hygor.png" alt="Hygor Abrantes">
+            <div class="pn">Hygor<br>Abrantes</div>
+            <div class="rm">RM565063</div>
+          </div>
+          <div class="pc">
+            <img src="../../../../brand/equipe/igor.png" alt="Igor Vignola">
+            <div class="pn">Igor<br>Vignola</div>
+            <div class="rm">RM561428</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

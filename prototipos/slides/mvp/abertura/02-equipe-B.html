@@ -5,102 +5,82 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
-.qB .body{padding:24px 64px 58px}
-.qB .tt{font-size:60px;letter-spacing:-2.6px;margin-top:12px}
-.qB .lead{font-size:17px;margin-top:12px;max-width:900px}
-.qB .row{display:flex;gap:26px;margin-top:26px;flex:1;min-height:0;align-items:stretch}
-.qB .lft{width:376px;flex-shrink:0;display:flex;flex-direction:column;gap:18px}
-.qB .lgc{flex:1;background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px 30px 26px;
-  box-shadow:0 20px 48px -30px rgba(15,23,42,.3);display:flex;flex-direction:column;
-  justify-content:center}
-.qB .mk{width:138px;height:138px;border-radius:34px;background:var(--ink);display:flex;
-  align-items:center;justify-content:center;box-shadow:0 26px 52px -24px rgba(10,14,23,.55)}
-.qB .mk svg{width:77px;height:77px}
-.qB .lgk{font-size:10.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
-  color:var(--tx2);margin-top:22px}
-.qB .lgn{font-size:17.5px;font-weight:600;letter-spacing:-.2px;color:var(--tx);margin-top:6px;line-height:1.45}
-.qB .lgn b{font-weight:800}
-.qB .sep{height:1px;background:var(--line);margin:18px 0}
-.qB .tn{font-size:28px;font-weight:800;letter-spacing:-1px;color:var(--head);margin-top:6px}
-.qB .ts{font-size:14px;color:var(--tx);margin-top:5px;line-height:1.45}
-.qB .men{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px 26px;
-  box-shadow:0 20px 48px -32px rgba(15,23,42,.28)}
-.qB .men .mk2{font-size:10.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+/* Mesma coluna esquerda de marca. À direita, três linhas largas:
+   foto à esquerda, nome com peso e RM discreto embaixo. */
+.eqB .body{padding:20px 64px 62px}
+.eqB .cols{flex:1;min-height:0;display:flex;align-items:center;gap:54px}
+
+.eqB .lft{width:500px;flex-shrink:0}
+.eqB .mark{width:132px;height:132px;border-radius:32px;background:var(--ink);display:flex;
+  align-items:center;justify-content:center;
+  box-shadow:0 26px 56px -30px rgba(10,14,23,.55)}
+.eqB .mark svg{width:74px;height:74px}
+.eqB .sol{font-size:92px;font-weight:900;letter-spacing:-4.2px;line-height:.98;color:#000;
+  margin-top:28px}
+.eqB .tl2{font-size:27px;font-weight:500;letter-spacing:-.7px;color:#525252;margin-top:8px}
+.eqB .tl2 b{color:#000;font-weight:800}
+.eqB .team{margin-top:34px;padding-top:26px;border-top:1px solid var(--line)}
+.eqB .team .tk{font-size:11px;font-weight:700;letter-spacing:1.9px;text-transform:uppercase;
   color:var(--tx2)}
-.qB .men .mn{font-size:22px;font-weight:800;letter-spacing:-.6px;color:var(--head);margin-top:5px}
-.qB .men .ms{font-size:14.5px;color:var(--tx);margin-top:3px}
-.qB .tw{flex:1;min-width:0;padding:26px 18px 20px;display:flex;flex-direction:column}
-.qB .twh{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:0 16px 4px}
-.qB .twk{font-size:10.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
-  color:var(--tx2)}
-.qB .twn{font-size:13px;color:var(--tx2)}
-.qB table{margin-top:16px}
-.qB thead th{padding:0 16px 12px}
-.qB tbody td{padding:25px 16px}
-.qB .av{width:104px;height:104px;border-radius:50%;overflow:hidden;
-  box-shadow:0 0 0 2px var(--line)}
-.qB .av img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
-.qB td.ph{width:104px;padding-right:6px}
-.qB .nm{font-size:23px;font-weight:800;letter-spacing:-.6px;color:var(--head);line-height:1.2}
-.qB .cs{font-size:13.5px;color:var(--tx2);margin-top:5px}
-.qB td.rmc{text-align:right;font-family:var(--mono);font-size:17px;font-weight:600;
-  color:var(--accent);letter-spacing:.5px;font-variant-numeric:tabular-nums;width:150px}
+.eqB .team .tn{font-size:27px;font-weight:800;letter-spacing:-.8px;color:var(--head);
+  margin-top:8px}
+.eqB .team .ts{font-size:15.5px;color:var(--tx);margin-top:6px}
+
+.eqB .vsep{width:1px;align-self:stretch;
+  background:linear-gradient(180deg,transparent,#D5DEEA 18%,#D5DEEA 82%,transparent)}
+
+.eqB .rgt{flex:1;min-width:0}
+.eqB .ppl{display:flex;flex-direction:column;gap:20px;margin-top:22px}
+.eqB .pr{background:#fff;border:1px solid var(--line);border-radius:22px;
+  padding:26px 34px;display:flex;align-items:center;gap:32px;
+  box-shadow:0 22px 50px -36px rgba(15,23,42,.3)}
+.eqB .pr img{width:134px;height:134px;border-radius:50%;object-fit:cover;display:block;
+  flex-shrink:0;box-shadow:0 0 0 2px var(--line)}
+.eqB .pr .pn{flex:1;min-width:0;font-size:30px;font-weight:700;letter-spacing:-1.1px;
+  line-height:1.15;color:var(--head)}
+.eqB .pr .rm{font-size:17px;font-weight:600;color:var(--tx2);flex-shrink:0;
+  font-variant-numeric:tabular-nums;letter-spacing:.3px}
 </style>
 </head><body>
-<section class="slide light qB">
+<section class="slide light eqB">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span>
+    <div class="bn">Cronos</div><span class="bt">SPRINT 03 · MVP PRELIMINAR</span>
     <div class="tag">Template · slide 2</div>
   </div>
   <div class="body">
-    <div class="eb">Nome da solução</div>
-    <div class="tt">Cronos</div>
-    <div class="lead">Inteligência preditiva para incidentes operacionais da Locaweb.
-      <b>Veja antes. Aja antes.</b></div>
-    <div class="row">
+    <div class="cols">
       <div class="lft">
-        <div class="lgc">
-          <div class="mk"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-          <div class="lgk">Logotipo do projeto</div>
-          <div class="lgn">A curva do histórico subindo até o <b>alvo</b>.</div>
-          <div class="sep"></div>
-          <div class="lgk">Nome da equipe</div>
+        <div class="mark"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+        <div class="sol">Cronos</div>
+        <div class="tl2"><b>Veja antes.</b> Aja antes.</div>
+        <div class="team">
+          <div class="tk">Equipe</div>
           <div class="tn">Super Data Bros</div>
-          <div class="ts">Turma 2TSCOA · FIAP<br>Tecnólogo em Data Science</div>
-        </div>
-        <div class="men">
-          <div class="mk2">Mentor Locaweb</div>
-          <div class="mn">Douglas Gouveia</div>
-          <div class="ms">Gerente Executivo de Operações</div>
+          <div class="ts">Turma 2TSCOA · Tecnólogo em Data Science</div>
         </div>
       </div>
-      <div class="tw">
-        <div class="twh"><span class="twk">Integrantes</span><span class="twn">Ordem alfabética</span></div>
-        <table>
-          <thead><tr><th></th><th>Aluno</th><th style="text-align:right">RM</th></tr></thead>
-          <tbody>
-            <tr>
-              <td class="ph"><div class="av"><img src="../../../../brand/equipe/ana-beatriz.png" alt="Ana Beatriz Costa de Oliveira"></div></td>
-              <td><div class="nm">Ana Beatriz Costa de Oliveira</div>
-                <div class="cs">Tecnólogo em Data Science · 2TSCOA</div></td>
-              <td class="rmc">RM561310</td>
-            </tr>
-            <tr>
-              <td class="ph"><div class="av"><img src="../../../../brand/equipe/hygor.png" alt="Hygor Abrantes"></div></td>
-              <td><div class="nm">Hygor Abrantes</div>
-                <div class="cs">Tecnólogo em Data Science · 2TSCOA</div></td>
-              <td class="rmc">RM565063</td>
-            </tr>
-            <tr>
-              <td class="ph"><div class="av"><img src="../../../../brand/equipe/igor.png" alt="Igor Vignola"></div></td>
-              <td><div class="nm">Igor Vignola</div>
-                <div class="cs">Tecnólogo em Data Science · 2TSCOA</div></td>
-              <td class="rmc">RM561428</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="vsep"></div>
+      <div class="rgt">
+        <div class="eb">Integrantes</div>
+        <div class="ppl">
+          <div class="pr">
+            <img src="../../../../brand/equipe/ana-beatriz.png" alt="Ana Beatriz Costa de Oliveira">
+            <div class="pn">Ana Beatriz Costa de Oliveira</div>
+            <div class="rm">RM561310</div>
+          </div>
+          <div class="pr">
+            <img src="../../../../brand/equipe/hygor.png" alt="Hygor Abrantes">
+            <div class="pn">Hygor Abrantes</div>
+            <div class="rm">RM565063</div>
+          </div>
+          <div class="pr">
+            <img src="../../../../brand/equipe/igor.png" alt="Igor Vignola">
+            <div class="pn">Igor Vignola</div>
+            <div class="rm">RM561428</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

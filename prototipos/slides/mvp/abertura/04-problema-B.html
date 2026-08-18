@@ -5,163 +5,156 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
-.pb .body{padding-top:18px}
-.pb .tt{font-size:34px;margin-top:11px}
-.pb .lead{max-width:1300px;font-size:16.5px;margin-top:9px}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
-.pb .rib{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:18px;
-  padding:22px 24px 22px;box-shadow:0 18px 44px -32px rgba(15,23,42,.3);flex-shrink:0}
-.pb .rh{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.pb .body{padding-top:18px}
+.pb .tt{font-size:39px;margin-top:12px}
+
+/* régua mês a mês, com a célula da meta no fim da própria escala */
+.pb .rib{flex:1;min-height:0;margin-top:16px;background:#fff;border:1px solid var(--line);
+  border-radius:18px;padding:24px 26px 20px;box-shadow:0 18px 44px -32px rgba(15,23,42,.3);
+  display:flex;flex-direction:column}
+.pb .rh{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-shrink:0}
 .pb .rk{font-size:11.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
   color:var(--tx2)}
-.pb .lg{display:flex;gap:16px}
-.pb .lg i{display:flex;align-items:center;gap:7px;font-style:normal;font-size:12px;font-weight:700;
-  color:var(--tx2);font-variant-numeric:tabular-nums}
+.pb .lg{display:flex;align-items:center;gap:14px}
+.pb .lg em{font-style:normal;font-size:11.5px;font-weight:700;letter-spacing:1.6px;
+  text-transform:uppercase;color:var(--tx2)}
+.pb .lg i{display:flex;align-items:center;gap:6px;font-style:normal;font-size:12.5px;
+  font-weight:700;color:var(--tx2);font-variant-numeric:tabular-nums}
 .pb .lg i s{width:11px;height:11px;border-radius:3px;text-decoration:none;display:block}
-.pb .lg i.g s{background:var(--good)} .pb .lg i.w s{background:var(--warn)}
+.pb .lg i.g s{background:var(--good)}
+.pb .lg i.w s{background:var(--warn)}
 .pb .lg i.b s{background:var(--bad)}
-.pb .ln{display:flex;align-items:stretch;gap:10px;margin-top:15px}
-.pb .lb{width:56px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center}
-.pb .lb .pn{font-size:23px;font-weight:800;letter-spacing:-.6px;color:var(--head);line-height:1}
-.pb .lb .ps{font-size:10.5px;font-weight:700;letter-spacing:.6px;color:var(--tx2);margin-top:3px}
-.pb .cells{flex:1;display:flex;gap:6px}
-.pb .cl{flex:1;height:94px;border-radius:10px;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:3px;min-width:0}
-.pb .cl b{font-size:26px;font-weight:800;letter-spacing:-1px;line-height:1;
+
+.pb .lanes{flex:1;min-height:0;display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.pb .ln{flex:1;min-height:0;display:flex;align-items:stretch;gap:12px}
+.pb .lb{width:58px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center}
+.pb .lb .pn{font-size:25px;font-weight:800;letter-spacing:-.7px;color:var(--head);line-height:1}
+.pb .lb .ps{font-size:11px;font-weight:700;letter-spacing:.7px;color:var(--tx2);margin-top:4px;
   font-variant-numeric:tabular-nums}
-.pb .cl span{font-size:12px;font-weight:700;letter-spacing:.3px;opacity:.85;margin-top:2px;
+.pb .crow{flex:1;display:flex;gap:24px;min-width:0}
+.pb .cells{flex:1;display:flex;gap:6px;min-width:0}
+.pb .cl{flex:1;border-radius:11px;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;min-width:0}
+.pb .cl b{font-size:28px;font-weight:800;letter-spacing:-1.1px;line-height:1;
+  font-variant-numeric:tabular-nums}
+.pb .cl span{font-size:12.5px;font-weight:700;opacity:.82;margin-top:6px;
   font-variant-numeric:tabular-nums}
 .pb .cl.g{background:var(--good-l);color:var(--good)}
 .pb .cl.w{background:var(--warn-l);color:var(--warn)}
 .pb .cl.b{background:var(--bad-l);color:var(--bad)}
-.pb .cl.mark{box-shadow:inset 0 0 0 2px var(--bad)}
-.pb .ax{display:flex;gap:10px;margin-top:9px}
-.pb .ax .lb{width:56px;flex-shrink:0}
-.pb .ax .mn{flex:1;display:flex;gap:6px}
-.pb .ax .mn u{flex:1;text-decoration:none;text-align:center;font-size:12px;font-weight:600;
-  color:var(--tx2);min-width:0}
-.pb .ax .mn u.on{color:var(--accent);font-weight:800}
-
-.pb .mom{display:flex;margin-top:20px;background:#fff;border:1px solid var(--line);
-  border-radius:18px;padding:22px 26px 20px;box-shadow:0 18px 44px -32px rgba(15,23,42,.3);
-  flex-shrink:0}
-.pb .mo{flex:1;min-width:0;padding:0 24px}
-.pb .mo:first-child{padding-left:0} .pb .mo:last-child{padding-right:0}
-.pb .mo + .mo{border-left:1px solid var(--line)}
-.pb .mo .mk{font-size:11.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
-  color:var(--tx2)}
-.pb .mo.hot .mk{color:var(--bad)}
-.pb .mo p{font-size:14px;line-height:1.5;color:var(--tx);margin-top:10px}
-.pb .mo p b{color:var(--head);font-weight:700}
-.pb .mo.hot p b{color:var(--bad)}
-
-.pb .goal{display:flex;gap:32px;align-items:stretch;margin-top:20px;
-  background:linear-gradient(160deg,#0B1220,#131C2E);border-radius:18px;padding:26px 28px;
-  box-shadow:0 30px 66px -36px rgba(11,18,32,.72);flex-shrink:0}
-.pb .goal .gl{width:322px;flex-shrink:0}
-.pb .goal .gk{font-size:11.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
-  color:#93C5FD}
-.pb .goal .gh{font-size:21px;font-weight:800;letter-spacing:-.6px;line-height:1.22;color:#fff;
-  margin-top:9px}
-.pb .goal .gg{flex:1;display:flex}
-.pb .goal .gi{flex:1;min-width:0;padding:0 26px;border-left:1px solid rgba(255,255,255,.13)}
-.pb .goal .gi:first-child{padding-left:26px}
-.pb .goal .gv{font-size:34px;font-weight:900;letter-spacing:-1.3px;line-height:1;color:#fff;
+.pb .cl.mark{box-shadow:inset 0 0 0 2.5px var(--bad)}
+.pb .mcell{width:112px;flex-shrink:0;border-radius:12px;border:2px dashed var(--accent);
+  background:var(--accent-l);color:var(--accent);display:flex;flex-direction:column;
+  align-items:center;justify-content:center}
+.pb .mcell b{font-size:30px;font-weight:800;letter-spacing:-1.2px;line-height:1;
   font-variant-numeric:tabular-nums}
-.pb .goal .gv em{font-style:normal;font-size:17px;font-weight:700;color:#7A8494;margin:0 5px}
-.pb .goal .gp{font-size:13px;line-height:1.48;color:#98A2B3;margin-top:9px}
-.pb .goal .gp b{color:#fff;font-weight:700}
+.pb .mcell span{font-size:12.5px;font-weight:700;margin-top:6px;
+  font-variant-numeric:tabular-nums}
+
+.pb .ax{display:flex;gap:12px;margin-top:10px;flex-shrink:0}
+.pb .arow{flex:1;display:flex;gap:24px;min-width:0}
+.pb .mn{flex:1;display:flex;gap:6px;min-width:0}
+.pb .mn u{flex:1;text-decoration:none;text-align:center;font-size:12.5px;font-weight:600;
+  color:var(--tx2);min-width:0}
+.pb .mn u.on{color:var(--bad);font-weight:800}
+.pb .mlab{width:112px;flex-shrink:0;text-align:center;font-size:12.5px;font-weight:800;
+  letter-spacing:.4px;color:var(--accent);font-variant-numeric:tabular-nums}
+
+/* leitura e alvo */
+.pb .foot{flex:0 0 214px;display:flex;gap:20px;margin-top:18px}
+.pb .fb{flex:1;background:#fff;border:1px solid var(--line);border-radius:18px;
+  padding:0 28px;display:flex;align-items:center;gap:20px;
+  box-shadow:0 18px 42px -32px rgba(15,23,42,.3)}
+.pb .fb.tgt{background:linear-gradient(158deg,#F7FAFF,#EFF6FF);border-color:#BFDBFE}
+.pb .fb .tl{width:52px;height:52px;border-radius:15px;flex-shrink:0;background:var(--bad-l);
+  color:var(--bad)}
+.pb .fb.tgt .tl{background:#DBEAFE;color:var(--accent)}
+.pb .fb .tl svg{width:28px;height:28px}
+.pb .fb .fh{font-size:26px;font-weight:800;letter-spacing:-.9px;color:var(--bad);line-height:1.1}
+.pb .fb.tgt .fh{color:var(--accent)}
+.pb .fb p{font-size:16.5px;line-height:1.4;color:var(--tx);margin-top:9px}
+.pb .fb p b{color:var(--head);font-weight:700}
 </style>
 </head><body>
 <section class="slide light pb">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 4</div></div>
   <div class="body">
-    <div class="eb">Problema a ser resolvido · a história de 2025</div>
-    <div class="tt">Quatro momentos de 2025, e <span class="hl">o que 2026 precisa entregar</span></div>
-    <div class="lead">A régua oficial da Locaweb aplicada mês a mês. Cada célula traz as violações acumuladas no ano e a faixa de nota em que o ano estava naquele momento.</div>
+    <div class="eb">Problema a ser resolvido</div>
+    <div class="tt">A nota do ano <span class="hl">cai num único mês</span></div>
 
     <div class="rib">
       <div class="rh">
-        <div class="rk">Violações de OLA acumuladas no ano e a faixa de nota</div>
-        <div class="lg"><i class="g"><s></s>150%</i><i class="w"><s></s>125%</i><i class="b"><s></s>75%</i></div>
+        <div class="rk">Violações acumuladas no ano</div>
+        <div class="lg"><em>Faixa de nota</em><i class="g"><s></s>150%</i><i class="w"><s></s>125%</i><i class="b"><s></s>75%</i></div>
       </div>
-      <div class="ln">
-        <div class="lb"><div class="pn">P3</div><div class="ps">12 h</div></div>
-        <div class="cells">
-          <div class="cl g"><b>19</b><span>150%</span></div>
-          <div class="cl g"><b>40</b><span>150%</span></div>
-          <div class="cl g"><b>56</b><span>150%</span></div>
-          <div class="cl g"><b>66</b><span>150%</span></div>
-          <div class="cl g"><b>81</b><span>150%</span></div>
-          <div class="cl g"><b>109</b><span>150%</span></div>
-          <div class="cl g"><b>132</b><span>150%</span></div>
-          <div class="cl g"><b>146</b><span>150%</span></div>
-          <div class="cl g"><b>155</b><span>150%</span></div>
-          <div class="cl g"><b>164</b><span>150%</span></div>
-          <div class="cl g"><b>179</b><span>150%</span></div>
-          <div class="cl g"><b>196</b><span>150%</span></div>
+      <div class="lanes">
+        <div class="ln">
+          <div class="lb"><div class="pn">P3</div><div class="ps">12 h</div></div>
+          <div class="crow">
+            <div class="cells">
+              <div class="cl g"><b>19</b><span>150%</span></div>
+              <div class="cl g"><b>40</b><span>150%</span></div>
+              <div class="cl g"><b>56</b><span>150%</span></div>
+              <div class="cl g"><b>66</b><span>150%</span></div>
+              <div class="cl g"><b>81</b><span>150%</span></div>
+              <div class="cl g"><b>109</b><span>150%</span></div>
+              <div class="cl g"><b>132</b><span>150%</span></div>
+              <div class="cl g"><b>146</b><span>150%</span></div>
+              <div class="cl g"><b>155</b><span>150%</span></div>
+              <div class="cl g"><b>164</b><span>150%</span></div>
+              <div class="cl g"><b>179</b><span>150%</span></div>
+              <div class="cl g"><b>196</b><span>150%</span></div>
+            </div>
+            <div class="mcell"><b>200</b><span>150%</span></div>
+          </div>
         </div>
-      </div>
-      <div class="ln">
-        <div class="lb"><div class="pn">P2</div><div class="ps">4 h</div></div>
-        <div class="cells">
-          <div class="cl g"><b>4</b><span>150%</span></div>
-          <div class="cl g"><b>8</b><span>150%</span></div>
-          <div class="cl g"><b>11</b><span>150%</span></div>
-          <div class="cl g"><b>13</b><span>150%</span></div>
-          <div class="cl g"><b>19</b><span>150%</span></div>
-          <div class="cl g"><b>22</b><span>150%</span></div>
-          <div class="cl g"><b>28</b><span>150%</span></div>
-          <div class="cl w"><b>31</b><span>125%</span></div>
-          <div class="cl w"><b>33</b><span>125%</span></div>
-          <div class="cl w"><b>35</b><span>125%</span></div>
-          <div class="cl b mark"><b>41</b><span>75%</span></div>
-          <div class="cl b"><b>42</b><span>75%</span></div>
+        <div class="ln">
+          <div class="lb"><div class="pn">P2</div><div class="ps">4 h</div></div>
+          <div class="crow">
+            <div class="cells">
+              <div class="cl g"><b>4</b><span>150%</span></div>
+              <div class="cl g"><b>8</b><span>150%</span></div>
+              <div class="cl g"><b>11</b><span>150%</span></div>
+              <div class="cl g"><b>13</b><span>150%</span></div>
+              <div class="cl g"><b>19</b><span>150%</span></div>
+              <div class="cl g"><b>22</b><span>150%</span></div>
+              <div class="cl g"><b>28</b><span>150%</span></div>
+              <div class="cl w"><b>31</b><span>125%</span></div>
+              <div class="cl w"><b>33</b><span>125%</span></div>
+              <div class="cl w"><b>35</b><span>125%</span></div>
+              <div class="cl b mark"><b>41</b><span>75%</span></div>
+              <div class="cl b"><b>42</b><span>75%</span></div>
+            </div>
+            <div class="mcell"><b>39</b><span>100%</span></div>
+          </div>
         </div>
       </div>
       <div class="ax">
         <div class="lb"></div>
-        <div class="mn"><u class="on">jan</u><u>fev</u><u>mar</u><u>abr</u><u>mai</u><u>jun</u><u>jul</u><u class="on">ago</u><u>set</u><u>out</u><u class="on">nov</u><u class="on">dez</u></div>
+        <div class="arow">
+          <div class="mn"><u>jan</u><u>fev</u><u>mar</u><u>abr</u><u>mai</u><u>jun</u><u>jul</u><u>ago</u><u>set</u><u>out</u><u class="on">nov</u><u>dez</u></div>
+          <div class="mlab">meta 2026</div>
+        </div>
       </div>
     </div>
 
-    <div class="mom">
-      <div class="mo">
-        <div class="mk">Janeiro</div>
-        <p>O ano abre com <b>4</b> violações no P2 e <b>19</b> no P3, as duas na melhor faixa. O número do fechamento ainda não existe em nenhuma tela.</p>
-      </div>
-      <div class="mo">
-        <div class="mk">Agosto</div>
-        <p>O P2 acumula <b>31</b> e entra na faixa de <b>125%</b>. O P3 chega a <b>146</b>, com o teto da faixa de 150% em 200.</p>
-      </div>
-      <div class="mo hot">
-        <div class="mk">Novembro</div>
-        <p>O P2 vai de <b>35</b> para <b>41</b> e pula a faixa de 100% inteira. Seis violações num mês custaram <b>50 pontos</b> de nota.</p>
-      </div>
-      <div class="mo">
-        <div class="mk">Dezembro</div>
-        <p>O ano fecha com o P2 em <b>42</b>, nota 75%, e o P3 em <b>196</b>, nota 150%. É neste ponto que a conta aparece.</p>
-      </div>
-    </div>
-
-    <div class="goal">
-      <div class="gl">
-        <div class="gk">O que muda em 2026</div>
-        <div class="gh">Chegar em novembro já sabendo em que degrau o ano fecha</div>
-      </div>
-      <div class="gg">
-        <div class="gi">
-          <div class="gv">39 <em>e</em> 200</div>
-          <div class="gp">violações no ano no <b>P2</b> e no <b>P3</b>, os tetos das faixas de 100% e de 150%. Em 2025 foram <b>42</b> e <b>196</b>.</div>
+    <div class="foot">
+      <div class="fb">
+        <span class="ic tl"><svg viewBox="0 0 24 24"><path d="M12 3.8l8.8 15.4H3.2z"/><path d="M12 10v3.8"/><circle cx="12" cy="16.8" r=".9" fill="currentColor" stroke="none"/></svg></span>
+        <div>
+          <div class="fh">Novembro</div>
+          <p>O P2 pulou duas faixas e a nota caiu <b>50 pontos</b></p>
         </div>
-        <div class="gi">
-          <div class="gv">7 <em>de</em> 10</div>
-          <div class="gp">checagens em que a projeção do ano acerta a situação da meta, com erro máximo de <b>15,0%</b> e <b>nenhum</b> no sentido otimista.</div>
-        </div>
-        <div class="gi">
-          <div class="gv">15 <em>de</em> 50</div>
-          <div class="gp">violações nas 50 primeiras posições quando a fila é ordenada pelo risco. Por prioridade há <b>1</b>.</div>
+      </div>
+      <div class="fb tgt">
+        <span class="ic tl"><svg viewBox="0 0 24 24"><path d="M3.4 15.4l4.6-4.2 3.4 2.4"/><path d="M11.4 13.6l3-3.6"/><path d="M15.4 9.4l5.2 1.2M20.6 10.6l-1.4 5"/></svg></span>
+        <div>
+          <div class="fh">Antes de novembro</div>
+          <p>Saber em que faixa o ano fecha</p>
         </div>
       </div>
     </div>

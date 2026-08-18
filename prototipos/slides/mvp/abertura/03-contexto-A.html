@@ -5,110 +5,108 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
 .ish .body{padding-top:18px}
-.ish .tt{font-size:38px;margin-top:12px}
-.ish .lead{max-width:1240px;font-size:16.5px;margin-top:10px}
-.ish .diag{position:relative;width:1472px;height:620px;margin-top:12px;flex-shrink:0}
-.ish .bones{position:absolute;left:0;top:0;width:1472px;height:620px}
-.ish .cd{position:absolute;width:270px;height:139px;background:#fff;border:1px solid var(--line);
-  border-radius:14px;padding:13px 16px 14px;box-shadow:0 18px 40px -30px rgba(15,23,42,.3)}
-.ish .cd.up{bottom:461px}
-.ish .cd.dn{top:481px}
-.ish .cd .cat{font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--tx2)}
-.ish .cd .val{font-size:27px;font-weight:800;letter-spacing:-1.1px;line-height:1.05;margin-top:6px;
-  color:var(--head)}
+.ish .tt{font-size:39px;margin-top:12px}
+
+.ish .diag{position:relative;width:1472px;height:580px;margin:auto 0;flex-shrink:0}
+.ish .bones{position:absolute;left:0;top:0;width:1472px;height:580px}
+
+.ish .cd{position:absolute;width:252px;height:102px;background:#fff;
+  border:1px solid var(--line);border-radius:16px;padding:0 19px;display:flex;
+  align-items:center;gap:14px;box-shadow:0 20px 44px -30px rgba(15,23,42,.32)}
+.ish .cd.up{bottom:448px}
+.ish .cd.dn{top:448px}
+.ish .cd .tl{width:44px;height:44px;border-radius:13px;flex-shrink:0;
+  background:var(--accent-l);color:var(--accent)}
+.ish .cd .tl svg{width:24px;height:24px}
+.ish .cd .cat{font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--tx2);white-space:nowrap}
+.ish .cd .val{font-size:30px;font-weight:800;letter-spacing:-1.3px;line-height:1.05;
+  margin-top:4px;color:var(--head);white-space:nowrap}
 .ish .cd.bad .val{color:var(--bad)}
 .ish .cd.warn .val{color:var(--warn)}
-.ish .cd .val i{font-style:normal;font-size:17px;font-weight:700;letter-spacing:-.3px;
-  color:var(--tx2);margin:0 3px}
-.ish .cd .why{font-size:12.5px;line-height:1.4;color:var(--tx);margin-top:7px}
-.ish .cd .why b{color:var(--head);font-weight:700}
-.ish .head{position:absolute;left:1056px;top:175px;width:416px;
-  background:linear-gradient(160deg,#0B1220,#131C2E);border-radius:20px;padding:24px 26px 22px;
-  box-shadow:0 28px 64px -34px rgba(11,18,32,.72)}
-.ish .head .hk{font-size:11.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
-  color:#F0B767}
-.ish .head .ht{font-size:25px;font-weight:800;letter-spacing:-.9px;line-height:1.14;color:#fff;
-  margin-top:9px}
-.ish .head .hsplit{display:flex;gap:20px;margin-top:18px;padding-top:16px;
-  border-top:1px solid rgba(255,255,255,.12)}
+.ish .cd .val i{font-style:normal;font-size:16px;font-weight:600;letter-spacing:0;
+  color:var(--tx2);margin:0 2px}
+
+.ish .head{position:absolute;left:1032px;top:159px;width:440px;
+  background:linear-gradient(158deg,#0B1220,#141E33);border-radius:20px;padding:24px 26px 22px;
+  box-shadow:0 30px 66px -34px rgba(11,18,32,.74)}
+.ish .head .hk{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;
+  letter-spacing:1.8px;text-transform:uppercase;color:#F0B767}
+.ish .head .hk svg{width:16px;height:16px;stroke-width:2}
+.ish .head .ht{font-size:26px;font-weight:800;letter-spacing:-.9px;line-height:1.16;
+  color:#fff;margin-top:11px}
+.ish .head .hsplit{display:flex;gap:22px;margin-top:20px;padding-top:18px;
+  border-top:1px solid rgba(255,255,255,.13)}
 .ish .head .hp{flex:1}
-.ish .head .hv{font-size:34px;font-weight:900;letter-spacing:-1.6px;line-height:1;color:#F87171}
+.ish .head .hv{font-size:42px;font-weight:900;letter-spacing:-2px;line-height:1;color:#F87171;
+  font-variant-numeric:tabular-nums}
 .ish .head .hp.ok .hv{color:#4ADE80}
-.ish .head .hl3{font-size:12.5px;line-height:1.4;color:#8E97A8;margin-top:6px}
+.ish .head .hl3{font-size:13px;line-height:1.42;color:#8E97A8;margin-top:8px}
 .ish .head .hl3 b{color:#fff;font-weight:700}
-.ish .head .hn{font-size:12.5px;line-height:1.45;color:#98A2B3;margin-top:16px;padding-top:14px;
-  border-top:1px solid rgba(255,255,255,.12)}
-.ish .head .hn b{color:#fff;font-weight:700}
 </style>
 </head><body>
 <section class="slide light ish">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 3</div></div>
   <div class="body">
-    <div class="eb">Contextualização · análise de causa raiz</div>
-    <div class="tt">A violação de OLA <span class="hl">só aparece no fechamento</span> do ano</div>
-    <div class="lead">Cada espinha é uma causa medida no histórico da Locaweb: <b>122.543</b> incidentes de janeiro de 2023 a dezembro de 2025, dos quais <b>25.600</b> valem para a meta anual.</div>
+    <div class="eb">Contextualização · diagrama de Ishikawa</div>
+    <div class="tt">Seis causas <span class="hl">medidas no histórico</span></div>
 
     <div class="diag">
-      <svg class="bones" viewBox="0 0 1472 620" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <line x1="24" y1="320" x2="1026" y2="320" stroke="#0B1220" stroke-width="2.6" stroke-linecap="round"/>
-        <polygon points="1024,307 1056,320 1024,333" fill="#0B1220"/>
-        <line x1="300" y1="316" x2="200" y2="165" stroke="#94A6BA" stroke-width="2" stroke-linecap="round"/>
-        <line x1="600" y1="316" x2="500" y2="165" stroke="#94A6BA" stroke-width="2" stroke-linecap="round"/>
-        <line x1="900" y1="316" x2="800" y2="165" stroke="#94A6BA" stroke-width="2" stroke-linecap="round"/>
-        <line x1="375" y1="324" x2="275" y2="475" stroke="#94A6BA" stroke-width="2" stroke-linecap="round"/>
-        <line x1="675" y1="324" x2="575" y2="475" stroke="#94A6BA" stroke-width="2" stroke-linecap="round"/>
-        <line x1="975" y1="324" x2="875" y2="475" stroke="#94A6BA" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="300" cy="320" r="4.6" fill="#fff" stroke="#0B1220" stroke-width="2"/>
-        <circle cx="600" cy="320" r="4.6" fill="#fff" stroke="#0B1220" stroke-width="2"/>
-        <circle cx="900" cy="320" r="4.6" fill="#fff" stroke="#0B1220" stroke-width="2"/>
-        <circle cx="375" cy="320" r="4.6" fill="#fff" stroke="#0B1220" stroke-width="2"/>
-        <circle cx="675" cy="320" r="4.6" fill="#fff" stroke="#0B1220" stroke-width="2"/>
-        <circle cx="975" cy="320" r="4.6" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+      <svg class="bones" viewBox="0 0 1472 580" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="24" y1="290" x2="992" y2="290" stroke="#0B1220" stroke-width="2.6" stroke-linecap="round"/>
+        <polygon points="990,276 1024,290 990,304" fill="#0B1220"/>
+        <line x1="300" y1="285" x2="208" y2="138" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+        <line x1="600" y1="285" x2="508" y2="138" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+        <line x1="900" y1="285" x2="808" y2="138" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+        <line x1="375" y1="295" x2="283" y2="442" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+        <line x1="675" y1="295" x2="583" y2="442" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+        <line x1="975" y1="295" x2="883" y2="442" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="300" cy="290" r="4.4" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+        <circle cx="600" cy="290" r="4.4" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+        <circle cx="900" cy="290" r="4.4" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+        <circle cx="375" cy="290" r="4.4" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+        <circle cx="675" cy="290" r="4.4" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+        <circle cx="975" cy="290" r="4.4" fill="#fff" stroke="#0B1220" stroke-width="2"/>
       </svg>
 
-      <div class="cd up bad" style="left:65px">
-        <div class="cat">Medição</div>
-        <div class="val num">35 <i>para</i> 41</div>
-        <div class="why">O P2 acumulado passa de <b>35 em outubro</b> para <b>41 em novembro</b>, e atravessa duas faixas da régua de uma vez.</div>
+      <div class="cd up bad" style="left:82px">
+        <span class="ic tl"><svg viewBox="0 0 24 24"><rect x="3.4" y="5.4" width="17.2" height="15.2" rx="3"/><path d="M3.4 10.4h17.2M8.4 3.4v4M15.6 3.4v4"/></svg></span>
+        <div><div class="cat">Medição</div><div class="val num">35 <i>para</i> 41</div></div>
       </div>
-      <div class="cd up bad" style="left:365px">
-        <div class="cat">Priorização</div>
-        <div class="val num">0,4693</div>
-        <div class="why">ROC AUC de ordenar a fila por prioridade, abaixo dos <b>0,5063</b> de uma fila sorteada. A prioridade sai na abertura.</div>
+      <div class="cd up bad" style="left:382px">
+        <span class="ic tl"><svg viewBox="0 0 24 24"><path d="M4 6.4h16M4 12h11M4 17.6h7"/><circle cx="19" cy="17.6" r="1.9"/></svg></span>
+        <div><div class="cat">Priorização</div><div class="val num">0,4693</div></div>
       </div>
-      <div class="cd up warn" style="left:665px">
-        <div class="cat">Concentração</div>
-        <div class="val num">46% <i>com</i> 8%</div>
-        <div class="why">O Team11 responde por <b>46% das violações</b> com <b>8% do volume</b>. O Team14 tem 75,7% do volume e 10 violações.</div>
+      <div class="cd up warn" style="left:682px">
+        <span class="ic tl"><svg viewBox="0 0 24 24"><circle cx="9.2" cy="8.6" r="3.2"/><path d="M3.6 20c0-3.1 2.5-5.6 5.6-5.6s5.6 2.5 5.6 5.6"/><path d="M16.4 6.2a3.2 3.2 0 0 1 0 6.2M17.4 14.8c1.8.7 3 2.4 3 4.4"/></svg></span>
+        <div><div class="cat">Concentração</div><div class="val num">46% <i>com</i> 8%</div></div>
       </div>
 
-      <div class="cd dn warn" style="left:140px">
-        <div class="cat">Volume e ruído</div>
-        <div class="val num">85,1%</div>
-        <div class="why">das aberturas vêm de monitoramento, e <b>65,6%</b> fecham como Sem Intervenção. O caso que estoura fica diluído.</div>
+      <div class="cd dn warn" style="left:157px">
+        <span class="ic tl"><svg viewBox="0 0 24 24"><path d="M4 12h11"/><path d="M11 8l4 4-4 4"/><path d="M19 4.6v14.8"/></svg></span>
+        <div><div class="cat">Volume e ruído</div><div class="val num">85,1%</div></div>
       </div>
-      <div class="cd dn warn" style="left:440px">
-        <div class="cat">Carga sem sinal</div>
-        <div class="val num">2,5%</div>
-        <div class="why">da variação de violações é explicada pelo volume diário, com r de <b>0,159</b>. O volume dimensiona a carga, e só.</div>
+      <div class="cd dn warn" style="left:457px">
+        <span class="ic tl"><svg viewBox="0 0 24 24"><path d="M12 4.2v15.6M6.6 19.8h10.8"/><path d="M4 8.6h16"/><path d="M4 8.6l-2.4 4.6h4.8zM20 8.6l-2.4 4.6h4.8z"/></svg></span>
+        <div><div class="cat">Sinal fraco</div><div class="val num">2,5%</div></div>
       </div>
-      <div class="cd dn bad" style="left:740px">
-        <div class="cat">Conhecimento</div>
-        <div class="val num">1,46%</div>
-        <div class="why">é a taxa de violação do problema inédito, contra <b>0,31%</b> da rotina de 20 ou mais ocorrências. Queda de 4,7 vezes.</div>
+      <div class="cd dn bad" style="left:757px">
+        <span class="ic tl"><svg viewBox="0 0 24 24"><path d="M12 3.4v4.2M12 16.4v4.2M4.6 12h4.2M15.2 12h4.2"/><path d="M6.8 6.8l3 3M14.2 14.2l3 3M17.2 6.8l-3 3M9.8 14.2l-3 3"/></svg></span>
+        <div><div class="cat">Conhecimento</div><div class="val num">1,46%</div></div>
       </div>
 
       <div class="head">
-        <div class="hk">Efeito</div>
+        <div class="hk"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3.8l8.8 15.4H3.2z"/><path d="M12 10v3.8"/><circle cx="12" cy="16.8" r=".9" fill="currentColor" stroke="none"/></svg></span> Efeito</div>
         <div class="ht">Violação de OLA que só aparece no fechamento do ano</div>
         <div class="hsplit">
-          <div class="hp"><div class="hv num">42</div><div class="hl3">violações no P2 em 2025<br><b>nota 75%</b></div></div>
-          <div class="hp ok"><div class="hv num">196</div><div class="hl3">violações no P3 em 2025<br><b>nota 150%</b></div></div>
+          <div class="hp"><div class="hv num">42</div><div class="hl3">P2 em 2025<br><b>nota 75%</b></div></div>
+          <div class="hp ok"><div class="hv num">196</div><div class="hl3">P3 em 2025<br><b>nota 150%</b></div></div>
         </div>
-        <div class="hn">São <b class="num">248</b> violações nos <b class="num">25.600</b> incidentes elegíveis, <b class="num">0,97%</b>. Quando o número aparece, o prazo já venceu: <b>4 horas</b> no P2 e <b>12 horas</b> no P3.</div>
       </div>
     </div>
   </div>

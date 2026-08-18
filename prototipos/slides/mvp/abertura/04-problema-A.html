@@ -5,69 +5,160 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
 .pa .body{padding-top:18px}
-.pa .top{display:flex;align-items:flex-end;justify-content:space-between;gap:44px}
-.pa .tt{font-size:35px;margin-top:11px}
-.pa .cap{font-size:15px;line-height:1.45;color:var(--tx);text-align:right;max-width:560px;
-  flex-shrink:0;padding-bottom:4px}
-.pa .cap b{color:var(--head);font-weight:700}
+.pa .tt{font-size:39px;margin-top:12px}
 
-.pa .figw{width:1242px;margin:14px auto 0;background:#fff;border:1px solid var(--line);
-  border-radius:20px;padding:16px 20px;box-shadow:0 20px 50px -32px rgba(15,23,42,.3);
-  flex-shrink:0}
-.pa .figw img{display:block;width:1200px;margin:0 auto}
+/* régua mês a mês */
+.pa .rib{flex:1;min-height:0;margin-top:16px;background:#fff;border:1px solid var(--line);
+  border-radius:18px;padding:24px 26px 20px;box-shadow:0 18px 44px -32px rgba(15,23,42,.3);
+  display:flex;flex-direction:column}
+.pa .rh{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-shrink:0}
+.pa .rk{font-size:11.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  color:var(--tx2)}
+.pa .lg{display:flex;align-items:center;gap:14px}
+.pa .lg em{font-style:normal;font-size:11.5px;font-weight:700;letter-spacing:1.6px;
+  text-transform:uppercase;color:var(--tx2)}
+.pa .lg i{display:flex;align-items:center;gap:6px;font-style:normal;font-size:12.5px;
+  font-weight:700;color:var(--tx2);font-variant-numeric:tabular-nums}
+.pa .lg i s{width:11px;height:11px;border-radius:3px;text-decoration:none;display:block}
+.pa .lg i.g s{background:var(--good)}
+.pa .lg i.w s{background:var(--warn)}
+.pa .lg i.b s{background:var(--bad)}
 
-.pa .metas{display:flex;margin-top:18px;background:#fff;border:1px solid var(--line);
-  border-radius:18px;padding:18px 26px 16px;box-shadow:0 18px 44px -32px rgba(15,23,42,.3);
-  flex-shrink:0}
-.pa .mt{flex:1;min-width:0;padding:0 28px}
-.pa .mt:first-child{padding-left:0}
-.pa .mt:last-child{padding-right:0}
-.pa .mt + .mt{border-left:1px solid var(--line)}
-.pa .mk{font-size:11.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
+.pa .lanes{flex:1;min-height:0;display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.pa .ln{flex:1;min-height:0;display:flex;align-items:stretch;gap:12px}
+.pa .lb{width:58px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center}
+.pa .lb .pn{font-size:25px;font-weight:800;letter-spacing:-.7px;color:var(--head);line-height:1}
+.pa .lb .ps{font-size:11px;font-weight:700;letter-spacing:.7px;color:var(--tx2);margin-top:4px;
+  font-variant-numeric:tabular-nums}
+.pa .cells{flex:1;display:flex;gap:6px;min-width:0}
+.pa .cl{flex:1;border-radius:11px;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;min-width:0}
+.pa .cl b{font-size:30px;font-weight:800;letter-spacing:-1.2px;line-height:1;
+  font-variant-numeric:tabular-nums}
+.pa .cl span{font-size:13px;font-weight:700;opacity:.82;margin-top:6px;
+  font-variant-numeric:tabular-nums}
+.pa .cl.g{background:var(--good-l);color:var(--good)}
+.pa .cl.w{background:var(--warn-l);color:var(--warn)}
+.pa .cl.b{background:var(--bad-l);color:var(--bad)}
+.pa .cl.mark{box-shadow:inset 0 0 0 2.5px var(--bad)}
+.pa .ax{display:flex;gap:12px;margin-top:10px;flex-shrink:0}
+.pa .ax .mn{flex:1;display:flex;gap:6px;min-width:0}
+.pa .ax .mn u{flex:1;text-decoration:none;text-align:center;font-size:12.5px;font-weight:600;
+  color:var(--tx2);min-width:0}
+.pa .ax .mn u.on{color:var(--bad);font-weight:800}
+
+/* linha de leitura */
+.pa .read{flex-shrink:0;margin-top:16px;height:58px;background:#fff;
+  border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;gap:14px;
+  padding:0 22px;box-shadow:0 14px 34px -30px rgba(15,23,42,.28)}
+.pa .read .tl{width:34px;height:34px;border-radius:10px;flex-shrink:0;
+  background:var(--bad-l);color:var(--bad)}
+.pa .read .tl svg{width:19px;height:19px}
+.pa .read p{font-size:17px;color:var(--tx);line-height:1.3}
+.pa .read p b{color:var(--head);font-weight:700}
+
+/* metas */
+.pa .mw{flex:0 0 226px;display:flex;flex-direction:column;gap:11px;margin-top:18px}
+.pa .mk{font-size:11.5px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;
   color:var(--accent)}
-.pa .mv{font-size:32px;font-weight:800;letter-spacing:-1.4px;line-height:1;margin-top:8px;
-  color:var(--head)}
-.pa .mv em{font-style:normal;font-size:17px;font-weight:700;letter-spacing:-.3px;color:var(--tx2);
-  margin:0 5px}
-.pa .mh{font-size:15.5px;font-weight:700;line-height:1.3;color:var(--head);margin-top:8px;
-  letter-spacing:-.2px;min-height:41px}
-.pa .ml{font-size:13px;line-height:1.4;color:var(--tx);margin-top:8px}
-.pa .ml b{color:var(--head);font-weight:700}
+.pa .mrow{flex:1;display:flex;gap:16px;min-height:0}
+.pa .mt{flex:1;background:#fff;border:1px solid var(--line);border-radius:17px;
+  padding:0 26px;display:flex;flex-direction:column;justify-content:center;
+  box-shadow:0 18px 42px -32px rgba(15,23,42,.3)}
+.pa .mt.due{background:linear-gradient(158deg,#F7FAFF,#EFF6FF);border-color:#BFDBFE}
+.pa .mt .tl{width:40px;height:40px;border-radius:12px;background:var(--accent-l);
+  color:var(--accent)}
+.pa .mt.due .tl{background:#DBEAFE}
+.pa .mt .tl svg{width:22px;height:22px}
+.pa .mt .mv{font-size:46px;font-weight:800;letter-spacing:-2.2px;line-height:1;margin-top:14px;
+  color:var(--head);font-variant-numeric:tabular-nums}
+.pa .mt .mv i{font-style:normal;font-size:17px;font-weight:600;letter-spacing:-.2px;
+  color:var(--tx2);margin-right:6px}
+.pa .mt.due .mv{font-size:38px;letter-spacing:-1.6px;color:var(--accent)}
+.pa .mt .ml{font-size:14.5px;line-height:1.35;color:var(--tx);margin-top:9px}
 </style>
 </head><body>
 <section class="slide light pa">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 4</div></div>
   <div class="body">
-    <div class="top">
-      <div>
-        <div class="eb">Problema a ser resolvido · o que esperamos alcançar</div>
-        <div class="tt">A nota do ano se decide <span class="hl">antes de novembro</span></div>
+    <div class="eb">Problema a ser resolvido</div>
+    <div class="tt">A nota do ano <span class="hl">cai num único mês</span></div>
+
+    <div class="rib">
+      <div class="rh">
+        <div class="rk">Violações acumuladas no ano</div>
+        <div class="lg"><em>Faixa de nota</em><i class="g"><s></s>150%</i><i class="w"><s></s>125%</i><i class="b"><s></s>75%</i></div>
       </div>
-      <div class="cap">Violações de OLA acumuladas mês a mês em 2025 contra as faixas da régua da meta. À esquerda o <b>P3</b>, que passou o ano inteiro na melhor faixa. À direita o <b>P2</b>, que perdeu dois degraus num único mês.</div>
+      <div class="lanes">
+        <div class="ln">
+          <div class="lb"><div class="pn">P3</div><div class="ps">12 h</div></div>
+          <div class="cells">
+            <div class="cl g"><b>19</b><span>150%</span></div>
+            <div class="cl g"><b>40</b><span>150%</span></div>
+            <div class="cl g"><b>56</b><span>150%</span></div>
+            <div class="cl g"><b>66</b><span>150%</span></div>
+            <div class="cl g"><b>81</b><span>150%</span></div>
+            <div class="cl g"><b>109</b><span>150%</span></div>
+            <div class="cl g"><b>132</b><span>150%</span></div>
+            <div class="cl g"><b>146</b><span>150%</span></div>
+            <div class="cl g"><b>155</b><span>150%</span></div>
+            <div class="cl g"><b>164</b><span>150%</span></div>
+            <div class="cl g"><b>179</b><span>150%</span></div>
+            <div class="cl g"><b>196</b><span>150%</span></div>
+          </div>
+        </div>
+        <div class="ln">
+          <div class="lb"><div class="pn">P2</div><div class="ps">4 h</div></div>
+          <div class="cells">
+            <div class="cl g"><b>4</b><span>150%</span></div>
+            <div class="cl g"><b>8</b><span>150%</span></div>
+            <div class="cl g"><b>11</b><span>150%</span></div>
+            <div class="cl g"><b>13</b><span>150%</span></div>
+            <div class="cl g"><b>19</b><span>150%</span></div>
+            <div class="cl g"><b>22</b><span>150%</span></div>
+            <div class="cl g"><b>28</b><span>150%</span></div>
+            <div class="cl w"><b>31</b><span>125%</span></div>
+            <div class="cl w"><b>33</b><span>125%</span></div>
+            <div class="cl w"><b>35</b><span>125%</span></div>
+            <div class="cl b mark"><b>41</b><span>75%</span></div>
+            <div class="cl b"><b>42</b><span>75%</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="ax">
+        <div class="lb"></div>
+        <div class="mn"><u>jan</u><u>fev</u><u>mar</u><u>abr</u><u>mai</u><u>jun</u><u>jul</u><u>ago</u><u>set</u><u>out</u><u class="on">nov</u><u>dez</u></div>
+      </div>
     </div>
 
-    <div class="figw"><img src="../../../../sprints/sprint-3/slides/figs/ano_virou.png" alt="Violações de OLA acumuladas em 2025 no P3 e no P2 contra as faixas da meta"></div>
+    <div class="read">
+      <span class="ic tl"><svg viewBox="0 0 24 24"><path d="M12 3.8l8.8 15.4H3.2z"/><path d="M12 10v3.8"/><circle cx="12" cy="16.8" r=".9" fill="currentColor" stroke="none"/></svg></span>
+      <p>Seis violações em novembro custaram <b>50 pontos</b> de nota</p>
+    </div>
 
-    <div class="metas">
-      <div class="mt">
-        <div class="mk">Meta 01 · fechar dentro da faixa</div>
-        <div class="mv num">39 <em>e</em> 200</div>
-        <div class="mh">violações no ano no P2 e no P3, os tetos das faixas de 100% e de 150%</div>
-        <div class="ml">Em 2025 o P2 fechou em <b>42</b>, nota 75%, e o P3 em <b>196</b>, nota 150%.</div>
-      </div>
-      <div class="mt">
-        <div class="mk">Meta 02 · ver o degrau antes</div>
-        <div class="mv num">7 <em>de</em> 10</div>
-        <div class="mh">checagens em que a projeção do ano já acerta a situação da meta</div>
-        <div class="ml">Erro máximo de <b>15,0%</b> e <b>nenhum</b> erro no sentido otimista, em 5 datas e 2 prioridades.</div>
-      </div>
-      <div class="mt">
-        <div class="mk">Meta 03 · agir no caso certo</div>
-        <div class="mv num">15 <em>de</em> 50</div>
-        <div class="mh">violações nas 50 primeiras posições da fila do turno</div>
-        <div class="ml">Ordenando pelo risco previsto são <b>15</b>. Por prioridade, como a ferramenta faz hoje, <b>1</b>.</div>
+    <div class="mw">
+      <div class="mk">Metas do ano</div>
+      <div class="mrow">
+        <div class="mt">
+          <span class="ic tl"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+          <div class="mv">39</div>
+          <div class="ml">Violações no P2, faixa de 100%</div>
+        </div>
+        <div class="mt">
+          <span class="ic tl"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+          <div class="mv">200</div>
+          <div class="ml">Violações no P3, faixa de 150%</div>
+        </div>
+        <div class="mt due">
+          <span class="ic tl"><svg viewBox="0 0 24 24"><path d="M3.4 15.4l4.6-4.2 3.4 2.4"/><path d="M11.4 13.6l3-3.6"/><path d="M15.4 9.4l5.2 1.2M20.6 10.6l-1.4 5"/></svg></span>
+          <div class="mv"><i>antes de</i>novembro</div>
+          <div class="ml">Saber a faixa do fechamento</div>
+        </div>
       </div>
     </div>
   </div>

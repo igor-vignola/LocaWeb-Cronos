@@ -1,177 +1,91 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
-<title>05 Proposta de solução · B</title>
+<title>05 Solução · B</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
-.s5b .tt{font-size:36px;margin-top:11px}
-.s5b .body{padding-bottom:56px}
-.s5b .row{flex:1;display:flex;gap:24px;margin-top:16px;min-height:0}
-.s5b .tml{flex:1;background:#fff;border:1px solid var(--line);border-radius:20px;
-  padding:8px 26px 10px;box-shadow:0 18px 44px -30px rgba(15,23,42,.26);display:flex;
-  flex-direction:column;justify-content:center;min-width:0}
-.s5b .mo{display:grid;grid-template-columns:104px 1fr;gap:20px;padding:14px 0;
-  border-top:1px solid var(--line)}
-.s5b .mo:first-child{border-top:none}
-.s5b .hh{font-family:var(--mono);font-size:20px;font-weight:600;color:var(--accent);
-  letter-spacing:-.5px;font-variant-numeric:tabular-nums;line-height:1.1}
-.s5b .hw{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
-  color:var(--tx2);margin-top:5px;line-height:1.3}
-.s5b .mh{font-size:18.5px;font-weight:800;letter-spacing:-.35px;color:var(--head);line-height:1.15}
-.s5b .mh span{color:var(--accent)}
-.s5b .mtx{font-size:14px;line-height:1.45;color:var(--tx);margin-top:5px}
-.s5b .mtx b{color:var(--head);font-weight:700}
-.s5b .mn{display:flex;gap:16px;margin-top:8px}
-.s5b .mn .u{background:#F5F8FC;border:1px solid var(--line);border-radius:10px;
-  padding:6px 12px;min-width:0}
-.s5b .mn .uk{font-size:10.5px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;
-  color:var(--tx2)}
-.s5b .mn .uv{font-size:16.5px;font-weight:800;letter-spacing:-.4px;color:var(--accent);
-  margin-top:2px;font-variant-numeric:tabular-nums;line-height:1.1}
-.s5b .mn .uv.b{color:var(--bad)} .s5b .mn .uv.g{color:var(--good)}
-.s5b .mn .uv.w{color:var(--warn)}
-.s5b .mn .uv small{font-size:11.5px;font-weight:700;color:var(--tx2);margin-left:3px;
-  letter-spacing:0}
-.s5b .side{width:392px;flex-shrink:0;display:flex;flex-direction:column;gap:13px;min-height:0}
-.s5b .hero{background:linear-gradient(160deg,#0B1220,#131C2E);border-radius:20px;
-  padding:22px 24px;color:#E8ECF3;box-shadow:0 26px 60px -36px rgba(11,18,32,.7)}
-.s5b .hero .hk{font-size:11px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
-  color:#7A8494}
-.s5b .hero .hv{font-size:26px;font-weight:800;letter-spacing:-.9px;color:#fff;margin-top:9px;
-  line-height:1.12}
-.s5b .hero .hs{font-size:13.5px;color:#98A2B3;line-height:1.5;margin-top:10px}
-.s5b .hero .hs b{color:#fff;font-weight:700}
-.s5b .cd2{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 22px;
-  box-shadow:0 16px 40px -30px rgba(15,23,42,.24);flex:0 0 auto}
-.s5b .cd3{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 22px;
-  box-shadow:0 16px 40px -30px rgba(15,23,42,.24);flex:1;display:flex;flex-direction:column;
-  justify-content:space-between;min-height:0}
-.s5b .cd3 .fr{display:grid;grid-template-columns:1fr;gap:3px}
-.s5b .cd3 .fk{font-size:10.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;
-  color:var(--tx2)}
-.s5b .cd3 .fv{font-size:13.5px;line-height:1.45;color:var(--tx)}
-.s5b .cd3 .fv b{color:var(--head);font-weight:700}
-.s5b .cd3 .fv .mn2{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--head);
+.sb .body{padding-top:20px}
+.sb .tt{font-size:42px;margin-top:12px}
+
+.sb .flow{height:440px;display:flex;align-items:stretch;margin-top:auto;margin-bottom:auto}
+.sb .stp{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:22px;
+  padding:28px;box-shadow:0 22px 54px -34px rgba(15,23,42,.3);
+  display:flex;flex-direction:column;justify-content:center}
+.sb .stp.acc{background:linear-gradient(165deg,#F7FAFF,#fff);border-color:#BFDBFE}
+
+.sb .ar{width:44px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  color:#BFCADA}
+.sb .ar svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+
+.sb .ci{width:54px;height:54px;border-radius:15px;display:inline-flex;align-items:center;
+  justify-content:center;background:var(--accent-l);color:var(--accent)}
+.sb .ci svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.sb .stp.g .ci{background:var(--good-l);color:var(--good)}
+
+.sb .bh{font-size:23px;font-weight:800;letter-spacing:-.5px;color:var(--head);line-height:1.15;
+  margin-top:20px}
+.sb .vals{display:flex;align-items:flex-end;gap:10px;margin-top:24px;min-height:112px}
+.sb .vals.col{flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:2px}
+.sb .vr{display:flex;align-items:baseline;gap:10px}
+.sb .v{font-size:92px;font-weight:900;letter-spacing:-4.6px;line-height:.94;color:var(--accent);
   font-variant-numeric:tabular-nums}
-.s5b .cd2 .ck{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--tx2)}
-.s5b .abas{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
-.s5b .abas code{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--accent);
-  background:var(--accent-l);border:1px solid #DBE7FE;border-radius:8px;padding:5px 10px}
-.s5b .cd2 p{font-size:13px;line-height:1.45;color:var(--tx);margin-top:11px}
-.s5b .cd2 p b{color:var(--head);font-weight:700}
-.s5b .clk{margin-top:auto;padding-top:13px;border-top:1px solid var(--line);display:flex;
-  align-items:baseline;gap:10px}
-.s5b .clk .cv{font-family:var(--mono);font-size:15.5px;font-weight:600;color:var(--head);
-  font-variant-numeric:tabular-nums}
-.s5b .clk .cl2{font-size:12.5px;color:var(--tx2);line-height:1.35}
-.s5b .note{flex-shrink:0;margin-top:13px;font-size:12.5px;line-height:1.5;color:var(--tx);
-  font-variant-numeric:tabular-nums;border-top:1px solid var(--line);padding-top:12px}
-.s5b .note strong{font-weight:700;color:var(--head);letter-spacing:.2px}
-.s5b .note b{color:var(--head);font-weight:700}
+.sb .vals.col .v{font-size:58px;letter-spacing:-2.8px}
+.sb .stp.g .v{color:var(--good)}
+.sb .v em{font-style:normal;font-size:30px;font-weight:800;letter-spacing:-.9px;
+  color:var(--tx2);margin-left:5px}
+.sb .pk{font-size:15px;font-weight:700;letter-spacing:1.1px;color:var(--tx2);
+  align-self:flex-end;padding-bottom:8px}
+.sb .bl{font-size:16.5px;line-height:1.45;color:var(--tx);margin-top:14px;min-height:48px}
 </style>
 </head><body>
-<section class="slide light s5b">
+<section class="slide light sb">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 5</div></div>
   <div class="body">
-    <div class="eb">Proposta de solução · o turno de quem usa</div>
-    <div class="tt">A solução aparece <span class="hl">na hora em que a decisão é tomada</span></div>
-    <div class="row">
-      <div class="tml">
+    <div class="eb">Proposta de solução</div>
+    <div class="tt">O caminho do turno, do volume previsto <span class="hl">ao resumo na tela</span></div>
 
-        <div class="mo">
-          <div><div class="hh">07h</div><div class="hw">Entrada do turno</div></div>
-          <div>
-            <div class="mh">O <span>morning briefing</span> já está na tela</div>
-            <div class="mtx">Ontem, hoje e as ações sugeridas, escritos sem que ninguém abra um
-            relatório. O volume esperado vem separado por prioridade.</div>
-          </div>
+    <div class="flow">
+      <div class="stp">
+        <span class="ci"><svg viewBox="0 0 24 24"><path d="M3.4 15.4l4.6-4.2 3.4 2.4"/><path d="M11.4 13.6l3-3.6"/><path d="M15.4 9.4l5.2 1.2M20.6 10.6l-1.4 5"/></svg></span>
+        <div class="bh">Previsão de volume</div>
+        <div class="vals col">
+          <div class="vr"><span class="v num">11,8</span><span class="pk">P3</span></div>
+          <div class="vr"><span class="v num">4,2</span><span class="pk">P2</span></div>
         </div>
-
-        <div class="mo">
-          <div><div class="hh">Manhã</div><div class="hw">Aba Previsão</div></div>
-          <div>
-            <div class="mh">O <span>Prophet</span> dimensiona a semana, D+1 a D+7</div>
-            <div class="mtx">Uma série por prioridade, treinada em 2025 com dia da semana e
-            feriado nacional. A banda de 80% mostra o pior caso plausível de cada dia.</div>
-            <div class="mn">
-              <div class="u"><div class="uk">Erro médio · P2</div><div class="uv num">4,2<small>por dia</small></div></div>
-              <div class="u"><div class="uk">Erro médio · P3</div><div class="uv num">11,8<small>por dia</small></div></div>
-              <div class="u"><div class="uk">Cobertura da banda</div><div class="uv num">84,8<small>% P2 · 60,9% P3</small></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="mo">
-          <div><div class="hh">15h</div><div class="hw">Aba Fila</div></div>
-          <div>
-            <div class="mh">A <span>regressão logística</span> diz em qual caso olhar agora</div>
-            <div class="mtx">Dez características disponíveis na abertura do incidente, contra
-            prazo de 4 horas no P2 e 12 horas no P3. A ordem da fila passa a ser o risco
-            estimado, no lugar da hora de chegada.</div>
-            <div class="mn">
-              <div class="u"><div class="uk">Nos 50 primeiros</div><div class="uv num">15<small>violações</small></div></div>
-              <div class="u"><div class="uk">Por prioridade, hoje</div><div class="uv b num">1<small>violação</small></div></div>
-              <div class="u"><div class="uk">Os 20% de maior risco</div><div class="uv num">72<small>% das violações</small></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="mo">
-          <div><div class="hh">Mês</div><div class="hw">Fecho · aba Projeção</div></div>
-          <div>
-            <div class="mh">A projeção diz <span>em que degrau o ano fecha</span></div>
-            <div class="mtx">Três parcelas: desfecho contado, incidente aberto pelo modelo de
-            risco, mês futuro pelo Prophet. Em 2025 o P2 fechou com <b>42</b> violações e nota de
-            75%, o P3 com <b>196</b> e nota de 150%.</div>
-            <div class="mn">
-              <div class="u"><div class="uk">Faixa conteve o real</div><div class="uv num">7<small>de 10 testes</small></div></div>
-              <div class="u"><div class="uk">Erro máximo</div><div class="uv w num">15,0<small>%</small></div></div>
-              <div class="u"><div class="uk">Erro otimista</div><div class="uv g">nenhum</div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="mo">
-          <div><div class="hh">Semana</div><div class="hw">Abas Saúde e Causas</div></div>
-          <div>
-            <div class="mh">A <span>nota por produto</span> mostra onde a operação sangra</div>
-            <div class="mtx">Quinze produtos acima de 200 incidentes cobrem <b>94%</b> do volume.
-            A pior nota é lvps com <b>21,3</b>, a melhor lcho com <b>69,3</b>, e 5 produtos estão
-            abaixo de 40.</div>
-          </div>
-        </div>
-
+        <div class="bl">Erro médio por dia da previsão</div>
       </div>
 
-      <div class="side">
-        <div class="hero">
-          <div class="hk">O jeito de entregar</div>
-          <div class="hv">O Cronos publica antes de ser consultado</div>
-          <div class="hs">Não existe caixa de perguntas na ferramenta. Cada aba abre com o que
-          já foi calculado, e o texto do briefing é escrito nos bastidores.</div>
-        </div>
-        <div class="cd2">
-          <div class="ck">Seis abas na aplicação</div>
-          <div class="abas"><code>/</code><code>/previsao/</code><code>/projecao/</code><code>/fila/</code><code>/saude/</code><code>/causas/</code></div>
-          <p>Mais quatro rotas de detalhe que abrem como modal, e um índice de busca.</p>
-        </div>
-        <div class="cd3">
-          <div class="fr"><div class="fk">Relógio da aplicação</div><div class="fv"><span class="mn2">01/10/2025 · 15h</span>, parado. A tela só mostra o que existiria nesse instante.</div></div>
-          <div class="fr"><div class="fk">Onde os modelos treinam</div><div class="fv">Nos notebooks, que gravam Parquet. O contêiner só lê, e o pacote tem <b>350 kB</b>.</div></div>
-          <div class="fr"><div class="fk">Fonte externa e dado pessoal</div><div class="fv">Uma fonte só, a biblioteca <b>holidays</b>. A varredura não achou e-mail, CPF, telefone nem IP.</div></div>
-        </div>
+      <div class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h13"/><path d="M13 6.4l6 5.6-6 5.6"/></svg></div>
+
+      <div class="stp g">
+        <span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+        <div class="bh">Risco por incidente</div>
+        <div class="vals"><span class="v num">72%</span></div>
+        <div class="bl">das violações nos 20% de maior risco</div>
+      </div>
+
+      <div class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h13"/><path d="M13 6.4l6 5.6-6 5.6"/></svg></div>
+
+      <div class="stp g">
+        <span class="ci"><svg viewBox="0 0 24 24"><path d="M3.4 17.2l5.4-5.4 3.8 3 6.2-8"/><path d="M14.8 6.8h4.6v4.6"/></svg></span>
+        <div class="bh">Projeção do KPI</div>
+        <div class="vals"><span class="v num">7<em>de 10</em></span></div>
+        <div class="bl">acertos da situação da meta nas duas prioridades</div>
+      </div>
+
+      <div class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h13"/><path d="M13 6.4l6 5.6-6 5.6"/></svg></div>
+
+      <div class="stp acc">
+        <span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.3"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4"/><path d="M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7"/></svg></span>
+        <div class="bh">Briefing do turno</div>
+        <div class="vals"><span class="v num">6</span></div>
+        <div class="bl">abas, e o resumo abre na primeira</div>
       </div>
     </div>
-
-    <div class="note"><strong>O QUE MUDOU DESDE A SPRINT 2</strong> · detector de cascata fora do
-    MVP, porque <b>87%</b> das violações são de incidentes isolados, em medição exploratória ·
-    clusterização por DTW fora, silhueta de <b>0,13</b> · regressão logística no lugar do XGBoost,
-    PR-AUC de <b>0,2958</b> contra 0,2526, e o XGBoost balanceado prevê 1.007 violações onde houve
-    50 · SHAP dispensado, porque em modelo linear o peso das 10 características é conta fechada ·
-    acúmulo de backlog sem suporte, correlação de <b>−0,139</b>.</div>
   </div>
   <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
 </section>

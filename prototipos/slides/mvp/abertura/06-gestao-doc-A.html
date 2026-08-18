@@ -1,103 +1,62 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
-<title>06 Gestão do projeto · A</title>
+<title>06 Gestão documentada · A</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
-.s6a .tt{font-size:34px;margin-top:10px}
-.s6a .body{padding-bottom:50px}
-.s6a .row{flex:1;display:flex;gap:24px;margin-top:15px;min-height:0}
-.s6a .lft{width:960px;flex-shrink:0;display:flex;flex-direction:column}
-.s6a .tr{width:960px;height:540px;flex-shrink:0;border:1.5px dashed #B4C2D6;border-radius:16px;
-  background:rgba(255,255,255,.55);display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:8px}
-.s6a .tr .trl{font-size:17px;font-weight:700;letter-spacing:-.2px;color:#6B7688}
-.s6a .tr .trs{font-size:13.5px;color:#93A0B2}
-.s6a .cap{margin-top:auto;padding-top:16px;display:flex;gap:22px;align-items:flex-start}
-.s6a .cap .ct{flex:1;font-size:14px;line-height:1.5;color:var(--tx)}
-.s6a .cap .ct b{color:var(--head);font-weight:700}
-.s6a .cap .cl{width:250px;flex-shrink:0;background:#fff;border:1px solid var(--line);
-  border-radius:12px;padding:11px 15px}
-.s6a .cap .cl .ck{font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
-  color:var(--tx2)}
-.s6a .cap .cl .cv{font-family:var(--mono);font-size:13.5px;font-weight:500;color:var(--accent);
-  margin-top:4px}
-.s6a .rgt{flex:1;display:flex;flex-direction:column;gap:12px;min-width:0}
-.s6a .sp{flex:1;background:#fff;border:1px solid var(--line);border-radius:15px;
-  padding:13px 18px;box-shadow:0 16px 38px -30px rgba(15,23,42,.26);display:flex;
-  flex-direction:column;justify-content:center;min-height:0}
-.s6a .sp.now{border-color:#BFDBFE;background:linear-gradient(160deg,#fff,#F6F9FF)}
-.s6a .sp .r1{display:flex;align-items:baseline;gap:9px}
-.s6a .sp .nm{font-size:16.5px;font-weight:800;letter-spacing:-.35px;color:var(--head)}
-.s6a .sp .dt{font-size:11.5px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;
-  color:var(--tx2);font-variant-numeric:tabular-nums}
-.s6a .sp .nota{margin-left:auto;font-size:12.5px;font-weight:800;padding:4px 11px;
-  border-radius:999px;font-variant-numeric:tabular-nums;white-space:nowrap}
-.s6a .sp .nota.g{background:var(--good-l);color:var(--good)}
-.s6a .sp .nota.f{background:var(--accent-l);color:var(--accent)}
-.s6a .sp .nota.c{background:#EEF2F7;color:var(--tx2)}
-.s6a .kv{display:grid;grid-template-columns:70px 1fr;gap:8px 11px;margin-top:10px}
-.s6a .kv .k{font-size:10px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;
-  color:var(--tx2);padding-top:2px}
-.s6a .kv .v{font-size:13px;line-height:1.4;color:var(--tx)}
-.s6a .kv .v b{color:var(--head);font-weight:700}
+.ga .body{padding-top:20px}
+.ga .tt{font-size:42px;margin-top:12px}
+
+.ga .row{display:flex;gap:32px;height:540px;margin-top:auto;margin-bottom:auto}
+
+.ga .quadro{width:960px;height:540px;flex-shrink:0;border:1.5px dashed #A8B9CE;
+  border-radius:22px;background:rgba(255,255,255,.5);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:16px}
+.ga .quadro .qi{width:58px;height:58px;border-radius:16px;background:#fff;
+  border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+  color:var(--accent);box-shadow:0 12px 28px -20px rgba(15,23,42,.35)}
+.ga .quadro .qi svg{width:27px;height:27px;stroke:currentColor;fill:none;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.ga .quadro .ql{font-size:17.5px;font-weight:700;letter-spacing:.1px;color:var(--tx2)}
+
+.ga .tw{flex:1;min-width:0;padding:22px 10px 18px;display:flex;flex-direction:column;
+  border-radius:22px}
+.ga table{height:100%}
+.ga thead th{padding:0 14px 14px}
+.ga tbody td{padding:14px;vertical-align:middle}
+.ga tbody td.sp{font-size:16.5px;font-weight:700;color:var(--head);letter-spacing:-.2px}
+.ga tbody td.sp i{font-style:normal;color:var(--accent);font-weight:800;
+  font-variant-numeric:tabular-nums;margin-right:7px}
+.ga tbody td.dt{font-size:15px;font-variant-numeric:tabular-nums;color:var(--tx);
+  white-space:nowrap}
+.ga tbody td.stt{text-align:right;padding-right:12px}
+.ga .vp{font-size:12.5px;padding:6px 12px}
 </style>
 </head><body>
-<section class="slide light s6a">
+<section class="slide light ga">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 6</div></div>
   <div class="body">
-    <div class="eb">Gerenciamento do projeto · documentação atualizada</div>
-    <div class="tt">O planejamento das atividades vive <span class="hl">num quadro Kanban</span>, atualizado sprint a sprint</div>
+    <div class="eb">Gerenciamento do projeto</div>
+    <div class="tt">Quatro sprints em <span class="hl">um quadro</span></div>
+
     <div class="row">
-      <div class="lft">
-        <div class="tr">
-          <div class="trl">Quadro do projeto no Trello</div>
-          <div class="trs">Área reservada para a captura, proporção 16 por 9</div>
-        </div>
-        <div class="cap">
-          <div class="ct">O quadro guarda as atividades das quatro sprints em colunas de fluxo,
-          com as tarefas de modelagem, de aplicação e de apresentação. A <b>Sprint 3</b> foi
-          executada em seis marcos entre 20/07 e 17/08, e cada um deles tem cartão próprio no
-          quadro.</div>
-          <div class="cl"><div class="ck">Endereço do quadro</div><div class="cv">[verificar]</div></div>
-        </div>
+      <div class="quadro">
+        <div class="qi"><svg viewBox="0 0 24 24"><rect x="3.6" y="3.6" width="7" height="7" rx="2"/><rect x="13.4" y="3.6" width="7" height="7" rx="2"/><rect x="3.6" y="13.4" width="7" height="7" rx="2"/><rect x="13.4" y="13.4" width="7" height="7" rx="2"/></svg></div>
+        <div class="ql">Quadro do projeto no Trello</div>
       </div>
 
-      <div class="rgt">
-        <div class="sp">
-          <div class="r1"><div class="nm">Sprint 1 · Ideação</div><div class="dt">27/04</div><div class="nota g">5,00</div></div>
-          <div class="kv">
-            <div class="k">Planejado</div><div class="v">Problema, proposta de valor e os diferenciais do produto.</div>
-            <div class="k">Executado</div><div class="v">Entregue no prazo. O professor pediu <b>ilustrar o impacto com número e gráfico</b>.</div>
-            <div class="k">Entregue</div><div class="v">Deck de ideação, em 27/04.</div>
-          </div>
-        </div>
-        <div class="sp">
-          <div class="r1"><div class="nm">Sprint 2 · Arquitetura</div><div class="dt">24/05</div><div class="nota g">5,00</div></div>
-          <div class="kv">
-            <div class="k">Planejado</div><div class="v">Arquitetura da solução e protótipo das telas.</div>
-            <div class="k">Executado</div><div class="v">Entregue no prazo. O professor pediu <b>um slide explícito de gestão ágil</b>.</div>
-            <div class="k">Entregue</div><div class="v">Deck de arquitetura, em 24/05.</div>
-          </div>
-        </div>
-        <div class="sp now">
-          <div class="r1"><div class="nm">Sprint 3 · MVP</div><div class="dt">23/08</div><div class="nota f">em curso</div></div>
-          <div class="kv">
-            <div class="k">Planejado</div><div class="v">Modelos treinados no dado real e ligados à aplicação.</div>
-            <div class="k">Executado</div><div class="v">Seis marcos entre 20/07 e 17/08, o último com <b>41</b> capturas auditadas e <b>32</b> achados corrigidos.</div>
-            <div class="k">Entregue</div><div class="v">Notebooks, aplicação Django em Docker e deck, em 23/08.</div>
-          </div>
-        </div>
-        <div class="sp">
-          <div class="r1"><div class="nm">Sprint 4 · Solução final</div><div class="dt">08/09</div><div class="nota c">a iniciar</div></div>
-          <div class="kv">
-            <div class="k">Planejado</div><div class="v">Solução final empacotada em Docker e apresentação de fecho.</div>
-            <div class="k">Executado</div><div class="v">Atividades já cadastradas no quadro, nenhuma iniciada.</div>
-            <div class="k">Entregue</div><div class="v">Entrega prevista para 08/09.</div>
-          </div>
-        </div>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Sprint</th><th>Entrega</th><th style="text-align:right">Situação</th></tr></thead>
+          <tbody>
+            <tr><td class="sp"><i>1</i>Ideação</td><td class="dt">27/04/2026</td><td class="stt"><span class="vp good">Entregue</span></td></tr>
+            <tr><td class="sp"><i>2</i>Arquitetura</td><td class="dt">24/05/2026</td><td class="stt"><span class="vp good">Entregue</span></td></tr>
+            <tr><td class="sp"><i>3</i>MVP preliminar</td><td class="dt">23/08/2026</td><td class="stt"><span class="vp focus">Em curso</span></td></tr>
+            <tr><td class="sp"><i>4</i>Solução final</td><td class="dt">08/09/2026</td><td class="stt"><span class="vp ctx">Planejada</span></td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

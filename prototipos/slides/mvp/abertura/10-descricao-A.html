@@ -5,78 +5,108 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
-.a10 .hd{padding-top:30px}
-.a10 .body{padding:12px 64px 54px}
-.a10 .tt{font-size:33px;margin-top:10px;letter-spacing:-1.2px}
-.a10 .sub{font-size:15px;line-height:1.45;color:var(--tx);margin-top:8px;max-width:1150px}
-.a10 .sub b{color:var(--head);font-weight:700}
-.a10 .lay{flex:1;display:flex;flex-direction:column;gap:10px;margin-top:14px;min-height:0}
-.a10 .lr{flex:1;display:grid;grid-template-columns:330px 1fr;background:#fff;
-  border:1px solid var(--line);border-radius:16px;overflow:hidden;min-height:0;
-  box-shadow:0 16px 38px -30px rgba(15,23,42,.28)}
-.a10 .lk{background:#F3F7FD;border-right:1px solid #E4EBF5;padding:12px 22px;display:flex;
-  flex-direction:column;justify-content:center}
-.a10 .lk .cn{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
-  color:var(--accent)}
-.a10 .lk .cm{font-size:19px;font-weight:800;letter-spacing:-.5px;color:var(--head);margin-top:5px;
-  line-height:1.1}
-.a10 .lk .cd{font-size:12.5px;color:var(--tx2);margin-top:5px;line-height:1.35}
-.a10 .lv{padding:12px 24px;display:flex;flex-direction:column;justify-content:center;min-width:0}
-.a10 .lv .vh{font-size:17px;font-weight:800;letter-spacing:-.35px;color:var(--head);line-height:1.15}
-.a10 .lv p{font-size:13.5px;line-height:1.45;color:var(--tx);margin-top:5px;max-width:1055px}
-.a10 .lv p b{color:var(--head);font-weight:700}
-.a10 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.a10 .cp{font-family:var(--mono);font-size:11.5px;font-weight:500;color:var(--accent);
-  background:var(--accent-l);border:1px solid #D6E4FE;border-radius:7px;padding:3px 8px;
-  white-space:nowrap}
-.a10 .cp.mut{color:var(--tx2);background:#F1F4F9;border-color:#E2E8F1}
+/* 10 A · a faixa de descrição da Sprint 2 promovida a slide inteiro, um cartão por nó */
+.a10 .body{padding-bottom:54px}
+.a10 .tt{font-size:34px;letter-spacing:-1.2px}
+
+.a10 .gd{flex:1;min-height:0;margin-top:20px;display:grid;
+  grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:16px}
+.a10 .cd{background:#fff;border:1px solid var(--line);border-radius:17px;padding:20px 24px 18px;
+  box-shadow:0 18px 42px -32px rgba(15,23,42,.3);display:flex;flex-direction:column;min-width:0}
+.a10 .cd.fut{border-style:dashed;border-color:#C6D0DE;background:rgba(255,255,255,.72)}
+.a10 .tp{display:flex;align-items:center;gap:11px}
+.a10 .nn{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;
+  font-variant-numeric:tabular-nums;flex-shrink:0}
+.a10 .cd.fut .nn{background:#A9B4C4}
+.a10 .stg{font-size:10.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
+  color:#9AA6B6;font-variant-numeric:tabular-nums}
+.a10 .ttl{font-size:20px;font-weight:800;letter-spacing:-.5px;color:var(--head);margin-top:11px;
+  line-height:1.15}
+.a10 .cd.fut .ttl{color:var(--tx)}
+.a10 .bd{font-size:14.5px;line-height:1.5;color:var(--tx);margin-top:8px}
+.a10 .bd b{color:var(--head);font-weight:700}
+.a10 .mn{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--head)}
+.a10 .chips{margin-top:auto;padding-top:14px;display:flex;flex-wrap:wrap;gap:7px}
+.a10 .vp{font-size:12.5px;padding:6px 12px;font-variant-numeric:tabular-nums}
+.a10 .rts{margin-top:auto;padding-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+.a10 .rt{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--accent);
+  background:var(--accent-l);border-radius:7px;padding:5px 9px}
 </style>
 </head><body>
 <section class="slide light a10">
-<div class="mesh"></div><div class="grid-bg"></div>
-<div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 10</div></div>
-<div class="body">
-  <div class="eb">Descrição da arquitetura da solução</div>
-  <div class="tt">As cinco camadas, na ordem, com <span class="hl">o que existe no repositório</span></div>
-  <div class="sub">À esquerda, a camada como o template a nomeia. À direita, a peça que faz o trabalho no Cronos, com a versão que está no ambiente.</div>
-  <div class="lay">
-    <div class="lr">
-      <div class="lk"><div class="cn">Camada 1</div><div class="cm">Fontes de Dados</div>
-        <div class="cd">De onde vêm os dados</div></div>
-      <div class="lv"><div class="vh">Uma planilha oficial e uma biblioteca de feriados</div>
-        <p>Aba <b>Dataset Geral</b> do <b>LW-DATASET.xlsx</b>, com <b class="num">122.543</b> incidentes em <b class="num">19</b> colunas, de jan/2023 a dez/2025. O feriado nacional não está no dataset e entra pela biblioteca <b>holidays</b>, a única fonte de fora do projeto.</p>
-        <div class="chips"><span class="cp">openpyxl 3.1.5</span><span class="cp">holidays 0.97</span></div></div>
-    </div>
-    <div class="lr">
-      <div class="lk"><div class="cn">Camada 2</div><div class="cm">Pipeline de Ingestão</div>
-        <div class="cd">Coleta e transformação do dado bruto</div></div>
-      <div class="lv"><div class="vh">pandas lê, tipa as colunas e aplica a elegibilidade</div>
-        <p>As <b class="num">19</b> colunas são tipadas na leitura e o campo oficial <b>Entrou para KPI?</b> reduz <b class="num">122.543</b> para <b class="num">25.600</b> registros. Cinco colunas de calendário são derivadas de <b>Aberto</b>, e dois <b>assert</b> travam as contagens antes e depois do filtro.</p>
-        <div class="chips"><span class="cp">pandas 2.2.3</span><span class="cp mut">dia · dia_semana · hora · ano · mes</span></div></div>
-    </div>
-    <div class="lr">
-      <div class="lk"><div class="cn">Camada 3</div><div class="cm">Armazenamento de Dados</div>
-        <div class="cd">Onde o dado fica depois de ingerido</div></div>
-      <div class="lv"><div class="vh">Parquet em duas camadas, e nenhum banco de dados</div>
-        <p><b>data/interim</b> guarda a base analítica de <b class="num">25.600</b> linhas e as tabelas de cada notebook. <b>data/app</b> guarda os <b class="num">350 kB</b> que a aplicação serve. A ausência de banco é decisão: o dado é histórico fechado, e ninguém escreve nele em produção.</p>
-        <div class="chips"><span class="cp">pyarrow 25.0</span><span class="cp mut">Parquet · JSON</span></div></div>
-    </div>
-    <div class="lr">
-      <div class="lk"><div class="cn">Camada 4</div><div class="cm">Processamento de Dados</div>
-        <div class="cd">Limpeza, transformação e análise</div></div>
-      <div class="lv"><div class="vh">Notebook treina, mede e grava arquivo</div>
-        <p>Prophet prevê volume de <b>D+1 a D+7</b> em duas séries diárias, <b>P2</b> e <b>P3</b>. A regressão logística pontua risco por incidente com <b class="num">10</b> características da abertura, <b class="num">136</b> colunas depois da codificação. O pandas fecha projeção do KPI, saúde por produto e causas.</p>
-        <div class="chips"><span class="cp">Prophet 1.3.0</span><span class="cp">cmdstanpy 1.3.0</span><span class="cp">scikit-learn 1.6.1</span><span class="cp">pandas 2.2.3</span></div></div>
-    </div>
-    <div class="lr">
-      <div class="lk"><div class="cn">Camada 5</div><div class="cm">Visualização e Análise</div>
-        <div class="cd">Onde o relatório e o insight aparecem</div></div>
-      <div class="lv"><div class="vh">Django desenha o gráfico em SVG no próprio servidor</div>
-        <p>Seis abas e <b class="num">quatro</b> rotas de detalhe em modal, dentro de um contêiner que só lê o pacote. As figuras que vão para o deck saem do matplotlib nos notebooks, com o mesmo dado da tela.</p>
-        <div class="chips"><span class="cp">Django 6.1</span><span class="cp">gunicorn 23.0</span><span class="cp">matplotlib 3.10</span><span class="cp mut">python:3.13-slim</span></div></div>
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><span class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></span><span class="bn">Cronos</span><span class="bt">VEJA ANTES · AJA ANTES</span><span class="tag">Template · slide 10</span></div>
+
+  <div class="body">
+    <span class="eb">Descrição da arquitetura</span>
+    <h1 class="tt">O que cada peça do desenho <span class="hl">faz</span></h1>
+
+    <div class="gd">
+
+      <div class="cd">
+        <div class="tp"><span class="nn">1</span><span class="stg">Etapa 01 · fonte</span></div>
+        <div class="ttl">LW-DATASET.xlsx</div>
+        <div class="bd">Planilha entregue pela Locaweb. Entrada de todo o pipeline.</div>
+        <div class="chips">
+          <span class="vp ctx"><b class="num">122.543</b> incidentes</span>
+          <span class="vp ctx"><b class="num">19</b> colunas</span>
+          <span class="vp ctx">jan/2023 a dez/2025</span>
+        </div>
+      </div>
+
+      <div class="cd fut">
+        <div class="tp"><span class="nn">2</span><span class="stg">Etapa 01 · fonte</span></div>
+        <div class="ttl">Banco Locaweb</div>
+        <div class="bd">Se virar produto, a leitura passa a ser direta da base interna. Daí o tracejado.</div>
+        <div class="chips">
+          <span class="vp ctx">Evolução prevista</span>
+        </div>
+      </div>
+
+      <div class="cd">
+        <div class="tp"><span class="nn">3</span><span class="stg">Etapa 02 · processamento</span></div>
+        <div class="ttl">Pandas · ETL</div>
+        <div class="bd">Aplica o campo oficial <span class="mn">Entrou para KPI?</span> e monta o calendário de cada dia.</div>
+        <div class="chips">
+          <span class="vp focus"><b class="num">122.543</b> &rarr; <b class="num">25.600</b> elegíveis</span>
+          <span class="vp ctx">Dia da semana e feriado nacional</span>
+        </div>
+      </div>
+
+      <div class="cd">
+        <div class="tp"><span class="nn">4</span><span class="stg">Etapa 03 · contêiner</span></div>
+        <div class="ttl">Modelos</div>
+        <div class="bd">Prophet prevê o volume das duas prioridades. A regressão logística dá a probabilidade de violação de cada incidente aberto.</div>
+        <div class="chips">
+          <span class="vp ctx">Erro por dia: P2 <b class="num">4,2</b> · P3 <b class="num">11,8</b></span>
+          <span class="vp focus">Risco: ROC AUC <b class="num">0,8693</b></span>
+        </div>
+      </div>
+
+      <div class="cd">
+        <div class="tp"><span class="nn">5</span><span class="stg">Etapa 03 · contêiner</span></div>
+        <div class="ttl">Django · seis abas</div>
+        <div class="bd">Cada aba tem URL própria, então o link da fila filtrada pode ser enviado a alguém.</div>
+        <div class="rts">
+          <span class="rt">/</span><span class="rt">/previsao/</span><span class="rt">/projecao/</span>
+          <span class="rt">/fila/</span><span class="rt">/saude/</span><span class="rt">/causas/</span>
+        </div>
+      </div>
+
+      <div class="cd">
+        <div class="tp"><span class="nn">6</span><span class="stg">Etapa 04 · destinatário</span></div>
+        <div class="ttl">Gestor operacional</div>
+        <div class="bd">Abre o painel no começo do turno e recebe o brief sem pedir.</div>
+        <div class="chips">
+          <span class="vp ctx">Sobe com um comando</span>
+          <span class="vp ctx">Sem provedor de nuvem amarrado</span>
+        </div>
+      </div>
+
     </div>
   </div>
-</div>
-<div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
 </section>
 </body></html>
