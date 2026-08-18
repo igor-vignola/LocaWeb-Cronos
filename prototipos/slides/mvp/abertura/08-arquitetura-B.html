@@ -23,9 +23,9 @@
   font-variant-numeric:tabular-nums;margin-top:2px}
 
 /* fichas das fontes, em volta da regua */
-.fb .src{width:300px;flex-shrink:0;background:#fff;border:1px solid var(--line);
+.fb .src{width:302px;flex-shrink:0;background:#fff;border:1px solid var(--line);
   border-radius:20px;padding:24px 24px 22px;box-shadow:0 20px 46px -32px rgba(15,23,42,.3);
-  display:flex;flex-direction:column;justify-content:space-between}
+  display:flex;flex-direction:column}
 .fb .bx{width:44px;height:44px;border-radius:12px;background:var(--accent-l);color:var(--accent);
   display:flex;align-items:center;justify-content:center}
 .fb .bx svg{width:23px;height:23px}
@@ -34,41 +34,43 @@
 .fb .nm2{font-size:27px;font-weight:800;letter-spacing:-1px;color:var(--head);line-height:1.08;
   margin-top:7px}
 .fb .nm2 .hl{color:var(--accent)}
-.fb .src .vp{align-self:flex-start;margin-top:11px}
-.fb .mets{display:flex;flex-direction:column;gap:15px;margin-top:20px;padding-top:18px;
-  border-top:1px solid var(--line)}
+.fb .hdr .vp{display:inline-flex;margin-top:11px}
+.fb .mets{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;margin-top:20px;
+  padding-top:6px;border-top:1px solid var(--line)}
 .fb .mv{font-size:26px;font-weight:800;letter-spacing:-1px;color:var(--head);line-height:1;
   font-variant-numeric:tabular-nums}
 .fb .mk{font-size:11.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
   color:var(--tx2);margin-top:6px}
-.fb .plates{display:flex;flex-direction:column;gap:15px;margin-top:20px;padding-top:19px;
+.fb .plates{display:flex;flex-direction:column;gap:15px;padding-top:19px;
   border-top:1px solid var(--line)}
 
-/* regua de elegibilidade, protagonista */
+/* regua de elegibilidade, protagonista: funil de tres faixas */
 .fb .rg{flex:1;min-width:0;background:linear-gradient(168deg,#fff,#F7FAFF);
-  border:1px solid #BFDBFE;border-radius:20px;padding:26px 30px 24px;
+  border:1px solid #BFDBFE;border-radius:20px;padding:24px 30px 26px;
   box-shadow:0 24px 54px -34px rgba(15,23,42,.32);display:flex;flex-direction:column}
 .fb .rk{font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
-  color:var(--accent)}
-.fb .steps2{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;margin-top:6px}
-.fb .st2{display:grid;grid-template-columns:168px 1fr 210px;gap:18px;align-items:center}
-.fb .sv2{font-size:44px;font-weight:800;letter-spacing:-2.1px;line-height:1;color:var(--head);
-  font-variant-numeric:tabular-nums;text-align:right}
-.fb .st2.off .sv2{color:var(--bad)}
-.fb .st2.on .sv2{color:var(--accent)}
-.fb .trk2{position:relative;height:42px;display:flex;align-items:center}
-.fb .bar3{height:42px;border-radius:11px;display:flex;align-items:center;justify-content:flex-end;
-  padding-right:12px;font-size:14px;font-weight:800;font-variant-numeric:tabular-nums}
-.fb .bar3.all{background:linear-gradient(90deg,#CBD8E7,#AFC2D8);color:#3C4A5C}
-.fb .bar3.wrong{background:var(--bad-l);border:1.5px dashed #EBAAAA;color:var(--bad)}
-.fb .bar3.right{background:linear-gradient(90deg,#3B82F6,#2563EB);color:#fff;
-  box-shadow:0 12px 26px -14px rgba(37,99,235,.6)}
-.fb .lb2{min-width:0}
-.fb .lk2{font-size:12.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--accent);flex-shrink:0}
+.fb .funil{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;
+  align-items:center}
+.fb .stp2{display:flex;flex-direction:column;align-items:center;gap:9px}
+.fb .lb2{display:flex;flex-direction:column;align-items:center;gap:5px}
+.fb .lk2{font-size:12.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
   color:var(--tx2)}
-.fb .ls2{font-size:14.5px;color:var(--tx);margin-top:5px;line-height:1.35}
+.fb .ls2{font-size:15px;color:var(--tx);line-height:1.3}
 .fb .ls2 b{color:var(--head);font-weight:700}
-.fb .st2.on .lk2{color:var(--accent)}
+.fb .bd{height:118px;border-radius:16px;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:6px}
+.fb .bv{font-size:40px;font-weight:800;letter-spacing:-1.8px;line-height:1;
+  font-variant-numeric:tabular-nums}
+.fb .pc{font-size:14px;font-weight:800;letter-spacing:.3px;font-variant-numeric:tabular-nums}
+.fb .bd.all{background:linear-gradient(180deg,#DCE5F0,#C4D2E3);color:#33415A}
+.fb .bd.all .pc{color:#5C6C86}
+.fb .bd.wrong{background:var(--bad-l);border:1.5px dashed #EBAAAA;color:var(--bad)}
+.fb .bd.wrong .pc{color:#E07070}
+.fb .bd.right{background:linear-gradient(180deg,#3B82F6,#2151D4);color:#fff;
+  box-shadow:0 16px 34px -16px rgba(37,99,235,.62)}
+.fb .bd.right .pc{color:#C3DAFE}
+.fb .stp2.on .lk2{color:var(--accent)}
 </style>
 </head><body>
 <section class="slide light fb">
@@ -79,7 +81,7 @@
     <h1 class="tt">Duas fontes entram, e um campo do dataset decide o que <span class="hl">conta para a meta</span></h1>
     <div class="trio">
       <div class="src">
-        <div>
+        <div class="hdr">
           <span class="ic bx"><svg viewBox="0 0 24 24"><rect x="4.4" y="3.4" width="15.2" height="17.2" rx="2.6"/><path d="M8 7.6h8M8 12h8M8 16.4h4"/></svg></span>
           <span class="kk">Fonte interna</span>
           <div class="nm2">LW-DATASET<span class="hl">.xlsx</span></div>
@@ -98,27 +100,24 @@
 
       <div class="rg">
         <span class="rk">Elegibilidade ao KPI</span>
-        <div class="steps2">
-          <div class="st2">
-            <div class="sv2">122.543</div>
-            <div class="trk2"><div class="bar3 all" style="width:100%">100%</div></div>
-            <div class="lb2"><div class="lk2">Registrados</div></div>
+        <div class="funil">
+          <div class="stp2">
+            <div class="lb2"><span class="lk2">Registrados</span></div>
+            <div class="bd all" style="width:704px"><span class="bv">122.543</span><span class="pc">100%</span></div>
           </div>
-          <div class="st2 off">
-            <div class="sv2">107.416</div>
-            <div class="trk2"><div class="bar3 wrong" style="width:87.7%">88%</div></div>
-            <div class="lb2"><span class="vp bad">Filtro errado</span><div class="ls2">só por <b>Incidente Pai</b></div></div>
+          <div class="stp2 off">
+            <div class="lb2"><span class="vp bad">Filtro errado</span><span class="ls2">só por <b>Incidente Pai</b></span></div>
+            <div class="bd wrong" style="width:617px"><span class="bv">107.416</span><span class="pc">88%</span></div>
           </div>
-          <div class="st2 on">
-            <div class="sv2">25.600</div>
-            <div class="trk2"><div class="bar3 right" style="width:20.9%">21%</div></div>
-            <div class="lb2"><div class="lk2">Elegíveis</div><div class="ls2">campo <b>Entrou para KPI?</b></div></div>
+          <div class="stp2 on">
+            <div class="lb2"><span class="lk2">Elegíveis</span><span class="ls2">campo <b>Entrou para KPI?</b></span></div>
+            <div class="bd right" style="width:170px"><span class="bv">25.600</span><span class="pc">21%</span></div>
           </div>
         </div>
       </div>
 
       <div class="src">
-        <div>
+        <div class="hdr">
           <span class="ic bx"><svg viewBox="0 0 24 24"><rect x="3.4" y="5.4" width="17.2" height="15.2" rx="3"/><path d="M3.4 10.4h17.2M8.4 3.4v4M15.6 3.4v4"/></svg></span>
           <span class="kk">Fonte externa</span>
           <div class="nm2">holidays</div>

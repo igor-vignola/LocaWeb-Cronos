@@ -9,7 +9,7 @@
 .ic{display:inline-flex;align-items:center;justify-content:center}
 .ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
-/* placa de tecnologia · mesmo padrão da Sprint 2 */
+/* placa de tecnologia · mesmo padrao da Sprint 2 */
 .pl{width:58px;height:58px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .pl img{width:100%;height:100%;object-fit:contain;display:block}
 .pl .cs{width:83%;height:83%;border-radius:20%;display:flex;align-items:center;
@@ -21,10 +21,10 @@
   font-variant-numeric:tabular-nums;margin-top:2px}
 
 /* fichas das duas fontes */
-.fd .duo{display:flex;gap:24px;flex:1;min-height:0;margin-top:22px}
+.fd .duo{display:flex;gap:24px;flex:none;height:382px;margin-top:22px}
 .fd .fc2{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:20px;
   padding:24px 28px 22px;box-shadow:0 20px 46px -32px rgba(15,23,42,.3);display:flex;
-  flex-direction:column;justify-content:space-between}
+  flex-direction:column}
 .fd .top{display:flex;align-items:center;gap:13px}
 .fd .top .bx{width:44px;height:44px;border-radius:12px;background:var(--accent-l);
   color:var(--accent);display:flex;align-items:center;justify-content:center}
@@ -34,33 +34,37 @@
 .fd .nm2{font-size:34px;font-weight:800;letter-spacing:-1.2px;color:var(--head);line-height:1.05;
   margin-top:16px}
 .fd .nm2 .hl{color:var(--accent)}
-.fd .fc2 .vp{align-self:flex-start;margin-top:11px}
-.fd .mets{display:flex;gap:26px;margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
-.fd .mt{min-width:0}
-.fd .mv{font-size:29px;font-weight:800;letter-spacing:-1.1px;color:var(--head);line-height:1;
-  font-variant-numeric:tabular-nums}
+.fd .hdr .vp{display:inline-flex;margin-top:11px}
+.fd .mets{flex:1;display:flex;align-items:center;gap:30px;margin-top:18px;padding-top:18px;
+  border-top:1px solid var(--line)}
+.fd .mv{display:flex;align-items:flex-end;min-height:30px;font-size:29px;font-weight:800;
+  letter-spacing:-1.1px;color:var(--head);line-height:1;font-variant-numeric:tabular-nums}
 .fd .mk{font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
-  color:var(--tx2);margin-top:7px}
-.fd .plates{display:flex;gap:30px;margin-top:20px;padding-top:19px;border-top:1px solid var(--line)}
+  color:var(--tx2);margin-top:8px}
+.fd .plates{display:flex;gap:32px;padding-top:19px;border-top:1px solid var(--line)}
 
-/* régua de elegibilidade */
-.fd .rg{flex-shrink:0;margin-top:22px;background:#fff;border:1px solid var(--line);
-  border-radius:20px;padding:19px 28px 21px;box-shadow:0 20px 46px -34px rgba(15,23,42,.3)}
-.fd .rg .rk{font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+/* regua de elegibilidade, faixa embaixo */
+.fd .rg{flex:1;min-height:0;margin-top:22px;background:#fff;border:1px solid var(--line);
+  border-radius:20px;padding:0 30px;box-shadow:0 20px 46px -34px rgba(15,23,42,.3);
+  display:flex;flex-direction:column;justify-content:center;gap:16px}
+.fd .rk{font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
   color:var(--tx2)}
-.fd .rg .line{display:flex;align-items:center;gap:24px;margin-top:13px}
-.fd .it{min-width:0}
-.fd .iv{font-size:46px;font-weight:800;letter-spacing:-2.2px;line-height:1;color:var(--head);
+.fd .line{display:flex;align-items:flex-start;gap:26px}
+.fd .it{flex:1;min-width:0}
+.fd .it.off{text-align:right}
+.fd .iv{font-size:56px;font-weight:800;letter-spacing:-2.8px;line-height:1;color:var(--head);
   font-variant-numeric:tabular-nums}
 .fd .it.on .iv{color:var(--accent)}
 .fd .it.off .iv{color:var(--bad)}
-.fd .ik{font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
-  color:var(--tx2);margin-top:6px}
-.fd .is{font-size:14.5px;color:var(--tx);margin-top:5px}
-.fd .arw{color:#B9C4D2;display:flex;align-items:center}
-.fd .arw svg{width:30px;height:30px}
-.fd .sep{width:1px;align-self:stretch;background:var(--line);margin:0 6px}
-.fd .rg .vp{margin-top:6px}
+.fd .ik{font-size:12.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--tx2);margin-top:9px}
+.fd .it.on .ik{color:var(--accent)}
+.fd .is{font-size:15px;color:var(--tx);margin-top:6px}
+.fd .is b{color:var(--head);font-weight:700}
+.fd .arw{color:#B9C4D2;height:56px}
+.fd .arw svg{width:32px;height:32px}
+.fd .sep{width:1px;height:112px;background:var(--line)}
+.fd .it.off .vp{display:inline-flex;margin-top:9px}
 </style>
 </head><body>
 <section class="slide light fd">
@@ -71,7 +75,7 @@
     <h1 class="tt">A planilha da Locaweb e o calendário de feriados que ela <span class="hl">não traz</span></h1>
     <div class="duo">
       <div class="fc2">
-        <div>
+        <div class="hdr">
           <div class="top">
             <span class="ic bx"><svg viewBox="0 0 24 24"><rect x="4.4" y="3.4" width="15.2" height="17.2" rx="2.6"/><path d="M8 7.6h8M8 12h8M8 16.4h4"/></svg></span>
             <span class="kk">Fonte interna</span>
@@ -79,20 +83,18 @@
           <div class="nm2">LW-DATASET<span class="hl">.xlsx</span></div>
           <span class="vp ctx">Excel da operação</span>
         </div>
-        <div>
-          <div class="mets">
-            <div class="mt"><div class="mv">122.543</div><div class="mk">Incidentes</div></div>
-            <div class="mt"><div class="mv">19</div><div class="mk">Colunas</div></div>
-            <div class="mt"><div class="mv" style="font-size:23px;letter-spacing:-.7px;padding-top:5px">jan/2023 a dez/2025</div><div class="mk">Janela</div></div>
-          </div>
-          <div class="plates">
-            <div class="tp"><span class="pl"><span class="cs xl">xl</span></span><span class="tn">openpyxl<em>3.1.5</em></span></div>
-            <div class="tp"><span class="pl"><img src="../../../../brand/logos/pandas.png" alt="pandas"></span><span class="tn">pandas<em>2.2.3</em></span></div>
-          </div>
+        <div class="mets">
+          <div><div class="mv">122.543</div><div class="mk">Incidentes</div></div>
+          <div><div class="mv">19</div><div class="mk">Colunas</div></div>
+          <div><div class="mv" style="font-size:23px;letter-spacing:-.7px">jan/2023 a dez/2025</div><div class="mk">Janela</div></div>
+        </div>
+        <div class="plates">
+          <div class="tp"><span class="pl"><span class="cs xl">xl</span></span><span class="tn">openpyxl<em>3.1.5</em></span></div>
+          <div class="tp"><span class="pl"><img src="../../../../brand/logos/pandas.png" alt="pandas"></span><span class="tn">pandas<em>2.2.3</em></span></div>
         </div>
       </div>
       <div class="fc2">
-        <div>
+        <div class="hdr">
           <div class="top">
             <span class="ic bx"><svg viewBox="0 0 24 24"><rect x="3.4" y="5.4" width="17.2" height="15.2" rx="3"/><path d="M3.4 10.4h17.2M8.4 3.4v4M15.6 3.4v4"/></svg></span>
             <span class="kk">Fonte externa</span>
@@ -100,15 +102,13 @@
           <div class="nm2">holidays</div>
           <span class="vp ctx">Feriado nacional</span>
         </div>
-        <div>
-          <div class="mets">
-            <div class="mt"><div class="mv">0.97</div><div class="mk">Versão</div></div>
-            <div class="mt"><div class="mv">BR</div><div class="mk">País</div></div>
-          </div>
-          <div class="plates">
-            <div class="tp"><span class="pl"><img src="../../../../brand/logos/holidays.png" alt="holidays"></span><span class="tn">holidays<em>0.97</em></span></div>
-            <div class="tp"><span class="pl"><img src="../../../../brand/logos/python.png" alt="Python"></span><span class="tn">Python<em>3.13</em></span></div>
-          </div>
+        <div class="mets">
+          <div><div class="mv">0.97</div><div class="mk">Versão</div></div>
+          <div><div class="mv">BR</div><div class="mk">País</div></div>
+        </div>
+        <div class="plates">
+          <div class="tp"><span class="pl"><img src="../../../../brand/logos/holidays.png" alt="holidays"></span><span class="tn">holidays<em>0.97</em></span></div>
+          <div class="tp"><span class="pl"><img src="../../../../brand/logos/python.png" alt="Python"></span><span class="tn">Python<em>3.13</em></span></div>
         </div>
       </div>
     </div>

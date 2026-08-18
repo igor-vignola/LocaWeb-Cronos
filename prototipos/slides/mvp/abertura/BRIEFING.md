@@ -173,6 +173,9 @@ Violações de OLA no ano e a nota que cada faixa vale:
 - Seis abas: `/`, `/previsao/`, `/projecao/`, `/fila/`, `/saude/`, `/causas/`. Mais quatro
   rotas de detalhe que abrem como modal, e um índice de busca.
 - A aplicação simula um relógio parado em **01/10/2025 às 15h**.
+- O morning briefing é o resumo das **07h**, e abre sozinho na entrada da ferramenta.
+  A hora está no template `webapp/painel/templates/painel/_brief.html`. Atenção: o
+  dossiê de banca diz 06:00 em um trecho; **o valor certo é o do template, 07h**.
 - Os modelos treinam nos notebooks e gravam Parquet. O contêiner só lê.
 - Varredura de dado pessoal: zero e-mail, CPF, telefone ou endereço IP. Nenhuma coluna
   identifica pessoa. O campo de origem só tem Manual e Monitoramento.

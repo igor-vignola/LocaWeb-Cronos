@@ -20,49 +20,53 @@
 .d9b .zl .nm{font-size:14px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
   color:var(--tx)}
 .d9b .zl.r{align-items:flex-end;text-align:right}
-.d9b .zb{flex:1;display:flex;flex-direction:column;gap:22px;justify-content:center}
+.d9b .zb{flex:1;min-height:0;display:flex;flex-direction:column;gap:26px;
+  justify-content:center}
 
-.d9b .dk{position:relative;align-self:center;width:calc(100% - 24px);margin:26px 12px 8px;
+.d9b .dk{position:relative;align-self:center;width:calc(100% - 24px);margin:20px 12px 0;
   padding:34px 24px 24px;border-radius:18px;
   background:linear-gradient(180deg,rgba(37,99,235,.06),rgba(37,99,235,.015));
   border:1.5px dashed rgba(37,99,235,.38);
   box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 20px 44px -18px rgba(37,99,235,.22);
-  display:grid;grid-template-columns:1fr 1.16fr;gap:18px}
+  display:grid;grid-template-columns:1fr 1.16fr;gap:18px;align-items:stretch}
+.d9b .dk > .nd{justify-content:flex-start}
 .d9b .dk::before{content:"Etapa 03 · Produto Cronos · contêiner Docker";position:absolute;
   top:-15px;left:24px;padding:7px 16px;background:#fff;border:1px solid var(--line);
   border-radius:999px;box-shadow:0 4px 14px -8px rgba(37,99,235,.3);font-size:11.5px;
   font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--accent);
   white-space:nowrap;z-index:5}
 
-.d9b .nd{position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;
-  padding:18px 20px;display:flex;flex-direction:column;gap:11px;
+.d9b .nd{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;
+  padding:22px 24px;display:flex;flex-direction:column;gap:13px;
   box-shadow:0 18px 42px -32px rgba(15,23,42,.32)}
 .d9b .nd.fut{border-style:dashed;border-color:#C6D0DE;background:rgba(255,255,255,.7)}
-.d9b .nn{position:absolute;top:-12px;left:-12px;width:29px;height:29px;border-radius:9px;
+.d9b .nn{position:absolute;top:-13px;left:-13px;width:32px;height:32px;border-radius:10px;
   background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;
-  font-size:14.5px;font-weight:800;font-variant-numeric:tabular-nums;
+  font-size:16px;font-weight:800;font-variant-numeric:tabular-nums;
   box-shadow:0 3px 9px rgba(37,99,235,.35);z-index:4}
 .d9b .nd.fut .nn{background:#A9B4C4;box-shadow:none}
 .d9b .nh{display:flex;align-items:center;gap:13px}
-.d9b .ni{flex-shrink:0;width:44px;height:44px;border-radius:12px;background:#F4F7FC;
+.d9b .ni{flex-shrink:0;width:52px;height:52px;border-radius:14px;background:#F4F7FC;
   border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
-.d9b .ni svg{width:24px;height:24px;stroke:var(--head);fill:none;stroke-width:1.7;
+.d9b .ni svg{width:28px;height:28px;stroke:var(--head);fill:none;stroke-width:1.7;
   stroke-linecap:round;stroke-linejoin:round}
 .d9b .nd.fut .ni svg{stroke:var(--tx)}
-.d9b .nt{font-size:16.5px;font-weight:800;letter-spacing:-.3px;color:var(--head);line-height:1.2}
-.d9b .ns{font-size:12.5px;font-weight:600;color:var(--tx2);line-height:1.3;margin-top:2px;
-  font-variant-numeric:tabular-nums}
-.d9b .nx{font-size:13px;font-weight:600;color:var(--tx);line-height:1.6;padding-top:11px;
+.d9b .nt{display:block;font-size:19px;font-weight:800;letter-spacing:-.3px;color:var(--head);
+  line-height:1.2}
+.d9b .ns{display:block;font-size:13.5px;font-weight:600;color:var(--tx2);line-height:1.3;
+  margin-top:4px;font-variant-numeric:tabular-nums}
+.d9b .nx{font-size:14.5px;font-weight:600;color:var(--tx);line-height:1.7;padding-top:14px;
   border-top:1px solid #EFF2F7;font-variant-numeric:tabular-nums}
 .d9b .nx b{color:var(--head);font-weight:800}
 .d9b .nx .ac{color:var(--accent);font-weight:800}
-.d9b .nx .mn{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--head)}
-.d9b .abas{padding-top:11px;border-top:1px solid #EFF2F7;display:grid;
-  grid-template-columns:1fr 1fr;gap:7px 18px;font-size:13px;font-weight:600;color:var(--tx)}
-.d9b .nd.usr{align-items:center;text-align:center;padding:30px 20px}
+.d9b .fld{display:inline-block;font-size:14px;font-weight:700;color:var(--head);
+  background:#EEF2F7;border-radius:6px;padding:1px 7px}
+.d9b .abas{padding-top:14px;border-top:1px solid #EFF2F7;display:grid;
+  grid-template-columns:1fr 1fr;gap:10px 20px;font-size:14.5px;font-weight:600;color:var(--tx)}
+.d9b .nd.usr{align-items:center;text-align:center;padding:34px 24px}
 .d9b .nd.usr .nh{flex-direction:column;gap:13px}
-.d9b .nd.usr .ni{width:62px;height:62px}
-.d9b .nd.usr .ni svg{width:34px;height:34px}
+.d9b .nd.usr .ni{width:70px;height:70px}
+.d9b .nd.usr .ni svg{width:38px;height:38px}
 </style>
 </head><body>
 <section class="slide light d9b">
@@ -109,7 +113,7 @@
               <span><span class="nt">Pandas · ETL</span><span class="ns">Elegibilidade e calendário</span></span>
             </div>
             <div class="nx">
-              Campo <span class="mn">Entrou para KPI?</span><br>
+              Campo <span class="fld">Entrou para KPI?</span><br>
               122.543 <span class="ac">&rarr;</span> <b>25.600</b> elegíveis<br>
               Dia da semana e feriado nacional
             </div>
