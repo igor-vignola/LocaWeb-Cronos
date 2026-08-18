@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deck da Sprint 3 · finalizado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pg:#F4F7FC; --sf:#FFFFFF; --ink:#0B1220; --tx:#4A5568; --tx2:#7A8698;
+  --line:#E2E8F1; --accent:#2563EB; --accent-l:#EFF6FF;
+  --good:#15A05B; --good-l:#E7F6EE; --warn:#B4780A; --warn-l:#FBF1DC;
+  --bad:#DC2626; --bad-l:#FCECEC;
+  --font:'Outfit',system-ui,sans-serif;
+  --mono:ui-monospace,'Cascadia Mono','Consolas',monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{--pg:#080B12; --sf:#111827; --ink:#F1F5F9; --tx:#A2AEC0; --tx2:#77839A;
+    --line:#1F2937; --accent:#7BA5F8; --accent-l:#16233D;
+    --good:#4ADE80; --good-l:#12291E; --warn:#F0B767; --warn-l:#2C2413;
+    --bad:#F87171; --bad-l:#2C1616;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--pg);color:var(--ink);font-family:var(--font);
+  -webkit-font-smoothing:antialiased;line-height:1.55}
+.wrap{max-width:940px;margin:0 auto;padding:60px 26px 90px;display:flex;
+  flex-direction:column;gap:48px}
+
+header{display:flex;flex-direction:column;gap:15px}
+.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:2.6px;text-transform:uppercase;
+  color:var(--good);display:flex;align-items:center;gap:11px}
+.eyebrow::before{content:'';width:24px;height:2px;background:currentColor;border-radius:2px}
+h1{margin:0;font-size:clamp(32px,6vw,52px);font-weight:800;letter-spacing:-1.8px;
+  line-height:1.02}
+.sub{margin:0;font-size:18px;color:var(--tx);max-width:62ch}
+.sub b{color:var(--ink);font-weight:600}
+
+.caminho{background:var(--sf);border:1px solid var(--line);border-radius:15px;
+  padding:20px 22px;display:flex;flex-direction:column;gap:8px}
+.caminho .k{font-size:11.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
+  color:var(--tx2)}
+.caminho .p{font-family:var(--mono);font-size:15px;color:var(--accent);word-break:break-all;
+  line-height:1.5}
+.caminho .h{font-size:14.5px;color:var(--tx2)}
+
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:13px}
+.fact{background:var(--sf);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.fact .k{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  color:var(--tx2)}
+.fact .v{font-size:28px;font-weight:800;letter-spacing:-1.1px;margin-top:6px;
+  font-variant-numeric:tabular-nums}
+.fact .s{font-size:13.5px;color:var(--tx);margin-top:4px}
+
+section{display:flex;flex-direction:column;gap:18px}
+h2{margin:0;font-size:24px;font-weight:700;letter-spacing:-.6px}
+.note{margin:0;font-size:16px;color:var(--tx);max-width:70ch}
+.note b{color:var(--ink);font-weight:600}
+
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{text-align:left;font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--tx2);font-weight:700;padding:0 14px 10px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid var(--line);color:var(--tx);vertical-align:top}
+td b{color:var(--ink);font-weight:600}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--tx2)}
+tr:last-child td{border-bottom:none}
+.tw{background:var(--sf);border:1px solid var(--line);border-radius:15px;padding:18px 6px 10px}
+
+ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:14px;color:var(--tx);
+  font-size:16px}
+ol b{color:var(--ink);font-weight:600}
+.tag{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:6px;
+  margin-right:7px;vertical-align:1px}
+.tag.blq{background:var(--bad-l);color:var(--bad)}
+.tag.med{background:var(--warn-l);color:var(--warn)}
+.tag.s4{background:var(--accent-l);color:var(--accent)}
+
+.cmd{background:var(--sf);border:1px solid var(--line);border-radius:14px;padding:18px 20px;
+  font-family:var(--mono);font-size:13.5px;color:var(--tx);line-height:1.9;
+  overflow-x:auto;white-space:pre}
+footer{color:var(--tx2);font-size:14px;border-top:1px solid var(--line);padding-top:22px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <span class="eyebrow">Finalizado · 17/08/2026</span>
+  <h1>O deck da Sprint 3 está pronto</h1>
+  <p class="sub">63 slides na ordem do template da FIAP, com o bloco analítico de julho
+  integrado e os números realinhados. <b>Abri o PowerPoint junto com esta página.</b></p>
+</header>
+
+<div class="caminho">
+  <span class="k">O arquivo</span>
+  <span class="p">sprints\EC_Sprint_3_2TSCOA_mvp_preliminar_Cronos_SuperDataBros.pptx</span>
+  <span class="h">43 MB · 13,333 × 7,5 in · um PNG sangrado por slide, igual à Sprint 2</span>
+</div>
+
+<div class="facts">
+  <div class="fact"><div class="k">Slides</div><div class="v">63</div>
+    <div class="s">Era 32 quando você pediu o resto</div></div>
+  <div class="fact"><div class="k">Gráficos</div><div class="v">24</div>
+    <div class="s">Exportados do matplotlib dos notebooks</div></div>
+  <div class="fact"><div class="k">Prints da aplicação</div><div class="v">10</div>
+    <div class="s">Seis abas e quatro modais</div></div>
+  <div class="fact"><div class="k">Correções de número</div><div class="v">50</div>
+    <div class="s">No bloco de julho, mais 6 figuras</div></div>
+</div>
+
+<section>
+  <h2>Como o deck está montado</h2>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Slides</th><th>Bloco</th><th>Origem</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1 a 11</td><td><b>Identificação, contexto, gestão e arquitetura</b></td>
+        <td>Refeito hoje. Cada slide com composição própria</td></tr>
+      <tr><td class="n">12 a 23</td><td><b>Análise exploratória</b></td>
+        <td>Deck de julho</td></tr>
+      <tr><td class="n">24 a 29</td><td><b>Previsão de volume</b></td>
+        <td>Deck de julho</td></tr>
+      <tr><td class="n">30 a 38</td><td><b>Risco de estouro de OLA</b></td>
+        <td>Deck de julho</td></tr>
+      <tr><td class="n">39 a 43</td><td><b>Causas e recorrência</b></td>
+        <td>Deck de julho, números corrigidos hoje</td></tr>
+      <tr><td class="n">44 a 49</td><td><b>Projeção do KPI e saúde por produto</b></td>
+        <td>Deck de julho, números corrigidos hoje</td></tr>
+      <tr><td class="n">50 a 60</td><td><b>A aplicação, um print por tela</b></td>
+        <td>Capturado hoje da aplicação rodando</td></tr>
+      <tr><td class="n">61 a 63</td><td><b>Mockup, amostra de dados e fecho</b></td>
+        <td>Novo</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2>O que eu corrigi no caminho</h2>
+  <p class="note">O bloco de julho tinha sido construído sobre a base inteira de
+  <b>25.600 elegíveis de 2023 a 2025</b>. Em agosto os notebooks 05, 06 e 07 foram recortados
+  na janela da aplicação, de 01/01 a 30/09/2025, e passaram a medir 19.973 incidentes. O deck
+  ficou para trás, e no mesmo arquivo o slide de saúde dizia dezessete produtos enquanto o
+  print da aba mostra quinze.</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Onde</th><th>Dizia</th><th>É</th></tr></thead>
+    <tbody>
+      <tr><td><b>Ranking de saúde</b></td><td>dezessete produtos, 95% do volume</td>
+        <td><b>quinze produtos, 94%</b></td></tr>
+      <tr><td><b>Falha de Aplicação</b></td><td>59,2% · 15.151 casos · 0,85%</td>
+        <td><b>60,3% · 12.041 · 0,82%</b></td></tr>
+      <tr><td><b>Falha de Hardware</b></td><td>0,5% · 126 casos · 7,14% · 7,4× a média</td>
+        <td><b>0,4% · 85 · 8,24% · 8,75×</b></td></tr>
+      <tr><td><b>Gradiente de familiaridade</b></td><td>1,60% contra 0,35%, queda de 4,6×</td>
+        <td><b>1,46% contra 0,31%, 4,7×</b></td></tr>
+      <tr><td><b>Correlação dos quadrantes</b></td><td>0,11</td>
+        <td><b>−0,09, e trocou de sinal</b></td></tr>
+      <tr><td><b>Código "Outro"</b></td><td>7,8% · 1.995 casos · 54 quebras</td>
+        <td><b>8,0% · 1.596 · 43</b></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note">Duas afirmações caíram por não se sustentarem no dado novo: <b>"a segunda
+  maior concentração de quebras da base"</b> e <b>"todos descendo"</b>, que deixou de valer em
+  dois dos quatro recortes. E a frase que dizia que os anexos das Sprints 1 e 2 iam
+  atualizados junto saiu, porque não é verdade até alguém atualizá-los.</p>
+</section>
+
+<section>
+  <h2>O que continua em aberto</h2>
+  <ol>
+    <li><span class="tag blq">Decisão sua</span><b>A meta do P3 tem duas definições vivas no
+    projeto.</b> O notebook 06 usa 200, que é o teto do degrau de 150%; a aplicação usa 263,
+    o teto do degrau de 100%. Com 208 projetadas, o slide 46 diz "acima da meta" e a tela do
+    slide 53 diz 125% de atingimento. Cada um está certo pela própria régua, mas contam
+    histórias opostas sobre o mesmo número. Resolver muda análise, não texto, então parei.</li>
+    <li><span class="tag blq">Falta arquivo</span><b>Print do Trello</b> para o slide 8. O
+    quadro existe e mostra os cartões da Sprint 2. Atualiza as colunas, me manda o print e eu
+    encaixo no espaço que já está reservado.</li>
+    <li><span class="tag blq">Falta fazer</span><b>Anexos das Sprints 1 e 2.</b> Os dois
+    .pptx seguem declarando XGBoost para risco, DTW e o detector de cascata. Precisam ir
+    atualizados junto, senão o material se contradiz na mesa da banca.</li>
+    <li><span class="tag med">Risco</span><b>Três números do slide 6</b> (87% das violações
+    isoladas, escalada de 21% contra os ~60% do acaso) não têm notebook versionado que os
+    reproduza. Ou destilamos num notebook, ou eu troco a redação.</li>
+    <li><span class="tag med">Risco</span><b>A URL diz que a aplicação está no ar.</b>
+    Coloquei <span style="font-family:var(--mono)">cronos-locaweb.onrender.com</span> na
+    moldura do navegador, como você pediu. Hoje não responde.</li>
+    <li><span class="tag med">Rápido</span><b>Zero referências bibliográficas</b> em todo o
+    material. Artigo do Prophet, definição de MAE e protocolo de backtest resolvem em meia
+    hora.</li>
+    <li><span class="tag s4">Sprint 4</span>Decisão de LGPD sobre versionar o dado num
+    repositório público, varredura de PII no campo <span style="font-family:var(--mono)">Solução</span>,
+    e a simulação de custo da Claude API que o Douglas pediu na mentoria.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>Como regerar tudo</h2>
+  <p class="note">Nada aqui é manual. Se um número mudar num notebook, o caminho é este, e
+  leva uns três minutos:</p>
+  <div class="cmd">.venv/Scripts/python webapp/manage.py runserver 8765 --noreload
+.venv/Scripts/python scripts/captura_telas.py
+.venv/Scripts/python scripts/figuras_deck.py
+.venv/Scripts/python scripts/monta_deck_sprint3.py</div>
+  <p class="note">O estilo dos slides mora em
+  <span style="font-family:var(--mono)">scripts/deck_estilo.py</span>, separado do conteúdo.
+  Fecha o PowerPoint antes de rodar o último, senão o arquivo fica travado.</p>
+</section>
+
+<footer>Cronos · Super Data Bros · 2TSCOA · Challenge FIAP 2026 com Locaweb · entrega em
+23/08/2026</footer>
+
+</div>
+</body>
+</html>
