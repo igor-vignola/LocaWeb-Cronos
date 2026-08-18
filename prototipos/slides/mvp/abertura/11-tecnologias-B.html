@@ -11,7 +11,7 @@
 .u11 .lead{font-size:16px;margin-top:9px}
 
 .u11 .lay{flex:1;min-height:0;margin-top:16px;display:flex;flex-direction:column;gap:11px}
-.u11 .bd2{flex:1;min-height:0;display:grid;grid-template-columns:268px 1fr;gap:24px;
+.u11 .bd2{flex:1;min-height:0;display:grid;grid-template-columns:250px 1fr;gap:24px;
   align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;
   padding:12px 22px;box-shadow:0 16px 38px -32px rgba(15,23,42,.3)}
 .u11 .lf{display:flex;align-items:center;gap:12px;min-width:0}
@@ -19,10 +19,11 @@
   display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;
   font-variant-numeric:tabular-nums;flex-shrink:0}
 .u11 .ln{font-size:17.5px;font-weight:800;letter-spacing:-.4px;color:var(--head);line-height:1.15}
-.u11 .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.u11 .row{display:grid;grid-template-columns:repeat(4,minmax(0,266px));gap:14px;
+  align-items:center}
 
 .u11 .cp{display:flex;align-items:center;gap:12px;background:#FBFCFE;
-  border:1px solid var(--line);border-radius:13px;padding:8px 16px 8px 10px}
+  border:1px solid var(--line);border-radius:13px;padding:8px 14px 8px 10px;min-width:0}
 .u11 .cp.acc{background:linear-gradient(160deg,#fff,#F1F6FF);border-color:#BFDBFE}
 .u11 .pl{width:50px;height:50px;flex-shrink:0;display:flex;align-items:center;
   justify-content:center}
@@ -48,8 +49,8 @@
 
   <div class="body">
     <span class="eb">Tecnologias utilizadas</span>
-    <h1 class="tt">Doze ferramentas, <span class="hl">uma por camada da arquitetura</span></h1>
-    <p class="lead">Cada camada do desenho e a versão que está em uso hoje.</p>
+    <h1 class="tt">A stack organizada por <span class="hl">camada da arquitetura</span></h1>
+    <p class="lead">As doze ferramentas em uso e a versão de cada uma.</p>
 
     <div class="lay">
 

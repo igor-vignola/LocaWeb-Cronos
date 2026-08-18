@@ -12,7 +12,7 @@
 
 .t11 .gd{flex:1;min-height:0;margin-top:14px;display:grid;grid-template-columns:1fr 1fr;
   grid-template-rows:repeat(6,1fr);gap:9px 16px}
-.t11 .rw{display:grid;grid-template-columns:56px 152px 1fr;gap:15px;align-items:center;
+.t11 .rw{display:grid;grid-template-columns:56px 158px 1fr;gap:15px;align-items:center;
   background:#fff;border:1px solid var(--line);border-radius:13px;padding:10px 16px;
   box-shadow:0 14px 32px -30px rgba(15,23,42,.3);min-width:0}
 .t11 .rw.acc{background:linear-gradient(160deg,#fff,#F6F9FF);border-color:#BFDBFE}
@@ -30,8 +30,9 @@
 .t11 .plt{background:#11557C}
 .t11 .xl{background:#217346}
 
-.t11 .nb{display:flex;flex-direction:column;gap:5px;justify-content:center;height:100%;
-  padding-right:14px;border-right:1px solid var(--line);min-width:0}
+.t11 .nb{display:flex;flex-direction:column;align-items:flex-start;gap:5px;
+  justify-content:center;height:100%;padding-right:14px;border-right:1px solid var(--line);
+  min-width:0}
 .t11 .rw.acc .nb{border-right-color:#DBEAFE}
 .t11 .nm{font-size:15.5px;font-weight:800;letter-spacing:-.4px;color:var(--head);line-height:1.1}
 .t11 .rw.acc .nm{color:var(--accent)}
@@ -124,8 +125,8 @@
 
       <div class="rw acc">
         <span class="pl"><img src="../../../../brand/logos/docker.png" alt="Docker"></span>
-        <div class="nb"><span class="nm">Docker</span><span class="mt"><span class="ct">Entrega</span><span class="vr">python:3.13-slim</span></span></div>
-        <div class="ds">Roda na infraestrutura da Locaweb, sem provedor de nuvem amarrado.</div>
+        <div class="nb"><span class="nm">Docker</span><span class="mt"><span class="ct">Entrega</span></span></div>
+        <div class="ds">Imagem <b>python:3.13-slim</b>, que roda na infraestrutura da Locaweb sem provedor de nuvem amarrado.</div>
       </div>
 
     </div>

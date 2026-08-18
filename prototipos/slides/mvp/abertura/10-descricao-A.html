@@ -7,7 +7,8 @@
 <style>
 /* 10 A · a faixa de descrição da Sprint 2 promovida a slide inteiro, um cartão por nó */
 .a10 .body{padding-bottom:54px}
-.a10 .tt{font-size:34px;letter-spacing:-1.2px}
+.a10 .tt{font-size:35px;letter-spacing:-1.2px}
+.a10 .lead{font-size:16.5px;margin-top:10px}
 
 .a10 .gd{flex:1;min-height:0;margin-top:20px;display:grid;
   grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;align-content:center;gap:18px}
@@ -21,10 +22,15 @@
 .a10 .cd.fut .nn{background:#A9B4C4}
 .a10 .stg{font-size:10.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
   color:#9AA6B6;font-variant-numeric:tabular-nums}
-.a10 .ttl{font-size:20px;font-weight:800;letter-spacing:-.5px;color:var(--head);margin-top:11px;
-  line-height:1.15}
+.a10 .hr2{display:flex;align-items:center;gap:14px;margin-top:15px}
+.a10 .ic{flex-shrink:0;width:46px;height:46px;border-radius:12px;background:#F4F7FC;
+  border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.a10 .ic svg{width:25px;height:25px;stroke:var(--head);fill:none;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round}
+.a10 .cd.fut .ic svg{stroke:var(--tx)}
+.a10 .ttl{font-size:21px;font-weight:800;letter-spacing:-.5px;color:var(--head);line-height:1.15}
 .a10 .cd.fut .ttl{color:var(--tx)}
-.a10 .bd{font-size:15px;line-height:1.55;color:var(--tx);margin-top:9px}
+.a10 .bd{font-size:15px;line-height:1.55;color:var(--tx);margin-top:14px}
 .a10 .bd b{color:var(--head);font-weight:700}
 .a10 .fld{display:inline-block;font-size:13.5px;font-weight:700;color:var(--head);
   background:#EEF2F7;border-radius:6px;padding:1px 7px}
@@ -42,12 +48,13 @@
   <div class="body">
     <span class="eb">Descrição da arquitetura</span>
     <h1 class="tt">O que cada peça do desenho <span class="hl">faz</span></h1>
+    <p class="lead">Os seis nós na ordem em que o dado passa por eles.</p>
 
     <div class="gd">
 
       <div class="cd">
         <div class="tp"><span class="nn">1</span><span class="stg">Etapa 01 · fonte</span></div>
-        <div class="ttl">LW-DATASET.xlsx</div>
+        <div class="hr2"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1.5"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="14" x2="21" y2="14"/><line x1="9" y1="4" x2="9" y2="20"/><line x1="15" y1="4" x2="15" y2="20"/></svg></span><span class="ttl">LW-DATASET.xlsx</span></div>
         <div class="bd">Planilha entregue pela Locaweb. Entrada de todo o pipeline.</div>
         <div class="chips">
           <span class="vp ctx"><b class="num">122.543</b> incidentes</span>
@@ -58,7 +65,7 @@
 
       <div class="cd fut">
         <div class="tp"><span class="nn">2</span><span class="stg">Etapa 01 · fonte</span></div>
-        <div class="ttl">Banco Locaweb</div>
+        <div class="hr2"><span class="ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="7" ry="2.2"/><path d="M5 5v6c0 1.2 3.1 2.2 7 2.2s7-1 7-2.2V5"/><path d="M5 11v6c0 1.2 3.1 2.2 7 2.2s7-1 7-2.2v-6"/></svg></span><span class="ttl">Banco Locaweb</span></div>
         <div class="bd">Se virar produto, a leitura passa a ser direta da base interna. Daí o tracejado.</div>
         <div class="chips">
           <span class="vp ctx">Evolução prevista</span>
@@ -67,7 +74,7 @@
 
       <div class="cd">
         <div class="tp"><span class="nn">3</span><span class="stg">Etapa 02 · processamento</span></div>
-        <div class="ttl">Pandas · ETL</div>
+        <div class="hr2"><span class="ic"><svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><circle cx="9" cy="6" r="2"/><line x1="4" y1="12" x2="20" y2="12"/><circle cx="15" cy="12" r="2"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="11" cy="18" r="2"/></svg></span><span class="ttl">Pandas · ETL</span></div>
         <div class="bd">Aplica o campo oficial <span class="fld">Entrou para KPI?</span> e monta o calendário de cada dia.</div>
         <div class="chips">
           <span class="vp focus"><b class="num">122.543</b> &rarr; <b class="num">25.600</b> elegíveis</span>
@@ -77,7 +84,7 @@
 
       <div class="cd">
         <div class="tp"><span class="nn">4</span><span class="stg">Etapa 03 · contêiner</span></div>
-        <div class="ttl">Modelos</div>
+        <div class="hr2"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="4" cy="6" r="1.8"/><circle cx="4" cy="18" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="20" cy="6" r="1.8"/><circle cx="20" cy="18" r="1.8"/><line x1="5.6" y1="6.6" x2="10.4" y2="11.4"/><line x1="5.6" y1="17.4" x2="10.4" y2="12.6"/><line x1="13.6" y1="11.4" x2="18.4" y2="6.6"/><line x1="13.6" y1="12.6" x2="18.4" y2="17.4"/></svg></span><span class="ttl">Modelos</span></div>
         <div class="bd">Prophet prevê o volume das duas prioridades. A regressão logística dá a probabilidade de violação de cada incidente aberto.</div>
         <div class="chips">
           <span class="vp ctx">Erro por dia: P2 <b class="num">4,2</b> · P3 <b class="num">11,8</b></span>
@@ -87,7 +94,7 @@
 
       <div class="cd">
         <div class="tp"><span class="nn">5</span><span class="stg">Etapa 03 · contêiner</span></div>
-        <div class="ttl">Django · seis abas</div>
+        <div class="hr2"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="15" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="6.5" y1="13" x2="8.5" y2="13"/><line x1="10.5" y1="13" x2="12.5" y2="13"/><line x1="14.5" y1="13" x2="17.5" y2="13"/></svg></span><span class="ttl">Django · seis abas</span></div>
         <div class="bd">Cada aba tem URL própria, então o link da fila filtrada pode ser enviado a alguém.</div>
         <div class="rts">
           <span class="rt">/</span><span class="rt">/previsao/</span><span class="rt">/projecao/</span>
@@ -97,7 +104,7 @@
 
       <div class="cd">
         <div class="tp"><span class="nn">6</span><span class="stg">Etapa 04 · destinatário</span></div>
-        <div class="ttl">Gestor operacional</div>
+        <div class="hr2"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></span><span class="ttl">Gestor operacional</span></div>
         <div class="bd">Abre o painel no começo do turno e recebe o brief sem pedir.</div>
         <div class="chips">
           <span class="vp ctx">Sobe com um comando</span>
