@@ -258,6 +258,99 @@ tbody tr.hot td{background:#fff}
 .fc .fcd .fs{font-size:13.5px;color:#8B96A8;margin-top:4px}
 .fc .fcd p{font-size:14.5px;line-height:1.45;color:#98A2B3;margin-top:12px}
 
+/* escada da meta: a altura do degrau é a própria nota, então "mais violação, menos nota"
+   aparece antes de qualquer leitura de rótulo. Mesmo desenho da folha da aba Projeção. */
+.esc .duo{display:flex;gap:22px;margin-top:22px;flex:1;min-height:0}
+/* cada prioridade num cartão próprio: sem isso as doze barras leem como uma escada só,
+   e o slide inteiro depende de o leitor perceber onde uma prioridade termina. */
+.esc .col{flex:1;display:flex;flex-direction:column;min-width:0;background:#fff;
+  border:1px solid var(--line);border-radius:18px;padding:20px 22px 18px;
+  box-shadow:0 18px 42px -32px rgba(15,23,42,.28)}
+.esc .ch{font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
+.esc .ch b{color:var(--accent)}
+.esc .cs{font-size:13.5px;color:var(--tx2);margin-top:3px}
+.esc .steps{flex:1;display:flex;align-items:flex-end;gap:8px;min-height:0;margin-top:14px}
+.esc .stp{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;
+  min-width:0}
+.esc .bar{border-radius:9px 9px 0 0;display:flex;justify-content:center;padding-top:9px;
+  font-size:14.5px;font-weight:800;font-variant-numeric:tabular-nums}
+.esc .rng{font-size:12.5px;color:var(--tx2);text-align:center;line-height:1.35;
+  font-variant-numeric:tabular-nums}
+.esc .aq{margin-top:7px;font-size:11.5px;font-weight:800;letter-spacing:.6px;
+  text-transform:uppercase;text-align:center;border-radius:7px;padding:5px 0}
+
+/* slide de figura: a imagem manda, o texto é legenda */
+.fg .body{padding:16px 64px 30px}
+.fg .row{display:flex;align-items:flex-end;justify-content:space-between;gap:40px}
+.fg .tt{font-size:35px;margin-top:9px}
+.fg .cap{font-size:15.5px;line-height:1.45;color:var(--tx);text-align:right;max-width:600px;
+  flex-shrink:0;padding-bottom:3px}
+.fg .cap b{color:var(--head);font-weight:700}
+.fg .art{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;
+  margin-top:12px}
+.fg .art img{max-width:100%;max-height:100%;display:block}
+.fg .ps{display:flex;gap:14px;margin-top:12px}
+.fg .pz{flex:1;background:#fff;border:1px solid var(--line);border-radius:13px;
+  padding:13px 17px;font-size:14.5px;line-height:1.4;color:var(--tx);
+  box-shadow:0 14px 32px -30px rgba(15,23,42,.3)}
+.fg .pz b{color:var(--head);font-weight:700}
+
+/* mapa de exigência para entrega */
+.mp .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px;flex:1;
+  min-height:0;align-content:start}
+.mp .it{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px 20px;
+  box-shadow:0 16px 38px -30px rgba(15,23,42,.26);display:flex;flex-direction:column;gap:9px}
+.mp .it .ex{font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--tx2)}
+.mp .it .an{font-size:19px;font-weight:800;letter-spacing:-.5px;color:var(--head);
+  line-height:1.15}
+.mp .it .an em{font-style:normal;color:var(--accent)}
+.mp .it p{font-size:14.5px;line-height:1.45;color:var(--tx)}
+.mp .it p b{color:var(--head);font-weight:700}
+
+/* de → para, com o número que decidiu */
+.dp .lst{display:flex;flex-direction:column;gap:11px;margin-top:22px}
+.dp .ln{display:grid;grid-template-columns:190px 24px 200px 1fr;align-items:center;gap:16px;
+  background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 20px;
+  box-shadow:0 14px 34px -30px rgba(15,23,42,.26)}
+.dp .de{font-size:16px;font-weight:600;color:var(--tx2);text-decoration:line-through;
+  text-decoration-color:#C9D2DE}
+.dp .ar{color:#B9C4D2;font-size:17px;text-align:center}
+.dp .pa{font-size:16.5px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
+.dp .pa.out{color:var(--bad);font-weight:700}
+.dp .pq{font-size:14.5px;line-height:1.4;color:var(--tx)}
+.dp .pq b{color:var(--head);font-weight:700}
+
+/* linha do tempo das sprints */
+.tl .trilho{position:relative;margin-top:26px;padding:46px 28px 26px;background:#fff;
+  border:1px solid var(--line);border-radius:18px;
+  box-shadow:0 18px 42px -32px rgba(15,23,42,.28)}
+.tl .trilho::before{content:'';position:absolute;left:28px;right:28px;top:26px;height:2px;
+  background:linear-gradient(90deg,var(--good),var(--good) 47%,var(--accent) 53%,#D6DFEA)}
+.tl .marcos{display:flex;gap:16px}
+.tl .mc{flex:1;position:relative}
+.tl .mc::before{content:'';position:absolute;top:-25px;left:0;width:13px;height:13px;
+  border-radius:50%;background:#fff;border:3px solid #D6DFEA}
+.tl .mc.ok::before{border-color:var(--good)}
+.tl .mc.now::before{border-color:var(--accent);box-shadow:0 0 0 5px rgba(37,99,235,.14)}
+.tl .mc .dt{font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--tx2)}
+.tl .mc .nm{font-size:19px;font-weight:800;letter-spacing:-.4px;color:var(--head);margin-top:6px}
+.tl .mc .nt{font-size:14.5px;color:var(--tx);margin-top:5px}
+.tl .mc .nt b{color:var(--good);font-weight:800}
+.tl .mc.now .nt b{color:var(--accent)}
+
+/* marcos executados, em coluna */
+.kb .duo{display:flex;gap:22px;margin-top:22px;flex:1;min-height:0;align-items:flex-start}
+.kb .passos{flex:1;display:flex;flex-direction:column;gap:0}
+.kb .ps{display:grid;grid-template-columns:78px 1fr;gap:16px;padding:11px 0;
+  border-top:1px solid var(--line)}
+.kb .ps:first-child{border-top:none}
+.kb .ps .q{font-size:13.5px;font-weight:800;color:var(--accent);
+  font-variant-numeric:tabular-nums;padding-top:1px}
+.kb .ps .o{font-size:15px;color:var(--tx);line-height:1.4}
+.kb .ps .o b{color:var(--head);font-weight:700}
+
 /* diagrama do pipeline */
 .dg .flow{display:flex;flex-direction:column;gap:12px;margin-top:20px}
 .dg .lane{display:flex;align-items:stretch;gap:12px}
