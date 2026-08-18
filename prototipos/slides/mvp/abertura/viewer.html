@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>Abertura da Sprint 3 · escolher versão</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#2A2E39;--pan:#1E222B;--line:#363B47;--tx:#B8C0CE;--tx2:#6E7684;
+  --acc:#60A5FA;--ok:#4ADE80;--font:'Outfit',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);font-family:var(--font);overflow:hidden;color:var(--tx)}
+#app{display:flex;height:100%}
+
+/* trilho lateral: um item por slide */
+#rail{width:250px;flex-shrink:0;background:var(--pan);border-right:1px solid var(--line);
+  overflow-y:auto;padding:14px 0}
+#rail h1{font-size:12px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--tx2);padding:6px 18px 14px}
+.ri{padding:9px 18px;font-size:13.5px;cursor:pointer;border-left:3px solid transparent;
+  display:flex;gap:10px;align-items:baseline;line-height:1.35}
+.ri:hover{background:rgba(255,255,255,.04)}
+.ri.on{background:rgba(96,165,250,.12);border-left-color:var(--acc);color:#fff}
+.ri .n{font-size:11.5px;font-weight:700;color:var(--tx2);min-width:18px;
+  font-variant-numeric:tabular-nums}
+.ri.on .n{color:var(--acc)}
+.ri .esc{margin-left:auto;font-size:11px;font-weight:700;color:var(--ok)}
+
+/* palco */
+#stage{flex:1;display:flex;flex-direction:column;min-width:0}
+#top{height:52px;flex-shrink:0;display:flex;align-items:center;gap:16px;padding:0 20px;
+  border-bottom:1px solid var(--line);background:var(--pan)}
+#top .ti{font-size:14.5px;font-weight:600;color:#fff}
+#top .sub{font-size:12.5px;color:var(--tx2)}
+#vers{margin-left:auto;display:flex;gap:6px}
+.vb{width:34px;height:30px;border-radius:8px;border:1px solid var(--line);background:transparent;
+  color:var(--tx);font-family:var(--font);font-size:13.5px;font-weight:700;cursor:pointer}
+.vb:hover{border-color:var(--acc)}
+.vb.on{background:var(--acc);border-color:var(--acc);color:#0B1220}
+.vb.pick{border-color:var(--ok);color:var(--ok)}
+#pick{margin-left:12px;height:30px;padding:0 14px;border-radius:8px;border:1px solid var(--ok);
+  background:transparent;color:var(--ok);font-family:var(--font);font-size:12.5px;
+  font-weight:700;cursor:pointer;letter-spacing:.3px}
+#pick:hover{background:rgba(74,222,128,.12)}
+
+#frame{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:18px}
+#frame iframe{width:1600px;height:900px;border:0;background:#fff;border-radius:6px;
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.7);transform-origin:center center}
+
+#foot{height:38px;flex-shrink:0;display:flex;align-items:center;gap:20px;padding:0 20px;
+  border-top:1px solid var(--line);background:var(--pan);font-size:12px;color:var(--tx2)}
+#foot b{color:var(--tx);font-weight:600}
+#resumo{margin-left:auto;font-size:12px}
+kbd{background:#333846;border:1px solid var(--line);border-radius:4px;padding:1px 6px;
+  font-family:var(--font);font-size:11px;color:var(--tx)}
+</style></head><body>
+<div id="app">
+  <nav id="rail"><h1>Abertura · 11 slides</h1></nav>
+  <div id="stage">
+    <div id="top">
+      <span class="ti" id="tt"></span><span class="sub" id="ts"></span>
+      <div id="vers"></div>
+      <button id="pick">Escolher esta</button>
+    </div>
+    <div id="frame"><iframe id="fr"></iframe></div>
+    <div id="foot">
+      <span><kbd>↑</kbd> <kbd>↓</kbd> troca slide</span>
+      <span><kbd>←</kbd> <kbd>→</kbd> troca versão</span>
+      <span><kbd>Enter</kbd> escolhe</span>
+      <span id="resumo"></span>
+    </div>
+  </div>
+</div>
+<script>
+const SLIDES = [
+  {n:1,  arq:'01-capa',            nome:'Capa do projeto',            tpl:'Template 1'},
+  {n:2,  arq:'02-equipe',          nome:'Identificação da equipe',    tpl:'Template 2'},
+  {n:3,  arq:'03-contexto',        nome:'Contextualização',           tpl:'Template 3'},
+  {n:4,  arq:'04-problema',        nome:'Problema a resolver',        tpl:'Template 4'},
+  {n:5,  arq:'05-solucao',         nome:'Proposta de solução',        tpl:'Template 5'},
+  {n:6,  arq:'06-gestao-doc',      nome:'Gerenciamento atualizado',   tpl:'Template 6'},
+  {n:7,  arq:'07-gestao-plano',    nome:'Planejamento e gestão',      tpl:'Template 7'},
+  {n:8,  arq:'08-arquitetura',     nome:'Arquitetura da solução',     tpl:'Template 8'},
+  {n:9,  arq:'09-desenho',         nome:'Desenho da arquitetura',     tpl:'Template 9'},
+  {n:10, arq:'10-descricao',       nome:'Descrição, cinco camadas',   tpl:'Template 10'},
+  {n:11, arq:'11-tecnologias',     nome:'Descrição, tecnologias',     tpl:'Template 11'},
+];
+const VERS = ['A','B','C'];
+let i = 0, v = 0;
+const escolha = JSON.parse(localStorage.getItem('cronos:abertura') || '{}');
+
+const rail = document.getElementById('rail');
+SLIDES.forEach((s, k) => {
+  const d = document.createElement('div');
+  d.className = 'ri'; d.dataset.k = k;
+  d.innerHTML = `<span class="n">${String(s.n).padStart(2,'0')}</span>
+    <span>${s.nome}</span><span class="esc" data-esc="${k}"></span>`;
+  d.onclick = () => { i = k; v = 0; render(); };
+  rail.appendChild(d);
+});
+
+const vers = document.getElementById('vers');
+VERS.forEach((x, k) => {
+  const b = document.createElement('button');
+  b.className = 'vb'; b.textContent = x;
+  b.onclick = () => { v = k; render(); };
+  vers.appendChild(b);
+});
+
+document.getElementById('pick').onclick = () => {
+  escolha[SLIDES[i].arq] = VERS[v];
+  localStorage.setItem('cronos:abertura', JSON.stringify(escolha));
+  render();
+};
+
+function ajusta(){
+  const f = document.getElementById('frame');
+  const esc = Math.min((f.clientWidth - 36) / 1600, (f.clientHeight - 36) / 900);
+  document.getElementById('fr').style.transform = `scale(${esc})`;
+}
+
+function render(){
+  const s = SLIDES[i];
+  document.getElementById('fr').src = `${s.arq}-${VERS[v]}.html`;
+  document.getElementById('tt').textContent = `${String(s.n).padStart(2,'0')} · ${s.nome}`;
+  document.getElementById('ts').textContent = s.tpl;
+  [...rail.querySelectorAll('.ri')].forEach((d, k) => d.classList.toggle('on', k === i));
+  [...vers.children].forEach((b, k) => {
+    b.classList.toggle('on', k === v);
+    b.classList.toggle('pick', escolha[s.arq] === VERS[k]);
+  });
+  SLIDES.forEach((sl, k) => {
+    const e = rail.querySelector(`[data-esc="${k}"]`);
+    e.textContent = escolha[sl.arq] ? escolha[sl.arq] : '';
+  });
+  const feitas = SLIDES.filter(sl => escolha[sl.arq]).length;
+  document.getElementById('resumo').innerHTML =
+    `<b>${feitas} de ${SLIDES.length}</b> escolhidos` +
+    (feitas === SLIDES.length ? ' · pode avisar o Claude' : '');
+  ajusta();
+}
+
+addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown')  { i = Math.min(i + 1, SLIDES.length - 1); v = 0; render(); e.preventDefault(); }
+  if (e.key === 'ArrowUp')    { i = Math.max(i - 1, 0); v = 0; render(); e.preventDefault(); }
+  if (e.key === 'ArrowRight') { v = (v + 1) % VERS.length; render(); e.preventDefault(); }
+  if (e.key === 'ArrowLeft')  { v = (v - 1 + VERS.length) % VERS.length; render(); e.preventDefault(); }
+  if (e.key === 'Enter')      { document.getElementById('pick').click(); e.preventDefault(); }
+});
+addEventListener('resize', ajusta);
+render();
+</script></body></html>
