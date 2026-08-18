@@ -1,0 +1,139 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>05 Proposta de solução · C</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.s5c .tt{font-size:36px;margin-top:11px}
+.s5c .row{flex:1;display:flex;gap:24px;margin-top:16px;min-height:0}
+.s5c .lft{flex:1;display:flex;flex-direction:column;min-width:0}
+.s5c .lst{margin-top:0;gap:10px}
+.s5c .ln{grid-template-columns:168px 20px 196px 1fr;gap:15px;padding:13px 18px}
+.s5c .de{font-size:15px}
+.s5c .pa{font-size:16px}
+.s5c .pq{font-size:13.5px}
+.s5c .kh{font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--tx2);display:grid;grid-template-columns:168px 20px 196px 1fr;gap:15px;
+  padding:0 18px 9px}
+.s5c .nt{margin-top:auto;padding-top:12px;font-size:13px;line-height:1.5;color:var(--tx);
+  border-top:1px solid var(--line)}
+.s5c .nt b{color:var(--head);font-weight:700}
+.s5c .side{width:432px;flex-shrink:0;background:#fff;border:1px solid var(--line);
+  border-radius:20px;padding:20px 24px 16px;box-shadow:0 20px 48px -32px rgba(15,23,42,.28);
+  display:flex;flex-direction:column;min-height:0}
+.s5c .side .sh{font-size:20px;font-weight:800;letter-spacing:-.5px;color:var(--head)}
+.s5c .side .ss{font-size:13.5px;line-height:1.45;color:var(--tx);margin-top:6px}
+.s5c .side .ss b{color:var(--head);font-weight:700}
+.s5c .pcs{margin-top:14px;display:flex;flex-direction:column;flex:1;min-height:0}
+.s5c .pc{padding:11px 0;border-top:1px solid var(--line)}
+.s5c .pc:first-child{border-top:none;padding-top:2px}
+.s5c .pc .pr2{display:flex;align-items:baseline;gap:9px}
+.s5c .pc .pn{font-size:15.5px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
+.s5c .pc code{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--accent);
+  background:var(--accent-l);border-radius:7px;padding:3px 8px;margin-left:auto;
+  white-space:nowrap}
+.s5c .pc .pm{font-size:13px;line-height:1.4;color:var(--tx);margin-top:4px;
+  font-variant-numeric:tabular-nums}
+.s5c .pc .pm b{color:var(--head);font-weight:700}
+</style>
+</head><body>
+<section class="slide light dp s5c">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· VEJA ANTES · AJA ANTES</span><div class="tag">Template · slide 5</div></div>
+  <div class="body">
+    <div class="eb">Proposta de solução · de maio para agosto</div>
+    <div class="tt">Cinco ideias da Sprint 2 <span class="hl">não sobreviveram ao dado</span>, e a proposta é o que ficou</div>
+    <div class="row">
+      <div class="lft">
+        <div class="kh"><span>Prometido em maio</span><span></span><span>Situação em agosto</span><span>O número que decidiu</span></div>
+        <div class="lst">
+
+          <div class="ln">
+            <div class="de">Detector de cascata</div>
+            <div class="ar">→</div>
+            <div class="pa out">Fora do MVP</div>
+            <div class="pq"><b>87%</b> das violações vêm de incidentes isolados e a escalada
+            observada é de <b>21%</b>, contra os cerca de 60% do acaso. Medição exploratória.</div>
+          </div>
+
+          <div class="ln">
+            <div class="de">Clusterização por DTW</div>
+            <div class="ar">→</div>
+            <div class="pa out">Fora do MVP</div>
+            <div class="pq">Silhueta de <b>0,13</b>: as séries não formam grupo. A exigência de
+            classificação passou a ser atendida pelo modelo de risco de OLA.</div>
+          </div>
+
+          <div class="ln">
+            <div class="de">XGBoost como modelo</div>
+            <div class="ar">→</div>
+            <div class="pa">Regressão logística entregue</div>
+            <div class="pq">PR-AUC de <b>0,2958</b> contra <b>0,2526</b>, com ROC AUC empatado. O
+            XGBoost balanceado prevê <b>1.007</b> violações onde houve 50 e inviabiliza a projeção.</div>
+          </div>
+
+          <div class="ln">
+            <div class="de">SHAP para explicar</div>
+            <div class="ar">→</div>
+            <div class="pa">Contribuição do próprio modelo</div>
+            <div class="pq">Em modelo linear, o peso de cada uma das <b>10</b> características é
+            conta fechada, e as 136 colunas da codificação já saem com sinal e tamanho.</div>
+          </div>
+
+          <div class="ln">
+            <div class="de">Acúmulo de backlog como gatilho</div>
+            <div class="ar">→</div>
+            <div class="pa out">Hipótese sem suporte</div>
+            <div class="pq">Correlação de <b>−0,139</b> entre backlog do dia e violações em dias
+            úteis. O sinal é o contrário do que a hipótese previa.</div>
+          </div>
+
+        </div>
+        <div class="nt">Uma sexta ideia não pôde ser testada: a realocação de equipe, porque o
+        dataset não traz capacidade nem turno das equipes. Ela segue de pé como hipótese, sem
+        evidência a favor nem contra.</div>
+      </div>
+
+      <div class="side">
+        <div class="sh">A proposta que ficou de pé</div>
+        <div class="ss">Duas famílias de modelo, uma projeção que soma as duas, e os
+        <b>2 diferenciais</b> que empurram o resultado para a tela sem consulta.</div>
+        <div class="pcs">
+          <div class="pc">
+            <div class="pr2"><div class="pn">Previsão de volume</div><code>/previsao/</code></div>
+            <div class="pm">Prophet, D+1 a D+7, uma série por prioridade. Erro médio de <b>4,2</b>
+            por dia no P2 e <b>11,8</b> no P3.</div>
+          </div>
+          <div class="pc">
+            <div class="pr2"><div class="pn">Risco por incidente</div><code>/fila/</code></div>
+            <div class="pm">Regressão logística, ROC AUC de <b>0,8693</b>. Os 20% de maior risco
+            concentram <b>72%</b> das violações.</div>
+          </div>
+          <div class="pc">
+            <div class="pr2"><div class="pn">Projeção do KPI</div><code>/projecao/</code></div>
+            <div class="pm">Três parcelas somadas por prioridade. A faixa conteve o real em
+            <b>7 de 10</b> testes, sem nenhum erro otimista.</div>
+          </div>
+          <div class="pc">
+            <div class="pr2"><div class="pn">Morning briefing</div><code>/</code></div>
+            <div class="pm">Ontem, hoje e ações sugeridas, com o volume do dia separado em
+            <b>P2</b> e <b>P3</b>. Texto gerado nos bastidores.</div>
+          </div>
+          <div class="pc">
+            <div class="pr2"><div class="pn">Saúde por produto</div><code>/saude/</code></div>
+            <div class="pm">Nota de 0 a 100 em <b>15</b> produtos, <b>94%</b> do volume. Pior nota
+            lvps com 21,3, melhor lcho com 69,3.</div>
+          </div>
+          <div class="pc">
+            <div class="pr2"><div class="pn">Causas</div><code>/causas/</code></div>
+            <div class="pm">Problema inédito viola <b>1,46%</b>, rotina com 20 ou mais ocorrências
+            viola <b>0,31%</b>.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

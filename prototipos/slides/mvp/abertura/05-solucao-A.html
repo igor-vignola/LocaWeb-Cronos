@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>05 Proposta de solução · A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.s5a .tt{font-size:36px;margin-top:11px}
+.s5a .grid{margin-top:15px;gap:13px}
+.s5a .it{padding:17px 20px 16px;gap:8px}
+.s5a .it .ex{font-size:11.5px}
+.s5a .it .an{font-size:19.5px}
+.s5a .it p{font-size:14px}
+.s5a .mx{display:flex;gap:20px;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
+.s5a .mx>div{min-width:0}
+.s5a .mk{font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--tx2);line-height:1.25}
+.s5a .mv{font-size:23px;font-weight:800;letter-spacing:-.9px;margin-top:4px;line-height:1;
+  font-variant-numeric:tabular-nums;color:var(--accent)}
+.s5a .mv small{font-size:12.5px;font-weight:700;letter-spacing:0;color:var(--tx2);margin-left:4px}
+.s5a .mv.g{color:var(--good)} .s5a .mv.w{color:var(--warn)} .s5a .mv.b{color:var(--bad)}
+.s5a .mv.n{color:var(--good);font-size:20px}
+.s5a .chg{margin-top:14px;flex-shrink:0;background:#fff;border:1px solid var(--line);
+  border-radius:16px;padding:15px 20px;box-shadow:0 16px 38px -30px rgba(15,23,42,.26);
+  display:flex;align-items:stretch}
+.s5a .chg .ch{width:132px;flex-shrink:0;display:flex;align-items:center;font-size:11.5px;
+  font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--tx2);
+  line-height:1.35;padding-right:14px}
+.s5a .chg .cl{flex:1;display:flex}
+.s5a .chg .ci2{flex:1;padding:0 15px;border-left:1px solid var(--line);min-width:0}
+.s5a .chg .cd{font-size:12.5px;color:var(--tx2);text-decoration:line-through;
+  text-decoration-color:#CBD5E1}
+.s5a .chg .cp{font-size:14px;font-weight:800;letter-spacing:-.2px;color:var(--head);
+  margin-top:2px;line-height:1.25}
+.s5a .chg .cq{font-size:12.5px;color:var(--tx);margin-top:5px;line-height:1.35;
+  font-variant-numeric:tabular-nums}
+.s5a .chg .cq b{color:var(--head);font-weight:700}
+</style>
+</head><body>
+<section class="slide light mp s5a">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· VEJA ANTES · AJA ANTES</span><div class="tag">Template · slide 5</div></div>
+  <div class="body">
+    <div class="eb">Proposta de solução</div>
+    <div class="tt">Cada exigência do desafio tem uma peça, e cada peça tem <span class="hl">um número que a mede</span></div>
+    <div class="grid">
+
+      <div class="it">
+        <div class="ex">Exigência · antecipar o volume de D+1 a D+7</div>
+        <div class="an"><em>Prophet</em>, uma série por prioridade</div>
+        <p>Treino em 2025, com dia da semana e feriado nacional no calendário. Cada ponto previsto
+        sai com banda de 80%, que cobriu <b>84,8%</b> dos dias no P2 e <b>60,9%</b> no P3.</p>
+        <div class="mx">
+          <div><div class="mk">Erro médio · P2</div><div class="mv num">4,2<small>por dia</small></div></div>
+          <div><div class="mk">Erro médio · P3</div><div class="mv num">11,8<small>por dia</small></div></div>
+          <div><div class="mk">Ganho sobre o baseline · P2</div><div class="mv g num">15<small>%</small></div></div>
+        </div>
+      </div>
+
+      <div class="it">
+        <div class="ex">Exigência · identificar a tendência por prioridade</div>
+        <div class="an">Acumulado do ano contra a <em>escada da meta</em></div>
+        <p>As faixas de nota vêm do dicionário oficial da Locaweb. Em 2025 o P2 saiu de
+        <b>35</b> violações em outubro para <b>41</b> em novembro e atravessou duas faixas de uma
+        vez, seis casos que custaram 50 pontos de nota.</p>
+        <div class="mx">
+          <div><div class="mk">P2 fechou 2025</div><div class="mv w num">42<small>nota 75%</small></div></div>
+          <div><div class="mk">P3 fechou 2025</div><div class="mv g num">196<small>nota 150%</small></div></div>
+        </div>
+      </div>
+
+      <div class="it">
+        <div class="ex">Exigência · projetar o impacto no KPI</div>
+        <div class="an">Projeção do ano em <em>três parcelas</em></div>
+        <p>O que já tem desfecho é contagem, o que está aberto vai pelo modelo de risco, o que
+        ainda não entrou vai pelo Prophet. Validada em 5 datas nas 2 prioridades, com a situação
+        da meta acertada <b>5 de 5 no P2</b> e <b>2 de 5 no P3</b>.</p>
+        <div class="mx">
+          <div><div class="mk">Faixa conteve o real</div><div class="mv num">7<small>de 10</small></div></div>
+          <div><div class="mk">Erro máximo</div><div class="mv w num">15,0<small>%</small></div></div>
+          <div><div class="mk">Erro otimista</div><div class="mv n">nenhum</div></div>
+        </div>
+      </div>
+
+      <div class="it">
+        <div class="ex">Exigência · apoiar a decisão do turno</div>
+        <div class="an"><em>Fila de risco</em>, briefing e nota por produto</div>
+        <p>A regressão logística ordena a fila com as 10 características disponíveis na abertura,
+        contra prazo de 4 horas no P2 e 12 horas no P3. O briefing sai na entrada do turno e a
+        nota cobre os 15 produtos acima de 200 incidentes, <b>94%</b> do volume.</p>
+        <div class="mx">
+          <div><div class="mk">Violações nos 50 primeiros</div><div class="mv num">15<small>de 50</small></div></div>
+          <div><div class="mk">Ordenando por prioridade</div><div class="mv b num">1<small>de 50</small></div></div>
+          <div><div class="mk">Os 20% de maior risco</div><div class="mv num">72<small>% das violações</small></div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="chg">
+      <div class="ch">O que mudou desde a Sprint 2</div>
+      <div class="cl">
+        <div class="ci2"><div class="cd">Detector de cascata</div><div class="cp">Fora do MVP</div><div class="cq"><b>87%</b> das violações são de incidentes isolados, medição exploratória</div></div>
+        <div class="ci2"><div class="cd">Clusterização por DTW</div><div class="cp">Fora do MVP</div><div class="cq">silhueta de <b>0,13</b>, sem estrutura de grupo</div></div>
+        <div class="ci2"><div class="cd">XGBoost como entrega</div><div class="cp">Regressão logística</div><div class="cq">PR-AUC <b>0,2958</b> contra 0,2526, e o XGBoost balanceado prevê 1.007 onde houve 50</div></div>
+        <div class="ci2"><div class="cd">SHAP para explicar</div><div class="cp">Contribuição do próprio modelo</div><div class="cq">em modelo linear, o peso das <b>10</b> características é conta fechada</div></div>
+        <div class="ci2"><div class="cd">Acúmulo de backlog</div><div class="cp">Hipótese sem suporte</div><div class="cq">correlação de <b>−0,139</b>, sinal contrário ao esperado</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>
