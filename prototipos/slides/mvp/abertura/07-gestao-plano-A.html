@@ -5,81 +5,82 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
-.g7 .tt{font-size:34px;max-width:1340px}
-.ic{display:inline-flex;align-items:center;justify-content:center}
-.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.g7a .tt{font-size:38px}
+.g7a .row{display:flex;gap:46px;align-items:stretch;margin-top:auto;margin-bottom:auto}
 
-.g7 .row{flex:1;min-height:0;display:flex;gap:40px;margin-top:22px;align-items:flex-start}
-.g7 .lft{width:872px;flex-shrink:0}
-.g7 .rgt{flex:1;min-width:0;height:654px;display:flex;flex-direction:column;gap:20px}
+/* coluna esquerda · área reservada do cartão, proporção 4 por 3, e o texto embaixo */
+.g7a .lft{width:600px;flex-shrink:0;display:flex;flex-direction:column}
+.g7a .br{width:100%}
+.g7a .br .url{font-family:var(--font);font-weight:600;font-size:12.5px}
+.g7a .ph{margin:14px;height:429px;border:1.5px dashed #C0CFE2;border-radius:10px;
+  background:#FAFCFF;display:flex;align-items:center;justify-content:center}
+.g7a .ph span{font-size:15px;font-weight:600;letter-spacing:.4px;color:#93A1B4}
+.g7a .lft p{font-size:16px;line-height:1.5;color:var(--tx);margin-top:24px}
 
-/* area reservada do print · 872 x 654, proporcao 4 por 3 */
-.res{width:872px;height:654px;border:1.5px dashed #B6C5DA;border-radius:18px;
-  background:rgba(255,255,255,.52);display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:15px}
-.res .ri{width:50px;height:50px;border-radius:14px;background:#fff;border:1px solid var(--line);
-  color:var(--accent);box-shadow:0 10px 24px -18px rgba(15,23,42,.4)}
-.res .ri svg{width:25px;height:25px}
-.res .rl{font-size:15.5px;font-weight:700;letter-spacing:.5px;color:var(--tx2)}
-
-.cd{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 24px 16px;
-  box-shadow:0 18px 42px -32px rgba(15,23,42,.28);display:flex;flex-direction:column;min-height:0}
-.cd .ck{font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--tx2);flex-shrink:0}
-
-/* cronograma das sprints */
-.g7 .crono{flex:1.32;justify-content:space-between}
-.g7 .sr{display:grid;grid-template-columns:32px 1fr 118px 132px;gap:14px;align-items:center;
-  padding:12px 0;border-top:1px solid #F0F3F8}
-.g7 .sq{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;
-  justify-content:center;font-size:14px;font-weight:800;background:#F1F5FA;color:var(--tx2);
-  font-variant-numeric:tabular-nums}
-.g7 .sr.ok .sq{background:var(--good-l);color:var(--good)}
-.g7 .sr.now .sq{background:var(--accent-l);color:var(--accent)}
-.g7 .sn{font-size:18px;font-weight:800;letter-spacing:-.4px;color:var(--head)}
-.g7 .sd{font-size:15px;font-weight:600;color:var(--tx);font-variant-numeric:tabular-nums}
-.g7 .sr .vp{justify-self:end}
-
-/* frentes de trabalho */
-.g7 .frt{flex:1;justify-content:space-between}
-.g7 .fr{display:grid;grid-template-columns:36px 1fr auto;gap:14px;align-items:center;
-  padding:11px 0;border-top:1px solid #F0F3F8}
-.g7 .fi{width:36px;height:36px;border-radius:10px;background:var(--accent-l);color:var(--accent);
-  display:flex;align-items:center;justify-content:center}
-.g7 .fi svg{width:20px;height:20px}
-.g7 .fn{font-size:17px;font-weight:700;letter-spacing:-.3px;color:var(--head)}
-.g7 .who{display:inline-flex;align-items:center;padding:5px 13px;border-radius:9px;
-  border:1px dashed #BCCADD;background:#FAFCFF;color:var(--tx2);font-size:13px;font-weight:600;
+/* coluna direita · duas tabelas sóbrias */
+.g7a .rgt{flex:1;min-width:0;display:flex;flex-direction:column;gap:24px}
+.g7a .cd{flex:1;background:#fff;border:1px solid var(--line);border-radius:18px;
+  padding:24px 12px 18px;box-shadow:0 18px 42px -32px rgba(15,23,42,.26);display:flex;
+  flex-direction:column;min-height:0}
+.g7a table{height:100%;table-layout:fixed}
+.g7a thead th{padding:0 20px 12px;border-bottom:1px solid var(--line)}
+.g7a tbody td{padding:12px 20px;font-size:15.5px;vertical-align:middle;
+  border-top:1px solid #F0F3F8}
+.g7a tbody tr:first-child td{border-top:none}
+.g7a td.sp{color:var(--head);font-weight:600;font-size:16.5px;letter-spacing:-.2px;
   white-space:nowrap}
+.g7a td.sp i{font-style:normal;font-weight:600;color:var(--tx2);margin-right:10px;
+  font-variant-numeric:tabular-nums}
+.g7a td.dt{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--tx)}
+.g7a td.si{color:var(--tx2);white-space:nowrap;text-align:right}
+.g7a th.c3{text-align:right}
+.g7a tr.now td.sp,.g7a tr.now td.si{color:var(--head);font-weight:700}
+/* campo de responsável · fio em branco, para a equipe preencher */
+.g7a .fw th.c1,.g7a .fw td.sp{width:330px}
+.g7a td.rp span{display:block;height:19px;border-bottom:1px solid #C7D3E3}
 </style>
 </head><body>
-<section class="slide light g7">
+<section class="slide light g7a">
   <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd"><span class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></span><span class="bn">Cronos</span><span class="bt">VEJA ANTES · AJA ANTES</span><span class="tag">Template · slide 7</span></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 7</div></div>
   <div class="body">
-    <span class="eb">Planejamento e gestão</span>
-    <h1 class="tt">Uma sprint por entrega da FIAP, e uma pessoa respondendo por <span class="hl">cada frente</span></h1>
+    <div class="eb">Planejamento e gestão</div>
+    <h1 class="tt">Cronograma das sprints e <span class="hl">divisão do trabalho</span></h1>
+
     <div class="row">
       <div class="lft">
-        <div class="res">
-          <span class="ic ri"><svg viewBox="0 0 24 24"><rect x="3.6" y="3.6" width="7" height="7" rx="2"/><rect x="13.4" y="3.6" width="7" height="7" rx="2"/><rect x="3.6" y="13.4" width="7" height="7" rx="2"/><rect x="13.4" y="13.4" width="7" height="7" rx="2"/></svg></span>
-          <span class="rl">Cartão em andamento</span>
-        </div>
+        <figure class="br">
+          <div class="bar"><i></i><i></i><i></i><span class="url">trello.com</span></div>
+          <div class="ph"><span>Cartão em andamento</span></div>
+        </figure>
+        <p>A divisão do trabalho segue quatro frentes, e o responsável por cada uma é
+          registrado na coluna ao lado. O cartão da sprint em andamento reúne as tarefas
+          abertas até a entrega.</p>
       </div>
+
       <div class="rgt">
-        <div class="cd crono">
-          <span class="ck">Cronograma das quatro sprints</span>
-          <div class="sr ok" style="border-top:none"><span class="sq num">1</span><span class="sn">Ideação</span><span class="sd num">27/04/2026</span><span class="vp good">Entregue</span></div>
-          <div class="sr ok"><span class="sq num">2</span><span class="sn">Arquitetura</span><span class="sd num">24/05/2026</span><span class="vp good">Entregue</span></div>
-          <div class="sr now"><span class="sq num">3</span><span class="sn">MVP preliminar</span><span class="sd num">23/08/2026</span><span class="vp focus">Em andamento</span></div>
-          <div class="sr"><span class="sq num">4</span><span class="sn">Solução final</span><span class="sd num">08/09/2026</span><span class="vp ctx">Planejada</span></div>
+        <div class="cd">
+          <table>
+            <thead><tr><th class="c1">Sprint</th><th>Entrega</th><th class="c3">Situação</th></tr></thead>
+            <tbody>
+              <tr><td class="sp"><i>1</i>Ideação</td><td class="dt">27/04/2026</td><td class="si">Entregue</td></tr>
+              <tr><td class="sp"><i>2</i>Arquitetura</td><td class="dt">24/05/2026</td><td class="si">Entregue</td></tr>
+              <tr class="now"><td class="sp"><i>3</i>MVP preliminar</td><td class="dt">23/08/2026</td><td class="si">Em andamento</td></tr>
+              <tr><td class="sp"><i>4</i>Solução final</td><td class="dt">08/09/2026</td><td class="si">Prevista</td></tr>
+            </tbody>
+          </table>
         </div>
-        <div class="cd frt">
-          <span class="ck">Frentes de trabalho</span>
-          <div class="fr" style="border-top:none"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h11"/><path d="M11 8l4 4-4 4"/><path d="M19 4.6v14.8"/></svg></span><span class="fn">Base e análise</span><span class="who">[responsável]</span></div>
-          <div class="fr"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 15.4l4.6-4.2 3.4 2.4"/><path d="M11.4 13.6l3-3.6"/><path d="M15.4 9.4l5.2 1.2M20.6 10.6l-1.4 5"/></svg></span><span class="fn">Modelagem preditiva</span><span class="who">[responsável]</span></div>
-          <div class="fr"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.6" y="3.6" width="7" height="7" rx="2"/><rect x="13.4" y="3.6" width="7" height="7" rx="2"/><rect x="3.6" y="13.4" width="7" height="7" rx="2"/><rect x="13.4" y="13.4" width="7" height="7" rx="2"/></svg></span><span class="fn">Aplicação Django</span><span class="who">[responsável]</span></div>
-          <div class="fr"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><path d="M8.4 12.2l2.6 2.6 4.6-5"/></svg></span><span class="fn">Deck e entregáveis</span><span class="who">[responsável]</span></div>
+
+        <div class="cd fw">
+          <table>
+            <thead><tr><th class="c1">Frente de trabalho</th><th>Responsável</th></tr></thead>
+            <tbody>
+              <tr><td class="sp">Base e análise</td><td class="rp"><span></span></td></tr>
+              <tr><td class="sp">Modelagem preditiva</td><td class="rp"><span></span></td></tr>
+              <tr><td class="sp">Aplicação Django</td><td class="rp"><span></span></td></tr>
+              <tr><td class="sp">Deck e entregáveis</td><td class="rp"><span></span></td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

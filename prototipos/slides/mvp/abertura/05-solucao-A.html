@@ -5,37 +5,43 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
+/* Slide 05 · A · quatro componentes em grade 2 por 2.
+   A grade preenche a altura livre do corpo e as quatro células têm a mesma
+   altura; o número de cada bloco ocupa uma coluna de largura fixa à direita,
+   para que os quatro tenham o mesmo peso visual. */
 .sa .body{padding-top:20px}
 .sa .tt{font-size:42px;margin-top:12px}
 
-.sa .grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:266px 266px;gap:24px;
-  margin-top:auto;margin-bottom:auto}
+.sa .grid{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;gap:24px;margin-top:28px}
 
-.sa .bk{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px 40px;
-  box-shadow:0 22px 54px -34px rgba(15,23,42,.3);display:flex;align-items:center;gap:30px;
+.sa .bk{background:#fff;border:1px solid var(--line);border-radius:22px;padding:32px 42px;
+  box-shadow:0 22px 54px -34px rgba(15,23,42,.3);display:flex;align-items:stretch;gap:28px;
   min-width:0}
 .sa .bk.acc{background:linear-gradient(160deg,#F7FAFF,#fff);border-color:#BFDBFE}
 
-.sa .lf{flex:1;min-width:0}
-.sa .ci{width:56px;height:56px;border-radius:16px;display:inline-flex;align-items:center;
+.sa .lf{flex:1;min-width:0;display:flex;flex-direction:column;
+  justify-content:space-between}
+.sa .ci{width:62px;height:62px;align-self:flex-start;border-radius:18px;display:inline-flex;align-items:center;
   justify-content:center;background:var(--accent-l);color:var(--accent)}
-.sa .ci svg{width:27px;height:27px;stroke:currentColor;fill:none;stroke-width:1.8;
+.sa .ci svg{width:30px;height:30px;stroke:currentColor;fill:none;stroke-width:1.8;
   stroke-linecap:round;stroke-linejoin:round}
 .sa .bk.g .ci{background:var(--good-l);color:var(--good)}
-.sa .bh{font-size:25px;font-weight:800;letter-spacing:-.6px;color:var(--head);line-height:1.15;
-  margin-top:20px}
-.sa .bl{font-size:17px;line-height:1.45;color:var(--tx);margin-top:11px}
+.sa .bh{font-size:30px;font-weight:800;letter-spacing:-.8px;color:var(--head);line-height:1.15}
+.sa .bl{font-size:19px;line-height:1.45;color:var(--tx);margin-top:12px}
 
-.sa .rt{flex-shrink:0;display:flex;align-items:baseline;gap:11px}
-.sa .v{font-size:80px;font-weight:900;letter-spacing:-4px;line-height:.9;color:var(--accent);
+/* coluna do número: largura fixa nos quatro blocos */
+.sa .rt{width:300px;flex-shrink:0;display:flex;align-items:center;justify-content:flex-end;
+  gap:16px}
+.sa .u{display:flex;flex-direction:column;align-items:flex-end;min-width:0}
+.sa .v{font-size:100px;font-weight:900;letter-spacing:-5px;line-height:.9;color:var(--accent);
   font-variant-numeric:tabular-nums}
 .sa .bk.g .v{color:var(--good)}
-.sa .bk.duo .v{font-size:62px;letter-spacing:-3px}
-.sa .v em{font-style:normal;font-size:28px;font-weight:800;letter-spacing:-.8px;
-  color:var(--tx2);margin-left:6px}
-.sa .pk{font-size:15px;font-weight:700;letter-spacing:1.1px;color:var(--tx2);
-  align-self:flex-end;padding-bottom:8px}
-.sa .dot{font-size:24px;color:#CDD6E2;padding-bottom:9px}
+.sa .bk.duo .v{font-size:74px;letter-spacing:-3.4px}
+.sa .v em{font-style:normal;font-size:34px;font-weight:800;letter-spacing:-1px;
+  color:var(--tx2);margin-left:8px}
+.sa .pk{font-size:14px;font-weight:700;letter-spacing:1.6px;color:var(--tx2);margin-top:9px}
+.sa .dot{font-size:26px;color:#CDD6E2}
 </style>
 </head><body>
 <section class="slide light sa">
@@ -43,47 +49,47 @@
   <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 5</div></div>
   <div class="body">
     <div class="eb">Proposta de solução</div>
-    <div class="tt">Quatro entregas, cada uma com <span class="hl">o número que a sustenta</span></div>
+    <div class="tt">Componentes da solução e <span class="hl">a métrica de cada um</span></div>
 
     <div class="grid">
       <div class="bk duo">
         <div class="lf">
           <span class="ci"><svg viewBox="0 0 24 24"><path d="M3.4 15.4l4.6-4.2 3.4 2.4"/><path d="M11.4 13.6l3-3.6"/><path d="M15.4 9.4l5.2 1.2M20.6 10.6l-1.4 5"/></svg></span>
-          <div class="bh">Previsão de volume</div>
-          <div class="bl">Erro médio por dia da previsão</div>
+          <div class="txt"><div class="bh">Previsão de volume</div>
+          <div class="bl">Erro médio por dia da previsão</div></div>
         </div>
         <div class="rt">
-          <span class="v num">11,8</span><span class="pk">P3</span>
+          <span class="u"><span class="v num">11,8</span><span class="pk">P3</span></span>
           <span class="dot">·</span>
-          <span class="v num">4,2</span><span class="pk">P2</span>
+          <span class="u"><span class="v num">4,2</span><span class="pk">P2</span></span>
         </div>
       </div>
 
       <div class="bk g">
         <div class="lf">
           <span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg></span>
-          <div class="bh">Risco por incidente</div>
-          <div class="bl">das violações nos 20% de maior risco</div>
+          <div class="txt"><div class="bh">Risco por incidente</div>
+          <div class="bl">das violações nos 20% de maior risco</div></div>
         </div>
-        <div class="rt"><span class="v num">72%</span></div>
+        <div class="rt"><span class="u"><span class="v num">72%</span></span></div>
       </div>
 
       <div class="bk g">
         <div class="lf">
           <span class="ci"><svg viewBox="0 0 24 24"><path d="M3.4 17.2l5.4-5.4 3.8 3 6.2-8"/><path d="M14.8 6.8h4.6v4.6"/></svg></span>
-          <div class="bh">Projeção do KPI</div>
-          <div class="bl">acertos da situação da meta nas duas prioridades</div>
+          <div class="txt"><div class="bh">Projeção do KPI</div>
+          <div class="bl">acertos da situação da meta nas duas prioridades</div></div>
         </div>
-        <div class="rt"><span class="v num">7<em>de 10</em></span></div>
+        <div class="rt"><span class="u"><span class="v num">7<em>de 10</em></span></span></div>
       </div>
 
       <div class="bk acc">
         <div class="lf">
           <span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.3"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4"/><path d="M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7"/></svg></span>
-          <div class="bh">Briefing do turno</div>
-          <div class="bl">o resumo do dia na entrada, sem ninguém pedir</div>
+          <div class="txt"><div class="bh">Briefing do turno</div>
+          <div class="bl">o resumo do dia na entrada, sem ninguém pedir</div></div>
         </div>
-        <div class="rt"><span class="v num">07h</span></div>
+        <div class="rt"><span class="u"><span class="v num">07h</span></span></div>
       </div>
     </div>
   </div>

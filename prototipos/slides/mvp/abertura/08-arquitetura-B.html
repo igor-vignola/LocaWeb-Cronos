@@ -5,132 +5,207 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
-.fb .tt{font-size:34px;max-width:1330px}
-.ic{display:inline-flex;align-items:center;justify-content:center}
-.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* Slide 08 · B · duas entradas, um portão e a escala em proporção de área
+   A planilha passa pelo campo oficial de elegibilidade; a biblioteca de feriados
+   entra por outro caminho. O resultado da regra aparece em área, não em texto. */
+.fd .body{padding-top:20px}
+.fd .tt{font-size:33px;letter-spacing:-1.1px;max-width:1080px}
+.fd .lead{font-size:16.5px;max-width:1020px;margin-top:11px}
 
-.fb .trio{display:flex;gap:24px;flex:1;min-height:0;margin-top:22px}
+.fd .fx{flex:1;min-height:0;margin-top:18px;display:grid;
+  grid-template-columns:340px 38px 360px 38px 1fr;grid-template-rows:1fr 154px;
+  grid-template-areas:"s1 a1 g1 a2 b" "s2 a3 g2 a4 b";gap:16px}
 
-/* placa de tecnologia · mesmo padrao da Sprint 2 */
-.pl{width:54px;height:54px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.pl img{width:100%;height:100%;object-fit:contain;display:block}
-.pl .cs{width:83%;height:83%;border-radius:20%;display:flex;align-items:center;
-  justify-content:center;color:#fff;font-weight:800;font-size:20px;letter-spacing:-.6px}
-.pl .cs.xl{background:#217346}
-.tp{display:flex;align-items:center;gap:12px}
-.tp .tn{font-size:16px;font-weight:700;letter-spacing:-.3px;color:var(--head);line-height:1.2}
-.tp .tn em{display:block;font-style:normal;font-size:12.5px;font-weight:600;color:var(--tx2);
-  font-variant-numeric:tabular-nums;margin-top:2px}
-
-/* fichas das fontes, em volta da regua */
-.fb .src{width:302px;flex-shrink:0;background:#fff;border:1px solid var(--line);
-  border-radius:20px;padding:24px 24px 22px;box-shadow:0 20px 46px -32px rgba(15,23,42,.3);
-  display:flex;flex-direction:column}
-.fb .bx{width:44px;height:44px;border-radius:12px;background:var(--accent-l);color:var(--accent);
-  display:flex;align-items:center;justify-content:center}
-.fb .bx svg{width:23px;height:23px}
-.fb .kk{font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
-  color:var(--tx2);margin-top:14px;display:block}
-.fb .nm2{font-size:27px;font-weight:800;letter-spacing:-1px;color:var(--head);line-height:1.08;
-  margin-top:7px}
-.fb .nm2 .hl{color:var(--accent)}
-.fb .hdr .vp{display:inline-flex;margin-top:11px}
-.fb .mets{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;margin-top:20px;
-  padding-top:6px;border-top:1px solid var(--line)}
-.fb .mv{font-size:26px;font-weight:800;letter-spacing:-1px;color:var(--head);line-height:1;
-  font-variant-numeric:tabular-nums}
-.fb .mk{font-size:11.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
-  color:var(--tx2);margin-top:6px}
-.fb .plates{display:flex;flex-direction:column;gap:15px;padding-top:19px;
-  border-top:1px solid var(--line)}
-
-/* regua de elegibilidade, protagonista: funil de tres faixas */
-.fb .rg{flex:1;min-width:0;background:linear-gradient(168deg,#fff,#F7FAFF);
-  border:1px solid #BFDBFE;border-radius:20px;padding:24px 30px 26px;
-  box-shadow:0 24px 54px -34px rgba(15,23,42,.32);display:flex;flex-direction:column}
-.fb .rk{font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
-  color:var(--accent);flex-shrink:0}
-.fb .funil{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;
-  align-items:center}
-.fb .stp2{display:flex;flex-direction:column;align-items:center;gap:9px}
-.fb .lb2{display:flex;flex-direction:column;align-items:center;gap:5px}
-.fb .lk2{font-size:12.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;
+  box-shadow:0 20px 48px -34px rgba(15,23,42,.3)}
+.kk{font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
   color:var(--tx2)}
-.fb .ls2{font-size:15px;color:var(--tx);line-height:1.3}
-.fb .ls2 b{color:var(--head);font-weight:700}
-.fb .bd{height:118px;border-radius:16px;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:6px}
-.fb .bv{font-size:40px;font-weight:800;letter-spacing:-1.8px;line-height:1;
+
+/* placas */
+.pl{width:38px;height:38px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.pl img{width:100%;height:100%;object-fit:contain;display:block}
+.pl .cs{width:84%;height:84%;border-radius:22%;display:flex;align-items:center;
+  justify-content:center;color:#fff;font-weight:800;font-size:14px;letter-spacing:-.4px}
+.pl .cs.xl{background:#217346}
+.plw{display:flex;align-items:center;gap:9px}
+.plw .pn{font-size:12.5px;font-weight:700;letter-spacing:-.2px;color:var(--head);line-height:1.15}
+.plw .pn em{display:block;font-style:normal;font-size:10.5px;font-weight:600;color:var(--tx2);
+  font-variant-numeric:tabular-nums;margin-top:1px}
+.plr{display:flex;gap:22px;border-top:1px solid var(--line);padding-top:14px}
+
+/* fontes */
+.s1{grid-area:s1;padding:20px 22px 16px;display:flex;flex-direction:column}
+.s2{grid-area:s2;padding:16px 22px 14px;display:flex;flex-direction:column}
+.fname{font-size:24px;font-weight:800;letter-spacing:-.9px;color:var(--head);line-height:1.1;
+  margin-top:6px}
+.fname span{color:var(--accent)}
+.fdesc{font-size:14px;line-height:1.4;color:var(--tx);margin-top:7px}
+.mets{flex:1;display:flex;flex-direction:column;margin:12px 0 14px}
+.mets .mr{flex:1;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  border-top:1px solid var(--line)}
+.mets .mr .ml{font-size:12px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;
+  color:var(--tx2)}
+.mets .mr .mvv{font-size:19px;font-weight:800;letter-spacing:-.6px;color:var(--head);
   font-variant-numeric:tabular-nums}
-.fb .pc{font-size:14px;font-weight:800;letter-spacing:.3px;font-variant-numeric:tabular-nums}
-.fb .bd.all{background:linear-gradient(180deg,#DCE5F0,#C4D2E3);color:#33415A}
-.fb .bd.all .pc{color:#5C6C86}
-.fb .bd.wrong{background:var(--bad-l);border:1.5px dashed #EBAAAA;color:var(--bad)}
-.fb .bd.wrong .pc{color:#E07070}
-.fb .bd.right{background:linear-gradient(180deg,#3B82F6,#2151D4);color:#fff;
-  box-shadow:0 16px 34px -16px rgba(37,99,235,.62)}
-.fb .bd.right .pc{color:#C3DAFE}
-.fb .stp2.on .lk2{color:var(--accent)}
+.s2 .plr{margin-top:auto}
+
+/* setas */
+.arw{display:flex;align-items:center;justify-content:center}
+.arw svg{width:36px;height:12px;stroke:#AAB8CB;fill:none;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round}
+.a1{grid-area:a1}.a2{grid-area:a2}.a3{grid-area:a3}.a4{grid-area:a4}
+
+/* o portão */
+.gt{grid-area:g1;border-color:#BFDBFE;display:flex;flex-direction:column;overflow:hidden}
+.gt .gh{background:var(--accent);padding:15px 22px}
+.gt .gh .gk{font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  color:rgba(255,255,255,.72)}
+.gt .gh .gn{font-size:25px;font-weight:800;letter-spacing:-.8px;color:#fff;margin-top:3px}
+.gt .gin{flex:1;padding:16px 22px 18px;display:flex;flex-direction:column}
+.gt .gsub{font-size:14px;line-height:1.4;color:var(--tx)}
+.gt .conds{flex:1;display:flex;flex-direction:column;gap:12px;margin:14px 0 16px}
+.gt .cd{flex:1;display:flex;align-items:center;gap:11px;background:var(--accent-l);
+  border:1px solid #DBE9FD;border-radius:11px;padding:0 14px}
+.gt .cd svg{width:17px;height:17px;stroke:var(--accent);fill:none;stroke-width:1.9;
+  flex-shrink:0;stroke-linecap:round;stroke-linejoin:round}
+.gt .cd span{font-size:14px;font-weight:700;letter-spacing:-.2px;color:var(--head);line-height:1.25}
+.gt .res{display:flex;gap:10px;border-top:1px solid var(--line);padding-top:14px}
+.gt .rb{flex:1;border-radius:11px;padding:9px 13px}
+.gt .rb.y{background:var(--accent)}
+.gt .rb.n{background:#F2F5F9}
+.gt .rb .rv2{font-size:19px;font-weight:800;letter-spacing:-.5px;line-height:1.1;
+  font-variant-numeric:tabular-nums}
+.gt .rb.y .rv2{color:#fff}.gt .rb.n .rv2{color:var(--tx2)}
+.gt .rb .rk2{font-size:11px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;
+  margin-top:3px}
+.gt .rb.y .rk2{color:rgba(255,255,255,.75)}.gt .rb.n .rk2{color:#9AA6B6}
+
+/* o outro caminho */
+.cal{grid-area:g2;padding:16px 22px;display:flex;align-items:center;gap:15px}
+.cal .cbx{width:44px;height:44px;border-radius:12px;background:#F2F5F9;color:var(--tx2);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cal .cbx svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round}
+.cal .cn2{font-size:18px;font-weight:800;letter-spacing:-.5px;color:var(--head);line-height:1.15}
+.cal .ct{font-size:13.5px;line-height:1.4;color:var(--tx);margin-top:5px}
+
+/* a escala em proporção de área */
+.bs{grid-area:b;padding:22px 26px 20px;display:flex;flex-direction:column}
+.bs .bh{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.bs .ball{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:700;
+  color:var(--head);font-variant-numeric:tabular-nums}
+.bs .ball i{width:13px;height:13px;border-radius:4px;background:#E4EAF2;
+  border:1px solid #D2DAE6;display:block}
+.bs .sqw{flex:1;display:flex;align-items:center;justify-content:center;margin:14px 0 12px}
+.bs .all{position:relative;width:452px;height:452px;background:#E4EAF3;
+  border:1px solid #D3DCE8;border-radius:8px}
+.bs .wr{position:absolute;left:3px;bottom:3px;width:423px;height:423px;
+  border:2px dashed #E58A8A;border-radius:7px}
+.bs .el{position:absolute;left:0;bottom:0;width:207px;height:207px;background:var(--accent);
+  border-radius:7px;padding:18px 20px;display:flex;flex-direction:column;
+  justify-content:flex-end;box-shadow:0 18px 40px -20px rgba(37,99,235,.55)}
+.bs .el .ev{font-size:40px;font-weight:800;letter-spacing:-1.8px;color:#fff;line-height:1;
+  font-variant-numeric:tabular-nums}
+.bs .el .ek{font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+  color:rgba(255,255,255,.8);margin-top:7px}
+.bs .el .es{font-size:13px;color:rgba(255,255,255,.86);margin-top:3px;
+  font-variant-numeric:tabular-nums}
+.bs .wp{position:absolute;top:14px;right:14px;background:#fff;border:1px solid #F5D0D0;
+  border-radius:10px;padding:8px 13px;text-align:right}
+.bs .wp .wv2{font-size:18px;font-weight:800;letter-spacing:-.6px;color:var(--bad);
+  line-height:1;font-variant-numeric:tabular-nums}
+.bs .wp .wk{font-size:11.5px;font-weight:600;color:var(--tx2);margin-top:4px}
+.bs .wp .wk b{color:var(--head);font-weight:700}
+.bs .note{font-size:13px;color:var(--tx2);text-align:center}
 </style>
 </head><body>
-<section class="slide light fb">
+<section class="slide light fd">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd"><span class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></span><span class="bn">Cronos</span><span class="bt">VEJA ANTES · AJA ANTES</span><span class="tag">Template · slide 8</span></div>
   <div class="body">
     <span class="eb">Fontes de dados</span>
-    <h1 class="tt">Duas fontes entram, e um campo do dataset decide o que <span class="hl">conta para a meta</span></h1>
-    <div class="trio">
-      <div class="src">
-        <div class="hdr">
-          <span class="ic bx"><svg viewBox="0 0 24 24"><rect x="4.4" y="3.4" width="15.2" height="17.2" rx="2.6"/><path d="M8 7.6h8M8 12h8M8 16.4h4"/></svg></span>
-          <span class="kk">Fonte interna</span>
-          <div class="nm2">LW-DATASET<span class="hl">.xlsx</span></div>
-          <span class="vp ctx">Planilha</span>
-        </div>
+    <h1 class="tt">Fontes de dados e regra de <span class="hl">elegibilidade ao KPI</span></h1>
+    <p class="lead">O Cronos usa duas fontes de dados. Uma regra de elegibilidade define quais incidentes contam para a meta anual.</p>
+
+    <div class="fx">
+      <div class="card s1">
+        <div class="kk">Fonte interna</div>
+        <div class="fname">LW-DATASET<span>.xlsx</span></div>
+        <div class="fdesc">Histórico de incidentes entregue pela Locaweb.</div>
         <div class="mets">
-          <div><div class="mv">122.543</div><div class="mk">Incidentes</div></div>
-          <div><div class="mv">19</div><div class="mk">Colunas</div></div>
-          <div><div class="mv" style="font-size:20px;letter-spacing:-.6px">jan/2023 a dez/2025</div><div class="mk">Janela</div></div>
+          <div class="mr"><span class="ml">Incidentes</span><span class="mvv">122.543</span></div>
+          <div class="mr"><span class="ml">Colunas</span><span class="mvv">19</span></div>
+          <div class="mr"><span class="ml">Janela</span><span class="mvv" style="font-size:15px;letter-spacing:-.2px">jan/2023 a dez/2025</span></div>
         </div>
-        <div class="plates">
-          <div class="tp"><span class="pl"><span class="cs xl">xl</span></span><span class="tn">openpyxl<em>3.1.5</em></span></div>
-          <div class="tp"><span class="pl"><img src="../../../../brand/logos/pandas.png" alt="pandas"></span><span class="tn">pandas<em>2.2.3</em></span></div>
+        <div class="plr">
+          <div class="plw"><span class="pl"><span class="cs xl">xl</span></span><span class="pn">openpyxl<em>3.1.5</em></span></div>
+          <div class="plw"><span class="pl"><img src="../../../../brand/logos/pandas.png" alt="pandas"></span><span class="pn">pandas<em>2.2.3</em></span></div>
         </div>
       </div>
 
-      <div class="rg">
-        <span class="rk">Elegibilidade ao KPI</span>
-        <div class="funil">
-          <div class="stp2">
-            <div class="lb2"><span class="lk2">Registrados</span></div>
-            <div class="bd all" style="width:704px"><span class="bv">122.543</span><span class="pc">100%</span></div>
+      <div class="arw a1"><svg viewBox="0 0 38 12"><path d="M1 6h29"/><path d="M25.6 2.4l4.4 3.6-4.4 3.6"/></svg></div>
+
+      <div class="card gt">
+        <div class="gh">
+          <div class="gk">Campo oficial</div>
+          <div class="gn">Entrou para KPI?</div>
+        </div>
+        <div class="gin">
+          <div class="gsub">O campo consolida as três condições da regra.</div>
+          <div class="conds">
+            <div class="cd"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><path d="M8.4 12.2l2.6 2.6 4.6-5"/></svg><span>Prioridade 1, 2 ou 3</span></div>
+            <div class="cd"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><path d="M8.4 12.2l2.6 2.6 4.6-5"/></svg><span>Incidente Pai vazio</span></div>
+            <div class="cd"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><path d="M8.4 12.2l2.6 2.6 4.6-5"/></svg><span>Status diferente de Sem Intervenção</span></div>
           </div>
-          <div class="stp2 off">
-            <div class="lb2"><span class="vp bad">Filtro errado</span><span class="ls2">só por <b>Incidente Pai</b></span></div>
-            <div class="bd wrong" style="width:617px"><span class="bv">107.416</span><span class="pc">88%</span></div>
-          </div>
-          <div class="stp2 on">
-            <div class="lb2"><span class="lk2">Elegíveis</span><span class="ls2">campo <b>Entrou para KPI?</b></span></div>
-            <div class="bd right" style="width:170px"><span class="bv">25.600</span><span class="pc">21%</span></div>
+          <div class="res">
+            <div class="rb y"><div class="rv2">SIM</div><div class="rk2">Entra no KPI</div></div>
+            <div class="rb n"><div class="rv2">NAO</div><div class="rk2">Fica fora</div></div>
           </div>
         </div>
       </div>
 
-      <div class="src">
-        <div class="hdr">
-          <span class="ic bx"><svg viewBox="0 0 24 24"><rect x="3.4" y="5.4" width="17.2" height="15.2" rx="3"/><path d="M3.4 10.4h17.2M8.4 3.4v4M15.6 3.4v4"/></svg></span>
-          <span class="kk">Fonte externa</span>
-          <div class="nm2">holidays</div>
-          <span class="vp ctx">Feriado nacional</span>
+      <div class="arw a2"><svg viewBox="0 0 38 12"><path d="M1 6h29"/><path d="M25.6 2.4l4.4 3.6-4.4 3.6"/></svg></div>
+
+      <div class="card s2">
+        <div class="kk">Fonte externa</div>
+        <div class="fname">holidays</div>
+        <div class="fdesc">Feriados nacionais, que o dataset não traz.</div>
+        <div class="plr">
+          <div class="plw"><span class="pl"><img src="../../../../brand/logos/holidays.png" alt="holidays"></span><span class="pn">holidays<em>0.97</em></span></div>
+          <div class="plw"><span class="pl"><img src="../../../../brand/logos/python.png" alt="Python"></span><span class="pn">Python<em>3.13</em></span></div>
         </div>
-        <div class="mets">
-          <div><div class="mv">0.97</div><div class="mk">Versão</div></div>
-          <div><div class="mv">BR</div><div class="mk">País</div></div>
+      </div>
+
+      <div class="arw a3"><svg viewBox="0 0 38 12"><path d="M1 6h29"/><path d="M25.6 2.4l4.4 3.6-4.4 3.6"/></svg></div>
+
+      <div class="card cal">
+        <span class="cbx"><svg viewBox="0 0 24 24"><rect x="3.4" y="5.4" width="17.2" height="15.2" rx="3"/><path d="M3.4 10.4h17.2M8.4 3.4v4M15.6 3.4v4"/></svg></span>
+        <div>
+          <div class="cn2">Coluna de calendário</div>
+          <div class="ct">Entra como característica na previsão de volume.</div>
         </div>
-        <div class="plates">
-          <div class="tp"><span class="pl"><img src="../../../../brand/logos/holidays.png" alt="holidays"></span><span class="tn">holidays<em>0.97</em></span></div>
-          <div class="tp"><span class="pl"><img src="../../../../brand/logos/python.png" alt="Python"></span><span class="tn">Python<em>3.13</em></span></div>
+      </div>
+
+      <div class="card bs">
+        <div class="bh">
+          <span class="kk">Resultado da regra</span>
+          <span class="ball"><i></i>122.543 registrados</span>
         </div>
+        <div class="sqw">
+          <div class="all">
+            <div class="wr"></div>
+            <div class="wp">
+              <div class="wv2">107.416</div>
+              <div class="wk">Filtro errado, só <b>Incidente Pai</b></div>
+            </div>
+            <div class="el">
+              <div class="ev">25.600</div>
+              <div class="ek">Elegíveis ao KPI</div>
+              <div class="es">21% da base</div>
+            </div>
+          </div>
+        </div>
+        <div class="note">Cada quadrado tem área proporcional ao volume.</div>
       </div>
     </div>
   </div>

@@ -5,66 +5,102 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
-.fd .tt{font-size:34px;max-width:1330px}
-.ic{display:inline-flex;align-items:center;justify-content:center}
-.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* Slide 08 · A · anatomia do registro
+   Um incidente real da base no centro, as 19 colunas do dataset em volta, e as
+   quatro colunas que a regra de elegibilidade lê marcadas em azul. */
+.fd .body{padding-top:20px}
+.fd .tt{font-size:33px;letter-spacing:-1.1px;max-width:1080px}
 
-/* placa de tecnologia · mesmo padrao da Sprint 2 */
-.pl{width:58px;height:58px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+/* as duas fontes, em faixa larga logo abaixo do lead */
+.fd .srcs{display:flex;gap:16px;margin-top:16px}
+.fd .src{flex:1;background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:12px 20px;display:flex;align-items:center;gap:24px;
+  box-shadow:0 16px 36px -30px rgba(15,23,42,.3)}
+.fd .src .sinfo{min-width:0;flex:1}
+.fd .src .sk2{font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--tx2)}
+.fd .src .sn{font-size:19px;font-weight:800;letter-spacing:-.5px;color:var(--head);
+  line-height:1.15;margin-top:2px}
+.fd .src .sn span{color:var(--accent)}
+.fd .src .pls{display:flex;gap:26px;flex-shrink:0}
+.pl{width:36px;height:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .pl img{width:100%;height:100%;object-fit:contain;display:block}
-.pl .cs{width:83%;height:83%;border-radius:20%;display:flex;align-items:center;
-  justify-content:center;color:#fff;font-weight:800;font-size:21px;letter-spacing:-.6px}
+.pl .cs{width:84%;height:84%;border-radius:22%;display:flex;align-items:center;
+  justify-content:center;color:#fff;font-weight:800;font-size:13px;letter-spacing:-.4px}
 .pl .cs.xl{background:#217346}
-.tp{display:flex;align-items:center;gap:12px}
-.tp .tn{font-size:16.5px;font-weight:700;letter-spacing:-.3px;color:var(--head);line-height:1.2}
-.tp .tn em{display:block;font-style:normal;font-size:13px;font-weight:600;color:var(--tx2);
-  font-variant-numeric:tabular-nums;margin-top:2px}
+.fd .plw{display:flex;align-items:center;gap:10px}
+.fd .pln{font-size:13px;font-weight:700;letter-spacing:-.2px;color:var(--head);line-height:1.15}
+.fd .pln em{display:block;font-style:normal;font-size:10.5px;font-weight:600;color:var(--tx2);
+  font-variant-numeric:tabular-nums;margin-top:1px}
 
-/* fichas das duas fontes */
-.fd .duo{display:flex;gap:24px;flex:none;height:382px;margin-top:22px}
-.fd .fc2{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:20px;
-  padding:24px 28px 22px;box-shadow:0 20px 46px -32px rgba(15,23,42,.3);display:flex;
+.fd .lead{font-size:16.5px;max-width:1010px;margin-top:11px}
+
+/* o quadro único: dentro dele o registro, o esquema das colunas e a conclusão da regra */
+.fd .an{flex:1;min-height:0;margin-top:16px;background:#fff;border:1px solid var(--line);
+  border-radius:20px;padding:26px 30px 22px;box-shadow:0 22px 52px -34px rgba(15,23,42,.3);
+  display:flex;flex-direction:column}
+.fd .anat{flex:1;min-height:0;display:flex;gap:28px}
+
+/* o registro, objeto central */
+.fd .rec{width:420px;flex-shrink:0;background:linear-gradient(162deg,#F4F8FF,#fff);
+  border:1px solid #BFDBFE;border-radius:16px;padding:18px 24px 16px;display:flex;
   flex-direction:column}
-.fd .top{display:flex;align-items:center;gap:13px}
-.fd .top .bx{width:44px;height:44px;border-radius:12px;background:var(--accent-l);
-  color:var(--accent);display:flex;align-items:center;justify-content:center}
-.fd .top .bx svg{width:23px;height:23px}
-.fd .kk{font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+.fd .rec .rk{font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--accent)}
+.fd .rec .rid{font-size:40px;font-weight:800;letter-spacing:-1.6px;color:var(--head);
+  line-height:1;margin-top:7px;font-variant-numeric:tabular-nums}
+.fd .rec .rows{flex:1;display:flex;flex-direction:column;margin-top:12px}
+.fd .rec .rw{flex:1;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  border-top:1px solid #DCE8FA}
+.fd .rec .rw .rl{font-size:12px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;
   color:var(--tx2)}
-.fd .nm2{font-size:34px;font-weight:800;letter-spacing:-1.2px;color:var(--head);line-height:1.05;
-  margin-top:16px}
-.fd .nm2 .hl{color:var(--accent)}
-.fd .hdr .vp{display:inline-flex;margin-top:11px}
-.fd .mets{flex:1;display:flex;align-items:center;gap:30px;margin-top:18px;padding-top:18px;
-  border-top:1px solid var(--line)}
-.fd .mv{display:flex;align-items:flex-end;min-height:30px;font-size:29px;font-weight:800;
-  letter-spacing:-1.1px;color:var(--head);line-height:1;font-variant-numeric:tabular-nums}
-.fd .mk{font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
-  color:var(--tx2);margin-top:8px}
-.fd .plates{display:flex;gap:32px;padding-top:19px;border-top:1px solid var(--line)}
-
-/* regua de elegibilidade, faixa embaixo */
-.fd .rg{flex:1;min-height:0;margin-top:22px;background:#fff;border:1px solid var(--line);
-  border-radius:20px;padding:0 30px;box-shadow:0 20px 46px -34px rgba(15,23,42,.3);
-  display:flex;flex-direction:column;justify-content:center;gap:16px}
-.fd .rk{font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
-  color:var(--tx2)}
-.fd .line{display:flex;align-items:flex-start;gap:26px}
-.fd .it{flex:1;min-width:0}
-.fd .it.off{text-align:right}
-.fd .iv{font-size:56px;font-weight:800;letter-spacing:-2.8px;line-height:1;color:var(--head);
+.fd .rec .rw .rv{font-size:17.5px;font-weight:700;letter-spacing:-.3px;color:var(--head);
   font-variant-numeric:tabular-nums}
-.fd .it.on .iv{color:var(--accent)}
-.fd .it.off .iv{color:var(--bad)}
-.fd .ik{font-size:12.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
-  color:var(--tx2);margin-top:9px}
-.fd .it.on .ik{color:var(--accent)}
-.fd .is{font-size:15px;color:var(--tx);margin-top:6px}
-.fd .is b{color:var(--head);font-weight:700}
-.fd .arw{color:#B9C4D2;height:56px}
-.fd .arw svg{width:32px;height:32px}
-.fd .sep{width:1px;height:112px;background:var(--line)}
-.fd .it.off .vp{display:inline-flex;margin-top:9px}
+.fd .rec .rf{font-size:12.5px;color:var(--tx2);border-top:1px solid #DCE8FA;padding-top:10px}
+.fd .rec .rf b{color:var(--head);font-weight:600;font-family:var(--mono);font-size:11.5px}
+
+/* o esquema das 19 colunas */
+.fd .sch{flex:1;min-width:0;display:grid;grid-template-columns:repeat(4,1fr);
+  grid-template-rows:repeat(5,1fr);gap:9px}
+.fd .cl{background:#F7F9FD;border:1px solid var(--line);border-radius:12px;padding:8px 11px;
+  display:flex;flex-direction:column;justify-content:center;min-width:0}
+.fd .cl .ci2{font-size:10px;font-weight:700;color:#A9B4C4;font-variant-numeric:tabular-nums}
+.fd .cl .cn{font-size:12.5px;font-weight:600;color:var(--tx);line-height:1.2;margin-top:2px}
+.fd .cl.on{background:var(--accent-l);border-color:#BFDBFE}
+.fd .cl.on .ci2{color:#8FB6F5}
+.fd .cl.on .cn{color:var(--head);font-weight:700}
+.fd .cl .cv{display:flex;align-items:center;gap:5px;margin-top:4px;font-size:13px;
+  font-weight:800;letter-spacing:-.2px;color:var(--accent);font-variant-numeric:tabular-nums}
+.fd .cl .cv svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.fd .cl.key{background:var(--accent);border-color:var(--accent);
+  box-shadow:0 12px 26px -16px rgba(37,99,235,.55)}
+.fd .cl.key .ci2{color:rgba(255,255,255,.55)}
+.fd .cl.key .cn{color:#fff;font-weight:700}
+.fd .cl.key .cv{color:#fff}
+.fd .lg{border:1px dashed #C8D4E4;border-radius:12px;padding:8px 11px;display:flex;
+  flex-direction:column;justify-content:center;gap:7px}
+.fd .lg .ls{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--tx2);
+  line-height:1.25}
+.fd .lg .sw{width:11px;height:11px;border-radius:4px;flex-shrink:0}
+.fd .lg .sw.a{background:var(--accent-l);border:1px solid #93C0F8}
+.fd .lg .sw.b{background:var(--accent)}
+
+/* a conclusão da regra */
+.fd .band{display:flex;align-items:center;gap:40px;margin-top:18px;padding-top:17px;
+  border-top:1px solid var(--line)}
+.fd .band .bt2{flex:1;font-size:15.5px;line-height:1.5;color:var(--tx)}
+.fd .band .bt2 b{color:var(--head);font-weight:700}
+.fd .band .out{display:flex;align-items:center;gap:24px;flex-shrink:0}
+.fd .band .big{font-size:50px;font-weight:800;letter-spacing:-2.3px;line-height:1;
+  color:var(--accent);font-variant-numeric:tabular-nums}
+.fd .band .bk2{font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--tx2);margin-top:5px}
+.fd .band .wrong{padding-left:24px;border-left:1px solid var(--line);width:212px}
+.fd .band .wrong .wv{font-size:23px;font-weight:800;letter-spacing:-.9px;color:var(--bad);
+  font-variant-numeric:tabular-nums}
+.fd .band .wrong .ws{font-size:12.5px;font-weight:600;line-height:1.4;color:var(--tx2);
+  margin-top:5px}
+.fd .band .wrong .ws b{color:var(--head);font-weight:700}
 </style>
 </head><body>
 <section class="slide light fd">
@@ -72,54 +108,88 @@
   <div class="hd"><span class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></span><span class="bn">Cronos</span><span class="bt">VEJA ANTES · AJA ANTES</span><span class="tag">Template · slide 8</span></div>
   <div class="body">
     <span class="eb">Fontes de dados</span>
-    <h1 class="tt">A planilha da Locaweb e o calendário de feriados que ela <span class="hl">não traz</span></h1>
-    <div class="duo">
-      <div class="fc2">
-        <div class="hdr">
-          <div class="top">
-            <span class="ic bx"><svg viewBox="0 0 24 24"><rect x="4.4" y="3.4" width="15.2" height="17.2" rx="2.6"/><path d="M8 7.6h8M8 12h8M8 16.4h4"/></svg></span>
-            <span class="kk">Fonte interna</span>
+    <h1 class="tt">Fontes de dados e regra de <span class="hl">elegibilidade ao KPI</span></h1>
+    <p class="lead">A planilha da Locaweb é a fonte interna e a biblioteca <b>holidays</b> fornece o calendário de feriados nacionais, ausente no dataset.</p>
+    <div class="srcs">
+        <div class="src">
+          <div class="sinfo">
+            <div class="sk2">Fonte interna</div>
+            <div class="sn">LW-DATASET<span>.xlsx</span></div>
           </div>
-          <div class="nm2">LW-DATASET<span class="hl">.xlsx</span></div>
-          <span class="vp ctx">Planilha</span>
-        </div>
-        <div class="mets">
-          <div><div class="mv">122.543</div><div class="mk">Incidentes</div></div>
-          <div><div class="mv">19</div><div class="mk">Colunas</div></div>
-          <div><div class="mv" style="font-size:23px;letter-spacing:-.7px">jan/2023 a dez/2025</div><div class="mk">Janela</div></div>
-        </div>
-        <div class="plates">
-          <div class="tp"><span class="pl"><span class="cs xl">xl</span></span><span class="tn">openpyxl<em>3.1.5</em></span></div>
-          <div class="tp"><span class="pl"><img src="../../../../brand/logos/pandas.png" alt="pandas"></span><span class="tn">pandas<em>2.2.3</em></span></div>
-        </div>
-      </div>
-      <div class="fc2">
-        <div class="hdr">
-          <div class="top">
-            <span class="ic bx"><svg viewBox="0 0 24 24"><rect x="3.4" y="5.4" width="17.2" height="15.2" rx="3"/><path d="M3.4 10.4h17.2M8.4 3.4v4M15.6 3.4v4"/></svg></span>
-            <span class="kk">Fonte externa</span>
+          <div class="pls">
+            <div class="plw"><span class="pl"><span class="cs xl">xl</span></span><span class="pln">openpyxl<em>3.1.5</em></span></div>
+            <div class="plw"><span class="pl"><img src="../../../../brand/logos/pandas.png" alt="pandas"></span><span class="pln">pandas<em>2.2.3</em></span></div>
           </div>
-          <div class="nm2">holidays</div>
-          <span class="vp ctx">Feriado nacional</span>
         </div>
-        <div class="mets">
-          <div><div class="mv">0.97</div><div class="mk">Versão</div></div>
-          <div><div class="mv">BR</div><div class="mk">País</div></div>
+        <div class="src">
+          <div class="sinfo">
+            <div class="sk2">Fonte externa</div>
+            <div class="sn">holidays</div>
+          </div>
+          <div class="pls">
+            <div class="plw"><span class="pl"><img src="../../../../brand/logos/holidays.png" alt="holidays"></span><span class="pln">holidays<em>0.97</em></span></div>
+            <div class="plw"><span class="pl"><img src="../../../../brand/logos/python.png" alt="Python"></span><span class="pln">Python<em>3.13</em></span></div>
+          </div>
         </div>
-        <div class="plates">
-          <div class="tp"><span class="pl"><img src="../../../../brand/logos/holidays.png" alt="holidays"></span><span class="tn">holidays<em>0.97</em></span></div>
-          <div class="tp"><span class="pl"><img src="../../../../brand/logos/python.png" alt="Python"></span><span class="tn">Python<em>3.13</em></span></div>
-        </div>
-      </div>
     </div>
-    <div class="rg">
-      <span class="rk">Elegibilidade ao KPI</span>
-      <div class="line">
-        <div class="it"><div class="iv">122.543</div><div class="ik">Registrados</div></div>
-        <span class="ic arw"><svg viewBox="0 0 24 24"><path d="M5 12h13"/><path d="M13 6.4l6 5.6-6 5.6"/></svg></span>
-        <div class="it on"><div class="iv">25.600</div><div class="ik">Elegíveis</div><div class="is">campo <b>Entrou para KPI?</b></div></div>
-        <span class="sep"></span>
-        <div class="it off"><div class="iv">107.416</div><span class="vp bad">Filtro errado</span><div class="is">só por <b>Incidente Pai</b></div></div>
+
+    <div class="an">
+      <div class="anat">
+        <div class="rec">
+          <div class="rk">Incidente da base</div>
+          <div class="rid">INC8654075</div>
+          <div class="rows">
+            <div class="rw"><span class="rl">Produto</span><span class="rv">lrel</span></div>
+            <div class="rw"><span class="rl">Aberto</span><span class="rv">31/12/2025 18:06</span></div>
+            <div class="rw"><span class="rl">Duração</span><span class="rv">5.443 s</span></div>
+            <div class="rw"><span class="rl">KPI violado?</span><span class="rv">NAO</span></div>
+          </div>
+          <div class="rf">Linha real da planilha <b>LW-DATASET.xlsx</b></div>
+        </div>
+
+        <div class="sch">
+          <div class="cl"><span class="ci2">01</span><span class="cn">Número</span></div>
+          <div class="cl on"><span class="ci2">02</span><span class="cn">Prioridade</span><span class="cv"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><path d="M8.4 12.2l2.6 2.6 4.6-5"/></svg>2 - Alta</span></div>
+          <div class="cl"><span class="ci2">03</span><span class="cn">Produto</span></div>
+          <div class="cl"><span class="ci2">04</span><span class="cn">Categoria</span></div>
+
+          <div class="cl"><span class="ci2">05</span><span class="cn">Subcategoria</span></div>
+          <div class="cl"><span class="ci2">06</span><span class="cn">Grupo designado</span></div>
+          <div class="cl"><span class="ci2">07</span><span class="cn">Item de configuração</span></div>
+          <div class="cl"><span class="ci2">08</span><span class="cn">Aberto</span></div>
+
+          <div class="cl"><span class="ci2">09</span><span class="cn">Resolvido</span></div>
+          <div class="cl"><span class="ci2">10</span><span class="cn">Encerrado</span></div>
+          <div class="cl"><span class="ci2">11</span><span class="cn">Duração</span></div>
+          <div class="cl"><span class="ci2">12</span><span class="cn">Código de fechamento</span></div>
+
+          <div class="cl"><span class="ci2">13</span><span class="cn">Descrição resumida</span></div>
+          <div class="cl"><span class="ci2">14</span><span class="cn">Solução</span></div>
+          <div class="cl"><span class="ci2">15</span><span class="cn">Aberto por</span></div>
+          <div class="cl on"><span class="ci2">16</span><span class="cn">Incidente Pai</span><span class="cv"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><path d="M8.4 12.2l2.6 2.6 4.6-5"/></svg>vazio</span></div>
+
+          <div class="cl on"><span class="ci2">17</span><span class="cn">Status</span><span class="cv"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><path d="M8.4 12.2l2.6 2.6 4.6-5"/></svg>Encerrado</span></div>
+          <div class="cl key"><span class="ci2">18</span><span class="cn">Entrou para KPI?</span><span class="cv"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><path d="M8.4 12.2l2.6 2.6 4.6-5"/></svg>SIM</span></div>
+          <div class="cl"><span class="ci2">19</span><span class="cn">KPI Violado?</span></div>
+          <div class="lg">
+            <div class="ls"><span class="sw a"></span>Coluna lida pela regra</div>
+            <div class="ls"><span class="sw b"></span>Campo oficial de elegibilidade</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="band">
+        <p class="bt2">O campo <b>Entrou para KPI?</b> consolida as três condições da regra: prioridade 1, 2 ou 3, <b>Incidente Pai</b> vazio e <b>Status</b> diferente de Sem Intervenção. Filtrar apenas por <b>Incidente Pai</b> devolveria 107.416 registros.</p>
+        <div class="out">
+          <div>
+            <div class="big num">25.600</div>
+            <div class="bk2">Elegíveis, de 122.543 registrados</div>
+          </div>
+          <div class="wrong">
+            <div class="wv num">107.416</div>
+            <div class="ws">Filtro errado, <b>88% da base</b></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

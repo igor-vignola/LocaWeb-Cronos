@@ -5,59 +5,73 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
-.ga .body{padding-top:20px}
-.ga .tt{font-size:42px;margin-top:12px}
+.g6a .tt{font-size:38px}
+.g6a .lead{font-size:16.5px;max-width:1180px;margin-top:12px}
 
-.ga .row{display:flex;gap:32px;height:540px;margin-top:auto;margin-bottom:auto}
+.g6a .row{display:flex;gap:44px;align-items:stretch;margin-top:auto;margin-bottom:auto}
 
-.ga .quadro{width:960px;height:540px;flex-shrink:0;border:1.5px dashed #A8B9CE;
-  border-radius:22px;background:rgba(255,255,255,.5);display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:16px}
-.ga .quadro .qi{width:58px;height:58px;border-radius:16px;background:#fff;
-  border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
-  color:var(--accent);box-shadow:0 12px 28px -20px rgba(15,23,42,.35)}
-.ga .quadro .qi svg{width:27px;height:27px;stroke:currentColor;fill:none;stroke-width:1.8;
-  stroke-linecap:round;stroke-linejoin:round}
-.ga .quadro .ql{font-size:17.5px;font-weight:700;letter-spacing:.1px;color:var(--tx2)}
+/* tabela sóbria das sprints */
+.g6a .tbl{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:18px;
+  padding:24px 12px 18px;box-shadow:0 18px 42px -32px rgba(15,23,42,.26);
+  display:flex;flex-direction:column}
+.g6a .tbl .ck{font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--tx2);padding:0 18px 14px}
+.g6a table{height:100%;table-layout:fixed}
+.g6a thead th{padding:0 18px 12px;border-bottom:1px solid var(--line)}
+.g6a tbody td{padding:14px 18px;font-size:15.5px;vertical-align:middle;
+  border-top:1px solid #F0F3F8}
+.g6a tbody tr:first-child td{border-top:none}
+.g6a th.c1,.g6a td.sp{width:174px}
+.g6a th.c3,.g6a td.dt{width:122px}
+.g6a th.c4,.g6a td.si{width:140px}
+.g6a td.sp{white-space:nowrap;color:var(--head);font-weight:600;font-size:16.5px;
+  letter-spacing:-.2px}
+.g6a td.sp i{font-style:normal;font-weight:600;color:var(--tx2);margin-right:10px;
+  font-variant-numeric:tabular-nums}
+.g6a td.es{color:var(--tx)}
+.g6a td.dt{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--tx)}
+.g6a td.si{color:var(--tx2);white-space:nowrap}
+.g6a tr.now td.sp,.g6a tr.now td.si{color:var(--head);font-weight:700}
 
-.ga .tw{flex:1;min-width:0;padding:22px 10px 18px;display:flex;flex-direction:column;
-  border-radius:22px}
-.ga table{height:100%}
-.ga thead th{padding:0 14px 14px}
-.ga tbody td{padding:14px;vertical-align:middle}
-.ga tbody td.sp{font-size:16.5px;font-weight:700;color:var(--head);letter-spacing:-.2px}
-.ga tbody td.sp i{font-style:normal;color:var(--accent);font-weight:800;
-  font-variant-numeric:tabular-nums;margin-right:7px}
-.ga tbody td.dt{font-size:15px;font-variant-numeric:tabular-nums;color:var(--tx);
-  white-space:nowrap}
-.ga tbody td.stt{text-align:right;padding-right:12px}
-.ga .vp{font-size:12.5px;padding:6px 12px}
+/* área reservada do quadro · moldura de navegador, proporção 16 por 9 */
+.g6a .shot{width:700px;flex-shrink:0;align-self:flex-start}
+.g6a .br{width:100%}
+.g6a .br .url{font-family:var(--font);font-weight:600;font-size:12.5px}
+.g6a .ph{margin:14px;height:377px;border:1.5px dashed #C0CFE2;border-radius:10px;
+  background:#FAFCFF;display:flex;align-items:center;justify-content:center}
+.g6a .ph span{font-size:15px;font-weight:600;letter-spacing:.4px;color:#93A1B4}
 </style>
 </head><body>
-<section class="slide light ga">
+<section class="slide light g6a">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 6</div></div>
   <div class="body">
     <div class="eb">Gerenciamento do projeto</div>
-    <div class="tt">Quatro sprints em <span class="hl">um quadro</span></div>
+    <h1 class="tt">Documentação do gerenciamento e <span class="hl">quadro do projeto</span></h1>
+    <p class="lead">O gerenciamento é documentado em um quadro no Trello, com um cartão por
+      entrega. As Sprints 1 e 2 foram concluídas nas datas previstas, e a Sprint 3 está em
+      andamento.</p>
 
     <div class="row">
-      <div class="quadro">
-        <div class="qi"><svg viewBox="0 0 24 24"><rect x="3.6" y="3.6" width="7" height="7" rx="2"/><rect x="13.4" y="3.6" width="7" height="7" rx="2"/><rect x="3.6" y="13.4" width="7" height="7" rx="2"/><rect x="13.4" y="13.4" width="7" height="7" rx="2"/></svg></div>
-        <div class="ql">Quadro do projeto no Trello</div>
-      </div>
-
-      <div class="tw">
+      <div class="tbl">
+        <div class="ck">Registro das sprints</div>
         <table>
-          <thead><tr><th>Sprint</th><th>Entrega</th><th style="text-align:right">Situação</th></tr></thead>
+          <thead><tr><th class="c1">Sprint</th><th>Escopo planejado</th><th class="c3">Entrega</th><th class="c4">Situação</th></tr></thead>
           <tbody>
-            <tr><td class="sp"><i>1</i>Ideação</td><td class="dt">27/04/2026</td><td class="stt"><span class="vp good">Entregue</span></td></tr>
-            <tr><td class="sp"><i>2</i>Arquitetura</td><td class="dt">24/05/2026</td><td class="stt"><span class="vp good">Entregue</span></td></tr>
-            <tr><td class="sp"><i>3</i>MVP preliminar</td><td class="dt">23/08/2026</td><td class="stt"><span class="vp focus">Em curso</span></td></tr>
-            <tr><td class="sp"><i>4</i>Solução final</td><td class="dt">08/09/2026</td><td class="stt"><span class="vp ctx">Planejada</span></td></tr>
+            <tr><td class="sp"><i>1</i>Ideação</td><td class="es">Problema e proposta</td><td class="dt">27/04/2026</td><td class="si">Entregue</td></tr>
+            <tr><td class="sp"><i>2</i>Arquitetura</td><td class="es">Desenho e tecnologias</td><td class="dt">24/05/2026</td><td class="si">Entregue</td></tr>
+            <tr class="now"><td class="sp"><i>3</i>MVP preliminar</td><td class="es">Modelos treinados e aplicação</td><td class="dt">23/08/2026</td><td class="si">Em andamento</td></tr>
+            <tr><td class="sp"><i>4</i>Solução final</td><td class="es">Consolidação e apresentação</td><td class="dt">08/09/2026</td><td class="si">Prevista</td></tr>
           </tbody>
         </table>
       </div>
+
+      <figure class="shot">
+        <div class="br">
+          <div class="bar"><i></i><i></i><i></i><span class="url">trello.com</span></div>
+          <div class="ph"><span>Quadro do projeto no Trello</span></div>
+        </div>
+      </figure>
     </div>
   </div>
   <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>

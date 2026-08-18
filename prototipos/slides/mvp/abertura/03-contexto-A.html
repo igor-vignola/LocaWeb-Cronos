@@ -8,44 +8,95 @@
 .ic{display:inline-flex;align-items:center;justify-content:center}
 .ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
-.ish .body{padding-top:18px}
-.ish .tt{font-size:39px;margin-top:12px}
+.ish .body{padding:16px 64px 62px}
+.ish .tt{font-size:38px;margin-top:13px}
 
-.ish .diag{position:relative;width:1472px;height:580px;margin:auto 0;flex-shrink:0}
-.ish .bones{position:absolute;left:0;top:0;width:1472px;height:580px}
+/* faixa 1: o problema em uma frase, e os três números da operação */
+.ish .ctx{flex-shrink:0;height:92px;margin-top:14px;background:#fff;
+  border:1px solid var(--line);border-radius:18px;padding:0 28px;display:flex;
+  align-items:center;gap:28px;box-shadow:0 18px 44px -32px rgba(15,23,42,.3)}
+.ish .ctx p{width:600px;flex-shrink:0;font-size:16.5px;line-height:1.42;color:var(--tx)}
+.ish .ctx p b{color:var(--head);font-weight:700}
+.ish .vr{width:1px;height:52px;background:var(--line);flex-shrink:0}
+.ish .ctx .ns{flex:1;display:flex;justify-content:space-between;gap:26px}
+.ish .ctx .n1{min-width:0}
+.ish .ctx .nv{font-size:27px;font-weight:800;letter-spacing:-1.1px;line-height:1;
+  color:var(--head);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ish .ctx .n1.acc .nv{color:var(--accent)}
+.ish .ctx .nv i{font-style:normal;font-size:15px;font-weight:600;letter-spacing:0;
+  color:var(--tx2);margin:0 3px}
+.ish .ctx .nk{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--tx2);margin-top:7px;white-space:nowrap}
 
-.ish .cd{position:absolute;width:252px;height:102px;background:#fff;
-  border:1px solid var(--line);border-radius:16px;padding:0 19px;display:flex;
-  align-items:center;gap:14px;box-shadow:0 20px 44px -30px rgba(15,23,42,.32)}
-.ish .cd.up{bottom:448px}
-.ish .cd.dn{top:448px}
-.ish .cd .tl{width:44px;height:44px;border-radius:13px;flex-shrink:0;
+/* faixa 2: o fator histórico */
+.ish .hist{flex-shrink:0;height:74px;margin-top:10px;background:#F0F3F8;
+  border:1px solid #DFE5EE;border-radius:16px;padding:0 24px 0 20px;display:flex;
+  align-items:center;gap:20px}
+.ish .hist .kk{flex-shrink:0;display:inline-flex;align-items:center;gap:8px;font-size:12px;
+  font-weight:700;letter-spacing:1.1px;color:var(--tx2);background:#fff;
+  border:1px solid var(--line);border-radius:999px;padding:7px 15px;white-space:nowrap}
+.ish .hist .kk svg{width:16px;height:16px;stroke-width:2}
+.ish .hist p{width:452px;flex-shrink:0;font-size:15px;line-height:1.4;color:var(--tx)}
+.ish .hist p b{color:var(--head);font-weight:700}
+.ish .hist .tr{margin-left:auto;display:flex;align-items:center;gap:30px}
+.ish .hist .t1{text-align:right}
+.ish .hist .tv{font-size:21px;font-weight:800;letter-spacing:-.7px;line-height:1;
+  color:var(--head);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ish .hist .t1.flat .tv{color:var(--accent)}
+.ish .hist .tv i{font-style:normal;font-size:13.5px;font-weight:600;letter-spacing:0;
+  color:var(--tx2);margin:0 3px}
+.ish .hist .tk{font-size:11px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;
+  color:var(--tx2);margin-top:6px;white-space:nowrap}
+
+/* Ishikawa */
+.ish .diag{position:relative;width:1472px;height:460px;margin-top:16px;flex-shrink:0}
+.ish .bones{position:absolute;left:0;top:0;width:1472px;height:460px}
+
+.ish .cd{position:absolute;width:286px;height:112px;background:#fff;
+  border:1px solid var(--line);border-radius:16px;padding:0 18px;display:flex;
+  align-items:center;gap:13px;box-shadow:0 20px 44px -30px rgba(15,23,42,.32)}
+.ish .cd.up{top:0}
+.ish .cd.dn{top:348px}
+.ish .cd .tl{width:42px;height:42px;border-radius:12px;flex-shrink:0;
   background:var(--accent-l);color:var(--accent)}
-.ish .cd .tl svg{width:24px;height:24px}
-.ish .cd .cat{font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
-  color:var(--tx2);white-space:nowrap}
-.ish .cd .val{font-size:30px;font-weight:800;letter-spacing:-1.3px;line-height:1.05;
-  margin-top:4px;color:var(--head);white-space:nowrap}
+.ish .cd .tl svg{width:23px;height:23px}
+.ish .cd .tx{min-width:0}
+.ish .cd .cat{font-size:10.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;
+  color:var(--tx2)}
+.ish .cd .val{font-size:25px;font-weight:800;letter-spacing:-1px;line-height:1.05;
+  margin-top:4px;color:var(--head);white-space:nowrap;font-variant-numeric:tabular-nums}
 .ish .cd.bad .val{color:var(--bad)}
 .ish .cd.warn .val{color:var(--warn)}
-.ish .cd .val i{font-style:normal;font-size:16px;font-weight:600;letter-spacing:0;
+.ish .cd .val i{font-style:normal;font-size:14px;font-weight:600;letter-spacing:0;
+  color:var(--tx2);margin:0 3px}
+.ish .cd .ph{font-size:12.5px;line-height:1.32;color:var(--tx);margin-top:6px}
+
+/* a espinha da medição carrega o par P2 e P3 */
+.ish .cd .duo{display:flex;flex-direction:column;gap:3px;margin-top:5px}
+.ish .cd .dr{display:flex;align-items:baseline;gap:9px}
+.ish .cd .dk{width:19px;flex-shrink:0;font-size:10.5px;font-weight:800;letter-spacing:.8px;
+  color:var(--tx2)}
+.ish .cd .dv2{font-size:19px;font-weight:800;letter-spacing:-.6px;line-height:1;
+  color:var(--bad);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ish .cd .dv2 i{font-style:normal;font-size:12px;font-weight:600;letter-spacing:0;
   color:var(--tx2);margin:0 2px}
 
-.ish .head{position:absolute;left:1032px;top:159px;width:440px;
-  background:linear-gradient(158deg,#0B1220,#141E33);border-radius:20px;padding:24px 26px 22px;
-  box-shadow:0 30px 66px -34px rgba(11,18,32,.74)}
-.ish .head .hk{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;
-  letter-spacing:1.8px;text-transform:uppercase;color:#F0B767}
-.ish .head .hk svg{width:16px;height:16px;stroke-width:2}
-.ish .head .ht{font-size:26px;font-weight:800;letter-spacing:-.9px;line-height:1.16;
-  color:#fff;margin-top:11px;text-wrap:balance}
-.ish .head .hsplit{display:flex;gap:22px;margin-top:20px;padding-top:18px;
+/* caixa do efeito */
+.ish .head{position:absolute;left:1120px;top:126px;width:352px;height:208px;
+  background:linear-gradient(158deg,#0B1220,#141E33);border-radius:20px;padding:20px 24px;
+  box-shadow:0 30px 66px -34px rgba(11,18,32,.74);display:flex;flex-direction:column}
+.ish .head .hk{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;
+  letter-spacing:1.7px;text-transform:uppercase;color:#F0B767}
+.ish .head .hk svg{width:15px;height:15px;stroke-width:2}
+.ish .head .ht{font-size:21px;font-weight:800;letter-spacing:-.6px;line-height:1.18;
+  color:#fff;margin-top:10px}
+.ish .head .hsplit{display:flex;gap:20px;margin-top:auto;padding-top:15px;
   border-top:1px solid rgba(255,255,255,.13)}
 .ish .head .hp{flex:1}
-.ish .head .hv{font-size:42px;font-weight:900;letter-spacing:-2px;line-height:1;color:#F87171;
-  font-variant-numeric:tabular-nums}
+.ish .head .hv{font-size:34px;font-weight:900;letter-spacing:-1.6px;line-height:1;
+  color:#F87171;font-variant-numeric:tabular-nums}
 .ish .head .hp.ok .hv{color:#4ADE80}
-.ish .head .hl3{font-size:13px;line-height:1.42;color:#8E97A8;margin-top:8px}
+.ish .head .hl3{font-size:12px;line-height:1.4;color:#8E97A8;margin-top:7px}
 .ish .head .hl3 b{color:#fff;font-weight:700}
 </style>
 </head><body>
@@ -54,55 +105,96 @@
   <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 3</div></div>
   <div class="body">
     <div class="eb">Contextualização · diagrama de Ishikawa</div>
-    <div class="tt">Seis causas <span class="hl">medidas no histórico</span></div>
+    <div class="tt">Contexto da operação e causas do <span class="hl">estouro de OLA</span></div>
+
+    <div class="ctx">
+      <p>A Locaweb opera hospedagem e cloud 24 por 7 para pequeno e médio negócio.
+         O KPI de OLA é <b>anual, por faixa, e fecha em dezembro</b>.</p>
+      <div class="vr"></div>
+      <div class="ns">
+        <div class="n1"><div class="nv num">122.543</div><div class="nk">Incidentes registrados, 2023 a 2025</div></div>
+        <div class="n1 acc"><div class="nv num">25.600</div><div class="nk">Contam para a meta do ano</div></div>
+        <div class="n1"><div class="nv num">4 h <i>e</i> 12 h</div><div class="nk">Prazo de OLA no P2 e no P3</div></div>
+      </div>
+    </div>
+
+    <div class="hist">
+      <span class="kk"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><path d="M12 7.6V12l3 1.9"/></svg></span> Fator histórico · setembro de 2025</span>
+      <p>Em setembro de 2025 a expansão do monitoramento <b>multiplicou o registro</b>,
+         sem mover a série elegível.</p>
+      <div class="tr">
+        <div class="t1"><div class="tv num">3.996 <i>para</i> 21.561</div><div class="tk">Volume registrado no mês</div></div>
+        <div class="vr"></div>
+        <div class="t1 flat"><div class="tv num">2.330 <i>para</i> 2.324</div><div class="tk">Série elegível ao KPI</div></div>
+      </div>
+    </div>
 
     <div class="diag">
-      <svg class="bones" viewBox="0 0 1472 580" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <line x1="180" y1="290" x2="992" y2="290" stroke="#0B1220" stroke-width="2.6" stroke-linecap="round"/>
-        <polygon points="990,276 1024,290 990,304" fill="#0B1220"/>
-        <line x1="300" y1="285" x2="208" y2="138" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
-        <line x1="600" y1="285" x2="508" y2="138" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
-        <line x1="900" y1="285" x2="808" y2="138" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
-        <line x1="375" y1="295" x2="283" y2="442" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
-        <line x1="675" y1="295" x2="583" y2="442" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
-        <line x1="975" y1="295" x2="883" y2="442" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="300" cy="290" r="4.4" fill="#fff" stroke="#0B1220" stroke-width="2"/>
-        <circle cx="600" cy="290" r="4.4" fill="#fff" stroke="#0B1220" stroke-width="2"/>
-        <circle cx="900" cy="290" r="4.4" fill="#fff" stroke="#0B1220" stroke-width="2"/>
-        <circle cx="375" cy="290" r="4.4" fill="#fff" stroke="#0B1220" stroke-width="2"/>
-        <circle cx="675" cy="290" r="4.4" fill="#fff" stroke="#0B1220" stroke-width="2"/>
-        <circle cx="975" cy="290" r="4.4" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+      <svg class="bones" viewBox="0 0 1472 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="140" y1="230" x2="1088" y2="230" stroke="#0B1220" stroke-width="2.6" stroke-linecap="round"/>
+        <polygon points="1086,216 1120,230 1086,244" fill="#0B1220"/>
+        <line x1="360" y1="226" x2="280" y2="118" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+        <line x1="660" y1="226" x2="580" y2="118" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+        <line x1="960" y1="226" x2="880" y2="118" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+        <line x1="400" y1="234" x2="320" y2="342" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+        <line x1="700" y1="234" x2="620" y2="342" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+        <line x1="1000" y1="234" x2="920" y2="342" stroke="#9BADC1" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="360" cy="230" r="4.2" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+        <circle cx="660" cy="230" r="4.2" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+        <circle cx="960" cy="230" r="4.2" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+        <circle cx="400" cy="230" r="4.2" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+        <circle cx="700" cy="230" r="4.2" fill="#fff" stroke="#0B1220" stroke-width="2"/>
+        <circle cx="1000" cy="230" r="4.2" fill="#fff" stroke="#0B1220" stroke-width="2"/>
       </svg>
 
-      <div class="cd up bad" style="left:82px">
+      <div class="cd up bad" style="left:137px">
         <span class="ic tl"><svg viewBox="0 0 24 24"><rect x="3.4" y="5.4" width="17.2" height="15.2" rx="3"/><path d="M3.4 10.4h17.2M8.4 3.4v4M15.6 3.4v4"/></svg></span>
-        <div><div class="cat">Medição</div><div class="val num">35 <i>para</i> 41</div></div>
-      </div>
-      <div class="cd up bad" style="left:382px">
-        <span class="ic tl"><svg viewBox="0 0 24 24"><path d="M4 6.4h16M4 12h11M4 17.6h7"/><circle cx="19" cy="17.6" r="1.9"/></svg></span>
-        <div><div class="cat">Priorização</div><div class="val num">0,4693</div></div>
-      </div>
-      <div class="cd up warn" style="left:682px">
-        <span class="ic tl"><svg viewBox="0 0 24 24"><circle cx="9.2" cy="8.6" r="3.2"/><path d="M3.6 20c0-3.1 2.5-5.6 5.6-5.6s5.6 2.5 5.6 5.6"/><path d="M16.4 6.2a3.2 3.2 0 0 1 0 6.2M17.4 14.8c1.8.7 3 2.4 3 4.4"/></svg></span>
-        <div><div class="cat">Concentração</div><div class="val num">46% <i>com</i> 8%</div></div>
+        <div class="tx"><div class="cat">Medição</div>
+          <div class="duo">
+            <div class="dr"><span class="dk">P2</span><span class="dv2 num">35 <i>para</i> 41</span></div>
+            <div class="dr"><span class="dk">P3</span><span class="dv2 num">164 <i>para</i> 179</span></div>
+          </div>
+          <div class="ph">O acumulado cruza duas faixas num mês</div></div>
       </div>
 
-      <div class="cd dn warn" style="left:157px">
+      <div class="cd up bad" style="left:437px">
+        <span class="ic tl"><svg viewBox="0 0 24 24"><path d="M4 6.4h16M4 12h11M4 17.6h7"/><circle cx="19" cy="17.6" r="1.9"/></svg></span>
+        <div class="tx"><div class="cat">Priorização · ROC AUC</div>
+          <div class="val num">0,4693</div>
+          <div class="ph">A ordenação por prioridade fica abaixo do sorteio</div></div>
+      </div>
+
+      <div class="cd up warn" style="left:737px">
+        <span class="ic tl"><svg viewBox="0 0 24 24"><circle cx="9.2" cy="8.6" r="3.2"/><path d="M3.6 20c0-3.1 2.5-5.6 5.6-5.6s5.6 2.5 5.6 5.6"/><path d="M16.4 6.2a3.2 3.2 0 0 1 0 6.2M17.4 14.8c1.8.7 3 2.4 3 4.4"/></svg></span>
+        <div class="tx"><div class="cat">Concentração · Team11</div>
+          <div class="val num">46% <i>com</i> 8%</div>
+          <div class="ph">Uma equipe concentra violações com pouco volume</div></div>
+      </div>
+
+      <div class="cd dn" style="left:177px">
         <span class="ic tl"><svg viewBox="0 0 24 24"><path d="M4 12h11"/><path d="M11 8l4 4-4 4"/><path d="M19 4.6v14.8"/></svg></span>
-        <div><div class="cat">Volume e ruído</div><div class="val num">85,1%</div></div>
+        <div class="tx"><div class="cat">Volume e ruído</div>
+          <div class="val num">85,1%</div>
+          <div class="ph">Quase todo registro vem do monitoramento</div></div>
       </div>
-      <div class="cd dn warn" style="left:457px">
+
+      <div class="cd dn" style="left:477px">
         <span class="ic tl"><svg viewBox="0 0 24 24"><path d="M12 4.2v15.6M6.6 19.8h10.8"/><path d="M4 8.6h16"/><path d="M4 8.6l-2.4 4.6h4.8zM20 8.6l-2.4 4.6h4.8z"/></svg></span>
-        <div><div class="cat">Sinal fraco</div><div class="val num">2,5%</div></div>
+        <div class="tx"><div class="cat">Sinal fraco · R²</div>
+          <div class="val num">2,5%</div>
+          <div class="ph">Volume diário explica pouco da variação</div></div>
       </div>
-      <div class="cd dn bad" style="left:757px">
+
+      <div class="cd dn warn" style="left:777px">
         <span class="ic tl"><svg viewBox="0 0 24 24"><path d="M12 3.4v4.2M12 16.4v4.2M4.6 12h4.2M15.2 12h4.2"/><path d="M6.8 6.8l3 3M14.2 14.2l3 3M17.2 6.8l-3 3M9.8 14.2l-3 3"/></svg></span>
-        <div><div class="cat">Conhecimento</div><div class="val num">1,46%</div></div>
+        <div class="tx"><div class="cat">Conhecimento</div>
+          <div class="val num">1,46%</div>
+          <div class="ph">Problema inédito viola mais que rotina</div></div>
       </div>
 
       <div class="head">
-        <div class="hk"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3.8l8.8 15.4H3.2z"/><path d="M12 10v3.8"/><circle cx="12" cy="16.8" r=".9" fill="currentColor" stroke="none"/></svg></span> Efeito</div>
-        <div class="ht">Violação de OLA que só aparece no fechamento do ano</div>
+        <div class="hk"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.8l8.8 15.4H3.2z"/><path d="M12 10v3.8"/><circle cx="12" cy="16.8" r=".9" fill="currentColor" stroke="none"/></svg></span> Efeito</div>
+        <div class="ht">Estouro de OLA no fechamento do ano</div>
         <div class="hsplit">
           <div class="hp"><div class="hv num">42</div><div class="hl3">P2 em 2025<br><b>nota 75%</b></div></div>
           <div class="hp ok"><div class="hv num">196</div><div class="hl3">P3 em 2025<br><b>nota 150%</b></div></div>
