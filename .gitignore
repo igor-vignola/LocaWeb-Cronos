@@ -74,3 +74,11 @@ desktop.ini
 # PNG dos slides do deck: derivado do HTML ao lado, regenerado por
 # scripts/monta_deck_sprint3.py. Sao 22 MB que nao precisam de historico.
 sprints/*/slides/png/
+
+# Conferência visual dos protótipos: PNG e página de revisão, ambos derivados do HTML ao
+# lado e regerados por scripts/renderiza_slides.py. Mesma razão do png/ do deck.
+prototipos/**/_png/
+prototipos/**/_r5/
+prototipos/**/_r5antes/
+prototipos/**/_rev/
+prototipos/**/_revisao-*.html
