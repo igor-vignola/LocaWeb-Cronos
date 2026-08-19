@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>32 Codigo Outro · r5a</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>
+:root{--accent:#2563EB;--accent2:#3B82F6;--accent3:#60A5FA;--accent-l:#EFF6FF;
+ --good:#15A05B;--good-l:#E7F6EE;--warn:#D9930B;--warn-l:#FBF1DC;--bad:#DC2626;--bad-l:#FCECEC;
+ --ink:#0A0E17;--pg:#F4F7FC;--line:#E5EAF1;--tx:#4A5568;--tx2:#6B7688;--head:#0B1220;
+ --font:'Outfit',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.slide{width:1600px;height:900px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.mesh,.grid-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.dark{background:var(--ink);color:#E8ECF3}
+.dark .grid-bg{background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:48px 48px}
+.dark .mesh{background:radial-gradient(1100px 680px at 4% -12%,rgba(37,99,235,.3),transparent 55%),radial-gradient(900px 640px at 116% 118%,rgba(37,99,235,.16),transparent 55%)}
+.light{background:var(--pg);color:var(--head)}
+.light .mesh{background:radial-gradient(1200px 760px at 100% -16%,rgba(37,99,235,.16),transparent 54%),radial-gradient(880px 640px at -12% 112%,rgba(37,99,235,.10),transparent 56%),radial-gradient(700px 520px at 50% -30%,rgba(96,165,250,.10),transparent 60%)}
+.light .grid-bg{background-image:linear-gradient(rgba(17,24,39,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(17,24,39,.026) 1px,transparent 1px);background-size:48px 48px}
+.hd{position:relative;z-index:3;display:flex;align-items:center;gap:11px;padding:40px 64px 0}
+.hd .bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.dark .hd .bi{background:#fff}.light .hd .bi{background:var(--ink)}
+.hd .bi svg{width:19px;height:19px}
+.hd .bn{font-size:18px;font-weight:800;letter-spacing:-.3px}.dark .hd .bn{color:#fff}.light .hd .bn{color:#000}
+.hd .bt{font-size:13px;font-weight:600;letter-spacing:1.5px;margin-left:2px}.dark .hd .bt{color:#5b647a}.light .hd .bt{color:#9AA6B6}
+.hd .tag{margin-left:auto;font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:7px 15px;border-radius:999px}
+.dark .hd .tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#B8C0CE}
+.light .hd .tag{background:#fff;border:1px solid var(--line);color:var(--accent);box-shadow:0 4px 14px -8px rgba(37,99,235,.3)}
+.body{position:relative;z-index:2;flex:1;padding:24px 64px 46px;display:flex;flex-direction:column;min-height:0}
+.eb{display:inline-flex;align-items:center;gap:12px;font-size:13.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+.dark .eb{color:var(--accent3)}.light .eb{color:var(--accent)}
+.eb::before{content:'';width:26px;height:2px;border-radius:2px;background:currentColor;opacity:.7}
+.tt{font-size:40px;font-weight:800;letter-spacing:-1.4px;line-height:1.05;margin-top:14px}
+.dark .tt{color:#fff}.light .tt{color:var(--head)}.tt .hl{color:var(--accent)}.dark .tt .hl{color:var(--accent2)}
+.lead{font-size:18px;line-height:1.5;margin-top:14px;max-width:720px}
+.dark .lead{color:#98A2B3}.light .lead{color:var(--tx)}
+.ic{display:inline-flex;align-items:center;justify-content:center}
+.ic svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.num{font-variant-numeric:tabular-nums}
+b,strong{font-weight:700}
+.vp{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:999px;letter-spacing:.2px}
+.vp .ic{width:14px;height:14px}.vp .ic svg{width:14px;height:14px;stroke-width:2.4}
+.vp.good{background:var(--good-l);color:var(--good)}
+.vp.warn{background:var(--warn-l);color:var(--warn)}
+.vp.bad{background:var(--bad-l);color:var(--bad)}
+.vp.focus{background:var(--accent-l);color:var(--accent)}
+.vp.ctx{background:#EEF2F7;color:var(--tx2)}
+.dark .vp.good{background:rgba(21,160,91,.16);color:#4ADE80}.dark .vp.bad{background:rgba(220,38,38,.16);color:#F87171}
+.dark .vp.focus{background:rgba(37,99,235,.18);color:#93C5FD}.dark .vp.ctx{background:rgba(255,255,255,.07);color:#9AA6B6}
+.mplfig{display:block;width:100%;height:100%;object-fit:contain}
+.sub{font-size:16.5px;line-height:1.55;color:var(--tx);margin-top:12px;max-width:1180px}
+.sub b{color:var(--head)}
+
+
+.x32 .body{padding-top:16px}
+.x32 .tt{font-size:38px;max-width:1240px}
+.x32 .lin{flex:1;display:flex;flex-direction:column;min-height:0;margin-top:26px;gap:18px}
+.x32 .wc{flex:1;background:#fff;border:1px solid var(--line);border-radius:20px;padding:0 34px;display:flex;align-items:center;gap:30px;box-shadow:0 18px 44px -28px rgba(15,23,42,.22)}
+.x32 .wc .ci{width:64px;height:64px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.x32 .wc .ci svg{width:30px;height:30px}
+.x32 .wc .val{width:290px;flex-shrink:0}
+.x32 .wc .val .v{font-size:62px;font-weight:900;letter-spacing:-3px;line-height:1;font-variant-numeric:tabular-nums}
+.x32 .wc .val .k{font-size:12.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;color:var(--tx2);margin-top:8px}
+.x32 .wc .tr{flex:1;height:34px;border-radius:9px;background:#F1F4F9;position:relative;overflow:hidden}
+.x32 .wc .tr i{position:absolute;left:0;top:0;bottom:0;border-radius:9px}
+.x32 .wc .qt{width:250px;flex-shrink:0;text-align:right;font-size:16px;line-height:1.4;color:var(--tx)}
+.x32 .wc .qt b{color:var(--head);font-weight:700}
+.x32 .a .ci{background:#EEF2F7;color:#64748B}
+.x32 .a .val .v{color:#64748B}
+.x32 .a .tr i{background:#B9C6D8}
+.x32 .b{background:linear-gradient(140deg,#fff,#FEF5F5)}
+.x32 .b .ci{background:var(--bad-l);color:var(--bad)}
+.x32 .b .val .v{color:var(--bad)}
+.x32 .b .tr i{background:var(--bad)}
+.x32 .c .ci{background:var(--accent-l);color:var(--accent)}
+.x32 .c .val .v{color:var(--head)}
+.x32 .c .val .v{color:var(--accent)}
+.x32 .mini{flex:1;display:flex;flex-direction:column;gap:11px}
+.x32 .mb{display:flex;align-items:center;gap:14px}
+.x32 .mb .ml{width:96px;flex-shrink:0;font-size:13px;color:var(--tx2);text-align:right}
+.x32 .mb .mt{flex:1;height:20px;border-radius:6px;background:#F1F4F9;overflow:hidden}
+.x32 .mb .mt i{display:block;height:100%;border-radius:6px}
+.x32 .nota{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);font-size:16px;line-height:1.55;color:var(--tx);max-width:1330px}
+.x32 .nota b{color:var(--head);font-weight:700}
+</style></head><body><div class="slide light x32"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Causas · Código de fechamento</div></div><div class="body">
+      <div class="eb">Apontamento de processo para a gestão</div>
+      <div class="tt">Taxa de violação de OLA no código de fechamento Outro</div>
+      <div class="lin">
+        <div class="wc a"><span class="ci"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h9"/></svg></span></span>
+          <div class="val"><div class="v num">8,0%</div><div class="k">do volume</div></div>
+          <div class="tr"><i style="width:8%"></i></div>
+          <div class="qt"><b>1.596</b> de 19.973 incidentes</div></div>
+        <div class="wc b"><span class="ci"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 4.5l8.5 15h-17z"/><path d="M12 10v4.2M12 16.9v.1"/></svg></span></span>
+          <div class="val"><div class="v num">22,9%</div><div class="k">das violações</div></div>
+          <div class="tr"><i style="width:22.9%"></i></div>
+          <div class="qt"><b>43</b> de 188 quebras de OLA</div></div>
+        <div class="wc c"><span class="ci"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 3 6-8"/><path d="M15 7h6v6"/></svg></span></span>
+          <div class="val"><div class="v num">2,69%</div><div class="k">taxa no código Outro</div></div>
+          <div class="mini">
+            <div class="mb"><span class="ml">código Outro</span><span class="mt"><i style="width:100%;background:#2563EB"></i></span></div>
+            <div class="mb"><span class="ml">média da base</span><span class="mt"><i style="width:34.9%;background:#C3CDDC"></i></span></div>
+          </div>
+          <div class="qt">contra <b>0,94%</b> na média da base</div></div>
+      </div>
+      <div class="nota">O campo só é preenchido no fechamento, então fica fora do modelo. E ele não separa causa de consequência: ou a causa era difícil e o caso demorou, ou o caso demorou e ninguém chegou à causa.</div>
+    </div></div></body></html>
