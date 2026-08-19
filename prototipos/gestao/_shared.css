@@ -1,0 +1,133 @@
+/* Estilos compartilhados — seção Gestão (estilo cinematic dark do projeto) */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; }
+body {
+  background: #0A0F1A;
+  font-family: 'Outfit', sans-serif;
+  color: #fff;
+  position: relative;
+  width: 1440px;
+  height: 810px;
+}
+
+/* mesh gradient sutil */
+body::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(900px 600px at -100px -100px, rgba(37,99,235,0.22), transparent 60%),
+    radial-gradient(800px 600px at calc(100% + 100px) calc(100% + 100px), rgba(220,38,38,0.10), transparent 60%),
+    radial-gradient(600px 400px at 70% 30%, rgba(99,102,241,0.10), transparent 65%);
+  pointer-events: none;
+}
+body::after {
+  content: ''; position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.025 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  mix-blend-mode: screen;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* topbar com logo */
+.topbar {
+  position: absolute;
+  top: 36px; left: 80px; right: 80px;
+  z-index: 3;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.topbar .crumb {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+.topbar .logo {
+  width: 28px; height: 28px;
+  background: #fff;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+}
+.topbar .meta {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+
+/* footer */
+.foot {
+  position: absolute;
+  left: 80px; right: 80px; bottom: 36px;
+  z-index: 3;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 11.5px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.40);
+}
+.foot::before {
+  content: ''; position: absolute;
+  left: 0; right: 0; top: -16px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.15) 30%, rgba(255,255,255,0.15) 70%, rgba(255,255,255,0));
+}
+.foot .right-info { color: rgba(255,255,255,0.60); font-weight: 500; }
+.foot .right-info strong { color: #fff; font-weight: 700; }
+
+/* eyebrow */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0.20em; text-transform: uppercase;
+  color: #60A5FA;
+}
+.eyebrow::before {
+  content: ''; width: 36px; height: 2px;
+  background: #60A5FA;
+}
+
+/* título — line-height generoso pra acomodar ascenders (G, Á) */
+.title {
+  font-size: 110px; font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1.06;
+  padding-top: 0.05em;          /* respiro extra pro topo de G / Á */
+  background: linear-gradient(135deg, #fff 0%, #93C5FD 65%, #60A5FA 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.title.med { font-size: 84px; }
+.title.small { font-size: 66px; }
+
+.kicker {
+  font-size: 19px; font-weight: 400;
+  line-height: 1.45;
+  color: rgba(255,255,255,0.78);
+  max-width: 560px;
+}
+.kicker strong { color: #fff; font-weight: 600; }
+
+/* stat pill */
+.stat-row {
+  display: flex; gap: 12px;
+  margin-top: 8px;
+}
+.stat {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 12px;
+  padding: 14px 20px;
+  display: flex; flex-direction: column; gap: 4px;
+  min-width: 130px;
+}
+.stat .lbl {
+  font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+.stat .val {
+  font-size: 26px; font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+.stat .val.accent { color: #60A5FA; }
+.stat .val.success { color: #34D399; }
+.stat .val small { font-size: 14px; color: rgba(255,255,255,0.50); font-weight: 500; }

@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Gestão · Board Trello</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared.css">
+<style>
+.layout {
+  position: relative; z-index: 2;
+  height: 100%;
+  padding: 96px 80px 80px;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+/* lado esquerdo: contexto */
+.left { display: flex; flex-direction: column; gap: 18px; }
+.left .eyebrow { font-size: 12px; }
+.left .title { font-size: 56px; line-height: 1; }
+.left .kicker { font-size: 15px; line-height: 1.45; max-width: 320px; }
+
+.legend {
+  display: flex; flex-direction: column; gap: 8px;
+  margin-top: 12px;
+  padding: 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 12px;
+}
+.legend-h {
+  font-size: 9.5px; font-weight: 800;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 4px;
+}
+.legend-row {
+  display: grid;
+  grid-template-columns: 12px 1fr auto;
+  gap: 10px; align-items: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.78);
+}
+.legend-row .dot {
+  width: 10px; height: 10px; border-radius: 2px;
+}
+.legend-row .num {
+  font-weight: 800; font-variant-numeric: tabular-nums;
+  color: rgba(255,255,255,0.95);
+  font-size: 13px;
+}
+.legend-row .dot.bk { background: #A78BFA; }
+.legend-row .dot.tdo { background: #60A5FA; }
+.legend-row .dot.doing { background: #FBBF24; }
+.legend-row .dot.rev { background: #F87171; }
+.legend-row .dot.done { background: #34D399; }
+
+/* lado direito: imagem grande */
+.right { position: relative; height: 100%; display: flex; align-items: center; justify-content: center; }
+.frame-wrap {
+  position: relative;
+  display: inline-block;
+}
+.frame {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    0 40px 100px -20px rgba(0,30,80,0.70),
+    0 0 0 1px rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+}
+.frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.frame::after {
+  content: ''; position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(96,165,250,0.05), transparent 40%);
+}
+
+/* caption — agora fora do .frame (overflow:hidden) pra não ser cortado */
+.caption-pill {
+  position: absolute;
+  bottom: -16px; left: 24px;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 8px 14px;
+  background: rgba(15,23,42,0.96);
+  border: 1px solid rgba(96,165,250,0.40);
+  border-radius: 100px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.10em; text-transform: uppercase;
+  color: #60A5FA;
+  box-shadow: 0 14px 32px -10px rgba(0,0,0,0.60);
+  z-index: 5;
+  white-space: nowrap;
+}
+.caption-pill .live-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #34D399;
+  box-shadow: 0 0 8px rgba(52,211,153,0.6);
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="crumb">
+    <span class="logo">
+      <svg viewBox="0 0 28 28" fill="none" width="18" height="18">
+        <path d="M6 22L12 14L16 17L22 8" stroke="#0F172A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+        <circle cx="22" cy="8" r="1.4" fill="#3B82F6"/>
+      </svg>
+    </span>
+    <span>Cronos · Veja antes · aja antes</span>
+  </div>
+  <div class="meta">Gestão · 1 de 2</div>
+</div>
+
+<div class="layout">
+  <div class="left">
+    <div class="eyebrow">Quadro do projeto</div>
+    <h1 class="title">Kanban<br>completo</h1>
+    <p class="kicker">14 cartões da Sprint 2 distribuídos em 5 colunas. Etiquetas por sprint e tipo de entregável, responsáveis por cartão, data limite e checklists.</p>
+
+    <div class="legend">
+      <span class="legend-h">Distribuição · 23/05</span>
+      <div class="legend-row"><span class="dot bk"></span><span>Backlog</span><span class="num">5</span></div>
+      <div class="legend-row"><span class="dot tdo"></span><span>A fazer</span><span class="num">4</span></div>
+      <div class="legend-row"><span class="dot doing"></span><span>Em andamento</span><span class="num">2</span></div>
+      <div class="legend-row"><span class="dot rev"></span><span>Em revisão</span><span class="num">1</span></div>
+      <div class="legend-row"><span class="dot done"></span><span>Concluído</span><span class="num" style="color:#34D399;">6</span></div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="frame-wrap">
+      <div class="frame">
+        <img src="board.jpeg" alt="Board do Trello">
+      </div>
+      <span class="caption-pill"><span class="live-dot"></span>Trello · Cronos · Challenge FIAP 2026</span>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <div>Sprint 2 · Planejamento e gestão</div>
+  <div class="right-info">6 de 14 cartões concluídos · <strong>43%</strong> de progresso da sprint</div>
+</div>
+
+</body>
+</html>

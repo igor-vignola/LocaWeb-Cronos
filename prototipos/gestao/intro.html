@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Gestão · Intro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared.css">
+<style>
+.layout {
+  position: relative; z-index: 2;
+  height: 100%;
+  padding: 64px 80px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.left { display: flex; flex-direction: column; gap: 22px; padding-top: 40px; }
+.bloco-tag {
+  font-size: 13px; font-weight: 800;
+  letter-spacing: 0.36em; text-transform: uppercase;
+  color: rgba(255,255,255,0.40);
+}
+.bloco-tag strong { color: #60A5FA; }
+
+/* Stack viz à direita — colunas Kanban estilizadas */
+.right { position: relative; }
+.kanban {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  padding: 24px 20px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    0 30px 80px -20px rgba(0,30,80,0.50);
+}
+.col {
+  display: flex; flex-direction: column;
+  gap: 8px;
+  padding: 12px 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  min-height: 240px;
+}
+.col-h {
+  font-size: 9.5px; font-weight: 800;
+  letter-spacing: 0.10em; text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 4px;
+  text-align: center;
+}
+.card-mini {
+  background: rgba(255,255,255,0.10);
+  border-radius: 6px;
+  height: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.card-mini::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+}
+.card-mini.t-yel::before { background: #FBBF24; }
+.card-mini.t-red::before { background: #F87171; }
+.card-mini.t-blu::before { background: #60A5FA; }
+.card-mini.t-pur::before { background: #A78BFA; }
+.card-mini.t-grn::before { background: #34D399; }
+.card-mini.t-yel-blu::before { background: linear-gradient(90deg, #FBBF24 50%, #60A5FA 50%); }
+.card-mini.t-yel-red::before { background: linear-gradient(90deg, #FBBF24 50%, #F87171 50%); }
+.card-mini.done {
+  background: rgba(52,211,153,0.10);
+  border: 1px solid rgba(52,211,153,0.25);
+}
+.card-mini.done::after {
+  content: '✓';
+  position: absolute;
+  right: 6px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  color: #34D399;
+  font-weight: 800;
+}
+.col-count {
+  font-size: 16px; font-weight: 800;
+  color: rgba(255,255,255,0.95);
+  text-align: center;
+  margin-top: auto;
+  padding-top: 8px;
+  font-variant-numeric: tabular-nums;
+}
+.col-count small {
+  font-size: 9px;
+  color: rgba(255,255,255,0.45);
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  display: block;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="crumb">
+    <span class="logo">
+      <svg viewBox="0 0 28 28" fill="none" width="18" height="18">
+        <path d="M6 22L12 14L16 17L22 8" stroke="#0F172A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+        <circle cx="22" cy="8" r="1.4" fill="#3B82F6"/>
+      </svg>
+    </span>
+    <span>Cronos · Veja antes · aja antes</span>
+  </div>
+  <div class="meta">Sprint 2 · Bloco 4</div>
+</div>
+
+<div class="layout">
+  <div class="left">
+    <div class="bloco-tag"><strong>Bloco 4</strong> · Planejamento e gestão</div>
+    <div class="eyebrow">Como organizamos o trabalho</div>
+    <h1 class="title">Gestão ágil</h1>
+    <p class="kicker">Acompanhamento da Sprint 2 com <strong>Scrum + Kanban</strong>. Quadro no <strong>Trello</strong> dividido em 5 colunas — do backlog ao concluído — com etiquetas por sprint, responsáveis e checklists de validação por entregável.</p>
+    <div class="stat-row">
+      <div class="stat">
+        <span class="lbl">Framework</span>
+        <span class="val accent">Scrum</span>
+      </div>
+      <div class="stat">
+        <span class="lbl">Ferramenta</span>
+        <span class="val">Trello</span>
+      </div>
+      <div class="stat">
+        <span class="lbl">Cartões · Sprint 2</span>
+        <span class="val success">14</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="kanban">
+      <div class="col">
+        <span class="col-h">Backlog</span>
+        <span class="card-mini t-pur"></span>
+        <span class="card-mini t-blu"></span>
+        <span class="card-mini t-yel"></span>
+        <span class="card-mini t-yel-blu"></span>
+        <span class="col-count">5<small>cartões</small></span>
+      </div>
+      <div class="col">
+        <span class="col-h">A Fazer</span>
+        <span class="card-mini t-yel-blu"></span>
+        <span class="card-mini t-yel-blu"></span>
+        <span class="card-mini t-yel-red"></span>
+        <span class="card-mini t-yel-red"></span>
+        <span class="col-count">4<small>cartões</small></span>
+      </div>
+      <div class="col">
+        <span class="col-h">Em andamento</span>
+        <span class="card-mini t-yel-blu"></span>
+        <span class="card-mini t-yel-red"></span>
+        <span class="col-count">2<small>cartões</small></span>
+      </div>
+      <div class="col">
+        <span class="col-h">Em revisão</span>
+        <span class="card-mini t-yel-red"></span>
+        <span class="col-count">1<small>cartão</small></span>
+      </div>
+      <div class="col">
+        <span class="col-h">Concluído</span>
+        <span class="card-mini done"></span>
+        <span class="card-mini done"></span>
+        <span class="card-mini done"></span>
+        <span class="card-mini done"></span>
+        <span class="card-mini done"></span>
+        <span class="card-mini done"></span>
+        <span class="col-count" style="color:#34D399;">6<small>concluídos</small></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <div>Sprint 2 · Planejamento e gestão</div>
+  <div class="right-info">Próximas páginas: <strong>quadro completo</strong> · <strong>detalhe de um cartão</strong></div>
+</div>
+
+</body>
+</html>

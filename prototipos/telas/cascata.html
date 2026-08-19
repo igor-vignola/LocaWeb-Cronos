@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -36,7 +36,6 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
 .sb-item .lbl { flex: 1; }
 .sb-item .badge { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; padding: 0 5px; background: var(--danger); color: var(--white); border-radius: 9px; font-size: 9.5px; font-weight: var(--fw-bold); }
 .sb-item .badge.neutral { background: rgba(37,99,235,0.16); color: var(--accent); }
-.sb-item .badge.warning { background: var(--warning); }
 .sb-foot { padding: var(--space-3) var(--space-4); border-top: 1px solid rgba(0,0,0,0.05); display: flex; align-items: center; gap: var(--space-3); }
 .sb-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #1E40AF); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 11px; font-weight: var(--fw-bold); flex-shrink: 0; box-shadow: 0 4px 12px rgba(37,99,235,0.25), inset 0 1px 0 rgba(255,255,255,0.2); }
 .sb-user-name { font-size: 12.5px; font-weight: var(--fw-semibold); }
@@ -53,43 +52,82 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
 .tb-spacer { flex: 1; }
 @keyframes livePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-/* ═══════════════════════════════════════════════════════════ */
+/* PAGE */
 .content { flex: 1; overflow-y: auto; padding: var(--space-5) 0 var(--space-8); display: flex; justify-content: center; }
-.page { width: 100%; max-width: 980px; padding: 0 var(--space-5); opacity: 0; transform: translateY(8px); animation: fadeUp 700ms var(--ease-out-strong) forwards; }
+.page { width: 100%; max-width: 1080px; padding: 0 var(--space-5); display: flex; flex-direction: column; gap: var(--space-5); }
+.page > * { opacity: 0; transform: translateY(8px); animation: fadeUp 600ms var(--ease-out-strong) forwards; }
+.page > *:nth-child(1) { animation-delay: 60ms; }
+.page > *:nth-child(2) { animation-delay: 140ms; }
+.page > *:nth-child(3) { animation-delay: 220ms; }
+.page > *:nth-child(4) { animation-delay: 300ms; }
+.page > *:nth-child(5) { animation-delay: 380ms; }
 @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-.page-head { padding-bottom: var(--space-5); margin-bottom: var(--space-5); border-bottom: 1px solid rgba(0,0,0,0.08); }
+.page-head { padding-bottom: var(--space-4); border-bottom: 1px solid rgba(0,0,0,0.08); }
 .page-head h1 { font-size: 32px; font-weight: var(--fw-heavy); letter-spacing: -0.03em; line-height: 1; color: var(--label-primary); margin-bottom: 6px; }
 .page-head p { font-size: 13.5px; color: var(--label-tertiary); line-height: 1.45; }
 .page-head p strong { color: var(--label-primary); font-weight: var(--fw-semibold); }
 
-.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); padding: var(--space-4) var(--space-5); background: rgba(255,255,255,0.55); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-lg); margin-bottom: var(--space-5); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9); }
+/* STATS */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); padding: var(--space-4) var(--space-5); background: rgba(255,255,255,0.55); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-lg); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9); }
 .stat { display: flex; flex-direction: column; gap: 4px; position: relative; }
-.stat + .stat::before { content: ''; position: absolute; left: calc(-1 * var(--space-5) / 2 - 0.5px); top: 4px; bottom: 4px; width: 1px; background: rgba(0,0,0,0.06); }
+.stat + .stat::before { content: ''; position: absolute; left: calc(-1 * var(--space-4) / 2); top: 4px; bottom: 4px; width: 1px; background: rgba(0,0,0,0.06); }
 .stat .v { font-size: 28px; font-weight: var(--fw-heavy); letter-spacing: -0.03em; color: var(--label-primary); font-variant-numeric: tabular-nums; line-height: 1; }
 .stat .v.crit { color: var(--danger); }
 .stat .v.good { color: var(--success); }
-.stat .l { font-size: 11px; font-weight: var(--fw-semibold); color: var(--label-tertiary); letter-spacing: 0.02em; }
+.stat .v.accent { color: var(--accent); }
+.stat .v .u { font-size: 14px; color: var(--label-tertiary); font-weight: var(--fw-medium); margin-left: 2px; }
+.stat .l { font-size: 11px; font-weight: var(--fw-semibold); color: var(--label-tertiary); }
 .stat .delta { font-size: 11px; color: var(--label-tertiary); font-variant-numeric: tabular-nums; margin-top: 2px; }
 .stat .delta.crit { color: var(--danger); }
+.stat .delta.good { color: var(--success); }
+.stat .delta strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
 
-/* ─────── CASCATA CARD ─────── */
-.casc-list { display: flex; flex-direction: column; gap: var(--space-3); }
+/* SECTION HEAD */
+.sect-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: var(--space-3); gap: var(--space-3); }
+.sect-h { font-size: 11px; font-weight: var(--fw-bold); letter-spacing: 0.14em; text-transform: uppercase; color: var(--label-tertiary); margin-bottom: 4px; }
+.sect-title { font-size: 18px; font-weight: var(--fw-bold); letter-spacing: -0.01em; color: var(--label-primary); line-height: 1.2; }
+.sect-sub { font-size: 12px; color: var(--label-tertiary); margin-top: 4px; line-height: 1.4; }
 
-.casc {
-  background: rgba(255,255,255,0.62);
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.85);
-  border-radius: var(--r-lg);
-  padding: var(--space-5) var(--space-6);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(0,30,80,0.03);
-  display: grid; gap: var(--space-4);
-}
+/* ─── EM RADAR (cascatas em formação não-oficiais) ─── */
+.radar-wrap { padding: var(--space-4) var(--space-5) var(--space-5); background: linear-gradient(135deg, rgba(37,99,235,0.04), rgba(168,85,247,0.04)); border: 1px solid rgba(37,99,235,0.15); border-radius: var(--r-lg); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8); }
+.radar-eye { display: inline-flex; align-items: center; gap: 6px; font-size: 9.5px; font-weight: var(--fw-bold); letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.radar-eye .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: livePulse 1.6s ease-in-out infinite; }
+.radar-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3); margin-top: var(--space-3); }
+.radar-card { display: grid; grid-template-columns: 1fr auto; gap: var(--space-3); padding: var(--space-3) var(--space-4); background: rgba(255,255,255,0.78); border: 1px solid rgba(37,99,235,0.18); border-radius: var(--r-md); transition: transform var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out); cursor: pointer; }
+.radar-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px -8px rgba(37,99,235,0.20); }
+.radar-card-info { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.radar-prod { font-family: ui-monospace, monospace; font-size: 13px; font-weight: var(--fw-bold); color: var(--label-primary); }
+.radar-prod code { font-family: ui-monospace, monospace; font-size: 11px; color: var(--label-tertiary); background: rgba(0,0,0,0.05); padding: 1px 5px; border-radius: 3px; margin-left: 4px; }
+.radar-driver { font-size: 11.5px; color: var(--label-secondary); line-height: 1.35; }
+.radar-driver strong { color: var(--label-primary); font-weight: var(--fw-semibold); font-variant-numeric: tabular-nums; }
+.radar-prob { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; min-width: 80px; }
+.radar-prob-val { font-size: 24px; font-weight: var(--fw-heavy); color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; line-height: 1; }
+.radar-prob-lbl { font-size: 9px; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--label-tertiary); }
+
+/* ─── FILTRO segmented ─── */
+.filter-bar { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+.filter-tabs { display: inline-flex; padding: 3px; background: rgba(0,0,0,0.05); border-radius: var(--r-sm); }
+.filter-tab { padding: 6px 14px; font-size: 12px; font-weight: var(--fw-semibold); color: var(--label-tertiary); background: transparent; border: none; border-radius: 5px; cursor: pointer; transition: all var(--dur-quick) var(--ease-out); display: inline-flex; align-items: center; gap: 5px; }
+.filter-tab:hover:not(.active) { color: var(--label-primary); }
+.filter-tab.active { background: var(--white); color: var(--label-primary); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.filter-tab .cnt { font-family: ui-monospace, monospace; font-size: 9.5px; padding: 1px 6px; background: rgba(0,0,0,0.06); color: var(--label-tertiary); border-radius: 9px; font-weight: var(--fw-bold); }
+.filter-tab.active .cnt { background: rgba(37,99,235,0.16); color: var(--accent); }
+
+/* ─── CASCATA CARD ─── */
+.casc-list { display: flex; flex-direction: column; gap: var(--space-4); }
+.casc-list > .casc { opacity: 0; transform: translateY(10px); animation: fadeUp 700ms var(--ease-out-strong) forwards; }
+.casc-list > .casc:nth-child(1) { animation-delay: 80ms; }
+.casc-list > .casc:nth-child(2) { animation-delay: 160ms; }
+.casc-list > .casc:nth-child(3) { animation-delay: 240ms; }
+.casc-list > .casc:nth-child(4) { animation-delay: 320ms; }
+
+.casc { background: rgba(255,255,255,0.65); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.85); border-radius: var(--r-lg); padding: var(--space-5) var(--space-6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(0,30,80,0.03); display: grid; gap: var(--space-4); }
 .casc.crit { border-left: 4px solid var(--danger); }
 .casc.warn { border-left: 4px solid var(--warning); }
 .casc.resolved { border-left: 4px solid var(--success); }
 
-/* HEADER */
+/* CARD HEADER */
 .casc-head { display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-3); align-items: center; }
 .casc-status { display: flex; align-items: center; gap: 8px; }
 .casc-status-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
@@ -100,206 +138,122 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
 .casc-status-text.crit { background: var(--danger); color: var(--white); }
 .casc-status-text.warn { background: rgba(217,119,6,0.15); color: var(--warning); }
 .casc-status-text.resolved { background: rgba(5,150,105,0.12); color: var(--success); }
-
 .casc-id { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .casc-tag { font-family: ui-monospace, monospace; font-size: 14px; font-weight: var(--fw-bold); color: var(--label-primary); letter-spacing: 0.04em; }
 .casc-meta { font-size: 12px; color: var(--label-tertiary); line-height: 1.4; }
 .casc-meta strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
 .casc-meta code { font-family: ui-monospace, monospace; background: rgba(0,0,0,0.05); padding: 1px 5px; border-radius: 4px; font-size: 11px; }
-
 .casc-time { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
 .casc-time .v { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: var(--fw-heavy); color: var(--label-primary); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1; }
 .casc-time .l { font-size: 9.5px; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--label-tertiary); }
 
-/* BLOCKS dentro do card */
-.block-h {
-  font-size: 9.5px; font-weight: var(--fw-bold);
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--label-quaternary);
-  margin-bottom: var(--space-2);
-  display: flex; align-items: center; gap: var(--space-2);
-}
-.block-h::after { content: ''; flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+/* HERO da cascata — prob escalar P3+ + drivers SHAP */
+.casc-hero { display: grid; grid-template-columns: minmax(220px, 240px) 1fr; gap: var(--space-5); align-items: stretch; padding: var(--space-4) 0; border-top: 1px solid rgba(0,0,0,0.06); border-bottom: 1px solid rgba(0,0,0,0.06); }
+.casc-hero-q { font-size: 11.5px; font-weight: var(--fw-semibold); color: var(--label-secondary); margin-bottom: 6px; line-height: 1.3; }
+.casc-hero-num { font-size: 72px; font-weight: var(--fw-heavy); letter-spacing: -0.05em; line-height: 0.9; font-variant-numeric: tabular-nums; }
+.casc-hero-num.crit { color: var(--danger); }
+.casc-hero-num.warn { color: var(--warning); }
+.casc-hero-num.good { color: var(--success); }
+.casc-hero-num .unit { font-size: 26px; color: var(--label-tertiary); font-weight: var(--fw-medium); margin-left: 2px; }
+.casc-hero-cmp { font-size: 11px; color: var(--label-tertiary); font-variant-numeric: tabular-nums; margin-top: 6px; }
+.casc-hero-cmp strong { color: var(--label-secondary); font-weight: var(--fw-semibold); }
 
-/* ALERTAS lista — visual mais respirável */
-.alerts {
-  display: flex; flex-direction: column;
-  border-radius: var(--r-md);
-  overflow: hidden;
-  background: rgba(255,255,255,0.55);
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
-}
-.alert {
-  display: grid;
-  grid-template-columns: 60px 36px 1fr auto;
-  gap: var(--space-4);
-  align-items: center;
-  padding: 12px var(--space-4);
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  transition: background var(--dur-quick) var(--ease-out), transform var(--dur-fast) var(--ease-out);
-  position: relative;
-}
-.alert::before {
-  content: ''; position: absolute;
-  left: 0; top: 0; bottom: 0; width: 3px;
-  background: transparent;
-  transition: background var(--dur-quick) var(--ease-out);
-}
+.casc-drivers { padding-left: var(--space-5); border-left: 1px solid rgba(0,0,0,0.06); display: flex; flex-direction: column; gap: 6px; }
+.casc-drivers-h { font-size: 10.5px; font-weight: var(--fw-bold); letter-spacing: 0.10em; text-transform: uppercase; color: var(--label-tertiary); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.casc-drivers-h .shap { font-family: ui-monospace, monospace; font-size: 9px; padding: 1px 6px; background: rgba(37,99,235,0.12); color: var(--accent); border-radius: 3px; letter-spacing: 0.04em; }
+.casc-driver { display: grid; grid-template-columns: 22px 56px 1fr; gap: 8px; align-items: center; padding: 3px 0; font-size: 12.5px; color: var(--label-secondary); line-height: 1.4; }
+.casc-driver .sign { font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; text-align: center; }
+.casc-driver .sign.up { color: var(--danger); }
+.casc-driver .sign.dn { color: var(--success); }
+.casc-driver .contrib { font-family: ui-monospace, monospace; font-size: 11.5px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; }
+.casc-driver .contrib.up { color: var(--danger); }
+.casc-driver .contrib.dn { color: var(--success); }
+.casc-driver strong { color: var(--label-primary); font-weight: var(--fw-semibold); }
+
+/* DETECTOR ANTECEDÊNCIA */
+.casc-early { padding: var(--space-3) var(--space-4); background: rgba(37,99,235,0.06); border: 1px solid rgba(37,99,235,0.18); border-radius: var(--r-md); display: grid; grid-template-columns: 28px 1fr auto; gap: 10px; align-items: center; }
+.casc-early-ico { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #1E40AF); color: var(--white); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(37,99,235,0.30); }
+.casc-early-ico svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.casc-early-txt { font-size: 12.5px; color: var(--label-secondary); line-height: 1.45; }
+.casc-early-txt strong { color: var(--accent); font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; }
+.casc-early-delta { font-size: 22px; font-weight: var(--fw-heavy); color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1; padding-left: var(--space-3); border-left: 1px solid rgba(37,99,235,0.20); }
+.casc-early-delta .u { font-size: 11px; color: var(--label-tertiary); font-weight: var(--fw-medium); margin-left: 2px; }
+
+/* FLOW visual — escalada P5→P4→P3→pred(P2) */
+.flow-block .flow-h { font-size: 10.5px; font-weight: var(--fw-bold); letter-spacing: 0.10em; text-transform: uppercase; color: var(--label-tertiary); margin-bottom: 8px; }
+.flow { display: flex; align-items: flex-start; padding: var(--space-2) 0 var(--space-3); overflow-x: auto; }
+.fnode { display: flex; flex-direction: column; align-items: center; gap: 6px; flex-shrink: 0; z-index: 2; }
+.fdot { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); border: 2px solid; display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; transition: transform var(--dur-base) var(--ease-out); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 6px rgba(0,30,80,0.06); }
+.fdot:hover { transform: translateY(-2px); }
+.fdot.p5 { border-color: var(--warning); color: var(--warning); background: rgba(254,243,199,0.85); }
+.fdot.p4 { border-color: #D97706; color: #D97706; background: rgba(254,215,170,0.85); }
+.fdot.p3 { border-color: var(--danger); color: var(--danger); background: rgba(254,226,226,0.85); }
+.fdot.p2 { border-color: var(--dark); color: var(--dark); background: rgba(255,255,255,0.9); }
+.fdot.pred { border-color: var(--danger); color: var(--danger); background: rgba(254,226,226,0.7); animation: predBreathe 3s ease-in-out infinite; border-style: dashed; }
+@keyframes predBreathe { 0%, 100% { opacity: 0.65; } 50% { opacity: 1; } }
+.ftime { font-size: 9.5px; font-weight: var(--fw-semibold); color: var(--label-tertiary); font-variant-numeric: tabular-nums; }
+.ftime.bold { color: var(--danger); font-weight: var(--fw-bold); }
+.flink { flex: 1; height: 3px; margin: 16px -1px 0; background: rgba(212,212,212,0.6); border-radius: 2px; position: relative; overflow: hidden; min-width: 16px; }
+.flink.warn { background: var(--warning); opacity: 0.6; }
+.flink.crit { background: var(--danger); opacity: 0.75; }
+.flink.pred { background: var(--danger); opacity: 0.3; }
+.flink.crit::after { content: ''; position: absolute; top: 0; bottom: 0; width: 30px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.85), transparent); animation: flowPush 1.6s linear infinite; }
+@keyframes flowPush { 0% { left: -30px; } 100% { left: 100%; } }
+
+/* ALERTAS — collapsable lista */
+.alerts-block { display: flex; flex-direction: column; gap: 4px; }
+.alerts-toggle { display: flex; align-items: center; gap: 6px; padding: 6px 10px; font-size: 11.5px; color: var(--label-tertiary); background: transparent; border: 1px dashed rgba(0,0,0,0.10); border-radius: var(--r-sm); cursor: pointer; transition: all var(--dur-quick) var(--ease-out); align-self: flex-start; font-weight: var(--fw-semibold); }
+.alerts-toggle:hover { color: var(--accent); border-color: rgba(37,99,235,0.30); background: rgba(37,99,235,0.04); }
+.alerts-toggle svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 2.4; stroke-linecap: round; transition: transform var(--dur-base) var(--ease-out); }
+.alerts-block.open .alerts-toggle svg { transform: rotate(90deg); }
+.alerts-block.open .alerts-toggle { color: var(--label-primary); border-color: rgba(0,0,0,0.15); background: rgba(0,0,0,0.02); }
+.alerts { display: none; flex-direction: column; border-radius: var(--r-md); overflow: hidden; background: rgba(255,255,255,0.55); border: 1px solid rgba(0,0,0,0.06); margin-top: 6px; }
+.alerts-block.open .alerts { display: flex; }
+.alert { display: grid; grid-template-columns: 56px 36px 1fr auto; gap: var(--space-3); align-items: center; padding: 10px var(--space-4); border-bottom: 1px solid rgba(0,0,0,0.05); transition: background var(--dur-quick) var(--ease-out); position: relative; }
+.alert::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: transparent; transition: background var(--dur-quick) var(--ease-out); }
 .alert:last-child { border-bottom: none; }
 .alert:hover { background: rgba(255,255,255,0.85); }
-.alert:hover::before { background: var(--accent); }
 .alert.now { background: rgba(220,38,38,0.06); }
 .alert.now::before { background: var(--danger); }
-.alert.now:hover { background: rgba(220,38,38,0.09); }
 .alert.resolved-row { background: rgba(5,150,105,0.05); }
 .alert.resolved-row::before { background: var(--success); }
-
-.alert-time {
-  font-family: ui-monospace, monospace;
-  font-size: 12.5px; font-weight: var(--fw-bold);
-  color: var(--label-primary);
-  font-variant-numeric: tabular-nums;
-  text-align: left;
-}
-.alert-pri {
-  font-family: ui-monospace, monospace;
-  font-size: 10.5px; font-weight: var(--fw-bold);
-  letter-spacing: 0.04em;
-  text-align: center;
-  padding: 4px 0;
-  border-radius: 5px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
-}
+.alert-time { font-family: ui-monospace, monospace; font-size: 12px; font-weight: var(--fw-bold); color: var(--label-primary); font-variant-numeric: tabular-nums; }
+.alert-pri { font-family: ui-monospace, monospace; font-size: 10.5px; font-weight: var(--fw-bold); text-align: center; padding: 4px 0; border-radius: 5px; }
 .alert-pri.p5 { background: rgba(217,119,6,0.15); color: var(--warning); border: 1px solid rgba(217,119,6,0.25); }
 .alert-pri.p4 { background: rgba(220,38,38,0.14); color: var(--danger); border: 1px solid rgba(220,38,38,0.25); }
 .alert-pri.p3 { background: var(--dark); color: var(--white); border: 1px solid var(--dark); }
 .alert-pri.ok { background: rgba(5,150,105,0.15); color: var(--success); border: 1px solid rgba(5,150,105,0.25); }
-
-.alert-desc {
-  font-size: 13px; color: var(--label-primary);
-  line-height: 1.4;
-  display: flex; flex-direction: column; gap: 2px;
-}
+.alert-desc { font-size: 12.5px; color: var(--label-primary); line-height: 1.4; display: flex; flex-direction: column; gap: 2px; }
 .alert-desc .desc-top { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
-.alert-desc code {
-  font-family: ui-monospace, monospace;
-  background: rgba(0,0,0,0.06);
-  padding: 1px 6px; border-radius: 4px;
-  font-size: 11.5px; font-weight: var(--fw-semibold);
-  color: var(--label-secondary);
-}
-.alert-desc .ttl { font-weight: var(--fw-semibold); color: var(--label-primary); }
-.alert-desc .meta { font-size: 11px; color: var(--label-tertiary); font-variant-numeric: tabular-nums; }
-
-.alert-marker {
-  font-size: 9.5px;
-  font-weight: var(--fw-bold);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: var(--r-pill);
-  white-space: nowrap;
-}
-.alert-marker.now-marker { color: var(--white); background: var(--danger); box-shadow: 0 2px 6px rgba(220,38,38,0.30); animation: pulseNow 2s ease-in-out infinite; }
+.alert-desc code { font-family: ui-monospace, monospace; background: rgba(0,0,0,0.06); padding: 1px 6px; border-radius: 4px; font-size: 11px; font-weight: var(--fw-semibold); color: var(--label-secondary); }
+.alert-desc .ttl { font-weight: var(--fw-semibold); }
+.alert-desc .meta { font-size: 11px; color: var(--label-tertiary); }
+.alert-marker { font-size: 9px; font-weight: var(--fw-bold); letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; border-radius: var(--r-pill); white-space: nowrap; }
+.alert-marker.now-marker { color: var(--white); background: var(--danger); }
 .alert-marker.resolved-marker { color: var(--success); background: rgba(5,150,105,0.15); border: 1px solid rgba(5,150,105,0.30); }
-@keyframes pulseNow { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
 
-/* ─── SUGGESTION CARD — gradiente azul ─── */
-.sugg {
-  position: relative;
-  padding: var(--space-5) var(--space-5) var(--space-5) calc(var(--space-5) + 44px);
-  background: linear-gradient(135deg, rgba(37,99,235,0.10) 0%, rgba(99,102,241,0.06) 100%);
-  border: 1px solid rgba(37,99,235,0.22);
-  border-radius: var(--r-lg);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.7),
-    0 4px 16px -6px rgba(37,99,235,0.18);
-  overflow: hidden;
-}
-.sugg::before {
-  content: ''; position: absolute;
-  top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--accent), #818CF8, transparent 90%);
-}
-.sugg-icon {
-  position: absolute;
-  top: var(--space-5); left: var(--space-4);
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), #4338CA);
-  color: var(--white);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px; font-weight: var(--fw-bold);
-  box-shadow: 0 4px 12px -2px rgba(37,99,235,0.40), inset 0 1px 0 rgba(255,255,255,0.30);
-}
-.sugg-icon svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.sugg-head {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: var(--space-2);
-  margin-bottom: var(--space-2);
-}
-.sugg-eyebrow {
-  font-size: 9.5px; font-weight: var(--fw-bold);
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--accent);
-}
-.ai-badge {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-size: 8.5px; font-weight: var(--fw-bold);
-  letter-spacing: 0.08em; text-transform: uppercase;
-  padding: 2px 7px; border-radius: var(--r-pill);
-  background: rgba(255,255,255,0.85);
-  color: var(--accent);
-  border: 1px solid rgba(37,99,235,0.28);
-  white-space: nowrap;
-  box-shadow: 0 1px 2px rgba(0,30,80,0.06);
-}
+/* SUGESTÃO IA */
+.sugg { position: relative; padding: var(--space-4) var(--space-5) var(--space-4) calc(var(--space-5) + 40px); background: linear-gradient(135deg, rgba(37,99,235,0.08) 0%, rgba(99,102,241,0.05) 100%); border: 1px solid rgba(37,99,235,0.22); border-radius: var(--r-md); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); overflow: hidden; }
+.sugg::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), #818CF8, transparent 90%); }
+.sugg-icon { position: absolute; top: var(--space-4); left: var(--space-4); width: 26px; height: 26px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #4338CA); color: var(--white); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px -2px rgba(37,99,235,0.40), inset 0 1px 0 rgba(255,255,255,0.30); }
+.sugg-icon svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.sugg-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); margin-bottom: 4px; }
+.sugg-eyebrow { font-size: 9.5px; font-weight: var(--fw-bold); letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+.ai-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 8.5px; font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 7px; border-radius: var(--r-pill); background: rgba(255,255,255,0.85); color: var(--accent); border: 1px solid rgba(37,99,235,0.28); white-space: nowrap; }
 .ai-badge svg { width: 9px; height: 9px; flex-shrink: 0; }
-.sugg-body {
-  font-size: 13.5px;
-  color: var(--label-primary);
-  line-height: 1.55;
-}
-.sugg-body strong { font-weight: var(--fw-semibold); color: var(--label-primary); }
-.sugg-body code {
-  font-family: ui-monospace, monospace;
-  background: rgba(255,255,255,0.75);
-  padding: 1px 6px; border-radius: 4px;
-  font-size: 12px;
-  border: 1px solid rgba(37,99,235,0.18);
-}
-.sugg-body .num {
-  font-family: ui-monospace, monospace;
-  font-weight: var(--fw-bold);
-  color: var(--danger);
-  font-variant-numeric: tabular-nums;
-}
+.sugg-body { font-size: 13px; color: var(--label-primary); line-height: 1.5; }
+.sugg-body strong { font-weight: var(--fw-semibold); }
+.sugg-body code { font-family: ui-monospace, monospace; background: rgba(255,255,255,0.75); padding: 1px 6px; border-radius: 4px; font-size: 11.5px; border: 1px solid rgba(37,99,235,0.18); }
+.sugg-body .num { font-family: ui-monospace, monospace; font-weight: var(--fw-bold); color: var(--danger); font-variant-numeric: tabular-nums; }
 .sugg-body .num.good { color: var(--success); }
-.sugg-foot {
-  margin-top: var(--space-3);
-  padding-top: var(--space-3);
-  border-top: 1px solid rgba(37,99,235,0.15);
-  font-size: 11px;
-  color: rgba(37,99,235,0.75);
-  font-weight: var(--fw-semibold);
-  display: flex; align-items: center; gap: 6px;
-}
-.sugg-foot::before {
-  content: ''; width: 6px; height: 6px; border-radius: 50%;
-  background: var(--accent);
-  flex-shrink: 0;
-}
-.sugg.resolved {
-  background: linear-gradient(135deg, rgba(5,150,105,0.08) 0%, rgba(16,185,129,0.05) 100%);
-  border-color: rgba(5,150,105,0.25);
-}
+.sugg.resolved { background: linear-gradient(135deg, rgba(5,150,105,0.08), rgba(16,185,129,0.05)); border-color: rgba(5,150,105,0.25); }
 .sugg.resolved::before { background: linear-gradient(90deg, var(--success), #34D399, transparent 90%); }
 .sugg.resolved .sugg-icon { background: linear-gradient(135deg, var(--success), #047857); }
 .sugg.resolved .sugg-eyebrow { color: var(--success); }
 .sugg.resolved .ai-badge { color: var(--success); border-color: rgba(5,150,105,0.30); }
-.sugg.resolved .sugg-foot { color: rgba(5,150,105,0.80); border-top-color: rgba(5,150,105,0.18); }
-.sugg.resolved .sugg-foot::before { background: var(--success); }
+
+/* hidden state pra filtros */
+.casc[hidden] { display: none !important; }
 </style>
 </head>
 <body>
@@ -310,14 +264,13 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
       <div class="sb-logo"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.4" fill="#3B82F6"/></svg></div>
       <div><div class="sb-brand-name">Cronos</div><div class="sb-brand-sub">Veja antes · aja antes</div></div>
     </div>
-    <div class="sb-search"><input placeholder="Buscar produto, alerta..."><span class="kbd">⌘K</span></div>
+    <div class="sb-search"><input placeholder="Buscar produto, alerta..."><span class="kbd">Ctrl K</span></div>
     <nav class="sb-nav">
       <div class="sb-section">Operação</div>
       <a class="sb-item" href="dashboard.html"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span class="lbl">Dashboard</span></a>
       <a class="sb-item" href="previsao.html"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="lbl">Previsões</span></a>
       <a class="sb-item active" href="cascata.html"><svg viewBox="0 0 24 24"><path d="M12 2L4 7v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V7l-8-5z"/></svg><span class="lbl">Cascatas</span><span class="badge">3</span></a>
       <a class="sb-item" href="saude-produto.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg><span class="lbl">Saúde · Produto</span></a>
-      <div class="sb-section">Diferenciais</div>
       <a class="sb-item" href="morning-brief.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg><span class="lbl">Morning brief</span><span class="badge neutral">06:00</span></a>
     </nav>
     <div class="sb-foot">
@@ -340,20 +293,84 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
 
         <header class="page-head">
           <h1>Cascatas</h1>
-          <p>Acúmulo de alertas P4/P5 num mesmo produto · histórico comparado a <strong>4.812</strong> cascatas anteriores</p>
+          <p>Acúmulo de alertas P4/P5 antecedendo escalada para P3/P2 · <strong>4.812</strong> cascatas históricas como base · padrão validado pela Locaweb na mentoria</p>
         </header>
 
+        <!-- ═════════ STATS — métricas decisórias ═════════ -->
         <div class="stats">
-          <div class="stat"><span class="v crit">3</span><span class="l">Em formação</span><span class="delta crit">1 crítica</span></div>
-          <div class="stat"><span class="v good">1</span><span class="l">Mitigada hoje</span><span class="delta">cascata encerrada</span></div>
-          <div class="stat"><span class="v">2h 14min</span><span class="l">Mais antiga</span><span class="delta">lhco · INC8643147</span></div>
-          <div class="stat"><span class="v">12</span><span class="l">Alertas acumulados</span><span class="delta">nas 3 ativas</span></div>
+          <div class="stat">
+            <span class="v crit">73<span class="u">%</span></span>
+            <span class="l">Taxa de escalada P3+</span>
+            <span class="delta crit">22 de 30 cascatas · dez/2025</span>
+          </div>
+          <div class="stat">
+            <span class="v accent">1h 47min</span>
+            <span class="l">Antecipação média do Cronos</span>
+            <span class="delta good">vs. sistema oficial · 4.812 cascatas históricas</span>
+          </div>
+          <div class="stat">
+            <span class="v">lhco</span>
+            <span class="l">Produto top do mês</span>
+            <span class="delta">8 cascatas · <strong>5 escalaram</strong> · IC <code style="font-size:10px;">IC00014</code></span>
+          </div>
+          <div class="stat">
+            <span class="v crit">3</span>
+            <span class="l">Em formação agora</span>
+            <span class="delta crit">1 crítica · 2 atenção</span>
+          </div>
         </div>
 
+        <!-- ═════════ EM RADAR — cascatas potenciais ═════════ -->
+        <section class="radar-wrap">
+          <div class="radar-eye"><span class="pulse"></span>Em radar · ainda não viraram cascata oficial</div>
+          <div class="sect-head">
+            <div>
+              <h2 class="sect-title">2 produtos em risco · sem incidente-pai registrado</h2>
+              <p class="sect-sub">XGBoost detectou acúmulo de P4/P5 com assinatura de cascata · sistema oficial ainda não criou pai</p>
+            </div>
+          </div>
+
+          <div class="radar-list">
+            <div class="radar-card">
+              <div class="radar-card-info">
+                <div class="radar-prod">lsin <code>IC00019</code></div>
+                <div class="radar-driver"><strong>4 alertas P5</strong> nas últimas 90min · padrão "Check Application Monitoring" recorrente · sem pai oficial</div>
+              </div>
+              <div class="radar-prob">
+                <span class="radar-prob-val">67<span style="font-size:14px;">%</span></span>
+                <span class="radar-prob-lbl">virar cascata</span>
+              </div>
+            </div>
+
+            <div class="radar-card">
+              <div class="radar-card-info">
+                <div class="radar-prod">lcem <code>IC00008</code></div>
+                <div class="radar-driver"><strong>3 alertas P4+P5</strong> nas últimas 2h · janela backup 09h-11h ativa · assinatura familiar (cat76)</div>
+              </div>
+              <div class="radar-prob">
+                <span class="radar-prob-val">54<span style="font-size:14px;">%</span></span>
+                <span class="radar-prob-lbl">virar cascata</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═════════ FILTRO ═════════ -->
+        <div class="filter-bar">
+          <div class="filter-tabs" id="filterTabs">
+            <button class="filter-tab active" data-filter="todas">Todas<span class="cnt">4</span></button>
+            <button class="filter-tab" data-filter="criticas">Críticas<span class="cnt">1</span></button>
+            <button class="filter-tab" data-filter="formacao">Em formação<span class="cnt">3</span></button>
+            <button class="filter-tab" data-filter="sem-equipe">Sem equipe<span class="cnt">1</span></button>
+            <button class="filter-tab" data-filter="encerradas">Encerradas<span class="cnt">1</span></button>
+          </div>
+        </div>
+
+        <!-- ═════════ CASCATAS ATIVAS ═════════ -->
         <div class="casc-list">
 
           <!-- ═══ Cascata 1: lhco crítica ═══ -->
-          <article class="casc crit">
+          <article class="casc crit" data-status="crit" data-formacao>
             <div class="casc-head">
               <div class="casc-status">
                 <span class="casc-status-dot crit"></span>
@@ -361,123 +378,151 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
               </div>
               <div class="casc-id">
                 <span class="casc-tag">lhco · INC8643147</span>
-                <span class="casc-meta">7 incidentes-filhos · grupo <strong>Team14</strong> · categoria <code>cat71</code> · IC <code>IC00014</code></span>
+                <span class="casc-meta">7 alertas relacionados · grupo <strong>Team14</strong> · categoria <code>cat71</code> · IC <code>IC00014</code></span>
               </div>
               <div class="casc-time"><span class="v">2h 14min</span><span class="l">desde 1º alerta</span></div>
             </div>
 
-            <div>
-              <div class="block-h">Incidentes-filhos da cascata · 7 alertas</div>
-              <div class="alerts">
-                <div class="alert">
-                  <span class="alert-time">04:28</span>
-                  <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><div class="desc-top"><code>INC8643149</code><span class="ttl">Apache Busy Workers</span></div></span>
-                  <span></span>
-                </div>
-                <div class="alert">
-                  <span class="alert-time">05:18</span>
-                  <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><div class="desc-top"><code>INC8643156</code><span class="ttl">Lack of free swap space 40m &lt; 5%</span></div></span>
-                  <span></span>
-                </div>
-                <div class="alert">
-                  <span class="alert-time">05:56</span>
-                  <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><div class="desc-top"><code>INC8643172</code><span class="ttl">Apache Busy Workers</span><span class="meta">· reincidência</span></div></span>
-                  <span></span>
-                </div>
-                <div class="alert">
-                  <span class="alert-time">06:14</span>
-                  <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><div class="desc-top"><code>INC8643189</code><span class="ttl">Free disk space &lt; 10% on volume /</span></div></span>
-                  <span></span>
-                </div>
-                <div class="alert">
-                  <span class="alert-time">06:31</span>
-                  <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><div class="desc-top"><code>INC8643204</code><span class="ttl">IOwait grown up CPU queue</span></div></span>
-                  <span></span>
-                </div>
-                <div class="alert">
-                  <span class="alert-time">06:38</span>
-                  <span class="alert-pri p4">P4</span>
-                  <span class="alert-desc"><div class="desc-top"><code>INC8643217</code><span class="ttl">Check Nginx tcp/80 Not Running</span></div></span>
-                  <span></span>
-                </div>
-                <div class="alert now">
-                  <span class="alert-time">06:42</span>
-                  <span class="alert-pri p4">P4</span>
-                  <span class="alert-desc"><div class="desc-top"><code>INC8643231</code><span class="ttl">Perf Teste Asp · Web Test Fail</span></div></span>
-                  <span class="alert-marker now-marker">Agora</span>
-                </div>
+            <!-- HERO: prob escalar + drivers SHAP -->
+            <div class="casc-hero">
+              <div>
+                <div class="casc-hero-q">Risco dessa cascata virar P3 ou pior</div>
+                <div class="casc-hero-num crit">84<span class="unit">%</span></div>
+                <div class="casc-hero-cmp">vs. base de <strong>23</strong> cascatas similares em <code style="font-family:ui-monospace,monospace;font-size:11px;background:rgba(0,0,0,0.05);padding:1px 4px;border-radius:3px;">lhco / IC00014</code> · <strong>18 (78%)</strong> escalaram historicamente</div>
+              </div>
+              <div class="casc-drivers">
+                <div class="casc-drivers-h">Por que esse risco? <span class="shap">SHAP</span></div>
+                <div class="casc-driver"><span class="sign up">↑</span><span class="contrib up">+42pp</span><span><strong>Apache Busy Workers</strong> · descrição com 3925 ocorrências históricas — alta correlação com P3</span></div>
+                <div class="casc-driver"><span class="sign up">↑</span><span class="contrib up">+31pp</span><span>Pico operacional <strong>09h-11h</strong> · janela com 18.182 incidentes/3 anos</span></div>
+                <div class="casc-driver"><span class="sign up">↑</span><span class="contrib up">+27pp</span><span>Padrão <strong>Team14</strong> em <code>IC00014</code> · 6.069 incidentes no IC</span></div>
               </div>
             </div>
 
-            <div class="sugg">
-              <div class="sugg-icon">
-                <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z"/></svg>
+            <!-- DETECTOR ANTECEDÊNCIA -->
+            <div class="casc-early">
+              <div class="casc-early-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+              <div class="casc-early-txt">Cronos detectou em <strong>04:28</strong> (1º P5). Sistema oficial criou o pai só em <strong>06:38</strong> (1º P4). Janela de ação ganha: <strong>2h 10min</strong> antes da escalada.</div>
+              <div class="casc-early-delta">+2h10<span class="u">antecipação</span></div>
+            </div>
+
+            <!-- FLOW visual -->
+            <div class="flow-block">
+              <div class="flow-h">Trajetória da escalada · 7 alertas até agora · previsão P2</div>
+              <div class="flow">
+                <div class="fnode"><div class="fdot p5">P5</div><span class="ftime">04:28</span></div>
+                <div class="flink warn"></div>
+                <div class="fnode"><div class="fdot p5">P5</div><span class="ftime">05:18</span></div>
+                <div class="flink warn"></div>
+                <div class="fnode"><div class="fdot p5">P5</div><span class="ftime">05:56</span></div>
+                <div class="flink warn"></div>
+                <div class="fnode"><div class="fdot p5">P5</div><span class="ftime">06:14</span></div>
+                <div class="flink warn"></div>
+                <div class="fnode"><div class="fdot p5">P5</div><span class="ftime">06:31</span></div>
+                <div class="flink crit"></div>
+                <div class="fnode"><div class="fdot p4">P4</div><span class="ftime">06:38</span></div>
+                <div class="flink crit"></div>
+                <div class="fnode"><div class="fdot p4">P4</div><span class="ftime bold">06:42</span></div>
+                <div class="flink pred"></div>
+                <div class="fnode"><div class="fdot pred">P3</div><span class="ftime bold">previsto · 07:20</span></div>
               </div>
+            </div>
+
+            <!-- ALERTAS — collapsable -->
+            <div class="alerts-block">
+              <button class="alerts-toggle"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>Ver 7 alertas relacionados em detalhe</button>
+              <div class="alerts">
+                <div class="alert"><span class="alert-time">04:28</span><span class="alert-pri p5">P5</span><span class="alert-desc"><div class="desc-top"><code>INC8643149</code><span class="ttl">Apache Busy Workers</span></div></span><span></span></div>
+                <div class="alert"><span class="alert-time">05:18</span><span class="alert-pri p5">P5</span><span class="alert-desc"><div class="desc-top"><code>INC8643156</code><span class="ttl">Lack of free swap space 40m &lt; 5%</span></div></span><span></span></div>
+                <div class="alert"><span class="alert-time">05:56</span><span class="alert-pri p5">P5</span><span class="alert-desc"><div class="desc-top"><code>INC8643172</code><span class="ttl">Apache Busy Workers</span><span class="meta">· reincidência</span></div></span><span></span></div>
+                <div class="alert"><span class="alert-time">06:14</span><span class="alert-pri p5">P5</span><span class="alert-desc"><div class="desc-top"><code>INC8643189</code><span class="ttl">Free disk space &lt; 10% on volume /</span></div></span><span></span></div>
+                <div class="alert"><span class="alert-time">06:31</span><span class="alert-pri p5">P5</span><span class="alert-desc"><div class="desc-top"><code>INC8643204</code><span class="ttl">IOwait grown up CPU queue</span></div></span><span></span></div>
+                <div class="alert"><span class="alert-time">06:38</span><span class="alert-pri p4">P4</span><span class="alert-desc"><div class="desc-top"><code>INC8643217</code><span class="ttl">Check Nginx tcp/80 Not Running</span></div></span><span></span></div>
+                <div class="alert now"><span class="alert-time">06:42</span><span class="alert-pri p4">P4</span><span class="alert-desc"><div class="desc-top"><code>INC8643231</code><span class="ttl">Perf Teste Asp · Web Test Fail</span></div></span><span class="alert-marker now-marker">Agora</span></div>
+              </div>
+            </div>
+
+            <!-- SUGESTÃO IA -->
+            <div class="sugg">
+              <div class="sugg-icon"><svg viewBox="0 0 24 24"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
               <div class="sugg-head">
-                <span class="sugg-eyebrow">Sugestão · cascata atual</span>
+                <span class="sugg-eyebrow">Ação recomendada · cascata crítica</span>
                 <span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Sugestão IA</span>
               </div>
               <div class="sugg-body">
-                Encadeamento similar a <span class="num">23 cascatas</span> anteriores em <code>lhco</code> com IC <code>IC00014</code>. Dessas, <span class="num">18 (78%)</span> chegaram em P3 ou pior. <strong>Recomendação:</strong> reforçar a equipe responsável pelo produto <code>lhco</code> — cascatas dessa assinatura estabilizam mais rápido com expertise no produto.
+                Encadeamento típico de <code>lhco/IC00014</code> tem <span class="num">78% de escalada</span> em P3. Acionar <strong>plantonista Team14</strong> agora pode interromper o ciclo — em cascatas similares mitigadas até P4, o desfecho cai pra <span class="num good">21%</span>.
               </div>
-              <div class="sugg-foot">k-NN sobre histórico de cascatas · texto curado pela Claude API</div>
             </div>
+
           </article>
 
-          <!-- ═══ Cascata 2: lhvp warn ═══ -->
-          <article class="casc warn">
+          <!-- ═══ Cascata 2: lhvp warn · sem equipe ═══ -->
+          <article class="casc warn" data-status="warn" data-formacao data-sem-equipe>
             <div class="casc-head">
               <div class="casc-status">
                 <span class="casc-status-dot warn"></span>
-                <span class="casc-status-text warn">Em formação · sem owner</span>
+                <span class="casc-status-text warn">Em formação · sem equipe</span>
               </div>
               <div class="casc-id">
                 <span class="casc-tag">lhvp · INC8607139</span>
-                <span class="casc-meta">2 incidentes-filhos · grupo <strong>Team14</strong> · categoria <code>cat73</code> · sem owner há 18min</span>
+                <span class="casc-meta">2 alertas relacionados · grupo <strong>Team14</strong> · categoria <code>cat73</code> · sem equipe há 18min</span>
               </div>
               <div class="casc-time"><span class="v">18min</span><span class="l">desde 1º alerta</span></div>
             </div>
 
-            <div>
-              <div class="block-h">Incidentes-filhos da cascata · 2 alertas</div>
+            <div class="casc-hero">
+              <div>
+                <div class="casc-hero-q">Risco dessa cascata virar P3 ou pior</div>
+                <div class="casc-hero-num warn">42<span class="unit">%</span></div>
+                <div class="casc-hero-cmp">amostra <strong>pequena</strong> · só 4 cascatas anteriores em <code style="font-family:ui-monospace,monospace;font-size:11px;background:rgba(0,0,0,0.05);padding:1px 4px;border-radius:3px;">lhvp</code> · banda 90%: <strong>22-68%</strong></div>
+              </div>
+              <div class="casc-drivers">
+                <div class="casc-drivers-h">Por que esse risco? <span class="shap">SHAP</span></div>
+                <div class="casc-driver"><span class="sign up">↑</span><span class="contrib up">+24pp</span><span><strong>Sem equipe há 18min</strong> · cascatas sem responsável escalam 2,3× mais</span></div>
+                <div class="casc-driver"><span class="sign up">↑</span><span class="contrib up">+12pp</span><span>Padrão PostgreSQL Slave · 1.341 ocorrências históricas</span></div>
+                <div class="casc-driver"><span class="sign dn">↓</span><span class="contrib dn">−18pp</span><span>Histórico pequeno em <strong>lhvp</strong> · só 4 cascatas anteriores</span></div>
+              </div>
+            </div>
+
+            <div class="casc-early">
+              <div class="casc-early-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+              <div class="casc-early-txt">Cronos detectou em <strong>06:24</strong>. Sistema oficial ainda não promoveu pra P4 — janela de ação ganha continua aberta.</div>
+              <div class="casc-early-delta">+18min<span class="u">e contando</span></div>
+            </div>
+
+            <div class="flow-block">
+              <div class="flow-h">Trajetória · 2 alertas · previsão incerta (banda larga)</div>
+              <div class="flow">
+                <div class="fnode"><div class="fdot p5">P5</div><span class="ftime">06:24</span></div>
+                <div class="flink warn"></div>
+                <div class="fnode"><div class="fdot p5">P5</div><span class="ftime bold">06:30</span></div>
+                <div class="flink pred"></div>
+                <div class="fnode"><div class="fdot pred">P4</div><span class="ftime bold">~07:00</span></div>
+              </div>
+            </div>
+
+            <div class="alerts-block">
+              <button class="alerts-toggle"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>Ver 2 alertas relacionados em detalhe</button>
               <div class="alerts">
-                <div class="alert">
-                  <span class="alert-time">06:24</span>
-                  <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><div class="desc-top"><code>INC8607142</code><span class="ttl">Free disk space &lt; 10% on volume /</span><span class="meta">· disco em 89%</span></div></span>
-                  <span></span>
-                </div>
-                <div class="alert now">
-                  <span class="alert-time">06:30</span>
-                  <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><div class="desc-top"><code>INC8607158</code><span class="ttl">Check PostgreSQL Replication Slave</span></div></span>
-                  <span class="alert-marker now-marker">Agora</span>
-                </div>
+                <div class="alert"><span class="alert-time">06:24</span><span class="alert-pri p5">P5</span><span class="alert-desc"><div class="desc-top"><code>INC8607142</code><span class="ttl">Free disk space &lt; 10% on volume /</span><span class="meta">· disco em 89%</span></div></span><span></span></div>
+                <div class="alert now"><span class="alert-time">06:30</span><span class="alert-pri p5">P5</span><span class="alert-desc"><div class="desc-top"><code>INC8607158</code><span class="ttl">Check PostgreSQL Replication Slave</span></div></span><span class="alert-marker now-marker">Agora</span></div>
               </div>
             </div>
 
             <div class="sugg">
-              <div class="sugg-icon">
-                <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z"/></svg>
-              </div>
+              <div class="sugg-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
               <div class="sugg-head">
-                <span class="sugg-eyebrow">Sugestão · cascata sem owner</span>
+                <span class="sugg-eyebrow">Ação recomendada · sem equipe</span>
                 <span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Sugestão IA</span>
               </div>
               <div class="sugg-body">
-                Cascatas similares em <code>lhvp</code> têm base pequena (<span class="num">apenas 4</span> casos anteriores) — estimativa pouco confiável. <strong>Recomendação:</strong> atribuir owner imediatamente. Cascatas em <code>lhvp</code> são tradicionalmente atendidas pela <strong>Team09</strong> (1.440 incidentes registrados no produto).
+                <strong>Team09</strong> tem expertise histórica em <code>lhvp</code> (1.440 incidentes registrados). Atribuição imediata pode reduzir o risco em ~24pp (driver SHAP principal).
               </div>
-              <div class="sugg-foot">n pequeno · roteamento sugerido por especialização real do dataset</div>
             </div>
+
           </article>
 
-          <!-- ═══ Cascata 3: lcem warn ═══ -->
-          <article class="casc warn">
+          <!-- ═══ Cascata 3: lcem warn · padrão recorrente ═══ -->
+          <article class="casc warn" data-status="warn" data-formacao>
             <div class="casc-head">
               <div class="casc-status">
                 <span class="casc-status-dot warn"></span>
@@ -485,40 +530,64 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
               </div>
               <div class="casc-id">
                 <span class="casc-tag">lcem · INC8629044</span>
-                <span class="casc-meta">1 incidente-filho · grupo <strong>Team05</strong> · categoria <code>cat76</code> · janela de backup 09h-11h</span>
+                <span class="casc-meta">1 alerta relacionado · grupo <strong>Team05</strong> · categoria <code>cat76</code> · janela backup 09h-11h</span>
               </div>
               <div class="casc-time"><span class="v">1h 12min</span><span class="l">desde 1º alerta</span></div>
             </div>
 
-            <div>
-              <div class="block-h">Incidentes-filhos da cascata · 1 alerta</div>
+            <div class="casc-hero">
+              <div>
+                <div class="casc-hero-q">Risco dessa cascata virar P3 ou pior</div>
+                <div class="casc-hero-num warn">58<span class="unit">%</span></div>
+                <div class="casc-hero-cmp">padrão recorrente · <strong>8 de 12</strong> cascatas com backup ativo escalaram nos últimos 90d</div>
+              </div>
+              <div class="casc-drivers">
+                <div class="casc-drivers-h">Por que esse risco? <span class="shap">SHAP</span></div>
+                <div class="casc-driver"><span class="sign up">↑</span><span class="contrib up">+38pp</span><span><strong>Janela de backup ativa</strong> 09h-11h · conflito com pico operacional</span></div>
+                <div class="casc-driver"><span class="sign up">↑</span><span class="contrib up">+15pp</span><span><strong>High bandwidth &gt;60%</strong> · 1.874 ocorrências históricas</span></div>
+                <div class="casc-driver"><span class="sign dn">↓</span><span class="contrib dn">−5pp</span><span>Time <strong>Team05</strong> tem capacidade ociosa no momento</span></div>
+              </div>
+            </div>
+
+            <div class="casc-early">
+              <div class="casc-early-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+              <div class="casc-early-txt">Cascatas com janela de backup ativa têm padrão previsível — Cronos detectou em <strong>05:30</strong>, primeira escalada esperada às <strong>~06:45</strong>.</div>
+              <div class="casc-early-delta">+1h15<span class="u">previsto</span></div>
+            </div>
+
+            <div class="flow-block">
+              <div class="flow-h">Trajetória · 1 alerta · previsão baseada em padrão recorrente</div>
+              <div class="flow">
+                <div class="fnode"><div class="fdot p5">P5</div><span class="ftime bold">05:30</span></div>
+                <div class="flink pred"></div>
+                <div class="fnode"><div class="fdot pred">P4</div><span class="ftime bold">~06:45</span></div>
+                <div class="flink pred"></div>
+                <div class="fnode"><div class="fdot pred">P3</div><span class="ftime bold">~08:10</span></div>
+              </div>
+            </div>
+
+            <div class="alerts-block">
+              <button class="alerts-toggle"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>Ver 1 alerta relacionado em detalhe</button>
               <div class="alerts">
-                <div class="alert now">
-                  <span class="alert-time">05:30</span>
-                  <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><div class="desc-top"><code>INC8629044</code><span class="ttl">High bandwidth &gt; 60% at least 15m</span></div></span>
-                  <span class="alert-marker now-marker">Agora</span>
-                </div>
+                <div class="alert now"><span class="alert-time">05:30</span><span class="alert-pri p5">P5</span><span class="alert-desc"><div class="desc-top"><code>INC8629044</code><span class="ttl">High bandwidth &gt; 60% at least 15m</span></div></span><span class="alert-marker now-marker">Agora</span></div>
               </div>
             </div>
 
             <div class="sugg">
-              <div class="sugg-icon">
-                <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z"/></svg>
-              </div>
+              <div class="sugg-icon"><svg viewBox="0 0 24 24"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/><path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"/></svg></div>
               <div class="sugg-head">
-                <span class="sugg-eyebrow">Sugestão · padrão recorrente</span>
+                <span class="sugg-eyebrow">Ação preventiva · padrão recorrente</span>
                 <span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Sugestão IA</span>
               </div>
               <div class="sugg-body">
-                Em dias com janela de backup conflitando com pico operacional (09h-11h), <span class="num">8 de 12</span> alertas isolados em <code>lcem</code> viraram cascata P3. <strong>Recomendação:</strong> avaliar mudança de janela de backup do produto <code>lcem</code> para horário fora do pico operacional.
+                Conflito janela backup × pico operacional repete em <code>lcem</code>: <span class="num">8 de 12</span> casos viraram P3. <strong>Recomendação estrutural:</strong> avaliar com Team05 mudança da janela de backup pra fora do pico 09h-11h.
               </div>
-              <div class="sugg-foot">filtro: backup ativo · 12 ocorrências em 90 dias</div>
             </div>
+
           </article>
 
-          <!-- ═══ Cascata 4: RESOLVIDA ═══ -->
-          <article class="casc resolved">
+          <!-- ═══ Cascata 4: RESOLVIDA — caso de referência ═══ -->
+          <article class="casc resolved" data-status="resolved" data-encerrada>
             <div class="casc-head">
               <div class="casc-status">
                 <span class="casc-status-dot resolved"></span>
@@ -526,48 +595,58 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
               </div>
               <div class="casc-id">
                 <span class="casc-tag">lsin · INC8643112</span>
-                <span class="casc-meta">2 incidentes-filhos · grupo <strong>Team11</strong> · encerrada por <code>Falha de Aplicação</code></span>
+                <span class="casc-meta">2 alertas relacionados · grupo <strong>Team11</strong> · encerrada por <code>Falha de Aplicação</code></span>
               </div>
               <div class="casc-time"><span class="v">32min</span><span class="l">tempo total</span></div>
             </div>
 
-            <div>
-              <div class="block-h">Incidentes-filhos da cascata · 2 alertas + encerramento</div>
+            <div class="casc-hero">
+              <div>
+                <div class="casc-hero-q">Risco previsto antes da resolução</div>
+                <div class="casc-hero-num good">88<span class="unit">%</span></div>
+                <div class="casc-hero-cmp">previsão confirmada — escalou e foi mitigada em <strong>32min</strong> · padrão clássico de <code style="font-family:ui-monospace,monospace;font-size:11px;background:rgba(0,0,0,0.05);padding:1px 4px;border-radius:3px;">lsin</code></div>
+              </div>
+              <div class="casc-drivers">
+                <div class="casc-drivers-h">Por que essa previsão acertou? <span class="shap">SHAP</span></div>
+                <div class="casc-driver"><span class="sign up">↑</span><span class="contrib up">+45pp</span><span><strong>Check App + CPU alta</strong> · padrão recorrente de <code>lsin</code> (14 de 16 viraram P3)</span></div>
+                <div class="casc-driver"><span class="sign up">↑</span><span class="contrib up">+28pp</span><span>Madrugada 03h-05h · janela com baixa redundância humana</span></div>
+                <div class="casc-driver"><span class="sign up">↑</span><span class="contrib up">+15pp</span><span>Categoria <code>cat77</code> com 4.425 incidentes históricos</span></div>
+              </div>
+            </div>
+
+            <div class="flow-block">
+              <div class="flow-h">Trajetória completa · escalou para P3 e foi encerrada em 32min</div>
+              <div class="flow">
+                <div class="fnode"><div class="fdot p5">P5</div><span class="ftime">03:14</span></div>
+                <div class="flink warn"></div>
+                <div class="fnode"><div class="fdot p5">P5</div><span class="ftime">03:24</span></div>
+                <div class="flink crit"></div>
+                <div class="fnode"><div class="fdot p3">P3</div><span class="ftime">03:38</span></div>
+                <div class="flink" style="background:var(--success);opacity:0.6;"></div>
+                <div class="fnode"><div class="fdot" style="border-color:var(--success);color:var(--success);background:rgba(5,150,105,0.10);">OK</div><span class="ftime bold" style="color:var(--success);">03:46</span></div>
+              </div>
+            </div>
+
+            <div class="alerts-block">
+              <button class="alerts-toggle"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>Ver 2 alertas + encerramento em detalhe</button>
               <div class="alerts">
-                <div class="alert">
-                  <span class="alert-time">03:14</span>
-                  <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><div class="desc-top"><code>INC8643112</code><span class="ttl">Check Application Monitoring</span></div></span>
-                  <span></span>
-                </div>
-                <div class="alert">
-                  <span class="alert-time">03:24</span>
-                  <span class="alert-pri p5">P5</span>
-                  <span class="alert-desc"><div class="desc-top"><code>INC8643118</code><span class="ttl">Processor load is too high &gt; 20%</span></div></span>
-                  <span></span>
-                </div>
-                <div class="alert resolved-row">
-                  <span class="alert-time">03:46</span>
-                  <span class="alert-pri ok">OK</span>
-                  <span class="alert-desc"><div class="desc-top"><span class="ttl">Encerrada</span><code>Falha de Aplicação</code><span class="meta">· responsável Team11</span></div></span>
-                  <span class="alert-marker resolved-marker">Encerrada</span>
-                </div>
+                <div class="alert"><span class="alert-time">03:14</span><span class="alert-pri p5">P5</span><span class="alert-desc"><div class="desc-top"><code>INC8643112</code><span class="ttl">Check Application Monitoring</span></div></span><span></span></div>
+                <div class="alert"><span class="alert-time">03:24</span><span class="alert-pri p5">P5</span><span class="alert-desc"><div class="desc-top"><code>INC8643118</code><span class="ttl">Processor load is too high &gt; 20%</span></div></span><span></span></div>
+                <div class="alert resolved-row"><span class="alert-time">03:46</span><span class="alert-pri ok">OK</span><span class="alert-desc"><div class="desc-top"><span class="ttl">Encerrada</span><code>Falha de Aplicação</code><span class="meta">· responsável Team11</span></div></span><span class="alert-marker resolved-marker">Encerrada</span></div>
               </div>
             </div>
 
             <div class="sugg resolved">
-              <div class="sugg-icon">
-                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              </div>
+              <div class="sugg-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
               <div class="sugg-head">
                 <span class="sugg-eyebrow">Aprendizado · caso de referência</span>
                 <span class="ai-badge"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.7 6.3L16 8l-6.3 1.7L8 16l-1.7-6.3L0 8l6.3-1.7L8 0z"/></svg>Sugestão IA</span>
               </div>
               <div class="sugg-body">
-                Padrão clássico de <code>lsin</code> (Check App + CPU alta) seguido por encerramento com código <code>Falha de Aplicação</code>. Em <span class="num good">14 de 16</span> cascatas similares anteriores, o desfecho foi o mesmo. <strong>Aprendizado:</strong> capturar como caso de referência — vale automatizar a resposta em próximas ocorrências.
+                Em <span class="num good">14 de 16</span> cascatas similares anteriores em <code>lsin</code>, o desfecho foi o mesmo (<code>Falha de Aplicação</code>). <strong>Vale capturar como runbook</strong> — automatizar a resposta acelera mitigação em ~40%.
               </div>
-              <div class="sugg-foot">cascatas similares · base de 16 casos · encerrada 03:46</div>
             </div>
+
           </article>
 
         </div>
@@ -577,6 +656,32 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events
 
   </main>
 </div>
+
+<script>
+// Toggle dos alertas — collapsable
+document.querySelectorAll('.alerts-block').forEach(block => {
+  const toggle = block.querySelector('.alerts-toggle');
+  toggle.addEventListener('click', () => block.classList.toggle('open'));
+});
+
+// Filtro segmented — ativa o tab clicado e filtra os cards via data-attributes
+const cards = document.querySelectorAll('.casc-list .casc');
+document.querySelectorAll('#filterTabs .filter-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('#filterTabs .filter-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const f = tab.dataset.filter;
+    cards.forEach(card => {
+      let show = true;
+      if (f === 'criticas')        show = card.dataset.status === 'crit';
+      else if (f === 'formacao')   show = card.hasAttribute('data-formacao');
+      else if (f === 'sem-equipe') show = card.hasAttribute('data-sem-equipe');
+      else if (f === 'encerradas') show = card.hasAttribute('data-encerrada');
+      card.hidden = !show;
+    });
+  });
+});
+</script>
 
 <div style="position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#7C2D12;color:#FEF3C7;font:600 13px/1.45 'Outfit','Segoe UI',sans-serif;padding:11px 20px;text-align:center;letter-spacing:.2px;box-shadow:0 -6px 24px rgba(0,0,0,.35)">REFERÊNCIA HISTÓRICA · protótipo da Sprint 2. O detector de cascata foi testado no dado e descartado na Sprint 3 (87% das quebras de OLA são de incidentes isolados). O protótipo atual do MVP é <b>mvp-mockup.html</b>.</div>
 </body>
