@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>03b Estouro · E</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+/* E · as cinquenta primeiras posições da fila desenhadas uma a uma */
+.xe .body{padding:26px 80px 74px}
+.xe .tt{font-size:38px}
+
+.cena{flex:1;display:flex;align-items:center;gap:76px;min-height:0}
+
+.fala{width:440px;flex-shrink:0}
+.fala h2{font-size:33px;font-weight:800;letter-spacing:-1.2px;line-height:1.2;color:var(--head)}
+.fala h2 em{font-style:normal;color:var(--bad)}
+.fala p{font-size:17px;line-height:1.6;color:var(--tx);margin-top:24px}
+.fala p b{color:var(--head);font-weight:700}
+
+.conclui{display:flex;align-items:flex-start;gap:16px;margin-top:34px;padding-top:26px;
+  border-top:1px solid var(--line)}
+.conclui .ci2{width:38px;height:38px;border-radius:11px;flex-shrink:0;display:flex;
+  align-items:center;justify-content:center;background:var(--bad-l);color:var(--bad)}
+.conclui .ci2 svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+.conclui p{font-size:16.5px;line-height:1.5;color:var(--tx);padding-top:3px}
+.conclui p b{color:var(--head);font-weight:700}
+
+.grade50{flex:1}
+.grade50 .cap2{display:flex;align-items:baseline;gap:12px;margin-bottom:20px}
+.grade50 .cap2 .k{font-size:11.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--tx2)}
+.grade50 .cap2 .n2{margin-left:auto;font-size:13.5px;color:var(--tx2)}
+.grade50 .pos{display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;
+  letter-spacing:.4px;color:#A6B0BE;margin-bottom:9px}
+.grade50 .gg{display:grid;grid-template-columns:repeat(10,1fr);gap:11px}
+.grade50 .q{aspect-ratio:1;border-radius:9px;background:#E6EBF2;border:1px solid #D9E1EB}
+.grade50 .q.hit{background:var(--bad);border-color:var(--bad);position:relative}
+.grade50 .q.hit::after{content:'';position:absolute;inset:-7px;border:2px solid var(--bad);
+  border-radius:14px;opacity:.34}
+.grade50 .leg{display:flex;align-items:center;gap:22px;margin-top:22px}
+.grade50 .leg span{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--tx2)}
+.grade50 .leg span b{color:var(--bad);font-weight:700}
+.grade50 .leg i{width:14px;height:14px;border-radius:4px;background:#E6EBF2;
+  border:1px solid #D9E1EB}
+.grade50 .leg i.r{background:var(--bad);border-color:var(--bad)}
+</style></head><body>
+<section class="slide light xe">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Contexto · O estouro</div></div>
+  <div class="body">
+    <span class="eb">Contextualização do problema</span>
+    <h1 class="tt">O que torna o estouro de OLA <span class="hl">difícil de antecipar</span></h1>
+
+    <div class="cena">
+      <div class="fala">
+        <h2>Quem está no topo da fila <em>não</em> é quem vai estourar o prazo.</h2>
+        <p>A fila é ordenada por prioridade, como em qualquer ferramenta de atendimento. Ao atender de cima para baixo, o gestor encontra <b>um</b> caso de estouro nas cinquenta primeiras posições.</p>
+        <div class="conclui">
+          <div class="ci2"><svg viewBox="0 0 24 24"><path d="M12 3l9 16H3z"/><path d="M12 9v5M12 17h.01"/></svg></div>
+          <p>Medida contra uma fila sorteada, a ordenação por prioridade <b>não separa melhor</b> quem estoura de quem não estoura.</p>
+        </div>
+      </div>
+
+      <div class="grade50">
+        <div class="cap2"><span class="k">Fila de hoje, ordenada por prioridade</span><span class="n2">cada quadrado é um incidente aberto</span></div>
+        <div class="pos"><span>1ª posição</span><span>50ª posição</span></div>
+        <div class="gg">
+          <div class="q"></div><div class="q"></div><div class="q"></div><div class="q"></div><div class="q"></div>
+          <div class="q"></div><div class="q"></div><div class="q hit"></div><div class="q"></div><div class="q"></div>
+          <div class="q"></div><div class="q"></div><div class="q"></div><div class="q"></div><div class="q"></div>
+          <div class="q"></div><div class="q"></div><div class="q"></div><div class="q"></div><div class="q"></div>
+          <div class="q"></div><div class="q"></div><div class="q"></div><div class="q"></div><div class="q"></div>
+          <div class="q"></div><div class="q"></div><div class="q"></div><div class="q"></div><div class="q"></div>
+          <div class="q"></div><div class="q"></div><div class="q"></div><div class="q"></div><div class="q"></div>
+          <div class="q"></div><div class="q"></div><div class="q"></div><div class="q"></div><div class="q"></div>
+          <div class="q"></div><div class="q"></div><div class="q"></div><div class="q"></div><div class="q"></div>
+          <div class="q"></div><div class="q"></div><div class="q"></div><div class="q"></div><div class="q"></div>
+        </div>
+        <div class="leg">
+          <span><i></i> resolvido dentro do prazo</span>
+          <span><i class="r"></i> estourou o prazo, <b>1 em 50</b></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

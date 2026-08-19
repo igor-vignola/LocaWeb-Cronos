@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>03 Contexto · E</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.q3 .body{padding:26px 80px 74px}
+.q3 .tt{font-size:40px}
+
+.par{flex:1;display:flex;align-items:stretch;gap:26px;margin-top:30px;min-height:0}
+.pp{flex:1;border-radius:24px;padding:42px 46px;display:flex;flex-direction:column;
+  justify-content:center}
+.pp.fora{background:#fff;border:1px solid var(--line);box-shadow:0 22px 50px -34px rgba(15,23,42,.24)}
+.pp.dentro{background:var(--ink);position:relative;overflow:hidden;
+  box-shadow:0 26px 58px -34px rgba(10,14,23,.6)}
+.pp.dentro::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(600px 400px at 112% -22%,rgba(37,99,235,.34),transparent 60%)}
+.pp .z{position:relative;z-index:1}
+
+.pp .ico{width:54px;height:54px;border-radius:15px;display:flex;align-items:center;
+  justify-content:center;margin-bottom:26px}
+.pp .ico svg{width:27px;height:27px;stroke:currentColor;fill:none;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.pp.fora .ico{background:var(--accent-l);color:var(--accent)}
+.pp.dentro .ico{background:rgba(255,255,255,.09);color:#93C5FD}
+.pp .k{font-size:13.5px;font-weight:700;letter-spacing:2.6px;text-transform:uppercase}
+.pp.fora .k{color:var(--tx2)}
+.pp.dentro .k{color:#93C5FD}
+.pp .v{font-size:96px;font-weight:800;letter-spacing:-5px;line-height:.95;margin-top:20px}
+.pp.fora .v{color:var(--head)}
+.pp.dentro .v{color:#fff}
+.pp .v small{font-size:44px;font-weight:700;letter-spacing:-1.4px;margin:0 12px;color:#9AA6B6}
+.pp p{font-size:18px;line-height:1.5;margin-top:22px;max-width:430px}
+.pp.fora p{color:var(--tx)}
+.pp.dentro p{color:#98A2B3}
+.pp p b{font-weight:700}
+.pp.fora p b{color:var(--head)}
+.pp.dentro p b{color:#E8ECF3}
+.pp .cr{font-size:13px;margin-top:18px}
+.pp.fora .cr{color:#A6B0BE}
+.pp.dentro .cr{color:#6B7688}
+
+.fonte{display:flex;align-items:center;gap:18px;margin-top:30px;padding-top:24px;
+  border-top:1px solid var(--line)}
+.fonte .fi{width:38px;height:38px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;
+  justify-content:center;background:var(--accent-l);color:var(--accent)}
+.fonte .fi svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+.fonte p{font-size:17px;line-height:1.45;color:var(--tx)}
+.fonte p b{color:var(--head);font-weight:700}
+.fonte .cr{margin-left:auto;font-size:13px;color:#A6B0BE;flex-shrink:0}
+</style></head><body>
+<section class="slide light q3">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Contexto · A operação</div></div>
+  <div class="body">
+    <span class="eb">Contextualização do problema</span>
+    <h1 class="tt">A operação da Locaweb e <span class="hl">o prazo interno de OLA</span></h1>
+
+    <div class="par">
+      <div class="pp fora">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.4-3.2 7.9-8 9-4.8-1.1-8-4.6-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="k">O que o cliente contrata</div>
+        <div class="v num">99,9%</div>
+        <p>De disponibilidade, com suporte <b>24 por 7</b> em português, para <b>285 mil</b> clientes.</p>
+        <div class="cr">Locaweb Cloud, dados institucionais</div>
+      </div>
+      <div class="pp dentro">
+        <div class="z">
+          <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg></div>
+          <div class="k">O prazo interno que sustenta</div>
+          <div class="v num">4 h<small>·</small>12 h</div>
+          <p>Tempo de resolução do OLA no <b>P2</b> e no <b>P3</b>. Estourá-lo é o que a operação acompanha o ano inteiro.</p>
+          <div class="cr">25.600 incidentes contam para o indicador</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fonte">
+      <div class="fi"><svg viewBox="0 0 24 24"><path d="M12 3v18M16.5 7.5c0-1.7-2-2.5-4.5-2.5s-4.5.9-4.5 2.6c0 3.9 9 1.9 9 5.8 0 1.7-2 2.6-4.5 2.6s-4.5-.9-4.5-2.6"/></svg></div>
+      <p><b>57%</b> das interrupções relevantes em datacenters custaram mais de US$ 100 mil, e uma em cada cinco passou de US$ 1 milhão.</p>
+      <span class="cr">Uptime Institute · Annual Outage Analysis 2025</span>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

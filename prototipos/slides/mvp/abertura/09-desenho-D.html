@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>09 Desenho da arquitetura · D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+/* Fluxograma de estações. A geometria é fixa em px dentro de um palco de 1472x600,
+   para que as ligações desenhadas em SVG caiam exatamente na borda de cada nó. */
+.q9 .body{padding:20px 64px 56px}
+.q9 .tt{font-size:34px}
+.q9 .lead{font-size:16.5px;margin-top:10px;max-width:1120px}
+
+.palco{position:relative;width:1472px;height:600px;margin-top:42px}
+.gr > .gf{position:absolute;bottom:-13px;left:22px;right:22px;display:flex;
+  justify-content:center}
+.gr > .gf span{background:#fff;border:1px solid var(--line);border-radius:999px;
+  padding:5px 15px;font-size:11.5px;font-weight:700;color:var(--tx2);white-space:nowrap}
+.gr > .gf span b{color:var(--head);font-weight:800}
+.lig{position:absolute;inset:0;width:1472px;height:600px;z-index:0;pointer-events:none}
+.lig path{fill:none;stroke:#C3CEDD;stroke-width:1.6}
+.lig circle{fill:#2563EB}
+
+.gr{position:absolute;border:1.5px dashed rgba(37,99,235,.34);border-radius:20px;
+  background:linear-gradient(180deg,rgba(37,99,235,.045),rgba(37,99,235,.012));z-index:1}
+.gr.neutro{border-color:#CBD5E1;background:rgba(255,255,255,.34)}
+.gr > .gt{position:absolute;top:-14px;left:22px;background:#fff;border:1px solid var(--line);
+  border-radius:999px;padding:6px 15px;font-size:11px;font-weight:700;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--accent);white-space:nowrap;
+  box-shadow:0 4px 14px -8px rgba(37,99,235,.3)}
+.gr.neutro > .gt{color:var(--tx2)}
+
+.no{position:absolute;z-index:2;background:#fff;border:1px solid var(--line);
+  border-radius:15px;padding:14px 16px;box-shadow:0 16px 36px -28px rgba(15,23,42,.30);
+  display:flex;flex-direction:column}
+.no.fut{border-style:dashed;border-color:#C6D0DE;background:rgba(255,255,255,.66)}
+.no .cab2{display:flex;align-items:center;gap:11px}
+.no .ic{width:34px;height:34px;border-radius:10px;flex-shrink:0;display:flex;
+  align-items:center;justify-content:center;background:#F1F4F8;color:#475569}
+.no .ic svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.85;
+  stroke-linecap:round;stroke-linejoin:round}
+.no.ac .ic{background:var(--accent-l);color:var(--accent)}
+.no h4{font-size:15px;font-weight:800;letter-spacing:-.3px;color:var(--head);line-height:1.2}
+.no h4 span{display:block;font-size:11.5px;font-weight:600;color:var(--tx2);margin-top:3px;
+  letter-spacing:0}
+.no p{font-size:12.5px;line-height:1.45;color:var(--tx2);margin-top:11px}
+.no p b{color:var(--tx);font-weight:700}
+.no .rotas{display:flex;flex-wrap:wrap;gap:5px;margin-top:11px}
+.no .rotas i{font-style:normal;font-size:11px;font-weight:700;color:var(--accent);
+  background:var(--accent-l);border-radius:5px;padding:2px 7px}
+.no .arq{display:flex;flex-direction:column;gap:6px;margin-top:11px}
+.no .arq b{font-size:12.5px;font-weight:700;color:var(--head);
+  display:flex;justify-content:space-between;gap:10px}
+.no .arq b em{font-style:normal;font-weight:600;color:var(--tx2)}
+.no.usr{align-items:center;text-align:center;justify-content:center}
+.no.usr .cab2{flex-direction:column;gap:12px}
+.no.usr .ic{width:54px;height:54px;border-radius:15px}
+.no.usr .ic svg{width:27px;height:27px}
+</style></head><body>
+<section class="slide light q9">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Arquitetura · O desenho</div></div>
+  <div class="body">
+    <span class="eb">Desenho da arquitetura</span>
+    <h1 class="tt">Arquitetura da solução, <span class="hl">da planilha ao painel do gestor</span></h1>
+    <p class="lead">Os notebooks treinam e gravam. O contêiner apenas lê, e roda em qualquer infraestrutura.</p>
+
+    <div class="palco">
+      <svg class="lig" viewBox="0 0 1472 600">
+        <!-- fontes -> preparacao -->
+        <path d="M236 92 C 262 92, 254 225, 280 225"/>
+        <path d="M236 208 C 262 208, 254 225, 280 225"/>
+        <path d="M236 318 C 262 318, 254 225, 280 225"/>
+        <!-- preparacao -> modelos -->
+        <path d="M470 225 C 496 225, 488 90, 514 90"/>
+        <path d="M470 225 C 496 225, 488 202, 514 202"/>
+        <path d="M470 225 C 496 225, 488 306, 514 306"/>
+        <!-- modelos -> artefatos -->
+        <path d="M672 348 L 672 384"/>
+        <!-- artefatos -> produto -->
+        <path d="M816 456 C 852 456, 852 119, 888 119"/>
+        <path d="M816 456 C 852 456, 852 257, 888 257"/>
+        <path d="M816 456 C 852 456, 852 365, 888 365"/>
+        <!-- produto -> gestor -->
+        <path d="M1206 119 C 1240 119, 1230 240, 1264 240"/>
+        <circle cx="280" cy="225" r="4"/>
+        <circle cx="470" cy="225" r="4"/>
+        <circle cx="816" cy="456" r="4"/>
+        <circle cx="1264" cy="240" r="4"/>
+      </svg>
+
+      <!-- estacao 1 -->
+      <div class="gr neutro" style="left:0;top:6px;width:236px;height:390px">
+        <span class="gt">Fontes de dados</span>
+      </div>
+      <div class="no" style="left:14px;top:48px;width:208px;height:88px">
+        <div class="cab2"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg></span>
+          <h4>LW-DATASET.xlsx<span>openpyxl 3.1.5</span></h4></div>
+        <p><b>122.543</b> incidentes, <b>19</b> colunas</p>
+      </div>
+      <div class="no" style="left:14px;top:164px;width:208px;height:88px">
+        <div class="cab2"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></span>
+          <h4>holidays 0.97<span>fonte externa</span></h4></div>
+        <p>Feriado nacional, país <b>BR</b></p>
+      </div>
+      <div class="no fut" style="left:14px;top:280px;width:208px;height:88px">
+        <div class="cab2"><span class="ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span>
+          <h4>Banco Locaweb<span>evolução prevista</span></h4></div>
+        <p>Leitura direta da base interna</p>
+      </div>
+
+      <!-- estacao 2 -->
+      <div class="no ac" style="left:280px;top:152px;width:190px;height:146px">
+        <div class="cab2"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></svg></span>
+          <h4>Preparação<span>pandas 2.2.3</span></h4></div>
+        <p>Regra <b>Entrou para KPI?</b> reduz para <b>25.600</b>. Monta dia da semana e feriado.</p>
+      </div>
+
+      <!-- estacao 3 -->
+      <div class="gr" style="left:514px;top:6px;width:316px;height:536px">
+        <span class="gt">Modelagem · notebooks</span>
+      </div>
+      <div class="no" style="left:528px;top:50px;width:288px;height:80px">
+        <div class="cab2"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 16l5-6 4 3 5-8"/><path d="M17 5h4v4"/></svg></span>
+          <h4>Prophet 1.3.0<span>volume diário de D+1 a D+7, em P2 e P3</span></h4></div>
+      </div>
+      <div class="no" style="left:528px;top:162px;width:288px;height:80px">
+        <div class="cab2"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span>
+          <h4>scikit-learn 1.6.1<span>regressão logística do risco</span></h4></div>
+      </div>
+      <div class="no fut" style="left:528px;top:274px;width:288px;height:74px">
+        <div class="cab2"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 20V9M10 20V4M16 20v-7M22 20H2"/></svg></span>
+          <h4>XGBoost 3.0.2<span>baseline de comparação</span></h4></div>
+      </div>
+      <div class="no ac" style="left:528px;top:384px;width:288px;height:144px">
+        <div class="cab2"><span class="ic"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5"/></svg></span>
+          <h4>Artefatos gravados<span>lidos pelo contêiner</span></h4></div>
+        <div class="arq">
+          <b>painel.json <em>85 kB</em></b>
+          <b>dias.json <em>24 kB</em></b>
+          <b>fila.parquet <em>241 kB</em></b>
+        </div>
+      </div>
+
+      <!-- estacao 4 -->
+      <div class="gr" style="left:874px;top:6px;width:346px;height:474px">
+        <span class="gt">Produto Cronos · contêiner Docker</span>
+        <span class="gf"><span><b>python:3.13-slim</b> · lê 350 kB de artefato</span></span>
+      </div>
+      <div class="no ac" style="left:888px;top:50px;width:318px;height:138px">
+        <div class="cab2"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg></span>
+          <h4>Django 6.1<span>seis abas, cada uma com URL própria</span></h4></div>
+        <div class="rotas"><i>/</i><i>/previsao/</i><i>/projecao/</i><i>/fila/</i><i>/saude/</i><i>/causas/</i></div>
+      </div>
+      <div class="no" style="left:888px;top:218px;width:318px;height:78px">
+        <div class="cab2"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 19h16M6 15l4-5 3 3 5-7"/></svg></span>
+          <h4>Plotly 6.0<span>gráficos do painel</span></h4></div>
+      </div>
+      <div class="no" style="left:888px;top:326px;width:318px;height:78px">
+        <div class="cab2"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg></span>
+          <h4>gunicorn 23.0 · whitenoise 6.9<span>servidor e arquivos estáticos</span></h4></div>
+      </div>
+
+      <!-- estacao 5 -->
+      <div class="no usr ac" style="left:1264px;top:160px;width:208px;height:160px">
+        <div class="cab2"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-3.6 3.4-6 7.5-6s7.5 2.4 7.5 6"/></svg></span>
+          <h4>Gestor operacional<span>recebe o briefing das 07h</span></h4></div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

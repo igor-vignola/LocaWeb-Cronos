@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>07 Gestão planejamento · D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.q7 .body{padding:24px 72px 72px}
+.q7 .tt{font-size:38px}
+.q7 .lead{font-size:17.5px;margin-top:12px;max-width:1040px}
+
+/* linha do tempo. Atenção: a classe .st já é cartão de estatística no base.css,
+   por isso a situação de cada sprint usa .sit. */
+.lt{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;
+  position:relative;margin-top:20px}
+.lt .pts{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;position:relative}
+/* o trilho passa pelo centro dos pontos, que ficam a 11px do topo da grade */
+.lt .trilho{position:absolute;left:11px;right:11px;top:10px;height:2px;background:var(--line)}
+.lt .feito{position:absolute;left:11px;top:10px;height:2px;background:var(--accent);width:50%}
+.lt .p{display:flex;flex-direction:column}
+.lt .p .dot{width:22px;height:22px;border-radius:50%;background:#fff;
+  border:2px solid var(--line);position:relative;z-index:1;margin-bottom:106px}
+.lt .p.ok .dot{background:var(--accent);border-color:var(--accent)}
+.lt .p.now .dot{background:#fff;border-color:var(--accent);border-width:6px;
+  box-shadow:0 0 0 6px rgba(37,99,235,.13)}
+
+.lt .cd{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 28px;
+  box-shadow:0 20px 46px -34px rgba(15,23,42,.26)}
+.lt .p.now .cd{border-color:rgba(37,99,235,.34);
+  background:linear-gradient(170deg,#fff,rgba(37,99,235,.05))}
+.lt .cd .dt{font-size:14px;font-weight:700;color:var(--tx2);font-variant-numeric:tabular-nums}
+.lt .cd h3{font-size:24px;font-weight:800;letter-spacing:-.8px;color:var(--head);margin-top:8px;
+  line-height:1.15}
+.lt .cd p{font-size:15px;line-height:1.5;color:var(--tx2);margin-top:12px}
+.lt .cd .sit{display:inline-block;margin-top:20px;font-size:13px;font-weight:700;
+  padding:6px 14px;border-radius:999px;background:#EEF2F7;color:var(--tx2)}
+.lt .p.ok .cd .sit{background:var(--good-l);color:var(--good)}
+.lt .p.now .cd .sit{background:var(--accent-l);color:var(--accent)}
+
+.lt .p .dot{margin-bottom:96px}
+</style></head><body>
+<section class="slide light q7">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Gestão · O cronograma</div></div>
+  <div class="body">
+    <span class="eb">Planejamento e gestão</span>
+    <h1 class="tt">Cronograma das sprints e <span class="hl">o estado de cada entrega</span></h1>
+    <p class="lead">Quatro entregas nas datas definidas pela FIAP. Duas concluídas, uma em andamento e uma prevista.</p>
+
+    <div class="lt">
+      <div class="pts">
+        <div class="trilho"></div><div class="feito"></div>
+        <div class="p ok">
+          <div class="dot"></div>
+          <div class="cd"><div class="dt">27/04/2026</div><h3>Ideação</h3>
+            <p>Problema, público-alvo e proposta de solução.</p><span class="sit">Entregue</span></div>
+        </div>
+        <div class="p ok">
+          <div class="dot"></div>
+          <div class="cd"><div class="dt">24/05/2026</div><h3>Arquitetura</h3>
+            <p>Desenho da solução, tecnologias e protótipos das telas.</p><span class="sit">Entregue</span></div>
+        </div>
+        <div class="p now">
+          <div class="dot"></div>
+          <div class="cd"><div class="dt">23/08/2026</div><h3>MVP preliminar</h3>
+            <p>Modelos treinados e aplicação em contêiner, com evidência.</p><span class="sit">Em andamento</span></div>
+        </div>
+        <div class="p">
+          <div class="dot"></div>
+          <div class="cd"><div class="dt">08/09/2026</div><h3>Solução final</h3>
+            <p>Consolidação, vídeo de pitch e entrega no portal.</p><span class="sit">Prevista</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

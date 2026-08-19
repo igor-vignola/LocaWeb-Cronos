@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>04 Problema · D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.q4 .body{padding:26px 80px 74px}
+.q4 .tt{font-size:40px}
+
+.duo{flex:1;display:flex;align-items:center;gap:96px;min-height:0}
+
+.msg{width:470px;flex-shrink:0}
+.msg h2{font-size:34px;font-weight:800;letter-spacing:-1.2px;line-height:1.18;color:var(--head)}
+.msg p{font-size:17px;line-height:1.6;color:var(--tx);margin-top:22px}
+.msg p b{color:var(--head);font-weight:700}
+
+.nums{flex:1;display:flex;gap:0}
+.nb{flex:1;padding:0 40px}
+.nb + .nb{border-left:1px solid var(--line)}
+.nb .k{font-size:14px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;color:var(--tx2)}
+.nb .v{font-size:132px;font-weight:800;letter-spacing:-7px;line-height:.92;margin-top:14px}
+.nb.ruim .v{color:var(--bad)}
+.nb.bom .v{color:var(--good)}
+.nb .u{font-size:18px;color:var(--tx2);margin-top:14px}
+.nb .u b{font-weight:700}
+.nb.ruim .u b{color:var(--bad)}
+.nb.bom .u b{color:var(--good)}
+.nb .n{display:inline-block;margin-top:20px;font-size:16px;font-weight:700;padding:8px 18px;
+  border-radius:999px;letter-spacing:-.1px}
+.nb.ruim .n{background:var(--bad-l);color:var(--bad)}
+.nb.bom .n{background:var(--good-l);color:var(--good)}
+
+.alvo{display:flex;align-items:center;gap:18px;margin-top:34px;padding-top:26px;
+  border-top:1px solid var(--line)}
+.alvo .ai{width:38px;height:38px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;
+  justify-content:center;background:var(--accent-l);color:var(--accent)}
+.alvo .ai svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+.alvo p{font-size:18px;line-height:1.45;color:var(--tx)}
+.alvo p b{color:var(--head);font-weight:700}
+</style></head><body>
+<section class="slide light q4">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Problema · O KPI de 2025</div></div>
+  <div class="body">
+    <span class="eb">Problema a ser resolvido</span>
+    <h1 class="tt">Atingimento do KPI em 2025 e <span class="hl">objetivos para 2026</span></h1>
+
+    <div class="duo">
+      <div class="msg">
+        <h2>O resultado do ano só aparece na apuração de dezembro.</h2>
+        <p>Em outubro o P2 estava em <b>35</b> violações, dentro do limite. Um único mês somou seis e o ano fechou acima.</p>
+      </div>
+      <div class="nums">
+        <div class="nb ruim">
+          <div class="k">P2 em 2025</div>
+          <div class="v num">42</div>
+          <div class="u">violações de <b>39 permitidas</b></div>
+          <span class="n">Acima do limite do ano</span>
+        </div>
+        <div class="nb bom">
+          <div class="k">P3 em 2025</div>
+          <div class="v num">196</div>
+          <div class="u">violações de <b>263 permitidas</b></div>
+          <span class="n">Dentro do limite do ano</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="alvo">
+      <div class="ai"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg></div>
+      <p><b>Objetivo para 2026:</b> fechar o ano dentro do limite nas duas prioridades, conhecendo a projeção antes de novembro.</p>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

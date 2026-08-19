@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>04 Problema · E</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.q4 .body{padding:26px 80px 74px}
+.q4 .tt{font-size:40px}
+.q4 .lead{font-size:18px;margin-top:14px;max-width:900px}
+
+.quando{flex:1;display:flex;align-items:stretch;gap:26px;margin-top:34px;min-height:0}
+.qp{flex:1;border-radius:24px;padding:44px 46px;display:flex;flex-direction:column;
+  justify-content:center}
+.qp.hoje{background:#fff;border:1px solid var(--line);box-shadow:0 22px 50px -34px rgba(15,23,42,.24)}
+.qp.meta{background:var(--ink);position:relative;overflow:hidden;
+  box-shadow:0 26px 58px -34px rgba(10,14,23,.6);flex:1.14}
+.qp.meta::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(600px 400px at 110% -20%,rgba(37,99,235,.34),transparent 60%)}
+.qp .z{position:relative;z-index:1}
+
+.qp .k{font-size:13.5px;font-weight:700;letter-spacing:2.6px;text-transform:uppercase}
+.qp.hoje .k{color:var(--tx2)}
+.qp.meta .k{color:#93C5FD}
+.qp .w{font-size:88px;font-weight:800;letter-spacing:-4.4px;line-height:.95;margin-top:20px}
+.qp.hoje .w{color:var(--head)}
+.qp.meta .w{color:#fff}
+.qp p{font-size:18px;line-height:1.5;margin-top:22px;max-width:420px}
+.qp.hoje p{color:var(--tx)}
+.qp.meta p{color:#98A2B3}
+.qp p b{font-weight:700}
+.qp.hoje p b{color:var(--head)}
+.qp.meta p b{color:#E8ECF3}
+
+.res{display:flex;align-items:center;gap:56px;margin-top:30px;padding-top:24px;
+  border-top:1px solid var(--line)}
+.res .rk{font-size:12.5px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
+  color:var(--tx2);flex-shrink:0}
+.res .rp{display:flex;align-items:baseline;gap:12px}
+.res .rp .s{font-size:16px;font-weight:700;color:var(--tx2)}
+.res .rp .v{font-size:38px;font-weight:800;letter-spacing:-1.8px}
+.res .rp.ruim .v{color:var(--bad)}
+.res .rp.bom .v{color:var(--good)}
+.res .rp .n{font-size:15px;font-weight:700;padding:5px 13px;border-radius:999px;margin-left:2px}
+.res .rp.ruim .n{background:var(--bad-l);color:var(--bad)}
+.res .rp.bom .n{background:var(--good-l);color:var(--good)}
+.res .rl{font-size:15px;color:var(--tx2);margin-left:auto}
+</style></head><body>
+<section class="slide light q4">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 4</div></div>
+  <div class="body">
+    <span class="eb">Problema a ser resolvido</span>
+    <h1 class="tt">Atingimento do KPI em 2025 e <span class="hl">objetivos para 2026</span></h1>
+
+    <div class="quando">
+      <div class="qp hoje">
+        <div class="k">A nota é conhecida em</div>
+        <div class="w">Dezembro</div>
+        <p>Quando o ano já está formado e nenhuma ação altera o resultado.</p>
+      </div>
+      <div class="qp meta">
+        <div class="z">
+          <div class="k">O objetivo é conhecê-la até</div>
+          <div class="w">Outubro</div>
+          <p>Com dois meses para agir sobre a faixa que o ano vai alcançar.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="res">
+      <span class="rk">2025 fechou em</span>
+      <div class="rp ruim"><span class="s">P2</span><span class="v num">42</span><span class="n">nota 75%</span></div>
+      <div class="rp bom"><span class="s">P3</span><span class="v num">196</span><span class="n">nota 150%</span></div>
+      <span class="rl">No P2 seis violações em novembro custaram duas faixas de nota.</span>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

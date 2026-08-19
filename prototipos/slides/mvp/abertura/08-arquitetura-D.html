@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>08 Fontes de dados · D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.q8 .body{padding:24px 72px 70px}
+.q8 .tt{font-size:38px}
+.q8 .lead{font-size:17.5px;margin-top:12px;max-width:1000px}
+
+.duas{flex:1;display:grid;grid-template-columns:2.05fr 1fr;gap:24px;margin-top:30px;
+  min-height:0;align-items:center}
+.pn{background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px 34px;
+  box-shadow:0 22px 50px -34px rgba(15,23,42,.24);display:flex;flex-direction:column}
+.pn.ext{background:linear-gradient(168deg,#fff,rgba(37,99,235,.05));
+  border-color:rgba(37,99,235,.22)}
+
+.pn .top{display:flex;align-items:center;gap:18px}
+.pn .plc{display:flex;gap:10px;flex-shrink:0}
+.pn .plc img{width:52px;height:52px;border-radius:13px;object-fit:contain;background:#fff}
+.pn .plc .css{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;
+  justify-content:center;font-size:18px;font-weight:800;color:#fff}
+.pn .top .id .k{font-size:11.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--tx2)}
+.pn.ext .top .id .k{color:var(--accent)}
+.pn .top .id h3{font-size:29px;font-weight:800;letter-spacing:-1px;color:var(--head);
+  margin-top:5px}
+
+.fatos{display:flex;gap:44px;margin-top:30px}
+.fatos .ft2 .v{font-size:38px;font-weight:800;letter-spacing:-1.7px;color:var(--head);line-height:1}
+.fatos .ft2 .u{font-size:14px;color:var(--tx2);margin-top:8px}
+
+.cols{margin-top:38px}
+.cols .k{font-size:11.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--tx2);margin-bottom:14px}
+.cols .ch{display:flex;flex-wrap:wrap;gap:8px}
+.cols .ch span{font-size:13.5px;font-weight:600;color:var(--tx);background:#F1F4F8;
+  border:1px solid var(--line);border-radius:8px;padding:6px 12px}
+
+.pn.ext p{font-size:17px;line-height:1.55;color:var(--tx);margin-top:30px}
+.pn.ext p b{color:var(--head);font-weight:700}
+.pn.ext .uso{margin-top:32px;padding-top:24px;border-top:1px solid rgba(37,99,235,.18);
+  font-size:15px;line-height:1.5;color:var(--tx2)}
+.pn.ext .uso b{color:var(--tx);font-weight:700}
+</style></head><body>
+<section class="slide light q8">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Arquitetura · As fontes</div></div>
+  <div class="body">
+    <span class="eb">Fontes de dados</span>
+    <h1 class="tt">Fontes de dados <span class="hl">internas e externas</span></h1>
+    <p class="lead">Duas fontes alimentam a solução.</p>
+
+    <div class="duas">
+      <div class="pn">
+        <div class="top">
+          <div class="plc">
+            <div class="css" style="background:#217346">xl</div>
+            <img src="../../../../brand/logos/pandas.png" alt="pandas">
+          </div>
+          <div class="id"><span class="k">Fonte interna</span><h3>LW-DATASET.xlsx</h3></div>
+        </div>
+        <div class="fatos">
+          <div class="ft2"><div class="v num">122.543</div><div class="u">incidentes</div></div>
+          <div class="ft2"><div class="v num">19</div><div class="u">colunas</div></div>
+          <div class="ft2"><div class="v num">36</div><div class="u">meses, jan/2023 a dez/2025</div></div>
+        </div>
+        <div class="cols">
+          <div class="k">As 19 colunas do registro</div>
+          <div class="ch">
+            <span>Número</span><span>Prioridade</span><span>Produto</span><span>Categoria</span>
+            <span>Subcategoria</span><span>Grupo designado</span><span>Item de configuração</span>
+            <span>Aberto</span><span>Resolvido</span><span>Encerrado</span><span>Duração</span>
+            <span>Código de fechamento</span><span>Descrição resumida</span><span>Solução</span>
+            <span>Aberto por</span><span>Incidente Pai</span><span>Status</span>
+            <span>Entrou para KPI?</span><span>KPI Violado?</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pn ext">
+        <div class="top">
+          <div class="plc">
+            <img src="../../../../brand/logos/holidays.png" alt="holidays">
+            <img src="../../../../brand/logos/python.png" alt="Python">
+          </div>
+          <div class="id"><span class="k">Fonte externa</span><h3>holidays</h3></div>
+        </div>
+        <p>Feriado nacional brasileiro, versão <b>0.97</b>, país <b>BR</b>.</p>
+        <div class="uso">É o único dado que não vem da planilha. Entra como <b>regressor de calendário</b> no Prophet.</div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

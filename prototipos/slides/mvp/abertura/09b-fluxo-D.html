@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>09b Fluxo do dado · D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.q9b .body{padding:24px 64px 66px}
+.q9b .tt{font-size:36px}
+.q9b .lead{font-size:17px;margin-top:11px;max-width:1080px}
+
+.trilhas{flex:1;display:flex;flex-direction:column;justify-content:center;gap:22px;
+  margin-top:22px;min-height:0}
+
+.tr{display:flex;align-items:stretch;gap:0}
+.tr .rot{width:150px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;
+  padding-right:22px}
+.tr .rot .k{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--tx2)}
+.tr .rot h3{font-size:18px;font-weight:800;letter-spacing:-.4px;color:var(--head);margin-top:5px;
+  line-height:1.2}
+.tr .pas{flex:1;display:flex;align-items:center;gap:0}
+.pa{flex:1;background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 18px;
+  box-shadow:0 14px 34px -32px rgba(15,23,42,.24);min-width:0}
+.pa .n{font-size:10.5px;font-weight:700;letter-spacing:1.6px;color:#A6B0BE}
+.pa h4{font-size:15.5px;font-weight:800;letter-spacing:-.3px;color:var(--head);margin-top:5px}
+.pa p{font-size:12.5px;line-height:1.4;color:var(--tx2);margin-top:5px}
+.pa p b{color:var(--tx);font-weight:700}
+.pa.saida{background:var(--accent-l);border-color:rgba(37,99,235,.28)}
+.pa.saida h4{color:var(--accent)}
+
+.sx{width:34px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  color:#B7C2D2}
+.sx svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;
+  stroke-linecap:round;stroke-linejoin:round}
+
+/* convergencia */
+.conv{display:flex;align-items:stretch;gap:0;margin-top:4px}
+.conv .rot{width:150px;flex-shrink:0}
+.conv .cx{flex:1;background:var(--ink);border-radius:16px;padding:20px 26px;display:flex;
+  align-items:center;gap:30px;position:relative;overflow:hidden;
+  box-shadow:0 22px 50px -34px rgba(10,14,23,.6)}
+.conv .cx::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(600px 320px at 104% -30%,rgba(37,99,235,.32),transparent 60%)}
+.conv .cx .z{position:relative;z-index:1;display:flex;align-items:center;gap:30px;width:100%}
+.conv .cx .tit{width:250px;flex-shrink:0}
+.conv .cx .tit .k{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+  color:#93C5FD}
+.conv .cx .tit h3{font-size:20px;font-weight:800;letter-spacing:-.5px;color:#fff;margin-top:5px}
+.conv .cx .parc{flex:1;display:flex;gap:26px}
+.conv .cx .pc{flex:1;border-left:1px solid rgba(255,255,255,.14);padding-left:22px}
+.conv .cx .pc .pn{font-size:12.5px;font-weight:700;color:#93C5FD}
+.conv .cx .pc p{font-size:13px;line-height:1.4;color:#8B96A8;margin-top:5px}
+.conv .cx .fim{width:200px;flex-shrink:0;border-left:1px solid rgba(255,255,255,.14);
+  padding-left:24px}
+.conv .cx .fim h4{font-size:16px;font-weight:800;color:#fff}
+.conv .cx .fim p{font-size:12.5px;color:#8B96A8;margin-top:5px;line-height:1.4}
+</style></head><body>
+<section class="slide light q9b">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 9</div></div>
+  <div class="body">
+    <span class="eb">Desenho da arquitetura</span>
+    <h1 class="tt">Caminho do dado, <span class="hl">do registro até a tela</span></h1>
+    <p class="lead">Duas trilhas correm em paralelo sobre a mesma base tratada, e se encontram na projeção do resultado do ano.</p>
+
+    <div class="trilhas">
+      <div class="tr">
+        <div class="rot"><span class="k">Trilha 01</span><h3>Por incidente</h3></div>
+        <div class="pas">
+          <div class="pa"><div class="n">01</div><h4>Incidente aberto</h4><p>Prioridade, produto, categoria, grupo e hora de abertura</p></div>
+          <div class="sx"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 7l5 5-5 5"/></svg></div>
+          <div class="pa"><div class="n">02</div><h4>Codificação</h4><p><b>10</b> características viram <b>136</b> colunas</p></div>
+          <div class="sx"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 7l5 5-5 5"/></svg></div>
+          <div class="pa"><div class="n">03</div><h4>Regressão logística</h4><p>Probabilidade de violar o prazo, por caso</p></div>
+          <div class="sx"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 7l5 5-5 5"/></svg></div>
+          <div class="pa saida"><div class="n">04</div><h4>Fila por risco</h4><p><b>72%</b> das violações nos <b>20%</b> do topo</p></div>
+        </div>
+      </div>
+
+      <div class="tr">
+        <div class="rot"><span class="k">Trilha 02</span><h3>Por dia</h3></div>
+        <div class="pas">
+          <div class="pa"><div class="n">01</div><h4>Série diária</h4><p>Contagem elegível ao KPI, separada em P2 e P3</p></div>
+          <div class="sx"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 7l5 5-5 5"/></svg></div>
+          <div class="pa"><div class="n">02</div><h4>Calendário</h4><p>Dia da semana e feriado nacional como regressores</p></div>
+          <div class="sx"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 7l5 5-5 5"/></svg></div>
+          <div class="pa"><div class="n">03</div><h4>Prophet</h4><p>Sazonalidade semanal ligada, anual desligada</p></div>
+          <div class="sx"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 7l5 5-5 5"/></svg></div>
+          <div class="pa saida"><div class="n">04</div><h4>Volume D+1 a D+7</h4><p>Intervalo por dia, erro de <b>4,2</b> e <b>11,8</b></p></div>
+        </div>
+      </div>
+
+      <div class="conv">
+        <div class="rot"></div>
+        <div class="cx"><div class="z">
+          <div class="tit"><span class="k">As duas se encontram em</span><h3>Projeção do KPI</h3></div>
+          <div class="parc">
+            <div class="pc"><div class="pn">Parcela 1</div><p>O que já tem desfecho é contagem</p></div>
+            <div class="pc"><div class="pn">Parcela 2</div><p>O que está aberto vai pelo modelo de risco</p></div>
+            <div class="pc"><div class="pn">Parcela 3</div><p>O que ainda entra vai pelo Prophet</p></div>
+          </div>
+          <div class="fim"><h4>Painel de seis abas</h4><p>E o briefing das 07h, na entrada do turno</p></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

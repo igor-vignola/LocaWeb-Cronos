@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>03b Estouro · F</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+/* F · três escalas desenhadas na proporção verdadeira. A última é um fio. */
+.xf .body{padding:26px 80px 74px}
+.xf .tt{font-size:38px}
+.xf .lead{font-size:17.5px;margin-top:12px;max-width:1000px}
+
+.escadas{flex:1;display:flex;flex-direction:column;justify-content:center;gap:34px;
+  min-height:0;margin-top:10px}
+
+.deg{display:flex;align-items:center;gap:28px}
+.deg .rot2{width:250px;flex-shrink:0;text-align:right}
+.deg .rot2 .v2{font-size:36px;font-weight:800;letter-spacing:-1.6px;line-height:1;
+  color:var(--head)}
+.deg .rot2 .l2{font-size:14px;line-height:1.4;color:var(--tx2);margin-top:8px}
+.deg .faixa{flex:1;position:relative;height:56px}
+.deg .faixa .fx2{position:absolute;left:0;top:0;bottom:0;border-radius:9px}
+.deg.a .faixa .fx2{width:100%;background:#DFE6EF}
+.deg.b .faixa .fx2{width:20.89%;background:#93C5FD}
+.deg.c .faixa .fx2{width:0.2%;min-width:3px;background:var(--bad)}
+.deg .faixa .marca{position:absolute;left:0;top:50%;transform:translateY(-50%);
+  display:flex;align-items:center;gap:12px;padding-left:24px}
+.deg.c .faixa .marca{padding-left:22px}
+.deg .faixa .marca em{font-style:normal;font-size:15px;color:var(--tx2)}
+.deg.c .faixa .marca em{color:var(--bad);font-weight:700}
+
+.fecho{display:flex;align-items:center;gap:24px;margin-top:36px;padding-top:26px;
+  border-top:1px solid var(--line)}
+.fecho .fi2{width:40px;height:40px;border-radius:12px;flex-shrink:0;display:flex;
+  align-items:center;justify-content:center;background:var(--accent-l);color:var(--accent)}
+.fecho .fi2 svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+.fecho p{font-size:18px;line-height:1.45;color:var(--tx)}
+.fecho p b{color:var(--head);font-weight:700}
+</style></head><body>
+<section class="slide light xf">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 3</div></div>
+  <div class="body">
+    <span class="eb">Contextualização do problema</span>
+    <h1 class="tt">O que torna o estouro de OLA <span class="hl">difícil de antecipar</span></h1>
+    <p class="lead">As três escalas do problema, desenhadas na proporção verdadeira.</p>
+
+    <div class="escadas">
+      <div class="deg a">
+        <div class="rot2"><div class="v2 num">122.543</div><div class="l2">incidentes registrados<br>em três anos</div></div>
+        <div class="faixa"><div class="fx2"></div><div class="marca"><em>tudo o que a operação registra</em></div></div>
+      </div>
+      <div class="deg b">
+        <div class="rot2"><div class="v2 num">25.600</div><div class="l2">medidos pelo<br>indicador de OLA</div></div>
+        <div class="faixa"><div class="fx2"></div><div class="marca" style="left:20.89%"><em>um quinto do que se registra</em></div></div>
+      </div>
+      <div class="deg c">
+        <div class="rot2"><div class="v2 num">248</div><div class="l2">estouraram<br>o prazo</div></div>
+        <div class="faixa"><div class="fx2"></div><div class="marca"><em>o fio vermelho é o alvo do Cronos</em></div></div>
+      </div>
+    </div>
+
+    <div class="fecho">
+      <div class="fi2"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg></div>
+      <p>Encontrar esse fio na fila é o problema. Ordenar por prioridade não encontra: <b>ROC AUC 0,4693</b>, abaixo dos <b>0,5063</b> de uma fila sorteada.</p>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>
