@@ -98,16 +98,51 @@ devolve 13 grupos para 15 produtos. No lugar entrou **quem atende**, derivado de
 `Grupo designado` na mesma janela da nota — dominância de 40% a 100%, com selo colorido por
 equipe (matiz por ângulo áureo, saturação baixa para não competir com a cor de estado).
 
-### Deck da entrega, fechado em 17/08/2026
+### Deck da entrega, fechado em 19/08/2026
 
-`sprints/EC_Sprint_3_2TSCOA_mvp_preliminar_Cronos_SuperDataBros.pptx` · **63 slides**,
+`sprints/EC_Sprint_3_2TSCOA_mvp_preliminar_Cronos_SuperDataBros.pptx` · **60 slides**,
 13,333 × 7,5 in, na ordem e com os títulos do template oficial. Mesmo formato da Sprint 2: um
-PNG sangrado por slide, gerado de HTML. 43 MB, contra 35 MB da Sprint 2.
+PNG sangrado por slide, gerado de HTML. 39 MB, contra 35 MB da Sprint 2.
 
-São **duas fontes reunidas em um arquivo só**, e é bom saber disso antes de mexer:
+São **quatro fontes reunidas em um arquivo só**, e é bom saber disso antes de mexer. O
+builder virou quase só um ordenador: lê cada slide de onde ele está e escreve apenas o mockup.
 
-- **25 slides escritos em `scripts/monta_deck_sprint3.py`** · identificação, contexto, gestão
-  ágil, arquitetura, os dez prints da aplicação, o mockup, a amostra de dados e o fecho.
+- **13 slides de abertura em `prototipos/slides/mvp/abertura/`**, pelo mapa `ESCOLHIDOS`:
+
+  | Slide | Versão |
+  |---|---|
+  | 01 capa | B |
+  | 02 equipe | B |
+  | 03 contexto · a operação e o prazo de OLA | E |
+  | 03b contexto · por que o estouro é difícil de antecipar | E |
+  | 04 problema | D |
+  | 05 solução | D |
+  | 06 gestão · o quadro em tela cheia | D |
+  | 07 gestão · o cronograma | D |
+  | 07b gestão · uma atividade aberta no quadro | D |
+  | 08 fontes de dados | D |
+  | 09 arquitetura · o fluxograma | D |
+  | 10 descrição da arquitetura | A |
+  | 11 tecnologias | A |
+
+  As demais versões continuam na pasta. Trocar a escolhida é uma linha no mapa.
+
+- **34 slides do bloco analítico em `prototipos/slides/mvp/deck/`**, pela lista `ANALISE`. O
+  sufixo `-r5a` ou `-r5b` marca a versão escolhida na rodada 5, em que 24 slides voltaram
+  para a mesa e foram refeitos em duas composições cada. Slide sem sufixo é o que não
+  precisou mudar.
+
+- **12 slides da aplicação em `prototipos/slides/mvp/aplicacao/`**, pelo mapa
+  `ESCOLHIDOS_APP`: a divisória, as dez telas geradas por `scripts/monta_prints_app.py` e o
+  fecho. Os quatro modais vêm logo depois da aba de onde saem, e a captura ocupa cerca de
+  70% da área do slide.
+
+- **1 slide escrito em `scripts/monta_deck_sprint3.py`**: o mockup.
+
+**Seis slides saíram do deck** e continuam em disco: as duas hipóteses descartadas, os
+limites do modelo, o fechamento do bloco analítico, a amostra de dados e o duplicado do
+quadro. Saiu também o `d31a`, que repetia sobre outra base o achado de familiaridade que já
+está no `d22a`.
 **Auditoria dos números do bloco analítico (17/08).** Os slides de julho foram conferidos um
 a um contra os parquets e notebooks reexecutados. O achado: **os slides de causas,
 recorrência e saúde tinham sido construídos sobre a base inteira de 25.600 elegíveis de 2023
@@ -119,16 +154,17 @@ dois dos quatro recortes. Os blocos de EDA, previsão de volume e risco de OLA p
 limpos: o `0,97%` e os `25.600` que aparecem neles são da base de todos os anos, que é a
 janela que esses slides declaram.
 
-Duas divergências ficam registradas e **não foram resolvidas**, porque resolver muda análise
-e não texto:
+**As duas divergências que ficavam registradas como pendentes foram resolvidas em 19/08**,
+junto com mais nove achados. Ver `docs/auditoria-consistencia-deck.md`, que cruzou todo
+número de todo slide contra o parquet.
 
-- **A meta do P3 tem duas definições vivas.** O notebook 06 usa 200 (teto do degrau de 150%)
-  e a aplicação usa 263 (teto do degrau de 100%, o `teto_100` de `servicos.ESCADA`). Com
-  208,0 projetadas, o deck diz "acima da meta" e a tela diz 125% de atingimento. Cada um está
-  certo pela própria régua, mas contam histórias opostas sobre o mesmo número.
-- **O gradiente de familiaridade aparece com dois multiplicadores.** `d22a` diz 4,6 vezes
-  porque declara a base de todos os anos (248 quebras); `d31a` diz 4,7 na janela da
-  aplicação.
+- **A meta do P3 tinha duas definições vivas**, 200 no notebook 06 e 263 na aplicação, e o
+  deck chegava a dar veredito oposto sobre a mesma projeção em dois slides. O deck inteiro
+  passou a usar a faixa de 100%: **39 no P2 e 263 no P3**, que é a régua do slide do
+  problema. Com 43,5 e 208,0 projetadas, a leitura é P2 acima e P3 dentro.
+- **O gradiente de familiaridade aparecia com dois multiplicadores**, 4,6 no `d22a` e 4,7 no
+  `d31a`, porque cada um media sobre uma base. O `d31a` saiu do deck e o achado ficou em um
+  slide só.
 
 - **38 slides do bloco analítico**, que já existiam em `prototipos/slides/mvp/deck/`,
   construídos em julho. São eles que carregam os gráficos exportados do matplotlib dos
