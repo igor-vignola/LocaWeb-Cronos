@@ -97,12 +97,14 @@ b,strong{font-weight:700}
 .mside .mrd{flex:0 0 auto}
 .mrow{flex:1;display:flex;gap:26px;margin-top:16px;min-height:0}
 .mcol{flex:1;display:flex;flex-direction:column;gap:16px;margin-top:16px;min-height:0}
+/* borda arredondada nas figuras */
+img[src^="figs/"]{border-radius:10px}
 </style></head><body><div class="slide light r15h"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Modelagem · Resultado</div></div><div class="body">
       <div class="eb">Resultado · Prophet no período de teste (out a dez)</div>
-      <div class="tt">O modelo prevê a semana à frente, com faixa de confiança</div>
+      <div class="tt">Cobertura do intervalo de previsão no período de teste</div>
       <div class="mrow"><div class="mcard" style="flex:1"><div class="mimg"><img src="figs/04_prophet_teste.png" alt=""></div></div><div class="mside">
       <div class="mrd win"><span class="ic ci"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 3 6-8"/><path d="M15 7h6v6"/></svg></span><div><div class="mv">Acompanha o padrão da semana</div><div class="mf">no P2 a banda cobre 86% a 88% dos dias (nominal 80%); no P3 cobre 59% a 61%, ou seja, é estreita demais no trimestre final</div></div></div>
-      <div class="mrd "><span class="ic ci"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7-7 9-4-2-7-4.5-7-9V6z"/><path d="M9.5 12l1.8 1.8 3.5-3.8"/></svg></span><div><div class="mv">Faixa de 80%, não um número</div><div class="mf">o modelo entrega um intervalo, não uma estimativa pontual: dá pra dimensionar a operação pelo pior caso</div></div></div>
-      <div class="mrd mut"><span class="ic ci"><svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg></span><div><div class="mv">A queda de dezembro fica de fora</div><div class="mf">antecipá-la exigiria padrão anual, e há apenas um ano de dado; com mais histórico, o modelo aprende</div></div></div>
+      <div class="mrd "><span class="ic ci"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7-7 9-4-2-7-4.5-7-9V6z"/><path d="M9.5 12l1.8 1.8 3.5-3.8"/></svg></span><div><div class="mv">Intervalo de 80%</div><div class="mf">o modelo entrega um intervalo em vez de estimativa pontual, o que permite dimensionar a operação pelo limite superior</div></div></div>
+      <div class="mrd mut"><span class="ic ci"><svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg></span><div><div class="mv">A queda de dezembro fica de fora</div><div class="mf">antecipá-la exigiria padrão anual, e há apenas um ano de dado; com mais histórico o modelo poderia aprendê-la</div></div></div>
     </div></div>
     </div></div></body></html>

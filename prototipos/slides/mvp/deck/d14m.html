@@ -84,11 +84,13 @@ b,strong{font-weight:700}
 .mside .mrd{flex:0 0 auto}
 .mrow{flex:1;display:flex;gap:26px;margin-top:16px;min-height:0}
 .mcol{flex:1;display:flex;flex-direction:column;gap:16px;margin-top:16px;min-height:0}
+/* borda arredondada nas figuras */
+img[src^="figs/"]{border-radius:10px}
 </style></head><body><div class="slide light c14"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Modelagem · Validação</div></div><div class="body">
-      <div class="eb">Como validamos, sem enganar a nós mesmos</div>
-      <div class="tt">Testar como se fosse a operação real</div>
+      <div class="eb">Protocolo de validação</div>
+      <div class="tt">Protocolo de validação da previsão de volume</div>
       <div class="mcol"><div class="mcard" style="flex:1"><div class="mimg"><img src="figs/07_rolling_mecanismo.png" alt=""></div></div><div class="mreads">
-      <div class="mrd "><span class="ic ci"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><div><div class="mv">Bater o trivial</div><div class="mf">todo modelo compete contra <b>baselines simples</b> (repetir a última semana, média de 7 dias); se não ganha do trivial, não serve</div></div></div>
+      <div class="mrd "><span class="ic ci"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><div><div class="mv">Comparação com baselines</div><div class="mf">cada modelo é comparado a <b>baselines simples</b> (repetir a última semana, média de 7 dias). O ganho sobre o baseline é a condição mínima de utilidade</div></div></div>
       <div class="mrd "><span class="ic ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span><div><div class="mv">Erro em incidentes por dia</div><div class="mf">a métrica é o <b>erro médio (MAE)</b>: de quantos incidentes, em média, a previsão erra por dia</div></div></div>
       <div class="mrd "><span class="ic ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg></span><div><div class="mv">Rolling backtest</div><div class="mf">re-treina a cada semana e prevê os <b>7 dias seguintes</b>, avançando no tempo, como o Cronos rodaria no dia a dia</div></div></div>
     </div></div>

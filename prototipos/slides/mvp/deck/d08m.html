@@ -82,12 +82,14 @@ b,strong{font-weight:700}
 .mside .mrd{flex:0 0 auto}
 .mrow{flex:1;display:flex;gap:26px;margin-top:16px;min-height:0}
 .mcol{flex:1;display:flex;flex-direction:column;gap:16px;margin-top:16px;min-height:0}
+/* borda arredondada nas figuras */
+img[src^="figs/"]{border-radius:10px}
 </style></head><body><div class="slide light q8"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Modelagem · O alvo</div></div><div class="body">
       <div class="eb">As duas séries que vamos prever</div>
-      <div class="tt">P2 e P3 têm tamanhos diferentes, então viram séries separadas</div>
+      <div class="tt">Volume diário das séries de P2 e P3</div>
       <div class="mrow"><div class="mcard" style="flex:1"><div class="mimg"><img src="figs/01_series_tipo_dia.png" alt=""></div></div><div class="mside">
-      <div class="mrd "><span class="ic ci"><svg viewBox="0 0 24 24"><path d="M2 12h4l2.5-7 4 14 2.5-7h6"/></svg></span><div><div class="mv">P3 · Média: ~55 por dia</div><div class="mf">19.997 casos no ano; o grosso do volume que vale pra meta</div></div></div>
-      <div class="mrd "><span class="ic ci"><svg viewBox="0 0 24 24"><path d="M2 12h4l2.5-7 4 14 2.5-7h6"/></svg></span><div><div class="mv">P2 · Alta: ~14 por dia</div><div class="mf">5.159 casos no ano; quatro vezes menor, some dentro do P3 se juntar tudo</div></div></div>
+      <div class="mrd "><span class="ic ci"><svg viewBox="0 0 24 24"><path d="M2 12h4l2.5-7 4 14 2.5-7h6"/></svg></span><div><div class="mv">P3 · Média: ~55 por dia</div><div class="mf">19.997 casos no ano; a maior parte do volume elegível à meta</div></div></div>
+      <div class="mrd "><span class="ic ci"><svg viewBox="0 0 24 24"><path d="M2 12h4l2.5-7 4 14 2.5-7h6"/></svg></span><div><div class="mv">P2 · Alta: ~14 por dia</div><div class="mf">5.159 casos no ano; quatro vezes menor; agregada ao P3, deixaria de ser observável</div></div></div>
       <div class="mrd "><span class="ic ci"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><div><div class="mv">Uma série por prioridade</div><div class="mf">o Cronos treina P2 e P3 separados e soma as duas na tela</div></div></div>
     </div></div>
     </div></div></body></html>

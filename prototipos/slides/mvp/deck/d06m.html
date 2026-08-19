@@ -83,12 +83,14 @@ b,strong{font-weight:700}
 .mside .mrd{flex:0 0 auto}
 .mrow{flex:1;display:flex;gap:26px;margin-top:16px;min-height:0}
 .mcol{flex:1;display:flex;flex-direction:column;gap:16px;margin-top:16px;min-height:0}
-</style></head><body><div class="slide light x6"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Distribuição · Raio-x</div></div><div class="body">
+/* borda arredondada nas figuras */
+img[src^="figs/"]{border-radius:10px}
+</style></head><body><div class="slide light x6"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Distribuição · Composição</div></div><div class="body">
       <div class="eb">Distribuição operacional</div>
-      <div class="tt">A operação é grande, mas estruturada</div>
+      <div class="tt">Composição da base por prioridade, status e origem</div>
       <div class="mcol"><div class="mcard" style="flex:1"><div class="mimg"><img src="figs/eda_distribuicao.png" alt=""></div></div><div class="mreads">
-      <div class="mrd mut"><span class="ic ci"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><div><div class="mv">P4 domina: 53%</div><div class="mf">o que conta pra meta é <b>P2 e P3</b> (13% e 34%); a baixa prioridade é rotina</div></div></div>
-      <div class="mrd "><span class="ic ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg></span><div><div class="mv">66% fecham sem ação humana</div><div class="mf">dois em cada três incidentes <b>fecham sozinhos</b>, sem intervenção da equipe</div></div></div>
-      <div class="mrd "><span class="ic ci"><svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 4v4M8 13h.01M16 13h.01M9 19v2M15 19v2"/></svg></span><div><div class="mv">85% nascem do monitoramento</div><div class="mf">a operação é movida por <b>automação</b>, não por abertura manual</div></div></div>
+      <div class="mrd mut"><span class="ic ci"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><div><div class="mv">P4 concentra 53% do volume</div><div class="mf">o que conta para a meta é <b>P2 e P3</b> (13% e 34%); a prioridade baixa é rotina</div></div></div>
+      <div class="mrd "><span class="ic ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg></span><div><div class="mv">66% fecham sem ação humana</div><div class="mf">dois em cada três incidentes <b>fecham</b>, sem intervenção da equipe</div></div></div>
+      <div class="mrd "><span class="ic ci"><svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 4v4M8 13h.01M16 13h.01M9 19v2M15 19v2"/></svg></span><div><div class="mv">85% nascem do monitoramento</div><div class="mf">a <b>automação</b> responde por 85% do que é registrado, e a abertura manual pelos 15% restantes</div></div></div>
     </div></div>
     </div></div></body></html>
