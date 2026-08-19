@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>04 Problema · C</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.kpi .body{padding:20px 64px 40px}
+.kpi .tt{font-size:38px}
+.kpi .lead{font-size:17px;margin-top:11px;max-width:1240px}
+.kpi .como{font-size:13.5px;color:var(--tx2);margin-top:14px}
+.kpi .como b{color:var(--tx);font-weight:600}
+
+.kpi .duo{display:flex;gap:22px;margin-top:10px}
+.gr{flex:1;background:#fff;border:1px solid var(--line);border-radius:16px;
+  padding:16px 20px 12px;box-shadow:0 16px 38px -30px rgba(15,23,42,.28);min-width:0}
+.gr figcaption{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
+.gr .gn{font-size:20px;font-weight:800;letter-spacing:-.5px;color:var(--head)}
+.gr .gp{font-size:13.5px;color:var(--tx2)}
+.gr .gf{margin-left:auto;font-size:13px;font-weight:700;color:var(--tx);
+  font-variant-numeric:tabular-nums}
+
+.plot{position:relative;height:344px;margin-right:92px}
+.fx{position:absolute;left:0;right:-92px;border-radius:3px}
+.fl{position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:10px;
+  color:var(--tx2);text-align:right;line-height:1;white-space:nowrap;
+  font-variant-numeric:tabular-nums}
+.fl b{font-weight:700;color:var(--tx)}
+.meta{position:absolute;left:0;right:-92px;border-top:2px dashed var(--accent);z-index:3}
+.meta span{position:absolute;left:0;top:-9px;background:var(--accent);color:#fff;
+  font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:4px;
+  font-variant-numeric:tabular-nums}
+.cols{position:absolute;inset:0;display:flex;align-items:flex-end;gap:6px;z-index:2}
+.col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  min-width:0}
+.bar{width:100%;border-radius:4px 4px 0 0;background:linear-gradient(180deg,#2FA36A,#15A05B)}
+.bar.ruim{background:linear-gradient(180deg,#E24B41,#C9372C)}
+.bv{font-size:12.5px;font-weight:700;color:var(--good);margin-bottom:3px;
+  font-variant-numeric:tabular-nums}
+.bv.ruim{color:var(--bad)}
+.mx{position:absolute;bottom:-21px;font-size:11.5px;color:var(--tx2)}
+.col{position:relative}
+
+.nota{display:flex;gap:10px;margin-top:30px;font-size:13.5px;line-height:1.45;
+  color:var(--tx)}
+.nota b{color:var(--head);font-weight:700}
+.nota .mk{flex-shrink:0;width:3px;border-radius:2px;background:var(--accent)}
+
+.obj{display:flex;align-items:center;gap:26px;margin-top:auto;background:#fff;
+  border:1px solid var(--line);border-radius:15px;padding:16px 22px;
+  box-shadow:0 14px 34px -30px rgba(15,23,42,.26)}
+.obj .k{font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--accent);width:132px;flex-shrink:0;line-height:1.35}
+.obj p{font-size:15.5px;line-height:1.45;color:var(--tx);flex:1}
+.obj p b{color:var(--head);font-weight:700}
+.obj .sep{width:1px;align-self:stretch;background:var(--line)}
+</style>
+</head><body>
+<section class="slide light kpi">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 4</div></div>
+  <div class="body"><span class="eb">Problema a ser resolvido</span><h1 class="tt">Atingimento do KPI em 2025 e <span class="hl">objetivos para 2026</span></h1><p class="lead">Nas duas prioridades a nota do ano se decidiu por margem pequena, e a margem só ficou visível na apuração de dezembro. Antecipar essa leitura é o problema que o Cronos resolve.</p><p class="como">Cada gráfico traz a <b>régua oficial da Locaweb</b> como fundo: seis faixas de nota por prioridade. A barra é o acumulado de violações no mês, e a faixa que ela alcança é a nota do ano se ele fechasse ali.</p><div class="duo"><figure class="gr"><figcaption><span class="gn">P2</span><span class="gp">prazo de 4 h</span><span class="gf">fechou em 42 · nota 75%</span></figcaption><div class="plot"><div class="fx" style="bottom:0.0px;height:180.9px;background:#E4F4EB"><span class="fl"><b>150%</b> · até 30</span></div><div class="fx" style="bottom:180.9px;height:29.7px;background:#F1FAF4"><span class="fl"><b>125%</b> · até 35</span></div><div class="fx" style="bottom:210.6px;height:23.7px;background:#EEF4FF"><span class="fl"><b>100%</b> · até 39</span></div><div class="fx" style="bottom:234.3px;height:35.6px;background:#FDF0EF"><span class="fl"><b>75%</b> · até 45</span></div><div class="fx" style="bottom:269.9px;height:47.4px;background:#FADFDE"><span class="fl"><b>50%</b> · até 53</span></div><div class="fx" style="bottom:317.3px;height:26.7px;background:#F5CFCE"><span class="fl"><b>0%</b> · 54 ou mais</span></div><div class="meta" style="bottom:234.3px"><span>meta 39</span></div><div class="cols"><div class="col"><span class="bv">4</span><div class="bar" style="height:23.7px"></div><span class="mx">jan</span></div><div class="col"><span class="bv">8</span><div class="bar" style="height:47.4px"></div><span class="mx">fev</span></div><div class="col"><span class="bv">11</span><div class="bar" style="height:65.2px"></div><span class="mx">mar</span></div><div class="col"><span class="bv">13</span><div class="bar" style="height:77.1px"></div><span class="mx">abr</span></div><div class="col"><span class="bv">19</span><div class="bar" style="height:112.7px"></div><span class="mx">mai</span></div><div class="col"><span class="bv">22</span><div class="bar" style="height:130.5px"></div><span class="mx">jun</span></div><div class="col"><span class="bv">28</span><div class="bar" style="height:166.1px"></div><span class="mx">jul</span></div><div class="col"><span class="bv">31</span><div class="bar" style="height:183.9px"></div><span class="mx">ago</span></div><div class="col"><span class="bv">33</span><div class="bar" style="height:195.7px"></div><span class="mx">set</span></div><div class="col"><span class="bv">35</span><div class="bar" style="height:207.6px"></div><span class="mx">out</span></div><div class="col"><span class="bv ruim">41</span><div class="bar ruim" style="height:243.2px"></div><span class="mx">nov</span></div><div class="col"><span class="bv ruim">42</span><div class="bar ruim" style="height:249.1px"></div><span class="mx">dez</span></div></div></div></figure><figure class="gr"><figcaption><span class="gn">P3</span><span class="gp">prazo de 12 h</span><span class="gf">fechou em 196 · nota 150%</span></figcaption><div class="plot"><div class="fx" style="bottom:0.0px;height:202.9px;background:#E4F4EB"><span class="fl"><b>150%</b> · até 200</span></div><div class="fx" style="bottom:202.9px;height:30.4px;background:#F1FAF4"><span class="fl"><b>125%</b> · até 230</span></div><div class="fx" style="bottom:233.2px;height:33.4px;background:#EEF4FF"><span class="fl"><b>100%</b> · até 263</span></div><div class="fx" style="bottom:266.6px;height:27.3px;background:#FDF0EF"><span class="fl"><b>75%</b> · até 290</span></div><div class="fx" style="bottom:293.9px;height:30.4px;background:#FADFDE"><span class="fl"><b>50%</b> · até 320</span></div><div class="fx" style="bottom:324.3px;height:19.7px;background:#F5CFCE"><span class="fl"><b>0%</b> · 321 ou mais</span></div><div class="meta" style="bottom:202.9px"><span>meta 200</span></div><div class="cols"><div class="col"><span class="bv">19</span><div class="bar" style="height:19.2px"></div><span class="mx">jan</span></div><div class="col"><span class="bv">40</span><div class="bar" style="height:40.5px"></div><span class="mx">fev</span></div><div class="col"><span class="bv">56</span><div class="bar" style="height:56.7px"></div><span class="mx">mar</span></div><div class="col"><span class="bv">66</span><div class="bar" style="height:66.8px"></div><span class="mx">abr</span></div><div class="col"><span class="bv">81</span><div class="bar" style="height:82.0px"></div><span class="mx">mai</span></div><div class="col"><span class="bv">109</span><div class="bar" style="height:110.3px"></div><span class="mx">jun</span></div><div class="col"><span class="bv">132</span><div class="bar" style="height:133.6px"></div><span class="mx">jul</span></div><div class="col"><span class="bv">146</span><div class="bar" style="height:147.7px"></div><span class="mx">ago</span></div><div class="col"><span class="bv">155</span><div class="bar" style="height:156.8px"></div><span class="mx">set</span></div><div class="col"><span class="bv">164</span><div class="bar" style="height:165.9px"></div><span class="mx">out</span></div><div class="col"><span class="bv">179</span><div class="bar" style="height:181.1px"></div><span class="mx">nov</span></div><div class="col"><span class="bv">196</span><div class="bar" style="height:198.3px"></div><span class="mx">dez</span></div></div></div></figure></div><div class="nota"><span class="mk"></span><p>O P2 chegou a outubro com <b>35</b> violações, o limite da faixa de 125%, e a novembro com <b>41</b>, já dentro da faixa de 75%. Seis violações num mês custaram duas faixas. O P3 fechou em <b>196</b>, com o limite da faixa de 150% em <b>200</b>.</p></div><div class="obj"><span class="k">Objetivos para 2026</span><p>Fechar o ano com até <b>39</b> violações no P2 e até <b>200</b> no P3.</p><span class="sep"></span><p>Conhecer a faixa projetada <b>antes de novembro</b>, e não na apuração de dezembro, quando o ano já está formado.</p></div></div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

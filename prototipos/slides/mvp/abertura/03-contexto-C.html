@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>03 Contexto · C</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+.ish .body{padding:20px 64px 40px}
+.ish .tt{font-size:38px}
+.ish .lead{font-size:17px;margin-top:11px;max-width:1180px}
+
+/* faixa de contexto: uma linha só, dividida, em vez de quatro cartões repetidos */
+.ctx{display:flex;align-items:stretch;background:#fff;border:1px solid var(--line);
+  border-radius:14px;margin-top:16px;box-shadow:0 14px 34px -30px rgba(15,23,42,.28)}
+.ctx .c{padding:13px 22px;border-left:1px solid var(--line);min-width:0}
+.ctx .c:first-child{border-left:none}
+.ctx .c .k{font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--tx2)}
+.ctx .c .v{font-size:22px;font-weight:800;letter-spacing:-.7px;color:var(--head);
+  margin-top:4px;font-variant-numeric:tabular-nums}
+.ctx .c .v em{font-style:normal;font-size:14px;font-weight:600;color:var(--tx);
+  letter-spacing:0}
+.ctx .hist{flex:1;background:linear-gradient(90deg,#F7FAFF,#fff);border-radius:0 13px 13px 0}
+.ctx .hist .v{font-size:15.5px;font-weight:500;color:var(--tx);letter-spacing:0;
+  line-height:1.45;margin-top:5px}
+.ctx .hist .v b{color:var(--head);font-weight:700}
+
+/* Ishikawa */
+.ish .diag{position:relative;width:1472px;height:520px;margin-top:10px}
+.ish .ossos{position:absolute;inset:0}
+.ish .osso{position:absolute;display:flex;flex-direction:column;gap:3px}
+.ish .osso .cat{font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--tx2)}
+.ish .osso.foco .cat{color:var(--accent)}
+.ish .osso .cau{font-size:15.5px;line-height:1.32;font-weight:600;color:var(--head)}
+.ish .osso .evi{font-size:13.5px;line-height:1.35;color:var(--tx);
+  font-variant-numeric:tabular-nums}
+.ish .osso .evi b{font-weight:700;color:var(--head)}
+.ish .osso .evi b.ac{color:var(--accent)}
+
+/* cabeça: o efeito, com as duas prioridades lado a lado */
+.ish .cab{position:absolute;background:var(--ink);border-radius:16px;padding:18px 22px;
+  display:flex;flex-direction:column;box-shadow:0 22px 48px -26px rgba(11,18,32,.55)}
+.ish .cab .k{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  color:#F0B767}
+.ish .cab .t{font-size:19px;font-weight:800;letter-spacing:-.4px;color:#fff;
+  line-height:1.2;margin-top:7px}
+.ish .cab .duo{display:flex;gap:26px;margin-top:auto;padding-top:13px;
+  border-top:1px solid rgba(255,255,255,.14)}
+.ish .cab .duo div{min-width:0}
+.ish .cab .duo .n{font-size:27px;font-weight:800;letter-spacing:-1px;
+  font-variant-numeric:tabular-nums}
+.ish .cab .duo .p2 .n{color:#F87171} .ish .cab .duo .p3 .n{color:#4ADE80}
+.ish .cab .duo .l{font-size:12px;color:#8B96A8;margin-top:2px}
+.ish .cab .duo .l b{color:#C4CDDB;font-weight:700}
+</style>
+</head><body>
+<section class="slide light ish">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Template · slide 3</div></div>
+  <div class="body"><span class="eb">Contextualização do problema</span><h1 class="tt">Contexto da operação e causas do <span class="hl">estouro de OLA</span></h1><p class="lead">A Locaweb opera hospedagem e cloud 24 por 7 para pequeno e médio negócio. O desempenho é medido por um indicador anual de violação de OLA, apurado por faixa, e a faixa em que o ano fechou só é conhecida na apuração de dezembro.</p><div class="ctx"><div class="c"><div class="k">Base recebida</div><div class="v">122.543 <em>incidentes, 2023 a 2025</em></div></div><div class="c"><div class="k">Contam para a meta</div><div class="v">25.600 <em>elegíveis ao KPI</em></div></div><div class="c"><div class="k">Prazo de OLA</div><div class="v">4 h <em>no P2</em> · 12 h <em>no P3</em></div></div><div class="c hist"><div class="k">Fator histórico · setembro de 2025</div><div class="v">A expansão do monitoramento automático levou o registro de <b>3.996</b> para <b>21.561</b> no mês. A série que conta para a meta foi de <b>2.330</b> para <b>2.324</b>, praticamente parada.</div></div></div><div class="diag"><svg class="ossos" width="1472" height="520"><line x1="24" y1="260" x2="1134" y2="260" stroke="#0B1220" stroke-width="2.4"/><path d="M1118 251 L1140 260 L1118 269 Z" fill="#0B1220"/><line x1="300" y1="260" x2="130" y2="140" stroke="#2563EB" stroke-width="2.4"/><circle cx="300" cy="260" r="4" fill="#fff" stroke="#2563EB" stroke-width="2"/><line x1="640" y1="260" x2="470" y2="140" stroke="#2563EB" stroke-width="2.4"/><circle cx="640" cy="260" r="4" fill="#fff" stroke="#2563EB" stroke-width="2"/><line x1="980" y1="260" x2="810" y2="140" stroke="#AEBACB" stroke-width="1.8"/><circle cx="980" cy="260" r="4" fill="#fff" stroke="#AEBACB" stroke-width="2"/><line x1="360" y1="260" x2="190" y2="380" stroke="#AEBACB" stroke-width="1.8"/><circle cx="360" cy="260" r="4" fill="#fff" stroke="#AEBACB" stroke-width="2"/><line x1="700" y1="260" x2="530" y2="380" stroke="#AEBACB" stroke-width="1.8"/><circle cx="700" cy="260" r="4" fill="#fff" stroke="#AEBACB" stroke-width="2"/><line x1="1040" y1="260" x2="870" y2="380" stroke="#AEBACB" stroke-width="1.8"/><circle cx="1040" cy="260" r="4" fill="#fff" stroke="#AEBACB" stroke-width="2"/></svg><div class="osso foco" style="left:124px;width:300px;top:2px;height:128px;justify-content:flex-end"><span class="cat">Método</span><p class="cau">A fila é atendida por ordem de prioridade, que não separa quem vai estourar.</p><p class="evi">ROC AUC de <b class="ac">0,4693</b>, abaixo dos <b>0,5063</b> de uma fila sorteada</p></div><div class="osso foco" style="left:464px;width:300px;top:2px;height:128px;justify-content:flex-end"><span class="cat">Medição</span><p class="cau">A faixa de nota do ano só é conhecida na apuração de dezembro.</p><p class="evi">O P2 vai de <b>35</b> em outubro a <b class="ac">41</b> em novembro</p></div><div class="osso" style="left:804px;width:300px;top:2px;height:128px;justify-content:flex-end"><span class="cat">Máquina</span><p class="cau">Quase todo registro nasce do monitoramento automático.</p><p class="evi"><b>85,1%</b> vêm de Monitoramento e <b>65,6%</b> fecham sem intervenção</p></div><div class="osso" style="left:184px;width:300px;top:390px;height:128px"><span class="cat">Mão de obra</span><p class="cau">O risco se concentra numa equipe pequena.</p><p class="evi">Team11 responde por <b>8%</b> do volume e <b>46%</b> das violações</p></div><div class="osso" style="left:524px;width:300px;top:390px;height:128px"><span class="cat">Material</span><p class="cau">O caso inédito estoura mais que a rotina conhecida.</p><p class="evi">Incidentes únicos: <b>38%</b> do volume e <b>59%</b> das violações</p></div><div class="osso" style="left:864px;width:300px;top:390px;height:128px"><span class="cat">Meio ambiente</span><p class="cau">O tamanho da fila não diz onde a violação vai acontecer.</p><p class="evi">O volume diário explica <b>2,5%</b> da variação</p></div><div class="cab" style="left:1148px;width:312px;top:184px;height:152px"><span class="k">Efeito</span><div class="t">Estouro de OLA no fechamento do ano</div><div class="duo"><div class="p2"><div class="n">42</div><div class="l">P2 em 2025 · nota <b>75%</b></div></div><div class="p3"><div class="n">196</div><div class="l">P3 em 2025 · nota <b>150%</b></div></div></div></div></div></div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>
