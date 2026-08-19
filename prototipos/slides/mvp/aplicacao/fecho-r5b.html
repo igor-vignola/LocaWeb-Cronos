@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>Fecho · B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../abertura/base.css">
+<style>
+/* Fecho, versão B: coluna única centralizada e nada mais. A palavra ocupa o meio do
+   slide, o agradecimento fica logo abaixo e os créditos viram uma linha fina rente ao
+   rodapé. Sem cartão, sem borda, sem caixa. */
+.fy .body{align-items:center;justify-content:center;padding:20px 64px 76px;text-align:center}
+.fy .eb{color:var(--accent3)}
+.fy .eb::before{display:none}
+.fy .big{font-size:176px;font-weight:900;letter-spacing:-9px;color:#fff;line-height:1;
+  margin-top:26px}
+.fy .lead{font-size:19.5px;line-height:1.6;color:#98A2B3;max-width:760px;margin-top:38px;
+  text-align:center}
+.fy .rail{position:absolute;left:300px;right:300px;bottom:74px;z-index:3;display:flex;
+  justify-content:space-between;gap:60px;padding-top:24px;
+  border-top:1px solid rgba(255,255,255,.09)}
+.fy .cr{text-align:center}
+.fy .ck{font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:#6C7688}
+.fy .cv{font-size:17px;font-weight:700;letter-spacing:-.3px;color:#fff;margin-top:8px}
+.fy .cv span{color:#8E97A8;font-weight:500}
+</style></head><body>
+<section class="slide dark fy">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <span class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></span>
+    <span class="bn">Cronos</span><span class="bt">VEJA ANTES · AJA ANTES</span>
+    <span class="tag">Template · slide 14</span>
+  </div>
+  <div class="body">
+    <span class="eb">Finalização e agradecimentos</span>
+    <div class="big">Obrigado.</div>
+    <p class="lead">Por confiar no Cronos, abrir a operação real e apontar as hipóteses que
+      valia a pena testar. Duas delas não se confirmaram, e descobrir isso foi parte do
+      trabalho.</p>
+  </div>
+  <div class="rail">
+    <div class="cr"><div class="ck">Empresa parceira</div>
+      <div class="cv">Locaweb <span>· Douglas Gouveia</span></div></div>
+    <div class="cr"><div class="ck">Instituição</div>
+      <div class="cv">FIAP <span>· Data Science, 2TSCOA</span></div></div>
+    <div class="cr"><div class="ck">Próxima entrega</div>
+      <div class="cv">Sprint 4 <span>· 08/09/2026</span></div></div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

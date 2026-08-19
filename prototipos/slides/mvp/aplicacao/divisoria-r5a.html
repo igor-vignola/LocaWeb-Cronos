@@ -1,0 +1,116 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>Divisória da aplicação · A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../abertura/base.css">
+<style>
+/* Divisória do bloco da aplicação, na composição do d01a: título grande em três
+   linhas à esquerda, parágrafo curto embaixo dele e um cartão de vidro à direita
+   com números e um gráfico pequeno. */
+.dvz .body{flex-direction:row;gap:58px;align-items:center;padding:10px 64px 58px}
+.dvz .lft{flex:1;min-width:0}
+.dvz h1{font-size:76px;font-weight:900;letter-spacing:-3px;line-height:.98;color:#fff;
+  margin-top:20px}
+.dvz h1 .hl{background:linear-gradient(90deg,#60A5FA,#2563EB);-webkit-background-clip:text;
+  background-clip:text;color:transparent}
+.dvz .lead{font-size:19px;line-height:1.5;max-width:540px;margin-top:22px;color:#98A2B3}
+.dvz .q{margin-top:28px;display:inline-flex;align-items:center;gap:14px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;
+  padding:15px 20px;max-width:540px}
+.dvz .q .ci{width:34px;height:34px;border-radius:9px;background:rgba(59,130,246,.18);
+  color:#93C5FD;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dvz .q .ci svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.dvz .q span{font-size:16px;line-height:1.4;color:#C4CBD8}
+.dvz .q b{color:#fff;font-weight:700}
+
+/* cartão de vidro */
+.dvz .pv{width:566px;flex-shrink:0;
+  background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.10);border-radius:22px;padding:28px;
+  box-shadow:0 40px 90px -40px rgba(0,0,0,.7)}
+.dvz .pvh{font-size:12.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:#7A8494;display:flex;align-items:center;gap:9px}
+.dvz .pvh .dot{width:7px;height:7px;border-radius:50%;background:#4ADE80;
+  box-shadow:0 0 10px #4ADE80}
+.dvz .pvgrid{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dvz .pc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;padding:18px}
+.dvz .pc.wide{grid-column:span 2}
+.dvz .pc .pl{font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;
+  color:#7A8494}
+.dvz .pc .pn{font-size:32px;font-weight:800;letter-spacing:-1.5px;color:#fff;margin-top:6px;
+  line-height:1}
+.dvz .pc .pn .u{font-size:15px;color:#8E97A8;font-weight:600;margin-left:4px}
+.dvz .pc .ps{font-size:12.5px;line-height:1.4;color:#8E97A8;margin-top:5px}
+/* o pacote que a aplicação carrega, desenhado na proporção real dos três arquivos */
+.dvz .stack{display:flex;height:26px;border-radius:7px;overflow:hidden;margin-top:14px;
+  gap:2px}
+.dvz .s1{background:#2563EB}
+.dvz .s2{background:#3B82F6}
+.dvz .s3{background:#60A5FA}
+.dvz .lgd{display:flex;gap:18px;margin-top:12px;font-size:12.5px;color:#8E97A8}
+.dvz .lgd span{display:inline-flex;align-items:center;gap:7px}
+.dvz .lgd i{width:9px;height:9px;border-radius:3px;display:inline-block;flex-shrink:0}
+.dvz .lgd b{color:#E8ECF3;font-weight:700;font-variant-numeric:tabular-nums}
+/* par de prazos: dois números pequenos no lugar de um grande */
+.dvz .par{display:flex;gap:22px;margin-top:7px}
+.dvz .par span{display:flex;align-items:baseline;gap:5px}
+.dvz .par b{font-size:27px;font-weight:800;letter-spacing:-1.1px;color:#fff;line-height:1;
+  font-variant-numeric:tabular-nums}
+.dvz .par u{text-decoration:none;font-size:14px;color:#8E97A8;font-weight:600}
+.dvz .par em{font-style:normal;font-size:11.5px;font-weight:700;letter-spacing:1.2px;
+  color:#93C5FD;margin-left:2px}
+</style></head><body>
+<section class="slide dark dvz">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <span class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></span>
+    <span class="bn">Cronos</span><span class="bt">VEJA ANTES · AJA ANTES</span>
+    <span class="tag">Template · slide 13</span>
+  </div>
+  <div class="body">
+    <div class="lft">
+      <div class="eb">Seção 06 · A aplicação</div>
+      <h1>A aplicação<br>web do<br><span class="hl">Cronos</span></h1>
+      <div class="lead">A saída dos dois modelos publicada em Django. O que era Parquet de
+        notebook virou a tela que a coordenação abre no início do dia.</div>
+      <div class="q"><span class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><span>A pergunta desta seção: <b>o modelo cabe na rotina de quem opera?</b></span></div>
+    </div>
+    <div class="pv">
+      <div class="pvh"><span class="dot"></span>A aplicação em 01/10/2025, 15h</div>
+      <div class="pvgrid">
+        <div class="pc"><div class="pl">Base do KPI</div>
+          <div class="pn num">25.600</div>
+          <div class="ps">incidentes elegíveis, 2023 a 2025</div></div>
+        <div class="pc"><div class="pl">Casos abertos na fila</div>
+          <div class="pn num">49</div>
+          <div class="ps">ordenados por risco, P3 e P2</div></div>
+        <div class="pc"><div class="pl">Produtos com nota</div>
+          <div class="pn num">15</div>
+          <div class="ps">cobrem 94% do volume elegível</div></div>
+        <div class="pc"><div class="pl">Prazo de OLA</div>
+          <div class="par">
+            <span><b>4</b><u>h</u><em>P2</em></span>
+            <span><b>12</b><u>h</u><em>P3</em></span>
+          </div>
+          <div class="ps" style="margin-top:9px">a régua que define a violação</div></div>
+        <div class="pc wide"><div class="pl">O que a aplicação carrega · 350 kB</div>
+          <div class="stack">
+            <span class="s1" style="flex:241"></span>
+            <span class="s2" style="flex:85"></span>
+            <span class="s3" style="flex:24"></span>
+          </div>
+          <div class="lgd">
+            <span><i class="s1"></i>fila.parquet <b>241</b></span>
+            <span><i class="s2"></i>painel.json <b>85</b></span>
+            <span><i class="s3"></i>dias.json <b>24</b></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

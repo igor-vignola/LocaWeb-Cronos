@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>Divisória da aplicação · B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../abertura/base.css">
+<style>
+/* Mesma composição do d01a: título de três linhas à esquerda, cartão de vidro à
+   direita. A diferença para a versão A está no conteúdo do cartão: aqui ele mostra
+   o estado do indicador no instante em que o relógio da aplicação está parado. */
+.dvz .body{flex-direction:row;gap:58px;align-items:center;padding:10px 64px 58px}
+.dvz .lft{flex:1;min-width:0}
+.dvz h1{font-size:70px;font-weight:900;letter-spacing:-2.6px;line-height:1;color:#fff;
+  margin-top:20px}
+.dvz h1 .hl{background:linear-gradient(90deg,#60A5FA,#2563EB);-webkit-background-clip:text;
+  background-clip:text;color:transparent}
+.dvz .lead{font-size:19px;line-height:1.5;max-width:520px;margin-top:22px;color:#98A2B3}
+.dvz .q{margin-top:28px;display:inline-flex;align-items:center;gap:14px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;
+  padding:15px 20px;max-width:530px}
+.dvz .q .ci{width:34px;height:34px;border-radius:9px;background:rgba(59,130,246,.18);
+  color:#93C5FD;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dvz .q .ci svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.dvz .q span{font-size:16px;line-height:1.4;color:#C4CBD8}
+.dvz .q b{color:#fff;font-weight:700}
+
+/* cartão de vidro: dois números no topo, gráfico ocupando a parte de baixo */
+.dvz .pv{width:576px;flex-shrink:0;
+  background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.10);border-radius:22px;padding:26px 28px 24px;
+  box-shadow:0 40px 90px -40px rgba(0,0,0,.7)}
+.dvz .pvh{font-size:12.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:#7A8494;display:flex;align-items:center;gap:9px}
+.dvz .pvh .dot{width:7px;height:7px;border-radius:50%;background:#4ADE80;
+  box-shadow:0 0 10px #4ADE80}
+.dvz .duo{display:flex;margin-top:18px;border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;background:rgba(255,255,255,.04);overflow:hidden}
+.dvz .duo>div{flex:1;padding:16px 18px}
+.dvz .duo>div+div{border-left:1px solid rgba(255,255,255,.08)}
+.dvz .pl{font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;
+  color:#7A8494}
+.dvz .pn{font-size:31px;font-weight:800;letter-spacing:-1.4px;color:#fff;margin-top:6px;
+  line-height:1}
+.dvz .pn .u{font-size:15px;color:#8E97A8;font-weight:600;margin-left:5px}
+.dvz .ps{font-size:12.5px;line-height:1.4;color:#8E97A8;margin-top:5px}
+
+.dvz .chart{margin-top:16px;border:1px solid rgba(255,255,255,.08);border-radius:14px;
+  background:rgba(255,255,255,.04);padding:16px 18px 13px}
+.dvz .ct{font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;
+  color:#7A8494}
+.dvz .serie{display:flex;align-items:flex-end;gap:5px;height:44px;margin-top:12px}
+.dvz .serie span{flex:1;border-radius:3px 3px 0 0}
+.dvz .p3 span{background:linear-gradient(180deg,#2563EB,rgba(37,99,235,.30))}
+.dvz .p2 span{background:linear-gradient(180deg,#60A5FA,rgba(96,165,250,.28))}
+.dvz .sl{display:flex;justify-content:space-between;align-items:baseline;margin-top:7px;
+  font-size:12.5px;color:#8E97A8}
+.dvz .sl b{color:#fff;font-weight:700;font-variant-numeric:tabular-nums}
+.dvz .sl .tagp{font-size:11.5px;font-weight:700;letter-spacing:1.2px;color:#93C5FD}
+.dvz .eixo{display:flex;justify-content:space-between;margin-top:11px;font-size:11.5px;
+  color:#6B7385;border-top:1px solid rgba(255,255,255,.07);padding-top:8px}
+/* linha fina de fechamento do cartão, sem virar mais um bloco */
+.dvz .mini{display:flex;gap:26px;margin-top:16px;padding-top:15px;
+  border-top:1px solid rgba(255,255,255,.08);font-size:13px;color:#8E97A8}
+.dvz .mini em{font-style:normal;font-weight:800;color:#fff;font-variant-numeric:tabular-nums;
+  margin-right:5px}
+</style></head><body>
+<section class="slide dark dvz">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <span class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></span>
+    <span class="bn">Cronos</span><span class="bt">VEJA ANTES · AJA ANTES</span>
+    <span class="tag">Template · slide 13</span>
+  </div>
+  <div class="body">
+    <div class="lft">
+      <div class="eb">Seção 06 · A aplicação</div>
+      <h1>O sistema<br>e a informação<br><span class="hl">que ele publica</span></h1>
+      <div class="lead">Uma aplicação Django lê o pacote gerado pelos notebooks e publica
+        volume previsto, risco por caso aberto, projeção do ano e nota por produto.</div>
+      <div class="q"><span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg></span><span>A pergunta desta seção: <b>o que a coordenação vê às 15h de 01/10/2025?</b></span></div>
+    </div>
+    <div class="pv">
+      <div class="pvh"><span class="dot"></span>Relógio parado em 01/10/2025, 15h</div>
+      <div class="duo">
+        <div><div class="pl">Casos abertos na fila</div><div class="pn num">49</div>
+          <div class="ps">ordenados por risco, P3 e P2</div></div>
+        <div><div class="pl">Produtos com nota</div><div class="pn num">15</div>
+          <div class="ps">cobrem 94% do volume elegível</div></div>
+      </div>
+      <div class="chart">
+        <div class="ct">Violações de OLA acumuladas em 2025, até 30 de setembro</div>
+        <div class="serie p3">
+          <span style="height:12%"></span><span style="height:26%"></span><span style="height:36%"></span><span style="height:43%"></span><span style="height:52%"></span><span style="height:70%"></span><span style="height:85%"></span><span style="height:94%"></span><span style="height:100%"></span>
+        </div>
+        <div class="sl"><span class="tagp">P3</span><span><b>155</b> acumuladas em nove meses</span></div>
+        <div class="serie p2" style="margin-top:14px">
+          <span style="height:12%"></span><span style="height:24%"></span><span style="height:33%"></span><span style="height:39%"></span><span style="height:58%"></span><span style="height:67%"></span><span style="height:85%"></span><span style="height:94%"></span><span style="height:100%"></span>
+        </div>
+        <div class="sl"><span class="tagp">P2</span><span><b>33</b> acumuladas em nove meses</span></div>
+        <div class="eixo"><span>janeiro</span><span>cada série na própria escala</span><span>setembro</span></div>
+      </div>
+      <div class="mini">
+        <span><em>25.600</em>incidentes elegíveis na base</span>
+        <span><em>07h</em>hora do briefing automático</span>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

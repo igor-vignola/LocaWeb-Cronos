@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>Fecho · A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../abertura/base.css">
+<style>
+/* Fecho, versão A: duas colunas. A palavra grande e o agradecimento à esquerda, os
+   créditos empilhados à direita como texto separado por fio, sem nenhum cartão. */
+.fz .body{flex-direction:row;align-items:center;gap:90px;padding:20px 64px 70px}
+.fz .lft{flex:1;min-width:0}
+.fz .eb{color:var(--accent3)}
+.fz .big{font-size:142px;font-weight:900;letter-spacing:-7px;color:#fff;line-height:1;
+  margin-top:22px}
+.fz .lead{font-size:19px;line-height:1.55;color:#98A2B3;max-width:590px;margin-top:34px}
+
+.fz .rail{width:392px;flex-shrink:0}
+.fz .cr{padding:24px 0;border-top:1px solid rgba(255,255,255,.10)}
+.fz .cr:first-child{border-top:none;padding-top:0}
+.fz .cr:last-child{padding-bottom:0}
+.fz .ck{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:#6C7688}
+.fz .cv{font-size:24px;font-weight:800;letter-spacing:-.7px;color:#fff;margin-top:9px}
+.fz .cs{font-size:14.5px;line-height:1.45;color:#8E97A8;margin-top:6px}
+</style></head><body>
+<section class="slide dark fz">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <span class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></span>
+    <span class="bn">Cronos</span><span class="bt">VEJA ANTES · AJA ANTES</span>
+    <span class="tag">Template · slide 14</span>
+  </div>
+  <div class="body">
+    <div class="lft">
+      <span class="eb">Finalização e agradecimentos</span>
+      <div class="big">Obrigado.</div>
+      <p class="lead">Por confiar no Cronos, abrir a operação real e apontar as hipóteses que
+        valia a pena testar. Duas delas não se confirmaram, e descobrir isso foi parte do
+        trabalho.</p>
+    </div>
+    <div class="rail">
+      <div class="cr">
+        <div class="ck">Empresa parceira</div>
+        <div class="cv">Locaweb</div>
+        <div class="cs">Douglas Gouveia, Gerente Executivo de Operações</div>
+      </div>
+      <div class="cr">
+        <div class="ck">Instituição</div>
+        <div class="cv">FIAP</div>
+        <div class="cs">Tecnólogo em Data Science, turma 2TSCOA</div>
+      </div>
+      <div class="cr">
+        <div class="ck">Próxima entrega</div>
+        <div class="cv">Sprint 4</div>
+        <div class="cs">Solução final, 08 de setembro de 2026</div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>
