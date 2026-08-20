@@ -53,26 +53,50 @@ b,strong{font-weight:700}
 .x33 .figc{flex:1;min-height:0;margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 22px 10px;box-shadow:0 18px 44px -28px rgba(15,23,42,.22);display:flex;flex-direction:column}
 .x33 .figc .fb{flex:1;min-height:0}
 .x33 .figc .ff{font-size:13px;color:var(--tx2);margin-top:6px;line-height:1.4;text-align:center}
-.x33 .duo{display:flex;gap:18px;margin-top:16px}
-.x33 .cs{flex:1;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 22px 18px;box-shadow:0 16px 40px -30px rgba(15,23,42,.2)}
-.x33 .cs .cl{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx2)}
-.x33 .cs h4{font-size:17px;font-weight:800;color:var(--head);letter-spacing:-.3px;margin-top:6px}
-.x33 .cs p{font-size:14.5px;line-height:1.5;color:var(--tx);margin-top:8px}
-.x33 .cs p b{color:var(--head);font-weight:700}
-.x33 .cs p .bd{color:var(--bad);font-weight:700}
+/* o resultado sai em tabela: e a forma mais curta de por o agregado e o estrato lado a lado,
+   e dispensa os dois paragrafos que contavam a mesma coisa duas vezes. */
+.x33 .tbv{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:16px;
+  padding:16px 24px 14px;box-shadow:0 16px 40px -30px rgba(15,23,42,.2)}
+.x33 table{width:100%;border-collapse:collapse}
+.x33 thead th{font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--tx2);text-align:left;padding:0 14px 9px 0}
+.x33 tbody td{padding:11px 14px 11px 0;font-size:14.5px;line-height:1.4;color:var(--tx);
+  border-top:1px solid var(--line);vertical-align:top}
+.x33 tbody td.v{font-size:15.5px;font-weight:800;color:var(--head);letter-spacing:-.2px;
+  width:186px}
+.x33 tbody td b{color:var(--head);font-weight:700;font-variant-numeric:tabular-nums}
+.x33 tbody td .bd{color:var(--bad);font-weight:700;font-variant-numeric:tabular-nums}
+.x33 .tbv .cl2{font-size:14.5px;color:var(--tx);margin-top:13px;padding-top:12px;
+  border-top:1px solid var(--line)}
+.x33 .tbv .cl2 b{color:var(--head);font-weight:700}
 /* borda arredondada nas figuras */
 img[src^="figs/"]{border-radius:10px}
 </style></head><body><div class="slide light x33"><div class="mesh"></div><div class="grid-bg"></div><div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Causas · Verificação</div></div><div class="body">
       <div class="eb">Verificação de robustez</div>
-      <div class="tt">Duas leituras do agregado que não sobrevivem à estratificação</div>
+      <div class="tt">Prioridade e origem deixam de separar quando se controla por familiaridade</div>
       <div class="figc"><div class="fb"><img class="mplfig" src="figs/rec_controles.png" alt=""></div>
-        <div class="ff">Esquerda: taxa de quebra por faixa de familiaridade, P2 e P3. Direita: a mesma queda medida em quatro recortes da base.</div></div>
-      <div class="duo">
-        <div class="cs"><div class="cl">Leitura 1</div>
-          <h4>Prioridade alta protege</h4>
-          <p>No agregado o P2 viola <b>0,84%</b> contra <b>0,97%</b> do P3. Em caso inédito, <span class="bd">2,11%</span> contra <span class="bd">1,40%</span>. 7,5% dos inéditos são P2, contra 29,9% dos de rotina.</p></div>
-        <div class="cs"><div class="cl">Leitura 2</div>
-          <h4>Abertura manual estoura mais</h4>
-          <p>No agregado o manual soma <b>18 pontos</b> a mais nas quebras. Em caso inédito viola <span class="bd">1,40%</span>, contra <span class="bd">2,92%</span> do monitoramento. E 96,4% dos inéditos são manuais.</p></div>
+        <div class="ff">Taxa de quebra por faixa de familiaridade. À esquerda por prioridade, à direita em quatro recortes da base.</div></div>
+      <div class="tbv">
+        <table>
+          <thead><tr>
+            <th>Variável</th><th>No agregado</th><th>No caso inédito</th>
+            <th>Composição da faixa inédita</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td class="v">Prioridade</td>
+              <td>P2 <b>0,84%</b> contra P3 <b>0,97%</b></td>
+              <td>P2 <span class="bd">2,11%</span> contra P3 <span class="bd">1,40%</span></td>
+              <td>7,5% dos inéditos são P2</td>
+            </tr>
+            <tr>
+              <td class="v">Origem da abertura</td>
+              <td>manual em <b>81,4%</b> das quebras contra <b>63,6%</b> das não quebras</td>
+              <td>manual <span class="bd">1,40%</span> contra monitoramento <span class="bd">2,92%</span></td>
+              <td>96,4% dos inéditos são manuais</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="cl2">Nas duas linhas a diferença inverte dentro do estrato, o que caracteriza <b>efeito de composição</b>.</p>
       </div>
     </div></div></body></html>
