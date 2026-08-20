@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>33 Estratificação · A, B e o atual</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#20242E;font-family:'Outfit',sans-serif;color:#E8ECF3;padding:40px 0 80px}
+.wrap{width:1600px;margin:0 auto}
+h1{font-size:26px;font-weight:800;letter-spacing:-.6px;margin-bottom:6px}
+.int{font-size:15px;color:#98A2B3;margin-bottom:14px;max-width:1240px;line-height:1.55}
+.int b{color:#E8ECF3}
+.reg{font-size:14px;color:#8C97A8;line-height:1.6;margin-bottom:34px;max-width:1240px}
+.reg b{color:#C7D0DC;font-weight:700}
+.bloco{margin-bottom:46px}
+.cab{display:flex;align-items:baseline;gap:14px;margin-bottom:12px}
+.cab .let{font-size:19px;font-weight:800;color:#93C5FD}
+.cab .nom{font-size:19px;font-weight:700}
+.cab .rec{margin-left:auto;font-size:12.5px;font-weight:700;letter-spacing:1.4px;
+  text-transform:uppercase;color:#4ADE80}
+.cab .vel{margin-left:auto;font-size:12.5px;font-weight:700;letter-spacing:1.4px;
+  text-transform:uppercase;color:#8C97A8}
+.nota{font-size:14.5px;color:#98A2B3;line-height:1.55;margin-bottom:14px;max-width:1300px}
+.nota b{color:#E8ECF3;font-weight:700}
+iframe{width:1600px;height:900px;border:0;display:block;border-radius:10px;
+  box-shadow:0 30px 70px -40px rgba(0,0,0,.8)}
+.img{width:1600px;display:block;border-radius:10px;box-shadow:0 30px 70px -40px rgba(0,0,0,.8)}
+</style></head><body>
+<div class="wrap">
+  <h1>Slide 33, o da estratificação por familiaridade · duas composições</h1>
+  <p class="int">Mesma mensagem nas duas: <b>a ordem que aparece no agregado não se sustenta dentro das faixas de
+  familiaridade</b>. O que muda é quanto do slide sobra para texto. As duas cortaram o título de veredito e a
+  tabela de quatro colunas, e as duas usam a figura refeita, com os dois painéis na mesma forma e a taxa
+  agregada como linha tracejada de referência.</p>
+  <p class="reg">Sobre os números: todos saem de <b>scripts/figura_controles.py</b>, que confere por <code>assert</code>
+  cada valor contra o output do notebook 05. Duas exceções que o notebook não publica e o script calculou:
+  a taxa agregada por origem, <b>manual 1,20%</b> e <b>monitoramento 0,48%</b>. O notebook traz essa comparação
+  como composição das quebras (81,4% contra 63,6%), que é um número de natureza diferente e não podia virar
+  linha de referência no gráfico. Se preferir não publicar taxa que o notebook não tem, tiro as duas linhas
+  tracejadas do painel da direita.</p>
+
+  <div class="bloco">
+    <div class="cab"><span class="let">A</span><span class="nom">Figura em largura cheia, com dois cartões de composição embaixo</span><span class="rec">recomendada</span></div>
+    <p class="nota">Mesmo desenho do <b>d30a</b>, o slide de causas que já está aprovado, o que deixa os dois vizinhos
+    coerentes. Os cartões trazem só o que o gráfico não mostra: quanto de cada faixa é P2 e quanto é abertura manual.
+    É essa composição que produz o efeito. <b>61 palavras de corpo</b>, contra 83 da versão atual.</p>
+    <iframe src="d33a-r6a.html"></iframe>
+  </div>
+
+  <div class="bloco">
+    <div class="cab"><span class="let">B</span><span class="nom">Só o gráfico, com uma linha de texto acima</span></div>
+    <p class="nota">A figura vai até o pé do slide e nada entra depois dela, o que a deixa cerca de 17% mais alta que
+    na A. Os dois números da composição entram no parágrafo de abertura. Mais ar e menos evidência na tela: quem
+    apresenta precisa dizer em voz alta o que os cartões da A mostram escrito. <b>34 palavras de corpo</b>.</p>
+    <iframe src="d33a-r6b.html"></iframe>
+  </div>
+
+  <div class="bloco">
+    <div class="cab"><span class="let">·</span><span class="nom">A versão atual, para comparar</span><span class="vel">no deck hoje</span></div>
+    <p class="nota">Título com veredito ("deixam de separar"), tabela de quatro colunas com onze números repetindo o
+    que o gráfico já diz, e um rodapé explicando como ler o próprio slide. <b>83 palavras de corpo.</b></p>
+    <img class="img" src="_chk/d33a-r5a.png" alt="">
+  </div>
+</div>
+</body></html>
