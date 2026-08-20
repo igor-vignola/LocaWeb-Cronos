@@ -1,0 +1,116 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>12 Código · B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+/* 12 B · dois trechos lado a lado, um de cada ponta do projeto: o que treina o modelo e o
+   que a aplicação executa a cada requisição. A aposta é amplitude, e não profundidade em um
+   arquivo só: mostra que existe código nas duas metades da arquitetura. */
+.c12 .body{padding:16px 64px 40px}
+.c12 .tt{font-size:34px}
+.c12 .lead{font-size:16px;margin-top:9px;max-width:1200px}
+.c12 .duo{flex:1;min-height:0;display:flex;gap:20px;margin-top:16px}
+.c12 .col{flex:1;min-width:0;display:flex;flex-direction:column}
+.c12 .ch{display:flex;align-items:baseline;gap:11px;margin-bottom:10px}
+.c12 .ch .cn{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--accent)}
+.c12 .ch .cs{font-size:14px;color:var(--tx)}
+
+.cd{flex:1;min-height:0;background:#0B1220;border-radius:15px;overflow:hidden;
+  box-shadow:0 30px 66px -40px rgba(11,18,32,.6);display:flex;flex-direction:column}
+.cd .fp{display:flex;align-items:center;gap:10px;padding:11px 18px;
+  background:rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.08);
+  font-family:var(--mono);font-size:12px;font-weight:500;color:#8B96A8}
+.cd .fp i{width:7px;height:7px;border-radius:50%;background:#3B82F6;flex-shrink:0}
+.cd pre{flex:1;font-family:var(--mono);font-size:12.6px;line-height:1.62;color:#C7D2E1;
+  padding:15px 18px 16px;white-space:pre;font-variant-ligatures:none}
+.cd .k{color:#7FB0FF}
+.cd .f{color:#EDF1F7;font-weight:600}
+.cd .s{color:#8FCBA4}
+.cd .c{color:#69748A}
+
+/* faixa de baixo: o inventário do repositório em uma linha só */
+.c12 .bar{display:flex;align-items:center;gap:0;margin-top:16px;background:#fff;
+  border:1px solid var(--line);border-radius:14px;padding:13px 24px;
+  box-shadow:0 16px 38px -30px rgba(15,23,42,.26)}
+.c12 .bar .bi2{padding-right:26px;margin-right:26px;border-right:1px solid var(--line)}
+.c12 .bar .bi2:last-child{border-right:none;margin-right:0;padding-right:0;margin-left:auto}
+.c12 .bar .bk{font-size:10.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--tx2)}
+.c12 .bar .bv{font-size:21px;font-weight:800;letter-spacing:-.6px;color:var(--head);
+  margin-top:3px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.c12 .bar .bv small{font-size:13px;font-weight:600;color:var(--tx2);margin-left:5px}
+.c12 .bar .rv{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--accent);
+  margin-top:4px}
+</style></head><body><div class="slide light c12"><div class="mesh"></div><div class="grid-bg"></div>
+<div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">MVP · Código-fonte</div></div>
+<div class="body">
+  <div class="eb">Evidências de construção</div>
+  <div class="tt">Código-fonte da modelagem e da aplicação</div>
+  <div class="lead">Um trecho de cada ponta: o notebook que treina o classificador de risco e o módulo que a aplicação executa a cada requisição.</div>
+  <div class="duo">
+    <div class="col">
+      <div class="ch"><span class="cn">Modelagem</span><span class="cs">pré-processamento e ajuste do classificador</span></div>
+      <div class="cd">
+        <div class="fp"><i></i>notebooks/04_risco_ola.ipynb</div>
+<pre><span class="k">def</span> <span class="f">novo_preprocessador</span>():
+    <span class="s">"""Codificação das categóricas e padronização
+    das numéricas."""</span>
+    <span class="k">return</span> ColumnTransformer([
+        (<span class="s">'cat'</span>, Pipeline([
+            (<span class="s">'imp'</span>, SimpleImputer(strategy=<span class="s">'constant'</span>,
+                                 fill_value=<span class="s">'(vazio)'</span>)),
+            (<span class="s">'ohe'</span>, OneHotEncoder(handle_unknown=<span class="s">'ignore'</span>,
+                                 min_frequency=100)),
+        ]), CATEGORICAS),
+        (<span class="s">'num'</span>, Pipeline([
+            (<span class="s">'imp'</span>, SimpleImputer(strategy=<span class="s">'median'</span>)),
+            (<span class="s">'sc'</span>, StandardScaler()),
+        ]), NUMERICAS),
+    ])
+
+modelo = Pipeline([
+    (<span class="s">'pre'</span>, novo_preprocessador()),
+    (<span class="s">'clf'</span>, LogisticRegression(max_iter=5000,
+                             random_state=SEMENTE))])
+modelo.fit(X_treino, y_treino)
+risco_teste = modelo.predict_proba(X_teste)[:, 1]</pre>
+      </div>
+    </div>
+    <div class="col">
+      <div class="ch"><span class="cn">Aplicação</span><span class="cs">a régua do KPI, com as metas oficiais da Locaweb</span></div>
+      <div class="cd">
+        <div class="fp"><i></i>webapp/painel/servicos.py</div>
+<pre><span class="c"># metas anuais de violação de OLA, do dicionário
+# de dados oficial: (teto de quebras, atingimento)</span>
+ESCADA = {
+    <span class="s">'P2'</span>: [(30, 150), (35, 125), (39, 100),
+           (45, 75), (53, 50), (<span class="f">float</span>(<span class="s">'inf'</span>), 0)],
+    <span class="s">'P3'</span>: [(200, 150), (230, 125), (263, 100),
+           (290, 75), (320, 50), (<span class="f">float</span>(<span class="s">'inf'</span>), 0)],
+}
+
+<span class="k">def</span> <span class="f">atingimento</span>(pri, quebras):
+    <span class="s">"""Em que degrau da escada do KPI aquele
+    número de quebras cai."""</span>
+    degraus = ESCADA[pri]
+    <span class="k">for</span> i, (teto, pc) <span class="k">in</span> <span class="f">enumerate</span>(degraus):
+        <span class="k">if</span> quebras &lt;= teto:
+            <span class="k">return</span> {
+                <span class="s">'pc'</span>: pc,
+                <span class="s">'margem'</span>: <span class="f">round</span>(teto - quebras, 1),
+                <span class="s">'proximo_pc'</span>: degraus[i + 1][1],
+            }</pre>
+      </div>
+    </div>
+  </div>
+  <div class="bar">
+    <div class="bi2"><div class="bk">Notebooks</div><div class="bv">7<small>139 células</small></div></div>
+    <div class="bi2"><div class="bk">Linhas em notebook</div><div class="bv">3.012</div></div>
+    <div class="bi2"><div class="bk">Aplicação Django</div><div class="bv">13<small>módulos · 27 templates</small></div></div>
+    <div class="bi2"><div class="bk">Tabelas geradas</div><div class="bv">8<small>parquet</small></div></div>
+    <div class="bi2"><div class="bk">Repositório</div><div class="rv">github.com/igor-vignola/LocaWeb-Cronos</div></div>
+  </div>
+</div></div></body></html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>12 Código-fonte · A, B e C</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#20242E;font-family:'Outfit',sans-serif;color:#E8ECF3;padding:40px 0 80px}
+.wrap{width:1600px;margin:0 auto}
+h1{font-size:26px;font-weight:800;letter-spacing:-.6px;margin-bottom:6px}
+.int{font-size:15px;color:#98A2B3;margin-bottom:16px;max-width:1250px;line-height:1.55}
+.int b{color:#E8ECF3}
+.cit{border-left:3px solid #3B82F6;padding:2px 0 2px 18px;margin:0 0 16px;max-width:1250px}
+.cit p{font-size:14.5px;color:#B6C0CE;line-height:1.6;margin-bottom:7px}
+.cit p:last-child{margin-bottom:0}
+.cit .fo{font-size:12.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;
+  color:#6C7688}
+.alerta{background:rgba(217,147,11,.12);border:1px solid rgba(217,147,11,.35);
+  border-radius:12px;padding:15px 20px;margin-bottom:34px;max-width:1250px;
+  font-size:14.5px;line-height:1.55;color:#E3C68A}
+.alerta b{color:#FBE3B4}
+.bloco{margin-bottom:46px}
+.cab{display:flex;align-items:baseline;gap:14px;margin-bottom:12px}
+.cab .let{font-size:19px;font-weight:800;color:#93C5FD}
+.cab .nom{font-size:19px;font-weight:700}
+.cab .rec{margin-left:auto;font-size:12.5px;font-weight:700;letter-spacing:1.4px;
+  text-transform:uppercase;color:#4ADE80}
+.nota{font-size:14.5px;color:#98A2B3;line-height:1.55;margin-bottom:14px;max-width:1300px}
+.nota b{color:#E8ECF3;font-weight:700}
+.nota code{font-family:'JetBrains Mono',monospace;font-size:13px;color:#93C5FD}
+iframe{width:1600px;height:900px;border:0;display:block;border-radius:10px;
+  box-shadow:0 30px 70px -40px rgba(0,0,0,.8)}
+</style></head><body>
+<div class="wrap">
+  <h1>Slide de código-fonte · três composições</h1>
+  <p class="int">Slide novo, para entrar entre a <b>descrição das tecnologias</b> e o bloco analítico, na posição 14 do deck.
+  Hoje o deck mostra o resultado do código (gráficos, métricas, as dez telas rodando) e não mostra o código. As três
+  versões resolvem isso de maneiras diferentes. Todos os números saem de <b>scripts/inventario_codigo.py</b>, e a saída
+  da célula é a saída real do notebook 04.</p>
+
+  <div class="cit">
+    <p class="fo">Onde isso é pedido · 1 · enunciado da Sprint 3, no portal</p>
+    <p>"Espera-se que os alunos iniciem e evoluam no desenvolvimento prático da solução com <b>uso efetivo de
+    código-fonte</b>, validando na prática os principais recursos da proposta apresentada."</p>
+  </div>
+  <div class="cit">
+    <p class="fo">2 · template oficial 03Template_MVP_Preliminar, slide 13, lista do que é esperado</p>
+    <p>"Nessa parte da entrega, são esperados os seguintes itens, baseados na arquitetura proposta e revisada:
+    Indicar todas as fontes de dados utilizadas na sua solução. <b>Entregar algoritmos, métodos, manipulações e
+    transformações utilizadas.</b>"</p>
+    <p>E na lista dos desejáveis: "Prints de telas, apresentando o tratamento de dados. Amostra de dados
+    utilizados/populados. Algoritmos utilizando modelos matemáticos e estatísticos, contemplando a lógica aplicada
+    na solução."</p>
+  </div>
+  <div class="cit">
+    <p class="fo">3 · nosso próprio checklist, que é paráfrase dos dois de cima</p>
+    <p>Sprint 3, item 4: "Código-fonte efetivo (não só planejamento)". Verificação de qualidade: "Há código-fonte
+    real sendo mostrado?"</p>
+  </div>
+
+  <p class="alerta"><b>Uma pendência que não é de design:</b> as três versões trazem o endereço
+  <b>github.com/igor-vignola/LocaWeb-Cronos</b>. Não consegui verificar daqui se o repositório está público. Se
+  estiver privado, o professor abre um 404 e o link vira contra a gente. Confere antes da entrega, e se preferir
+  não publicar o repositório agora, eu tiro o endereço das três.</p>
+
+  <div class="bloco">
+    <div class="cab"><span class="let">A</span><span class="nom">Um trecho grande, com a saída real da célula embaixo</span><span class="rec">recomendada</span></div>
+    <p class="nota">Profundidade. O algoritmo inteiro de pré-processamento e ajuste aparece de uma vez, com a saída da
+    célula logo abaixo, que é o que prova que rodou. À direita, o inventário do repositório e o endereço. Atende as duas
+    exigências de uma vez: mostra o algoritmo e mostra a transformação dos dados.</p>
+    <iframe src="12-codigo-A.html"></iframe>
+  </div>
+
+  <div class="bloco">
+    <div class="cab"><span class="let">B</span><span class="nom">Dois trechos, um de cada ponta da arquitetura</span></div>
+    <p class="nota">Amplitude. À esquerda o notebook que treina o classificador, à direita o módulo que a aplicação
+    executa a cada requisição, com as metas anuais da Locaweb no código. Mostra que existe código nas duas metades do
+    projeto, e não só na modelagem. Custo: sem a saída da célula, fica faltando a prova de execução.</p>
+    <iframe src="12-codigo-B.html"></iframe>
+  </div>
+
+  <div class="bloco">
+    <div class="cab"><span class="let">C</span><span class="nom">Árvore do repositório, trecho curto e como rodar</span></div>
+    <p class="nota">Organização. A árvore real com o que cada notebook faz, um trecho curto com a saída, e os dois
+    comandos que sobem a aplicação, copiados do <code>webapp/Dockerfile</code>. É a que melhor responde "onde está tudo
+    isso?", e a que mostra menos código de fato.</p>
+    <iframe src="12-codigo-C.html"></iframe>
+  </div>
+</div>
+</body></html>
