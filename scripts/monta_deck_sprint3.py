@@ -41,7 +41,7 @@ RAIZ = Path(__file__).resolve().parents[1]
 PRINTS = RAIZ / "sprints" / "sprint-3" / "prints"
 SAIDA = RAIZ / "sprints" / "sprint-3" / "slides"
 SAIDA_PNG = SAIDA / "png"
-PPTX = RAIZ / "sprints" / "EC_Sprint_3_2TSCOA_mvp_preliminar_Cronos_SuperDataBros.pptx"
+PPTX = RAIZ / "sprints" / "EC_Sprint_3_2TSCOA_Evidencias_Construcao_Cronos_SuperDataBros.pptx"
 # Réplica do quadro Trello, gerada por `scripts/monta_quadro_trello.py`. Fica fora de
 # `prints/` porque não é captura da aplicação, e o builder só a consome.
 QUADRO = RAIZ / "sprints" / "sprint-3" / "quadro" / "png"
@@ -60,7 +60,7 @@ ESCOLHIDOS = {
     "capa": "01-capa-B",
     "equipe": "02-equipe-B",
     "contexto": "03-contexto-E",
-    "contexto-estouro": "03b-causas-E",
+    "contexto-estouro": "03b-causas-H",
     "problema": "04-problema-D",
     "solucao": "05-solucao-D",
     "gestao-documentacao": "06-gestao-doc-D",
@@ -70,6 +70,10 @@ ESCOLHIDOS = {
     "arquitetura-desenho": "09-desenho-D",
     "arquitetura-descricao": "10-descricao-A",
     "arquitetura-tecnologias": "11-tecnologias-A",
+    # O template pede "entregar algoritmos, métodos, manipulações e transformações
+    # utilizadas" (slide 13) e o enunciado pede "uso efetivo de código-fonte". O deck
+    # mostrava o resultado do código em todo o bloco analítico e não mostrava o código.
+    "codigo-fonte": "12-codigo-C",
 }
 
 DECK_ANALISE = RAIZ / "prototipos" / "slides" / "mvp" / "deck"
@@ -79,6 +83,11 @@ DECK_ANALISE = RAIZ / "prototipos" / "slides" / "mvp" / "deck"
 # porque o fechamento do bloco não estava comunicando, e `d31a` porque repetia o achado de
 # familiaridade que já está no `d22a`, sobre outra base, o que produzia dois números para a
 # mesma coisa. Ver `docs/auditoria-consistencia-deck.md`.
+#
+# `-r6b` é o único da rodada 6: o `d33a` voltou da rodada 5 com título de veredito e uma
+# tabela de onze números repetindo o gráfico. A versão escolhida deixa a figura ocupar o
+# slide até o pé, com uma linha de texto acima. A figura foi refeita por
+# `scripts/figura_controles.py`, que confere cada valor contra o output do notebook 05.
 ANALISE = [
     # Análise exploratória
     "d01a-r5a", "d02a-r5a", "d03m-r5b", "d04r-r5b", "d04m-r5a", "d05m", "d06m", "d07m",
@@ -89,7 +98,7 @@ ANALISE = [
     "d20a", "d21a-r5a", "d22a-r5b", "d23a-r5b", "d24a-r5a", "d25a-r5a", "d26a-r5b",
     "d27a-r5a",
     # Causas e recorrência
-    "d29a", "d30a-r5a", "d32a-r5b", "d33a-r5a",
+    "d29a", "d30a-r5a", "d32a-r5b", "d33a-r6b",
     # Projeção do KPI e saúde por produto
     "d34a", "d35a-r5b", "d36a-r5b", "d37a-r5b", "d38a-r5a",
 ]
@@ -180,6 +189,7 @@ def ordem() -> list[str]:
             "arquitetura-desenho",       # template 9
             "arquitetura-descricao",     # template 10
             "arquitetura-tecnologias",   # template 11
+            "codigo-fonte",              # template 12 e 13: o código que produziu o resto
         ]
         + ANALISE                        # template 12 e 13: a evidência analítica
         + ["divisoria-telas"]            # template 13: a aplicação
