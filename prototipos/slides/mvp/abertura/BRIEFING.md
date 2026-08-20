@@ -159,7 +159,7 @@ Violações de OLA no ano e a nota que cada faixa vale:
 - Clusterização por DTW: silhueta **0,13**, ausência de estrutura.
 - Acúmulo de backlog, hipótese do mentor: correlação **−0,139**, sinal contrário ao esperado.
 - Realocação de equipe: **não pôde ser testada**, porque o dataset não tem capacidade nem
-  turno das equipes. Nunca escreva que foi refutada.
+  escala das equipes. Nunca escreva que foi refutada.
 
 ### Arquitetura
 

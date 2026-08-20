@@ -41,7 +41,7 @@ def _perfil_hora(pri):
     Era uma curva so, calculada em TODAS as prioridades (`HORAS` sai de `ATE_CORTE` inteiro), e
     a tela afirmava que ela tinha sido medida no P3. Nao tinha. O P2 e o P3 chegam em ritmos
     diferentes ao longo do dia, e aplicar a curva do agregado a um deles distribui o volume
-    previsto na hora errada — o que estraga justamente a comparacao do meio do turno.
+    previsto na hora errada — o que estraga justamente a comparacao do meio do dia.
     """
     s = ATE_CORTE[ATE_CORTE['Prioridade'].astype(str).str.startswith(pri)]
     por_hora = s.groupby('hora').size().reindex(range(24), fill_value=0)
@@ -57,7 +57,7 @@ def acompanhamento_do_dia(pri, hoje):
     """Previsto contra realizado ao longo do dia, para uma prioridade.
 
     A curva esperada e a distribuicao historica por hora daquela prioridade aplicada ao total
-    previsto para hoje. A realizada e o que ja entrou. Assim o turno ve, no meio do dia, se
+    previsto para hoje. A realizada e o que ja entrou. Assim quem opera ve, no meio do dia, se
     esta no ritmo previsto — que e o que torna a previsao util depois do cafe.
 
     Recebe a prioridade porque as DUAS entram no KPI e as duas precisam aparecer na tela. A
@@ -115,7 +115,7 @@ def serie(df, campos):
 # categoria dominante devolve 13 grupos para 15 produtos, com dois pares apenas. Nao e familia,
 # e ruido.
 #
-# O que E derivavel, legivel e util no turno: QUEM ATENDE. `Grupo designado` traz nome de
+# O que E derivavel, legivel e util no dia: QUEM ATENDE. `Grupo designado` traz nome de
 # equipe de verdade, e a dominancia e alta — de 42% (lsin) a 100% (lgoa). Dois produtos do
 # mesmo time ficam visivelmente parentes, que era o ganho pedido, e nada e inventado.
 #

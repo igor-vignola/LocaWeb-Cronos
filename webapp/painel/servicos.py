@@ -37,8 +37,8 @@ FAIXAS = [(10, 1e9, 'crítica', 'no', 'alerta'), (5, 10, 'alta', 'wn', 'raio'),
 CORTE_CRITICO = FAIXAS[0][0]
 # o que fazer com um caso daquela faixa. A fila respondia "quanto" e nao respondia "e dai" —
 # e "e dai" e a unica pergunta que um plantao faz diante de uma lista.
-ACOES = {'crítica': 'Ação imediata', 'alta': 'Priorizar no turno',
-         'atenção': 'Acompanhar no turno', 'rotina': 'Sem ação específica'}
+ACOES = {'crítica': 'Ação imediata', 'alta': 'Priorizar hoje',
+         'atenção': 'Acompanhar hoje', 'rotina': 'Sem ação específica'}
 
 # ── a ordem em que as duas prioridades do KPI aparecem, em TODA a aplicação ──
 # Cada tela resolvia isso por conta própria e o resultado eram duas convenções vivas ao mesmo
@@ -46,7 +46,7 @@ ACOES = {'crítica': 'Ação imediata', 'alta': 'Priorizar no turno',
 # dar o mesmo peso às duas — o que não significa alternar a ordem, e sim fixá-la, para o olho
 # encontrar a mesma prioridade no mesmo lugar em qualquer aba.
 #
-# P3 primeiro porque é cerca de cinco vezes o P2 em volume e concentra a fila do turno. Para
+# P3 primeiro porque é cerca de cinco vezes o P2 em volume e concentra a fila do dia. Para
 # inverter a convenção inteira, basta trocar esta linha.
 ORDEM_PRI = ('P3', 'P2')
 
@@ -183,7 +183,7 @@ def saude_lista():
         v = x.get(campo) or 0
         equipe = x.get('equipe') or ''
         pos = round((x.get(f'pos_{campo}') or 0) * 100)
-        # "percentil 93" é a palavra do notebook, e no turno ninguém lê percentil. Aqui ela vira
+        # "percentil 93" é a palavra do notebook, e no dia a dia ninguém lê percentil. Aqui ela vira
         # a POSIÇÃO, que é o que o número já é: `pos_*` no parquet é rank/n exato — os quinze
         # produtos ocupam 6,7 · 13,3 · 20,0 … 100,0 em qualquer componente. Então `rank` é
         # recuperado sem aproximação nenhuma, e 100 quer dizer "o pior dos quinze".
@@ -487,7 +487,7 @@ def fila_de_hoje(n=6, ate_hora=None):
     anuncia a hora corrente no cabecalho e lista, tres centimetros abaixo, caso aberto depois
     dela — hoje o relogio para as 15h, e a fila crua tem caso das 19h e das 23h. A fila
     do parquet traz o dia inteiro porque no historico o dia inteiro ja aconteceu — publicar
-    isso e mostrar futuro. Quem opera conhece o proprio turno e percebe na hora.
+    isso e mostrar futuro. Quem opera conhece o proprio dia e percebe na hora.
     """
     f = fila()
     hoje = f[f['dia'] == pd.Timestamp(painel()['hoje']['dia'])]
@@ -553,7 +553,7 @@ def fila_ate_agora():
     # Com uma casa decimal, 1,04% e 0,98% imprimem o mesmo "1,0%", e o corte entre atenção e
     # rotina é exatamente 1%: a lista mostrava dois números idênticos, um laranja e outro verde,
     # sem nada que explicasse a diferença. Quem lê conclui que a tela errou. O nome escrito
-    # resolve, e responde a pergunta que o turno faz de verdade — não é "1,04 ou 0,98", é "esse
+    # resolve, e responde a pergunta que a operação faz de verdade — não é "1,04 ou 0,98", é "esse
     # aqui pede ação?".
     f['faixa'] = [faixa_de(r)[2] for r in f['risco']]
     return f

@@ -96,7 +96,7 @@ inverter a leitura de produtos cujo problema está no P2.
               mesmo time ficam visivelmente parentes na lista. Era esse o ganho que o
               agrupamento por família de produto prometia — mas família não existe no dado (os
               51 códigos são opacos, e a coluna Categoria também é anonimizada), enquanto
-              "quem atende" é medido e responde uma pergunta de turno.{% endcomment %}
+              "quem atende" é medido e responde uma pergunta do dia.{% endcomment %}
               <td class="sa-t-pr">
                 <span class="sa-eq" style="--h:{{ x.equipe_h }}"
                   title="{{ x.equipe }} atende {{ x.equipe_pc }}% dos casos deste produto">
@@ -124,7 +124,7 @@ inverter a leitura de produtos cujo problema está no P2.
               <td><span class="tag {% if 'materializado' in x.quadrante %}no{% elif 'latente' in x.quadrante %}wn{% elif 'recorrente' in x.quadrante %}nt{% else %}ok{% endif %}">{{ x.situacao }}</span></td>
 
               {% comment %}A explicabilidade na linha: o componente de pior posição relativa e o
-              valor dele. "Percentil 93" saiu — é a palavra do notebook, não a do turno, e o
+              valor dele. "Percentil 93" saiu — é a palavra do notebook, não a de quem opera, e o
               número dizia a mesma coisa que `pior_faixa` agora diz em português.{% endcomment %}
               <td class="sa-t-x">
                 <b>{{ x.pior_rot }}</b>

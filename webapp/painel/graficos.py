@@ -130,7 +130,7 @@ def acompanhamento(ac, w=560, h=190):
     """Previsto contra realizado ao longo do dia.
 
     A curva esperada e a distribuicao historica por hora aplicada ao total previsto.
-    A realizada para no agora — e o que permite ver, no meio do turno, se o dia esta
+    A realizada para no agora — e o que permite ver, no meio do dia, se ele esta
     no ritmo."""
     esperado, realizado = ac['esperado'], ac['realizado']
     teto = max(max(esperado), ac['alto'], max(realizado) if realizado else 0) * 1.06

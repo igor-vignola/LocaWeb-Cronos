@@ -151,7 +151,7 @@ def _entrada(aba):
 
 
 def panorama(req):
-    """A porta de entrada. Coluna única, na ordem em que a decisão acontece dentro de um turno:
+    """A porta de entrada. Coluna única, na ordem em que a decisão acontece dentro de um dia:
     como está o dia, o que pede ação agora, quanto do teto do ano já foi gasto, onde o problema
     mora. A fila vem antes do ano porque é a única coisa da tela em que dá para agir hoje."""
     return render(req, 'painel/panorama.html', _entrada('panorama'))

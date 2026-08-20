@@ -174,7 +174,7 @@ Reprovado inteiro: *"esse nem preciso comentar, todos horríveis, é quase um li
 feios, bem fora do padrão"*. **Comece do zero.**
 
 O que o slide tem de dizer: o Cronos prevê quanto entra, aponta qual caso vai estourar,
-projeta onde o ano fecha, e entrega isso na entrada do turno sem ninguém perguntar.
+projeta onde o ano fecha, e entrega isso na entrada do dia sem ninguém perguntar.
 
 Regra de ouro aqui: **quatro blocos, um ícone e um número por bloco, no máximo doze palavras
 por bloco.** Nada de tabela, nada de parágrafo, nada de faixa de rodapé com mudanças.
@@ -183,10 +183,10 @@ Os quatro blocos e o número de cada um:
 - Previsão de volume · `i-previsao` · erro de **11,8 por dia no P3 e 4,2 no P2**
 - Risco por incidente · `i-alvo` · **72%** das violações nos 20% de maior risco
 - Projeção do KPI · `i-tendencia` · acerta **7 de 10**
-- Chega sem ser pedido · `i-sol` · briefing na entrada do turno
+- Chega sem ser pedido · `i-sol` · briefing na entrada do dia
 
 - **A** · os quatro blocos em grade 2 por 2, grandes, cada um com ícone e número
-- **B** · os quatro em fileira horizontal ligada por seta, como um fluxo do turno
+- **B** · os quatro em fileira horizontal ligada por seta, como um fluxo do dia
 
 ## 06 · Gerenciamento atualizado · `06-gestao-doc-A.html` e `06-gestao-doc-B.html`
 

@@ -68,9 +68,14 @@ Estas decisões já estão tomadas. **Não revisitar sem motivo forte.**
       tem esses dados — e cartão com dado que não existe destrói a credibilidade da tela toda.
     - **Slides/notebooks:** é onde mora a avaliação dos modelos — cobertura, MAE, viés, ROC AUC,
       PR-AUC, backtest, ganho da fila contra o acaso. Ali o período de teste inteiro é legítimo,
-      porque o assunto é "o modelo funciona?", não "o que faço no turno".
+      porque o assunto é "o modelo funciona?", não "o que faço no dia".
     Antes de publicar qualquer bloco novo, perguntar: **isso existiria na tela às 15h de
     01/10/2025?** Se a resposta for não, o lugar é o deck.
+
+12. **A palavra "turno" está proibida** em slide, tela, texto de interface e comentário de
+    código. Não pega bem com a Locaweb. Trocar por "no dia", "no início do dia", "durante o
+    dia", "hoje", "a operação" ou "quem opera", conforme o caso. O painel se chama **painel
+    operacional**, nunca "painel do turno". Igor já corrigiu isso mais de uma vez.
 
 ---
 

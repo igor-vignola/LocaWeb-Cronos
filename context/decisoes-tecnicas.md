@@ -180,7 +180,7 @@ futuro. Fica **proibido** exibir realizado posterior ao corte.
 
 **Slides e notebooks:** é onde mora a avaliação dos modelos — cobertura da faixa, MAE, viés,
 ROC AUC, PR-AUC, backtest, ganho da fila contra o acaso. O trimestre de teste inteiro é legítimo
-ali, porque a pergunta é "o modelo funciona?" e não "o que faço no turno?".
+ali, porque a pergunta é "o modelo funciona?" e não "o que faço no dia?".
 
 Violações encontradas na auditoria de 13/08/2026:
 

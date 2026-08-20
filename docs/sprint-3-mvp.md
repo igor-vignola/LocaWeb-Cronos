@@ -304,7 +304,7 @@ Registrado para honestidade e para não repetir caminho já verificado.
 - **Detector de cascata** (P4/P5 que escalam para P3/P2): testado e não sustentado no dado. 87% das quebras de OLA são de incidentes isolados; a taxa de "escalada" observada (21%) ficou abaixo do esperado por acaso (~60%).
 - **Padrão de acúmulo** (a hipótese descrita pela Locaweb na mentoria): testado em 29/07/2026 e sem suporte na base. Medindo o backlog diário de elegíveis abertos e não resolvidos, em dias úteis, a correlação com quebras é levemente negativa e fraca (r = -0,139, p = 0,027; Spearman -0,115, p = 0,067), e se mantém com defasagem de 1 a 3 dias. O quartil de maior backlog (611 em média) apresenta menos quebras por dia (0,5) que o de menor (70 em média, 0,7). Ressalva honesta: o resultado diz que o backlog agregado por dia não prevê quebra na base disponível, não que o acúmulo seja irrelevante na operação; um efeito por equipe ou por capacidade instalada não é observável, pois esses campos não existem no dataset.
 - **Clusterização por série temporal** (TimeSeriesKMeans + DTW): silhueta ~0,13, sem estrutura de grupos real; um k-means por volume separa melhor (~0,72), mas é agrupamento trivial por tamanho. O requisito de "classificação ou clusterização" é atendido pelo classificador de risco.
-- **Sugestão de realocação de equipe:** especulativa (não há capacidade/turno das equipes no dado). Mantém-se a carga por equipe de forma descritiva.
+- **Sugestão de realocação de equipe:** especulativa (não há capacidade nem escala das equipes no dado). Mantém-se a carga por equipe de forma descritiva.
 
 ---
 
