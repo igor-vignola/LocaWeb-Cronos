@@ -93,3 +93,8 @@ prototipos/**/_r5/
 prototipos/**/_r5antes/
 prototipos/**/_rev/
 prototipos/**/_revisao-*.html
+prototipos/**/_chk/
+
+# Pacote .zip da entrega: é o .pptx ao lado mais os sete notebooks, e sai de
+# scripts/monta_zip_entrega.py em dois segundos. 44 MB que não precisam de histórico.
+sprints/*.zip
