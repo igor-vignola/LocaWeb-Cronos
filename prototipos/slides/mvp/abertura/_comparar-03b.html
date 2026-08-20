@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>03b Estouro · G, H e I</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#20242E;font-family:'Outfit',sans-serif;color:#E8ECF3;padding:40px 0 80px}
+.wrap{width:1600px;margin:0 auto}
+h1{font-size:26px;font-weight:800;letter-spacing:-.6px;margin-bottom:6px}
+.int{font-size:15px;color:#98A2B3;margin-bottom:34px;max-width:1100px;line-height:1.5}
+.bloco{margin-bottom:46px}
+.cab{display:flex;align-items:baseline;gap:14px;margin-bottom:12px}
+.cab .let{font-size:19px;font-weight:800;color:#93C5FD}
+.cab .nom{font-size:19px;font-weight:700}
+.cab .rec{margin-left:auto;font-size:12.5px;font-weight:700;letter-spacing:1.4px;
+  text-transform:uppercase;color:#4ADE80}
+.nota{font-size:14.5px;color:#98A2B3;line-height:1.5;margin-bottom:14px;max-width:1200px}
+iframe{width:1600px;height:900px;border:0;display:block;border-radius:10px;
+  box-shadow:0 30px 70px -40px rgba(0,0,0,.8)}
+</style></head><body>
+<div class="wrap">
+  <h1>Slide de contexto · três composições</h1>
+  <p class="int">Mesmo fato nas três: a fila é ordenada por prioridade, e a ordem da prioridade não é a ordem do estouro.
+  Os números são os medidos na base elegível (25.600 incidentes, 248 quebras) e no teste do notebook 04.
+  Nenhuma delas afirma que o foco na alta prioridade causa o estouro na média — esse mecanismo foi testado
+  na seção 4.10.3 e caiu (efeito de composição).</p>
+
+  <div class="bloco">
+    <div class="cab"><span class="let">G</span><span class="nom">Grade de cinquenta posições + inversão da ordem</span><span class="rec">recomendada</span></div>
+    <p class="nota">Evolução do que já existe. A grade continua sendo o desenho do esforço (cinquenta casos revisados, um estouro),
+    e o par de prioridades entra na coluna de texto como o fato que explica por quê. Ícone alinhado à primeira linha.</p>
+    <iframe src="03b-causas-G.html"></iframe>
+  </div>
+
+  <div class="bloco">
+    <div class="cab"><span class="let">H</span><span class="nom">Inversão de ordem, com as setas cruzadas</span></div>
+    <p class="nota">A mensagem vira o cruzamento: a fila atende alta e depois média, o prazo estoura na média e depois na alta.
+    Mais limpa e mais afiada, porém com menos dado na tela.</p>
+    <iframe src="03b-causas-H.html"></iframe>
+  </div>
+
+  <div class="bloco">
+    <div class="cab"><span class="let">I</span><span class="nom">A fila inteira em uma faixa, com as 248 quebras</span></div>
+    <p class="nota">Cada traço é uma quebra, posicionada no trecho da sua prioridade: 42 no da alta, 206 no da média,
+    com o corte em 20,15% da largura, que é a fatia da alta na base. Mostra que os estouros cobrem a fila toda,
+    que é a razão de começar por cima render tão pouco.</p>
+    <iframe src="03b-causas-I.html"></iframe>
+  </div>
+</div>
+</body></html>

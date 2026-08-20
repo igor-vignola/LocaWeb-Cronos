@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>03b Estouro · I</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+/* I · a fila inteira em uma faixa. Cada traço é uma das 248 quebras, na posição da sua
+   prioridade: 42 no trecho da alta, 206 no da média. O corte fica em 20,15% da largura,
+   que é a fatia da alta na base elegível. O desenho mostra que os estouros cobrem a fila
+   toda, e é por isso que começar por cima rende tão pouco. */
+.xi .body{padding:24px 80px 70px}
+.xi .tt{font-size:37px}
+
+.frase{font-size:36px;font-weight:800;letter-spacing:-1.2px;line-height:1.2;color:var(--head);
+  margin-top:24px;max-width:1180px}
+.frase em{font-style:normal;color:var(--bad)}
+
+.zona{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+
+.rot{display:flex;margin-bottom:14px}
+.rot .r1{width:20.152%;flex-shrink:0;padding-right:14px}
+.rot .r2{flex:1;padding-left:14px}
+.rot .k{font-size:11.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--tx2)}
+.rot .v{font-size:16px;color:var(--tx);margin-top:4px;font-variant-numeric:tabular-nums}
+.rot .v b{color:var(--head);font-weight:700}
+.rot .r2 .k{color:var(--bad)}
+
+.faixa{position:relative;height:148px;border-radius:14px;overflow:hidden;background:#fff;
+  border:1px solid var(--line);box-shadow:0 18px 44px -34px rgba(15,23,42,.3)}
+.faixa .seg{position:absolute;top:0;bottom:0}
+.faixa .sa{left:0;width:20.152%;background:#fff}
+.faixa .sm{left:20.152%;right:0;background:#fff}
+.faixa .div{position:absolute;left:20.152%;top:0;bottom:0;width:1px;background:#0B1220;opacity:.22}
+.faixa i{position:absolute;top:20px;bottom:20px;width:1.8px;background:var(--bad);
+  border-radius:1px}
+.faixa i.m{background:var(--bad)}
+
+.eixo{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+.eixo .e1{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:700;
+  color:var(--tx)}
+.eixo .e1 svg{width:17px;height:17px;stroke:var(--accent);fill:none;stroke-width:2.2;
+  stroke-linecap:round;stroke-linejoin:round}
+.eixo .e2{font-size:14px;color:var(--tx2)}
+
+.taxas{display:flex;margin-top:30px}
+.taxas .t1{width:20.152%;flex-shrink:0;padding-right:14px}
+.taxas .t2{flex:1;padding-left:14px}
+.taxas .n{font-size:40px;font-weight:800;letter-spacing:-1.2px;color:var(--tx2);
+  font-variant-numeric:tabular-nums;line-height:1}
+.taxas .t2 .n{color:var(--bad)}
+.taxas .d{font-size:15px;color:var(--tx2);margin-top:7px}
+
+.fecho{display:flex;align-items:flex-start;gap:14px;margin-top:auto;padding-top:24px;
+  border-top:1px solid var(--line);max-width:1250px}
+.fecho .ci2{width:32px;height:32px;border-radius:10px;flex-shrink:0;display:flex;
+  align-items:center;justify-content:center;background:var(--bad-l);color:var(--bad);
+  margin-top:-3px}
+.fecho .ci2 svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.fecho p{font-size:17px;line-height:1.5;color:var(--tx)}
+.fecho p b{color:var(--head);font-weight:700}
+</style></head><body>
+<section class="slide light xi">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Contexto · O estouro</div></div>
+  <div class="body">
+    <span class="eb">Contextualização do problema</span>
+    <h1 class="tt">O que torna o estouro de OLA <span class="hl">difícil de antecipar</span></h1>
+    <div class="frase">Quem está no topo da fila <em>não</em> é quem vai estourar o prazo.</div>
+
+    <div class="zona">
+      <div class="rot">
+        <div class="r1"><div class="k">Alta · P2</div><div class="v"><b>5.159</b> incidentes</div></div>
+        <div class="r2"><div class="k">Média · P3</div><div class="v"><b>20.441</b> incidentes</div></div>
+      </div>
+
+      <div class="faixa">
+        <div class="seg sa"></div><div class="seg sm"></div>
+          <i style="left:0.240%"></i><i style="left:0.720%"></i><i style="left:1.200%"></i><i style="left:1.679%"></i><i style="left:2.159%"></i><i style="left:2.639%"></i><i style="left:3.119%"></i><i style="left:3.599%"></i>
+          <i style="left:4.078%"></i><i style="left:4.558%"></i><i style="left:5.038%"></i><i style="left:5.518%"></i><i style="left:5.998%"></i><i style="left:6.478%"></i><i style="left:6.957%"></i><i style="left:7.437%"></i>
+          <i style="left:7.917%"></i><i style="left:8.397%"></i><i style="left:8.877%"></i><i style="left:9.356%"></i><i style="left:9.836%"></i><i style="left:10.316%"></i><i style="left:10.796%"></i><i style="left:11.276%"></i>
+          <i style="left:11.756%"></i><i style="left:12.235%"></i><i style="left:12.715%"></i><i style="left:13.195%"></i><i style="left:13.675%"></i><i style="left:14.155%"></i><i style="left:14.634%"></i><i style="left:15.114%"></i>
+          <i style="left:15.594%"></i><i style="left:16.074%"></i><i style="left:16.554%"></i><i style="left:17.034%"></i><i style="left:17.513%"></i><i style="left:17.993%"></i><i style="left:18.473%"></i><i style="left:18.953%"></i>
+          <i style="left:19.433%"></i><i style="left:19.912%"></i><i class="m" style="left:20.346%"></i><i class="m" style="left:20.734%"></i><i class="m" style="left:21.121%"></i><i class="m" style="left:21.509%"></i><i class="m" style="left:21.897%"></i><i class="m" style="left:22.284%"></i>
+          <i class="m" style="left:22.672%"></i><i class="m" style="left:23.059%"></i><i class="m" style="left:23.447%"></i><i class="m" style="left:23.835%"></i><i class="m" style="left:24.222%"></i><i class="m" style="left:24.610%"></i><i class="m" style="left:24.997%"></i><i class="m" style="left:25.385%"></i>
+          <i class="m" style="left:25.773%"></i><i class="m" style="left:26.160%"></i><i class="m" style="left:26.548%"></i><i class="m" style="left:26.936%"></i><i class="m" style="left:27.323%"></i><i class="m" style="left:27.711%"></i><i class="m" style="left:28.098%"></i><i class="m" style="left:28.486%"></i>
+          <i class="m" style="left:28.874%"></i><i class="m" style="left:29.261%"></i><i class="m" style="left:29.649%"></i><i class="m" style="left:30.036%"></i><i class="m" style="left:30.424%"></i><i class="m" style="left:30.812%"></i><i class="m" style="left:31.199%"></i><i class="m" style="left:31.587%"></i>
+          <i class="m" style="left:31.974%"></i><i class="m" style="left:32.362%"></i><i class="m" style="left:32.750%"></i><i class="m" style="left:33.137%"></i><i class="m" style="left:33.525%"></i><i class="m" style="left:33.912%"></i><i class="m" style="left:34.300%"></i><i class="m" style="left:34.688%"></i>
+          <i class="m" style="left:35.075%"></i><i class="m" style="left:35.463%"></i><i class="m" style="left:35.851%"></i><i class="m" style="left:36.238%"></i><i class="m" style="left:36.626%"></i><i class="m" style="left:37.013%"></i><i class="m" style="left:37.401%"></i><i class="m" style="left:37.789%"></i>
+          <i class="m" style="left:38.176%"></i><i class="m" style="left:38.564%"></i><i class="m" style="left:38.951%"></i><i class="m" style="left:39.339%"></i><i class="m" style="left:39.727%"></i><i class="m" style="left:40.114%"></i><i class="m" style="left:40.502%"></i><i class="m" style="left:40.889%"></i>
+          <i class="m" style="left:41.277%"></i><i class="m" style="left:41.665%"></i><i class="m" style="left:42.052%"></i><i class="m" style="left:42.440%"></i><i class="m" style="left:42.828%"></i><i class="m" style="left:43.215%"></i><i class="m" style="left:43.603%"></i><i class="m" style="left:43.990%"></i>
+          <i class="m" style="left:44.378%"></i><i class="m" style="left:44.766%"></i><i class="m" style="left:45.153%"></i><i class="m" style="left:45.541%"></i><i class="m" style="left:45.928%"></i><i class="m" style="left:46.316%"></i><i class="m" style="left:46.704%"></i><i class="m" style="left:47.091%"></i>
+          <i class="m" style="left:47.479%"></i><i class="m" style="left:47.866%"></i><i class="m" style="left:48.254%"></i><i class="m" style="left:48.642%"></i><i class="m" style="left:49.029%"></i><i class="m" style="left:49.417%"></i><i class="m" style="left:49.805%"></i><i class="m" style="left:50.192%"></i>
+          <i class="m" style="left:50.580%"></i><i class="m" style="left:50.967%"></i><i class="m" style="left:51.355%"></i><i class="m" style="left:51.743%"></i><i class="m" style="left:52.130%"></i><i class="m" style="left:52.518%"></i><i class="m" style="left:52.905%"></i><i class="m" style="left:53.293%"></i>
+          <i class="m" style="left:53.681%"></i><i class="m" style="left:54.068%"></i><i class="m" style="left:54.456%"></i><i class="m" style="left:54.843%"></i><i class="m" style="left:55.231%"></i><i class="m" style="left:55.619%"></i><i class="m" style="left:56.006%"></i><i class="m" style="left:56.394%"></i>
+          <i class="m" style="left:56.781%"></i><i class="m" style="left:57.169%"></i><i class="m" style="left:57.557%"></i><i class="m" style="left:57.944%"></i><i class="m" style="left:58.332%"></i><i class="m" style="left:58.720%"></i><i class="m" style="left:59.107%"></i><i class="m" style="left:59.495%"></i>
+          <i class="m" style="left:59.882%"></i><i class="m" style="left:60.270%"></i><i class="m" style="left:60.658%"></i><i class="m" style="left:61.045%"></i><i class="m" style="left:61.433%"></i><i class="m" style="left:61.820%"></i><i class="m" style="left:62.208%"></i><i class="m" style="left:62.596%"></i>
+          <i class="m" style="left:62.983%"></i><i class="m" style="left:63.371%"></i><i class="m" style="left:63.758%"></i><i class="m" style="left:64.146%"></i><i class="m" style="left:64.534%"></i><i class="m" style="left:64.921%"></i><i class="m" style="left:65.309%"></i><i class="m" style="left:65.697%"></i>
+          <i class="m" style="left:66.084%"></i><i class="m" style="left:66.472%"></i><i class="m" style="left:66.859%"></i><i class="m" style="left:67.247%"></i><i class="m" style="left:67.635%"></i><i class="m" style="left:68.022%"></i><i class="m" style="left:68.410%"></i><i class="m" style="left:68.797%"></i>
+          <i class="m" style="left:69.185%"></i><i class="m" style="left:69.573%"></i><i class="m" style="left:69.960%"></i><i class="m" style="left:70.348%"></i><i class="m" style="left:70.735%"></i><i class="m" style="left:71.123%"></i><i class="m" style="left:71.511%"></i><i class="m" style="left:71.898%"></i>
+          <i class="m" style="left:72.286%"></i><i class="m" style="left:72.673%"></i><i class="m" style="left:73.061%"></i><i class="m" style="left:73.449%"></i><i class="m" style="left:73.836%"></i><i class="m" style="left:74.224%"></i><i class="m" style="left:74.612%"></i><i class="m" style="left:74.999%"></i>
+          <i class="m" style="left:75.387%"></i><i class="m" style="left:75.774%"></i><i class="m" style="left:76.162%"></i><i class="m" style="left:76.550%"></i><i class="m" style="left:76.937%"></i><i class="m" style="left:77.325%"></i><i class="m" style="left:77.712%"></i><i class="m" style="left:78.100%"></i>
+          <i class="m" style="left:78.488%"></i><i class="m" style="left:78.875%"></i><i class="m" style="left:79.263%"></i><i class="m" style="left:79.650%"></i><i class="m" style="left:80.038%"></i><i class="m" style="left:80.426%"></i><i class="m" style="left:80.813%"></i><i class="m" style="left:81.201%"></i>
+          <i class="m" style="left:81.589%"></i><i class="m" style="left:81.976%"></i><i class="m" style="left:82.364%"></i><i class="m" style="left:82.751%"></i><i class="m" style="left:83.139%"></i><i class="m" style="left:83.527%"></i><i class="m" style="left:83.914%"></i><i class="m" style="left:84.302%"></i>
+          <i class="m" style="left:84.689%"></i><i class="m" style="left:85.077%"></i><i class="m" style="left:85.465%"></i><i class="m" style="left:85.852%"></i><i class="m" style="left:86.240%"></i><i class="m" style="left:86.627%"></i><i class="m" style="left:87.015%"></i><i class="m" style="left:87.403%"></i>
+          <i class="m" style="left:87.790%"></i><i class="m" style="left:88.178%"></i><i class="m" style="left:88.566%"></i><i class="m" style="left:88.953%"></i><i class="m" style="left:89.341%"></i><i class="m" style="left:89.728%"></i><i class="m" style="left:90.116%"></i><i class="m" style="left:90.504%"></i>
+          <i class="m" style="left:90.891%"></i><i class="m" style="left:91.279%"></i><i class="m" style="left:91.666%"></i><i class="m" style="left:92.054%"></i><i class="m" style="left:92.442%"></i><i class="m" style="left:92.829%"></i><i class="m" style="left:93.217%"></i><i class="m" style="left:93.604%"></i>
+          <i class="m" style="left:93.992%"></i><i class="m" style="left:94.380%"></i><i class="m" style="left:94.767%"></i><i class="m" style="left:95.155%"></i><i class="m" style="left:95.542%"></i><i class="m" style="left:95.930%"></i><i class="m" style="left:96.318%"></i><i class="m" style="left:96.705%"></i>
+          <i class="m" style="left:97.093%"></i><i class="m" style="left:97.481%"></i><i class="m" style="left:97.868%"></i><i class="m" style="left:98.256%"></i><i class="m" style="left:98.643%"></i><i class="m" style="left:99.031%"></i><i class="m" style="left:99.419%"></i><i class="m" style="left:99.806%"></i>
+        <div class="div"></div>
+      </div>
+
+      <div class="eixo">
+        <span class="e1"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 7l5 5-5 5"/></svg> O gestor atende nesta direção</span>
+        <span class="e2">cada traço é uma das 248 quebras de OLA da base elegível</span>
+      </div>
+
+      <div class="taxas">
+        <div class="t1"><div class="n">0,81%</div><div class="d">42 quebras</div></div>
+        <div class="t2"><div class="n">1,01%</div><div class="d">206 quebras, quatro em cada cinco estouros da base</div></div>
+      </div>
+    </div>
+
+    <div class="fecho">
+      <div class="ci2"><svg viewBox="0 0 24 24"><path d="M12 3l9 16H3z"/><path d="M12 9v5M12 17h.01"/></svg></div>
+      <p>Os estouros cobrem a fila inteira, e a metade que a prioridade manda atender por último é a que estoura mais. Revisando as <b>cinquenta primeiras</b> posições, o gestor encontra <b>um</b> — o mesmo que cinquenta casos sorteados devolveriam.</p>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>

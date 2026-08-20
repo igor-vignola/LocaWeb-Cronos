@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>03b Estouro · H</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+/* H · a inversão de ordem: a fila apresenta a alta primeiro, e o estouro está na média.
+   O cruzamento das setas é a mensagem; os dois painéis só ancoram as pontas. */
+.xh .body{padding:24px 80px 70px}
+.xh .tt{font-size:37px}
+
+/* subtitulo: abaixo do titulo na hierarquia, entao menor e mais leve que ele */
+.frase{font-size:25px;font-weight:700;letter-spacing:-.6px;line-height:1.35;color:var(--tx);
+  margin-top:16px;max-width:1000px}
+.frase em{font-style:normal;font-weight:800;color:var(--bad)}
+
+.inv{flex:1;display:flex;align-items:center;justify-content:center;gap:0;min-height:0;
+  margin-top:6px}
+
+.pn{width:558px;flex-shrink:0}
+.pn .pk{font-size:11.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--tx2);margin-bottom:13px}
+.pn .cx{background:#fff;border:1px solid var(--line);border-radius:18px;
+  box-shadow:0 18px 44px -34px rgba(15,23,42,.3);overflow:hidden}
+.pn .ln{display:flex;align-items:center;gap:16px;padding:34px 30px}
+.pn .ln+.ln{border-top:1px solid var(--line)}
+.pn .ord{width:34px;flex-shrink:0;font-size:14px;font-weight:800;color:#B4BECC;
+  font-variant-numeric:tabular-nums}
+.pn .nm{flex:1;min-width:0}
+.pn .nm .t1{display:block;font-size:24px;font-weight:800;letter-spacing:-.6px;color:var(--head);
+  line-height:1.15}
+.pn .nm .t2{display:block;font-size:14px;color:var(--tx2);margin-top:3px}
+.pn .vl{text-align:right;flex-shrink:0}
+.pn .vl .v1{display:block;font-size:29px;font-weight:800;letter-spacing:-1px;color:var(--head);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.pn .vl .v2{display:block;font-size:13.5px;color:var(--tx2);margin-top:3px;font-variant-numeric:tabular-nums}
+.pn .ln.hot .nm .t1{color:var(--bad)}
+.pn .ln.hot .vl .v1{color:var(--bad)}
+
+.cruz{width:198px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  padding-top:26px}
+.cruz svg{width:198px;height:236px;overflow:visible}
+
+.fecho{display:flex;align-items:flex-start;gap:14px;margin-top:30px;padding-top:22px;
+  border-top:1px solid var(--line);max-width:1240px}
+.fecho .ci2{width:32px;height:32px;border-radius:10px;flex-shrink:0;display:flex;
+  align-items:center;justify-content:center;background:var(--bad-l);color:var(--bad);
+  margin-top:-3px}
+.fecho .ci2 svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.fecho p{font-size:17px;line-height:1.5;color:var(--tx)}
+.fecho p b{color:var(--head);font-weight:700}
+</style></head><body>
+<section class="slide light xh">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd"><div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div><div class="bn">Cronos</div><span class="bt">· Veja antes · Aja antes</span><div class="tag">Contexto · O estouro</div></div>
+  <div class="body">
+    <span class="eb">Contextualização do problema</span>
+    <h1 class="tt">O que torna o estouro de OLA <span class="hl">difícil de antecipar</span></h1>
+    <div class="frase">A ordem em que a fila atende <em>não</em> é a ordem em que o prazo estoura.</div>
+
+    <div class="inv">
+      <div class="pn">
+        <div class="pk">A fila atende nesta ordem</div>
+        <div class="cx">
+          <div class="ln">
+            <span class="ord">1º</span>
+            <span class="nm"><span class="t1">Alta</span><span class="t2">Prioridade 2</span></span>
+            <span class="vl"><span class="v1">5.159</span><span class="v2">incidentes</span></span>
+          </div>
+          <div class="ln">
+            <span class="ord">2º</span>
+            <span class="nm"><span class="t1">Média</span><span class="t2">Prioridade 3</span></span>
+            <span class="vl"><span class="v1">20.441</span><span class="v2">incidentes</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cruz">
+        <svg viewBox="0 0 186 222" fill="none">
+          <path d="M2 58 C 70 58, 116 164, 176 164" stroke="#C3CDDC" stroke-width="2.4"
+                stroke-linecap="round" stroke-dasharray="7 7"/>
+          <path d="M170 158 L178 164 L170 170" stroke="#C3CDDC" stroke-width="2.4"
+                stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 164 C 70 164, 116 58, 176 58" stroke="#DC2626" stroke-width="2.8"
+                stroke-linecap="round"/>
+          <path d="M170 52 L178 58 L170 64" stroke="#DC2626" stroke-width="2.8"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="pn">
+        <div class="pk">O prazo estoura nesta</div>
+        <div class="cx">
+          <div class="ln hot">
+            <span class="ord">1º</span>
+            <span class="nm"><span class="t1">Média</span><span class="t2">206 quebras em 20.441</span></span>
+            <span class="vl"><span class="v1">1,01%</span><span class="v2">taxa de quebra</span></span>
+          </div>
+          <div class="ln">
+            <span class="ord">2º</span>
+            <span class="nm"><span class="t1">Alta</span><span class="t2">42 quebras em 5.159</span></span>
+            <span class="vl"><span class="v1">0,81%</span><span class="v2">taxa de quebra</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fecho">
+      <div class="ci2"><svg viewBox="0 0 24 24"><path d="M12 3l9 16H3z"/><path d="M12 9v5M12 17h.01"/></svg></div>
+      <p>Atendendo de cima para baixo, o gestor revisa <b>cinquenta casos</b> para encontrar <b>um</b> estouro. Cinquenta casos sorteados devolveriam <b>meio</b>. É muito trabalho para quase nenhum estouro evitado.</p>
+    </div>
+  </div>
+  <div class="ft"><span>Cronos · Super Data Bros · 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
+</section>
+</body></html>
