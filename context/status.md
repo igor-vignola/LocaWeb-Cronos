@@ -98,11 +98,36 @@ devolve 13 grupos para 15 produtos. No lugar entrou **quem atende**, derivado de
 `Grupo designado` na mesma janela da nota — dominância de 40% a 100%, com selo colorido por
 equipe (matiz por ângulo áureo, saturação baixa para não competir com a cor de estado).
 
-### Deck da entrega, fechado em 19/08/2026
+### Deck da entrega, fechado em 20/08/2026
 
-`sprints/EC_Sprint_3_2TSCOA_mvp_preliminar_Cronos_SuperDataBros.pptx` · **60 slides**,
+`sprints/EC_Sprint_3_2TSCOA_Evidencias_Construcao_Cronos_SuperDataBros.pptx` · **61 slides**,
 13,333 × 7,5 in, na ordem e com os títulos do template oficial. Mesmo formato da Sprint 2: um
-PNG sangrado por slide, gerado de HTML. 39 MB, contra 35 MB da Sprint 2.
+PNG sangrado por slide, gerado de HTML. 42 MB, contra 35 MB da Sprint 2.
+
+O nome do arquivo mudou em 20/08/2026. O portal da FIAP pede
+`EC_Sprint_3_2TSCOA_Evidencias_Construcao_<projeto>_<grupo>.pptx`, e o deck estava saindo com
+`mvp_preliminar` no lugar de `Evidencias_Construcao`.
+
+Duas mudanças de conteúdo na mesma data. O **slide 14, de código-fonte**, é novo
+(`abertura/12-codigo-C.html`): o template oficial pede "entregar algoritmos, métodos,
+manipulações e transformações utilizadas" e o enunciado pede "uso efetivo de código-fonte",
+e o deck mostrava o resultado do código em 34 slides sem mostrar uma linha de código. Ele
+traz a árvore do repositório, um trecho do notebook 04 com a saída da célula e os dois
+comandos de Docker que sobem a aplicação. Os números do inventário saem de
+`scripts/inventario_codigo.py`. E o **slide 43** passou de `d33a-r5a` para `d33a-r6b`, com a
+figura refeita por `scripts/figura_controles.py`.
+
+Os slides 34 e 43 passaram a escrever a base a que se referem. Os dois tratam a
+familiaridade do problema, o 34 sobre a base elegível inteira (25.600 incidentes, 248
+quebras) e o 43 sobre o recorte de jan a set de 2025 (19.973 e 188), e sem o rótulo eles
+pareciam discordar: 1,60% de um lado contra 1,46% do outro para o caso inédito. A
+auditoria de 17/08 já tinha apontado isso.
+
+O pacote `sprints/EC_Sprint_3_2TSCOA_Evidencias_Construcao_Cronos_SuperDataBros.zip`
+(`scripts/monta_zip_entrega.py`, 8 arquivos, 44 MB) leva **só o .pptx e os sete notebooks
+executados**, por decisão do Igor. **Não é o anexo da Sprint 3**: o portal aceita um anexo
+por entrega e o enunciado nomeia o arquivo fonte PowerPoint. O .zip serve ao arquivo do
+grupo, ao mentor e à Sprint 4, que pede um pacote nesse formato.
 
 São **quatro fontes reunidas em um arquivo só**, e é bom saber disso antes de mexer. O
 builder virou quase só um ordenador: lê cada slide de onde ele está e escreve apenas o mockup.
