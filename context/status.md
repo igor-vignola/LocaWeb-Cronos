@@ -14,7 +14,7 @@
 | 1 | Ideação | 27/04/2026 | Entregue · nota 5,00/5,00 |
 | 2 | Arquitetura | 24/05/2026 | Entregue · nota 5,00/5,00 |
 | 3 | MVP Preliminar | 23/08/2026 | **Em andamento** |
-| 4 | Solução Final | 08/09/2026 | Futuro |
+| 4 | Solução Final | 21/09/2026 | Futuro |
 
 Único ajuste pedido pelo professor na Sprint 2: slide explícito de gestão ágil. O template da Sprint 3 já tem dois slides dedicados a Kanban e gestão, então isso se resolve na montagem do PPT.
 

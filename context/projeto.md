@@ -43,11 +43,11 @@ Detalhes completos em `brand/design-system.html` e `brand/guia-equipe.html`.
 | 1 | Ideação | 27/04/2026 (segunda) | `.pptx` |
 | 2 | Arquitetura | 24/05/2026 (domingo) | `.pptx` |
 | 3 | MVP Preliminar | 23/08/2026 (domingo) | `.pptx` + código funcional |
-| 4 | Solução Final | 08/09/2026 (terça) | `.pptx` + `.zip` + vídeo + planilha |
+| 4 | Solução Final | 21/09/2026 (segunda), 23h59 | `.pptx` + `.zip` + vídeo + planilha |
 
 **Pós-Sprint 4:**
 - Professores + Scrum Masters selecionam os Top 6
-- Top 6 apresenta ao vivo via Teams em 16/09/2026 (19h30)
+- Top 6 apresenta ao vivo via Teams em 15/09/2026 (terça), 19h30 às 22h40
 - Banca escolhe os 3 melhores
 - Top 3 apresenta no evento NEXT 2026
 - Premiação: shape, camiseta, medalha, voucher em dinheiro + entrada NEXT

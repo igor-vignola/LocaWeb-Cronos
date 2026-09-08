@@ -13,32 +13,33 @@
    a leitura é o alinhamento vertical dos números, que forma uma espinha. */
 .lm .tt{max-width:1150px}
 .lm .lista{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;
-  margin-top:16px}
-.lm .lin{display:grid;grid-template-columns:26px 1fr 42px 600px;gap:0 24px;align-items:start}
-.lm .lin+.lin{padding-top:32px}
+  margin-top:20px}
+/* a coluna da hipótese é fixa: a seta precisa encostar no número, não flutuar no vazio */
+.lm .lin{display:grid;grid-template-columns:26px 470px 46px 1fr;gap:0 24px;align-items:start}
+.lm .lin+.lin{padding-top:58px}
 
-.lm .xc{width:26px;height:26px;color:var(--bad);margin-top:3px}
+.lm .xc{width:26px;height:26px;color:var(--bad);margin-top:4px}
 .lm .hip{min-width:0}
-.lm .hip .h{font-size:23px;font-weight:800;letter-spacing:-.5px;line-height:1.2;color:var(--head)}
-.lm .hip .p{font-size:16.5px;line-height:1.4;color:var(--tx);margin-top:7px}
-.lm .hip .m{font-family:var(--mono);font-size:12.5px;line-height:1.35;color:var(--tx2);margin-top:11px}
-.lm .ar{width:42px;height:42px;color:#C6CFDB;margin-top:8px}
+.lm .hip .h{font-size:24px;font-weight:800;letter-spacing:-.6px;line-height:1.2;color:var(--head)}
+.lm .hip .p{font-size:16.5px;line-height:1.4;color:var(--tx);margin-top:8px}
+.lm .hip .m{font-family:var(--mono);font-size:12.5px;line-height:1.35;color:var(--tx2);margin-top:13px}
+.lm .ar{width:46px;height:46px;color:#C6CFDB;margin-top:10px}
 
 /* o número que derrubou a hipótese, com o rótulo à direita e a base alinhada */
-.lm .ev{display:grid;grid-template-columns:240px 1fr;gap:0 22px;align-items:baseline;min-width:0}
-.lm .ev .v{font-size:62px;font-weight:900;letter-spacing:-2.4px;line-height:.86;text-align:right;
+.lm .ev{display:grid;grid-template-columns:272px 1fr;gap:0 22px;align-items:baseline;min-width:0}
+.lm .ev .v{font-size:80px;font-weight:900;letter-spacing:-3px;line-height:.86;
   color:var(--head)}
-.lm .ev .v .ap{font-size:34px;font-weight:600;letter-spacing:-.6px;color:var(--tx2);margin-right:1px}
+.lm .ev .v .ap{font-size:42px;font-weight:600;letter-spacing:-.8px;color:var(--tx2);margin-right:2px}
 .lm .ev .k{font-size:16.5px;line-height:1.4;color:var(--tx)}
 
 /* o fio desenha da esquerda para a direita, atrás da linha que acabou de entrar */
-.lm .dv{grid-column:1/-1;height:1px;margin-top:32px}
+.lm .dv{grid-column:1/-1;height:1px;margin-top:58px}
 .lm .dv i{display:block;height:1px;background:var(--line);transform:scaleX(0);transform-origin:left}
 .is-active.lm .dv i{animation:corre .9s var(--out) var(--d,0ms) forwards}
 
 /* ═══════════════ 9 · FECHO ═══════════════
    Quase todo respiro: a marca, a frase, o endereço reservado e os créditos. */
-.fc .body{padding:20px 64px 64px;align-items:stretch}
+.fc .body{padding:20px 64px 92px;align-items:stretch}
 .fc .hero{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;
   justify-content:center;text-align:center}
 .fc .word{font-size:186px;font-weight:900;letter-spacing:-8px;line-height:.9;color:#fff;
@@ -56,7 +57,7 @@
 
 /* o endereço público ainda não existe: o lugar fica reservado e assumido */
 .fc .sk{font-size:11.5px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
-  color:#5B647A;margin-top:72px}
+  color:#78839A;margin-top:64px}
 .fc .slot{display:inline-flex;align-items:center;gap:11px;margin-top:13px;font-family:var(--mono);
   font-size:17px;color:#B8C0CE;border:1px dashed rgba(255,255,255,.26);border-radius:12px;
   padding:13px 22px;background:rgba(255,255,255,.035)}

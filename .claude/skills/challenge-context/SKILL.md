@@ -212,7 +212,7 @@ Os grupos DEVEM propor solução que:
 | 1 | Ideação | 27/04/2026 (segunda) | .pptx |
 | 2 | Arquitetura | 24/05/2026 (domingo) | .pptx |
 | 3 | MVP Preliminar | 23/08/2026 (domingo) | .pptx |
-| 4 | Solução Final | 08/09/2026 (terça) | .pptx + .zip + vídeo + planilha |
+| 4 | Solução Final | 21/09/2026 (segunda), 23h59 | .pptx + .zip + vídeo + planilha |
 
 ---
 
@@ -237,7 +237,7 @@ Os grupos DEVEM propor solução que:
 ### Etapas pós-entrega Sprint 4
 1. Professor tutor + Scrum Master avaliam todos os trabalhos
 2. Seleção dos 6 melhores (Top 6)
-3. Apresentação ao vivo via Teams (16/09/2026, 19h30)
+3. Apresentação ao vivo via Teams (15/09/2026, terça, 19h30 às 22h40)
 4. Banca escolhe os 3 melhores
 5. Finalistas apresentam no evento NEXT 2026
 6. Premiação: shape, camiseta, medalha, voucher em dinheiro + entrada gratuita no NEXT

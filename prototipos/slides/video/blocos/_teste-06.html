@@ -293,7 +293,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
    largo, o ROC AUC como número solto e a calibração como duas barras que
    quase empatam. Nada de fileira de cartões iguais. */
 .rs .body{padding:20px 64px 54px}
-.rs .grade{display:flex;gap:22px;margin-top:24px;align-items:stretch;flex:1;min-height:0}
+.rs .grade{display:flex;gap:22px;margin-top:26px;align-items:stretch;flex:0 0 auto;height:566px}
 .rs .kk{display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;
   letter-spacing:1.8px;text-transform:uppercase;color:var(--tx2)}
 .rs .kk .ic{width:19px;height:19px;color:var(--accent)}
@@ -305,15 +305,16 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .rs .vol .par{flex:1;display:flex;flex-direction:column;justify-content:center;
   margin:18px 0 22px}
 .rs .vol .li{display:flex;align-items:center;gap:20px}
-.rs .vol .li.p2{border-bottom:1px solid var(--line);padding-bottom:34px}
-.rs .vol .li.p3{padding-top:34px}
+.rs .vol .li.p2{border-bottom:1px solid var(--line);padding-bottom:40px}
+.rs .vol .li.p3{padding-top:40px}
 .rs .vol .pp{font-size:15.5px;font-weight:800;letter-spacing:.3px;padding:9px 14px;border-radius:9px;
   white-space:nowrap;width:158px;text-align:center;flex-shrink:0}
 .rs .vol .p2 .pp{background:var(--bad-l);color:var(--bad)}
 .rs .vol .p3 .pp{background:var(--warn-l);color:var(--warn)}
-.rs .vol .v{font-size:104px;font-weight:900;letter-spacing:-4.6px;line-height:.84;color:var(--head);
-  font-variant-numeric:tabular-nums;width:150px;flex-shrink:0}
-.rs .vol .un{font-size:16px;line-height:1.3;color:var(--tx);min-width:0}
+.rs .vol .v{font-size:130px;font-weight:900;letter-spacing:-5.6px;line-height:.84;color:var(--head);
+  font-variant-numeric:tabular-nums;flex-shrink:0}
+.rs .vol .un{font-size:16.5px;line-height:1.3;color:var(--tx);min-width:0;margin-left:auto;
+  text-align:right}
 .rs .vol .un b{display:block;font-size:17px;color:var(--head);font-weight:800;letter-spacing:-.2px}
 .rs .vol .rodape{border-top:1px solid var(--line);padding-top:18px;display:flex;align-items:center;
   gap:11px}
@@ -323,9 +324,11 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 
 /* número solto: o ROC AUC não vem em cartão de tabela, vem grande e sozinho */
 .rs .auc{flex:1;padding:28px 32px;display:flex;flex-direction:column;justify-content:center}
-.rs .auc .big{font-size:92px;font-weight:900;letter-spacing:-4.2px;line-height:.9;color:var(--accent);
-  font-variant-numeric:tabular-nums;margin:14px 0 10px}
-.rs .auc .cc{font-size:16.5px}
+.rs .auc .linha{display:flex;align-items:flex-end;gap:24px;margin-top:18px}
+.rs .auc .big{font-size:100px;font-weight:900;letter-spacing:-4.6px;line-height:.86;color:var(--accent);
+  font-variant-numeric:tabular-nums;flex-shrink:0}
+.rs .auc .cc{font-size:16.5px;padding-bottom:9px;margin-left:auto;text-align:right}
+.rs .auc .cc b{display:block;font-size:20px;letter-spacing:-.2px}
 
 /* calibração: duas barras que quase empatam, e o empate é o argumento */
 .rs .cal{flex:1;padding:26px 32px 24px;display:flex;flex-direction:column}
@@ -427,7 +430,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
             <span class="un"><b>incidentes por dia</b>de erro médio</span>
           </div>
         </div>
-        <div class="rodape rv" style="--d:1900ms">
+        <div class="rodape rv" style="--d:1700ms">
           <svg class="ic" viewBox="0 0 24 24"><path d="M3.4 12a8.6 8.6 0 1 0 2.6-6.1"/><path d="M3.4 4.6v3.9h3.9"/><path d="M12 8v4.4l3.1 2"/></svg>
           <span class="cc">Medido em <b>backtest deslizante</b></span>
         </div>
@@ -439,8 +442,10 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
             <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.4"/><path d="M12 1.6v3M12 19.4v3M1.6 12h3M19.4 12h3"/></svg>
             Risco por incidente
           </div>
-          <div class="big num"><span class="mask" style="--d:960ms"><span>0,869</span></span></div>
-          <div class="cc"><b>ROC AUC</b> na regressão logística</div>
+          <div class="linha">
+            <div class="big num"><span class="mask" style="--d:960ms"><span>0,869</span></span></div>
+            <div class="cc"><b>ROC AUC</b>na regressão logística</div>
+          </div>
         </div>
 
         <div class="cartao cal rv3" style="--d:760ms">
