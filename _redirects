@@ -1,5 +1,6 @@
-# Netlify redirects — raiz vai direto pro dashboard
-/                /prototipos/telas/dashboard.html    200
+# Netlify redirects
+# A raiz serve a aplicacao exportada estatica, que e o produto atual.
+/                /app/index.html    200
 # (200 = rewrite — mantém a URL bonita / sem expor o path interno)
 
 # Atalhos amigáveis pras telas
@@ -15,3 +16,6 @@
 
 # Landing original ainda acessível em /menu (caso queira mostrar)
 /menu            /index.html                            200
+
+# As telas de prototipo das Sprints 1 e 2 seguem acessiveis, como referencia historica
+/prototipo       /prototipos/telas/dashboard.html       200

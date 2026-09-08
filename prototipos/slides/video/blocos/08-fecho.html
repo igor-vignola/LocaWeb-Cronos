@@ -1,0 +1,153 @@
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   Blocos 8 e 9 · Testado e descartado · Fecho
+   Só o CSS destes dois slides. Tudo prefixado por .lm ou .fc para não vazar
+   para os outros blocos. As classes compartilhadas (.slide .light .dark .mesh
+   .grid-bg .hd .body .ft .eb .tt .ic .num, .rv .rv3 .mask, a variável --d e os
+   keyframes corre e tick) vêm de _estilo.css e não são redefinidas aqui.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════ 8 · TESTADO E DESCARTADO ═══════════════
+   Três hipóteses do próprio grupo, cada uma com o número que a derrubou.
+   Linhas empilhadas com fio de 1px, nunca cartões lado a lado: o que carrega
+   a leitura é o alinhamento vertical dos números, que forma uma espinha. */
+.lm .tt{max-width:1150px}
+.lm .lista{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;
+  margin-top:16px}
+.lm .lin{display:grid;grid-template-columns:26px 1fr 42px 600px;gap:0 24px;align-items:start}
+.lm .lin+.lin{padding-top:32px}
+
+.lm .xc{width:26px;height:26px;color:var(--bad);margin-top:3px}
+.lm .hip{min-width:0}
+.lm .hip .h{font-size:23px;font-weight:800;letter-spacing:-.5px;line-height:1.2;color:var(--head)}
+.lm .hip .p{font-size:16.5px;line-height:1.4;color:var(--tx);margin-top:7px}
+.lm .hip .m{font-family:var(--mono);font-size:12.5px;line-height:1.35;color:var(--tx2);margin-top:11px}
+.lm .ar{width:42px;height:42px;color:#C6CFDB;margin-top:8px}
+
+/* o número que derrubou a hipótese, com o rótulo à direita e a base alinhada */
+.lm .ev{display:grid;grid-template-columns:240px 1fr;gap:0 22px;align-items:baseline;min-width:0}
+.lm .ev .v{font-size:62px;font-weight:900;letter-spacing:-2.4px;line-height:.86;text-align:right;
+  color:var(--head)}
+.lm .ev .v .ap{font-size:34px;font-weight:600;letter-spacing:-.6px;color:var(--tx2);margin-right:1px}
+.lm .ev .k{font-size:16.5px;line-height:1.4;color:var(--tx)}
+
+/* o fio desenha da esquerda para a direita, atrás da linha que acabou de entrar */
+.lm .dv{grid-column:1/-1;height:1px;margin-top:32px}
+.lm .dv i{display:block;height:1px;background:var(--line);transform:scaleX(0);transform-origin:left}
+.is-active.lm .dv i{animation:corre .9s var(--out) var(--d,0ms) forwards}
+
+/* ═══════════════ 9 · FECHO ═══════════════
+   Quase todo respiro: a marca, a frase, o endereço reservado e os créditos. */
+.fc .body{padding:20px 64px 64px;align-items:stretch}
+.fc .hero{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center}
+.fc .word{font-size:186px;font-weight:900;letter-spacing:-8px;line-height:.9;color:#fff;
+  display:flex;justify-content:center;overflow:hidden;padding-bottom:.07em}
+.fc .word i{font-style:normal;display:inline-block;transform:translate3d(0,112%,0)}
+.is-active.fc .word i{animation:fcletra .9s var(--spring) forwards;animation-delay:var(--d,0ms)}
+@keyframes fcletra{to{transform:translate3d(0,0,0)}}
+
+.fc .frase{font-size:54px;font-weight:800;letter-spacing:-2px;line-height:1.1;color:#fff;
+  margin-top:14px;position:relative;align-self:center}
+.fc .frase em{font-style:normal;color:var(--accent3)}
+.fc .frase::after{content:"";position:absolute;left:53%;right:0;bottom:-12px;height:4px;
+  border-radius:4px;background:var(--accent3);transform:scaleX(0);transform-origin:left}
+.is-active.fc .frase::after{animation:tick .9s var(--out) 1.6s forwards}
+
+/* o endereço público ainda não existe: o lugar fica reservado e assumido */
+.fc .sk{font-size:11.5px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
+  color:#5B647A;margin-top:72px}
+.fc .slot{display:inline-flex;align-items:center;gap:11px;margin-top:13px;font-family:var(--mono);
+  font-size:17px;color:#B8C0CE;border:1px dashed rgba(255,255,255,.26);border-radius:12px;
+  padding:13px 22px;background:rgba(255,255,255,.035)}
+.fc .slot .ic{width:18px;height:18px;color:var(--accent3)}
+
+.fc .cred{margin-top:28px;text-align:center;font-size:15px;line-height:1.5;color:#8E97A8}
+.fc .cred b{color:#C7CEDA;font-weight:700}
+</style>
+
+<!-- ═══════════ 8 · TESTADO E DESCARTADO ═══════════ -->
+<section class="slide light lm" id="s8">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">O MÉTODO</span>
+    <div class="tag">Três hipóteses do próprio grupo</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:260ms">Testado e descartado</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Três hipóteses que o dado <span class="hl">não sustentou</span>.</span></span></h1>
+
+    <div class="lista">
+      <div class="lin rv" style="--d:700ms">
+        <svg class="ic xc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M9.3 9.3l5.4 5.4M14.7 9.3l-5.4 5.4"/></svg>
+        <div class="hip">
+          <div class="h">Detector de cascata</div>
+          <div class="p">Uma perda de prazo puxaria as seguintes</div>
+          <div class="m">Escalada em 21%, contra cerca de 60% do acaso</div>
+        </div>
+        <svg class="ic ar" viewBox="0 0 24 24"><path d="M3.6 12h16.2"/><path d="M14.2 6.4 19.8 12l-5.6 5.6"/></svg>
+        <div class="ev">
+          <span class="v num">87%</span>
+          <span class="k">das perdas vêm de incidente isolado</span>
+        </div>
+        <span class="dv"><i style="--d:1050ms"></i></span>
+      </div>
+
+      <div class="lin rv" style="--d:860ms">
+        <svg class="ic xc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M9.3 9.3l5.4 5.4M14.7 9.3l-5.4 5.4"/></svg>
+        <div class="hip">
+          <div class="h">Padrão de acúmulo de fila</div>
+          <div class="p">A fila acumulada anteciparia a perda</div>
+          <div class="m">Backlog diário contra perdas, em dias úteis</div>
+        </div>
+        <svg class="ic ar" viewBox="0 0 24 24"><path d="M3.6 12h16.2"/><path d="M14.2 6.4 19.8 12l-5.6 5.6"/></svg>
+        <div class="ev">
+          <span class="v num">&#8722;0,139</span>
+          <span class="k">de correlação entre a fila e as perdas</span>
+        </div>
+        <span class="dv"><i style="--d:1210ms"></i></span>
+      </div>
+
+      <div class="lin rv" style="--d:1020ms">
+        <svg class="ic xc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M9.3 9.3l5.4 5.4M14.7 9.3l-5.4 5.4"/></svg>
+        <div class="hip">
+          <div class="h">Clusterização por DTW</div>
+          <div class="p">Os produtos formariam grupos de comportamento</div>
+          <div class="m">TimeSeriesKMeans com métrica DTW</div>
+        </div>
+        <svg class="ic ar" viewBox="0 0 24 24"><path d="M3.6 12h16.2"/><path d="M14.2 6.4 19.8 12l-5.6 5.6"/></svg>
+        <div class="ev">
+          <span class="v num"><span class="ap">&#8776;</span>0,13</span>
+          <span class="k">de silhueta, sem grupos reais</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Hipóteses testadas na base elegível ao KPI</span><span>Fora do MVP</span></div>
+</section>
+
+<!-- ═══════════ 9 · FECHO ═══════════ -->
+<section class="slide dark fc" id="s9">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" fill="none" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">FECHO</span>
+    <div class="tag">Challenge FIAP 2026 com Locaweb</div>
+  </div>
+  <div class="body">
+    <div class="hero">
+      <div class="word"><i style="--d:260ms">C</i><i style="--d:320ms">r</i><i style="--d:380ms">o</i><i style="--d:440ms">n</i><i style="--d:500ms">o</i><i style="--d:560ms">s</i></div>
+      <div class="frase rv" style="--d:1000ms">Veja antes. <em>Aja antes.</em></div>
+      <div class="sk rv" style="--d:2000ms">Endereço da aplicação</div>
+      <div class="slot rv" style="--d:2100ms">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M9.6 14.4 14.4 9.6"/><path d="M12.7 7.3 14.1 5.9a3.7 3.7 0 0 1 5.2 5.2l-1.4 1.4"/><path d="M11.3 16.7 9.9 18.1a3.7 3.7 0 0 1-5.2-5.2l1.4-1.4"/></svg>
+        &lt;URL DA APLICAÇÃO&gt;
+      </div>
+    </div>
+    <div class="cred rv" style="--d:2400ms">
+      <b>Super Data Bros</b> · 2TSCOA · Ana Beatriz Costa de Oliveira, Hygor Abrantes, Igor Vignola
+    </div>
+  </div>
+  <div class="ft"><span>FIAP · Tecnólogo em Data Science</span><span>Sprint 04 · Solução final</span></div>
+</section>

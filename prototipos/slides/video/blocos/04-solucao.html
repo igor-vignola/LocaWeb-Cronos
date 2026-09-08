@@ -1,0 +1,231 @@
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   Blocos 4 e 5 do deck do vídeo · A solução e a stack
+   Só o CSS destes dois slides. Tudo prefixado por .sl (slide 4, escuro) e
+   .fx (slide 5, claro) para não vazar nos vizinhos.
+   Classes compartilhadas vêm do estilo da casa: .slide .light .dark .mesh
+   .grid-bg .hd .body .ft .eb .tt .cartao .ic .rv .rv3 .mask .num .ct
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════ 4 · A SOLUÇÃO · dois modelos, uma pergunta cada ═══════════════ */
+/* o par fica centrado na vertical: a altura do cartão é a do conteúdo,
+   então não sobra buraco entre o texto e a métrica. */
+.sl .palco{flex:1;min-height:0;display:flex;align-items:center;margin-top:22px}
+.sl .par{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.sl .mod{position:relative;overflow:hidden;padding:32px 34px 30px;display:flex;
+  flex-direction:column;min-width:0}
+/* fundo de cada cartão: a onda da sazonalidade num, os anéis da probabilidade no outro */
+.sl .motif{position:absolute;right:-34px;bottom:-30px;width:320px;height:150px;opacity:.13;
+  pointer-events:none;z-index:0}
+.sl .motif svg{width:100%;height:100%;display:block;fill:none;stroke:var(--accent3);
+  stroke-width:2.5;stroke-linecap:round}
+
+.sl .cab{position:relative;z-index:1;display:flex;align-items:center;gap:15px}
+.sl .pi{width:52px;height:52px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;
+  justify-content:center;color:var(--accent3);background:rgba(96,165,250,.13);
+  border:1px solid rgba(96,165,250,.3)}
+.sl .pi .ic{width:26px;height:26px}
+.sl .nome{font-size:15px;font-weight:800;letter-spacing:2.2px;text-transform:uppercase;
+  color:#C6CEDC}
+.sl .perg{position:relative;z-index:1;font-size:46px;font-weight:800;letter-spacing:-1.7px;
+  line-height:1.06;color:var(--accent3);margin-top:26px}
+.sl .oq{position:relative;z-index:1;font-size:18px;line-height:1.5;color:#A6B1C4;margin-top:16px;
+  max-width:440px}
+.sl .chips{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+.sl .chips span{font-size:12.5px;font-weight:600;color:#C6CEDC;background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.13);border-radius:9px;padding:7px 13px}
+
+.sl .met{position:relative;z-index:1;margin-top:28px;padding-top:24px;
+  border-top:1px solid rgba(255,255,255,.13)}
+.sl .ml{font-size:12px;font-weight:700;letter-spacing:1.9px;text-transform:uppercase;color:#77839A}
+.sl .vals{display:flex;align-items:flex-end;gap:34px;margin-top:14px}
+.sl .vi{display:flex;align-items:baseline;gap:13px;min-width:0}
+.sl .vi b{font-size:68px;font-weight:900;letter-spacing:-3px;line-height:.84;color:#fff;
+  font-variant-numeric:tabular-nums}
+.sl .vi i{font-style:normal;font-size:13.5px;line-height:1.32;color:#98A2B3;width:112px}
+.sl .vi i em{font-style:normal;display:block;font-size:15px;font-weight:800;letter-spacing:-.2px;
+  color:#fff;margin-bottom:2px}
+.sl .cal{display:inline-flex;align-items:center;gap:8px;margin-bottom:9px;font-size:14px;
+  font-weight:700;color:#34D399;background:rgba(52,211,153,.12);
+  border:1px solid rgba(52,211,153,.32);border-radius:10px;padding:8px 14px}
+.sl .cal .ic{width:16px;height:16px;stroke-width:2.2}
+
+/* ═══════════════ 5 · A STACK · objetos, não lista ═══════════════ */
+.fx .comp{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:24px}
+
+/* a moldura é a imagem Docker: tudo o que roda dentro dela */
+.fx .caixa{position:relative;border:1.5px dashed #C3D4EF;border-radius:24px;
+  background:rgba(255,255,255,.6);padding:52px 48px 44px}
+.fx .selo{position:absolute;top:-19px;left:34px;display:inline-flex;align-items:center;gap:11px;
+  background:#fff;border:1px solid #BFDBFE;border-radius:999px;padding:7px 18px 7px 12px;
+  box-shadow:0 8px 22px -16px rgba(37,99,235,.5)}
+.fx .selo img{width:26px;height:26px;display:block;border-radius:7px}
+.fx .selo span{font-size:13.5px;font-weight:700;letter-spacing:-.1px;color:var(--head)}
+.fx .selo span b{color:var(--accent);font-weight:800}
+
+.fx .dentro{display:flex;align-items:flex-start;gap:20px}
+.fx .grp{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center}
+.fx .gl{font-size:11.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--accent);background:var(--accent-l);border-radius:7px;padding:5px 11px}
+.fx .pls{display:flex;align-items:center;gap:16px;margin-top:16px}
+.fx .pl{width:132px;height:132px;flex-shrink:0;display:block}
+.fx .pl img{width:100%;height:100%;object-fit:contain;display:block}
+/* scikit-learn não tem PNG na pasta: placa própria, no mesmo molde dos logos */
+.fx .pl.sk{background:#F7F7F7;border:1px solid #EBEBEB;border-radius:22px;display:flex;
+  align-items:center;justify-content:center}
+.fx .pl.sk i{font-style:normal;font-size:40px;font-weight:800;letter-spacing:-2px;color:#F09437}
+.fx .gn{font-size:23px;font-weight:800;letter-spacing:-.6px;color:var(--head);margin-top:18px}
+.fx .gs{font-size:14.5px;line-height:1.4;color:var(--tx);margin-top:6px;max-width:250px}
+/* a seta entre as etapas: alinhada na altura das placas */
+.fx .seta{flex-shrink:0;width:44px;height:132px;margin-top:44px;display:flex;align-items:center;
+  justify-content:center;color:#9FB4D4}
+.fx .seta .ic{width:30px;height:30px;stroke-width:1.8}
+
+.fx .fim{display:flex;gap:20px}
+.fx .bl{flex:1;display:flex;align-items:center;gap:18px;padding:20px 24px;min-width:0}
+.fx .bl img{width:52px;height:52px;flex-shrink:0;display:block;border-radius:13px}
+.fx .bl .ip{width:52px;height:52px;flex-shrink:0;border-radius:14px;display:flex;
+  align-items:center;justify-content:center;color:var(--accent);background:var(--accent-l);
+  border:1px solid #BFDBFE}
+.fx .bl .ip .ic{width:27px;height:27px}
+.fx .bl .bt2{font-size:18px;font-weight:800;letter-spacing:-.4px;color:var(--head)}
+.fx .bl .bs{font-size:14.5px;line-height:1.4;color:var(--tx);margin-top:4px}
+.fx .bl.acc{flex:1.05;background:linear-gradient(150deg,#fff,#F3F8FF);border-color:#BFDBFE}
+.fx .bl.acc .bt2{color:var(--accent)}
+.fx .bl .prov{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--tx2);
+  text-decoration:line-through;text-decoration-color:#F0A9A9;text-decoration-thickness:1.5px}
+</style>
+
+<!-- ═══════════ 4 · A SOLUÇÃO ═══════════ -->
+<section class="slide dark sl" id="s4">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">A SOLUÇÃO</span>
+    <div class="tag">Dois modelos</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:260ms">A solução</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Dois modelos. <span class="hl">Uma pergunta para cada um.</span></span></span></h1>
+
+    <div class="palco">
+      <div class="par">
+
+        <div class="cartao mod rv3" style="--d:620ms">
+          <div class="motif"><svg viewBox="0 0 320 150" preserveAspectRatio="none" aria-hidden="true"><path d="M0 110 C 26 24 53 24 80 110 S 133 196 160 110 S 213 24 240 110 S 293 196 320 110"/></svg></div>
+          <div class="cab rv" style="--d:900ms">
+            <span class="pi"><svg class="ic" viewBox="0 0 24 24"><path d="M3 17.4c3.4 0 4.6-9.6 8.4-9.6 3.9 0 4.5 9.6 8.4 9.6"/><path d="M3 21h18"/></svg></span>
+            <span class="nome">Prophet</span>
+          </div>
+          <div class="perg mask" style="--d:1010ms"><span>Quanto vem?</span></div>
+          <p class="oq rv" style="--d:1260ms">Volume diário de incidentes por prioridade, sete dias à frente.</p>
+          <div class="chips rv" style="--d:1400ms">
+            <span>Sazonalidade semanal</span><span>Feriados nacionais</span>
+          </div>
+          <div class="met rv" style="--d:1560ms">
+            <div class="ml">Erro médio do modelo</div>
+            <div class="vals">
+              <span class="vi"><b class="ct" data-to="4" data-delay="1900">0</b><i><em>Prioridade 2</em>incidentes por dia</i></span>
+              <span class="vi"><b class="ct" data-to="11" data-delay="2050">0</b><i><em>Prioridade 3</em>incidentes por dia</i></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cartao mod rv3" style="--d:760ms">
+          <div class="motif"><svg viewBox="0 0 320 150" aria-hidden="true"><circle cx="250" cy="140" r="46"/><circle cx="250" cy="140" r="84"/><circle cx="250" cy="140" r="122"/></svg></div>
+          <div class="cab rv" style="--d:1040ms">
+            <span class="pi"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.4"/><path d="M12 1.6v3M12 19.4v3M1.6 12h3M19.4 12h3"/></svg></span>
+            <span class="nome">Regressão logística</span>
+          </div>
+          <div class="perg mask" style="--d:1150ms"><span>Qual estoura?</span></div>
+          <p class="oq rv" style="--d:1400ms">Probabilidade de cada incidente aberto perder o prazo.</p>
+          <div class="chips rv" style="--d:1540ms">
+            <span>Explicação por característica</span>
+          </div>
+          <div class="met rv" style="--d:1700ms">
+            <div class="ml">Qualidade da separação</div>
+            <div class="vals">
+              <span class="vi"><b class="num">0,869</b><i><em>ROC AUC</em>na base de teste</i></span>
+              <span class="cal">
+                <svg class="ic" viewBox="0 0 24 24"><path d="M20 6.6 9.6 17 4 11.4"/></svg>
+                Calibrada
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Prophet e regressão logística treinados na base elegível ao KPI</span><span>Erro médio do Prophet · ROC AUC da logística</span></div>
+</section>
+
+<!-- ═══════════ 5 · A STACK ═══════════ -->
+<section class="slide light fx" id="s5">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">A STACK</span>
+    <div class="tag">Entrega em Docker</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:260ms">Como roda</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Django numa imagem Docker, <span class="hl">sem nuvem amarrada</span>.</span></span></h1>
+
+    <div class="comp">
+      <div class="caixa rv3" style="--d:640ms">
+        <span class="selo rv" style="--d:900ms">
+          <img src="../../../../brand/logos/docker.png" alt="Docker">
+          <span><b>Docker</b> · uma imagem para toda a solução</span>
+        </span>
+        <div class="dentro">
+          <div class="grp rv" style="--d:1060ms">
+            <span class="gl">Dados</span>
+            <div class="pls"><span class="pl"><img src="../../../../brand/logos/pandas.png" alt="pandas"></span></div>
+            <div class="gn">pandas</div>
+            <div class="gs">Base elegível ao KPI, dia a dia</div>
+          </div>
+          <div class="seta rv" style="--d:1220ms">
+            <svg class="ic" viewBox="0 0 24 24"><path d="M4 12h15"/><path d="M13.4 6.2 19.6 12l-6.2 5.8"/></svg>
+          </div>
+          <div class="grp rv" style="--d:1320ms">
+            <span class="gl">Modelos</span>
+            <div class="pls">
+              <span class="pl"><img src="../../../../brand/logos/prophet.png" alt="Prophet"></span>
+              <span class="pl sk"><i>sk</i></span>
+            </div>
+            <div class="gn">Prophet · scikit-learn</div>
+            <div class="gs">Volume do dia e risco por incidente</div>
+          </div>
+          <div class="seta rv" style="--d:1480ms">
+            <svg class="ic" viewBox="0 0 24 24"><path d="M4 12h15"/><path d="M13.4 6.2 19.6 12l-6.2 5.8"/></svg>
+          </div>
+          <div class="grp rv" style="--d:1580ms">
+            <span class="gl">Aplicação</span>
+            <div class="pls"><span class="pl"><img src="../../../../brand/logos/django.png" alt="Django"></span></div>
+            <div class="gn">Django</div>
+            <div class="gs">Painel operacional no navegador</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fim">
+        <div class="cartao bl rv" style="--d:1820ms">
+          <img src="../../../../brand/logos/claude.png" alt="Claude API">
+          <div>
+            <div class="bt2">Claude API, nos bastidores</div>
+            <div class="bs">Escreve o texto do resumo diário</div>
+          </div>
+        </div>
+        <div class="cartao bl acc rv" style="--d:1940ms">
+          <span class="ip"><svg class="ic" viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></span>
+          <div>
+            <div class="bt2">Agnóstico de provedor de nuvem</div>
+            <div class="bs">Sem serviço proprietário de <span class="prov">AWS, GCP ou Azure</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Python em toda a stack, do arquivo bruto ao painel</span><span>A Claude API só redige texto</span></div>
+</section>
