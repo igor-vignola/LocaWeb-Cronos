@@ -15,8 +15,16 @@ SECRET_KEY = os.environ.get('CRONOS_SECRET_KEY', 'apenas-para-desenvolvimento-lo
 DEBUG = os.environ.get('CRONOS_DEBUG', '1') == '1'
 
 # Aceita o host que o provedor injetar, sem precisar reconstruir a imagem
-ALLOWED_HOSTS = [h for h in os.environ.get('CRONOS_HOSTS', '*').split(',') if h]
-CSRF_TRUSTED_ORIGINS = [o for o in os.environ.get('CRONOS_ORIGENS', '').split(',') if o]
+ALLOWED_HOSTS = [h.strip() for h in os.environ.get('CRONOS_HOSTS', '*').split(',') if h.strip()]
+
+# As origens confiaveis saem dos proprios hosts quando CRONOS_ORIGENS nao vem preenchida:
+# em provedor de contêiner o dominio so e conhecido depois do primeiro deploy, e obrigar duas
+# variaveis para a mesma informacao e um passo a mais para errar. `*` nao gera origem porque
+# curinga nao e origem valida, e host sem ponto (localhost) nao precisa constar.
+_ORIGENS_ENV = [o.strip() for o in os.environ.get('CRONOS_ORIGENS', '').split(',') if o.strip()]
+CSRF_TRUSTED_ORIGINS = _ORIGENS_ENV or [
+    f'https://{h.lstrip(".")}' for h in ALLOWED_HOSTS if h != '*' and '.' in h
+]
 
 # Onde estao painel.json e fila.parquet
 DADOS_DIR = os.environ.get('CRONOS_DADOS', str(BASE_DIR.parent / 'data' / 'app'))
@@ -57,7 +65,9 @@ USE_TZ = True
 
 STATIC_URL = 'estatico/'
 STATIC_ROOT = BASE_DIR / 'estatico'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# O whitenoise serve o estatico no processo da aplicacao. E o que dispensa nginx e volume no
+# provedor: com DEBUG=False o Django nao serve estatico, e sem isto a pagina sobe sem CSS.
+# So `STORAGES` e lido — a chave STATICFILES_STORAGE saiu do Django na versao 5.1.
 STORAGES = {
     'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage'},
 }
@@ -68,3 +78,6 @@ if not DEBUG:
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_REFERRER_POLICY = 'same-origin'
     X_FRAME_OPTIONS = 'DENY'
+    # O TLS termina no proxy do provedor, que repassa a requisicao em http e sinaliza o
+    # esquema original neste cabecalho. Sem ele o Django trata a conexao como insegura.
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

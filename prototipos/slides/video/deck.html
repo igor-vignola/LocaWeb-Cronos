@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cronos · Deck do vídeo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   Deck do vídeo pitch · Cronos
+   Tokens e composição herdados de prototipos/slides/mvp/abertura/base.css.
+   Diferença: a peça é gravada em vídeo, então o movimento conta a história
+   (o prazo correndo, a taxa que não sobe) em vez de só decorar.
+   Todo número sai de data/interim/incidentes_kpi.parquet.
+   ═══════════════════════════════════════════════════════════════════════════ */
+:root{
+  --accent:#2563EB; --accent2:#3B82F6; --accent3:#60A5FA; --accent-l:#EFF6FF;
+  --good:#15A05B; --good-l:#E7F6EE; --warn:#B4780A; --warn-l:#FBF1DC;
+  --bad:#DC2626; --bad-l:#FCECEC;
+  --ink:#0A0E17; --pg:#F4F7FC; --line:#E5EAF1; --tx:#4A5568; --tx2:#6B7688;
+  --head:#0B1220;
+  --font:"Outfit",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --out:cubic-bezier(.23,1,.32,1);
+  --spring:cubic-bezier(.34,1.5,.64,1);
+  --inout:cubic-bezier(.77,0,.175,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;overflow:hidden;min-height:100dvh}
+#fit{position:fixed;inset:0;display:grid;place-items:center}
+#stage{width:1600px;height:900px;position:relative;overflow:hidden;transform-origin:center;
+  box-shadow:0 40px 130px -50px rgba(0,0,0,.7)}
+
+.slide{position:absolute;inset:0;overflow:hidden;display:none;flex-direction:column}
+.slide.is-active{display:flex;animation:entra .6s var(--out) both}
+@keyframes entra{from{opacity:0}to{opacity:1}}
+.mesh,.grid-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.mesh{animation:drift 30s var(--inout) infinite}
+@keyframes drift{0%,100%{transform:scale(1)}50%{transform:scale(1.06) translate3d(-1%,.8%,0)}}
+
+.light{background:var(--pg);color:var(--head)}
+.light .mesh{background:radial-gradient(1200px 760px at 100% -16%,rgba(37,99,235,.16),transparent 54%),
+  radial-gradient(880px 640px at -12% 112%,rgba(37,99,235,.10),transparent 56%)}
+.light .grid-bg{background-image:linear-gradient(rgba(17,24,39,.026) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(17,24,39,.026) 1px,transparent 1px);background-size:48px 48px}
+
+/* topo e rodapé da casa */
+.hd{position:relative;z-index:3;display:flex;align-items:center;gap:11px;padding:38px 64px 0}
+.hd .bi{width:34px;height:34px;border-radius:9px;background:var(--ink);display:flex;align-items:center;
+  justify-content:center;flex-shrink:0}
+.hd .bi svg{width:19px;height:19px}
+.hd .bn{font-size:18px;font-weight:800;letter-spacing:-.3px;color:#000}
+.hd .bt{font-size:12.5px;font-weight:600;letter-spacing:1.6px;margin-left:3px;color:#9AA6B6}
+.hd .tag{margin-left:auto;font-size:12.5px;font-weight:600;padding:7px 15px;border-radius:999px;
+  white-space:nowrap;background:#fff;border:1px solid var(--line);color:var(--accent);
+  box-shadow:0 4px 14px -8px rgba(37,99,235,.3)}
+.ft{position:absolute;left:64px;right:64px;bottom:24px;z-index:3;display:flex;justify-content:space-between;
+  font-size:11.5px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;color:#A6B0BE}
+
+.body{position:relative;z-index:2;flex:1;padding:20px 64px 44px;display:flex;flex-direction:column;min-height:0}
+.eb{display:inline-flex;align-items:center;gap:12px;font-size:13px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--accent)}
+.eb::before{content:"";width:26px;height:2px;border-radius:2px;background:currentColor;opacity:.7;
+  transform:scaleX(0);transform-origin:left}
+.is-active .eb::before{animation:tick .7s var(--out) .2s forwards}
+@keyframes tick{to{transform:scaleX(1)}}
+.tt{font-size:48px;font-weight:800;letter-spacing:-1.7px;line-height:1.04;margin-top:13px;color:var(--head)}
+.tt .hl{color:var(--accent)}
+.tt .bd{color:var(--bad)}
+.num{font-variant-numeric:tabular-nums}
+
+/* ═══ camada de animação ═══ */
+.rv{opacity:0;transform:translate3d(0,14px,0)}
+.is-active .rv{animation:rv .6s var(--out) forwards;animation-delay:var(--d,0ms)}
+@keyframes rv{to{opacity:1;transform:none}}
+.rv3{opacity:0;transform:perspective(1600px) rotateX(8deg) translate3d(0,26px,0)}
+.is-active .rv3{animation:rv3 .8s var(--out) forwards;animation-delay:var(--d,0ms)}
+@keyframes rv3{to{opacity:1;transform:perspective(1600px) rotateX(0) translate3d(0,0,0)}}
+.mask{overflow:hidden;display:block;padding-bottom:.08em}
+.mask>span{display:block;transform:translate3d(0,110%,0)}
+.is-active .mask>span{animation:up .85s var(--out) forwards;animation-delay:var(--d,0ms)}
+@keyframes up{to{transform:none}}
+
+/* ícones: um só estilo, traço 1.5, herdam a cor do contexto. Nenhum emoji. */
+.ic{width:1em;height:1em;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.5;
+  stroke-linecap:round;stroke-linejoin:round}
+.cartao{background:#fff;border:1px solid var(--line);border-radius:18px;
+  box-shadow:0 18px 42px -32px rgba(15,23,42,.28)}
+
+/* ═══════════════ 1 · CAPA ═══════════════ */
+.cp{background:#fff}
+.cp .mesh{background:radial-gradient(900px 620px at 84% -8%,rgba(37,99,235,.20),transparent 56%),
+  radial-gradient(760px 560px at 8% 108%,rgba(37,99,235,.14),transparent 58%)}
+.cp .grid-bg{background-image:linear-gradient(rgba(17,24,39,.03) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(17,24,39,.03) 1px,transparent 1px);background-size:48px 48px}
+/* a série real de 2025 desenhada atrás: a textura é dado, não enfeite */
+.cp .serie{position:absolute;left:0;right:0;bottom:132px;height:270px;z-index:1;pointer-events:none}
+.cp .serie svg{width:100%;height:100%;display:block}
+.cp .serie path{fill:none;stroke:var(--accent);stroke-width:2.5;opacity:.14;
+  stroke-dasharray:1000;stroke-dashoffset:1000}
+.is-active.cp .serie path{animation:traca 3.2s var(--out) .5s forwards}
+@keyframes traca{to{stroke-dashoffset:0}}
+.cp .body{padding:14px 64px 72px;align-items:stretch}
+.cp .hero{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center}
+.cp .plabel{font-size:15.5px;font-weight:600;color:var(--accent);background:#fff;border:1px solid var(--line);
+  border-radius:999px;padding:10px 22px;box-shadow:0 6px 20px -10px rgba(37,99,235,.32)}
+.cp .word{font-size:200px;font-weight:900;letter-spacing:-9px;line-height:.9;color:#000;margin-top:26px;
+  display:flex;justify-content:center;overflow:hidden;padding-bottom:.06em}
+.cp .word i{font-style:normal;display:inline-block;transform:translate3d(0,112%,0)}
+.is-active.cp .word i{animation:letra .9s var(--spring) forwards;animation-delay:var(--d,0ms)}
+@keyframes letra{to{transform:translate3d(0,0,0)}}
+.cp .tag2{font-size:58px;font-weight:800;letter-spacing:-2.2px;line-height:1.1;color:#000;margin-top:20px;
+  position:relative;align-self:center}
+.cp .tag2 em{font-style:normal;color:var(--accent)}
+.cp .tag2::after{content:"";position:absolute;left:52%;right:0;bottom:-13px;height:5px;border-radius:5px;
+  background:var(--accent);transform:scaleX(0);transform-origin:left}
+.is-active.cp .tag2::after{animation:tick .9s var(--out) 1.5s forwards}
+.cp .credits{width:1010px;margin:0 auto;display:grid;grid-template-columns:1fr 1px 1fr;align-items:center;
+  gap:32px;background:rgba(255,255,255,.82);border:1px solid var(--line);border-radius:16px;padding:20px 32px;
+  box-shadow:0 20px 48px -34px rgba(15,23,42,.32)}
+.cp .cd .ck{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--tx2)}
+.cp .cd .cn{font-size:17px;font-weight:700;letter-spacing:-.3px;color:var(--head);margin-top:8px}
+.cp .cd .cs{font-size:13.5px;color:var(--tx);margin-top:5px}
+.cp .cd.r{text-align:right}
+.cp .vl{align-self:stretch;background:linear-gradient(180deg,transparent,#D9E0EA,transparent)}
+
+/* ═══════════════ 2 · O PROBLEMA · um incidente real ═══════════════ */
+.pb .duo{display:flex;gap:24px;margin-top:26px;flex:1;min-height:0;align-items:stretch}
+.inc{flex:1.44;padding:24px 28px 26px;display:flex;flex-direction:column;min-width:0}
+.inc .top{display:flex;align-items:center;gap:11px}
+.inc .sel{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:800;letter-spacing:.4px;
+  text-transform:uppercase;background:var(--bad-l);color:var(--bad);padding:6px 12px;border-radius:8px}
+.inc .sel .ic{width:14px;height:14px;stroke-width:2}
+.inc .idn{font-family:var(--mono);font-size:19px;font-weight:600;color:var(--head)}
+.inc .meta{margin-left:auto;font-family:var(--mono);font-size:12.5px;color:var(--tx2)}
+.inc .desc{font-size:16.5px;line-height:1.45;color:var(--tx);margin-top:14px;
+  border-left:2px solid var(--line);padding-left:14px}
+
+/* o prazo correndo: azul até o prazo, vermelho no que passou dele */
+.linha{margin-top:auto;padding-top:20px}
+.linha .lbl{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12.5px;
+  color:var(--tx2);margin-bottom:9px}
+.linha .lbl b{color:var(--head);font-weight:600}
+.trilho{height:22px;border-radius:11px;background:#EEF2F7;display:flex;overflow:visible;position:relative}
+.trilho i{display:block;height:100%;transform:scaleX(0);transform-origin:left}
+.trilho .sa{width:89.9%;background:var(--accent);border-radius:11px 0 0 11px}
+.trilho .sb{width:10.1%;background:var(--bad);border-radius:0 11px 11px 0}
+.is-active.pb .trilho .sa{animation:corre 2.3s linear 1.1s forwards}
+.is-active.pb .trilho .sb{animation:corre .5s linear 3.4s forwards}
+@keyframes corre{to{transform:scaleX(1)}}
+.trilho .marca{position:absolute;left:89.9%;top:-8px;bottom:-8px;width:2px;background:var(--head);
+  border-radius:2px;z-index:2}
+.linha .pes{display:grid;grid-template-columns:1fr auto 1fr;margin-top:10px;font-size:13px;color:var(--tx2)}
+.linha .pes b{color:var(--head);font-weight:700}
+.linha .pes .m{text-align:right;padding-right:36px}
+.linha .pes .f{text-align:right}
+/* o selo do estouro bate na tela quando o vermelho termina de correr */
+.estouro{display:inline-flex;align-items:center;gap:9px;margin-top:18px;background:var(--bad);color:#fff;
+  font-size:18px;font-weight:800;letter-spacing:-.3px;padding:12px 20px;border-radius:12px;
+  opacity:0;transform:scale(1.26) rotate(-2.5deg);box-shadow:0 16px 34px -18px rgba(220,38,38,.7)}
+.estouro .ic{width:20px;height:20px;stroke-width:2}
+.is-active.pb .estouro{animation:bate .45s var(--out) 3.95s forwards}
+@keyframes bate{to{opacity:1;transform:scale(1) rotate(-2.5deg)}}
+
+/* o ano: P2 e P3 lado a lado, mesmo peso */
+.ano{flex:1;padding:24px 28px 26px;display:flex;flex-direction:column;min-width:0}
+.ano .kt{font-size:12px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--tx2)}
+.ano .par{flex:1;display:flex;flex-direction:column;justify-content:center;gap:22px;margin:10px 0}
+.ano .li{display:flex;align-items:baseline;gap:16px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.ano .li:last-child{border-bottom:none;padding-bottom:0}
+.ano .li .v{font-size:72px;font-weight:900;letter-spacing:-3.2px;line-height:.9;
+  font-variant-numeric:tabular-nums}
+.ano .li .k{font-size:15px;line-height:1.35;color:var(--tx)}
+.ano .li .k b{display:block;font-size:18px;color:var(--head);font-weight:800;letter-spacing:-.3px;
+  margin-bottom:3px}
+.ano .p2 .v{color:var(--bad)} .ano .p3 .v{color:var(--warn)}
+.ano .zz{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.4;color:var(--tx);
+  background:var(--accent-l);border-radius:12px;padding:14px 16px}
+.ano .zz .ic{width:18px;height:18px;color:var(--accent);margin-top:2px}
+.ano .zz b{color:var(--head);font-weight:700}
+
+/* ═══════════════ 3 · O ACHADO · dois dias, mesma taxa ═══════════════ */
+.ah .duo{display:flex;gap:22px;margin-top:24px;align-items:stretch;flex:1;min-height:0}
+.dia{flex:1;padding:24px 28px;display:flex;flex-direction:column;min-width:0}
+.dia .dh{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:800;letter-spacing:-.3px;
+  color:var(--head)}
+.dia .dh .ic{width:20px;height:20px;color:var(--accent)}
+.dia .ds{font-size:12.5px;color:var(--tx2);margin-top:4px;font-family:var(--mono)}
+.dia .vol{display:flex;align-items:baseline;gap:11px;margin-top:18px}
+.dia .vol b{font-size:60px;font-weight:900;letter-spacing:-2.6px;line-height:.86;color:var(--head);
+  font-variant-numeric:tabular-nums}
+.dia .vol span{font-size:14.5px;color:var(--tx);line-height:1.3}
+/* a barra do volume: o dia cheio tem quase o dobro do calmo, e isso se vê */
+.dia .bv{height:16px;border-radius:8px;background:#EEF2F7;margin-top:16px;overflow:hidden}
+.dia .bv i{display:block;height:100%;border-radius:8px;background:var(--accent);transform:scaleX(0);
+  transform-origin:left}
+.is-active.ah .dia .bv i{animation:corre 1s var(--out) var(--d,0ms) forwards}
+.dia .tx{margin-top:auto;padding-top:20px;display:flex;align-items:center;justify-content:space-between;
+  gap:14px;border-top:1px solid var(--line)}
+.dia .tx .tl{font-size:12.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--tx2)}
+.dia .tx .tv{font-size:38px;font-weight:900;letter-spacing:-1.5px;color:var(--good);
+  font-variant-numeric:tabular-nums;line-height:1}
+/* a ponte entre as duas taxas: o argumento inteiro num objeto só */
+.ponte{align-self:center;flex-shrink:0;width:124px;display:flex;flex-direction:column;align-items:center;
+  gap:9px;opacity:0}
+.is-active.ah .ponte{animation:rv .7s var(--out) 2.5s forwards}
+.ponte .pl{font-size:12px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;color:var(--good);
+  text-align:center;line-height:1.35}
+.ponte .pa{width:100%;height:2px;background:var(--good);position:relative;border-radius:2px}
+.ponte .pa::before,.ponte .pa::after{content:"";position:absolute;top:-4px;width:10px;height:10px;
+  border:2px solid var(--good);border-radius:50%;background:#fff;box-sizing:border-box}
+.ponte .pa::before{left:-2px} .ponte .pa::after{right:-2px}
+
+.fecho{margin-top:22px;display:flex;align-items:center;gap:28px;padding:20px 28px}
+.fecho .q{font-size:25px;font-weight:800;letter-spacing:-.8px;line-height:1.22;color:var(--head);
+  flex-shrink:0;width:390px}
+.fecho .q em{font-style:normal;color:var(--accent)}
+.fecho .sep{width:1px;align-self:stretch;background:var(--line);flex-shrink:0}
+.fecho .mods{display:flex;gap:24px;flex:1;min-width:0}
+.fecho .md{display:flex;gap:12px;align-items:flex-start;min-width:0;flex:1}
+.fecho .md .ic{width:22px;height:22px;color:var(--accent);margin-top:2px}
+.fecho .md .mh{font-size:16.5px;font-weight:800;color:var(--head);letter-spacing:-.2px}
+.fecho .md .mp{font-size:14px;color:var(--tx);line-height:1.4;margin-top:3px}
+.fecho .md .mn{font-family:var(--mono);font-size:11.5px;color:var(--tx2);margin-top:6px}
+
+/* ═══ chrome ═══ */
+#chrome{position:fixed;z-index:70;left:0;right:0;bottom:0;padding:16px 26px;display:flex;
+  justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11.5px;
+  color:rgba(255,255,255,.5);background:linear-gradient(0deg,rgba(0,0,0,.66),transparent);
+  transition:opacity .2s var(--out)}
+#chrome.hidden{opacity:0;pointer-events:none}
+#chrome kbd{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.16);border-radius:5px;
+  padding:2px 7px;color:#fff;font-size:11px}
+#dots{display:flex;gap:7px}
+#dots i{width:24px;height:3px;border-radius:999px;background:rgba(255,255,255,.22);transition:background .2s}
+#dots i.on{background:var(--accent3)}
+
+@media (prefers-reduced-motion:reduce){
+  .mesh{animation:none !important}
+  .is-active *{animation-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+<div id="fit"><div id="stage">
+
+<!-- ═══════════ 1 · CAPA ═══════════ -->
+<section class="slide light cp is-active" id="s1">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="serie"><svg viewBox="0 0 1600 260" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1000" d="M 0 245 L 13.4 193.3 L 26.9 170.2 L 40.3 104.4 L 53.8 88 L 67.2 85.1 L 80.7 69.1 L 94.1 69.5 L 107.6 74.1 L 121 58.4 L 134.5 15 L 147.9 35.3 L 161.3 63.4 L 174.8 64.8 L 188.2 63.1 L 201.7 74.5 L 215.1 80.2 L 228.6 60.9 L 242 54.9 L 255.5 65.9 L 268.9 95.1 L 282.4 141.7 L 295.8 146.7 L 309.2 86.2 L 322.7 75.2 L 336.1 74.5 L 349.6 76.2 L 363 71.3 L 376.5 68 L 389.9 88.3 L 403.4 93.3 L 416.8 66.6 L 430.3 59.1 L 443.7 90.1 L 457.1 111.5 L 470.6 125 L 484 146.4 L 497.5 143.9 L 510.9 130 L 524.4 82.6 L 537.8 100.1 L 551.3 117.9 L 564.7 109.3 L 578.2 100.1 L 591.6 85.1 L 605 83.4 L 618.5 79.1 L 631.9 71.3 L 645.4 71.3 L 658.8 69.1 L 672.3 72 L 685.7 98.3 L 699.2 82.3 L 712.6 64.5 L 726.1 83.7 L 739.5 87.6 L 752.9 101.5 L 766.4 124.3 L 779.8 90.5 L 793.3 91.9 L 806.7 107.2 L 820.2 111.5 L 833.6 115 L 847.1 105.4 L 860.5 101.9 L 873.9 103.7 L 887.4 107.6 L 900.8 107.9 L 914.3 103.3 L 927.7 90.5 L 941.2 84.1 L 954.6 79.1 L 968.1 89.1 L 981.5 85.1 L 995 66.3 L 1008.4 63.1 L 1021.8 73 L 1035.3 75.5 L 1048.7 79.1 L 1062.2 86.2 L 1075.6 105.4 L 1089.1 117.2 L 1102.5 115.8 L 1116 105.4 L 1129.4 88.3 L 1142.9 65.2 L 1156.3 62.7 L 1169.7 29.6 L 1183.2 33.9 L 1196.6 80.9 L 1210.1 80.2 L 1223.5 90.5 L 1237 89.1 L 1250.4 95.8 L 1263.9 105.4 L 1277.3 105.1 L 1290.8 102.6 L 1304.2 103.3 L 1317.6 108.3 L 1331.1 119.7 L 1344.5 114.7 L 1358 108.6 L 1371.4 125 L 1384.9 126.4 L 1398.3 120.4 L 1411.8 137.5 L 1425.2 162 L 1438.7 152.8 L 1452.1 123.6 L 1465.5 112.6 L 1479 115 L 1492.4 133.6 L 1505.9 133.2 L 1519.3 140 L 1532.8 136.4 L 1546.2 135.7 L 1559.7 122.9 L 1573.1 145.7 L 1586.6 182 L 1600 224"/></svg></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">SPRINT 04 · SOLUÇÃO FINAL</span>
+    <div class="tag">Challenge FIAP 2026 com Locaweb</div>
+  </div>
+  <div class="body">
+    <div class="hero">
+      <div class="plabel rv" style="--d:220ms">Inteligência preditiva para incidentes</div>
+      <div class="word"><i style="--d:360ms">C</i><i style="--d:420ms">r</i><i style="--d:480ms">o</i><i style="--d:540ms">n</i><i style="--d:600ms">o</i><i style="--d:660ms">s</i></div>
+      <div class="tag2 rv" style="--d:1000ms">Veja antes. <em>Aja antes.</em></div>
+    </div>
+    <div class="credits rv3" style="--d:1700ms">
+      <div class="cd">
+        <div class="ck">Equipe · Super Data Bros · 2TSCOA</div>
+        <div class="cn">Ana Beatriz Costa · Hygor Abrantes · Igor Vignola</div>
+        <div class="cs">FIAP · Tecnólogo em Data Science</div>
+      </div>
+      <div class="vl"></div>
+      <div class="cd r">
+        <div class="ck">Mentor Locaweb</div>
+        <div class="cn">Douglas Gouveia</div>
+        <div class="cs">Gerente Executivo de Operações</div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Ao fundo, a série real: incidentes elegíveis ao KPI, dia a dia, 2025</span><span>Sprint 04 · Solução final</span></div>
+</section>
+
+<!-- ═══════════ 2 · O PROBLEMA ═══════════ -->
+<section class="slide light pb" id="s2">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">O PROBLEMA</span>
+    <div class="tag">Incidente real · 15/06/2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:260ms">Um caso, não uma estatística</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Este perdeu o prazo por <span class="bd">26 minutos</span>.</span></span></h1>
+
+    <div class="duo">
+      <div class="cartao inc rv3" style="--d:640ms">
+        <div class="top">
+          <span class="sel">
+            <svg class="ic" viewBox="0 0 24 24"><path d="M12 3.5 2.6 20h18.8L12 3.5Z"/><path d="M12 9.5v4.2"/><path d="M12 16.9h.01"/></svg>
+            Prioridade 2 · Alta
+          </span>
+          <span class="idn">INC8431692</span>
+          <span class="meta">lhco · Team09</span>
+        </div>
+        <p class="desc">Sites falhando na inclusão de domínios no serviço de e-mail. Aberto manualmente, fechado como falha de aplicação.</p>
+
+        <div class="linha">
+          <div class="lbl">
+            <span>Abertura <b>11:47</b></span>
+            <span>Prazo de OLA <b>4 horas</b></span>
+          </div>
+          <div class="trilho">
+            <i class="sa"></i><i class="sb"></i>
+            <span class="marca"></span>
+          </div>
+          <div class="pes">
+            <span>11:47</span>
+            <span class="m"><b>15:47</b> prazo</span>
+            <span class="f"><b>16:14</b> resolvido</span>
+          </div>
+          <div class="estouro">
+            <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8.2"/><path d="M12 9.4V13l2.6 1.7"/><path d="M9 2.6h6"/></svg>
+            OLA violado &nbsp;·&nbsp; 4h26 para um prazo de 4h
+          </div>
+        </div>
+      </div>
+
+      <div class="cartao ano rv3" style="--d:760ms">
+        <div class="kt">E no ano de 2025</div>
+        <div class="par">
+          <div class="li p2">
+            <span class="v"><span class="ct" data-to="42" data-delay="1500">0</span></span>
+            <span class="k"><b>Prioridade 2</b>prazos de 4 horas perdidos</span>
+          </div>
+          <div class="li p3">
+            <span class="v"><span class="ct" data-to="206" data-delay="1700">0</span></span>
+            <span class="k"><b>Prioridade 3</b>prazos de 12 horas perdidos</span>
+          </div>
+        </div>
+        <div class="zz rv" style="--d:2600ms">
+          <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.6"/><path d="M12 7.7v4.8"/><path d="M12 16.3h.01"/></svg>
+          <span>As duas contam para a meta anual, e <b>cada perda empurra a nota da operação para o degrau de baixo</b>.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>INC8431692 · base elegível ao KPI</span><span>42 e 206 são o fechamento de 2025</span></div>
+</section>
+
+<!-- ═══════════ 3 · O ACHADO ═══════════ -->
+<section class="slide light ah" id="s3">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">O ACHADO</span>
+    <div class="tag">261 dias úteis de 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:260ms">O que era intuitivo, e é falso</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>O dia quase dobra de volume. A taxa de perda <span class="hl">não sobe</span>.</span></span></h1>
+
+    <div class="duo">
+      <div class="cartao dia rv3" style="--d:640ms">
+        <div class="dh">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M3 16.4 8.6 10l3.7 3.4L21 4.6"/><path d="M15.4 4.6H21v5.6"/></svg>
+          Dias cheios
+        </div>
+        <div class="ds">os 68 dias de maior volume</div>
+        <div class="vol"><b class="ct" data-to="108" data-delay="900">0</b><span>incidentes<br>por dia</span></div>
+        <div class="bv"><i style="--d:900ms"></i></div>
+        <div class="tx"><span class="tl">Taxa de perda<br>do prazo</span><span class="tv">0,75%</span></div>
+      </div>
+
+      <div class="ponte">
+        <span class="pl">Praticamente<br>a mesma taxa</span>
+        <span class="pa"></span>
+      </div>
+
+      <div class="cartao dia rv3" style="--d:760ms">
+        <div class="dh">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M3 12h5.2l2.4-5 2.8 10 2.4-5H21"/></svg>
+          Dias calmos
+        </div>
+        <div class="ds">os 69 dias de menor volume</div>
+        <div class="vol"><b class="ct" data-to="56" data-delay="1000">0</b><span>incidentes<br>por dia</span></div>
+        <div class="bv"><i style="--d:1000ms;width:51.6%"></i></div>
+        <div class="tx"><span class="tl">Taxa de perda<br>do prazo</span><span class="tv">0,86%</span></div>
+      </div>
+    </div>
+
+    <div class="cartao fecho rv" style="--d:3000ms">
+      <p class="q">O volume diz <em>quanta</em> carga vem. Não diz <em>qual</em> incidente perde o prazo.</p>
+      <span class="sep"></span>
+      <div class="mods">
+        <div class="md">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M3 17.4c3.4 0 4.6-9.6 8.4-9.6 3.9 0 4.5 9.6 8.4 9.6"/><path d="M3 21h18"/></svg>
+          <div>
+            <div class="mh">Prophet</div>
+            <div class="mp">Dimensiona a carga dos próximos 7 dias</div>
+            <div class="mn">erro de 4/dia no P2 e 11/dia no P3</div>
+          </div>
+        </div>
+        <div class="md">
+          <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.4"/><path d="M12 1.6v3M12 19.4v3M1.6 12h3M19.4 12h3"/></svg>
+          <div>
+            <div class="mh">Regressão logística</div>
+            <div class="mp">Aponta o incidente que vai perder o prazo</div>
+            <div class="mn">ROC AUC 0,869 · calibrada</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Quartis de volume, dias úteis de 2025</span><span>O volume explica 2,5% da variação das perdas</span></div>
+</section>
+
+</div></div>
+
+<div id="chrome">
+  <div id="dots"></div>
+  <span><kbd>&rarr;</kbd> avança &nbsp; <kbd>&larr;</kbd> volta &nbsp; <kbd>R</kbd> repete a animação &nbsp;
+  <kbd>H</kbd> esconde isto &nbsp; <kbd>F</kbd> tela cheia</span>
+</div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll(".slide"));
+  var stage=document.getElementById("stage");
+  var dots=document.getElementById("dots");
+  var chromeBar=document.getElementById("chrome");
+  var i=0, timers=[];
+
+  slides.forEach(function(){ dots.appendChild(document.createElement("i")); });
+  var marks=[].slice.call(dots.children);
+
+  function fit(){
+    stage.style.transform="scale("+Math.min(window.innerWidth/1600, window.innerHeight/900)+")";
+  }
+  window.addEventListener("resize",fit); fit();
+
+  function contar(el){
+    var alvo=parseInt(el.getAttribute("data-to"),10), dur=820, t0=performance.now();
+    (function passo(t){
+      var p=Math.min((t-t0)/dur,1);
+      el.textContent=Math.round(alvo*(1-Math.pow(1-p,3)));
+      if(p<1) requestAnimationFrame(passo);
+    })(performance.now());
+  }
+
+  function play(n){
+    timers.forEach(clearTimeout); timers=[];
+    slides.forEach(function(s,k){ s.classList.toggle("is-active",k===n); });
+    marks.forEach(function(m,k){ m.classList.toggle("on",k===n); });
+    [].forEach.call(slides[n].querySelectorAll(".ct"),function(el){
+      el.textContent="0";
+      timers.push(setTimeout(function(){ contar(el); },
+        parseInt(el.getAttribute("data-delay"),10)||0));
+    });
+  }
+  function replay(){
+    var s=slides[i];
+    s.classList.remove("is-active");
+    void s.offsetWidth;              // reflow reinicia a cascata inteira
+    play(i);
+  }
+  function go(n){ i=(n+slides.length)%slides.length; play(i); }
+
+  window.addEventListener("keydown",function(e){
+    var k=e.key.toLowerCase();
+    if(e.key==="ArrowRight"||e.key===" "||e.key==="PageDown"){e.preventDefault();go(i+1);}
+    else if(e.key==="ArrowLeft"||e.key==="PageUp"){e.preventDefault();go(i-1);}
+    else if(k==="r"){replay();}
+    else if(k==="h"){chromeBar.classList.toggle("hidden");}
+    else if(k==="f"){ document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen(); }
+    else if(k>="1"&&k<="3"){go(parseInt(k,10)-1);}
+  });
+  document.getElementById("fit").addEventListener("click",function(){ go(i+1); });
+
+  play(0);
+})();
+</script>
+</body>
+</html>

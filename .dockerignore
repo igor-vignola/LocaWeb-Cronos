@@ -1,0 +1,79 @@
+# Contexto de build da imagem do Cronos.
+#
+# O contexto e a RAIZ do repositorio, porque o Dockerfile precisa de webapp/ e de
+# data/app/ ao mesmo tempo. Sem este arquivo o Docker empacota o repositorio inteiro
+# — .git, deck, prototipos e notebooks passam de 800 MB — e o build fica lento ou
+# estoura o limite de recurso do plano gratuito. Tudo que a aplicacao nao le em
+# tempo de execucao fica de fora.
+#
+# Este arquivo tem de morar na raiz: o Docker le o .dockerignore do diretorio do
+# contexto, nao o do diretorio do Dockerfile. O webapp/.dockerignore nunca foi lido.
+
+# Historico do git: 571 MB que a imagem nao usa
+.git/
+.gitignore
+.github/
+
+# Ambientes e caches de Python
+.venv/
+venv/
+env/
+**/__pycache__/
+**/*.py[cod]
+**/.ipynb_checkpoints/
+**/.pytest_cache/
+**/.ruff_cache/
+
+# Entregaveis academicos e material de origem: nada disso entra na aplicacao
+sprints/
+prototipos/
+notebooks/
+assets/
+brand/
+livro/
+docs/
+context/
+scripts/
+_review/
+
+# Ferramentas de desenvolvimento
+.claude/
+.vscode/
+.idea/
+
+# Somente data/app/ entra na imagem (360 kB). O interim e insumo dos notebooks.
+data/interim/
+data/raw/
+data/processed/
+
+# Estaticos coletados: o proprio build roda collectstatic e gera a versao correta.
+# Trazer a pasta da maquina local sobrescreve o manifest com nomes de hash velhos.
+webapp/estatico/
+staticfiles/
+
+# Banco local, logs, temporarios e ruido de sistema de arquivos
+**/*.sqlite3
+**/*.log
+**/*.tmp
+**/tmp/
+**/.cache/
+**/*.bak
+**/*.orig
+**/*.rej
+**/~$*
+**/.DS_Store
+**/Thumbs.db
+**/desktop.ini
+
+# Credenciais nunca entram na imagem
+**/.env
+**/.env.local
+**/*.key
+**/secrets.json
+
+# Artefatos de deploy e raiz do GitHub Pages
+cronos-deploy.zip
+deploy/
+index.html
+_redirects
+.nojekyll

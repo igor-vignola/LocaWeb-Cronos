@@ -28,4 +28,12 @@ COPY data/app/ /app/dados/
 RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
-CMD ["sh", "-c", "gunicorn cronos.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 2 --threads 4 --timeout 60"]
+
+# Um processo, varias threads. A aplicacao le arquivo e guarda o pacote em lru_cache, entao
+# cada worker extra duplica os 130 MB do parquet e dos JSON em memoria — em plano gratuito de
+# 512 MB isso derruba o contêiner por falta de memoria. Thread compartilha o mesmo cache e
+# atende concorrencia de leitura sem pagar essa copia.
+#
+# ${PORT:-8000} porque o provedor injeta a porta em variavel de ambiente; o 8000 e o padrao
+# de quem roda a imagem na mao.
+CMD ["sh", "-c", "gunicorn cronos.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 1 --threads 8 --timeout 120 --access-logfile - --error-logfile -"]

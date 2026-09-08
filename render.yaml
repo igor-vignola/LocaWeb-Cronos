@@ -1,0 +1,54 @@
+# Cronos · blueprint de publicacao no Render.
+#
+# O Render le este arquivo na raiz do repositorio e cria o servico sem formulario: o
+# painel do provedor so pede a confirmacao. A imagem e a mesma de qualquer outro
+# provedor de contêiner — nada aqui amarra a solucao ao Render, e trocar de provedor
+# significa apagar este arquivo, nao mexer na aplicacao.
+#
+# Como usar: dashboard do Render → New → Blueprint → escolher este repositorio.
+#
+# A aplicacao nao tem banco, nao tem login e nao escreve nada: le tres arquivos
+# gerados pelos notebooks (painel.json, dias.json, fila.parquet) que o Dockerfile
+# copia para /app/dados. Por isso nao ha bloco de banco nem de disco persistente.
+services:
+  - type: web
+    name: cronos
+    runtime: docker
+    plan: free
+    region: oregon
+    branch: main
+    # O contexto e a raiz porque a imagem precisa de webapp/ e de data/app/ ao mesmo
+    # tempo. O .dockerignore da raiz e que mantem esse contexto em 0,8 MB.
+    dockerfilePath: ./webapp/Dockerfile
+    dockerContext: .
+    # O Render considera o servico no ar quando esta rota responde 200
+    healthCheckPath: /
+    envVars:
+      # Gerada pelo Render no primeiro deploy e preservada nos seguintes. Chave de
+      # producao nao entra no repositorio.
+      - key: CRONOS_SECRET_KEY
+        generateValue: true
+
+      # Producao: sem pagina de erro detalhada, com os cabecalhos de seguranca e com
+      # o whitenoise servindo o estatico coletado no build.
+      - key: CRONOS_DEBUG
+        value: "0"
+
+      # Onde o Dockerfile deixou painel.json, dias.json e fila.parquet
+      - key: CRONOS_DADOS
+        value: /app/dados
+
+      # CRONOS_HOSTS fica de fora de proposito. O dominio publico so existe depois do
+      # primeiro deploy, entao qualquer valor fixado aqui seria um chute — e um chute
+      # errado derruba toda requisicao com DisallowedHost. Sem a variavel o
+      # ALLOWED_HOSTS assume '*', que funciona de imediato: o proprio Render so
+      # encaminha para o contêiner as requisicoes do dominio dele.
+      #
+      # Para restringir depois que a URL existir, basta acrescentar no painel
+      # (Environment → Add Environment Variable), sem novo build:
+      #     CRONOS_HOSTS = cronos-xxxx.onrender.com
+      # O settings.py deriva CSRF_TRUSTED_ORIGINS desse mesmo valor.
+
+      # Evita o aviso de versao do pip em cada camada do build
+      - key: PIP_DISABLE_PIP_VERSION_CHECK
+        value: "1"
