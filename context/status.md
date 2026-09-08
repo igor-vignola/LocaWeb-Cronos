@@ -3,11 +3,98 @@
 > Primeiro arquivo a consultar para retomar o trabalho. Atualizar a cada bloco concluído.
 > O detalhamento técnico da sprint corrente fica em `docs/sprint-3-mvp.md`; a preparação para a banca, em `docs/dossie-banca.md`.
 
-**Atualizado em:** 17/08/2026
+**Atualizado em:** 08/09/2026
 
 ---
 
-## Sprint atual: Sprint 3 · MVP Preliminar (entrega 23/08/2026)
+## As duas datas que mandam agora
+
+| O que | Quando | Formato |
+|---|---|---|
+| **Banca final ao vivo, com a Locaweb** | **15/09/2026, terça, 19h30 às 22h40** | Teams, seis grupos, os três apresentam |
+| **Sprint 4 no portal FIAP** | **21/09/2026, segunda, 23h59** | pptx, vídeo, link, zip, planilha |
+
+A banca vem **antes** da entrega, porque o top 6 foi escolhido a partir das
+Sprints 1 a 3. Cronos está entre os seis.
+
+**Cuidado com a data da Sprint 4.** O texto de introdução da atividade diz
+08/09/2026, e esse número estava copiado no `CLAUDE.md`, aqui e na skill
+`challenge-context` como se fosse o prazo. O campo **PRAZO DE ENTREGA** do
+portal diz 21/09/2026 às 23h59. Em 08/09/2026 a sessão inteira rodou em modo
+emergência por causa dessa cópia. Antes de declarar urgência, pedir ao Igor o
+print do campo de prazo.
+
+---
+
+## Sessão de 08/09/2026
+
+**Deck do vídeo pitch, nove slides, fechado.** Mora em
+`prototipos/slides/video/`. Deixou de ser arquivo escrito à mão: o
+`_montar.py` junta o `_estilo.css` com os blocos em `blocos/NN-nome.html`,
+cada um com o CSS só dos seus slides. `_shot.py` captura. Navegação por seta,
+`R` repete a animação do slide, `H` esconde a ajuda antes de gravar, `F` tela
+cheia. Palco de 1600x900 escalado para qualquer resolução de captura.
+
+A ordem: capa, prazos perdidos por prioridade, dia cheio contra dia calmo, os
+dois modelos, a stack em Docker, a aplicação em seis telas, resultados, três
+hipóteses descartadas, fecho. Linguagem visual herdada de
+`prototipos/slides/mvp/abertura/base.css`: claro na maioria, escuro nos dois
+momentos de virada, Outfit em 800 e 900, accent único.
+
+Números novos, medidos nesta sessão sobre `data/interim/incidentes_kpi.parquet`:
+
+- **42** prazos perdidos na prioridade 2 e **206** na prioridade 3, em 2025
+- Dos 261 dias úteis de 2025, os **68 mais cheios** têm 108 incidentes por dia
+  e taxa de perda de **0,75%**; os **69 mais calmos** têm 56 por dia e
+  **0,86%**. O dia quase dobra de volume e a taxa não sobe, o que é o
+  argumento do slide 3 e reforça o achado de que volume não prevê quebra.
+- O incidente do exemplo que ficou fora da versão final, **INC8431692**, de
+  15/06/2025, perdeu um prazo de 4 horas **por 26 minutos**.
+
+**A aplicação virou site estático.** `scripts/exporta_estatico.py` renderiza
+as seis abas e todos os modais com o test client do Django e escreve em `app/`:
+72 páginas, 2 MB. Funciona porque a aplicação é determinística, com o relógio
+parado em 01/10/2025 15h e três arquivos fixos de dados. Some a necessidade de
+Docker e de Render para ter link público. A raiz do site passou a abrir a
+aplicação; as telas de protótipo das Sprints 1 e 2 seguem em `/prototipo`.
+
+**Pendente de um clique do Igor:** habilitar o GitHub Pages em Settings →
+Pages → branch `main`, pasta `/ (root)`. A URL fica
+`https://igor-vignola.github.io/LocaWeb-Cronos/` e é ela que entra no slide de
+demonstração do pptx e no campo de link da entrega.
+
+**pptx da Sprint 4 gerado, não conferido.**
+`sprints/EC_Sprint_4_2TSCOA_SolucaoFinal_Cronos_SuperDataBros.pptx`, 42 slides,
+13,333 x 7,5 in, 25 MB, nos sete blocos do template oficial. O agente que o
+montou foi interrompido durante a própria verificação, então nenhuma varredura
+de consistência rodou sobre ele. Falta trocar dois marcadores:
+`<URL DA APLICAÇÃO>` e `<URL DO VÍDEO>`.
+
+**Também prontos:** a planilha oficial em
+`sprints/Informacoes_Finais_Projeto_Integrantes_Cronos_SuperDataBros.xlsx`, o
+`README.md` da raiz, que não existia num repositório que vale 20% da nota, e
+`scripts/monta_zip_sprint4.py`, que aborta de propósito enquanto faltar a URL
+do YouTube.
+
+**O disco C: chegou a zero byte livre** no meio da sessão, o que travou Docker,
+pip e qualquer escrita. Foram liberados 179 MB apagando diretórios de PNG
+regeráveis dentro do repositório. Gravar vídeo pede entre 500 MB e 1 GB, e a
+decisão foi gravar no outro computador do Igor, depois de um `git pull`.
+
+### Próximos passos, na ordem
+
+1. Habilitar o GitHub Pages e colher a URL
+2. Revisar os nove slides do deck com o Igor, um a um
+3. Gravar o vídeo pelo `sprints/sprint-4/roteiro-video.md`, sete takes curtos
+4. Conferir o pptx da Sprint 4 slide por slide, o que não foi feito
+5. Preencher as duas URLs no pptx e rodar o zip
+6. **Preparar a banca do dia 15**: divisão de fala entre os três, ensaio, e as
+   perguntas que a Locaweb tende a fazer. O Igor disse que apresentação é o
+   ponto onde ele travava, e isso agora tem prazo mais curto que a entrega.
+
+---
+
+## Sprint 3 · MVP Preliminar (entregue 23/08/2026)
 
 | Sprint | Tema | Entrega | Situação |
 |---|---|---|---|
