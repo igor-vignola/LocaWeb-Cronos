@@ -1,0 +1,419 @@
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   Blocos 3 e 4 do deck da banca ao vivo
+     3 · O achado         fundo claro, prefixo .ac
+     4 · Os dois modelos  fundo escuro, prefixo .dm
+   Cada variação usa nomes próprios dentro do prefixo, então A e B nunca
+   disputam a mesma regra. Os keyframes levam o prefixo no nome porque, depois
+   que o _montar.py junta os blocos, o nome do keyframe é global.
+   Altura e largura de barra sempre em pixel, via --h e --w no style do elemento.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ═════════════════════════ 3 · O ACHADO ═════════════════════════ */
+.ac .palco{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;
+  margin-top:18px}
+@keyframes ac-sobe{to{transform:none}}
+@keyframes ac-corre{to{transform:none}}
+
+/* ── A · duas colunas em escala real dentro de um painel, e uma ponte que
+      amarra as duas taxas. A coluna do dia cheio tem quase o dobro da outra e
+      as taxas caem na mesma linha, então a comparação é de relance. ── */
+/* o painel tem 1040 e fica centrado: em 1472 as duas colunas ficavam longe uma
+   da outra e sobrava vão branco dentro do cartão. */
+.ac .plot{width:1040px;margin:0 auto;padding:24px 40px 26px}
+.ac .cap{font-size:12px;font-weight:700;letter-spacing:1.9px;text-transform:uppercase;
+  color:var(--tx2)}
+.ac .cols{display:grid;grid-template-columns:1fr 1fr;align-items:end;margin-top:14px}
+.ac .cl{display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
+.ac .vn{font-size:44px;font-weight:900;letter-spacing:-2.2px;line-height:1;color:var(--head);
+  font-variant-numeric:tabular-nums;margin-bottom:11px}
+.ac .cbar{width:210px;height:var(--h);border-radius:14px 14px 2px 2px;
+  background:linear-gradient(180deg,#5AA0FB,#2563EB);
+  box-shadow:0 22px 34px -24px rgba(37,99,235,.65);
+  transform:scaleY(0);transform-origin:bottom}
+.ac.is-active .cbar{animation:ac-sobe .9s var(--out) forwards;animation-delay:var(--d,0ms)}
+.ac .eixo{height:1.5px;background:#CBD8EA;transform:scaleX(0);transform-origin:left}
+.ac.is-active .eixo{animation:ac-corre .85s var(--out) forwards;animation-delay:var(--d,0ms)}
+.ac .rots,.ac .taxas{display:grid;grid-template-columns:1fr 1fr;text-align:center}
+.ac .rots{margin-top:12px}
+.ac .rt{font-size:16.5px;color:var(--tx)}
+.ac .rt b{color:var(--head);font-weight:800}
+.ac .taxas{margin-top:16px}
+.ac .tl{font-size:11.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--tx2)}
+.ac .tv{font-size:60px;font-weight:900;letter-spacing:-2.4px;line-height:1;color:var(--head);
+  font-variant-numeric:tabular-nums;margin-top:7px}
+/* a ponte: dois fios que descem das taxas, o fio que atravessa e a pílula no
+   meio exato do palco. Posição em pixel porque a caixa tem 1472 fixos e o
+   painel de 1040 centrado põe as duas taxas em 496 e 976. */
+.ac .ponte{position:relative;height:52px;margin-top:12px}
+.ac .ponte i{position:absolute;display:block}
+.ac .ponte .dp{top:0;width:1.5px;height:32px;transform:scaleY(0);transform-origin:top;
+  background:repeating-linear-gradient(180deg,#AAC0DE 0 5px,transparent 5px 10px)}
+.ac.is-active .ponte .dp{animation:ac-sobe .5s var(--out) forwards;animation-delay:var(--d,0ms)}
+.ac .ponte .hz{top:31px;height:1.5px;
+  background:repeating-linear-gradient(90deg,#AAC0DE 0 5px,transparent 5px 10px);
+  transform:scaleX(0)}
+.ac .ponte .hz.esq{left:496px;width:106px;transform-origin:left}
+.ac .ponte .hz.dir{left:870px;width:106px;transform-origin:right}
+.ac.is-active .ponte .hz{animation:ac-corre .55s var(--out) forwards;animation-delay:var(--d,0ms)}
+/* a pílula não pode usar .rv: aquela animação escreve transform e derruba o
+   translateX(-50%) que centra a peça no meio do palco. Entra só com opacidade. */
+@keyframes ac-mostra{to{opacity:1}}
+.ac .pilula{position:absolute;top:18px;left:736px;transform:translateX(-50%);width:240px;opacity:0;
+  text-align:center;background:#fff;border:1px solid #C9DAF3;border-radius:999px;padding:7px 0;
+  font-size:12.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--accent);box-shadow:0 8px 20px -14px rgba(37,99,235,.55)}
+.ac.is-active .pilula{animation:ac-mostra .5s var(--out) forwards;animation-delay:var(--d,0ms)}
+.ac .fecho1{text-align:center;font-size:20px;color:var(--tx);margin-top:6px}
+.ac .fecho1 b{font-size:27px;font-weight:900;letter-spacing:-.8px;color:var(--accent);
+  font-variant-numeric:tabular-nums}
+
+/* ── B · as duas barras deitadas na mesma escala, cada uma com um fio
+      pontilhado que leva até a coluna da taxa. As taxas caem na mesma
+      vertical e ganham uma barrinha própria, então dá para ver que o volume
+      quase dobra e a taxa fica onde está, sem fazer conta. ── */
+.ac .tab{display:grid;grid-template-columns:200px 940px 230px;column-gap:20px;align-items:center}
+.ac .hdr{font-size:11.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--tx2);margin-bottom:18px}
+.ac .lin{margin-top:38px}
+.ac .lin:first-of-type{margin-top:0}
+.ac .dias{font-size:17px;line-height:1.35;color:var(--tx)}
+.ac .dias b{display:block;font-size:26px;font-weight:800;letter-spacing:-.7px;color:var(--head)}
+.ac .trilho{display:flex;align-items:center}
+.ac .hb{width:var(--w);height:104px;border-radius:12px;flex-shrink:0;
+  background:linear-gradient(90deg,#5AA0FB,#2563EB);
+  box-shadow:0 22px 36px -26px rgba(37,99,235,.7);
+  transform:scaleX(0);transform-origin:left}
+.ac.is-active .hb{animation:ac-corre .9s var(--out) forwards;animation-delay:var(--d,0ms)}
+.ac .qtd{flex-shrink:0;min-width:104px;padding-left:20px;font-size:46px;font-weight:900;
+  letter-spacing:-2px;line-height:1;color:var(--head);font-variant-numeric:tabular-nums}
+.ac .lead{flex:1;height:1.5px;transform:scaleX(0);transform-origin:left;
+  background:repeating-linear-gradient(90deg,#AAC0DE 0 5px,transparent 5px 10px)}
+.ac.is-active .lead{animation:ac-corre .6s var(--out) forwards;animation-delay:var(--d,0ms)}
+.ac .tv2{font-size:50px;font-weight:900;letter-spacing:-2px;line-height:1;color:var(--head);
+  font-variant-numeric:tabular-nums}
+.ac .tbar{height:10px;width:var(--w);border-radius:6px;background:#B9CDEC;margin-top:11px;
+  transform:scaleX(0);transform-origin:left}
+.ac.is-active .tbar{animation:ac-corre .7s var(--out) forwards;animation-delay:var(--d,0ms)}
+.ac .fim{display:flex;align-items:center;gap:22px;margin-top:44px;padding-top:26px;
+  border-top:1px solid var(--line)}
+.ac .fim .ic{width:34px;height:34px;color:var(--accent)}
+.ac .fv{font-size:72px;font-weight:900;letter-spacing:-3.2px;line-height:.9;color:var(--accent);
+  font-variant-numeric:tabular-nums}
+.ac .fk{font-size:21px;font-weight:700;letter-spacing:-.3px;color:var(--head)}
+.ac .fk i{display:block;font-style:normal;font-size:11.5px;font-weight:700;letter-spacing:1.8px;
+  text-transform:uppercase;color:var(--tx2);margin-bottom:6px}
+
+/* ═════════════════════ 4 · OS DOIS MODELOS ═════════════════════ */
+.dm .palco{flex:1;min-height:0;display:flex;align-items:center;margin-top:20px}
+@keyframes dm-corre{to{transform:none}}
+/* tipografia comum às duas variações: descrição, chips e métrica do modelo */
+.dm .oq{font-size:22px;line-height:1.48;color:#B2BDCD}
+.dm .oq b{color:#fff;font-weight:700}
+.dm .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+.dm .chips span{font-size:12.5px;font-weight:600;color:#C6CEDC;background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.13);border-radius:9px;padding:7px 13px}
+.dm .ml{font-size:11.5px;font-weight:700;letter-spacing:1.9px;text-transform:uppercase;
+  color:#7B8699}
+.dm .vals{display:flex;align-items:flex-end;gap:36px;margin-top:16px}
+.dm .mod .vals .vi{flex:1}
+.dm .vi{display:flex;align-items:baseline;gap:13px;min-width:0}
+.dm .vi b{font-size:74px;font-weight:900;letter-spacing:-3.2px;line-height:.84;color:#fff;
+  font-variant-numeric:tabular-nums}
+.dm .vi i{font-style:normal;font-size:13.5px;line-height:1.3;color:#98A2B3;width:104px}
+.dm .vi i em{font-style:normal;display:block;font-size:15px;font-weight:800;letter-spacing:-.2px;
+  color:#fff;margin-bottom:3px}
+.dm .cal{display:inline-flex;align-items:center;gap:8px;margin-bottom:8px;font-size:14px;
+  font-weight:700;color:#34D399;background:rgba(52,211,153,.12);
+  border:1px solid rgba(52,211,153,.32);border-radius:10px;padding:8px 14px}
+.dm .cal .ic{width:16px;height:16px}
+.dm .pi{display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  color:var(--accent3);background:rgba(96,165,250,.13);border:1px solid rgba(96,165,250,.3)}
+.dm .nome{font-size:15px;font-weight:800;letter-spacing:2.2px;text-transform:uppercase;
+  color:#C6CEDC}
+
+/* ── A · um cartão por modelo. A métrica desce para a base do cartão, então a
+      linha dos números nasce alinhada nos dois e não sobra vão no meio. ── */
+.dm .par{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.dm .mod{padding:38px 38px 34px;display:flex;flex-direction:column;min-width:0}
+.dm .cab{display:flex;align-items:center;gap:15px}
+.dm .mod .pi{width:56px;height:56px;border-radius:15px}
+.dm .mod .pi .ic{width:28px;height:28px}
+.dm .mod .oq{margin-top:30px}
+/* a métrica vira uma placa presa na base do cartão: os números dos dois modelos
+   nascem na mesma linha e a folga de altura fica fora do cartão, não no meio. */
+.dm .mod .met{margin-top:auto;padding:24px 26px 22px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04)}
+
+/* ── B · uma linha de pergunta e resposta. Cada modelo pende de um nó do eixo,
+      sem moldura de cartão, e a resposta cresce para baixo. ── */
+.dm .eixo{width:100%}
+.dm .pgs,.dm .cols{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+.dm .pg{font-size:50px;font-weight:800;letter-spacing:-1.9px;line-height:1.05;
+  color:var(--accent3)}
+.dm .via{position:relative;height:14px;margin-top:28px}
+.dm .via i{position:absolute;display:block}
+.dm .via .ln{left:0;right:0;top:6px;height:1.5px;background:rgba(255,255,255,.17);
+  transform:scaleX(0);transform-origin:left}
+.dm.is-active .via .ln{animation:dm-corre .9s var(--out) forwards;animation-delay:var(--d,0ms)}
+.dm .via .no{top:0;width:14px;height:14px;border-radius:50%;background:var(--accent3);
+  box-shadow:0 0 0 5px rgba(96,165,250,.16)}
+.dm .via .no::after{content:"";position:absolute;left:6px;top:14px;width:1.5px;height:26px;
+  background:linear-gradient(180deg,rgba(96,165,250,.5),rgba(96,165,250,0))}
+.dm .cols{margin-top:30px}
+.dm .cl{min-width:0}
+.dm .cl .cab{gap:12px}
+.dm .cl .pi{width:38px;height:38px;border-radius:11px}
+.dm .cl .pi .ic{width:20px;height:20px}
+.dm .cl .oq{margin-top:18px}
+.dm .cl .met{margin-top:26px;padding-top:26px;border-top:1px solid rgba(255,255,255,.13)}
+</style>
+
+<!-- ═══════════════════ 3 · O ACHADO · variação A ═══════════════════ -->
+<section class="slide light ac" data-slide="3" data-var="a" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL · 15/09/2026</span>
+    <div class="tag">Base elegível ao KPI · 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:260ms">O achado</span></span>
+    <h1 class="tt">
+      <span class="mask" style="--d:340ms"><span>Dias de volume alto e de volume baixo</span></span>
+      <span class="mask" style="--d:440ms"><span>perdem prazo <span class="hl">na mesma proporção</span>.</span></span>
+    </h1>
+
+    <div class="palco">
+      <div class="cartao plot rv3" style="--d:620ms">
+        <div class="cap rv" style="--d:860ms">Incidentes por dia</div>
+        <div class="cols">
+          <div class="cl">
+            <div class="vn rv" style="--d:960ms"><span class="ct" data-to="108" data-delay="1000">0</span></div>
+            <div class="cbar" style="--h:176px;--d:1000ms"></div>
+          </div>
+          <div class="cl">
+            <div class="vn rv" style="--d:1060ms"><span class="ct" data-to="56" data-delay="1100">0</span></div>
+            <div class="cbar" style="--h:91px;--d:1100ms"></div>
+          </div>
+        </div>
+        <div class="eixo" style="--d:900ms"></div>
+        <div class="rots">
+          <div class="rt rv" style="--d:1240ms"><b>68 dias</b> de maior volume</div>
+          <div class="rt rv" style="--d:1320ms"><b>69 dias</b> de menor volume</div>
+        </div>
+        <div class="taxas">
+          <div class="rv" style="--d:1420ms">
+            <div class="tl">Taxa de perda</div>
+            <div class="tv"><span class="ct" data-to="0,75" data-dec="2" data-delay="1500">0,00</span>%</div>
+          </div>
+          <div class="rv" style="--d:1500ms">
+            <div class="tl">Taxa de perda</div>
+            <div class="tv"><span class="ct" data-to="0,86" data-dec="2" data-delay="1580">0,00</span>%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ponte">
+        <i class="dp" style="left:495px;--d:1820ms"></i>
+        <i class="dp" style="left:975px;--d:1880ms"></i>
+        <i class="hz esq" style="--d:1980ms"></i>
+        <i class="hz dir" style="--d:1980ms"></i>
+        <span class="pilula" style="--d:2180ms">Mesma faixa de perda</span>
+      </div>
+      <p class="fecho1 rv" style="--d:2300ms">O volume do dia explica
+        <b><span class="ct" data-to="2,5" data-dec="1" data-delay="2400">0,0</span>%</b>
+        da variação das perdas de prazo</p>
+    </div>
+  </div>
+  <div class="ft"><span>261 dias úteis de 2025 · correlação de 0,159 · p-valor 0,011</span></div>
+</section>
+
+<!-- ═══════════════════ 3 · O ACHADO · variação B ═══════════════════ -->
+<section class="slide light ac" data-slide="3" data-var="b" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL · 15/09/2026</span>
+    <div class="tag">Base elegível ao KPI · 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:260ms">O achado</span></span>
+    <h1 class="tt">
+      <span class="mask" style="--d:340ms"><span>Dias de volume alto e de volume baixo</span></span>
+      <span class="mask" style="--d:440ms"><span>perdem prazo <span class="hl">na mesma proporção</span>.</span></span>
+    </h1>
+
+    <div class="palco">
+      <div class="tab hdr rv" style="--d:620ms">
+        <span style="grid-column:2">Incidentes por dia</span><span>Taxa de perda de prazo</span>
+      </div>
+
+      <div class="tab lin">
+        <div class="dias rv" style="--d:760ms"><b>68 dias</b>de maior volume</div>
+        <div class="trilho">
+          <div class="hb" style="--w:720px;--d:820ms"></div>
+          <div class="qtd rv" style="--d:900ms"><span class="ct" data-to="108" data-delay="940">0</span></div>
+          <div class="lead" style="--d:1500ms"></div>
+        </div>
+        <div>
+          <div class="tv2 rv" style="--d:1600ms"><span class="ct" data-to="0,75" data-dec="2" data-delay="1640">0,00</span>%</div>
+          <div class="tbar" style="--w:150px;--d:1700ms"></div>
+        </div>
+      </div>
+
+      <div class="tab lin">
+        <div class="dias rv" style="--d:880ms"><b>69 dias</b>de menor volume</div>
+        <div class="trilho">
+          <div class="hb" style="--w:373px;--d:940ms"></div>
+          <div class="qtd rv" style="--d:1020ms"><span class="ct" data-to="56" data-delay="1060">0</span></div>
+          <div class="lead" style="--d:1620ms"></div>
+        </div>
+        <div>
+          <div class="tv2 rv" style="--d:1720ms"><span class="ct" data-to="0,86" data-dec="2" data-delay="1760">0,00</span>%</div>
+          <div class="tbar" style="--w:172px;--d:1820ms"></div>
+        </div>
+      </div>
+
+      <div class="fim rv" style="--d:2060ms">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M4 3.6v16.8h16.6"/><circle cx="8.4" cy="15.8" r="1.35"/><circle cx="12.6" cy="10.2" r="1.35"/><circle cx="16.6" cy="14.4" r="1.35"/><circle cx="10.8" cy="6.8" r="1.35"/></svg>
+        <span class="fv"><span class="ct" data-to="2,5" data-dec="1" data-delay="2180">0,0</span>%</span>
+        <span class="fk"><i>O volume do dia explica</i>da variação das perdas de prazo</span>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>261 dias úteis de 2025 · correlação de 0,159 · p-valor 0,011</span></div>
+</section>
+
+<!-- ═══════════════ 4 · OS DOIS MODELOS · variação A ═══════════════ -->
+<section class="slide dark dm" data-slide="4" data-var="a" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL · 15/09/2026</span>
+    <div class="tag">Modelos do MVP</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:260ms">A solução</span></span>
+    <h1 class="tt">
+      <span class="mask" style="--d:340ms"><span>A solução separa a <span class="hl">previsão de volume</span></span></span>
+      <span class="mask" style="--d:440ms"><span>do <span class="hl">risco por incidente</span>.</span></span>
+    </h1>
+
+    <div class="palco">
+      <div class="par">
+        <div class="cartao mod rv3" style="--d:640ms">
+          <div class="cab rv" style="--d:900ms">
+            <span class="pi"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3.2"/><path d="M3 10.2h18"/><path d="M7.6 2.6v3.6M16.4 2.6v3.6"/><path d="M6.6 16.8c1.9 0 2.3-3.8 4.6-3.8s2.7 3.8 4.6 3.8"/></svg></span>
+            <span class="nome">Prophet</span>
+          </div>
+          <p class="oq rv" style="--d:1020ms">Volume diário de incidentes <b>por prioridade</b>,<br>sete dias à frente.</p>
+          <div class="chips rv" style="--d:1140ms">
+            <span>Sazonalidade semanal</span><span>Feriados nacionais</span>
+          </div>
+          <div class="met rv" style="--d:1300ms">
+            <div class="ml">Erro médio por dia</div>
+            <div class="vals">
+              <span class="vi"><b class="ct" data-to="4" data-delay="1440">0</b><i><em>Prioridade 2</em>incidentes</i></span>
+              <span class="vi"><b class="ct" data-to="11" data-delay="1560">0</b><i><em>Prioridade 3</em>incidentes</i></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cartao mod rv3" style="--d:760ms">
+          <div class="cab rv" style="--d:980ms">
+            <span class="pi"><svg class="ic" viewBox="0 0 24 24"><path d="M4 3.4v17.2h16.8"/><path d="M5.6 18.2C10.6 18.2 11 6.8 16 6.8h4"/></svg></span>
+            <span class="nome">Regressão logística</span>
+          </div>
+          <p class="oq rv" style="--d:1100ms">Probabilidade de perder o prazo,<br><b>para cada incidente aberto</b>.</p>
+          <div class="chips rv" style="--d:1220ms">
+            <span>Explicação por característica</span>
+          </div>
+          <div class="met rv" style="--d:1380ms">
+            <div class="ml">Qualidade da separação</div>
+            <div class="vals">
+              <span class="vi"><b class="ct" data-to="0,869" data-dec="3" data-delay="1520">0,000</b><i><em>ROC AUC</em>na base de teste</i></span>
+              <span class="cal">
+                <svg class="ic" viewBox="0 0 24 24"><path d="M4.5 12.6 9.4 17.4 19.5 6.9"/></svg>
+                Mantém a calibração
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Erro médio de D+1 a D+7 em backtest deslizante · ROC AUC na base de teste</span></div>
+</section>
+
+<!-- ═══════════════ 4 · OS DOIS MODELOS · variação B ═══════════════ -->
+<section class="slide dark dm" data-slide="4" data-var="b" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL · 15/09/2026</span>
+    <div class="tag">Modelos do MVP</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:260ms">A solução</span></span>
+    <h1 class="tt">
+      <span class="mask" style="--d:340ms"><span>A solução separa a <span class="hl">previsão de volume</span></span></span>
+      <span class="mask" style="--d:440ms"><span>do <span class="hl">risco por incidente</span>.</span></span>
+    </h1>
+
+    <div class="palco">
+      <div class="eixo">
+        <div class="pgs">
+          <div class="pg mask" style="--d:660ms"><span>Quanto vem?</span></div>
+          <div class="pg mask" style="--d:780ms"><span>Qual perde o prazo?</span></div>
+        </div>
+        <div class="via">
+          <i class="ln" style="--d:920ms"></i>
+          <i class="no rv" style="left:0;--d:1120ms"></i>
+          <i class="no rv" style="left:calc(50% + 32px);--d:1220ms"></i>
+        </div>
+        <div class="cols">
+          <div class="cl">
+            <div class="cab rv" style="--d:1280ms">
+              <span class="pi"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3.2"/><path d="M3 10.2h18"/><path d="M7.6 2.6v3.6M16.4 2.6v3.6"/><path d="M6.6 16.8c1.9 0 2.3-3.8 4.6-3.8s2.7 3.8 4.6 3.8"/></svg></span>
+              <span class="nome">Prophet</span>
+            </div>
+            <p class="oq rv" style="--d:1380ms">Volume diário de incidentes <b>por prioridade</b>,<br>sete dias à frente.</p>
+            <div class="chips rv" style="--d:1480ms">
+              <span>Sazonalidade semanal</span><span>Feriados nacionais</span>
+            </div>
+            <div class="met rv" style="--d:1620ms">
+              <div class="ml">Erro médio por dia</div>
+              <div class="vals">
+                <span class="vi"><b class="ct" data-to="4" data-delay="1760">0</b><i><em>Prioridade 2</em>incidentes</i></span>
+                <span class="vi"><b class="ct" data-to="11" data-delay="1880">0</b><i><em>Prioridade 3</em>incidentes</i></span>
+              </div>
+            </div>
+          </div>
+          <div class="cl">
+            <div class="cab rv" style="--d:1380ms">
+              <span class="pi"><svg class="ic" viewBox="0 0 24 24"><path d="M4 3.4v17.2h16.8"/><path d="M5.6 18.2C10.6 18.2 11 6.8 16 6.8h4"/></svg></span>
+              <span class="nome">Regressão logística</span>
+            </div>
+            <p class="oq rv" style="--d:1480ms">Probabilidade de perder o prazo,<br><b>para cada incidente aberto</b>.</p>
+            <div class="chips rv" style="--d:1580ms">
+              <span>Explicação por característica</span>
+            </div>
+            <div class="met rv" style="--d:1720ms">
+              <div class="ml">Qualidade da separação</div>
+              <div class="vals">
+                <span class="vi"><b class="ct" data-to="0,869" data-dec="3" data-delay="1860">0,000</b><i><em>ROC AUC</em>na base de teste</i></span>
+                <span class="cal">
+                  <svg class="ic" viewBox="0 0 24 24"><path d="M4.5 12.6 9.4 17.4 19.5 6.9"/></svg>
+                  Mantém a calibração
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Erro médio de D+1 a D+7 em backtest deslizante · ROC AUC na base de teste</span></div>
+</section>

@@ -1,0 +1,507 @@
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   Blocos 7 e 8 do deck da banca ao vivo · Cronos
+   7 · RESULTADOS            → as três medidas de validação dos dois modelos.
+   8 · O QUE JÁ DÁ PARA AGIR → dois grupos com a mesma carga e taxas de perda
+                               diferentes, com a ressalva da carteira no slide.
+   Todo o CSS prefixado por .rs (slide 7) e .ag (slide 8) para não vazar nos
+   vizinhos. Classes compartilhadas vêm de _estilo.css: .slide .light .mesh
+   .grid-bg .hd .body .ft .eb .tt .cartao .ic .num .rv .rv3 .mask .ct
+   Números medidos em data/interim/incidentes_kpi.parquet.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   7 · RESULTADOS
+   Três medidas, três formatos diferentes: par de números gigantes para o erro
+   de volume, tabela de comparação para o risco, par de barras para a
+   calibração. Fileira de três cartões iguais é proibida pelo contrato.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.rs .body{padding-bottom:60px}
+.rs .tt{font-size:50px;letter-spacing:-1.8px}
+/* o fio de 1px do estilo da casa desaparece em chamada de vídeo, então os fios
+   internos destes dois slides são um passo mais escuros */
+.rs .cartao{border-color:#DCE4EF}
+
+/* rótulo de bloco, comum às duas variações */
+.rs .rot{display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;
+  letter-spacing:2.2px;text-transform:uppercase;color:var(--tx2)}
+.rs .rot .ic{width:17px;height:17px;color:var(--accent)}
+.rs .pe{font-size:14.5px;line-height:1.45;color:var(--tx2);padding-top:18px;
+  border-top:1px solid #D9E1EC}
+.rs .pe b{color:var(--head);font-weight:700}
+.rs .fio{display:block;height:1px;background:#D9E1EC}
+.rs .vfio{display:block;width:1px;height:76px;background:#D9E1EC;flex-shrink:0}
+
+/* as barras da calibração: altura em PIXEL, largura em PIXEL. Porcentagem de
+   altura não resolve dentro deste flex e a barra sai com altura zero. */
+.rs .br{display:flex;align-items:center;gap:16px}
+.rs .bl{flex-shrink:0;font-size:15px;font-weight:600;color:var(--tx)}
+.rs .tk{position:relative;height:30px;flex-shrink:0;border-radius:8px;background:#E7ECF4}
+.rs .tk i{position:absolute;left:0;top:0;height:30px;border-radius:8px;display:block;
+  transform:scaleX(0);transform-origin:left}
+.rs .tk .b1{background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.rs .tk .b2{background:#94A6BF}
+.rs.is-active .tk i{animation:corre .8s var(--out) forwards;animation-delay:var(--d,0ms)}
+.rs .bv{font-size:30px;font-weight:800;letter-spacing:-1.1px;color:var(--head)}
+
+/* ── 7 A · bloco dominante à esquerda, dois blocos empilhados à direita ─────
+   align-items:flex-start deixa cada cartão com a altura do próprio conteúdo e
+   alinha os dois pelo topo. Se esticassem, sobraria buraco dentro deles, que é
+   o defeito nº 1 aqui. */
+.rs .palco{flex:1;min-height:0;display:flex;align-items:flex-start;gap:28px;margin-top:30px}
+.rs .palco>.esq{width:582px;flex-shrink:0;display:flex}
+.rs .palco>.dir{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
+.rs .bloco{padding:26px 34px;display:flex;flex-direction:column;min-width:0;flex:1}
+.rs .dir .bloco{flex:0 0 auto}
+
+
+.rs .vol .nums{display:flex;flex-direction:column;gap:34px;padding:30px 0 34px}
+.rs .vol .ln{display:flex;align-items:baseline;gap:24px}
+.rs .vol .v{flex-shrink:0;width:174px;text-align:right;font-size:126px;font-weight:900;
+  letter-spacing:-5.2px;line-height:.86;color:var(--accent)}
+.rs .vol .lb{font-size:17px;line-height:1.35;color:var(--tx)}
+.rs .vol .lb b{display:block;font-size:22px;font-weight:800;letter-spacing:-.4px;
+  color:var(--head);margin-bottom:3px}
+
+.rs .tab{display:flex;flex-direction:column;padding:10px 0 14px}
+.rs .tab .th,.rs .tab .tr{display:grid;grid-template-columns:124px 1fr 1fr;gap:18px;
+  align-items:baseline}
+.rs .tab .th{font-size:11.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  color:var(--tx2);padding-bottom:9px;border-bottom:1px solid #D9E1EC}
+.rs .tab .tr{padding:13px 0}
+.rs .tab .tr+.tr{border-top:1px solid #D9E1EC}
+.rs .tab .mt{font-size:13.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--head)}
+.rs .tab .p{font-size:35px;font-weight:900;letter-spacing:-1.4px;color:var(--accent)}
+.rs .tab .s{font-size:23px;font-weight:700;color:var(--tx2)}
+
+.rs .cal .brs{display:flex;flex-direction:column;gap:16px;padding:14px 0 18px}
+.rs .cal .bl{width:172px}
+.rs .cal .tk{width:340px}
+.rs .cal .b1{width:327px}
+.rs .cal .b2{width:340px}
+
+/* ── 7 B · três linhas empilhadas, fio de 1px entre elas, sem cartão ──────── */
+.rs .pilha{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;
+  margin-top:20px}
+.rs .rw{display:flex;align-items:center;gap:42px;padding:28px 0}
+.rs .rw+.rw{border-top:1px solid #D9E1EC}
+.rs .rw>.et{width:250px;flex-shrink:0}
+.rs .et .en{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:800;
+  letter-spacing:2.2px;text-transform:uppercase;color:var(--head)}
+.rs .et .en .ic{width:17px;height:17px;color:var(--accent)}
+.rs .et .es{font-size:14.5px;line-height:1.4;color:var(--tx2);margin-top:8px}
+.rs .rw>.ob{flex:1;min-width:0}
+
+.rs .par2{display:flex;align-items:center;gap:44px}
+.rs .par2 .it{display:flex;align-items:baseline;gap:16px}
+.rs .par2 .it b{flex-shrink:0;width:96px;text-align:right;font-size:78px;font-weight:900;
+  letter-spacing:-3.2px;line-height:.86;color:var(--accent)}
+.rs .par2 .it i{font-style:normal;width:136px;font-size:15px;line-height:1.35;color:var(--tx)}
+.rs .par2 .it i em{font-style:normal;display:block;font-size:18.5px;font-weight:800;
+  letter-spacing:-.3px;color:var(--head);margin-bottom:2px}
+
+.rs .roc .rocs{display:flex;align-items:center;gap:42px}
+.rs .roc .it{display:flex;align-items:baseline;gap:16px}
+.rs .roc .it b{font-size:70px;font-weight:900;letter-spacing:-2.8px;line-height:.86;
+  color:var(--accent)}
+.rs .roc .it.sec b{font-size:40px;letter-spacing:-1.6px;color:var(--tx2)}
+.rs .roc .it i{font-style:normal;width:132px;font-size:14.5px;line-height:1.35;color:var(--tx)}
+.rs .roc .it i em{font-style:normal;display:block;font-size:17px;font-weight:800;
+  letter-spacing:-.2px;color:var(--head);margin-bottom:2px}
+.rs .roc .obs{font-size:14.5px;line-height:1.45;color:var(--tx2);margin-top:16px}
+.rs .roc .obs b{color:var(--head);font-weight:700}
+
+.rs .barras{display:flex;flex-direction:column;gap:18px}
+.rs .barras .bl{width:176px}
+.rs .barras .tk{width:512px}
+.rs .barras .b1{width:493px}
+.rs .barras .b2{width:512px}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   8 · O QUE JÁ DÁ PARA AGIR
+   Achado medido direto na base, sem modelo. A ressalva da carteira de produtos
+   entra no slide, não só na fala: sem ela a leitura vira acusação.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.ag .body{padding-bottom:60px}
+.ag .tt{font-size:52px}
+.ag .cartao{border-color:#DCE4EF}
+
+.ag .rot{display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;
+  letter-spacing:2.2px;text-transform:uppercase;color:var(--tx2)}
+.ag .rot .ic{width:17px;height:17px;color:var(--accent)}
+.ag .med{font-size:14.5px;color:var(--tx2);white-space:nowrap}
+.ag .med b{color:var(--head);font-weight:800}
+.ag .fio{display:block;height:1px;background:#D9E1EC}
+.ag .tx{font-weight:900;line-height:.9}
+.ag .tx.alta{color:var(--warn)}
+.ag .tx.baixa{color:var(--good)}
+
+/* a ressalva: mesma tipografia nas duas variações, lugar diferente */
+.ag .rl{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.8px;
+  text-transform:uppercase;color:var(--warn);background:var(--warn-l);border-radius:6px;
+  padding:4px 10px;margin-right:12px;vertical-align:2px}
+
+/* ── 8 A · os dois grupos lado a lado, ressalva no rodapé do bloco ──────────
+   align-items:flex-start: cartão com a altura do conteúdo, sem buraco dentro. */
+.ag .palco{flex:1;min-height:0;display:flex;align-items:flex-start;gap:26px;margin-top:40px}
+.ag .gp{width:918px;flex-shrink:0;overflow:hidden;padding:28px 34px 0;display:flex;
+  flex-direction:column}
+.ag .gp .cab{display:flex;align-items:baseline;justify-content:space-between;gap:24px}
+.ag .gp .linhas{display:flex;flex-direction:column;gap:34px;padding:36px 0 40px}
+.ag .gp .ln{display:flex;align-items:center;justify-content:space-between;gap:28px}
+.ag .gp .nm{font-size:27px;font-weight:800;letter-spacing:-.7px;color:var(--head)}
+.ag .gp .nm i{display:block;font-style:normal;font-size:15.5px;font-weight:500;
+  letter-spacing:0;color:var(--tx);margin-top:7px}
+.ag .gp .nm i b{color:var(--head);font-weight:800}
+.ag .gp .tx{font-size:78px;letter-spacing:-3.1px}
+.ag .resa{margin:0 -34px;padding:19px 34px 21px;border-top:1px solid #D9E1EC;
+  background:#F1F5FB;font-size:15px;line-height:1.5;color:var(--tx)}
+
+.ag .col{flex:1;min-width:0;display:flex;flex-direction:column;gap:24px}
+.ag .st{padding:26px 28px 28px;display:flex;flex-direction:column}
+.ag .st .bg{display:flex;align-items:baseline;gap:9px;margin:20px 0 14px}
+.ag .st .bg.pc{gap:4px}
+.ag .st .bg b{font-size:80px;font-weight:900;letter-spacing:-3.5px;line-height:.86;
+  color:var(--accent)}
+/* filho direto: o contador mora dentro do <b> e não pode herdar o tamanho da unidade */
+.ag .st .bg>span{font-size:26px;font-weight:800;letter-spacing:-.6px;color:var(--accent)}
+.ag .st .lb{font-size:15.5px;line-height:1.45;color:var(--tx)}
+.ag .st .lb b{color:var(--head);font-weight:800}
+.ag .st .tk2{display:block;position:relative;height:8px;border-radius:5px;background:#E7ECF4;
+  margin-top:18px}
+.ag .st .tk2 i{position:absolute;left:0;top:0;height:8px;width:61.7%;border-radius:5px;
+  display:block;background:var(--accent);transform:scaleX(0);transform-origin:left}
+.ag.is-active .tk2 i{animation:corre .9s var(--out) forwards;animation-delay:var(--d,0ms)}
+
+/* ── 8 B · uma figura só: mesma carga em cada linha, perdas em barra ──────── */
+.ag .comp{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;
+  gap:22px;margin-top:18px}
+.ag .fig{padding:26px 34px 24px}
+.ag .fig .cab{display:flex;align-items:baseline;justify-content:space-between;gap:24px}
+/* a taxa fica antes da barra: as duas taxas alinhadas na mesma coluna é o que
+   permite compará-las. Se ela fosse para a borda direita do cartão, a linha do
+   Team14 abriria 700px de vão entre a barra curta e o número. */
+.ag .grade{margin-top:20px}
+.ag .grade .gl,.ag .grade .gh{display:grid;grid-template-columns:106px 176px 134px 1fr;
+  gap:22px;align-items:center}
+.ag .grade .gh{font-size:11.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  color:var(--tx2);padding-bottom:11px;border-bottom:1px solid #D9E1EC}
+.ag .grade .gl{padding:22px 0}
+.ag .grade .gl+.gl{border-top:1px solid #D9E1EC}
+.ag .grade .nm{font-size:23px;font-weight:800;letter-spacing:-.6px;color:var(--head)}
+.ag .grade .chip{justify-self:start;font-size:14.5px;font-weight:600;color:var(--tx);
+  background:#F1F5FA;border:1px solid #DCE4EF;border-radius:9px;padding:7px 13px;
+  white-space:nowrap}
+/* barra de perdas: largura e altura em PIXEL, escala única, rótulo fora da barra */
+.ag .grade .zona{display:flex;align-items:center;gap:14px;min-width:0}
+.ag .grade .zona i{height:34px;border-radius:8px;flex-shrink:0;display:block;
+  transform:scaleX(0);transform-origin:left}
+.ag .grade .zona .b1{width:800px;background:linear-gradient(90deg,#C98A12,var(--warn))}
+.ag .grade .zona .b2{width:70px;background:var(--good)}
+.ag.is-active .zona i{animation:corre .7s var(--out) forwards;animation-delay:var(--d,0ms)}
+.ag .grade .zona em{font-style:normal;font-size:27px;font-weight:900;letter-spacing:-1px;
+  color:var(--head)}
+.ag .grade .gl .tx{font-size:38px;letter-spacing:-1.5px}
+.ag .fig .nota{font-size:15px;line-height:1.45;color:var(--tx2);margin-top:22px;
+  padding-top:18px;border-top:1px solid #D9E1EC}
+.ag .fig .nota b{color:var(--head);font-weight:700}
+
+.ag .faixa{display:flex;align-items:center;gap:16px;padding:16px 26px}
+.ag .faixa .ic{width:23px;height:23px;color:var(--accent);flex-shrink:0}
+.ag .faixa .vv{display:flex;align-items:baseline}
+.ag .faixa b.v{font-size:42px;font-weight:900;letter-spacing:-1.8px;line-height:1;
+  color:var(--accent)}
+.ag .faixa span.u{font-size:24px;font-weight:800;color:var(--accent);letter-spacing:-.5px}
+.ag .faixa p{font-size:16.5px;line-height:1.4;color:var(--tx)}
+.ag .faixa p b{color:var(--head);font-weight:700}
+.ag .resb{padding:19px 26px;background:#F1F5FB;border:1px solid #DCE4EF;
+  border-radius:14px;font-size:15.5px;line-height:1.5;color:var(--tx)}
+</style>
+
+<!-- ═══════════════ 7 A · resultados · dominante à esquerda ═══════════════ -->
+<section class="slide light rs" data-slide="7" data-var="a" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL · 15/09/2026</span>
+    <div class="tag">Métricas de validação dos modelos</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:220ms">Resultados</span></span>
+    <h1 class="tt">
+      <span class="mask" style="--d:320ms"><span>O erro médio é de <span class="hl">4</span> incidentes por dia</span></span>
+      <span class="mask" style="--d:430ms"><span>na prioridade 2 e <span class="hl">11</span> na prioridade 3.</span></span>
+    </h1>
+
+    <div class="palco">
+      <div class="esq">
+        <div class="cartao bloco vol rv3" style="--d:620ms">
+          <div class="rot">
+            <svg class="ic" viewBox="0 0 24 24"><path d="M3 17.4c3.4 0 4.6-9.6 8.4-9.6 3.9 0 4.5 9.6 8.4 9.6"/><path d="M3 21h18"/></svg>
+            Previsão de volume
+          </div>
+          <div class="nums">
+            <div class="ln rv" style="--d:760ms">
+              <span class="v num"><span class="ct" data-to="4" data-delay="860">0</span></span>
+              <span class="lb"><b>Prioridade 2</b>incidentes por dia</span>
+            </div>
+            <span class="fio rv" style="--d:820ms"></span>
+            <div class="ln rv" style="--d:860ms">
+              <span class="v num"><span class="ct" data-to="11" data-delay="980">0</span></span>
+              <span class="lb"><b>Prioridade 3</b>incidentes por dia</span>
+            </div>
+          </div>
+          <p class="pe rv" style="--d:940ms">Média de D+1 a D+7, por backtest deslizante com re-treino por origem.</p>
+        </div>
+      </div>
+
+      <div class="dir">
+        <div class="cartao bloco risco rv3" style="--d:760ms">
+          <div class="rot">
+            <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.4"/><path d="M12 1.7v3M12 19.3v3M1.7 12h3M19.3 12h3"/></svg>
+            Risco por incidente
+          </div>
+          <div class="tab">
+            <div class="th"><span></span><span>Regressão logística</span><span>XGBoost</span></div>
+            <div class="tr rv" style="--d:860ms">
+              <span class="mt">ROC AUC</span>
+              <span class="p num"><span class="ct" data-to="0,869" data-dec="3" data-delay="1060">0,000</span></span>
+              <span class="s num">0,868</span>
+            </div>
+            <div class="tr rv" style="--d:940ms">
+              <span class="mt">PR-AUC</span>
+              <span class="p num"><span class="ct" data-to="0,296" data-dec="3" data-delay="1180">0,000</span></span>
+              <span class="s num">0,253</span>
+            </div>
+          </div>
+          <p class="pe rv" style="--d:1020ms">O PR-AUC é a métrica do evento raro.</p>
+        </div>
+
+        <div class="cartao bloco cal rv3" style="--d:880ms">
+          <div class="rot">
+            <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.2"/><path d="M8 10.2h8M8 13.8h8"/></svg>
+            Calibração
+          </div>
+          <div class="brs">
+            <div class="br rv" style="--d:980ms">
+              <span class="bl">Previsto pelo modelo</span>
+              <span class="tk"><i class="b1" style="--d:1120ms"></i></span>
+              <span class="bv num"><span class="ct" data-to="48,1" data-dec="1" data-delay="1180">0,0</span></span>
+            </div>
+            <div class="br rv" style="--d:1040ms">
+              <span class="bl">Observado na base</span>
+              <span class="tk"><i class="b2" style="--d:1200ms"></i></span>
+              <span class="bv num"><span class="ct" data-to="50" data-delay="1260">0</span></span>
+            </div>
+          </div>
+          <p class="pe rv" style="--d:1120ms">A calibração sustenta a projeção da meta anual.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Backtest deslizante · métricas de validação dos dois modelos</span></div>
+</section>
+
+<!-- ═══════════════ 7 B · resultados · três linhas empilhadas ═══════════════ -->
+<section class="slide light rs" data-slide="7" data-var="b" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL · 15/09/2026</span>
+    <div class="tag">Métricas de validação dos modelos</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:220ms">Resultados</span></span>
+    <h1 class="tt">
+      <span class="mask" style="--d:320ms"><span>O erro médio é de <span class="hl">4</span> incidentes por dia</span></span>
+      <span class="mask" style="--d:430ms"><span>na prioridade 2 e <span class="hl">11</span> na prioridade 3.</span></span>
+    </h1>
+
+    <div class="pilha">
+      <div class="rw rv" style="--d:660ms">
+        <div class="et">
+          <div class="en">
+            <svg class="ic" viewBox="0 0 24 24"><path d="M3 17.4c3.4 0 4.6-9.6 8.4-9.6 3.9 0 4.5 9.6 8.4 9.6"/><path d="M3 21h18"/></svg>
+            Previsão de volume
+          </div>
+          <p class="es">Média de D+1 a D+7, por backtest deslizante com re-treino por origem.</p>
+        </div>
+        <div class="ob par2">
+          <span class="it">
+            <b class="num"><span class="ct" data-to="4" data-delay="860">0</span></b>
+            <i><em>Prioridade 2</em>incidentes por dia</i>
+          </span>
+          <span class="vfio"></span>
+          <span class="it">
+            <b class="num"><span class="ct" data-to="11" data-delay="960">0</span></b>
+            <i><em>Prioridade 3</em>incidentes por dia</i>
+          </span>
+        </div>
+      </div>
+
+      <div class="rw rv" style="--d:800ms">
+        <div class="et">
+          <div class="en">
+            <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.4"/><path d="M12 1.7v3M12 19.3v3M1.7 12h3M19.3 12h3"/></svg>
+            Risco por incidente
+          </div>
+          <p class="es">Ordenação da fila de incidentes abertos.</p>
+        </div>
+        <div class="ob roc">
+          <div class="rocs">
+            <span class="it">
+              <b class="num"><span class="ct" data-to="0,869" data-dec="3" data-delay="1080">0,000</span></b>
+              <i><em>ROC AUC</em>regressão logística</i>
+            </span>
+            <span class="vfio"></span>
+            <span class="it sec">
+              <b class="num">0,868</b>
+              <i><em>ROC AUC</em>XGBoost</i>
+            </span>
+          </div>
+          <p class="obs">No PR-AUC a regressão logística faz <b>0,296</b> contra <b>0,253</b>. O PR-AUC é a métrica do evento raro.</p>
+        </div>
+      </div>
+
+      <div class="rw rv" style="--d:940ms">
+        <div class="et">
+          <div class="en">
+            <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.2"/><path d="M8 10.2h8M8 13.8h8"/></svg>
+            Calibração
+          </div>
+          <p class="es">Sustenta a projeção da meta anual.</p>
+        </div>
+        <div class="ob barras">
+          <div class="br">
+            <span class="bl">Previsto pelo modelo</span>
+            <span class="tk"><i class="b1" style="--d:1120ms"></i></span>
+            <span class="bv num"><span class="ct" data-to="48,1" data-dec="1" data-delay="1180">0,0</span></span>
+          </div>
+          <div class="br">
+            <span class="bl">Observado na base</span>
+            <span class="tk"><i class="b2" style="--d:1200ms"></i></span>
+            <span class="bv num"><span class="ct" data-to="50" data-delay="1260">0</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Backtest deslizante · métricas de validação dos dois modelos</span></div>
+</section>
+
+<!-- ═══════════════ 8 A · dois grupos lado a lado, ressalva no rodapé ═══════════════ -->
+<section class="slide light ag" data-slide="8" data-var="a" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL · 15/09/2026</span>
+    <div class="tag">Base elegível ao KPI · sem modelo, contagem direta</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:220ms">O que o dado já mostra</span></span>
+    <h1 class="tt">
+      <span class="mask" style="--d:320ms"><span>Dois grupos com o mesmo volume</span></span>
+      <span class="mask" style="--d:430ms"><span>perdem prazo em proporções diferentes.</span></span>
+    </h1>
+
+    <div class="palco">
+      <div class="cartao gp rv3" style="--d:640ms">
+        <div class="cab">
+          <span class="rot">
+            <svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4.6" width="18" height="6" rx="2"/><rect x="3" y="13.4" width="18" height="6" rx="2"/></svg>
+            Taxa de perda do prazo de OLA
+          </span>
+          <span class="med">Média da base <b class="num">0,97%</b></span>
+        </div>
+        <div class="linhas">
+          <div class="ln rv" style="--d:780ms">
+            <span class="nm">Team11<i>8.702 incidentes · <b class="num">114</b> perdas de prazo</i></span>
+            <span class="tx alta num"><span class="ct" data-to="1,31" data-dec="2" data-delay="940">0,00</span>%</span>
+          </div>
+          <span class="fio rv" style="--d:840ms"></span>
+          <div class="ln rv" style="--d:880ms">
+            <span class="nm">Team14<i>8.973 incidentes · <b class="num">10</b> perdas de prazo</i></span>
+            <span class="tx baixa num"><span class="ct" data-to="0,11" data-dec="2" data-delay="1080">0,00</span>%</span>
+          </div>
+        </div>
+        <p class="resa"><span class="rl">Ressalva</span>Grupos atendem produtos de complexidade diferente, então parte dessa variação pode vir da carteira e não da execução. A comparação diz onde investigar primeiro.</p>
+      </div>
+
+      <div class="col">
+        <div class="cartao st rv3" style="--d:820ms">
+          <span class="rot">
+            <svg class="ic" viewBox="0 0 24 24"><path d="M4 19.5V9.8M10 19.5V4.5M16 19.5v-6.4M22 19.5V8"/></svg>
+            Razão entre as taxas
+          </span>
+          <div class="bg"><b class="num"><span class="ct" data-to="11,8" data-dec="1" data-delay="1120">0,0</span></b><span>vezes</span></div>
+          <p class="lb">Team11 sobre Team14, com <b>3%</b> de diferença no volume atendido.</p>
+        </div>
+        <div class="cartao st rv3" style="--d:940ms">
+          <span class="rot">
+            <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.2"/><path d="M12 2.8v9.2h9.2"/></svg>
+            Concentração
+          </span>
+          <div class="bg pc"><b class="num"><span class="ct" data-to="61,7" data-dec="1" data-delay="1240">0,0</span></b><span>%</span></div>
+          <p class="lb">das perdas de prazo estão nos <b>30 itens de configuração</b> com mais perdas.</p>
+          <span class="tk2"><i style="--d:1240ms"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Grupos de atendimento · base elegível ao KPI · 2023 a 2025</span></div>
+</section>
+
+<!-- ═══════════════ 8 B · uma figura só: mesma carga, perdas em barra ═══════════════ -->
+<section class="slide light ag" data-slide="8" data-var="b" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL · 15/09/2026</span>
+    <div class="tag">Base elegível ao KPI · sem modelo, contagem direta</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:220ms">O que o dado já mostra</span></span>
+    <h1 class="tt">
+      <span class="mask" style="--d:320ms"><span>Dois grupos com o mesmo volume</span></span>
+      <span class="mask" style="--d:430ms"><span>perdem prazo em proporções diferentes.</span></span>
+    </h1>
+
+    <div class="comp">
+      <div class="cartao fig rv3" style="--d:640ms">
+        <div class="cab">
+          <span class="rot">
+            <svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4.6" width="18" height="6" rx="2"/><rect x="3" y="13.4" width="18" height="6" rx="2"/></svg>
+            Perdas de prazo por grupo de atendimento
+          </span>
+          <span class="med">Média da base <b class="num">0,97%</b></span>
+        </div>
+        <div class="grade">
+          <div class="gh"><span></span><span>Carga atendida</span><span>Taxa de perda</span><span>Perdas de prazo</span></div>
+          <div class="gl rv" style="--d:780ms">
+            <span class="nm">Team11</span>
+            <span class="chip num">8.702 incidentes</span>
+            <span class="tx alta num"><span class="ct" data-to="1,31" data-dec="2" data-delay="920">0,00</span>%</span>
+            <span class="zona"><i class="b1" style="--d:940ms"></i><em class="num rv" style="--d:1640ms">114</em></span>
+          </div>
+          <div class="gl rv" style="--d:880ms">
+            <span class="nm">Team14</span>
+            <span class="chip num">8.973 incidentes</span>
+            <span class="tx baixa num"><span class="ct" data-to="0,11" data-dec="2" data-delay="1020">0,00</span>%</span>
+            <span class="zona"><i class="b2" style="--d:1040ms"></i><em class="num rv" style="--d:1740ms">10</em></span>
+          </div>
+        </div>
+        <p class="nota">A taxa do Team11 é <b>11,8 vezes</b> a do Team14, com <b>3%</b> de diferença no volume atendido.</p>
+      </div>
+
+      <div class="cartao faixa rv" style="--d:1860ms">
+        <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.2"/><path d="M12 2.8v9.2h9.2"/></svg>
+        <span class="vv"><b class="v num"><span class="ct" data-to="61,7" data-dec="1" data-delay="1940">0,0</span></b><span class="u">%</span></span>
+        <p>das perdas de prazo estão nos <b>30 itens de configuração</b> com mais perdas.</p>
+      </div>
+
+      <p class="resb rv" style="--d:2000ms"><span class="rl">Ressalva</span>Grupos atendem produtos de complexidade diferente, então parte dessa variação pode vir da carteira e não da execução. A comparação diz onde investigar primeiro.</p>
+    </div>
+  </div>
+  <div class="ft"><span>Grupos de atendimento · base elegível ao KPI · 2023 a 2025</span></div>
+</section>
