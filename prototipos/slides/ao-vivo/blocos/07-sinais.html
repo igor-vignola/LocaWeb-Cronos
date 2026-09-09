@@ -1,0 +1,131 @@
+<style>
+/* ═══ slide 7 · quem abre, e quando ══════════════════════════════════════════
+   O slide que substitui o do volume por quartil, que o dono do projeto achou
+   fraco e difícil de apresentar. Dois achados da análise exploratória que
+   ninguém adivinha, e que valem mais que o volume:
+
+     quem abre    o que uma pessoa registra quebra 2,7 vezes mais que o que o
+                  monitoramento registra. O robô pega o que já tem receita de
+                  solução; a pessoa abre o que ninguém viu antes.
+     quando       na prioridade 3, o fim de semana quebra 2,2 vezes mais que o
+                  dia útil, com um terço do volume. Menos gente de plantão.
+
+   As quatro barras estão na MESMA escala, com 2% de taxa valendo a largura
+   toda, então dá para comparar entre os dois blocos e não só dentro de cada um.
+
+   Honestidade obrigatória, e está no pé: o efeito de quem abre vale nas duas
+   prioridades (3,0 vezes no P2 e 3,1 no P3); o do fim de semana é só da
+   prioridade 3, porque no P2 ele some (0,9 vez). Dizer isso é o que sustenta o
+   slide quando a banca cruzar os números.
+
+   Medido em data/interim/incidentes_kpi.parquet, 2025, base elegível ao KPI:
+   pessoa 194 quebras em 15.671, monitoramento 44 em 9.485; P3 no fim de semana
+   1,88% contra 0,85% no dia útil, 24 incidentes por dia contra 67.
+   ══════════════════════════════════════════════════════════════════════════ */
+.sin .body{padding-top:14px}
+.sin .tt{font-size:52px;letter-spacing:-1.9px}
+.sin .cena{flex:1;display:flex;align-items:stretch;gap:0;margin-top:14px;min-height:0}
+
+.sin .bl{flex:1;min-width:0;padding:0 52px;display:flex;flex-direction:column;
+  justify-content:center}
+.sin .bl:first-child{padding-left:0}
+.sin .bl:last-child{padding-right:0}
+.sin .bl + .bl{border-left:1px solid #DCE4EF}
+
+.sin .cab{display:flex;align-items:center;gap:11px;font-size:12.5px;font-weight:700;
+  letter-spacing:2.2px;text-transform:uppercase;color:var(--tx2)}
+.sin .cab .ic{width:19px;height:19px;color:var(--accent)}
+
+/* as quatro barras na mesma escala: 2% de taxa vale a largura toda */
+.sin .lin{margin-top:46px}
+.sin .lin .rt{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+  margin-bottom:11px}
+.sin .lin .rt b{font-size:20px;font-weight:700;color:var(--head);letter-spacing:-.2px}
+/* o volume de cada grupo, que mostra que a diferença não é de amostra pequena */
+.sin .lin .rt b small{display:block;font-size:14px;font-weight:500;color:var(--tx2);
+  margin-top:5px;font-variant-numeric:tabular-nums}
+.sin .lin .rt i{font-style:normal;font-size:26px;font-weight:900;letter-spacing:-1px;
+  color:var(--head);font-variant-numeric:tabular-nums}
+.sin .lin.baixa .rt b,.sin .lin.baixa .rt i{color:var(--tx2)}
+.sin .trilho{height:30px;border-radius:8px;background:#E6EBF3}
+.sin .trilho i{display:block;height:30px;border-radius:8px;background:var(--accent);
+  transform:scaleX(0);transform-origin:left}
+.sin .lin.baixa .trilho i{background:#B9C4D4}
+.sin.is-active .trilho i{animation:corre .9s var(--out) var(--d,0ms) forwards}
+
+/* o multiplicador, que é o número que o apresentador fala */
+.sin .mult{display:flex;align-items:baseline;gap:16px;margin-top:52px}
+.sin .mult .v{font-size:86px;font-weight:900;letter-spacing:-3.8px;line-height:.86;
+  color:var(--accent);font-variant-numeric:tabular-nums}
+.sin .mult .v em{font-style:normal;font-size:.5em;letter-spacing:-1px;margin-left:2px}
+.sin .mult .k{font-size:17px;line-height:1.36;color:var(--tx);max-width:20ch}
+.sin .mult .k b{color:var(--head);font-weight:700}
+
+.sin .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.sin .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.sin .fecho b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light sin" data-slide="7" data-var="a" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Base elegível ao KPI &middot; 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">O que os dados disseram</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quem abre, e quando</span></span></h1>
+
+    <div class="cena">
+      <div class="bl">
+        <div class="cab rv" style="--d:620ms">
+          <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.6 20c0-3.6 3.3-6 7.4-6s7.4 2.4 7.4 6"/></svg>
+          Quem abre o chamado
+        </div>
+
+        <div class="lin">
+          <div class="rt rv" style="--d:760ms"><b>Uma pessoa<small>15.671 chamados</small></b><i>1,24%</i></div>
+          <div class="trilho"><i style="width:62%;--d:820ms"></i></div>
+        </div>
+        <div class="lin baixa">
+          <div class="rt rv" style="--d:960ms"><b>O monitoramento<small>9.485 chamados</small></b><i>0,46%</i></div>
+          <div class="trilho"><i style="width:23%;--d:1020ms"></i></div>
+        </div>
+
+        <div class="mult rv" style="--d:1400ms">
+          <span class="v"><span class="ct" data-to="2.7" data-dec="1" data-delay="1560">0,0</span><em>&times;</em></span>
+          <span class="k">mais risco quando <b>quem abre é uma pessoa</b></span>
+        </div>
+      </div>
+
+      <div class="bl">
+        <div class="cab rv" style="--d:700ms">
+          <svg class="ic" viewBox="0 0 24 24"><rect x="3.4" y="5" width="17.2" height="15.6" rx="2.6"/><path d="M3.4 9.8h17.2M8 2.8v4M16 2.8v4"/></svg>
+          Quando ele chega &middot; prioridade 3
+        </div>
+
+        <div class="lin">
+          <div class="rt rv" style="--d:840ms"><b>Fim de semana<small>24 por dia</small></b><i>1,88%</i></div>
+          <div class="trilho"><i style="width:94%;--d:900ms"></i></div>
+        </div>
+        <div class="lin baixa">
+          <div class="rt rv" style="--d:1040ms"><b>Dia útil<small>67 por dia</small></b><i>0,85%</i></div>
+          <div class="trilho"><i style="width:43%;--d:1100ms"></i></div>
+        </div>
+
+        <div class="mult rv" style="--d:1560ms">
+          <span class="v"><span class="ct" data-to="2.2" data-dec="1" data-delay="1720">0,0</span><em>&times;</em></span>
+          <span class="k">mais risco no fim de semana, com <b>um terço do volume</b></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:2000ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+      <span>O efeito de quem abre vale nas duas prioridades. O do fim de semana é <b>só da prioridade 3</b>. Os dois viram variáveis do modelo de risco.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

@@ -63,47 +63,6 @@
   background:var(--accent3);opacity:.6;transform:scaleX(0);transform-origin:left}
 .cr-a.is-active .assina::before{animation:tick .8s var(--out) 2.5s forwards}
 
-/* ── variação B · o significado: as duas palavras gregas para tempo ─────────
-   χρόνος é o tempo que corre, o do relógio. καιρός é o momento certo de agir.
-   O produto é a ponte entre os dois, e é isso que a tagline sempre disse:
-   ver o tempo correndo (veja antes) para achar o momento (aja antes).
-
-   O objeto são duas réguas de tempo empilhadas. A de cima se desenha inteira,
-   da esquerda à direita, e não para: é o prazo correndo. A de baixo é a mesma
-   régua com um ponto só aceso: é o instante em que se age. Nada mais entra. */
-.cr-b .marca{font-family:var(--font);font-weight:900;font-size:104px;
-  letter-spacing:-4.4px;line-height:1;color:#fff;margin-top:12px}
-.cr-b .par{display:flex;flex-direction:column;gap:56px;margin-top:60px}
-.cr-b .fx{display:flex;flex-direction:column;gap:13px}
-.cr-b .gr{font-family:var(--font);font-size:36px;font-weight:600;letter-spacing:3px;
-  line-height:1;color:#5B647A}
-.cr-b .corre .gr{color:#8B96A8}
-.cr-b .momento .gr{color:var(--accent3)}
-.cr-b .regua{position:relative;height:34px}
-.cr-b .regua svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.cr-b .regua .base{stroke:rgba(255,255,255,.14);stroke-width:2;stroke-linecap:round}
-.cr-b .regua .tick{stroke:rgba(255,255,255,.14);stroke-width:1.5;stroke-linecap:round}
-.cr-b .regua .risco{stroke:#E8ECF3;stroke-width:3;stroke-linecap:round;
-  stroke-dasharray:1340;stroke-dashoffset:1340}
-.cr-b.is-active .regua .risco{animation:crTraca 1.7s var(--out) 700ms forwards}
-@keyframes crTraca{to{stroke-dashoffset:0}}
-.cr-b .regua .seta{fill:#E8ECF3;opacity:0}
-.cr-b.is-active .regua .seta{animation:rv .5s var(--out) 2320ms forwards}
-.cr-b .regua .anel{fill:none;stroke:var(--accent3);stroke-width:2;opacity:0}
-.cr-b.is-active .regua .anel{animation:crAnel .8s var(--out) 2560ms forwards}
-@keyframes crAnel{from{opacity:.65;r:9}to{opacity:.3;r:19}}
-.cr-b .regua .ponto{transform-origin:62% 17px}
-.cr-b .regua .ponto{fill:var(--accent3);opacity:0}
-.cr-b.is-active .regua .ponto{animation:crPousa .6s var(--spring) 2500ms forwards}
-@keyframes crPousa{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
-.cr-b .gl{font-size:19px;line-height:1.45;color:#8B96A8;max-width:62ch}
-.cr-b .gl b{color:#E8ECF3;font-weight:600}
-.cr-b .sint{display:flex;align-items:center;gap:18px;margin-top:54px;
-  font-size:26px;font-weight:600;letter-spacing:-.5px;color:#fff}
-.cr-b .sint::before{content:"";width:44px;height:2px;border-radius:2px;
-  background:var(--accent3);flex-shrink:0;transform:scaleX(0);transform-origin:left}
-.cr-b.is-active .sint::before{animation:tick .8s var(--out) 2900ms forwards}
-.cr-b .sint em{font-style:normal;color:var(--accent3)}
 </style>
 
 <section class="slide dark crn cr-a" data-slide="2" data-var="a" data-quem="igor">
@@ -145,56 +104,3 @@
   <div class="ft"></div>
 </section>
 
-<section class="slide dark crn cr-b" data-slide="2" data-var="b" data-quem="igor">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">O nome</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">O grego tem duas palavras para tempo</span></span>
-    <h1 class="marca"><span class="mask" style="--d:360ms"><span>Cronos</span></span></h1>
-
-    <div class="par">
-      <div class="fx corre">
-        <span class="gr rv" style="--d:800ms">&chi;&rho;&#x3CC;&nu;&omicron;&sigmaf;</span>
-        <div class="regua">
-          <svg viewBox="0 0 1340 34" preserveAspectRatio="none" aria-hidden="true">
-            <line class="base" x1="2" y1="17" x2="1338" y2="17" vector-effect="non-scaling-stroke"/>
-            <g class="tick">
-              <line x1="2" y1="7" x2="2" y2="27" vector-effect="non-scaling-stroke"/>
-              <line x1="336" y1="10" x2="336" y2="24" vector-effect="non-scaling-stroke"/>
-              <line x1="670" y1="10" x2="670" y2="24" vector-effect="non-scaling-stroke"/>
-              <line x1="1004" y1="10" x2="1004" y2="24" vector-effect="non-scaling-stroke"/>
-            </g>
-            <line class="risco" x1="2" y1="17" x2="1310" y2="17" vector-effect="non-scaling-stroke"/>
-            <polygon class="seta" points="1306,8 1338,17 1306,26"/>
-          </svg>
-        </div>
-        <p class="gl rv" style="--d:1000ms">O tempo que passa. É o relógio de cada incidente: <b>quatro horas</b> na prioridade 2, <b>doze</b> na prioridade 3.</p>
-      </div>
-
-      <div class="fx momento">
-        <span class="gr rv" style="--d:1200ms">&kappa;&alpha;&iota;&rho;&#x3CC;&sigmaf;</span>
-        <div class="regua">
-          <svg viewBox="0 0 1340 34" preserveAspectRatio="none" aria-hidden="true">
-            <line class="base" x1="2" y1="17" x2="1338" y2="17" vector-effect="non-scaling-stroke"/>
-            <g class="tick">
-              <line x1="2" y1="7" x2="2" y2="27" vector-effect="non-scaling-stroke"/>
-              <line x1="336" y1="10" x2="336" y2="24" vector-effect="non-scaling-stroke"/>
-              <line x1="670" y1="10" x2="670" y2="24" vector-effect="non-scaling-stroke"/>
-              <line x1="1004" y1="10" x2="1004" y2="24" vector-effect="non-scaling-stroke"/>
-            </g>
-            <circle class="anel" cx="831" cy="17" r="9"/>
-            <circle class="ponto" cx="831" cy="17" r="9"/>
-          </svg>
-        </div>
-        <p class="gl rv" style="--d:1300ms">O momento certo de agir. É o instante em que ainda dá para <b>salvar o prazo</b>.</p>
-      </div>
-    </div>
-
-    <p class="sint rv" style="--d:3000ms"><span>O Cronos mede o primeiro para <em>achar o segundo</em>.</span></p>
-  </div>
-  <div class="ft"></div>
-</section>

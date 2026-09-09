@@ -319,48 +319,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   background:var(--accent3);opacity:.6;transform:scaleX(0);transform-origin:left}
 .cr-a.is-active .assina::before{animation:tick .8s var(--out) 2.5s forwards}
 
-/* ── variação B · o significado: as duas palavras gregas para tempo ─────────
-   χρόνος é o tempo que corre, o do relógio. καιρός é o momento certo de agir.
-   O produto é a ponte entre os dois, e é isso que a tagline sempre disse:
-   ver o tempo correndo (veja antes) para achar o momento (aja antes).
-
-   O objeto são duas réguas de tempo empilhadas. A de cima se desenha inteira,
-   da esquerda à direita, e não para: é o prazo correndo. A de baixo é a mesma
-   régua com um ponto só aceso: é o instante em que se age. Nada mais entra. */
-.cr-b .marca{font-family:var(--font);font-weight:900;font-size:104px;
-  letter-spacing:-4.4px;line-height:1;color:#fff;margin-top:12px}
-.cr-b .par{display:flex;flex-direction:column;gap:56px;margin-top:60px}
-.cr-b .fx{display:flex;flex-direction:column;gap:13px}
-.cr-b .gr{font-family:var(--font);font-size:36px;font-weight:600;letter-spacing:3px;
-  line-height:1;color:#5B647A}
-.cr-b .corre .gr{color:#8B96A8}
-.cr-b .momento .gr{color:var(--accent3)}
-.cr-b .regua{position:relative;height:34px}
-.cr-b .regua svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.cr-b .regua .base{stroke:rgba(255,255,255,.14);stroke-width:2;stroke-linecap:round}
-.cr-b .regua .tick{stroke:rgba(255,255,255,.14);stroke-width:1.5;stroke-linecap:round}
-.cr-b .regua .risco{stroke:#E8ECF3;stroke-width:3;stroke-linecap:round;
-  stroke-dasharray:1340;stroke-dashoffset:1340}
-.cr-b.is-active .regua .risco{animation:crTraca 1.7s var(--out) 700ms forwards}
-@keyframes crTraca{to{stroke-dashoffset:0}}
-.cr-b .regua .seta{fill:#E8ECF3;opacity:0}
-.cr-b.is-active .regua .seta{animation:rv .5s var(--out) 2320ms forwards}
-.cr-b .regua .anel{fill:none;stroke:var(--accent3);stroke-width:2;opacity:0}
-.cr-b.is-active .regua .anel{animation:crAnel .8s var(--out) 2560ms forwards}
-@keyframes crAnel{from{opacity:.65;r:9}to{opacity:.3;r:19}}
-.cr-b .regua .ponto{transform-origin:62% 17px}
-.cr-b .regua .ponto{fill:var(--accent3);opacity:0}
-.cr-b.is-active .regua .ponto{animation:crPousa .6s var(--spring) 2500ms forwards}
-@keyframes crPousa{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
-.cr-b .gl{font-size:19px;line-height:1.45;color:#8B96A8;max-width:62ch}
-.cr-b .gl b{color:#E8ECF3;font-weight:600}
-.cr-b .sint{display:flex;align-items:center;gap:18px;margin-top:54px;
-  font-size:26px;font-weight:600;letter-spacing:-.5px;color:#fff}
-.cr-b .sint::before{content:"";width:44px;height:2px;border-radius:2px;
-  background:var(--accent3);flex-shrink:0;transform:scaleX(0);transform-origin:left}
-.cr-b.is-active .sint::before{animation:tick .8s var(--out) 2900ms forwards}
-.cr-b .sint em{font-style:normal;color:var(--accent3)}
-
 /* ───── 03-medida.html ───── */
 /* ═══ slide 3 · o prazo de cada incidente ════════════════════════════════════
    O slide de contexto: sem ele, nenhum número do resto do deck se entende. Diz
@@ -428,23 +386,20 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 
 /* ───── 04-quebras.html ───── */
 /* ═══ slide 4 · as quebras de 2025 ═══════════════════════════════════════════
-   O slide que transforma contagem em problema. Duas variações, para escolher:
+   O slide que transforma contagem em problema: os dois números grandes com o
+   trilho do prazo, e o limite do ano escrito embaixo de cada um.
 
-     A   o acumulado mês a mês contra o limite do ano. A prioridade 3 fecha com
-         folga; a prioridade 2 atravessa o limite em novembro, num mês só. É a
-         história que o deck da Sprint 3 já contava e que se perdeu no caminho:
-         em outubro estava em 35, dentro; novembro somou seis.
-     B   os dois números grandes com o trilho do prazo, que é o slide de hoje.
+   O limite é o da faixa de 100% do dicionário da Locaweb: 39 no P2 e 263 no P3.
+   O bloco estava com 45 e 200, que são outros degraus da escada, e foi
+   corrigido — o deck da Sprint 3 já tinha padronizado em 39 e 263.
 
-   O limite usado é o da faixa de 100% do dicionário da Locaweb: 39 no P2 e 263
-   no P3. A variação B estava com 45 e 200, que são outros degraus da escada, e
-   foi corrigida junto — o deck da Sprint 3 já tinha padronizado em 39 e 263.
+   A escada de seis degraus fica fora: o dono do projeto disse que porcentagem
+   de nota confunde, e a mensagem precisa de um limite só. Quem perguntar pela
+   escada tem a resposta em PERGUNTAS.md.
 
-   A escada de seis degraus fica fora das duas: o dono do projeto disse que
-   porcentagem de nota confunde, e a mensagem precisa de um limite só. Quem
-   perguntar pela escada tem a resposta em PERGUNTAS.md.
-
-   Figura em dpi 200, de _figuras_ano.py.
+   Uma variação com o acumulado mês a mês foi construída e descartada; ela está
+   em _antigos/04-quebras-acumulado.html. O melhor dela, a virada de novembro,
+   ficou no pé deste slide.
    ══════════════════════════════════════════════════════════════════════════ */
 .prb .body{padding-top:14px}
 .prb .tt{font-size:52px;letter-spacing:-1.9px}
@@ -454,29 +409,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .prb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .prb .fecho b{color:var(--head);font-weight:700}
 
-/* ── variação A · o acumulado do ano contra o limite ── */
-.pb-a .cena{flex:1;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:22px;margin-top:10px;min-height:0}
-.pb-a .quadro{padding:18px 22px}
-.pb-a .fig{display:block;width:1080px}
-
-.pb-a .placar{display:flex;width:1080px;gap:0}
-.pb-a .pl{flex:1;display:flex;align-items:baseline;gap:16px;padding:0 30px}
-.pb-a .pl:first-child{padding-left:0}
-.pb-a .pl + .pl{border-left:1px solid #DCE4EF}
-.pb-a .pl .v{font-size:64px;font-weight:900;letter-spacing:-2.8px;line-height:.86;
-  font-variant-numeric:tabular-nums}
-.pb-a .pl.fora .v{color:var(--bad)}
-.pb-a .pl.dentro .v{color:var(--good)}
-.pb-a .pl .k{font-size:16.5px;line-height:1.36;color:var(--tx)}
-.pb-a .pl .k b{display:block;font-size:18px;font-weight:800;color:var(--head);
-  letter-spacing:-.3px;margin-bottom:3px}
-.pb-a .pl .sel{margin-left:auto;align-self:center;font-size:13px;font-weight:700;
-  letter-spacing:.4px;padding:5px 13px;border-radius:999px;white-space:nowrap}
-.pb-a .pl.fora .sel{background:var(--bad-l);color:var(--bad)}
-.pb-a .pl.dentro .sel{background:var(--good-l);color:var(--good)}
-
-/* ── variação B · os dois números com o trilho do prazo ── */
+/* ── o objeto: os dois números com o trilho do prazo ── */
 .pb-b .v{font-weight:900;line-height:.86;font-variant-numeric:tabular-nums}
 .pb-b .p2 .v{color:var(--bad)}
 .pb-b .p3 .v{color:var(--warn)}
@@ -613,6 +546,74 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .rc-a .quadro{flex-shrink:0}
 .rc-a .fig{width:690px}
 .rc-a .lado{flex:1;min-width:0;display:flex;flex-direction:column;gap:22px}
+
+/* ───── 07-sinais.html ───── */
+/* ═══ slide 7 · quem abre, e quando ══════════════════════════════════════════
+   O slide que substitui o do volume por quartil, que o dono do projeto achou
+   fraco e difícil de apresentar. Dois achados da análise exploratória que
+   ninguém adivinha, e que valem mais que o volume:
+
+     quem abre    o que uma pessoa registra quebra 2,7 vezes mais que o que o
+                  monitoramento registra. O robô pega o que já tem receita de
+                  solução; a pessoa abre o que ninguém viu antes.
+     quando       na prioridade 3, o fim de semana quebra 2,2 vezes mais que o
+                  dia útil, com um terço do volume. Menos gente de plantão.
+
+   As quatro barras estão na MESMA escala, com 2% de taxa valendo a largura
+   toda, então dá para comparar entre os dois blocos e não só dentro de cada um.
+
+   Honestidade obrigatória, e está no pé: o efeito de quem abre vale nas duas
+   prioridades (3,0 vezes no P2 e 3,1 no P3); o do fim de semana é só da
+   prioridade 3, porque no P2 ele some (0,9 vez). Dizer isso é o que sustenta o
+   slide quando a banca cruzar os números.
+
+   Medido em data/interim/incidentes_kpi.parquet, 2025, base elegível ao KPI:
+   pessoa 194 quebras em 15.671, monitoramento 44 em 9.485; P3 no fim de semana
+   1,88% contra 0,85% no dia útil, 24 incidentes por dia contra 67.
+   ══════════════════════════════════════════════════════════════════════════ */
+.sin .body{padding-top:14px}
+.sin .tt{font-size:52px;letter-spacing:-1.9px}
+.sin .cena{flex:1;display:flex;align-items:stretch;gap:0;margin-top:14px;min-height:0}
+
+.sin .bl{flex:1;min-width:0;padding:0 52px;display:flex;flex-direction:column;
+  justify-content:center}
+.sin .bl:first-child{padding-left:0}
+.sin .bl:last-child{padding-right:0}
+.sin .bl + .bl{border-left:1px solid #DCE4EF}
+
+.sin .cab{display:flex;align-items:center;gap:11px;font-size:12.5px;font-weight:700;
+  letter-spacing:2.2px;text-transform:uppercase;color:var(--tx2)}
+.sin .cab .ic{width:19px;height:19px;color:var(--accent)}
+
+/* as quatro barras na mesma escala: 2% de taxa vale a largura toda */
+.sin .lin{margin-top:46px}
+.sin .lin .rt{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+  margin-bottom:11px}
+.sin .lin .rt b{font-size:20px;font-weight:700;color:var(--head);letter-spacing:-.2px}
+/* o volume de cada grupo, que mostra que a diferença não é de amostra pequena */
+.sin .lin .rt b small{display:block;font-size:14px;font-weight:500;color:var(--tx2);
+  margin-top:5px;font-variant-numeric:tabular-nums}
+.sin .lin .rt i{font-style:normal;font-size:26px;font-weight:900;letter-spacing:-1px;
+  color:var(--head);font-variant-numeric:tabular-nums}
+.sin .lin.baixa .rt b,.sin .lin.baixa .rt i{color:var(--tx2)}
+.sin .trilho{height:30px;border-radius:8px;background:#E6EBF3}
+.sin .trilho i{display:block;height:30px;border-radius:8px;background:var(--accent);
+  transform:scaleX(0);transform-origin:left}
+.sin .lin.baixa .trilho i{background:#B9C4D4}
+.sin.is-active .trilho i{animation:corre .9s var(--out) var(--d,0ms) forwards}
+
+/* o multiplicador, que é o número que o apresentador fala */
+.sin .mult{display:flex;align-items:baseline;gap:16px;margin-top:52px}
+.sin .mult .v{font-size:86px;font-weight:900;letter-spacing:-3.8px;line-height:.86;
+  color:var(--accent);font-variant-numeric:tabular-nums}
+.sin .mult .v em{font-style:normal;font-size:.5em;letter-spacing:-1px;margin-left:2px}
+.sin .mult .k{font-size:17px;line-height:1.36;color:var(--tx);max-width:20ch}
+.sin .mult .k b{color:var(--head);font-weight:700}
+
+.sin .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.sin .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.sin .fecho b{color:var(--head);font-weight:700}
 
 /* ───── 09-modelos.html ───── */
 /* ═══ slide 9 · dois modelos ═════════════════════════════════════════════════
@@ -1113,60 +1114,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
 </section>
 
-<section class="slide dark crn cr-b" data-slide="2" data-var="b" data-quem="igor">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">O nome</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">O grego tem duas palavras para tempo</span></span>
-    <h1 class="marca"><span class="mask" style="--d:360ms"><span>Cronos</span></span></h1>
-
-    <div class="par">
-      <div class="fx corre">
-        <span class="gr rv" style="--d:800ms">&chi;&rho;&#x3CC;&nu;&omicron;&sigmaf;</span>
-        <div class="regua">
-          <svg viewBox="0 0 1340 34" preserveAspectRatio="none" aria-hidden="true">
-            <line class="base" x1="2" y1="17" x2="1338" y2="17" vector-effect="non-scaling-stroke"/>
-            <g class="tick">
-              <line x1="2" y1="7" x2="2" y2="27" vector-effect="non-scaling-stroke"/>
-              <line x1="336" y1="10" x2="336" y2="24" vector-effect="non-scaling-stroke"/>
-              <line x1="670" y1="10" x2="670" y2="24" vector-effect="non-scaling-stroke"/>
-              <line x1="1004" y1="10" x2="1004" y2="24" vector-effect="non-scaling-stroke"/>
-            </g>
-            <line class="risco" x1="2" y1="17" x2="1310" y2="17" vector-effect="non-scaling-stroke"/>
-            <polygon class="seta" points="1306,8 1338,17 1306,26"/>
-          </svg>
-        </div>
-        <p class="gl rv" style="--d:1000ms">O tempo que passa. É o relógio de cada incidente: <b>quatro horas</b> na prioridade 2, <b>doze</b> na prioridade 3.</p>
-      </div>
-
-      <div class="fx momento">
-        <span class="gr rv" style="--d:1200ms">&kappa;&alpha;&iota;&rho;&#x3CC;&sigmaf;</span>
-        <div class="regua">
-          <svg viewBox="0 0 1340 34" preserveAspectRatio="none" aria-hidden="true">
-            <line class="base" x1="2" y1="17" x2="1338" y2="17" vector-effect="non-scaling-stroke"/>
-            <g class="tick">
-              <line x1="2" y1="7" x2="2" y2="27" vector-effect="non-scaling-stroke"/>
-              <line x1="336" y1="10" x2="336" y2="24" vector-effect="non-scaling-stroke"/>
-              <line x1="670" y1="10" x2="670" y2="24" vector-effect="non-scaling-stroke"/>
-              <line x1="1004" y1="10" x2="1004" y2="24" vector-effect="non-scaling-stroke"/>
-            </g>
-            <circle class="anel" cx="831" cy="17" r="9"/>
-            <circle class="ponto" cx="831" cy="17" r="9"/>
-          </svg>
-        </div>
-        <p class="gl rv" style="--d:1300ms">O momento certo de agir. É o instante em que ainda dá para <b>salvar o prazo</b>.</p>
-      </div>
-    </div>
-
-    <p class="sint rv" style="--d:3000ms"><span>O Cronos mede o primeiro para <em>achar o segundo</em>.</span></p>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
-</section>
-
 <section class="slide light med" data-slide="3" data-var="a" data-quem="igor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
@@ -1220,45 +1167,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
 </section>
 
-<section class="slide light prb pb-a" data-slide="4" data-var="a" data-quem="igor">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Quebras de OLA em 2025</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">O problema</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>O ano virou em novembro</span></span></h1>
-
-    <div class="cena">
-      <div class="quadro cartao rv3" style="--d:620ms">
-        <img class="fig" src="figs/11_ano_virou.png" alt="Quebras de OLA acumuladas mes a mes em 2025: a prioridade 2 passa do limite de 39 em novembro e fecha em 42; a prioridade 3 fecha em 196, dentro do limite de 263">
-      </div>
-
-      <div class="placar">
-        <div class="pl fora rv" style="--d:1400ms">
-          <span class="v"><span class="ct" data-to="42" data-delay="1560">0</span></span>
-          <span class="k"><b>Prioridade 2</b>quebras no ano, de <b style="display:inline">39</b> permitidas</span>
-          <span class="sel">Acima do limite</span>
-        </div>
-        <div class="pl dentro rv" style="--d:1560ms">
-          <span class="v"><span class="ct" data-to="196" data-delay="1720">0</span></span>
-          <span class="k"><b>Prioridade 3</b>quebras no ano, de <b style="display:inline">263</b> permitidas</span>
-          <span class="sel">Dentro do limite</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="fecho rv" style="--d:1900ms">
-      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.2v5.2l3.2 2"/></svg>
-      <span>Em outubro a prioridade 2 estava em <b>35</b>, dentro do limite. <b>Um único mês somou seis</b>, e o ano fechou acima. O resultado só aparece na apuração de dezembro.</span>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
-</section>
-
-<section class="slide light prb pb-b" data-slide="4" data-var="b" data-quem="igor">
+<section class="slide light prb pb-b" data-slide="4" data-var="a" data-quem="igor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -1295,7 +1204,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 
     <div class="fecho rv" style="--d:2400ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span>A meta é anual e só se confirma em dezembro. A prioridade 2 <b>passou do limite por três</b>; a prioridade 3 fechou com folga.</span>
+      <span>Em outubro a prioridade 2 estava em <b>35</b>, dentro do limite. <b>Um único mês somou seis</b>, e o ano fechou acima. O resultado só aparece na apuração de dezembro.</span>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
@@ -1387,6 +1296,69 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
     <div class="fecho rv" style="--d:1840ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
       <span>A série elegível ao KPI <b>praticamente só existe em 2025</b>.</span>
+    </div>
+  </div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
+</section>
+
+<section class="slide light sin" data-slide="7" data-var="a" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Base elegível ao KPI &middot; 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">O que os dados disseram</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quem abre, e quando</span></span></h1>
+
+    <div class="cena">
+      <div class="bl">
+        <div class="cab rv" style="--d:620ms">
+          <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.6 20c0-3.6 3.3-6 7.4-6s7.4 2.4 7.4 6"/></svg>
+          Quem abre o chamado
+        </div>
+
+        <div class="lin">
+          <div class="rt rv" style="--d:760ms"><b>Uma pessoa<small>15.671 chamados</small></b><i>1,24%</i></div>
+          <div class="trilho"><i style="width:62%;--d:820ms"></i></div>
+        </div>
+        <div class="lin baixa">
+          <div class="rt rv" style="--d:960ms"><b>O monitoramento<small>9.485 chamados</small></b><i>0,46%</i></div>
+          <div class="trilho"><i style="width:23%;--d:1020ms"></i></div>
+        </div>
+
+        <div class="mult rv" style="--d:1400ms">
+          <span class="v"><span class="ct" data-to="2.7" data-dec="1" data-delay="1560">0,0</span><em>&times;</em></span>
+          <span class="k">mais risco quando <b>quem abre é uma pessoa</b></span>
+        </div>
+      </div>
+
+      <div class="bl">
+        <div class="cab rv" style="--d:700ms">
+          <svg class="ic" viewBox="0 0 24 24"><rect x="3.4" y="5" width="17.2" height="15.6" rx="2.6"/><path d="M3.4 9.8h17.2M8 2.8v4M16 2.8v4"/></svg>
+          Quando ele chega &middot; prioridade 3
+        </div>
+
+        <div class="lin">
+          <div class="rt rv" style="--d:840ms"><b>Fim de semana<small>24 por dia</small></b><i>1,88%</i></div>
+          <div class="trilho"><i style="width:94%;--d:900ms"></i></div>
+        </div>
+        <div class="lin baixa">
+          <div class="rt rv" style="--d:1040ms"><b>Dia útil<small>67 por dia</small></b><i>0,85%</i></div>
+          <div class="trilho"><i style="width:43%;--d:1100ms"></i></div>
+        </div>
+
+        <div class="mult rv" style="--d:1560ms">
+          <span class="v"><span class="ct" data-to="2.2" data-dec="1" data-delay="1720">0,0</span><em>&times;</em></span>
+          <span class="k">mais risco no fim de semana, com <b>um terço do volume</b></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:2000ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+      <span>O efeito de quem abre vale nas duas prioridades. O do fim de semana é <b>só da prioridade 3</b>. Os dois viram variáveis do modelo de risco.</span>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
