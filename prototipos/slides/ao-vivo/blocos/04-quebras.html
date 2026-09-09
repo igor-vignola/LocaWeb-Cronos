@@ -1,0 +1,162 @@
+<style>
+/* ═══ slide 4 · as quebras de 2025 ═══════════════════════════════════════════
+   O slide que transforma contagem em problema. Duas variações, para escolher:
+
+     A   o acumulado mês a mês contra o limite do ano. A prioridade 3 fecha com
+         folga; a prioridade 2 atravessa o limite em novembro, num mês só. É a
+         história que o deck da Sprint 3 já contava e que se perdeu no caminho:
+         em outubro estava em 35, dentro; novembro somou seis.
+     B   os dois números grandes com o trilho do prazo, que é o slide de hoje.
+
+   O limite usado é o da faixa de 100% do dicionário da Locaweb: 39 no P2 e 263
+   no P3. A variação B estava com 45 e 200, que são outros degraus da escada, e
+   foi corrigida junto — o deck da Sprint 3 já tinha padronizado em 39 e 263.
+
+   A escada de seis degraus fica fora das duas: o dono do projeto disse que
+   porcentagem de nota confunde, e a mensagem precisa de um limite só. Quem
+   perguntar pela escada tem a resposta em PERGUNTAS.md.
+
+   Figura em dpi 200, de _figuras_ano.py.
+   ══════════════════════════════════════════════════════════════════════════ */
+.prb .body{padding-top:14px}
+.prb .tt{font-size:52px;letter-spacing:-1.9px}
+.prb .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;
+  padding-top:20px;border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;
+  color:var(--tx)}
+.prb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.prb .fecho b{color:var(--head);font-weight:700}
+
+/* ── variação A · o acumulado do ano contra o limite ── */
+.pb-a .cena{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:22px;margin-top:10px;min-height:0}
+.pb-a .quadro{padding:18px 22px}
+.pb-a .fig{display:block;width:1080px}
+
+.pb-a .placar{display:flex;width:1080px;gap:0}
+.pb-a .pl{flex:1;display:flex;align-items:baseline;gap:16px;padding:0 30px}
+.pb-a .pl:first-child{padding-left:0}
+.pb-a .pl + .pl{border-left:1px solid #DCE4EF}
+.pb-a .pl .v{font-size:64px;font-weight:900;letter-spacing:-2.8px;line-height:.86;
+  font-variant-numeric:tabular-nums}
+.pb-a .pl.fora .v{color:var(--bad)}
+.pb-a .pl.dentro .v{color:var(--good)}
+.pb-a .pl .k{font-size:16.5px;line-height:1.36;color:var(--tx)}
+.pb-a .pl .k b{display:block;font-size:18px;font-weight:800;color:var(--head);
+  letter-spacing:-.3px;margin-bottom:3px}
+.pb-a .pl .sel{margin-left:auto;align-self:center;font-size:13px;font-weight:700;
+  letter-spacing:.4px;padding:5px 13px;border-radius:999px;white-space:nowrap}
+.pb-a .pl.fora .sel{background:var(--bad-l);color:var(--bad)}
+.pb-a .pl.dentro .sel{background:var(--good-l);color:var(--good)}
+
+/* ── variação B · os dois números com o trilho do prazo ── */
+.pb-b .v{font-weight:900;line-height:.86;font-variant-numeric:tabular-nums}
+.pb-b .p2 .v{color:var(--bad)}
+.pb-b .p3 .v{color:var(--warn)}
+.pb-b .rot b{display:block;font-size:21px;font-weight:800;letter-spacing:-.3px;
+  color:var(--head);margin-bottom:4px}
+.pb-b .rot{font-size:16px;line-height:1.35;color:var(--tx)}
+.pb-b .prazo{position:relative;width:290px;height:15px;border-radius:8px;background:#E8EDF4}
+.pb-b .passou{position:absolute;left:0;top:0;height:15px;width:100%;border-radius:8px;
+  transform:scaleX(0);transform-origin:left}
+.pb-b .p2 .passou{background:var(--bad)}
+.pb-b .p3 .passou{background:var(--warn)}
+.pb-b.is-active .passou{animation:corre 1s var(--out) var(--d,0ms) forwards}
+.pb-b .marca{position:absolute;left:70%;top:-7px;bottom:-7px;width:2px;background:var(--head);
+  border-radius:2px;z-index:2}
+.pb-b .marca em{position:absolute;left:50%;top:calc(100% + 9px);transform:translateX(-50%);
+  font-style:normal;font-size:12.5px;font-weight:700;color:var(--head);white-space:nowrap}
+.pb-b .fora{position:absolute;left:70%;right:0;top:0;bottom:0;border-radius:0 8px 8px 0;
+  background:repeating-linear-gradient(-45deg,rgba(11,18,32,.10) 0 3px,transparent 3px 7px);
+  opacity:0}
+.pb-b.is-active .fora{animation:rv .5s var(--out) calc(var(--d,0ms) + 760ms) forwards}
+.pb-b .lim{margin-top:46px;font-size:15.5px;color:var(--tx2)}
+.pb-b .lim b{color:var(--head);font-weight:800;font-size:20px;margin-left:4px}
+.pb-b .cena{flex:1;display:flex;align-items:center;justify-content:center;gap:108px;min-height:0}
+.pb-b .un{display:flex;flex-direction:column;align-items:center;width:330px}
+.pb-b .v{font-size:200px;letter-spacing:-8.4px}
+.pb-b .rot{margin-top:16px;text-align:center}
+.pb-b .prazo{margin-top:34px}
+.pb-b .fio{width:1px;height:280px;
+  background:linear-gradient(180deg,transparent,#D9E1EC 20%,#D9E1EC 80%,transparent)}
+</style>
+
+<section class="slide light prb pb-a" data-slide="4" data-var="a" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Quebras de OLA em 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">O problema</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>O ano virou em novembro</span></span></h1>
+
+    <div class="cena">
+      <div class="quadro cartao rv3" style="--d:620ms">
+        <img class="fig" src="../figs/11_ano_virou.png" alt="Quebras de OLA acumuladas mes a mes em 2025: a prioridade 2 passa do limite de 39 em novembro e fecha em 42; a prioridade 3 fecha em 196, dentro do limite de 263">
+      </div>
+
+      <div class="placar">
+        <div class="pl fora rv" style="--d:1400ms">
+          <span class="v"><span class="ct" data-to="42" data-delay="1560">0</span></span>
+          <span class="k"><b>Prioridade 2</b>quebras no ano, de <b style="display:inline">39</b> permitidas</span>
+          <span class="sel">Acima do limite</span>
+        </div>
+        <div class="pl dentro rv" style="--d:1560ms">
+          <span class="v"><span class="ct" data-to="196" data-delay="1720">0</span></span>
+          <span class="k"><b>Prioridade 3</b>quebras no ano, de <b style="display:inline">263</b> permitidas</span>
+          <span class="sel">Dentro do limite</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:1900ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.2v5.2l3.2 2"/></svg>
+      <span>Em outubro a prioridade 2 estava em <b>35</b>, dentro do limite. <b>Um único mês somou seis</b>, e o ano fechou acima. O resultado só aparece na apuração de dezembro.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>
+
+<section class="slide light prb pb-b" data-slide="4" data-var="b" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Quebras de OLA em 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">O problema</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quantidade de quebras em 2025</span></span></h1>
+
+    <div class="cena">
+      <div class="un p2 rv3" style="--d:720ms">
+        <span class="v"><span class="ct" data-to="42" data-delay="960">0</span></span>
+        <span class="rot"><b>Prioridade 2</b>passaram das 4 horas de prazo</span>
+        <span class="prazo" style="--d:1360ms">
+          <i class="passou"></i>
+          <i class="fora"></i>
+          <span class="marca"><em>4 h</em></span>
+        </span>
+        <span class="lim rv" style="--d:1900ms">o ano permitia até<b>39</b></span>
+      </div>
+      <span class="fio rv" style="--d:900ms"></span>
+      <div class="un p3 rv3" style="--d:860ms">
+        <span class="v"><span class="ct" data-to="196" data-delay="1100">0</span></span>
+        <span class="rot"><b>Prioridade 3</b>passaram das 12 horas de prazo</span>
+        <span class="prazo" style="--d:1500ms">
+          <i class="passou"></i>
+          <i class="fora"></i>
+          <span class="marca"><em>12 h</em></span>
+        </span>
+        <span class="lim rv" style="--d:2040ms">o ano permitia até<b>263</b></span>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:2400ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+      <span>A meta é anual e só se confirma em dezembro. A prioridade 2 <b>passou do limite por três</b>; a prioridade 3 fechou com folga.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

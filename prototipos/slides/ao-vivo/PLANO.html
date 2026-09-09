@@ -1,0 +1,307 @@
+<title>Roteiro da banca Cronos</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Sora:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#F5F8FC; --card:#FFFFFF; --ink:#0A1119; --tx:#3D4A5D; --mute:#78849A;
+  --line:#DBE3EF; --rail:#C6D2E3; --accent:#2563EB; --accent-soft:#E9F0FD;
+  --novo:#8A5B00; --novo-soft:#FCF2DA; --refaz:#7C3AED; --refaz-soft:#F0EAFE;
+  --ok:#136A47; --ok-soft:#E3F5EC;
+  --igor:#2563EB; --ana:#7C3AED; --hygor:#0E7490;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A0F17; --card:#111925; --ink:#EFF3F9; --tx:#B4BECD; --mute:#7A8698;
+    --line:#212D3E; --rail:#2A374B; --accent:#5FA3FA; --accent-soft:#132239;
+    --novo:#DDAE4C; --novo-soft:#28210F; --refaz:#A78BFA; --refaz-soft:#221A38;
+    --ok:#34D399; --ok-soft:#0E2A1F;
+    --igor:#5FA3FA; --ana:#A78BFA; --hygor:#2DD4BF;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A0F17; --card:#111925; --ink:#EFF3F9; --tx:#B4BECD; --mute:#7A8698;
+  --line:#212D3E; --rail:#2A374B; --accent:#5FA3FA; --accent-soft:#132239;
+  --novo:#DDAE4C; --novo-soft:#28210F; --refaz:#A78BFA; --refaz-soft:#221A38;
+  --ok:#34D399; --ok-soft:#0E2A1F;
+  --igor:#5FA3FA; --ana:#A78BFA; --hygor:#2DD4BF;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--tx);font-family:"Sora",system-ui,sans-serif;
+  font-size:15px;line-height:1.55;margin:0;padding:48px 20px 100px}
+.pg{max-width:880px;margin:0 auto}
+h1,h2,h3{font-family:"Outfit",system-ui,sans-serif;color:var(--ink);text-wrap:balance;margin:0}
+h1{font-size:42px;font-weight:800;letter-spacing:-1.5px;line-height:1.04}
+.lede{font-size:17px;max-width:64ch;margin:16px 0 0}
+.lede b{color:var(--ink);font-weight:600}
+
+.sum{display:flex;flex-wrap:wrap;gap:12px 30px;margin-top:24px;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:14px}
+.sum b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.sum .p{display:inline-flex;align-items:center;gap:7px}
+.sum .p i{width:9px;height:9px;border-radius:50%;display:inline-block}
+
+.dest{margin-top:34px;padding:20px 22px;border:1px solid var(--line);border-radius:14px;
+  background:var(--card)}
+.dest h3{font-size:13px;font-weight:600;letter-spacing:1.7px;text-transform:uppercase;color:var(--mute)}
+.dest p{margin:9px 0 0;max-width:68ch}
+.dest .fx{display:flex;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap;
+  font-family:"Outfit",system-ui,sans-serif;font-size:13.5px;color:var(--mute)}
+.dest .fx b{font-size:22px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.dest .fx span{padding:5px 11px;border-radius:8px;background:var(--bg);border:1px solid var(--line)}
+.dest .fx em{font-style:normal;color:var(--rail);font-size:17px}
+.dest .fx .fim{background:var(--accent-soft);border-color:transparent}
+.dest .fx .fim b{color:var(--accent)}
+
+.ato{margin-top:46px}
+.ato-h{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+  padding-bottom:10px;border-bottom:2px solid var(--ink)}
+.ato-h h2{font-size:23px;font-weight:800;letter-spacing:-.5px}
+.ato-h h2 em{font-style:normal;color:var(--mute);font-weight:600;margin-right:11px}
+.ato-h .q{font-size:13px;color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums}
+.ato-h .q b{font-weight:600;color:var(--tx)}
+
+ol.cam{list-style:none;margin:0;padding:0 0 0 14px;border-left:2px solid var(--rail)}
+ol.cam li{position:relative;padding:19px 0 19px 34px;border-bottom:1px solid var(--line)}
+ol.cam li:last-child{border-bottom:none}
+ol.cam li::before{content:attr(data-n);position:absolute;left:-15px;top:23px;width:26px;height:26px;
+  border-radius:50%;background:var(--card);border:2px solid var(--rail);
+  font-family:"Outfit",system-ui,sans-serif;font-weight:800;font-size:12px;color:var(--ink);
+  display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+ol.cam li.demo::before{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.t{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap}
+.t h3{font-size:19.5px;font-weight:600;letter-spacing:-.3px}
+.t .m{display:inline-flex;gap:7px;align-items:center;font-size:12.5px;color:var(--mute);
+  font-variant-numeric:tabular-nums}
+.t .m i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.tag{font-size:11.5px;font-weight:600;letter-spacing:.4px;padding:2px 8px;border-radius:999px;
+  background:var(--ok-soft);color:var(--ok)}
+.tag.novo{background:var(--novo-soft);color:var(--novo)}
+.tag.refaz{background:var(--refaz-soft);color:var(--refaz)}
+.aqui{margin:9px 0 0;max-width:70ch}
+.aqui b{color:var(--ink);font-weight:600}
+.tela{margin:7px 0 0;font-size:13.5px;color:var(--mute);max-width:70ch}
+.tela::before{content:"Na tela · ";font-weight:600}
+.cob{margin:9px 0 0;font-size:12.5px;color:var(--mute)}
+.cob span{display:inline-block;padding:2px 9px;border-radius:6px;background:var(--bg);
+  border:1px solid var(--line);margin-right:6px;font-size:11.5px}
+
+.sinais{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:9px;margin-top:12px}
+.sinais div{padding:11px 13px;border-radius:10px;background:var(--card);border:1px solid var(--line)}
+.sinais b{display:block;font-family:"Outfit",system-ui,sans-serif;font-size:24px;font-weight:800;
+  color:var(--accent);letter-spacing:-.8px;font-variant-numeric:tabular-nums}
+.sinais small{display:block;color:var(--mute);font-size:12.5px;line-height:1.4;margin-top:3px}
+
+.telas{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:8px;margin-top:12px}
+.telas div{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);font-size:13px}
+.telas div b{display:block;font-family:"Outfit",system-ui,sans-serif;font-weight:600;color:var(--ink);
+  font-size:14px;margin-bottom:3px}
+.telas div small{color:var(--mute)}
+
+.dec{margin-top:54px;padding:26px 28px;border-radius:14px;background:var(--ink)}
+.dec h2{color:var(--bg);font-size:23px;font-weight:800;letter-spacing:-.5px}
+.dec ol{margin:14px 0 0;padding-left:22px;color:var(--bg)}
+.dec li{margin:11px 0;max-width:72ch;line-height:1.5}
+.dec li b{font-weight:600}
+.dec li span{opacity:.72}
+.rod{margin-top:28px;font-size:13px;color:var(--mute);max-width:72ch}
+@media (max-width:640px){h1{font-size:32px}}
+</style>
+
+<div class="pg">
+  <h1>Roteiro da banca Cronos</h1>
+  <p class="lede">Dezoito slides mais a demonstração, em quinze minutos. A ordem é a de quem chega sem saber nada: <b>o que é o Cronos, o que a Locaweb mede, o que os dados disseram, o que construímos, o produto rodando e o que fica</b>. Cada linha diz o que vai no slide e o que aparece na tela. Nada foi construído ainda além do que já existe.</p>
+
+  <div class="sum">
+    <span><b>18</b> slides + demo</span>
+    <span><b>15 min</b>, com folga de 1 min</span>
+    <span class="p"><i style="background:var(--igor)"></i>Igor <b>3 min 40</b></span>
+    <span class="p"><i style="background:var(--ana)"></i>Ana <b>5 min 20</b></span>
+    <span class="p"><i style="background:var(--hygor)"></i>Hygor <b>5 min 40</b></span>
+    <span><b>9</b> prontos · <b>6</b> novos · <b>3</b> refeitos</span>
+  </div>
+
+  <div class="dest">
+    <h3>De onde isto veio</h3>
+    <p>Reli os quatro decks das sprints, o template oficial da Sprint 4 e a apresentação da Locaweb. As quatro sprints somam 144 slides. Este roteiro é a destilação deles na ordem em que a banca precisa ouvir, e cobre os sete blocos que o template da Sprint 4 exige e os seis critérios de avaliação da Locaweb.</p>
+    <div class="fx">
+      <span>Sprint 1 <b>16</b></span><em>+</em>
+      <span>Sprint 2 <b>25</b></span><em>+</em>
+      <span>Sprint 3 <b>61</b></span><em>+</em>
+      <span>Sprint 4 <b>42</b></span><em>→</em>
+      <span class="fim">banca <b>18</b></span>
+    </div>
+  </div>
+
+  <!-- ───────────────── ABERTURA ───────────────── -->
+  <section class="ato">
+    <div class="ato-h"><h2><em>Abertura</em>O que é o Cronos</h2><span class="q">Igor · <b>2 min</b></span></div>
+    <ol class="cam">
+      <li data-n="1">
+        <div class="t"><h3>Capa</h3><span class="m"><i style="background:var(--igor)"></i>Igor · 15 s</span><span class="tag">pronto</span></div>
+        <p class="aqui">A marca, a equipe, o mentor. A série real de 2025 se desenhando atrás.</p>
+      </li>
+      <li data-n="2">
+        <div class="t"><h3>Por que Cronos</h3><span class="m"><i style="background:var(--igor)"></i>Igor · 35 s</span><span class="tag novo">novo</span></div>
+        <p class="aqui">O que você sentiu falta. O nome vem do deus grego do tempo, e o projeto inteiro é sobre tempo: <b>todo incidente tem um prazo, e o Cronos existe para ver o prazo chegando antes que ele estoure</b>. A tagline aparece aqui pela primeira vez, e volta no último slide.</p>
+        <p class="tela">a palavra CRONOS em letra grande, a origem do nome em uma linha, e a tagline embaixo. Fundo escuro. É o único slide sem número nenhum.</p>
+      </li>
+      <li data-n="3">
+        <div class="t"><h3>O que a Locaweb mede</h3><span class="m"><i style="background:var(--igor)"></i>Igor · 35 s</span><span class="tag novo">novo</span></div>
+        <p class="aqui">De <b>122.543</b> incidentes em três anos, <b>25.600</b> contam para a meta do ano. Cada um tem um prazo: <b>4 horas</b> na prioridade 2, <b>12 horas</b> na prioridade 3. Passou do prazo, é uma quebra. Sem isso, nada do resto se entende.</p>
+        <p class="tela">um funil de dois números e, embaixo, os dois prazos como dois relógios.</p>
+        <p class="cob"><span>Clareza na definição do problema</span></p>
+      </li>
+      <li data-n="4">
+        <div class="t"><h3>As quebras de 2025</h3><span class="m"><i style="background:var(--igor)"></i>Igor · 35 s</span><span class="tag refaz">refeito</span></div>
+        <p class="aqui"><b>42</b> quebras na prioridade 2, e o limite do ano era <b>39</b>. <b>196</b> na prioridade 3, com limite <b>263</b>. A pressão está na prioridade 2, que passou por três. Meta como número único, sem escada de notas nem porcentagens.</p>
+        <p class="tela">os dois números grandes que já existem, cada um com o limite do ano ao lado e o trilho do prazo embaixo.</p>
+        <p class="cob"><span>Clareza na definição do problema</span><span>Valor para decisão</span></p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ───────────────── ATO 1 ───────────────── -->
+  <section class="ato">
+    <div class="ato-h"><h2><em>Ato 1</em>O que os dados disseram</h2><span class="q">Ana · <b>2 min 40</b></span></div>
+    <ol class="cam">
+      <li data-n="5">
+        <div class="t"><h3>O salto de setembro</h3><span class="m"><i style="background:var(--ana)"></i>Ana · 40 s</span><span class="tag">pronto</span></div>
+        <p class="aqui">O volume total multiplicou por cinco de agosto para setembro, e a série que conta para a meta não se moveu: <b>2.330 para 2.324</b>. O que cresceu foi o monitoramento automático. Foi o pedido que o Douglas fez na mentoria, respondido com o gráfico.</p>
+        <p class="tela">o gráfico das duas séries com as duas anotações desenhadas dentro.</p>
+        <p class="cob"><span>Qualidade da análise exploratória</span><span>Pedido do mentor</span></p>
+      </li>
+      <li data-n="6">
+        <div class="t"><h3>Por que treinamos só em 2025</h3><span class="m"><i style="background:var(--ana)"></i>Ana · 25 s</span><span class="tag">pronto</span></div>
+        <p class="aqui"><b>98,3%</b> dos incidentes que contam para a meta estão em 2025. Usar três anos ensinaria ao modelo uma alta que é adoção de registro, não operação.</p>
+        <p class="tela">as três barras por ano.</p>
+      </li>
+      <li data-n="7">
+        <div class="t"><h3>Quem abre, e quando</h3><span class="m"><i style="background:var(--ana)"></i>Ana · 45 s</span><span class="tag novo">novo</span></div>
+        <p class="aqui">Substitui o slide do volume, que você achou fraco, por dois achados que ninguém adivinha. <b>O que uma pessoa abre quebra 2,7 vezes mais do que o que o robô abre</b> — o monitoramento pega o que já tem receita de solução, a pessoa abre o que ninguém viu. E <b>o fim de semana é o dia mais vazio e o que mais quebra</b>: um terço do volume e mais que o dobro da taxa na prioridade 3.</p>
+        <div class="sinais">
+          <div><b>2,7×</b><small>aberto por pessoa (1,24%) contra aberto por monitoramento (0,46%)</small></div>
+          <div><b>2,2×</b><small>fim de semana (1,88%) contra dia útil (0,85%), na prioridade 3</small></div>
+          <div><b>⅓</b><small>do volume do dia útil é o que entra no sábado e no domingo</small></div>
+        </div>
+        <p class="tela">a comparação lado a lado, com as barras entrando uma de cada vez. O fim de semana entra por último, porque é o contraintuitivo.</p>
+        <p class="cob"><span>Qualidade da análise exploratória</span><span>Sazonalidade</span></p>
+      </li>
+      <li data-n="8">
+        <div class="t"><h3>Onde a quebra mora</h3><span class="m"><i style="background:var(--ana)"></i>Ana · 50 s</span><span class="tag novo">novo</span></div>
+        <p class="aqui">A quebra não está espalhada, está endereçada. De <b>4.633 ativos</b>, só <b>122</b> quebraram alguma vez, e <b>30 deles concentram 61%</b> de todas as quebras. Um único ativo, o IC00840, quebra <b>uma vez a cada três</b> incidentes que recebe. E quando o time fecha o chamado como "Outro", ou seja, não soube classificar, a taxa é <b>2,8 vezes a média</b>.</p>
+        <div class="sinais">
+          <div><b>2,6%</b><small>dos ativos concentram todas as quebras do ano</small></div>
+          <div><b>61%</b><small>das quebras estão em apenas 30 ativos</small></div>
+          <div><b>36%</b><small>é a taxa do pior ativo, o IC00840</small></div>
+          <div><b>2,8×</b><small>quando ninguém soube classificar a causa</small></div>
+        </div>
+        <p class="tela">os 4.633 ativos como pontos, e só os 122 que quebraram acendendo. Depois os 30 maiores se destacam.</p>
+        <p class="aqui" style="margin-top:12px"><b>A fala que liga este bloco ao próximo:</b> quem abriu, quando abriu, qual ativo e se o problema é conhecido. São esses quatro sinais que viram as variáveis do modelo de risco. A análise não foi um exercício à parte; foi ela que construiu o modelo.</p>
+        <p class="cob"><span>Engenharia de features</span><span>Incidentes recorrentes</span><span>Agrupamentos críticos</span></p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ───────────────── ATO 2 ───────────────── -->
+  <section class="ato">
+    <div class="ato-h"><h2><em>Ato 2</em>O que construímos</h2><span class="q">Ana · <b>2 min 40</b></span></div>
+    <ol class="cam">
+      <li data-n="9">
+        <div class="t"><h3>As três perguntas</h3><span class="m"><i style="background:var(--ana)"></i>Ana · 30 s</span><span class="tag refaz">refeito</span></div>
+        <p class="aqui">O mapa do que vem a seguir, e o índice do produto. <b>Quantos incidentes chegam</b> (Prophet), <b>qual deles quebra</b> (regressão logística) e <b>se a meta do ano fecha</b> (os dois juntos). Cada uma vira um slide, e depois vira uma tela na demonstração.</p>
+        <p class="tela">as três perguntas em três linhas, com o nome do modelo ao lado de cada uma. Fundo escuro, é a virada do deck.</p>
+        <p class="cob"><span>Coerência da modelagem</span></p>
+      </li>
+      <li data-n="10">
+        <div class="t"><h3>Quantos incidentes chegam</h3><span class="m"><i style="background:var(--ana)"></i>Ana · 40 s</span><span class="tag">pronto</span></div>
+        <p class="aqui">A previsão feita em 1º de outubro para os sete dias seguintes, dia a dia, contra o que de fato chegou. <b>13 dos 14</b> caíram dentro da faixa. É o D+1 e o D+7 que o desafio pede, com as duas prioridades.</p>
+        <p class="tela">o gráfico em caixas, prioridade 2 e 3 lado a lado.</p>
+        <p class="cob"><span>Capacidade de antecipação D+1 e D+7</span><span>Modelagem preditiva</span></p>
+      </li>
+      <li data-n="11">
+        <div class="t"><h3>Qual incidente quebra</h3><span class="m"><i style="background:var(--ana)"></i>Ana · 45 s</span><span class="tag">pronto</span></div>
+        <p class="aqui">Percorrendo os <b>50 primeiros</b> da fila do modelo, encontram-se <b>13</b> quebras. Ordenando por prioridade, que é o que se faz hoje, <b>nenhuma</b>. No pé, a resposta antecipada: por que regressão logística e não XGBoost.</p>
+        <p class="tela">a curva de ganho colorida, com o nome escrito na ponta de cada linha.</p>
+        <p class="cob"><span>Modelagem preditiva</span><span>Classificação</span><span>Explicabilidade</span></p>
+      </li>
+      <li data-n="12">
+        <div class="t"><h3>A meta do ano vai fechar?</h3><span class="m"><i style="background:var(--ana)"></i>Ana · 45 s</span><span class="tag refaz">refeito</span></div>
+        <p class="aqui">Sua ideia dos elementos do Django resolve este slide. A tela de Projeção já tem o objeto certo: <b>um trilho onde a barra preta é o que já aconteceu, a faixa azul é onde a projeção diz que o ano termina, e o tracejado é o limite</b>. Se o azul passa do tracejado, estoura. Em 1º de outubro ele dizia: prioridade 3 fecha dentro com folga, prioridade 2 passa do limite. O ano fechou exatamente assim.</p>
+        <p class="tela">o trilho da tela de Projeção, ampliado, um por prioridade. O mesmo componente que o Hygor vai mostrar rodando cinco minutos depois.</p>
+        <p class="cob"><span>Projeção de atingimento do KPI</span><span>Pedido do mentor</span></p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ───────────────── ATO 3 ───────────────── -->
+  <section class="ato">
+    <div class="ato-h"><h2><em>Ato 3</em>O produto</h2><span class="q">Hygor · <b>5 min 40</b></span></div>
+    <ol class="cam">
+      <li data-n="13">
+        <div class="t"><h3>Onde agir primeiro</h3><span class="m"><i style="background:var(--hygor)"></i>Hygor · 35 s</span><span class="tag refaz">refeito</span></div>
+        <p class="aqui">A nota de saúde de 0 a 100 por produto. É o que responde a exigência de <b>apoiar a decisão operacional</b>: não basta prever, tem que dizer por onde começar. Abre o bloco do produto porque é a ponte entre o modelo e a operação.</p>
+        <p class="tela">o ranking dos 15 produtos, com os três em vermelho nomeados ao lado.</p>
+        <p class="cob"><span>Apoie a decisão operacional</span><span>Onde agir preventivamente</span></p>
+      </li>
+      <li data-n="14">
+        <div class="t"><h3>Como isso roda</h3><span class="m"><i style="background:var(--hygor)"></i>Hygor · 30 s</span><span class="tag">pronto</span></div>
+        <p class="aqui">Uma imagem Docker com tudo dentro: Python, os dois modelos, o Django. A Claude API fica fora e só escreve a frase de abertura do resumo. Roda na Locaweb ou em qualquer nuvem, que é o pedido explícito do mentor.</p>
+        <p class="tela">o corte do contêiner com as camadas; os provedores de nuvem em cinza, do lado de fora.</p>
+        <p class="cob"><span>Arquitetura e tecnologias</span><span>Agnóstico de cloud</span></p>
+      </li>
+      <li data-n="15" class="demo">
+        <div class="t"><h3>O painel operacional, ao vivo</h3><span class="m"><i style="background:var(--hygor)"></i>Hygor · 4 min 35</span><span class="tag">pronto · vira demo</span></div>
+        <p class="aqui">O slide da tela inclinada é a passagem. O Hygor compartilha o navegador e percorre cinco telas, com o relógio parado em 1º de outubro de 2025 às 15h. É aqui que o resumo da manhã aparece funcionando, em vez de fatiado em slide.</p>
+        <div class="telas">
+          <div><b>Panorama</b>O resumo da manhã aberto: ontem, hoje, onde agir.<small> · 60 s</small></div>
+          <div><b>Previsão</b>Sete dias com a faixa, o padrão da semana.<small> · 50 s</small></div>
+          <div><b>Projeção</b>O mesmo trilho do slide 12, agora vivo.<small> · 45 s</small></div>
+          <div><b>Fila de risco</b>A fila e o porquê de um incidente estar ali.<small> · 70 s</small></div>
+          <div><b>Saúde</b>A nota por produto e o que a puxa para baixo.<small> · 50 s</small></div>
+        </div>
+        <p class="cob"><span>Demonstração da solução</span><span>MVP em funcionamento</span><span>Usabilidade</span></p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ───────────────── FECHO ───────────────── -->
+  <section class="ato">
+    <div class="ato-h"><h2><em>Fecho</em>O que fica</h2><span class="q">Igor · <b>1 min 40</b></span></div>
+    <ol class="cam">
+      <li data-n="16">
+        <div class="t"><h3>Resultados</h3><span class="m"><i style="background:var(--igor)"></i>Igor · 40 s</span><span class="tag novo">novo</span></div>
+        <p class="aqui">O fecho padrão que você pediu, e é o que o template da Sprint 4 exige no bloco de conclusão. Quatro números em uma tela: o erro da previsão, o ganho da fila, o acerto da projeção e o tamanho do que roda.</p>
+        <div class="sinais">
+          <div><b>13/14</b><small>dias dentro da faixa prevista</small></div>
+          <div><b>13</b><small>quebras nos 50 primeiros da fila, contra nenhuma por prioridade</small></div>
+          <div><b>0,87</b><small>de área sob a curva, com o modelo calibrado</small></div>
+          <div><b>6</b><small>telas rodando num contêiner só</small></div>
+        </div>
+        <p class="cob"><span>Síntese dos resultados</span></p>
+      </li>
+      <li data-n="17">
+        <div class="t"><h3>Limitações e próximos passos</h3><span class="m"><i style="background:var(--igor)"></i>Igor · 45 s</span><span class="tag novo">novo</span></div>
+        <p class="aqui">Duas colunas, três linhas cada. À esquerda, o que assumimos: a faixa da prioridade 3 aperta quando a base muda de patamar, não temos o custo de uma quebra, e não há alarme automático de descalibragem. À direita, o que vem: re-treino automático, alarme de desvio e o custo por quebra junto à Locaweb. O template pede exatamente isso, e dizer antes que perguntem é o que segura a mesa.</p>
+        <p class="tela">duas colunas, texto curto, sem gráfico.</p>
+        <p class="cob"><span>Limitações</span><span>Próximos passos</span></p>
+      </li>
+      <li data-n="18">
+        <div class="t"><h3>Veja antes. Aja antes.</h3><span class="m"><i style="background:var(--igor)"></i>Igor · 15 s</span><span class="tag">pronto</span></div>
+        <p class="aqui">A assinatura grande, a equipe, o mentor, o agradecimento. Espelha a capa e fecha o arco aberto no slide 2.</p>
+      </li>
+    </ol>
+  </section>
+
+  <div class="dec">
+    <h2>O que mudou desde a versão anterior</h2>
+    <ol>
+      <li><b>Entrou o "por que Cronos".</b> <span>Slide 2, com o nome, a origem e a tagline. Era o que faltava para a apresentação ter começo.</span></li>
+      <li><b>Saiu a promessa de abril e saiu o que o dado derrubou.</b> <span>Os dois slides que olhavam para trás. O deck agora fala só do que entregamos.</span></li>
+      <li><b>O slide fraco do volume virou dois slides fortes de análise.</b> <span>Quem abre e quando (slides 7) e onde a quebra mora (slide 8). São quatro achados que ninguém adivinha, e são as variáveis do modelo — a análise passa a explicar por que o modelo funciona.</span></li>
+      <li><b>A meta ganhou o componente do Django.</b> <span>O trilho da tela de Projeção, com o já acontecido em preto, a projeção em azul e o limite tracejado. Sem escada de notas.</span></li>
+      <li><b>A saúde por produto voltou como slide</b>, <span>logo antes do produto, porque é ela que responde "onde agir" — uma das quatro exigências do enunciado. E aparece de novo, viva, na demo.</span></li>
+      <li><b>O fecho virou o padrão acadêmico:</b> <span>resultados, limitações, próximos passos. É o que o template da Sprint 4 pede e é a rota mais segura.</span></li>
+    </ol>
+  </div>
+
+  <p class="rod">Se o tempo apertar no dia, os dois primeiros cortes são o slide 6 (por que só 2025, que vira uma frase dentro do slide 5) e o slide 13 (saúde, que a demo mostra de qualquer forma). Isso devolve um minuto sem quebrar o caminho. Ordem de fala: Igor abre e fecha, Ana leva dado e modelos, Hygor leva produto e demo.</p>
+</div>
