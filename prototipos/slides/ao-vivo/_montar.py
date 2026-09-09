@@ -143,6 +143,10 @@ def main() -> int:
                 # visualizador ordena as candidatas pelo valor antigo
                 s = re.sub(r'data-slide="\d+"', f'data-slide="{slide}"', s, count=1)
                 s = re.sub(r'data-var="[^"]+"', f'data-var="{var}"', s, count=1)
+                if dono:
+                    # o atributo também, senão o HTML montado diz um dono e o
+                    # marcador injetado mostra outro, e quem for ler se perde
+                    s = re.sub(r'data-quem="[^"]+"', f'data-quem="{dono}"', s, count=1)
                 troca = f", dono {atrib['quem']} -> {dono}" if dono and dono != atrib["quem"] else ""
                 print(f"    remapeado  slide {origem[1]}{origem[2]} -> {slide}{var}{troca}")
             secoes.append((slide, var, s))

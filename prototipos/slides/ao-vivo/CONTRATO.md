@@ -162,10 +162,20 @@ seus. **Zero emoji.**
 
 ## 5. Os números, todos medidos em `data/interim/incidentes_kpi.parquet`
 
-**A base**
-- 122.543 incidentes no dataset; 25.600 elegíveis ao KPI, que é 21%
-- 248 perdas de prazo na base elegível inteira, de 2023 a 2025
-- taxa média de perda na base: 0,97%
+**A base · o denominador tem que casar com o numerador**
+
+| recorte | elegíveis ao KPI | perdas de prazo | taxa |
+|---|---|---|---|
+| 2023 | 87 | 4 | |
+| 2024 | 357 | 6 | |
+| **2025** | **25.156** | **238** | **0,95%** |
+| base inteira, 2023 a 2025 | 25.600 | 248 | 0,97% |
+
+122.543 incidentes no dataset, dos quais 25.600 elegíveis ao KPI, que é 21%.
+
+**Se o slide fala de 2025, o denominador é 25.156 e a taxa é 0,95%.** Usar 238
+perdas contra 25.600 elegíveis mistura um ano com três, e foi um erro real que
+apareceu na construção deste deck.
 
 **Perdas de prazo · ATENÇÃO AO PERÍODO**
 
