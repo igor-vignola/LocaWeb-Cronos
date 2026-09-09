@@ -52,9 +52,35 @@
 .sl-a .fig{width:862px}
 .sl-a .fatos{width:420px}
 
+
+/* ── variação B · o gráfico maior e o contraste como placar ──────────────────
+   A variação A põe o gráfico à esquerda e dois blocos de texto à direita, que
+   é o mesmo molde do slide 6. Aqui o gráfico cresce e a coluna da direita deixa
+   de ser texto: vira dois números confrontados, o multiplicador do volume total
+   contra o do volume que conta para a meta. É a mesma informação dita em duas
+   grandezas em vez de dois parágrafos. */
+.sl-b .cena{flex:1;display:flex;align-items:center;gap:52px;margin-top:12px;min-height:0}
+.sl-b .quadro{padding:18px 22px;flex-shrink:0}
+.sl-b .fig{display:block;width:880px}
+.sl-b .lado{flex:1;min-width:0;display:flex;flex-direction:column;gap:0}
+.sl-b .mt{padding:26px 0}
+.sl-b .mt + .mt{border-top:1px solid #DCE4EF}
+.sl-b .mt .cab{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;
+  letter-spacing:1.9px;text-transform:uppercase;color:var(--tx2)}
+.sl-b .mt .cab .ic{width:17px;height:17px}
+.sl-b .mt.sobe .cab .ic{color:var(--bad)}
+.sl-b .mt.igual .cab .ic{color:var(--accent)}
+.sl-b .mt .v{font-size:96px;font-weight:900;letter-spacing:-4.4px;line-height:.86;
+  margin-top:14px;font-variant-numeric:tabular-nums}
+.sl-b .mt.sobe .v{color:var(--bad)}
+.sl-b .mt.igual .v{color:var(--accent);font-size:80px;letter-spacing:-3.4px}
+.sl-b .mt .v em{font-style:normal;font-size:.44em;letter-spacing:-1.6px}
+.sl-b .mt .k{font-size:16.5px;line-height:1.4;color:var(--tx);margin-top:12px;max-width:30ch}
+.sl-b .mt .k b{color:var(--head);font-weight:700;font-variant-numeric:tabular-nums}
 </style>
 
-<section class="slide light slt sl-a" data-slide="5" data-var="a" data-quem="ana">
+
+<section class="slide light slt sl-b" data-slide="5" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -67,30 +93,25 @@
 
     <div class="cena">
       <div class="quadro cartao rv3" style="--d:620ms">
-        <img class="fig" src="../figs/01_salto_setembro.png" alt="Volume mensal de incidentes em 2025: o total registrado salta em setembro e a serie elegivel ao KPI permanece estavel">
+        <img class="fig" src="../figs/01_salto_setembro.png" alt="Volume mensal de incidentes em 2025: o total registrado salta em setembro e a serie elegivel ao KPI nao se move">
       </div>
-
-      <div class="fatos">
-        <div class="fato sobe rv" style="--d:1000ms">
-          <svg class="ic" viewBox="0 0 24 24"><path d="M3 17.6 9.2 11l3.6 3.3L21 5.4"/><path d="M15.2 5.4H21v5.8"/></svg>
-          <div>
-            <div class="n">3.996 <i>&rarr;</i> 21.561</div>
-            <p class="q">no <b>volume total registrado</b>, de agosto para setembro. Multiplicou por <b>5,4</b>.</p>
-          </div>
+      <div class="lado">
+        <div class="mt sobe rv" style="--d:1000ms">
+          <div class="cab"><svg class="ic" viewBox="0 0 24 24"><path d="M3.6 17.4 9.6 10.2l4.2 3.6L20.4 6"/><path d="M15 6h5.4v5.4"/></svg>Volume total registrado</div>
+          <div class="v">&times;<span class="ct" data-to="5.4" data-dec="1" data-delay="1200">0,0</span></div>
+          <p class="k">de agosto para setembro: de <b>3.996</b> para <b>21.561</b> incidentes no mês.</p>
         </div>
-        <div class="fato reto rv" style="--d:1180ms">
-          <svg class="ic" viewBox="0 0 24 24"><path d="M3 12h18"/><path d="M6.6 8.8 3 12l3.6 3.2"/><path d="M17.4 8.8 21 12l-3.6 3.2"/></svg>
-          <div>
-            <div class="n">2.330 <i>&rarr;</i> 2.324</div>
-            <p class="q">na <b>série elegível ao KPI</b>, nos mesmos dois meses. Praticamente <b>o mesmo número</b>.</p>
-          </div>
+        <div class="mt igual rv" style="--d:1320ms">
+          <div class="cab"><svg class="ic" viewBox="0 0 24 24"><path d="M4 9.6h16M4 14.4h16"/></svg>Série que conta para a meta</div>
+          <div class="v">&minus;0,26<em>%</em></div>
+          <p class="k">no mesmo par de meses: de <b>2.330</b> para <b>2.324</b>. Praticamente o mesmo número.</p>
         </div>
       </div>
     </div>
 
-    <div class="fecho rv" style="--d:1440ms">
+    <div class="fecho rv" style="--d:1900ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span>O que cresceu foi o <b>volume de monitoramento automático</b>. A operação não piorou, e a série que entra no KPI é imune ao salto.</span>
+      <span>O que cresceu foi o <b>volume de monitoramento automático</b>. A operação não piorou, e a série que entra no KPI atravessou o salto sem se mexer.</span>
     </div>
   </div>
   <div class="ft"></div>

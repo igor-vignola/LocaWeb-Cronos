@@ -54,17 +54,28 @@
 .sin.is-active .trilho i{animation:corre .9s var(--out) var(--d,0ms) forwards}
 
 /* o multiplicador, que é o número que o apresentador fala */
-.sin .mult{display:flex;align-items:baseline;gap:16px;margin-top:52px}
+.sin .mult{display:flex;align-items:baseline;gap:16px;margin-top:44px}
 .sin .mult .v{font-size:86px;font-weight:900;letter-spacing:-3.8px;line-height:.86;
   color:var(--accent);font-variant-numeric:tabular-nums}
 .sin .mult .v em{font-style:normal;font-size:.5em;letter-spacing:-1px;margin-left:2px}
 .sin .mult .k{font-size:17px;line-height:1.36;color:var(--tx);max-width:20ch}
 .sin .mult .k b{color:var(--head);font-weight:700}
 
+/* o que aconteceu em cada prioridade, para não parecer que só medimos uma */
+.sin .pri{display:flex;align-items:center;gap:10px;margin-top:20px;padding-top:16px;
+  border-top:1px solid #E4EAF3;font-size:14.5px;line-height:1.4;color:var(--tx2)}
+.sin .pri b{color:var(--head);font-weight:700;font-variant-numeric:tabular-nums}
+.sin .pri .ic{width:16px;height:16px;flex-shrink:0;color:#9AA6B6}
+/* o chip de prioridade ao lado do rótulo, quando a barra é de uma só */
+.sin .chip{display:inline-block;margin-left:9px;padding:2px 8px;border-radius:5px;
+  background:#E6EBF3;color:var(--tx2);font-size:12px;font-weight:700;letter-spacing:.4px;
+  vertical-align:2px}
+
 .sin .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
   border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
 .sin .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .sin .fecho b{color:var(--head);font-weight:700}
+
 </style>
 
 <section class="slide light sin" data-slide="7" data-var="a" data-quem="ana">
@@ -98,20 +109,24 @@
           <span class="v"><span class="ct" data-to="2.7" data-dec="1" data-delay="1560">0,0</span><em>&times;</em></span>
           <span class="k">mais risco quando <b>quem abre é uma pessoa</b></span>
         </div>
+        <p class="pri rv" style="--d:1800ms">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+          <span>Vale nas duas prioridades: <b>3,0&times;</b> na 2 e <b>3,1&times;</b> na 3.</span>
+        </p>
       </div>
 
       <div class="bl">
         <div class="cab rv" style="--d:700ms">
           <svg class="ic" viewBox="0 0 24 24"><rect x="3.4" y="5" width="17.2" height="15.6" rx="2.6"/><path d="M3.4 9.8h17.2M8 2.8v4M16 2.8v4"/></svg>
-          Quando ele chega &middot; prioridade 3
+          Quando ele chega
         </div>
 
         <div class="lin">
-          <div class="rt rv" style="--d:840ms"><b>Fim de semana<small>24 por dia</small></b><i>1,88%</i></div>
+          <div class="rt rv" style="--d:840ms"><b>Fim de semana<span class="chip">P3</span><small>24 por dia</small></b><i>1,88%</i></div>
           <div class="trilho"><i style="width:94%;--d:900ms"></i></div>
         </div>
         <div class="lin baixa">
-          <div class="rt rv" style="--d:1040ms"><b>Dia útil<small>67 por dia</small></b><i>0,85%</i></div>
+          <div class="rt rv" style="--d:1040ms"><b>Dia útil<span class="chip">P3</span><small>67 por dia</small></b><i>0,85%</i></div>
           <div class="trilho"><i style="width:43%;--d:1100ms"></i></div>
         </div>
 
@@ -119,12 +134,16 @@
           <span class="v"><span class="ct" data-to="2.2" data-dec="1" data-delay="1720">0,0</span><em>&times;</em></span>
           <span class="k">mais risco no fim de semana, com <b>um terço do volume</b></span>
         </div>
+        <p class="pri rv" style="--d:1940ms">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M4 9.6h16M4 14.4h16"/></svg>
+          <span>Na prioridade 2 não há diferença: <b>0,75%</b> contra <b>0,83%</b>.</span>
+        </p>
       </div>
     </div>
 
     <div class="fecho rv" style="--d:2000ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span>O efeito de quem abre vale nas duas prioridades. O do fim de semana é <b>só da prioridade 3</b>. Os dois viram variáveis do modelo de risco.</span>
+      <span>Medimos as duas prioridades em cada corte. Quem abre e quando chega <b>viram variáveis do modelo de risco</b>, junto com o produto, o ativo e a categoria.</span>
     </div>
   </div>
   <div class="ft"></div>
