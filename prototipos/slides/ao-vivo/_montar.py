@@ -136,9 +136,8 @@ def main() -> int:
     numeros = sorted({n for n, _, _ in secoes})
     for n in numeros:
         vars_do_slide = sorted(v for m, v, _ in secoes if m == n)
-        # slide comum tem 2 formas; as vagas de análise têm 4 análises candidatas
-        if len(vars_do_slide) < 2:
-            print(f"  AVISO  slide {n} tem só {len(vars_do_slide)} variação, o mínimo é 2")
+        # slide já aprovado fica com uma forma só: as descartadas saem do arquivo.
+        # Slide ainda em escolha tem duas, para o dono do projeto alternar e decidir.
         if len(set(vars_do_slide)) != len(vars_do_slide):
             print(f"  AVISO  slide {n} tem data-var repetido: {vars_do_slide}")
 
