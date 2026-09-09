@@ -240,8 +240,17 @@ RODAPE = """
     });
     var n=ordem[i], qtd=mapa[n].length;
     var letra=alvo.getAttribute("data-var").toUpperCase();
-    pos.textContent="slide "+n+" de "+ordem[ordem.length-1]
-      +"   ·   variação "+letra+(qtd>1?" de "+qtd:"");
+    /* o indicador diz, sem apertar seta, se aquele slide tem outra composição:
+       pílula azul com as bolinhas quando tem, cinza apagado quando é único. */
+    var h="slide "+n+" de "+ordem[ordem.length-1];
+    if(qtd>1){
+      h+=' <b class="vr">variação '+letra+' de '+qtd+'</b><span class="vp">';
+      for(var k=0;k<qtd;k++) h+="<i"+(k===escolha[n]?' class="on"':"")+"></i>";
+      h+="</span>";
+    } else {
+      h+=' <span class="vu">variação única</span>';
+    }
+    pos.innerHTML=h;
   }
   function replay(){
     var a=atual();

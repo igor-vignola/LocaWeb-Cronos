@@ -1,0 +1,133 @@
+<style>
+/* ═══ slide 6 · por que o estouro é difícil de antecipar ══════════════════════
+   Vem do deck da Sprint 3, onde o dono do projeto marcou este como um dos que
+   valem a pena ter. Fecha o bloco do problema: os dois slides anteriores dizem
+   o que a Locaweb mede e quanto quebrou; este diz por que a operação não
+   consegue ver o estouro chegando com o método que usa hoje.
+
+   Um assunto só: a ordem de atendimento não é a ordem do risco. A raridade da
+   quebra é assunto do slide 14, e as duas ideias não se misturam aqui.
+
+   Números conferidos em data/interim/incidentes_kpi.parquet, base elegível ao
+   indicador, 2023 a 2025:
+     P2 · Alta    5.159 incidentes,  42 quebras, 0,81%
+     P3 · Média  20.441 incidentes, 206 quebras, 1,01%
+   Soma 25.600 e 248, que é a mesma base do slide 4 e da divisória seguinte.
+
+   A cruzada é o objeto do slide: os traços saem de uma coluna e chegam
+   trocados na outra, e o vermelho é o que sobe de segundo para primeiro.
+   ══════════════════════════════════════════════════════════════════════════ */
+.anx .body{padding-top:14px}
+.anx .tt{font-size:52px;letter-spacing:-1.9px}
+.anx .sub{font-size:21px;line-height:1.4;color:var(--head);font-weight:600;margin-top:14px;
+  letter-spacing:-.3px}
+.anx .sub b{color:var(--bad);font-weight:800}
+.anx .cena{flex:1;display:grid;grid-template-columns:1fr 210px 1fr;align-items:center;
+  margin-top:6px;min-height:0}
+
+.anx .cb{display:flex;align-items:center;gap:10px;font-size:11.5px;font-weight:700;
+  letter-spacing:2.1px;text-transform:uppercase;color:var(--tx2);margin-bottom:16px}
+.anx .cb .ic{width:16px;height:16px}
+.anx .col.b .cb{color:var(--bad)}
+
+.anx .cx{display:flex;align-items:center;gap:20px;background:#fff;border:1px solid var(--line);
+  border-radius:16px;padding:29px 28px;box-shadow:0 16px 40px -32px rgba(15,23,42,.42)}
+.anx .cx + .cx{margin-top:22px}
+.anx .cx .ord{font-family:var(--mono);font-size:13px;font-weight:500;color:#B9C4D4;
+  width:20px;flex-shrink:0}
+.anx .cx .nm{flex:1;min-width:0}
+.anx .cx .nm b{display:block;font-size:25px;font-weight:800;letter-spacing:-.6px;color:var(--head)}
+.anx .cx .nm span{display:block;font-size:14px;color:var(--tx2);margin-top:4px}
+.anx .cx .vl{text-align:right;flex-shrink:0}
+.anx .cx .vl strong{display:block;font-size:31px;font-weight:900;letter-spacing:-1.2px;
+  color:var(--head);font-variant-numeric:tabular-nums;line-height:1}
+.anx .cx .vl small{display:block;font-size:12.5px;color:var(--tx2);margin-top:6px}
+/* o primeiro da coluna da direita é o que muda a leitura do slide */
+.anx .cx.viro{border-color:#F5C2C2;background:#FFF9F9}
+.anx .cx.viro .nm b, .anx .cx.viro .vl strong{color:var(--bad)}
+
+/* a cruzada */
+.anx .cruz{align-self:stretch;position:relative}
+.anx .cruz svg{position:absolute;inset:0;width:100%;height:100%}
+.anx .cruz .t{fill:none;stroke-linecap:round;stroke-dasharray:var(--len);
+  stroke-dashoffset:var(--len)}
+.anx.is-active .cruz .t{animation:tracar .95s var(--out) var(--d,0ms) forwards}
+.anx .cruz .pt{opacity:0}
+.anx.is-active .cruz .pt{animation:rv .4s var(--out) var(--d,0ms) forwards}
+
+.anx .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.anx .fecho .ic{width:20px;height:20px;color:var(--bad);margin-top:2px;flex-shrink:0}
+.anx .fecho b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light anx" data-slide="6" data-var="a" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Base elegível ao KPI &middot; 2023 a 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Por que é difícil ver chegando</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>A fila não atende na ordem em que o prazo estoura</span></span></h1>
+    <p class="sub rv" style="--d:660ms">Quem atende começa pela prioridade mais alta. <b>Quem estoura o prazo é a outra.</b></p>
+
+    <div class="cena">
+      <div class="col a">
+        <div class="cb rv" style="--d:820ms">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M4 6.6h16M4 12h16M4 17.4h9.6"/></svg>
+          A fila atende nesta ordem
+        </div>
+        <div class="cx rv" style="--d:900ms">
+          <span class="ord">1º</span>
+          <div class="nm"><b>Alta</b><span>prioridade 2</span></div>
+          <div class="vl"><strong><span class="ct" data-to="5159" data-delay="1020">0</span></strong><small>incidentes</small></div>
+        </div>
+        <div class="cx rv" style="--d:1040ms">
+          <span class="ord">2º</span>
+          <div class="nm"><b>Média</b><span>prioridade 3</span></div>
+          <div class="vl"><strong><span class="ct" data-to="20441" data-delay="1160">0</span></strong><small>incidentes</small></div>
+        </div>
+      </div>
+
+      <div class="cruz">
+        <svg viewBox="0 0 210 260" preserveAspectRatio="none">
+          <path class="t" style="--len:280;--d:1700ms" stroke="#C9D3E1" stroke-width="1.6"
+            stroke-dasharray="280" d="M6 92 C 80 92, 130 168, 204 168"/>
+          <path class="t" style="--len:280;--d:1560ms" stroke="#DC2626" stroke-width="2.4"
+            d="M6 168 C 80 168, 130 92, 204 92"/>
+        </svg>
+        <svg viewBox="0 0 210 260" preserveAspectRatio="none">
+          <g class="pt" style="--d:2380ms">
+            <path d="M196 86 L205 92 L196 98" fill="none" stroke="#DC2626" stroke-width="2.4"
+              stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="col b">
+        <div class="cb rv" style="--d:1180ms">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M12 3.4 2.4 20.2h19.2L12 3.4Z"/><path d="M12 9.6v4.4"/><path d="M12 17.2h.01"/></svg>
+          O prazo estoura nesta
+        </div>
+        <div class="cx viro rv" style="--d:1260ms">
+          <span class="ord">1º</span>
+          <div class="nm"><b>Média</b><span>206 quebras em 20.441</span></div>
+          <div class="vl"><strong><span class="ct" data-to="1.01" data-dec="2" data-delay="1380">0,00</span>%</strong><small>taxa de quebra</small></div>
+        </div>
+        <div class="cx rv" style="--d:1400ms">
+          <span class="ord">2º</span>
+          <div class="nm"><b>Alta</b><span>42 quebras em 5.159</span></div>
+          <div class="vl"><strong><span class="ct" data-to="0.81" data-dec="2" data-delay="1520">0,00</span>%</strong><small>taxa de quebra</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:2500ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+      <span>Prioridade diz <b>quanto o cliente sente</b>, não quanto o prazo aperta. Ordenar por ela deixa em segundo lugar o grupo que responde por <b>206 das 248 quebras</b>.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

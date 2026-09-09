@@ -1,0 +1,157 @@
+<style>
+/* ═══ slide 18 · como o Cronos antecipa o resultado do ano ════════════════════
+   O slide que o dono do projeto marcou como obrigatório, vindo do deck da
+   Sprint 4. É o único lugar do deck onde as quatro saídas aparecem juntas, com
+   o que entra de um lado e para onde vai do outro. Abre o bloco do produto:
+   depois dele, cada tela da demonstração já tem nome.
+
+   Correção em relação ao slide da Sprint 4: lá o cartão dizia "quatro modelos".
+   São dois modelos (Prophet e regressão logística) e dois cálculos derivados
+   (a projeção por três parcelas e o índice de saúde). A banca cruzaria isso com
+   a divisória de modelagem, que diz dois. O cartão agora se chama "o que o
+   Cronos calcula" e cada linha traz a sua etiqueta.
+
+   Números, todos conferidos:
+   · 4,2 e 11,8  erro médio por dia de D+1 a D+7, backtest deslizante, P2 e P3
+   · 76%         38 das 50 quebras do período estão nos 20% de maior risco da
+                 fila (5.183 incidentes, 1.037 posições), medido em
+                 data/interim/04_fila_pontuada.parquet
+   · 2 meses     a chamada das duas prioridades feita em 1º/10, apurada em 31/12
+   · 15 · 94%    os 15 produtos acompanhados somam 18.742 dos 19.973 elegíveis
+                 da janela, em data/app/painel.json
+   ══════════════════════════════════════════════════════════════════════════ */
+.ant .body{padding-top:14px}
+.ant .tt{font-size:50px;letter-spacing:-1.8px}
+.ant .sub{font-size:18px;line-height:1.45;color:var(--tx);margin-top:12px;max-width:88ch}
+.ant .sub b{color:var(--head);font-weight:700}
+.ant .cena{flex:1;display:flex;align-items:center;gap:22px;margin-top:16px;min-height:0}
+
+/* colunas de entrada e saída: cartões leves, sem o peso do cartão central */
+.ant .col{width:236px;flex-shrink:0;display:flex;flex-direction:column;gap:14px}
+.ant .col .cb{font-size:11.5px;font-weight:700;letter-spacing:2.1px;text-transform:uppercase;
+  color:var(--tx2)}
+.ant .cx{background:#fff;border:1px solid var(--line);border-radius:15px;padding:17px 18px;
+  box-shadow:0 12px 30px -26px rgba(15,23,42,.4)}
+.ant .cx .ic{width:30px;height:30px;border-radius:9px;background:var(--accent-l);
+  color:var(--accent);display:flex;align-items:center;justify-content:center}
+.ant .cx .ic svg{width:16px;height:16px}
+.ant .cx b{display:block;font-size:16.5px;font-weight:700;color:var(--head);margin-top:11px;
+  letter-spacing:-.2px}
+.ant .cx span{display:block;font-size:13.5px;line-height:1.42;color:var(--tx2);margin-top:5px}
+
+/* a seta entre as colunas anda quando o slide entra */
+.ant .seta{width:26px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  color:#B9C4D4}
+.ant .seta svg{width:22px;height:22px;opacity:0;transform:translate3d(-8px,0,0)}
+.ant.is-active .seta svg{animation:rv .5s var(--out) var(--d,0ms) forwards}
+
+/* o cartão central, onde mora o cálculo */
+.ant .nucleo{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:20px;
+  padding:24px 28px;box-shadow:0 26px 60px -40px rgba(15,23,42,.45)}
+.ant .nucleo .nh{font-size:11.5px;font-weight:700;letter-spacing:2.1px;text-transform:uppercase;
+  color:var(--accent)}
+.ant .lin{display:grid;grid-template-columns:38px 1fr 150px 1fr;align-items:center;gap:0 18px;
+  padding:17px 0}
+.ant .lin + .lin{border-top:1px solid #EDF1F7}
+.ant .lin:first-of-type{margin-top:6px}
+.ant .lin .mi{width:34px;height:34px;border-radius:10px;background:#F1F5FB;color:var(--accent);
+  display:flex;align-items:center;justify-content:center}
+.ant .lin .mi svg{width:17px;height:17px}
+.ant .lin .nome{font-size:17.5px;font-weight:700;color:var(--head);letter-spacing:-.25px}
+.ant .lin .et{display:inline-block;margin-top:6px;font-family:var(--mono);font-size:11.5px;
+  color:var(--tx2);background:#F4F7FC;border:1px solid var(--line);border-radius:6px;
+  padding:2px 8px;letter-spacing:.1px}
+.ant .lin .v{font-size:32px;font-weight:900;letter-spacing:-1.3px;color:var(--accent);
+  text-align:right;font-variant-numeric:tabular-nums;line-height:1;white-space:nowrap}
+.ant .lin .v em{font-style:normal;font-size:.52em;letter-spacing:-.4px;margin-left:3px}
+.ant .lin .d{font-size:14px;line-height:1.42;color:var(--tx2);padding-left:18px;
+  border-left:1px solid #EDF1F7}
+.ant .lin .d b{color:var(--head);font-weight:700}
+
+.ant .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.ant .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.ant .fecho b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light ant" data-slide="18" data-var="a" data-quem="hygor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">A solução, de ponta a ponta</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">O que entregamos</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Como o Cronos antecipa o resultado do ano</span></span></h1>
+    <p class="sub rv" style="--d:620ms">Dois modelos e dois cálculos leem o histórico e a fila aberta, e devolvem a quem opera a situação da meta <b>antes da apuração</b>.</p>
+
+    <div class="cena">
+      <div class="col">
+        <div class="cb rv" style="--d:800ms">Entrada</div>
+        <div class="cx rv3" style="--d:880ms">
+          <div class="ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7.6" ry="3"/><path d="M4.4 6v12c0 1.7 3.4 3 7.6 3s7.6-1.3 7.6-3V6"/><path d="M4.4 12c0 1.7 3.4 3 7.6 3s7.6-1.3 7.6-3"/></svg></div>
+          <b>Histórico</b><span>25.600 incidentes elegíveis ao indicador</span>
+        </div>
+        <div class="cx rv3" style="--d:1000ms">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 6.6h16M4 12h16M4 17.4h9.6"/></svg></div>
+          <b>Fila aberta</b><span>os casos sem desfecho neste momento</span>
+        </div>
+      </div>
+
+      <div class="seta" style="--d:1140ms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 12h15M13.4 6.6 19.6 12l-6.2 5.4"/></svg></div>
+
+      <div class="nucleo rv3" style="--d:1180ms">
+        <div class="nh">O que o Cronos calcula</div>
+
+        <div class="lin rv" style="--d:1360ms">
+          <div class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3.6 17.4 9 11.4l3.6 3 6.8-8.4"/><path d="M15.4 6h4.6v4.6"/></svg></div>
+          <div><div class="nome">Previsão de volume</div><span class="et">Prophet</span></div>
+          <div class="v"><span class="ct" data-to="4.2" data-dec="1" data-delay="1480">0,0</span> &middot; <span class="ct" data-to="11.8" data-dec="1" data-delay="1520">0,0</span></div>
+          <p class="d">erro médio por dia de <b>D+1 a D+7</b>, na prioridade 2 e na 3</p>
+        </div>
+
+        <div class="lin rv" style="--d:1500ms">
+          <div class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.6"/><circle cx="12" cy="12" r="4.4"/><circle cx="12" cy="12" r=".9" fill="currentColor" stroke="none"/></svg></div>
+          <div><div class="nome">Risco por incidente</div><span class="et">Regressão logística</span></div>
+          <div class="v"><span class="ct" data-to="76" data-delay="1620">0</span><em>%</em></div>
+          <p class="d">das quebras caem nos <b>20% de maior risco</b> da fila: 38 de 50</p>
+        </div>
+
+        <div class="lin rv" style="--d:1640ms">
+          <div class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V9.6M10 20V4.4M16 20v-7.4M4 20h16"/></svg></div>
+          <div><div class="nome">Projeção da meta</div><span class="et">Soma de três parcelas</span></div>
+          <div class="v"><span class="ct" data-to="2" data-delay="1760">0</span><em> meses</em></div>
+          <p class="d">de antecedência na chamada, <b>certa nas duas prioridades</b></p>
+        </div>
+
+        <div class="lin rv" style="--d:1780ms">
+          <div class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12.4h4.2l2.2-5.6 3.4 11 2.4-6.2 1.8 2.4H21"/></svg></div>
+          <div><div class="nome">Saúde por produto</div><span class="et">Nota de 0 a 100</span></div>
+          <div class="v"><span class="ct" data-to="15" data-delay="1900">0</span></div>
+          <p class="d">produtos acompanhados, <b>94% do volume</b> elegível</p>
+        </div>
+      </div>
+
+      <div class="seta" style="--d:1940ms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 12h15M13.4 6.6 19.6 12l-6.2 5.4"/></svg></div>
+
+      <div class="col">
+        <div class="cb rv" style="--d:1960ms">Saída</div>
+        <div class="cx rv3" style="--d:2020ms">
+          <div class="ic"><svg viewBox="0 0 24 24"><rect x="3.4" y="4.6" width="17.2" height="14.8" rx="2.4"/><path d="M3.4 9.4h17.2M9.6 9.4v10"/></svg></div>
+          <b>Painel operacional</b><span>fila de risco, saúde por produto e projeção da meta</span>
+        </div>
+        <div class="cx rv3" style="--d:2140ms">
+          <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.6M12 18.8v2.6M2.6 12h2.6M18.8 12h2.6M5.3 5.3l1.9 1.9M16.8 16.8l1.9 1.9M18.7 5.3l-1.9 1.9M7.2 16.8l-1.9 1.9"/></svg></div>
+          <b>Resumo das 07h</b><span>abre sozinho no início do dia, sem ninguém pedir</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:2320ms">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+      <span>Os quatro rodam sobre a mesma base elegível ao indicador, e <b>cada um responde a uma pergunta diferente do dia</b>.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

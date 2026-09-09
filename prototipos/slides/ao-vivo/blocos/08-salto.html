@@ -1,5 +1,5 @@
 <style>
-/* ═══ slide 7 · o salto de setembro ══════════════════════════════════════════
+/* ═══ slide 8 · o salto de setembro ══════════════════════════════════════════
    Este slide explica O QUE aconteceu com o dado em setembro de 2025. A decisão
    de treinar só em 2025 é assunto do slide 4: misturar as duas coisas aqui foi
    o que deixou a primeira versão confusa.
@@ -75,14 +75,17 @@
 .sl-b .mt.sobe .v{color:var(--bad)}
 .sl-b .mt.igual .v{color:var(--accent)}
 .sl-b .mt .v em{font-style:normal;font-size:.44em;letter-spacing:-1.6px}
-/* o sinal ganha respiro: colado no número ele lia como um traço solto */
-.sl-b .mt .v em.sg{margin-right:.12em;letter-spacing:0}
+/* o sinal ganha respiro e sobe até a meia-altura do dígito: herdando o .44em de
+   `.v em` ele assentava na linha de base, ao lado de um número de 96px, e lia
+   como vírgula. `top` em em é relativo ao próprio corpo do sinal. */
+.sl-b .mt .v em.sg{font-size:.5em;letter-spacing:0;margin-right:.14em;
+  position:relative;top:-.4em}
 .sl-b .mt .k{font-size:16.5px;line-height:1.4;color:var(--tx);margin-top:12px;max-width:30ch}
 .sl-b .mt .k b{color:var(--head);font-weight:700;font-variant-numeric:tabular-nums}
 </style>
 
 
-<section class="slide light slt sl-b" data-slide="7" data-var="a" data-quem="ana">
+<section class="slide light slt sl-b" data-slide="8" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>

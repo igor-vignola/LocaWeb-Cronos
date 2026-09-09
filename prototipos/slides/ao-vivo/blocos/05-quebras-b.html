@@ -1,0 +1,142 @@
+<style>
+/* ═══ slide 5 · variação B ════════════════════════════════════════════════════
+   A forma do slide de KPI do deck da Sprint 3, que é o deck acabado: a frase à
+   esquerda e os dois números à direita, cada um com o limite do ano e o selo
+   de situação.
+
+   O diferencial pedido, a cereja: sob cada número, a curva do acumulado mês a
+   mês com o limite tracejado. Ela mostra em que mês o ano virou, que é
+   exatamente o que a operação não conseguia ver antes da apuração. O slide
+   deixa de dizer "42 de 39" e passa a dizer "42 de 39, e passou em novembro".
+
+   Acumulado de 2025, medido em data/interim/incidentes_kpi.parquet:
+     P2   4  8 11 13 19 22 28 31 33 35 41 42     cruza as 39 em novembro
+     P3  19 40 56 66 81 109 132 146 155 164 179 196     nunca chega a 263
+   Escala do desenho: P2 de 0 a 45 e P3 de 0 a 280, viewBox de 96 esticado
+   para 124px, entao o marcador e elipse e nao circulo.
+   Os limites são os da faixa de 100% do dicionário da Locaweb, 39 e 263.
+   ══════════════════════════════════════════════════════════════════════════ */
+.qbb .body{padding-top:14px}
+.qbb .tt{font-size:50px;letter-spacing:-1.8px}
+.qbb .cena{flex:1;display:grid;grid-template-columns:392px 1fr;align-items:center;
+  gap:0 56px;margin-top:14px;min-height:0}
+.qbb .frase{font-size:31px;font-weight:800;line-height:1.22;letter-spacing:-1px;
+  color:var(--head)}
+.qbb .expl{font-size:16.5px;line-height:1.55;color:var(--tx);margin-top:20px}
+.qbb .expl b{color:var(--head);font-weight:700}
+
+.qbb .par{display:grid;grid-template-columns:1fr 1px 1fr;gap:0 44px;align-items:stretch}
+.qbb .fio{background:linear-gradient(180deg,transparent,#DCE4EF 22%,#DCE4EF 78%,transparent)}
+.qbb .pr{text-align:center;display:flex;flex-direction:column;align-items:center}
+.qbb .pr .cb{font-size:11.5px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
+  color:var(--tx2)}
+.qbb .pr .n{font-size:104px;font-weight:900;letter-spacing:-4.8px;line-height:.88;
+  margin-top:14px;font-variant-numeric:tabular-nums}
+.qbb .pr.fora .n{color:var(--bad)}
+.qbb .pr.dentro .n{color:var(--good)}
+.qbb .pr .lim{font-size:16px;color:var(--tx);margin-top:14px}
+.qbb .pr .lim b{color:var(--head);font-weight:700}
+
+/* a curva do ano: o traço se desenha e o ponto da virada acende depois */
+.qbb .graf{width:100%;margin-top:26px;position:relative}
+.qbb .graf svg{width:100%;height:124px;display:block;overflow:visible}
+.qbb .graf svg.sobre{position:absolute;left:0;top:0}
+.qbb .cur{fill:none;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round;
+  stroke-dasharray:var(--len);stroke-dashoffset:var(--len)}
+.qbb.is-active .cur{animation:tracar 1.3s var(--out) var(--d,0ms) forwards}
+.qbb .marca{opacity:0}
+.qbb.is-active .marca{animation:rv .5s var(--out) var(--d,0ms) forwards}
+.qbb .eixo{display:flex;justify-content:space-between;width:100%;font-family:var(--mono);
+  font-size:12px;letter-spacing:.6px;color:#AEB9C7;margin-top:10px}
+/* a anotação sai da linha do eixo: com jan e dez na mesma linha ela encostava
+   nos dois e as três palavras liam como uma só */
+.qbb .nota{font-size:14.5px;color:var(--tx2);margin-top:12px}
+.qbb .nota b{font-weight:700}
+.qbb .pr.fora .nota b{color:var(--bad)}
+.qbb .pr.dentro .nota b{color:var(--good)}
+
+.qbb .pr .sel{display:inline-flex;align-items:center;gap:8px;margin-top:24px;font-size:14px;
+  font-weight:700;border-radius:999px;padding:8px 17px}
+.qbb .pr.fora .sel{color:#B42222;background:#FCECEC;border:1px solid #F6CFCF}
+.qbb .pr.dentro .sel{color:#12794A;background:#E7F6EE;border:1px solid #C7E9D7}
+
+.qbb .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.qbb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.qbb .fecho b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light qbb" data-slide="5" data-var="b" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">O indicador de 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">O problema</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quantidade de quebras em 2025</span></span></h1>
+
+    <div class="cena">
+      <div>
+        <p class="frase rv" style="--d:680ms">O resultado do ano só aparece na apuração de dezembro.</p>
+        <p class="expl rv" style="--d:820ms">Sob cada número está o acumulado mês a mês, e a linha tracejada é o limite. Em <b>outubro</b> a prioridade 2 estava em 35, dentro. <b>Novembro somou seis</b> e passou. Quando o número saiu, o ano já tinha acabado.</p>
+      </div>
+
+      <div class="par">
+        <div class="pr fora">
+          <div class="cb rv" style="--d:900ms">Prioridade 2 em 2025</div>
+          <div class="n"><span class="ct" data-to="42" data-delay="1040">0</span></div>
+          <p class="lim rv" style="--d:1120ms">violações de <b>39 permitidas</b></p>
+          <div class="graf rv" style="--d:1240ms">
+            <svg viewBox="0 0 250 96" preserveAspectRatio="none" aria-hidden="true">
+              <line x1="0" y1="11.7" x2="250" y2="11.7" stroke="#DC2626" stroke-width="1.4"
+                stroke-dasharray="5 5" opacity=".5" vector-effect="non-scaling-stroke"/>
+              <path class="cur" style="--len:340;--d:1380ms" stroke="#DC2626"
+                vector-effect="non-scaling-stroke"
+                d="M0,80.2 L22.7,72.4 L45.5,66.5 L68.2,62.6 L90.9,50.8 L113.6,45 L136.4,33.2 L159.1,27.4 L181.8,23.5 L204.5,19.6 L227.3,8 L250,6.1"/>
+            </svg>
+            <svg class="sobre" viewBox="0 0 250 96" preserveAspectRatio="none" aria-hidden="true">
+              <g class="marca" style="--d:2560ms">
+                <ellipse cx="227.3" cy="8" rx="4.6" ry="7" fill="#DC2626" opacity=".15"/>
+                <ellipse cx="227.3" cy="8" rx="1.9" ry="2.9" fill="#DC2626"/>
+              </g>
+            </svg>
+          </div>
+          <div class="eixo rv" style="--d:2600ms"><span>jan</span><span>dez</span></div>
+          <p class="nota rv" style="--d:2640ms">passou o limite em <b>novembro</b></p>
+          <span class="sel rv" style="--d:2700ms">Acima do limite do ano</span>
+        </div>
+
+        <div class="fio"></div>
+
+        <div class="pr dentro">
+          <div class="cb rv" style="--d:980ms">Prioridade 3 em 2025</div>
+          <div class="n"><span class="ct" data-to="196" data-delay="1120">0</span></div>
+          <p class="lim rv" style="--d:1200ms">violações de <b>263 permitidas</b></p>
+          <div class="graf rv" style="--d:1320ms">
+            <svg viewBox="0 0 250 96" preserveAspectRatio="none" aria-hidden="true">
+              <line x1="0" y1="5.3" x2="250" y2="5.3" stroke="#15A05B" stroke-width="1.4"
+                stroke-dasharray="5 5" opacity=".5" vector-effect="non-scaling-stroke"/>
+              <path class="cur" style="--len:340;--d:1460ms" stroke="#15A05B"
+                vector-effect="non-scaling-stroke"
+                d="M0,82 L22.7,75.4 L45.5,70.4 L68.2,67.3 L90.9,62.5 L113.6,53.7 L136.4,46.5 L159.1,42.1 L181.8,39.3 L204.5,36.5 L227.3,31.7 L250,26.4"/>
+            </svg>
+            <svg class="sobre" viewBox="0 0 250 96" preserveAspectRatio="none" aria-hidden="true">
+              <g class="marca" style="--d:2560ms"><ellipse cx="247.5" cy="26.4" rx="1.9" ry="2.9" fill="#15A05B"/></g>
+            </svg>
+          </div>
+          <div class="eixo rv" style="--d:2680ms"><span>jan</span><span>dez</span></div>
+          <p class="nota rv" style="--d:2720ms">fechou o ano a <b>67 do limite</b></p>
+          <span class="sel rv" style="--d:2780ms">Dentro do limite do ano</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:2900ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 6.8V12l3.4 2"/></svg>
+      <span>Uma prioridade passou, a outra não. <b>As duas só souberam em dezembro</b>, e é essa espera que o Cronos encurta.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

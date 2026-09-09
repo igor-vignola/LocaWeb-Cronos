@@ -1,61 +1,163 @@
 <style>
 /* ═══ slide 2 · quem apresenta ═══════════════════════════════════════════════
    O slide de identificação, herdado dos decks das quatro sprints, onde ele
-   sempre foi o segundo. Aqui ele ganha uma função a mais: além de dizer quem
-   somos, diz quem fala o quê, e a sala passa a saber que a apresentação tem
-   três donos e três blocos.
+   sempre foi o segundo.
 
-   Cada retrato traz o bloco que aquela pessoa conduz, na ordem em que aparecem
-   no deck. O marcador do rodapé, que segue slide a slide, é o mesmo retrato em
-   miniatura, então a sala reconhece a troca de voz sem ninguém anunciar.
+   Variação A, refeita a pedido do dono do projeto: menos texto, forma de
+   cartão, sem dizer o que cada um conduz e com destaque para ele, que lidera o
+   grupo. Sai também a fileira de três iguais, que é o molde que denuncia
+   material feito por máquina: os três cartões existem, mas o do líder é escuro
+   e sobe, e os outros dois são claros. A hierarquia é real, não decorativa.
 
-   O mentor fica numa faixa própria embaixo, separado da equipe. Ele não
-   apresenta, e misturá-lo com os três seria impreciso.
+   Ordem alfabética por nome, que é exigência da FIAP, então o líder cai
+   naturalmente à direita e o olho termina nele.
 
-   Retratos em brand/equipe/, 512 por 512. Nomes e RMs em ordem alfabética, que
-   é exigência da FIAP.
+   O RM fica em JetBrains Mono. É o único lugar do deck onde um número de
+   registro aparece, e a fonte monoespaçada o separa do nome sem precisar de
+   rótulo.
+
+   Retratos em brand/equipe/, 512 por 512.
    ══════════════════════════════════════════════════════════════════════════ */
 .eqp .body{padding-top:14px}
 .eqp .tt{font-size:52px;letter-spacing:-1.9px}
 .eqp .cena{flex:1;display:flex;flex-direction:column;justify-content:center;
   margin-top:10px;min-height:0}
 
-.eqp .trio{display:flex;gap:0}
-.eqp .pes{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;
-  text-align:center;padding:0 30px}
-.eqp .pes + .pes{border-left:1px solid #DCE4EF}
+/* ── variação A · cartões, o líder em destaque ─────────────────────────────── */
+.eq-a .trio{display:flex;align-items:flex-end;gap:26px}
+.eq-a .ps{flex:1;min-width:0;border-radius:22px;padding:40px 30px 36px;text-align:center;
+  display:flex;flex-direction:column;align-items:center}
+.eq-a .ps .foto{width:172px;height:172px;border-radius:50%;overflow:hidden}
+.eq-a .ps .foto img{width:100%;height:100%;object-fit:cover;display:block}
+.eq-a .ps .nm{font-size:24px;font-weight:800;letter-spacing:-.55px;margin-top:22px;
+  line-height:1.18}
+.eq-a .ps .rm{font-family:var(--mono);font-size:14.5px;letter-spacing:.6px;margin-top:10px}
 
-.eqp .pes .foto{width:158px;height:158px;border-radius:50%;overflow:hidden;
-  border:3px solid #fff;box-shadow:0 20px 44px -26px rgba(15,23,42,.42)}
-.eqp .pes .foto img{width:100%;height:100%;object-fit:cover;display:block}
-.eqp .pes .nm{font-size:23px;font-weight:800;letter-spacing:-.5px;color:var(--head);
-  margin-top:22px;line-height:1.2}
-.eqp .pes .rm{font-family:var(--mono);font-size:14px;color:var(--tx2);margin-top:7px;
-  letter-spacing:.4px}
+/* os dois cartões claros */
+.eq-a .ps.par{background:#fff;border:1px solid var(--line);
+  box-shadow:0 18px 44px -34px rgba(15,23,42,.4)}
+.eq-a .ps.par .foto{border:3px solid #fff;box-shadow:0 14px 32px -20px rgba(15,23,42,.45)}
+.eq-a .ps.par .nm{color:var(--head)}
+.eq-a .ps.par .rm{color:var(--tx2)}
 
-/* o bloco que cada um conduz */
-.eqp .pes .bl{margin-top:20px;padding-top:18px;border-top:1px solid #E4EAF3;width:100%}
-.eqp .pes .bl b{display:block;font-size:12px;font-weight:700;letter-spacing:1.8px;
-  text-transform:uppercase;color:var(--accent)}
-.eqp .pes .bl span{display:block;font-size:15.5px;line-height:1.42;color:var(--tx);
-  margin-top:8px}
+/* o cartão do líder: escuro, mais alto, retrato maior */
+.eq-a .ps.lid{background:var(--ink);border:1px solid var(--ink);margin-bottom:30px;
+  padding:44px 30px 40px;box-shadow:0 34px 70px -38px rgba(10,14,23,.62);position:relative;
+  overflow:hidden}
+.eq-a .ps.lid::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(560px 320px at 50% -30%,rgba(37,99,235,.34),transparent 62%)}
+.eq-a .ps.lid > *{position:relative}
+.eq-a .ps.lid .foto{width:192px;height:192px;border:3px solid rgba(255,255,255,.16);
+  box-shadow:0 20px 44px -22px rgba(0,0,0,.7)}
+.eq-a .ps.lid .nm{color:#fff;font-size:26px}
+.eq-a .ps.lid .rm{color:#8FB4F5}
+.eq-a .ps.lid .selo{display:inline-flex;align-items:center;gap:8px;margin-top:18px;
+  font-size:12px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;color:#BFDBFE;
+  background:rgba(59,130,246,.2);border:1px solid rgba(96,165,250,.36);border-radius:999px;
+  padding:7px 15px}
+.eq-a .ps.lid .selo svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.9}
 
-/* o mentor, numa faixa própria */
-.eqp .mentor{display:flex;align-items:center;gap:18px;margin-top:46px;padding-top:24px;
+/* o mentor, numa faixa própria: ele não apresenta */
+.eq-a .mentor{display:flex;align-items:center;gap:16px;margin-top:42px;padding-top:24px;
   border-top:1px solid #DCE4EF}
-.eqp .mentor .ic{width:22px;height:22px;color:var(--tx2);flex-shrink:0}
-.eqp .mentor .tx b{font-size:12px;font-weight:700;letter-spacing:1.8px;
+.eq-a .mentor .ic{width:22px;height:22px;color:var(--tx2);flex-shrink:0}
+.eq-a .mentor .tx b{font-size:11.5px;font-weight:700;letter-spacing:1.8px;
   text-transform:uppercase;color:var(--tx2)}
-.eqp .mentor .tx span{display:block;font-size:18px;font-weight:700;color:var(--head);
+.eq-a .mentor .tx span{display:block;font-size:18px;font-weight:700;color:var(--head);
   margin-top:5px;letter-spacing:-.2px}
-.eqp .mentor .tx span em{font-style:normal;font-weight:400;font-size:15.5px;
-  color:var(--tx2);margin-left:10px}
-.eqp .mentor .turma{margin-left:auto;text-align:right;font-size:14.5px;color:var(--tx2);
+.eq-a .mentor .tx span em{font-style:normal;font-weight:400;font-size:15.5px;color:var(--tx2);
+  margin-left:10px}
+.eq-a .mentor .turma{margin-left:auto;text-align:right;font-size:14.5px;color:var(--tx2);
   line-height:1.5}
-.eqp .mentor .turma b{display:block;color:var(--head);font-weight:700;font-size:16px}
+.eq-a .mentor .turma b{display:block;color:var(--head);font-weight:700;font-size:16px}
+
+/* ── variação B · a forma anterior, com o bloco que cada um conduz ─────────── */
+.eq-b .trio{display:flex;gap:0}
+.eq-b .pes{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;
+  text-align:center;padding:0 30px}
+.eq-b .pes + .pes{border-left:1px solid #DCE4EF}
+.eq-b .pes .foto{width:158px;height:158px;border-radius:50%;overflow:hidden;
+  border:3px solid #fff;box-shadow:0 20px 44px -26px rgba(15,23,42,.42)}
+.eq-b .pes .foto img{width:100%;height:100%;object-fit:cover;display:block}
+.eq-b .pes .nm{font-size:23px;font-weight:800;letter-spacing:-.5px;color:var(--head);
+  margin-top:22px;line-height:1.2}
+.eq-b .pes .rm{font-family:var(--mono);font-size:14px;color:var(--tx2);margin-top:7px;
+  letter-spacing:.4px}
+.eq-b .pes .bl{margin-top:20px;padding-top:18px;border-top:1px solid #E4EAF3;width:100%}
+.eq-b .pes .bl b{display:block;font-size:12px;font-weight:700;letter-spacing:1.8px;
+  text-transform:uppercase;color:var(--accent)}
+.eq-b .pes .bl span{display:block;font-size:15.5px;line-height:1.42;color:var(--tx);
+  margin-top:8px}
+.eq-b .mentor{display:flex;align-items:center;gap:18px;margin-top:46px;padding-top:24px;
+  border-top:1px solid #DCE4EF}
+.eq-b .mentor .ic{width:22px;height:22px;color:var(--tx2);flex-shrink:0}
+.eq-b .mentor .tx b{font-size:12px;font-weight:700;letter-spacing:1.8px;
+  text-transform:uppercase;color:var(--tx2)}
+.eq-b .mentor .tx span{display:block;font-size:18px;font-weight:700;color:var(--head);
+  margin-top:5px;letter-spacing:-.2px}
+.eq-b .mentor .tx span em{font-style:normal;font-weight:400;font-size:15.5px;
+  color:var(--tx2);margin-left:10px}
+.eq-b .mentor .turma{margin-left:auto;text-align:right;font-size:14.5px;color:var(--tx2);
+  line-height:1.5}
+.eq-b .mentor .turma b{display:block;color:var(--head);font-weight:700;font-size:16px}
 </style>
 
-<section class="slide light eqp" data-slide="2" data-var="a" data-quem="igor">
+<section class="slide light eqp eq-a" data-slide="2" data-var="a" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Turma 2TSCOA</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Quem apresenta</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Super Data Bros</span></span></h1>
+
+    <div class="cena">
+      <div class="trio">
+        <div class="ps par rv3" style="--d:660ms">
+          <div class="foto"><img src="../../../../brand/equipe/ana-beatriz.png" alt="Ana Beatriz Costa de Oliveira"></div>
+          <div class="nm">Ana Beatriz<br>Costa de Oliveira</div>
+          <div class="rm">RM561310</div>
+        </div>
+        <div class="ps par rv3" style="--d:800ms">
+          <div class="foto"><img src="../../../../brand/equipe/hygor.png" alt="Hygor Abrantes"></div>
+          <div class="nm">Hygor<br>Abrantes</div>
+          <div class="rm">RM565063</div>
+        </div>
+        <div class="ps lid rv3" style="--d:940ms">
+          <div class="foto"><img src="../../../../brand/equipe/igor.png" alt="Igor Vignola"></div>
+          <div class="nm">Igor<br>Vignola</div>
+          <div class="rm">RM561428</div>
+          <span class="selo">
+            <svg viewBox="0 0 24 24"><path d="M4 18.4h16M5.2 15.4 3.4 7l5 3.4L12 4.2l3.6 6.2 5-3.4-1.8 8.4H5.2Z" stroke-linejoin="round"/></svg>
+            Líder do grupo
+          </span>
+        </div>
+      </div>
+
+      <div class="mentor rv" style="--d:1240ms">
+        <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.6 20c0-3.6 3.3-6 7.4-6s7.4 2.4 7.4 6"/></svg>
+        <div class="tx">
+          <b>Mentor Locaweb</b>
+          <span>Douglas Gouveia<em>Gerente Executivo de Operações</em></span>
+        </div>
+        <div class="turma">
+          <b>Turma 2TSCOA</b>
+          FIAP &middot; Tecnólogo em Data Science
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>
+
+<!-- ───────────────────────────────────────────────────────────────────────────
+     variação B · a forma anterior, com o bloco que cada um conduz
+     Fica de reserva: se a banca preferir saber de antemão quem fala o quê, esta
+     é a que diz. A troca de voz continua sinalizada pelo marcador do rodapé.
+     ─────────────────────────────────────────────────────────────────────────── -->
+<section class="slide light eqp eq-b" data-slide="2" data-var="b" data-quem="igor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>

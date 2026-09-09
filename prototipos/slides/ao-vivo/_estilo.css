@@ -167,7 +167,16 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .dv .sub b{color:#E8ECF3;font-weight:700}
 
 /* ── indicador de posição no chrome: slide e variação atual ───────────────── */
-#pos{color:rgba(255,255,255,.72);letter-spacing:.4px}
+/* A pílula azul com as bolinhas é o aviso de que aquele slide tem outra
+   composição. Sem ela era preciso apertar a seta para baixo em todos para
+   descobrir onde havia variação. */
+#pos{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.72);letter-spacing:.4px}
+#pos .vr{color:#fff;font-weight:600;background:rgba(96,165,250,.2);
+  border:1px solid rgba(96,165,250,.42);border-radius:999px;padding:2px 10px}
+#pos .vp{display:inline-flex;gap:4px}
+#pos .vp i{width:17px;height:3px;border-radius:999px;background:rgba(255,255,255,.24)}
+#pos .vp i.on{background:var(--accent3)}
+#pos .vu{color:rgba(255,255,255,.3)}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    DIVISÓRIA DE BLOCO
@@ -206,3 +215,74 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .dvs .cd.bad .cv{color:#F87171}
 .dvs .cd .cs{font-size:14px;line-height:1.4;color:#8B96A8;margin-top:9px}
 .dvs .cd .cs b{color:#C4CDDB;font-weight:600}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DIVISÓRIA · PEGADA DA SPRINT 3
+   O deck da Sprint 3 é o que o dono do projeto considera acabado, e a
+   divisória de lá tem uma coisa que a nossa não tem: um painel de prévia à
+   direita, com o dado que a seção vai tratar. O olho encosta no número antes
+   de a fala começar, e a divisória deixa de ser só um respiro.
+
+   Entra como variação B das três divisórias. O desenho é o mesmo de
+   `prototipos/slides/mvp/deck/d01a-r5a.html`, com a animação que aquele deck
+   não tinha: título por máscara linha a linha, painel em perspectiva, cartões
+   em sequência e o chip da pergunta fechando.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.dv3 .body{padding:22px 64px 44px;flex-direction:row;gap:56px;align-items:center}
+.dv3 .lft{flex:1;min-width:0;display:flex;flex-direction:column}
+.dv3 .tt{font-size:76px;font-weight:900;letter-spacing:-3px;line-height:.98;color:#fff;
+  margin-top:18px}
+/* o gradiente vai no span da máscara: no h1 o filho herda color:transparent */
+.dv3 .tt .mask > span.hl{background:linear-gradient(90deg,#60A5FA,#2563EB);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.dv3 .lead{font-size:19.5px;line-height:1.55;color:#98A2B3;max-width:520px;margin-top:22px}
+.dv3 .q{margin-top:30px;display:inline-flex;align-items:center;gap:13px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;padding:15px 20px;max-width:520px}
+.dv3 .q .ci{width:34px;height:34px;border-radius:9px;background:rgba(59,130,246,.18);
+  color:#93C5FD;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.dv3 .q .ci svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7}
+.dv3 .q span{font-size:16px;line-height:1.45;color:#C4CBD8}
+.dv3 .q b{color:#fff;font-weight:700}
+
+.dv3 .pv{width:560px;flex-shrink:0;padding:28px;border-radius:22px;
+  background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.1);box-shadow:0 40px 90px -40px rgba(0,0,0,.7)}
+.dv3 .pvh{font-size:12.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:#7A8494;display:flex;align-items:center;gap:9px}
+.dv3 .pvh .dot{width:7px;height:7px;border-radius:50%;background:#4ADE80;
+  box-shadow:0 0 10px #4ADE80}
+.dv3.is-active .pvh .dot{animation:pulso 2.4s ease-in-out 1.4s infinite}
+@keyframes pulso{0%,100%{box-shadow:0 0 10px #4ADE80}50%{box-shadow:0 0 18px #4ADE80}}
+.dv3 .pvgrid{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dv3 .pc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;padding:18px}
+.dv3 .pc.wide{grid-column:span 2}
+.dv3 .pc .pl{font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;
+  color:#7A8494}
+.dv3 .pc .pn{font-size:32px;font-weight:800;letter-spacing:-1.5px;color:#fff;margin-top:6px;
+  line-height:1;font-variant-numeric:tabular-nums}
+.dv3 .pc .pn .u{font-size:15px;color:#8E97A8;font-weight:600;letter-spacing:0;margin-left:4px}
+.dv3 .pc .ps{font-size:12.5px;line-height:1.4;color:#8E97A8;margin-top:5px}
+.dv3 .pc .ps b{color:#C4CDDB;font-weight:600}
+
+/* sparkline: cada barra sobe da base, uma depois da outra */
+.dv3 .spark{display:flex;align-items:flex-end;gap:5px;height:56px;margin-top:14px}
+.dv3 .spark span{flex:1;border-radius:3px;transform-origin:bottom;transform:scaleY(0);
+  background:linear-gradient(180deg,#3B82F6,rgba(59,130,246,.25))}
+.dv3.is-active .spark span{animation:sobe .5s var(--out) var(--d,0ms) forwards}
+@keyframes sobe{to{transform:scaleY(1)}}
+
+/* o traçado do gráfico da divisória de modelagem desenha-se sozinho */
+.dv3 .linha{stroke-dasharray:var(--len);stroke-dashoffset:var(--len)}
+.dv3.is-active .linha{animation:tracar 1.1s var(--out) var(--d,0ms) forwards}
+@keyframes tracar{to{stroke-dashoffset:0}}
+.dv3 .faixa{opacity:0}
+.dv3.is-active .faixa{animation:rv .6s var(--out) var(--d,0ms) forwards}
+
+/* as abas da divisória da solução acendem em sequência */
+.dv3 .abas{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.dv3 .abas i{font-family:var(--mono);font-style:normal;font-size:13px;color:#93C5FD;
+  background:rgba(59,130,246,.13);border:1px solid rgba(96,165,250,.26);border-radius:8px;
+  padding:6px 12px;opacity:0;transform:translate3d(0,6px,0)}
+.dv3.is-active .abas i{animation:rv .42s var(--out) var(--d,0ms) forwards}
