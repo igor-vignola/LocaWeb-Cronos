@@ -1,0 +1,105 @@
+<style>
+/* ═══ slide 8 · onde a quebra mora ═══════════════════════════════════════════
+   O terceiro achado da análise exploratória, e o mais acionável de todos: a
+   quebra não está espalhada pela infraestrutura, está endereçada. De 4.633
+   ativos distintos em 2025, só 122 quebraram alguma vez, e trinta deles
+   concentram 61% de todas as quebras do ano.
+
+   O objeto são duas barras alinhadas na mesma largura. Em cima, os ativos: a
+   fatia dos trinta é uma lasca de 0,65%. Embaixo, as quebras: a mesma fatia
+   ocupa 61%. A lasca minúscula que vira mais da metade é a mensagem inteira, e
+   ela se lê sem número nenhum.
+
+   O ativo campeão não é nomeado de propósito. Os códigos do dataset são
+   anonimizados, então dizer "IC00840" não informa nada à banca e soa vazio; o
+   dono do projeto pediu para tirar.
+
+   Regra 10 resolvida com número, e desta vez a favor: a concentração vale nas
+   duas prioridades, com 81% na prioridade 2 e 66% na 3.
+
+   Medido em data/interim/incidentes_kpi.parquet, 2025, base elegível ao KPI.
+   ══════════════════════════════════════════════════════════════════════════ */
+.cnc .body{padding-top:14px}
+.cnc .tt{font-size:52px;letter-spacing:-1.9px}
+.cnc .cena{flex:1;display:flex;flex-direction:column;justify-content:center;
+  gap:76px;margin-top:6px;min-height:0}
+
+.cnc .fx{display:flex;flex-direction:column;gap:16px}
+.cnc .cab{display:flex;align-items:baseline;justify-content:space-between;gap:20px}
+.cnc .cab b{font-size:13px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
+  color:var(--tx2)}
+.cnc .cab span{font-size:16px;color:var(--tx2)}
+.cnc .cab span em{font-style:normal;color:var(--head);font-weight:700;
+  font-variant-numeric:tabular-nums}
+
+.cnc .barra{position:relative;display:flex;height:112px;border-radius:11px;overflow:hidden;
+  background:#E4EAF3}
+.cnc .barra i{display:block;height:100%;transform:scaleX(0);transform-origin:left}
+.cnc .barra .trinta{background:var(--accent)}
+.cnc .barra .resto{background:#CFD8E5}
+.cnc.is-active .barra i{animation:corre 1s var(--out) var(--d,0ms) forwards}
+
+/* o rótulo da fatia dos trinta, dentro da barra quando cabe e fora quando não */
+.cnc .marca{position:absolute;top:50%;transform:translateY(-50%);white-space:nowrap;
+  opacity:0;font-variant-numeric:tabular-nums}
+.cnc.is-active .marca{animation:rv .6s var(--out) var(--d,0ms) forwards}
+.cnc .marca b{font-size:38px;font-weight:900;letter-spacing:-1.2px;color:#fff}
+.cnc .marca s{text-decoration:none;font-size:14.5px;color:rgba(255,255,255,.82);
+  margin-left:9px}
+.cnc .marca.fora b{color:var(--accent)}
+.cnc .marca.fora s{color:var(--tx2)}
+
+.cnc .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.cnc .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.cnc .fecho b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light cnc" data-slide="8" data-var="a" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Itens de configuração &middot; 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">O que os dados disseram</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Onde a quebra mora</span></span></h1>
+
+    <div class="cena">
+      <div class="fx">
+        <div class="cab rv" style="--d:640ms">
+          <b>Os ativos da operação</b>
+          <span><em>4.633</em> itens de configuração distintos em 2025</span>
+        </div>
+        <div class="barra">
+          <i class="trinta" style="width:0.65%;--d:760ms"></i>
+          <i class="resto" style="width:99.35%;--d:820ms"></i>
+          <span class="marca fora" style="left:calc(0.65% + 18px);--d:1300ms">
+            <b>30</b><s>ativos, ou 0,65% deles</s>
+          </span>
+        </div>
+      </div>
+
+      <div class="fx">
+        <div class="cab rv" style="--d:1500ms">
+          <b>As quebras de prazo</b>
+          <span><em>238</em> incidentes passaram do prazo em 2025</span>
+        </div>
+        <div class="barra">
+          <i class="trinta" style="width:61.3%;--d:1620ms"></i>
+          <i class="resto" style="width:38.7%;--d:1680ms"></i>
+          <span class="marca" style="left:26px;--d:2100ms">
+            <b>61%</b><s>vieram desses mesmos 30 ativos</s>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:2400ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+      <span>Vale nas duas prioridades: <b>81%</b> na prioridade 2 e <b>66%</b> na 3. Quantas vezes um ativo já quebrou virou a variável mais forte do modelo de risco.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>
