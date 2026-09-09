@@ -296,15 +296,54 @@ o XGBoost aparece no pé do slide 9: ROC 0,87 nos dois, PR-AUC 0,30 contra 0,25,
 calibração de 48 quebras previstas onde houve 50. É a resposta à pergunta que a
 banca simulada colocou em primeiro lugar.
 
-**7.5 Meta ao lado da contagem.** 42 e 196 nunca aparecem sem o limite do ano
-(45 e 200) ao lado. Sem o limite são contagem, não problema.
+**7.5 Meta ao lado da contagem.** 42 e 196 nunca aparecem sem o limite do ano ao
+lado. O limite é o da faixa de 100% do dicionário: **39** na prioridade 2 e
+**263** na 3. Material antigo que diga 45 e 200 está errado; esses são outros
+degraus da escada.
 
-**7.6 Diferenciais na demo.** Resumo da manhã e saúde por produto saíram do
-deck como slides e passaram para a demonstração ao vivo, onde a operação os vê
-funcionando. As respostas sobre eles estão em `PERGUNTAS.md`.
+**7.6 Os dois diferenciais têm slide.** Resumo da manhã e nota de saúde por
+produto são o pacote de produto que o projeto prometeu, e cada um ocupa um
+slide antes da demonstração. A demonstração mostra os dois funcionando.
 
-**7.7 Estrutura final, 13 slides.** 1 capa · 2 quebras de 2025 com o limite ·
-3 raridade do evento · 4 salto de setembro · 5 recorte em 2025 · 6 dia cheio
-quebra mais? · 7 dois modelos · 8 os próximos sete dias · 9 a fila de risco ·
-10 a meta do ano · 11 a stack · 12 o painel operacional, passagem para a demo ·
-13 fecho. Igor: 1–3, 6, 13. Ana: 4–5, 7–10. Hygor: 11–12 e a demo.
+**7.7 Nada do que foi testado e descartado entra no deck.** Cascata, acúmulo e
+clusterização por DTW ficam em `PERGUNTAS.md`. O deck fala do que foi entregue.
+
+**7.8 Divisórias de bloco.** Três, herdadas do deck da Sprint 4, uma por parte
+do núcleo: análise exploratória, modelagem e a solução em produção. Desenho em
+`_estilo.css`, classe `.dvs`. O gradiente do título vai no `span` da máscara, e
+não no `h1`: com `background-clip` no pai o texto do filho herda
+`color:transparent` e o título some.
+
+**7.9 Estrutura final, 22 slides.**
+
+| # | Slide | Quem |
+|---|---|---|
+| 1 | Capa | Igor |
+| 2 | Super Data Bros | Igor |
+| 3 | Por que Cronos | Igor |
+| 4 | O prazo de cada incidente | Igor |
+| 5 | Quantidade de quebras em 2025 | Igor |
+| 6 | Divisória · Análise exploratória | Igor |
+| 7 | O salto de setembro | Ana |
+| 8 | Por que treinamos só em 2025 | Ana |
+| 9 | Quem abre, e quando | Ana |
+| 10 | O mesmo ativo quebra de novo | Ana |
+| 11 | Divisória · Modelagem | Ana |
+| 12 | Os próximos sete dias | Ana |
+| 13 | A fila de risco | Ana |
+| 14 | A meta do ano vai fechar? | Ana |
+| 15 | Divisória · A solução | Hygor |
+| 16 | O resumo da manhã | Hygor |
+| 17 | Onde agir primeiro | Hygor |
+| 18 | Como isso roda | Hygor |
+| 19 | O painel operacional · **demonstração** | Hygor |
+| 20 | O que ficou pronto | Igor |
+| 21 | O que ainda não está resolvido | Igor |
+| 22 | Veja antes. Aja antes. | Igor |
+
+Três trocas de voz: 6→7, 14→15 e 19→20.
+
+**7.10 Denominadores que se cruzam.** Os 25.600 do slide 4 são dos três anos; o
+ano de 2025 sozinho tem 25.156, e é dele que fala o slide 5. O slide 4 diz
+"entram no indicador", não "contam para a meta do ano", justamente para os dois
+números não se contradizerem na mesa.
