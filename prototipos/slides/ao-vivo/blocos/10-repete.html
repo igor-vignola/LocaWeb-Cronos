@@ -1,0 +1,111 @@
+<style>
+/* ═══ slide 10 · o mesmo ativo quebra de novo ═════════════════════════════════
+   O terceiro achado da análise, e o que dá base ao modelo de risco: a quebra
+   volta no mesmo lugar. Das 107 quebras do segundo semestre de 2025, 53 foram
+   em itens de configuração que já tinham quebrado no primeiro semestre. Metade.
+
+   E esses ativos conhecidos são 75, ou 1,6% dos 4.633 do parque. Ou seja: em
+   metade dos casos, o histórico do próprio ativo já dizia onde olhar.
+
+   O objeto é uma célula por quebra do semestre, 107 delas. As 53 de ativo
+   conhecido acendem primeiro, agrupadas, e a linha de corte fica visível sem
+   precisar de número. A animação entrega o fato: a sala vê metade do quadro
+   ficar azul.
+
+   Uma versão anterior mostrava a concentração em trinta ativos com duas barras
+   alinhadas, e o dono do projeto reprovou. Esta troca a estatística de
+   concentração por um fato temporal, que é mais fácil de narrar e é o que
+   justifica a variável do modelo.
+
+   Ressalva no pé, obrigatória: o efeito é da prioridade 3, com 48 de 87. Na
+   prioridade 2 são 2 de 20, e o volume de quebras lá é pequeno demais para
+   afirmar o mesmo.
+
+   Medido em data/interim/incidentes_kpi.parquet, 2025, base elegível ao KPI.
+   ══════════════════════════════════════════════════════════════════════════ */
+.rep .body{padding-top:14px}
+.rep .tt{font-size:52px;letter-spacing:-1.9px}
+.rep .cena{flex:1;display:flex;align-items:center;gap:56px;margin-top:8px;min-height:0}
+
+/* uma célula por quebra do segundo semestre */
+.rep .quadro{flex:1;min-width:0}
+.rep .malha{display:grid;grid-template-columns:repeat(16,1fr);gap:9px}
+.rep .malha i{display:block;aspect-ratio:1;border-radius:5px;background:#DFE6EF;
+  opacity:0;transform:scale(.5)}
+.rep.is-active .malha i{animation:brotaCel .34s var(--spring) var(--d,0ms) forwards}
+@keyframes brotaCel{to{opacity:1;transform:none}}
+.rep .malha i.r{background:#DFE6EF}
+.rep.is-active .malha i.r{animation:brotaCel .34s var(--spring) var(--d,0ms) forwards,
+  acende .34s var(--out) calc(var(--d,0ms) + 1500ms) forwards}
+@keyframes acende{to{background:var(--accent)}}
+
+.rep .leg{display:flex;gap:30px;margin-top:24px;font-size:14.5px;color:var(--tx2)}
+.rep .leg span{display:inline-flex;align-items:center;gap:10px}
+.rep .leg em{display:block;width:14px;height:14px;border-radius:4px;flex-shrink:0}
+.rep .leg .a em{background:var(--accent)}
+.rep .leg .b em{background:#DFE6EF}
+
+/* o número, à direita */
+.rep .lado{width:378px;flex-shrink:0}
+.rep .lado .v{font-size:150px;font-weight:900;letter-spacing:-6.4px;line-height:.84;
+  color:var(--accent);font-variant-numeric:tabular-nums}
+.rep .lado .v em{font-style:normal;font-size:.34em;letter-spacing:-1.6px;color:var(--tx2);
+  margin-left:6px}
+.rep .lado .k{font-size:20px;line-height:1.42;color:var(--tx);margin-top:22px;max-width:23ch}
+.rep .lado .k b{color:var(--head);font-weight:700}
+.rep .lado .pq{display:flex;align-items:flex-start;gap:11px;margin-top:34px;padding-top:22px;
+  border-top:1px solid #DCE4EF;font-size:15px;line-height:1.45;color:var(--tx2)}
+.rep .lado .pq .ic{width:18px;height:18px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.rep .lado .pq b{color:var(--head);font-weight:700}
+
+.rep .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.rep .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.rep .fecho b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light rep" data-slide="10" data-var="a" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Segundo semestre de 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">O que os dados disseram</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>O mesmo ativo quebra de novo</span></span></h1>
+
+    <div class="cena">
+      <div class="quadro">
+        <div class="malha">
+          <i class="r" style="--d:900ms"></i><i class="r" style="--d:916ms"></i><i class="r" style="--d:932ms"></i><i class="r" style="--d:948ms"></i><i class="r" style="--d:964ms"></i><i class="r" style="--d:980ms"></i><i class="r" style="--d:996ms"></i><i class="r" style="--d:1012ms"></i><i class="r" style="--d:1028ms"></i><i class="r" style="--d:1044ms"></i><i class="r" style="--d:1060ms"></i><i class="r" style="--d:1076ms"></i><i class="r" style="--d:1092ms"></i><i class="r" style="--d:1108ms"></i><i class="r" style="--d:1124ms"></i><i class="r" style="--d:1140ms"></i>
+          <i class="r" style="--d:1156ms"></i><i class="r" style="--d:1172ms"></i><i class="r" style="--d:1188ms"></i><i class="r" style="--d:1204ms"></i><i class="r" style="--d:1220ms"></i><i class="r" style="--d:1236ms"></i><i class="r" style="--d:1252ms"></i><i class="r" style="--d:1268ms"></i><i class="r" style="--d:1284ms"></i><i class="r" style="--d:1300ms"></i><i class="r" style="--d:1316ms"></i><i class="r" style="--d:1332ms"></i><i class="r" style="--d:1348ms"></i><i class="r" style="--d:1364ms"></i><i class="r" style="--d:1380ms"></i><i class="r" style="--d:1396ms"></i>
+          <i class="r" style="--d:1412ms"></i><i class="r" style="--d:1428ms"></i><i class="r" style="--d:1444ms"></i><i class="r" style="--d:1460ms"></i><i class="r" style="--d:1476ms"></i><i class="r" style="--d:1492ms"></i><i class="r" style="--d:1508ms"></i><i class="r" style="--d:1524ms"></i><i class="r" style="--d:1540ms"></i><i class="r" style="--d:1556ms"></i><i class="r" style="--d:1572ms"></i><i class="r" style="--d:1588ms"></i><i class="r" style="--d:1604ms"></i><i class="r" style="--d:1620ms"></i><i class="r" style="--d:1636ms"></i><i class="r" style="--d:1652ms"></i>
+          <i class="r" style="--d:1668ms"></i><i class="r" style="--d:1684ms"></i><i class="r" style="--d:1700ms"></i><i class="r" style="--d:1716ms"></i><i class="r" style="--d:1732ms"></i><i class="n" style="--d:1748ms"></i><i class="n" style="--d:1764ms"></i><i class="n" style="--d:1780ms"></i><i class="n" style="--d:1796ms"></i><i class="n" style="--d:1812ms"></i><i class="n" style="--d:1828ms"></i><i class="n" style="--d:1844ms"></i><i class="n" style="--d:1860ms"></i><i class="n" style="--d:1876ms"></i><i class="n" style="--d:1892ms"></i><i class="n" style="--d:1908ms"></i>
+          <i class="n" style="--d:1924ms"></i><i class="n" style="--d:1940ms"></i><i class="n" style="--d:1956ms"></i><i class="n" style="--d:1972ms"></i><i class="n" style="--d:1988ms"></i><i class="n" style="--d:2004ms"></i><i class="n" style="--d:2020ms"></i><i class="n" style="--d:2036ms"></i><i class="n" style="--d:2052ms"></i><i class="n" style="--d:2068ms"></i><i class="n" style="--d:2084ms"></i><i class="n" style="--d:2100ms"></i><i class="n" style="--d:2116ms"></i><i class="n" style="--d:2132ms"></i><i class="n" style="--d:2148ms"></i><i class="n" style="--d:2164ms"></i>
+          <i class="n" style="--d:2180ms"></i><i class="n" style="--d:2196ms"></i><i class="n" style="--d:2212ms"></i><i class="n" style="--d:2228ms"></i><i class="n" style="--d:2244ms"></i><i class="n" style="--d:2260ms"></i><i class="n" style="--d:2276ms"></i><i class="n" style="--d:2292ms"></i><i class="n" style="--d:2308ms"></i><i class="n" style="--d:2324ms"></i><i class="n" style="--d:2340ms"></i><i class="n" style="--d:2356ms"></i><i class="n" style="--d:2372ms"></i><i class="n" style="--d:2388ms"></i><i class="n" style="--d:2404ms"></i><i class="n" style="--d:2420ms"></i>
+          <i class="n" style="--d:2436ms"></i><i class="n" style="--d:2452ms"></i><i class="n" style="--d:2468ms"></i><i class="n" style="--d:2484ms"></i><i class="n" style="--d:2500ms"></i><i class="n" style="--d:2516ms"></i><i class="n" style="--d:2532ms"></i><i class="n" style="--d:2548ms"></i><i class="n" style="--d:2564ms"></i><i class="n" style="--d:2580ms"></i><i class="n" style="--d:2596ms"></i>
+        </div>
+        <div class="leg rv" style="--d:3000ms">
+          <span class="a"><em></em>o ativo já tinha quebrado no primeiro semestre</span>
+          <span class="b"><em></em>primeira quebra daquele ativo no ano</span>
+        </div>
+      </div>
+
+      <div class="lado">
+        <div class="v rv" style="--d:2700ms"><span class="ct" data-to="53" data-delay="2860">0</span> <em>de 107</em></div>
+        <p class="k rv" style="--d:2900ms">quebras do segundo semestre foram em <b>ativo que já tinha quebrado</b></p>
+        <p class="pq rv" style="--d:3100ms">
+          <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+          <span>São <b>75 ativos</b>, de 4.633 no parque. Em metade dos casos, o próprio histórico já dizia onde olhar.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:3300ms">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+      <span>O efeito é da prioridade 3, com <b>48 de 87</b>. Na prioridade 2 são 2 de 20, e o volume é pequeno demais para afirmar o mesmo. É daqui que sai a variável mais forte do modelo de risco.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

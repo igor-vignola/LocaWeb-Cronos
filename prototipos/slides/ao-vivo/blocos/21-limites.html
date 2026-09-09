@@ -1,0 +1,91 @@
+<style>
+/* ═══ slide 21 · o que ainda não está resolvido ══════════════════════════════
+   O bloco 7 do template da Sprint 4 pede limitações e próximos passos, e a
+   banca cobra isso. Dizer os limites antes que alguém pergunte é o que sustenta
+   tudo o que foi afirmado nos vinte slides anteriores.
+
+   Três limites e três encaminhamentos, pareados: cada limite tem o passo que o
+   endereça, na mesma linha. Assim o slide não é uma lista de desculpas, é um
+   plano.
+
+   Os três limites são reais e estão registrados no dossiê de banca: a cobertura
+   da faixa cai na prioridade 3 quando a base muda de patamar; o dataset não tem
+   custo por violação, então o ganho defensável é ordenar a fila e não reduzir
+   volume; e não existe alarme automático de descalibragem, o re-treino apenas
+   reabsorve o desvio com atraso.
+
+   Não entra aqui nada do que foi testado e descartado. O deck fala do que foi
+   entregue, e esse assunto tem lugar no banco de perguntas.
+   ══════════════════════════════════════════════════════════════════════════ */
+.lim .body{padding-top:14px}
+.lim .tt{font-size:52px;letter-spacing:-1.9px}
+.lim .cena{flex:1;display:flex;flex-direction:column;justify-content:center;
+  margin-top:8px;min-height:0}
+
+.lim .cabs{display:grid;grid-template-columns:1fr 1fr;gap:0 60px;padding-bottom:20px}
+.lim .cabs div{display:flex;align-items:center;gap:11px;font-size:12.5px;font-weight:700;
+  letter-spacing:2.2px;text-transform:uppercase}
+.lim .cabs .a{color:var(--bad)}
+.lim .cabs .b{color:var(--good)}
+.lim .cabs .ic{width:18px;height:18px}
+
+.lim .par{display:grid;grid-template-columns:1fr 1fr;gap:0 60px;padding:38px 0;
+  border-top:1px solid #DCE4EF}
+.lim .par:last-child{border-bottom:1px solid #DCE4EF}
+.lim .par p{font-size:18px;line-height:1.52;color:var(--tx)}
+.lim .par p b{color:var(--head);font-weight:700}
+.lim .par .dir{padding-left:34px;border-left:1px solid #E4EAF3}
+.lim .par .dir p{color:var(--tx)}
+
+.lim .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.lim .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.lim .fecho b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light lim" data-slide="21" data-var="a" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Limites e próximos passos</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Para fechar</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>O que ainda não está resolvido</span></span></h1>
+
+    <div class="cena">
+      <div class="cabs rv" style="--d:620ms">
+        <div class="a">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M12 3.4 2.4 20.2h19.2L12 3.4Z"/><path d="M12 9.6v4.4"/><path d="M12 17.2h.01"/></svg>
+          O limite que assumimos
+        </div>
+        <div class="b">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M4 12h14M13 6.6 19.4 12 13 17.4"/></svg>
+          O que vem em seguida
+        </div>
+      </div>
+
+      <div class="par rv" style="--d:760ms">
+        <p>A faixa da previsão acerta entre <b>59% e 61%</b> dos dias na prioridade 3, abaixo dos 80% nominais, quando a base muda de patamar.</p>
+        <div class="dir"><p>Modelar o recesso de fim de ano como evento de calendário e re-treinar por origem a cada semana.</p></div>
+      </div>
+
+      <div class="par rv" style="--d:900ms">
+        <p>O dataset <b>não traz o custo de uma violação</b>, então não dá para afirmar retorno em reais.</p>
+        <div class="dir"><p>Levantar o custo por violação com a Locaweb. O ganho que sustentamos hoje é ordenar a fila, não reduzir volume.</p></div>
+      </div>
+
+      <div class="par rv" style="--d:1040ms">
+        <p>Não existe <b>alarme automático</b> quando o modelo sai de calibragem. O re-treino reabsorve o desvio, com atraso.</p>
+        <div class="dir"><p>Monitorar a cobertura da faixa semana a semana e disparar aviso quando ela cair do nominal.</p></div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:1400ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+      <span>Os três estão medidos e documentados. <b>Nenhum deles impede a operação de usar o que já está no ar.</b></span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

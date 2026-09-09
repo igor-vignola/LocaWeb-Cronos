@@ -1,0 +1,87 @@
+<style>
+/* ═══ slide 20 · o que ficou pronto ══════════════════════════════════════════
+   A síntese que o bloco 7 do template da Sprint 4 exige. Quatro resultados, um
+   por linha, cada um com o número, o que ele mede e contra o que ele foi
+   comparado. Nada aqui é novo: os quatro já apareceram no deck, e este slide
+   existe para a banca levar embora os que importam.
+
+   Sem cartões em fileira de propósito. Quatro cartões iguais lado a lado é o
+   molde que denuncia material feito por máquina, e a informação aqui é uma
+   lista, não uma grade.
+
+   A animação numera: cada linha entra em sequência e o número conta. Em vinte
+   segundos de fala, a sala vê quatro coisas acontecerem.
+
+   Todos os números vêm de CONTRATO.md e dos slides 12, 13 e 14.
+   ══════════════════════════════════════════════════════════════════════════ */
+.res .body{padding-top:14px}
+.res .tt{font-size:52px;letter-spacing:-1.9px}
+.res .cena{flex:1;display:flex;flex-direction:column;justify-content:center;
+  margin-top:8px;min-height:0}
+
+.res .ln{display:grid;grid-template-columns:250px 1fr 330px;align-items:center;
+  gap:0 34px;padding:36px 0;border-top:1px solid #DCE4EF}
+.res .ln:last-child{border-bottom:1px solid #DCE4EF}
+
+.res .ln .v{font-size:62px;font-weight:900;letter-spacing:-2.8px;line-height:.86;
+  color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
+.res .ln .v em{font-style:normal;font-size:.42em;letter-spacing:-1px;color:var(--tx2);
+  margin-left:7px}
+.res .ln .oq{font-size:20px;line-height:1.36;color:var(--head);font-weight:600;
+  letter-spacing:-.3px}
+.res .ln .oq small{display:block;font-size:15px;font-weight:400;color:var(--tx2);
+  margin-top:7px;letter-spacing:0}
+.res .ln .ct2{font-size:15px;line-height:1.45;color:var(--tx2);padding-left:34px;
+  border-left:1px solid #E4EAF3}
+.res .ln .ct2 b{color:var(--head);font-weight:700}
+
+.res .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.res .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.res .fecho b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light res" data-slide="20" data-var="a" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Síntese dos resultados</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Para fechar</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>O que ficou pronto</span></span></h1>
+
+    <div class="cena">
+      <div class="ln rv" style="--d:660ms">
+        <span class="v"><span class="ct" data-to="13" data-delay="820">0</span> <em>de 14</em></span>
+        <div class="oq">Dias dentro da faixa prevista<small>previsão de 1º de outubro para os sete dias seguintes</small></div>
+        <p class="ct2">Na janela de teste inteira a faixa acerta entre <b>86% e 88%</b> dos dias na prioridade 2.</p>
+      </div>
+
+      <div class="ln rv" style="--d:820ms">
+        <span class="v"><span class="ct" data-to="13" data-delay="980">0</span></span>
+        <div class="oq">Quebras nos 50 primeiros da fila<small>de 5.183 incidentes avaliados no período</small></div>
+        <p class="ct2">Ordenando por prioridade, que é o que se faz hoje, <b>nenhuma</b>.</p>
+      </div>
+
+      <div class="ln rv" style="--d:980ms">
+        <span class="v"><span class="ct" data-to="0.87" data-dec="2" data-delay="1140">0,00</span></span>
+        <div class="oq">De área sob a curva no modelo de risco<small>e ele fica calibrado, não só ordena bem</small></div>
+        <p class="ct2">Prevê <b>48 quebras</b> onde houve 50. O gradient boosting empata na ordenação e perde na precisão.</p>
+      </div>
+
+      <div class="ln rv" style="--d:1140ms">
+        <span class="v"><span class="ct" data-to="2" data-delay="1300">0</span> <em>meses</em></span>
+        <div class="oq">De antecedência na chamada da meta<small>as duas prioridades certas em 1º de outubro</small></div>
+        <p class="ct2">A prioridade 2 fechou em <b>42</b>, acima do limite, e a 3 em <b>196</b>, dentro.</p>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:1500ms">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+      <span>Tudo isso roda em <b>um contêiner</b>, sem depender de provedor de nuvem, e o código está no repositório público.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

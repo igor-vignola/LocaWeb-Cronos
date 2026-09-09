@@ -41,7 +41,7 @@ VAO_LIMITE = 70
 # A capa e o slide das quebras respiram de propósito: neles o branco é a
 # composição, não defeito. Dez segundos num slide limpo valem mais que um
 # minuto num amontoado, e esses dois valem dez segundos.
-SEM_AVISO_DE_VAO = (1, 2, 12, 13)  # capa, quebras e a passagem para a demo são esparsos de propósito
+SEM_AVISO_DE_VAO = (1, 2, 3, 6, 11, 15, 19, 22)  # capa, quebras e a passagem para a demo são esparsos de propósito
 
 MEDIDA = r"""() => {
   const a = document.querySelector('.slide.is-active');

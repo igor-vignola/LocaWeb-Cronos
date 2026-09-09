@@ -181,6 +181,44 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 /* ── indicador de posição no chrome: slide e variação atual ───────────────── */
 #pos{color:rgba(255,255,255,.72);letter-spacing:.4px}
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   DIVISÓRIA DE BLOCO
+   Herdada do deck da Sprint 4, onde ela abre cada um dos sete blocos do
+   template oficial. Aqui ela marca as três partes que são o núcleo do
+   trabalho: a análise, os modelos e a solução em produção. Cada uma ganha
+   respiro antes de começar.
+
+   O que mudou em relação à Sprint 4: aqui ela se move. O título entra por
+   máscara, os três cartões sobem em sequência e o chip da pergunta fecha.
+   Como o slide é curto de fala, a animação é o que segura os oito segundos.
+
+   O CSS mora aqui, e não nos blocos, porque três slides usam o mesmo desenho.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.dvs .body{padding:26px 64px 44px;flex-direction:row;gap:60px;align-items:center}
+.dvs .lft{flex:1;min-width:0}
+.dvs .tt{font-size:78px;letter-spacing:-3.2px;line-height:1.02}
+/* o gradiente vai no span da máscara, não no h1: com background-clip no pai o
+   texto do filho herda color:transparent e o título some da tela */
+.dvs .tt .mask > span{background:linear-gradient(96deg,#fff,#C7E1FE);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.dvs .lead{font-size:19px;line-height:1.55;color:#98A2B3;max-width:52ch;margin-top:22px}
+.dvs .chip{display:inline-flex;align-items:center;gap:11px;margin-top:30px;font-size:15.5px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#C4CDDB;
+  padding:13px 22px;border-radius:14px}
+.dvs .chip .ic{width:18px;height:18px;color:var(--accent3);flex-shrink:0}
+.dvs .chip b{color:#fff;font-weight:700}
+
+.dvs .rgt{width:432px;flex-shrink:0;display:flex;flex-direction:column;gap:15px}
+.dvs .cd{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
+  border-radius:16px;padding:20px 24px}
+.dvs .cd .ck{font-size:11.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+  color:#8B96A8}
+.dvs .cd .cv{font-size:38px;font-weight:900;letter-spacing:-1.6px;color:#fff;margin-top:9px;
+  line-height:1;font-variant-numeric:tabular-nums}
+.dvs .cd.bad .cv{color:#F87171}
+.dvs .cd .cs{font-size:14px;line-height:1.4;color:#8B96A8;margin-top:9px}
+.dvs .cd .cs b{color:#C4CDDB;font-weight:600}
+
 
 /* ───── 01-capa.html ───── */
 /* ═══ slide 1 · capa ═══
@@ -254,8 +292,64 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .cap.cb .cn{font-size:17px;line-height:1.45}
 .cap.cb .cn span{display:block}
 
-/* ───── 02-cronos.html ───── */
-/* ═══ slide 2 · por que Cronos ═══════════════════════════════════════════════
+/* ───── 02-equipe.html ───── */
+/* ═══ slide 2 · quem apresenta ═══════════════════════════════════════════════
+   O slide de identificação, herdado dos decks das quatro sprints, onde ele
+   sempre foi o segundo. Aqui ele ganha uma função a mais: além de dizer quem
+   somos, diz quem fala o quê, e a sala passa a saber que a apresentação tem
+   três donos e três blocos.
+
+   Cada retrato traz o bloco que aquela pessoa conduz, na ordem em que aparecem
+   no deck. O marcador do rodapé, que segue slide a slide, é o mesmo retrato em
+   miniatura, então a sala reconhece a troca de voz sem ninguém anunciar.
+
+   O mentor fica numa faixa própria embaixo, separado da equipe. Ele não
+   apresenta, e misturá-lo com os três seria impreciso.
+
+   Retratos em brand/equipe/, 512 por 512. Nomes e RMs em ordem alfabética, que
+   é exigência da FIAP.
+   ══════════════════════════════════════════════════════════════════════════ */
+.eqp .body{padding-top:14px}
+.eqp .tt{font-size:52px;letter-spacing:-1.9px}
+.eqp .cena{flex:1;display:flex;flex-direction:column;justify-content:center;
+  margin-top:10px;min-height:0}
+
+.eqp .trio{display:flex;gap:0}
+.eqp .pes{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;
+  text-align:center;padding:0 30px}
+.eqp .pes + .pes{border-left:1px solid #DCE4EF}
+
+.eqp .pes .foto{width:158px;height:158px;border-radius:50%;overflow:hidden;
+  border:3px solid #fff;box-shadow:0 20px 44px -26px rgba(15,23,42,.42)}
+.eqp .pes .foto img{width:100%;height:100%;object-fit:cover;display:block}
+.eqp .pes .nm{font-size:23px;font-weight:800;letter-spacing:-.5px;color:var(--head);
+  margin-top:22px;line-height:1.2}
+.eqp .pes .rm{font-family:var(--mono);font-size:14px;color:var(--tx2);margin-top:7px;
+  letter-spacing:.4px}
+
+/* o bloco que cada um conduz */
+.eqp .pes .bl{margin-top:20px;padding-top:18px;border-top:1px solid #E4EAF3;width:100%}
+.eqp .pes .bl b{display:block;font-size:12px;font-weight:700;letter-spacing:1.8px;
+  text-transform:uppercase;color:var(--accent)}
+.eqp .pes .bl span{display:block;font-size:15.5px;line-height:1.42;color:var(--tx);
+  margin-top:8px}
+
+/* o mentor, numa faixa própria */
+.eqp .mentor{display:flex;align-items:center;gap:18px;margin-top:46px;padding-top:24px;
+  border-top:1px solid #DCE4EF}
+.eqp .mentor .ic{width:22px;height:22px;color:var(--tx2);flex-shrink:0}
+.eqp .mentor .tx b{font-size:12px;font-weight:700;letter-spacing:1.8px;
+  text-transform:uppercase;color:var(--tx2)}
+.eqp .mentor .tx span{display:block;font-size:18px;font-weight:700;color:var(--head);
+  margin-top:5px;letter-spacing:-.2px}
+.eqp .mentor .tx span em{font-style:normal;font-weight:400;font-size:15.5px;
+  color:var(--tx2);margin-left:10px}
+.eqp .mentor .turma{margin-left:auto;text-align:right;font-size:14.5px;color:var(--tx2);
+  line-height:1.5}
+.eqp .mentor .turma b{display:block;color:var(--head);font-weight:700;font-size:16px}
+
+/* ───── 03-cronos.html ───── */
+/* ═══ slide 3 · por que Cronos ═══════════════════════════════════════════════
    O slide que faltava. O dono do projeto pediu um começo que dissesse o que é o
    Cronos e de onde vem o nome, antes de qualquer número.
 
@@ -319,8 +413,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   background:var(--accent3);opacity:.6;transform:scaleX(0);transform-origin:left}
 .cr-a.is-active .assina::before{animation:tick .8s var(--out) 2.5s forwards}
 
-/* ───── 03-medida.html ───── */
-/* ═══ slide 3 · o prazo de cada incidente ════════════════════════════════════
+/* ───── 04-medida.html ───── */
+/* ═══ slide 4 · o prazo de cada incidente ════════════════════════════════════
    O slide de contexto: sem ele, nenhum número do resto do deck se entende. Diz
    duas coisas e só duas: nem todo incidente conta para a meta, e o que conta
    tem um relógio correndo.
@@ -389,8 +483,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .med .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .med .fecho b{color:var(--head);font-weight:700}
 
-/* ───── 04-quebras.html ───── */
-/* ═══ slide 4 · as quebras de 2025 ═══════════════════════════════════════════
+/* ───── 05-quebras.html ───── */
+/* ═══ slide 5 · as quebras de 2025 ═══════════════════════════════════════════
    O slide que transforma contagem em problema: os dois números grandes com o
    trilho do prazo, e o limite do ano escrito embaixo de cada um.
 
@@ -435,18 +529,21 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   background:repeating-linear-gradient(-45deg,rgba(11,18,32,.10) 0 3px,transparent 3px 7px);
   opacity:0}
 .pb-b.is-active .fora{animation:rv .5s var(--out) calc(var(--d,0ms) + 760ms) forwards}
-.pb-b .lim{margin-top:46px;font-size:15.5px;color:var(--tx2)}
+.pb-b .lim{margin-top:64px;font-size:15.5px;color:var(--tx2)}
 .pb-b .lim b{color:var(--head);font-weight:800;font-size:20px;margin-left:4px}
 .pb-b .cena{flex:1;display:flex;align-items:center;justify-content:center;gap:108px;min-height:0}
 .pb-b .un{display:flex;flex-direction:column;align-items:center;width:330px}
 .pb-b .v{font-size:200px;letter-spacing:-8.4px}
-.pb-b .rot{margin-top:16px;text-align:center}
-.pb-b .prazo{margin-top:34px}
+.pb-b .rot{margin-top:22px;text-align:center}
+.pb-b .prazo{margin-top:46px}
 .pb-b .fio{width:1px;height:280px;
   background:linear-gradient(180deg,transparent,#D9E1EC 20%,#D9E1EC 80%,transparent)}
 
-/* ───── 05-salto.html ───── */
-/* ═══ slide 5 · o salto de setembro ══════════════════════════════════════════
+/* ───── 06-div-analise.html ───── */
+
+
+/* ───── 07-salto.html ───── */
+/* ═══ slide 7 · o salto de setembro ══════════════════════════════════════════
    Este slide explica O QUE aconteceu com o dado em setembro de 2025. A decisão
    de treinar só em 2025 é assunto do slide 4: misturar as duas coisas aqui foi
    o que deixou a primeira versão confusa.
@@ -522,13 +619,13 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .sl-b .mt.sobe .v{color:var(--bad)}
 .sl-b .mt.igual .v{color:var(--accent)}
 .sl-b .mt .v em{font-style:normal;font-size:.44em;letter-spacing:-1.6px}
-.sl-b .mt .dif{font-size:14.5px;font-weight:600;letter-spacing:1.4px;
-  text-transform:uppercase;color:var(--tx2);margin-top:10px}
+/* o sinal ganha respiro: colado no número ele lia como um traço solto */
+.sl-b .mt .v em.sg{margin-right:.12em;letter-spacing:0}
 .sl-b .mt .k{font-size:16.5px;line-height:1.4;color:var(--tx);margin-top:12px;max-width:30ch}
 .sl-b .mt .k b{color:var(--head);font-weight:700;font-variant-numeric:tabular-nums}
 
-/* ───── 06-recorte.html ───── */
-/* ═══ slide 6 · por que treinamos só em 2025 ══════════════════════════════════
+/* ───── 08-recorte.html ───── */
+/* ═══ slide 8 · por que treinamos só em 2025 ══════════════════════════════════
    O slide 3 mostra o que aconteceu com o dado. Este mostra a DECISÃO que veio
    dele, e são dois assuntos: juntar os dois num slide foi o que confundiu.
 
@@ -580,8 +677,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .rc-a .fig{width:690px}
 .rc-a .lado{flex:1;min-width:0;display:flex;flex-direction:column;gap:22px}
 
-/* ───── 07-sinais.html ───── */
-/* ═══ slide 7 · quem abre, e quando ══════════════════════════════════════════
+/* ───── 09-sinais.html ───── */
+/* ═══ slide 9 · quem abre, e quando ══════════════════════════════════════════
    O slide que substitui o do volume por quartil, que o dono do projeto achou
    fraco e difícil de apresentar. Dois achados da análise exploratória que
    ninguém adivinha, e que valem mais que o volume:
@@ -658,117 +755,76 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .sin .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .sin .fecho b{color:var(--head);font-weight:700}
 
-/* ───── 08-concentracao.html ───── */
-/* ═══ slide 8 · onde a quebra mora ═══════════════════════════════════════════
-   O terceiro achado da análise exploratória, e o mais acionável de todos: a
-   quebra não está espalhada pela infraestrutura, está endereçada. De 4.633
-   ativos distintos em 2025, só 122 quebraram alguma vez, e trinta deles
-   concentram 61% de todas as quebras do ano.
+/* ───── 10-repete.html ───── */
+/* ═══ slide 10 · o mesmo ativo quebra de novo ═════════════════════════════════
+   O terceiro achado da análise, e o que dá base ao modelo de risco: a quebra
+   volta no mesmo lugar. Das 107 quebras do segundo semestre de 2025, 53 foram
+   em itens de configuração que já tinham quebrado no primeiro semestre. Metade.
 
-   O objeto são duas barras alinhadas na mesma largura. Em cima, os ativos: a
-   fatia dos trinta é uma lasca de 0,65%. Embaixo, as quebras: a mesma fatia
-   ocupa 61%. A lasca minúscula que vira mais da metade é a mensagem inteira, e
-   ela se lê sem número nenhum.
+   E esses ativos conhecidos são 75, ou 1,6% dos 4.633 do parque. Ou seja: em
+   metade dos casos, o histórico do próprio ativo já dizia onde olhar.
 
-   O ativo campeão não é nomeado de propósito. Os códigos do dataset são
-   anonimizados, então dizer "IC00840" não informa nada à banca e soa vazio; o
-   dono do projeto pediu para tirar.
+   O objeto é uma célula por quebra do semestre, 107 delas. As 53 de ativo
+   conhecido acendem primeiro, agrupadas, e a linha de corte fica visível sem
+   precisar de número. A animação entrega o fato: a sala vê metade do quadro
+   ficar azul.
 
-   Regra 10 resolvida com número, e desta vez a favor: a concentração vale nas
-   duas prioridades, com 81% na prioridade 2 e 66% na 3.
+   Uma versão anterior mostrava a concentração em trinta ativos com duas barras
+   alinhadas, e o dono do projeto reprovou. Esta troca a estatística de
+   concentração por um fato temporal, que é mais fácil de narrar e é o que
+   justifica a variável do modelo.
+
+   Ressalva no pé, obrigatória: o efeito é da prioridade 3, com 48 de 87. Na
+   prioridade 2 são 2 de 20, e o volume de quebras lá é pequeno demais para
+   afirmar o mesmo.
 
    Medido em data/interim/incidentes_kpi.parquet, 2025, base elegível ao KPI.
    ══════════════════════════════════════════════════════════════════════════ */
-.cnc .body{padding-top:14px}
-.cnc .tt{font-size:52px;letter-spacing:-1.9px}
-.cnc .cena{flex:1;display:flex;flex-direction:column;justify-content:center;
-  gap:76px;margin-top:6px;min-height:0}
+.rep .body{padding-top:14px}
+.rep .tt{font-size:52px;letter-spacing:-1.9px}
+.rep .cena{flex:1;display:flex;align-items:center;gap:56px;margin-top:8px;min-height:0}
 
-.cnc .fx{display:flex;flex-direction:column;gap:16px}
-.cnc .cab{display:flex;align-items:baseline;justify-content:space-between;gap:20px}
-.cnc .cab b{font-size:13px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
-  color:var(--tx2)}
-.cnc .cab span{font-size:16px;color:var(--tx2)}
-.cnc .cab span em{font-style:normal;color:var(--head);font-weight:700;
-  font-variant-numeric:tabular-nums}
+/* uma célula por quebra do segundo semestre */
+.rep .quadro{flex:1;min-width:0}
+.rep .malha{display:grid;grid-template-columns:repeat(16,1fr);gap:9px}
+.rep .malha i{display:block;aspect-ratio:1;border-radius:5px;background:#DFE6EF;
+  opacity:0;transform:scale(.5)}
+.rep.is-active .malha i{animation:brotaCel .34s var(--spring) var(--d,0ms) forwards}
+@keyframes brotaCel{to{opacity:1;transform:none}}
+.rep .malha i.r{background:#DFE6EF}
+.rep.is-active .malha i.r{animation:brotaCel .34s var(--spring) var(--d,0ms) forwards,
+  acende .34s var(--out) calc(var(--d,0ms) + 1500ms) forwards}
+@keyframes acende{to{background:var(--accent)}}
 
-.cnc .barra{position:relative;display:flex;height:112px;border-radius:11px;overflow:hidden;
-  background:#E4EAF3}
-.cnc .barra i{display:block;height:100%;transform:scaleX(0);transform-origin:left}
-.cnc .barra .trinta{background:var(--accent)}
-.cnc .barra .resto{background:#CFD8E5}
-.cnc.is-active .barra i{animation:corre 1s var(--out) var(--d,0ms) forwards}
+.rep .leg{display:flex;gap:30px;margin-top:24px;font-size:14.5px;color:var(--tx2)}
+.rep .leg span{display:inline-flex;align-items:center;gap:10px}
+.rep .leg em{display:block;width:14px;height:14px;border-radius:4px;flex-shrink:0}
+.rep .leg .a em{background:var(--accent)}
+.rep .leg .b em{background:#DFE6EF}
 
-/* o rótulo da fatia dos trinta, dentro da barra quando cabe e fora quando não */
-.cnc .marca{position:absolute;top:50%;transform:translateY(-50%);white-space:nowrap;
-  opacity:0;font-variant-numeric:tabular-nums}
-.cnc.is-active .marca{animation:rv .6s var(--out) var(--d,0ms) forwards}
-.cnc .marca b{font-size:38px;font-weight:900;letter-spacing:-1.2px;color:#fff}
-.cnc .marca s{text-decoration:none;font-size:14.5px;color:rgba(255,255,255,.82);
-  margin-left:9px}
-.cnc .marca.fora b{color:var(--accent)}
-.cnc .marca.fora s{color:var(--tx2)}
+/* o número, à direita */
+.rep .lado{width:378px;flex-shrink:0}
+.rep .lado .v{font-size:150px;font-weight:900;letter-spacing:-6.4px;line-height:.84;
+  color:var(--accent);font-variant-numeric:tabular-nums}
+.rep .lado .v em{font-style:normal;font-size:.34em;letter-spacing:-1.6px;color:var(--tx2);
+  margin-left:6px}
+.rep .lado .k{font-size:20px;line-height:1.42;color:var(--tx);margin-top:22px;max-width:23ch}
+.rep .lado .k b{color:var(--head);font-weight:700}
+.rep .lado .pq{display:flex;align-items:flex-start;gap:11px;margin-top:34px;padding-top:22px;
+  border-top:1px solid #DCE4EF;font-size:15px;line-height:1.45;color:var(--tx2)}
+.rep .lado .pq .ic{width:18px;height:18px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.rep .lado .pq b{color:var(--head);font-weight:700}
 
-.cnc .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+.rep .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
   border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
-.cnc .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
-.cnc .fecho b{color:var(--head);font-weight:700}
+.rep .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.rep .fecho b{color:var(--head);font-weight:700}
 
-/* ───── 09-modelos.html ───── */
-/* ═══ slide 9 · as três perguntas ════════════════════════════════════════════
-   O momento de virada do deck: sai a análise, entra a solução. Escuro, e o
-   escuro é o que marca a virada.
+/* ───── 11-div-modelos.html ───── */
 
-   Este slide é o índice do bloco que vem: cada uma das três perguntas é o
-   slide seguinte, na ordem. Quem olha sabe, antes de ver qualquer resultado,
-   o que o Cronos se propõe a responder e com o quê.
 
-   Três versões antes desta. A primeira virou documento, com duas colunas de
-   prosa e métrica no pé. A segunda ficou só tipografia e sobrava vazio. A
-   terceira, chamada "Dois modelos", trazia as colunas do Prophet e a fila da
-   logística lado a lado; ela funcionava, e caiu por dois motivos: escondia a
-   terceira entrega, que é a projeção da meta, e gastava num slide de virada os
-   dois objetos que os slides 10 e 11 mostram melhor e com resultado junto.
-
-   A numeração de 01 a 03 é legítima aqui porque é ordem de verdade: são os
-   três slides seguintes, nessa sequência, e a terceira pergunta só existe
-   porque as duas primeiras foram respondidas.
-   ══════════════════════════════════════════════════════════════════════════ */
-.mdl .body{padding-top:14px}
-.mdl .tt{font-size:52px;letter-spacing:-1.9px}
-.mdl .cena{flex:1;display:flex;flex-direction:column;justify-content:center;
-  margin-top:10px;min-height:0}
-
-.mdl .pg{display:grid;grid-template-columns:74px 1fr 300px;align-items:center;
-  gap:0 26px;padding:46px 0;border-top:1px solid rgba(255,255,255,.13)}
-.mdl .pg:last-child{border-bottom:1px solid rgba(255,255,255,.13)}
-
-.mdl .pg .n{font-family:var(--mono);font-size:17px;font-weight:500;color:#5B647A;
-  letter-spacing:1px}
-.mdl .pg .q{font-size:50px;font-weight:800;letter-spacing:-1.9px;line-height:1.06;
-  color:#fff}
-.mdl .pg .q em{font-style:normal;color:var(--accent3)}
-.mdl .pg .q small{display:block;font-size:17px;font-weight:400;letter-spacing:0;
-  color:#8B96A8;margin-top:9px}
-
-/* o modelo que responde, à direita, alinhado */
-.mdl .pg .md{display:flex;flex-direction:column;align-items:flex-end;gap:9px;
-  text-align:right}
-.mdl .pg .md .nm{display:inline-flex;align-items:center;gap:10px;padding:8px 15px 8px 12px;
-  border-radius:999px;background:rgba(96,165,250,.13);
-  border:1px solid rgba(96,165,250,.26);font-family:var(--mono);font-size:13.5px;
-  font-weight:500;letter-spacing:.3px;color:var(--accent3);white-space:nowrap}
-.mdl .pg .md .nm .ic{width:17px;height:17px;color:var(--accent3)}
-.mdl .pg .md s{text-decoration:none;font-size:13.5px;color:#5B647A}
-
-.mdl .porque{display:flex;align-items:flex-start;gap:12px;margin-top:auto;
-  padding-top:22px;border-top:1px solid rgba(255,255,255,.13);
-  font-size:16.5px;line-height:1.45;color:#98A2B3}
-.mdl .porque .ic{width:20px;height:20px;color:var(--accent3);margin-top:2px;flex-shrink:0}
-.mdl .porque b{color:#fff;font-weight:700}
-
-/* ───── 10-previsao.html ───── */
-/* ═══ slide 10 · os próximos sete dias ════════════════════════════════════════
+/* ───── 12-previsao.html ───── */
+/* ═══ slide 12 · os próximos sete dias ════════════════════════════════════════
    O slide do Prophet, e a saída do produto em vez de uma métrica sobre ele: os
    sete dias que a operação lê no dia 1º de outubro de 2025, com a faixa de cada
    dia e o ponto do que de fato chegou.
@@ -806,8 +862,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   border-left:1px solid #DCE4EF}
 .pvs .fecho .obs b{color:var(--head);font-weight:700}
 
-/* ───── 11-fila.html ───── */
-/* ═══ slide 11 · a fila de risco ══════════════════════════════════════════════
+/* ───── 13-fila.html ───── */
+/* ═══ slide 13 · a fila de risco ══════════════════════════════════════════════
    O slide da regressão logística, e ele responde de uma vez às duas perguntas
    que a banca faz: a fila funciona, e ela ganha do que a operação já usa hoje.
 
@@ -855,48 +911,149 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   padding-left:32px;border-left:1px solid #DCE4EF}
 .fla .fecho .obs b{color:var(--head);font-weight:700}
 
-/* ───── 12-projecao.html ───── */
-/* ═══ slide 12 · a meta do ano ═══════════════════════════════════════════════
+/* ───── 14-projecao.html ───── */
+/* ═══ slide 14 · a meta do ano vai fechar? ═══════════════════════════════════
    Responde ao pedido número 1 que o mentor da Locaweb fez na mentoria: parado
-   no meio do ano, dá para saber se a meta anual vai fechar?
+   no meio do ano, dá para saber se a meta anual fecha?
 
-   A versão anterior era um placar de "5 de 5" e "2 de 5" sem gráfico, e o dono
-   do projeto disse que ficou confuso e que não entendia para que servia. Agora
-   o gráfico responde sozinho: em cada data de corte, a faixa que a projeção
-   dava naquele dia, a faixa da meta em verde e a linha preta de onde o ano de
-   fato fechou. Dá para ver a projeção do P2 andando dentro do verde desde
-   agosto, e a do P3 descendo e cruzando o limite em novembro.
+   O objeto é o trilho da tela de Projeção do próprio sistema, ampliado. Foi
+   ideia do dono do projeto usar um componente do Django aqui, e ela resolve o
+   slide: a barra escura é o que já aconteceu até 30 de setembro, a faixa clara
+   é onde a projeção diz que o ano termina, e o tracejado é o limite. Se a faixa
+   passa do tracejado, a meta está em risco. O mesmo componente aparece vivo na
+   demonstração, cinco minutos depois.
 
-   A leitura desfavorável está escrita, não escondida: no P3 a projeção apontou
-   estouro em agosto, setembro e outubro, e o ano fechou abaixo do limite. Errou
-   nas três, e errou para o lado pessimista. Dizer isso antes de alguém
-   perguntar é o que sustenta o número.
+   A leitura de 1º de outubro: na prioridade 2 a faixa atravessa o limite, e o
+   ano de fato fechou acima. Na prioridade 3 a faixa fica bem abaixo, e o ano
+   fechou dentro. As duas chamadas certas, dois meses antes da apuração.
 
-   Figura em dpi 200, de _figuras_meta.py.
+   Duas versões anteriores caíram. Um placar de "5 de 5" e "2 de 5" sem gráfico,
+   que o dono do projeto disse ser confuso, e um gráfico das cinco datas de
+   corte, que ficava lento de explicar.
+
+   Números de data/interim/06_projecao.parquet, corte de 01/10/2025:
+   P2 já 33, projeção 43,5, faixa 38,2 a 48,7, fechou em 42, limite 39.
+   P3 já 145, projeção 208,0, faixa 190,6 a 225,2, fechou em 196, limite 263.
+   Escala do trilho: 0 a 55 no P2, 0 a 290 no P3.
    ══════════════════════════════════════════════════════════════════════════ */
 .prj .body{padding-top:14px}
 .prj .tt{font-size:52px;letter-spacing:-1.9px}
+.prj .cena{flex:1;display:flex;flex-direction:column;justify-content:center;
+  gap:74px;margin-top:6px;min-height:0}
 
-.prj .cena{flex:1;display:flex;align-items:center;justify-content:center;
-  margin-top:12px;min-height:0}
-.prj .quadro{padding:20px 24px}
-.prj .fig{display:block;width:1188px}
+.prj .pr{display:flex;flex-direction:column;gap:15px}
+.prj .cab{display:flex;align-items:baseline;gap:16px}
+.prj .cab b{font-size:20px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
+.prj .cab .sel{font-size:13px;font-weight:700;letter-spacing:.4px;padding:4px 12px;
+  border-radius:999px;white-space:nowrap}
+.prj .pr.fora .sel{background:var(--bad-l);color:var(--bad)}
+.prj .pr.dentro .sel{background:var(--good-l);color:var(--good)}
 
-.prj .fecho{display:flex;align-items:center;gap:32px;margin-top:auto;
-  padding-top:20px;border-top:1px solid #DCE4EF}
-.prj .fecho .n{display:flex;align-items:baseline;gap:15px;flex-shrink:0}
-.prj .fecho .n .v{font-size:60px;font-weight:900;letter-spacing:-2.5px;
-  line-height:.86;color:var(--good);font-variant-numeric:tabular-nums}
-.prj .fecho .n .v em{font-style:normal;font-size:.42em;font-weight:700;
-  color:var(--tx2);letter-spacing:-.5px}
-.prj .fecho .n .k{font-size:17px;line-height:1.34;color:var(--tx);max-width:224px}
-.prj .fecho .n .k b{color:var(--head);font-weight:700}
-.prj .fecho .obs{font-size:15px;line-height:1.46;color:var(--tx2);
-  padding-left:32px;border-left:1px solid #DCE4EF}
-.prj .fecho .obs b{color:var(--head);font-weight:700}
+/* o trilho: o que já aconteceu, a faixa da projeção e o limite */
+.prj .trilho{position:relative;height:72px;border-radius:10px;background:#E9EEF5}
+.prj .ja{position:absolute;left:0;top:0;bottom:0;border-radius:10px 0 0 10px;
+  background:var(--head);transform:scaleX(0);transform-origin:left}
+.prj.is-active .ja{animation:corre 1s var(--out) var(--d,0ms) forwards}
+.prj .faixa{position:absolute;top:0;bottom:0;background:rgba(37,99,235,.26);
+  border-left:2px solid var(--accent);border-right:2px solid var(--accent);
+  opacity:0;transform:scaleX(.4)}
+.prj.is-active .faixa{animation:abreFaixa .7s var(--out) var(--d,0ms) forwards}
+@keyframes abreFaixa{to{opacity:1;transform:none}}
+.prj .proj{position:absolute;top:-7px;bottom:-7px;width:3px;background:var(--accent);
+  border-radius:2px;opacity:0}
+.prj.is-active .proj{animation:rv .5s var(--out) var(--d,0ms) forwards}
+/* o limite do ano, tracejado, atravessando o trilho */
+.prj .lim{position:absolute;top:-16px;bottom:-16px;width:0;
+  border-left:2px dashed var(--head);opacity:0}
+.prj .lim em{position:absolute;left:9px;top:-4px;font-style:normal;font-size:13.5px;
+  font-weight:700;color:var(--head);white-space:nowrap;background:var(--pg);padding:0 6px}
+.prj.is-active .lim{animation:rv .5s var(--out) var(--d,0ms) forwards}
 
-/* ───── 13-saude.html ───── */
-/* ═══ slide 13 · onde agir primeiro ══════════════════════════════════════════
+/* os rótulos, embaixo do trilho */
+.prj .rots{position:relative;height:46px}
+.prj .rots span{position:absolute;top:0;transform:translateX(-50%);text-align:center;
+  white-space:nowrap;opacity:0}
+.prj.is-active .rots span{animation:rv .5s var(--out) var(--d,0ms) forwards}
+.prj .rots b{display:block;font-size:17px;font-weight:800;color:var(--head);
+  font-variant-numeric:tabular-nums}
+.prj .rots s{display:block;text-decoration:none;font-size:13px;color:var(--tx2);margin-top:3px}
+.prj .rots .azul b{color:var(--accent)}
+
+.prj .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.prj .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.prj .fecho b{color:var(--head);font-weight:700}
+
+/* ───── 15-div-solucao.html ───── */
+
+
+/* ───── 16-briefing.html ───── */
+/* ═══ slide 16 · o resumo da manhã ═══════════════════════════════════════════
+   O primeiro dos dois diferenciais prometidos desde a Sprint 1, e o único lugar
+   do produto onde a Claude API entra. A banca vai perguntar exatamente isso, e
+   o slide responde antes da pergunta.
+
+   O objeto é a folha do resumo como ela aparece no sistema, e na margem direita
+   a procedência de cada linha, ligada por um fio. Fica claro de onde vem cada
+   número, e que o modelo de linguagem escreve só a frase de abertura.
+
+   Este slide já existiu e foi retirado do deck quando os diferenciais passaram
+   para a demonstração. Volta porque o dono do projeto lembrou que o resumo e a
+   nota de saúde são o pacote que o projeto prometeu entregar, e cada um merece
+   o seu espaço. A demonstração continua mostrando os dois funcionando.
+
+   Números de data/app/painel.json, corte de 01/10/2025: ontem.total 84,
+   ontem.violou 0, base.sem_violacao_dias 4, hoje.baixo_p3 58,8 e hoje.alto_p3
+   95,9, hoje.baixo_p2 9,4 e hoje.alto_p2 22,3. O texto é o do print em
+   sprints/sprint-3/prints/07-modal-briefing.png.
+   ══════════════════════════════════════════════════════════════════════════ */
+.brf .body{padding-top:14px}
+.brf .tt{font-size:52px;letter-spacing:-1.9px}
+.brf .cena{flex:1;display:flex;align-items:center;margin-top:12px;min-height:0}
+
+/* a folha ocupa a primeira coluna da grade, atrás de tudo que estiver nela */
+.brf .folha{position:relative;display:grid;grid-template-columns:892px 70px 1fr;width:100%}
+.brf .folha::before{content:"";position:absolute;left:0;top:0;bottom:0;width:892px;
+  background:#fff;border:1px solid var(--line);border-radius:18px;
+  box-shadow:0 20px 46px -34px rgba(15,23,42,.3);z-index:0}
+.brf .folha > *{position:relative;z-index:1}
+
+.brf .cl{padding:0 44px}
+.brf .cl.cab{padding-top:38px;padding-bottom:30px;border-bottom:1px solid var(--line)}
+.brf .cl.lin{display:flex;gap:24px;padding-top:30px;padding-bottom:30px}
+.brf .cl.lin + .cl.lin{border-top:1px solid var(--line)}
+.brf .cl.lin:last-of-type{padding-bottom:38px}
+.brf .selo{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:1.6px;
+  text-transform:uppercase;color:var(--tx2)}
+.brf .cab h2{font-size:35px;font-weight:800;letter-spacing:-1.1px;color:var(--head);
+  margin-top:10px;line-height:1.12}
+.brf .cab p{font-size:17.5px;line-height:1.45;color:var(--tx);margin-top:8px}
+.brf .rot{width:80px;flex-shrink:0;font-size:12px;font-weight:700;letter-spacing:1.6px;
+  text-transform:uppercase;color:var(--tx2);padding-top:9px}
+.brf .val{flex:1;min-width:0}
+.brf .val .n{font-size:32px;font-weight:800;letter-spacing:-.9px;color:var(--head);
+  line-height:1.18;font-variant-numeric:tabular-nums}
+.brf .val .n small{font-size:17px;font-weight:500;color:var(--tx);letter-spacing:0;
+  margin:0 7px}
+.brf .val p{font-size:15px;color:var(--tx2);margin-top:7px}
+
+/* o fio e a procedência, alinhados com a linha */
+.brf .fio{align-self:center;height:1.5px;background:var(--accent);transform:scaleX(0);
+  transform-origin:left}
+.brf .nota{align-self:center;opacity:0;transform:translate3d(-8px,0,0)}
+.brf .nota b{display:block;font-family:var(--mono);font-size:13.5px;font-weight:500;
+  letter-spacing:.3px;color:var(--accent)}
+.brf .nota span{display:block;font-size:14.5px;line-height:1.42;color:var(--tx);margin-top:5px}
+.brf.is-active .fio{animation:corre .5s var(--out) var(--d,0ms) forwards}
+.brf.is-active .nota{animation:rv .5s var(--out) calc(var(--d,0ms) + 240ms) forwards}
+
+.brf .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.brf .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.brf .fecho b{color:var(--head);font-weight:700}
+
+/* ───── 17-saude.html ───── */
+/* ═══ slide 17 · onde agir primeiro ══════════════════════════════════════════
    O segundo diferencial do produto: uma nota de saúde de 0 a 100 por produto,
    que responde à pergunta que a operação faz de manhã — por onde começo?
 
@@ -948,8 +1105,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .sau .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .sau .fecho b{color:var(--head);font-weight:700}
 
-/* ───── 14-stack.html ───── */
-/* ═══ slide 14 · como isso roda ══════════════════════════════════════════════
+/* ───── 18-stack.html ───── */
+/* ═══ slide 18 · como isso roda ══════════════════════════════════════════════
    A stack, e ela precisa fazer dois argumentos que a banca vai testar: tudo
    roda dentro de um contêiner só, sem serviço proprietário de nuvem; e a Claude
    API é uma lasca no topo, não o produto.
@@ -1024,8 +1181,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .stk .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .stk .fecho b{color:var(--head);font-weight:700}
 
-/* ───── 15-aplicacao.html ───── */
-/* ═══ slide 15 · o painel operacional ════════════════════════════════════════
+/* ───── 19-aplicacao.html ───── */
+/* ═══ slide 19 · o painel operacional ════════════════════════════════════════
    Este slide tem função operacional, não decorativa: é o beat de troca para a
    demonstração ao vivo. Enquanto ele está na tela, o Hygor assume a fala e
    compartilha o navegador. Sem ele, essa troca acontece no silêncio.
@@ -1063,8 +1220,94 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .apl.is-active .tela{animation:chegaTela 1.3s var(--out) .7s forwards}
 @keyframes chegaTela{to{opacity:1;transform:rotateY(-11deg) rotateX(4deg) translate3d(0,0,0)}}
 
-/* ───── 18-fecho.html ───── */
-/* ═══ slide 18 · fecho ═══════════════════════════════════════════════════════
+/* ───── 20-resultados.html ───── */
+/* ═══ slide 20 · o que ficou pronto ══════════════════════════════════════════
+   A síntese que o bloco 7 do template da Sprint 4 exige. Quatro resultados, um
+   por linha, cada um com o número, o que ele mede e contra o que ele foi
+   comparado. Nada aqui é novo: os quatro já apareceram no deck, e este slide
+   existe para a banca levar embora os que importam.
+
+   Sem cartões em fileira de propósito. Quatro cartões iguais lado a lado é o
+   molde que denuncia material feito por máquina, e a informação aqui é uma
+   lista, não uma grade.
+
+   A animação numera: cada linha entra em sequência e o número conta. Em vinte
+   segundos de fala, a sala vê quatro coisas acontecerem.
+
+   Todos os números vêm de CONTRATO.md e dos slides 12, 13 e 14.
+   ══════════════════════════════════════════════════════════════════════════ */
+.res .body{padding-top:14px}
+.res .tt{font-size:52px;letter-spacing:-1.9px}
+.res .cena{flex:1;display:flex;flex-direction:column;justify-content:center;
+  margin-top:8px;min-height:0}
+
+.res .ln{display:grid;grid-template-columns:250px 1fr 330px;align-items:center;
+  gap:0 34px;padding:36px 0;border-top:1px solid #DCE4EF}
+.res .ln:last-child{border-bottom:1px solid #DCE4EF}
+
+.res .ln .v{font-size:62px;font-weight:900;letter-spacing:-2.8px;line-height:.86;
+  color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
+.res .ln .v em{font-style:normal;font-size:.42em;letter-spacing:-1px;color:var(--tx2);
+  margin-left:7px}
+.res .ln .oq{font-size:20px;line-height:1.36;color:var(--head);font-weight:600;
+  letter-spacing:-.3px}
+.res .ln .oq small{display:block;font-size:15px;font-weight:400;color:var(--tx2);
+  margin-top:7px;letter-spacing:0}
+.res .ln .ct2{font-size:15px;line-height:1.45;color:var(--tx2);padding-left:34px;
+  border-left:1px solid #E4EAF3}
+.res .ln .ct2 b{color:var(--head);font-weight:700}
+
+.res .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.res .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.res .fecho b{color:var(--head);font-weight:700}
+
+/* ───── 21-limites.html ───── */
+/* ═══ slide 21 · o que ainda não está resolvido ══════════════════════════════
+   O bloco 7 do template da Sprint 4 pede limitações e próximos passos, e a
+   banca cobra isso. Dizer os limites antes que alguém pergunte é o que sustenta
+   tudo o que foi afirmado nos vinte slides anteriores.
+
+   Três limites e três encaminhamentos, pareados: cada limite tem o passo que o
+   endereça, na mesma linha. Assim o slide não é uma lista de desculpas, é um
+   plano.
+
+   Os três limites são reais e estão registrados no dossiê de banca: a cobertura
+   da faixa cai na prioridade 3 quando a base muda de patamar; o dataset não tem
+   custo por violação, então o ganho defensável é ordenar a fila e não reduzir
+   volume; e não existe alarme automático de descalibragem, o re-treino apenas
+   reabsorve o desvio com atraso.
+
+   Não entra aqui nada do que foi testado e descartado. O deck fala do que foi
+   entregue, e esse assunto tem lugar no banco de perguntas.
+   ══════════════════════════════════════════════════════════════════════════ */
+.lim .body{padding-top:14px}
+.lim .tt{font-size:52px;letter-spacing:-1.9px}
+.lim .cena{flex:1;display:flex;flex-direction:column;justify-content:center;
+  margin-top:8px;min-height:0}
+
+.lim .cabs{display:grid;grid-template-columns:1fr 1fr;gap:0 60px;padding-bottom:20px}
+.lim .cabs div{display:flex;align-items:center;gap:11px;font-size:12.5px;font-weight:700;
+  letter-spacing:2.2px;text-transform:uppercase}
+.lim .cabs .a{color:var(--bad)}
+.lim .cabs .b{color:var(--good)}
+.lim .cabs .ic{width:18px;height:18px}
+
+.lim .par{display:grid;grid-template-columns:1fr 1fr;gap:0 60px;padding:38px 0;
+  border-top:1px solid #DCE4EF}
+.lim .par:last-child{border-bottom:1px solid #DCE4EF}
+.lim .par p{font-size:18px;line-height:1.52;color:var(--tx)}
+.lim .par p b{color:var(--head);font-weight:700}
+.lim .par .dir{padding-left:34px;border-left:1px solid #E4EAF3}
+.lim .par .dir p{color:var(--tx)}
+
+.lim .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.lim .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.lim .fecho b{color:var(--head);font-weight:700}
+
+/* ───── 22-fecho.html ───── */
+/* ═══ slide 22 · fecho ═══════════════════════════════════════════════════════
    O último slide espelha a capa: a mesma série real de 2025 se desenhando ao
    fundo, e no lugar da marca, a assinatura do produto em letras grandes. Abre e
    fecha com o mesmo objeto, o que dá ao deck começo e fim reconhecíveis.
@@ -1133,7 +1376,56 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
 </section>
 
-<section class="slide dark crn cr-a" data-slide="2" data-var="a" data-quem="igor">
+<section class="slide light eqp" data-slide="2" data-var="a" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Super Data Bros</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Quem apresenta</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Super Data Bros</span></span></h1>
+
+    <div class="cena">
+      <div class="trio">
+        <div class="pes rv3" style="--d:640ms">
+          <div class="foto"><img src="../../../brand/equipe/ana-beatriz.png" alt="Ana Beatriz Costa de Oliveira"></div>
+          <div class="nm">Ana Beatriz<br>Costa de Oliveira</div>
+          <div class="rm">RM561310</div>
+          <div class="bl"><b>Dados e modelos</b><span>o que a base mostrou e como os dois modelos foram construídos</span></div>
+        </div>
+        <div class="pes rv3" style="--d:780ms">
+          <div class="foto"><img src="../../../brand/equipe/hygor.png" alt="Hygor Abrantes"></div>
+          <div class="nm">Hygor<br>Abrantes</div>
+          <div class="rm">RM565063</div>
+          <div class="bl"><b>Produto e demonstração</b><span>como a solução roda e o painel funcionando ao vivo</span></div>
+        </div>
+        <div class="pes rv3" style="--d:920ms">
+          <div class="foto"><img src="../../../brand/equipe/igor.png" alt="Igor Vignola"></div>
+          <div class="nm">Igor<br>Vignola</div>
+          <div class="rm">RM561428</div>
+          <div class="bl"><b>Problema e resultados</b><span>o que a Locaweb mede, o que estava em risco e onde chegamos</span></div>
+        </div>
+      </div>
+
+      <div class="mentor rv" style="--d:1200ms">
+        <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.6 20c0-3.6 3.3-6 7.4-6s7.4 2.4 7.4 6"/></svg>
+        <div class="tx">
+          <b>Mentor Locaweb</b>
+          <span>Douglas Gouveia<em>Gerente Executivo de Operações</em></span>
+        </div>
+        <div class="turma">
+          <b>Turma 2TSCOA</b>
+          FIAP &middot; Tecnólogo em Data Science
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+</section>
+
+<section class="slide dark crn cr-a" data-slide="3" data-var="a" data-quem="igor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -1172,7 +1464,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
 </section>
 
-<section class="slide light med" data-slide="3" data-var="a" data-quem="igor">
+<section class="slide light med" data-slide="4" data-var="a" data-quem="igor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -1225,7 +1517,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
 </section>
 
-<section class="slide light prb pb-b" data-slide="4" data-var="a" data-quem="igor">
+<section class="slide light prb pb-b" data-slide="5" data-var="a" data-quem="igor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -1268,7 +1560,42 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
 </section>
 
-<section class="slide light slt sl-b" data-slide="5" data-var="a" data-quem="ana">
+<section class="slide dark dvs" data-slide="6" data-var="a" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Análise exploratória</div>
+  </div>
+  <div class="body">
+    <div class="lft">
+      <span class="eb"><span class="rv" style="--d:240ms">Análise exploratória</span></span>
+      <h1 class="tt"><span class="mask" style="--d:360ms"><span>O que o dado<br>já contava</span></span></h1>
+      <p class="lead rv" style="--d:700ms">Três anos de histórico, o filtro que define o indicador e os quatro sinais que a base mostrou antes de qualquer modelo entrar em cena.</p>
+      <div class="chip rv" style="--d:1500ms">
+        <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M9.6 9.4a2.6 2.6 0 1 1 3.4 2.5c-.7.3-1 .8-1 1.5v.4"/><path d="M12 17.2h.01"/></svg>
+        <span>A pergunta desta parte: <b>o que dá para saber sem modelo nenhum?</b></span>
+      </div>
+    </div>
+    <div class="rgt">
+        <div class="cd rv3" style="--d:900ms">
+          <div class="ck">Incidentes no histórico</div><div class="cv">122.543</div>
+          <div class="cs">de janeiro de 2023 a dezembro de 2025</div>
+        </div>
+        <div class="cd rv3" style="--d:1060ms">
+          <div class="ck">Base do indicador</div><div class="cv">25.600</div>
+          <div class="cs">elegíveis ao KPI, <b>21%</b> do total</div>
+        </div>
+        <div class="cd bad rv3" style="--d:1220ms">
+          <div class="ck">Quebras no período</div><div class="cv">248</div>
+          <div class="cs"><b>0,97%</b> dos incidentes elegíveis</div>
+        </div>
+    </div>
+  </div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+</section>
+
+<section class="slide light slt sl-b" data-slide="7" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -1291,8 +1618,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
         </div>
         <div class="mt igual rv" style="--d:1320ms">
           <div class="cab"><svg class="ic" viewBox="0 0 24 24"><path d="M4 9.6h16M4 14.4h16"/></svg>Série que conta para a meta</div>
-          <div class="v">0,26<em>%</em></div>
-          <div class="dif">de diferença, para menos</div>
+          <div class="v"><em class="sg">&minus;</em>0,26<em>%</em></div>
           <p class="k">no mesmo par de meses: de <b>2.330</b> para <b>2.324</b>. Praticamente o mesmo número.</p>
         </div>
       </div>
@@ -1306,7 +1632,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
 </section>
 
-<section class="slide light rec rc-a" data-slide="6" data-var="a" data-quem="ana">
+<section class="slide light rec rc-a" data-slide="8" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -1355,7 +1681,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
 </section>
 
-<section class="slide light sin" data-slide="7" data-var="a" data-quem="ana">
+<section class="slide light sin" data-slide="9" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -1426,113 +1752,88 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
 </section>
 
-<section class="slide light cnc" data-slide="8" data-var="a" data-quem="ana">
+<section class="slide light rep" data-slide="10" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
     <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Itens de configuração &middot; 2025</div>
+    <div class="tag">Segundo semestre de 2025</div>
   </div>
   <div class="body">
     <span class="eb"><span class="rv" style="--d:240ms">O que os dados disseram</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Onde a quebra mora</span></span></h1>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>O mesmo ativo quebra de novo</span></span></h1>
 
     <div class="cena">
-      <div class="fx">
-        <div class="cab rv" style="--d:640ms">
-          <b>Os ativos da operação</b>
-          <span><em>4.633</em> itens de configuração distintos em 2025</span>
+      <div class="quadro">
+        <div class="malha">
+          <i class="r" style="--d:900ms"></i><i class="r" style="--d:916ms"></i><i class="r" style="--d:932ms"></i><i class="r" style="--d:948ms"></i><i class="r" style="--d:964ms"></i><i class="r" style="--d:980ms"></i><i class="r" style="--d:996ms"></i><i class="r" style="--d:1012ms"></i><i class="r" style="--d:1028ms"></i><i class="r" style="--d:1044ms"></i><i class="r" style="--d:1060ms"></i><i class="r" style="--d:1076ms"></i><i class="r" style="--d:1092ms"></i><i class="r" style="--d:1108ms"></i><i class="r" style="--d:1124ms"></i><i class="r" style="--d:1140ms"></i>
+          <i class="r" style="--d:1156ms"></i><i class="r" style="--d:1172ms"></i><i class="r" style="--d:1188ms"></i><i class="r" style="--d:1204ms"></i><i class="r" style="--d:1220ms"></i><i class="r" style="--d:1236ms"></i><i class="r" style="--d:1252ms"></i><i class="r" style="--d:1268ms"></i><i class="r" style="--d:1284ms"></i><i class="r" style="--d:1300ms"></i><i class="r" style="--d:1316ms"></i><i class="r" style="--d:1332ms"></i><i class="r" style="--d:1348ms"></i><i class="r" style="--d:1364ms"></i><i class="r" style="--d:1380ms"></i><i class="r" style="--d:1396ms"></i>
+          <i class="r" style="--d:1412ms"></i><i class="r" style="--d:1428ms"></i><i class="r" style="--d:1444ms"></i><i class="r" style="--d:1460ms"></i><i class="r" style="--d:1476ms"></i><i class="r" style="--d:1492ms"></i><i class="r" style="--d:1508ms"></i><i class="r" style="--d:1524ms"></i><i class="r" style="--d:1540ms"></i><i class="r" style="--d:1556ms"></i><i class="r" style="--d:1572ms"></i><i class="r" style="--d:1588ms"></i><i class="r" style="--d:1604ms"></i><i class="r" style="--d:1620ms"></i><i class="r" style="--d:1636ms"></i><i class="r" style="--d:1652ms"></i>
+          <i class="r" style="--d:1668ms"></i><i class="r" style="--d:1684ms"></i><i class="r" style="--d:1700ms"></i><i class="r" style="--d:1716ms"></i><i class="r" style="--d:1732ms"></i><i class="n" style="--d:1748ms"></i><i class="n" style="--d:1764ms"></i><i class="n" style="--d:1780ms"></i><i class="n" style="--d:1796ms"></i><i class="n" style="--d:1812ms"></i><i class="n" style="--d:1828ms"></i><i class="n" style="--d:1844ms"></i><i class="n" style="--d:1860ms"></i><i class="n" style="--d:1876ms"></i><i class="n" style="--d:1892ms"></i><i class="n" style="--d:1908ms"></i>
+          <i class="n" style="--d:1924ms"></i><i class="n" style="--d:1940ms"></i><i class="n" style="--d:1956ms"></i><i class="n" style="--d:1972ms"></i><i class="n" style="--d:1988ms"></i><i class="n" style="--d:2004ms"></i><i class="n" style="--d:2020ms"></i><i class="n" style="--d:2036ms"></i><i class="n" style="--d:2052ms"></i><i class="n" style="--d:2068ms"></i><i class="n" style="--d:2084ms"></i><i class="n" style="--d:2100ms"></i><i class="n" style="--d:2116ms"></i><i class="n" style="--d:2132ms"></i><i class="n" style="--d:2148ms"></i><i class="n" style="--d:2164ms"></i>
+          <i class="n" style="--d:2180ms"></i><i class="n" style="--d:2196ms"></i><i class="n" style="--d:2212ms"></i><i class="n" style="--d:2228ms"></i><i class="n" style="--d:2244ms"></i><i class="n" style="--d:2260ms"></i><i class="n" style="--d:2276ms"></i><i class="n" style="--d:2292ms"></i><i class="n" style="--d:2308ms"></i><i class="n" style="--d:2324ms"></i><i class="n" style="--d:2340ms"></i><i class="n" style="--d:2356ms"></i><i class="n" style="--d:2372ms"></i><i class="n" style="--d:2388ms"></i><i class="n" style="--d:2404ms"></i><i class="n" style="--d:2420ms"></i>
+          <i class="n" style="--d:2436ms"></i><i class="n" style="--d:2452ms"></i><i class="n" style="--d:2468ms"></i><i class="n" style="--d:2484ms"></i><i class="n" style="--d:2500ms"></i><i class="n" style="--d:2516ms"></i><i class="n" style="--d:2532ms"></i><i class="n" style="--d:2548ms"></i><i class="n" style="--d:2564ms"></i><i class="n" style="--d:2580ms"></i><i class="n" style="--d:2596ms"></i>
         </div>
-        <div class="barra">
-          <i class="trinta" style="width:0.65%;--d:760ms"></i>
-          <i class="resto" style="width:99.35%;--d:820ms"></i>
-          <span class="marca fora" style="left:calc(0.65% + 18px);--d:1300ms">
-            <b>30</b><s>ativos, ou 0,65% deles</s>
-          </span>
+        <div class="leg rv" style="--d:3000ms">
+          <span class="a"><em></em>o ativo já tinha quebrado no primeiro semestre</span>
+          <span class="b"><em></em>primeira quebra daquele ativo no ano</span>
         </div>
       </div>
 
-      <div class="fx">
-        <div class="cab rv" style="--d:1500ms">
-          <b>As quebras de prazo</b>
-          <span><em>238</em> incidentes passaram do prazo em 2025</span>
-        </div>
-        <div class="barra">
-          <i class="trinta" style="width:61.3%;--d:1620ms"></i>
-          <i class="resto" style="width:38.7%;--d:1680ms"></i>
-          <span class="marca" style="left:26px;--d:2100ms">
-            <b>61%</b><s>vieram desses mesmos 30 ativos</s>
-          </span>
-        </div>
+      <div class="lado">
+        <div class="v rv" style="--d:2700ms"><span class="ct" data-to="53" data-delay="2860">0</span> <em>de 107</em></div>
+        <p class="k rv" style="--d:2900ms">quebras do segundo semestre foram em <b>ativo que já tinha quebrado</b></p>
+        <p class="pq rv" style="--d:3100ms">
+          <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+          <span>São <b>75 ativos</b>, de 4.633 no parque. Em metade dos casos, o próprio histórico já dizia onde olhar.</span>
+        </p>
       </div>
     </div>
 
-    <div class="fecho rv" style="--d:2400ms">
-      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span>Vale nas duas prioridades: <b>81%</b> na prioridade 2 e <b>66%</b> na 3. Quantas vezes um ativo já quebrou virou a variável mais forte do modelo de risco.</span>
+    <div class="fecho rv" style="--d:3300ms">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+      <span>O efeito é da prioridade 3, com <b>48 de 87</b>. Na prioridade 2 são 2 de 20, e o volume é pequeno demais para afirmar o mesmo. É daqui que sai a variável mais forte do modelo de risco.</span>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
 </section>
 
-<section class="slide dark mdl" data-slide="9" data-var="a" data-quem="ana">
+<section class="slide dark dvs" data-slide="11" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
     <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">A solução</div>
+    <div class="tag">Modelagem</div>
   </div>
   <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">O que o Cronos responde</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>As três perguntas</span></span></h1>
-
-    <div class="cena">
-      <div class="pg rv" style="--d:680ms">
-        <span class="n">01</span>
-        <p class="q"><em>Quantos</em> incidentes chegam<small>amanhã e nos próximos sete dias, por prioridade</small></p>
-        <div class="md">
-          <span class="nm">
-            <svg class="ic" viewBox="0 0 24 24"><path d="M3 17.4c3.4 0 4.6-9.6 8.4-9.6 3.9 0 4.5 9.6 8.4 9.6"/><path d="M3 21h18"/></svg>
-            Prophet
-          </span>
-          <s>previsão de volume</s>
-        </div>
-      </div>
-
-      <div class="pg rv" style="--d:860ms">
-        <span class="n">02</span>
-        <p class="q"><em>Qual</em> incidente quebra<small>entre os que estão abertos neste momento</small></p>
-        <div class="md">
-          <span class="nm">
-            <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.4"/><path d="M12 1.6v3M12 19.4v3M1.6 12h3M19.4 12h3"/></svg>
-            Regressão logística
-          </span>
-          <s>risco por incidente</s>
-        </div>
-      </div>
-
-      <div class="pg rv" style="--d:1040ms">
-        <span class="n">03</span>
-        <p class="q">A <em>meta do ano</em> fecha<small>e dá para saber isso antes de dezembro</small></p>
-        <div class="md">
-          <span class="nm">
-            <svg class="ic" viewBox="0 0 24 24"><path d="M4 19.6V9.2M10 19.6V4.4M16 19.6v-7M22 19.6H2"/></svg>
-            Os dois juntos
-          </span>
-          <s>projeção do KPI</s>
-        </div>
+    <div class="lft">
+      <span class="eb"><span class="rv" style="--d:240ms">Modelagem</span></span>
+      <h1 class="tt"><span class="mask" style="--d:360ms"><span>Dois modelos,<br>três respostas</span></span></h1>
+      <p class="lead rv" style="--d:700ms">Prever quantos incidentes chegam é uma pergunta. Apontar qual deles vai passar do prazo é outra. A projeção da meta do ano sai das duas juntas.</p>
+      <div class="chip rv" style="--d:1500ms">
+        <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M9.6 9.4a2.6 2.6 0 1 1 3.4 2.5c-.7.3-1 .8-1 1.5v.4"/><path d="M12 17.2h.01"/></svg>
+        <span>A pergunta desta parte: <b>quantos chegam, e qual deles quebra?</b></span>
       </div>
     </div>
-
-    <div class="porque rv" style="--d:1400ms">
-      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span>São dois modelos porque são duas perguntas diferentes. <b>Saber quantos chegam não diz quais vão quebrar</b>, e é a terceira que junta os dois.</span>
+    <div class="rgt">
+        <div class="cd rv3" style="--d:900ms">
+          <div class="ck">Modelos treinados</div><div class="cv">2</div>
+          <div class="cs">Prophet e regressão logística</div>
+        </div>
+        <div class="cd rv3" style="--d:1060ms">
+          <div class="ck">Erro da previsão</div><div class="cv">4 e 11</div>
+          <div class="cs">incidentes por dia, <b>P2</b> e <b>P3</b></div>
+        </div>
+        <div class="cd rv3" style="--d:1220ms">
+          <div class="ck">Área sob a curva</div><div class="cv">0,87</div>
+          <div class="cs">no modelo de risco, e ele fica calibrado</div>
+        </div>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
 </section>
 
-<section class="slide light pvs" data-slide="10" data-var="a" data-quem="ana">
+<section class="slide light pvs" data-slide="12" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -1560,7 +1861,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
 </section>
 
-<section class="slide light fla" data-slide="11" data-var="a" data-quem="ana">
+<section class="slide light fla" data-slide="13" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -1588,35 +1889,146 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
 </section>
 
-<section class="slide light prj" data-slide="12" data-var="a" data-quem="ana">
+<section class="slide light prj" data-slide="14" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
     <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Cinco datas de corte de 2025</div>
+    <div class="tag">Projeção de 1º de outubro de 2025</div>
   </div>
   <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">O pedido do mentor &middot; projeção pelo ritmo do ano</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>A meta do ano</span></span></h1>
+    <span class="eb"><span class="rv" style="--d:240ms">O pedido do mentor</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>A meta do ano vai fechar?</span></span></h1>
 
     <div class="cena">
-      <div class="quadro cartao rv3" style="--d:620ms">
-        <img class="fig" src="figs/09_meta_anual.png" alt="Projecao da meta anual em cinco datas de corte de 2025, por prioridade, com a faixa da projecao, a faixa da meta e onde o ano fechou">
+      <div class="pr fora">
+        <div class="cab rv" style="--d:640ms">
+          <b>Prioridade 2</b><span class="sel">Vai passar do limite</span>
+        </div>
+        <div class="trilho">
+          <i class="ja" style="width:60%;--d:760ms"></i>
+          <i class="faixa" style="left:69.5%;width:19%;--d:1300ms"></i>
+          <i class="proj" style="left:79.1%;--d:1500ms"></i>
+          <i class="lim" style="left:70.9%;--d:1700ms"><em>limite 39</em></i>
+        </div>
+        <div class="rots">
+          <span style="left:60%;--d:900ms"><b>33</b><s>até 30 de setembro</s></span>
+          <span class="azul" style="left:79.1%;--d:1560ms"><b>38 a 49</b><s>projeção para dezembro</s></span>
+        </div>
+      </div>
+
+      <div class="pr dentro">
+        <div class="cab rv" style="--d:820ms">
+          <b>Prioridade 3</b><span class="sel">Fecha dentro</span>
+        </div>
+        <div class="trilho">
+          <i class="ja" style="width:50%;--d:940ms"></i>
+          <i class="faixa" style="left:65.7%;width:12%;--d:1400ms"></i>
+          <i class="proj" style="left:71.7%;--d:1600ms"></i>
+          <i class="lim" style="left:90.7%;--d:1800ms"><em>limite 263</em></i>
+        </div>
+        <div class="rots">
+          <span style="left:50%;--d:1080ms"><b>145</b><s>até 30 de setembro</s></span>
+          <span class="azul" style="left:71.7%;--d:1660ms"><b>191 a 225</b><s>projeção para dezembro</s></span>
+        </div>
       </div>
     </div>
 
-    <div class="fecho rv" style="--d:1240ms">
-      <div class="n">
-        <span class="v"><span class="ct" data-to="5" data-delay="1440">0</span> <em>de 5</em></span>
-        <span class="k">datas em que a projeção da <b>prioridade 2</b> apontou dentro da meta</span>
-      </div>
-      <p class="obs">A projeção soma o que já aconteceu com o ritmo do ano até a data. O ano fechou em 42 na prioridade 2. Na prioridade 3 ela apontou estouro em agosto, setembro e outubro, e o ano fechou em 196, abaixo do limite de 200. Errou nas três para o <b>lado pessimista</b>, que para um alarme de operação é o lado certo de errar.</p>
+    <div class="fecho rv" style="--d:2100ms">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+      <span>As duas chamadas certas, <b>dois meses antes da apuração</b>: o ano fechou em 42 na prioridade 2, acima do limite, e em 196 na prioridade 3, dentro.</span>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
 </section>
 
-<section class="slide light sau" data-slide="13" data-var="a" data-quem="hygor">
+<section class="slide dark dvs" data-slide="15" data-var="a" data-quem="hygor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">A solução</div>
+  </div>
+  <div class="body">
+    <div class="lft">
+      <span class="eb"><span class="rv" style="--d:240ms">A solução</span></span>
+      <h1 class="tt"><span class="mask" style="--d:360ms"><span>O painel que<br>a operação abre</span></span></h1>
+      <p class="lead rv" style="--d:700ms">Os dois modelos entregues como produto: seis telas, um resumo que chega antes de alguém perguntar e uma nota por produto para saber por onde começar.</p>
+      <div class="chip rv" style="--d:1500ms">
+        <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M9.6 9.4a2.6 2.6 0 1 1 3.4 2.5c-.7.3-1 .8-1 1.5v.4"/><path d="M12 17.2h.01"/></svg>
+        <span>A pergunta desta parte: <b>isso cabe na rotina de quem opera?</b></span>
+      </div>
+    </div>
+    <div class="rgt">
+        <div class="cd rv3" style="--d:900ms">
+          <div class="ck">Telas no ar</div><div class="cv">6</div>
+          <div class="cs">cada uma com endereço próprio</div>
+        </div>
+        <div class="cd rv3" style="--d:1060ms">
+          <div class="ck">Relógio do sistema</div><div class="cv">01/10 &middot; 15h</div>
+          <div class="cs">só mostra o que existia nesse instante</div>
+        </div>
+        <div class="cd rv3" style="--d:1220ms">
+          <div class="ck">Entrega</div><div class="cv">1 contêiner</div>
+          <div class="cs">roda na Locaweb ou em qualquer nuvem</div>
+        </div>
+    </div>
+  </div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
+</section>
+
+<section class="slide light brf" data-slide="16" data-var="a" data-quem="hygor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Tal como aparece no sistema</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Diferencial 1 &middot; chega sem ninguém pedir</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>O resumo da manhã</span></span></h1>
+
+    <div class="cena">
+      <div class="folha rv3" style="--d:620ms">
+        <div class="cl cab">
+          <div class="selo">Resumo do dia &middot; 01/10/2025 &middot; 07h00</div>
+          <h2><span class="mask" style="--d:900ms"><span>Situação da operação</span></span></h2>
+          <p class="rv" style="--d:1040ms">Volume de uma quarta comum nas duas prioridades do KPI.</p>
+        </div>
+        <i class="fio" style="--d:1500ms"></i>
+        <div class="nota" style="--d:1500ms"><b>Claude API</b><span>A única frase escrita por modelo de linguagem. Ela recebe os números prontos.</span></div>
+
+        <div class="cl lin">
+          <span class="rot">Ontem</span>
+          <div class="val rv" style="--d:1160ms">
+            <div class="n">84<small>registrados</small>0<small>violaram o prazo</small></div>
+            <p>Quatro dias úteis seguidos sem violação.</p>
+          </div>
+        </div>
+        <i class="fio" style="--d:1900ms"></i>
+        <div class="nota" style="--d:1900ms"><b>Base de incidentes</b><span>Fechamento do dia anterior, na base elegível ao KPI.</span></div>
+
+        <div class="cl lin">
+          <span class="rot">Hoje</span>
+          <div class="val rv" style="--d:1280ms">
+            <div class="n">59 a 96<small>previstos na prioridade 3</small></div>
+            <div class="n">9 a 22<small>previstos na prioridade 2</small></div>
+          </div>
+        </div>
+        <i class="fio" style="--d:2300ms"></i>
+        <div class="nota" style="--d:2300ms"><b>Prophet</b><span>A faixa de 80% da previsão do dia, por prioridade.</span></div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:2700ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.2v5.2l3.2 2"/></svg>
+      <span>Gerado às 7h, sem consulta de ninguém. <b>Os números saem dos modelos e da base</b>, e o botão do resumo leva direto à tela que ele aponta.</span>
+    </div>
+  </div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
+</section>
+
+<section class="slide light sau" data-slide="17" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -1651,7 +2063,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide light stk" data-slide="14" data-var="a" data-quem="hygor">
+<section class="slide light stk" data-slide="18" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -1707,7 +2119,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide dark apl" data-slide="15" data-var="a" data-quem="hygor">
+<section class="slide dark apl" data-slide="19" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -1733,7 +2145,99 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide dark fim" data-slide="18" data-var="a" data-quem="igor">
+<section class="slide light res" data-slide="20" data-var="a" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Síntese dos resultados</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Para fechar</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>O que ficou pronto</span></span></h1>
+
+    <div class="cena">
+      <div class="ln rv" style="--d:660ms">
+        <span class="v"><span class="ct" data-to="13" data-delay="820">0</span> <em>de 14</em></span>
+        <div class="oq">Dias dentro da faixa prevista<small>previsão de 1º de outubro para os sete dias seguintes</small></div>
+        <p class="ct2">Na janela de teste inteira a faixa acerta entre <b>86% e 88%</b> dos dias na prioridade 2.</p>
+      </div>
+
+      <div class="ln rv" style="--d:820ms">
+        <span class="v"><span class="ct" data-to="13" data-delay="980">0</span></span>
+        <div class="oq">Quebras nos 50 primeiros da fila<small>de 5.183 incidentes avaliados no período</small></div>
+        <p class="ct2">Ordenando por prioridade, que é o que se faz hoje, <b>nenhuma</b>.</p>
+      </div>
+
+      <div class="ln rv" style="--d:980ms">
+        <span class="v"><span class="ct" data-to="0.87" data-dec="2" data-delay="1140">0,00</span></span>
+        <div class="oq">De área sob a curva no modelo de risco<small>e ele fica calibrado, não só ordena bem</small></div>
+        <p class="ct2">Prevê <b>48 quebras</b> onde houve 50. O gradient boosting empata na ordenação e perde na precisão.</p>
+      </div>
+
+      <div class="ln rv" style="--d:1140ms">
+        <span class="v"><span class="ct" data-to="2" data-delay="1300">0</span> <em>meses</em></span>
+        <div class="oq">De antecedência na chamada da meta<small>as duas prioridades certas em 1º de outubro</small></div>
+        <p class="ct2">A prioridade 2 fechou em <b>42</b>, acima do limite, e a 3 em <b>196</b>, dentro.</p>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:1500ms">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+      <span>Tudo isso roda em <b>um contêiner</b>, sem depender de provedor de nuvem, e o código está no repositório público.</span>
+    </div>
+  </div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+</section>
+
+<section class="slide light lim" data-slide="21" data-var="a" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Limites e próximos passos</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Para fechar</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>O que ainda não está resolvido</span></span></h1>
+
+    <div class="cena">
+      <div class="cabs rv" style="--d:620ms">
+        <div class="a">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M12 3.4 2.4 20.2h19.2L12 3.4Z"/><path d="M12 9.6v4.4"/><path d="M12 17.2h.01"/></svg>
+          O limite que assumimos
+        </div>
+        <div class="b">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M4 12h14M13 6.6 19.4 12 13 17.4"/></svg>
+          O que vem em seguida
+        </div>
+      </div>
+
+      <div class="par rv" style="--d:760ms">
+        <p>A faixa da previsão acerta entre <b>59% e 61%</b> dos dias na prioridade 3, abaixo dos 80% nominais, quando a base muda de patamar.</p>
+        <div class="dir"><p>Modelar o recesso de fim de ano como evento de calendário e re-treinar por origem a cada semana.</p></div>
+      </div>
+
+      <div class="par rv" style="--d:900ms">
+        <p>O dataset <b>não traz o custo de uma violação</b>, então não dá para afirmar retorno em reais.</p>
+        <div class="dir"><p>Levantar o custo por violação com a Locaweb. O ganho que sustentamos hoje é ordenar a fila, não reduzir volume.</p></div>
+      </div>
+
+      <div class="par rv" style="--d:1040ms">
+        <p>Não existe <b>alarme automático</b> quando o modelo sai de calibragem. O re-treino reabsorve o desvio, com atraso.</p>
+        <div class="dir"><p>Monitorar a cobertura da faixa semana a semana e disparar aviso quando ela cair do nominal.</p></div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:1400ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+      <span>Os três estão medidos e documentados. <b>Nenhum deles impede a operação de usar o que já está no ar.</b></span>
+    </div>
+  </div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+</section>
+
+<section class="slide dark fim" data-slide="22" data-var="a" data-quem="igor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="serie"><svg viewBox="0 0 1600 340" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1000" d="M 0 300 L 13.4 244 L 26.9 219 L 40.3 148 L 53.8 131 L 67.2 128 L 80.7 110 L 94.1 111 L 107.6 116 L 121 99 L 134.5 52 L 147.9 74 L 161.3 104 L 174.8 106 L 188.2 104 L 201.7 116 L 215.1 122 L 228.6 101 L 242 95 L 255.5 107 L 268.9 138 L 282.4 188 L 295.8 194 L 309.2 129 L 322.7 117 L 336.1 116 L 349.6 118 L 363 113 L 376.5 109 L 389.9 131 L 403.4 136 L 416.8 107 L 430.3 99 L 443.7 133 L 457.1 156 L 470.6 170 L 484 194 L 497.5 191 L 510.9 176 L 524.4 125 L 537.8 144 L 551.3 163 L 564.7 154 L 578.2 144 L 591.6 128 L 605 126 L 618.5 121 L 631.9 113 L 645.4 113 L 658.8 110 L 672.3 114 L 685.7 142 L 699.2 125 L 712.6 106 L 726.1 126 L 739.5 131 L 752.9 146 L 766.4 170 L 779.8 134 L 793.3 135 L 806.7 152 L 820.2 156 L 833.6 160 L 847.1 150 L 860.5 146 L 873.9 148 L 887.4 152 L 900.8 152 L 914.3 147 L 927.7 134 L 941.2 127 L 954.6 121 L 968.1 132 L 981.5 128 L 995 108 L 1008.4 104 L 1021.8 115 L 1035.3 118 L 1048.7 121 L 1062.2 129 L 1075.6 150 L 1089.1 162 L 1102.5 161 L 1116 150 L 1129.4 131 L 1142.9 107 L 1156.3 104 L 1169.7 68 L 1183.2 73 L 1196.6 123 L 1210.1 122 L 1223.5 134 L 1237 132 L 1250.4 139 L 1263.9 150 L 1277.3 150 L 1290.8 147 L 1304.2 148 L 1317.6 153 L 1331.1 165 L 1344.5 160 L 1358 153 L 1371.4 170 L 1384.9 172 L 1398.3 166 L 1411.8 184 L 1425.2 210 L 1438.7 200 L 1452.1 169 L 1465.5 157 L 1479 160 L 1492.4 180 L 1505.9 179 L 1519.3 187 L 1532.8 183 L 1546.2 182 L 1559.7 168 L 1573.1 193 L 1586.6 232 L 1600 276"/></svg></div>
   <div class="hd">

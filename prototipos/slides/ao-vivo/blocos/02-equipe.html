@@ -1,0 +1,105 @@
+<style>
+/* ═══ slide 2 · quem apresenta ═══════════════════════════════════════════════
+   O slide de identificação, herdado dos decks das quatro sprints, onde ele
+   sempre foi o segundo. Aqui ele ganha uma função a mais: além de dizer quem
+   somos, diz quem fala o quê, e a sala passa a saber que a apresentação tem
+   três donos e três blocos.
+
+   Cada retrato traz o bloco que aquela pessoa conduz, na ordem em que aparecem
+   no deck. O marcador do rodapé, que segue slide a slide, é o mesmo retrato em
+   miniatura, então a sala reconhece a troca de voz sem ninguém anunciar.
+
+   O mentor fica numa faixa própria embaixo, separado da equipe. Ele não
+   apresenta, e misturá-lo com os três seria impreciso.
+
+   Retratos em brand/equipe/, 512 por 512. Nomes e RMs em ordem alfabética, que
+   é exigência da FIAP.
+   ══════════════════════════════════════════════════════════════════════════ */
+.eqp .body{padding-top:14px}
+.eqp .tt{font-size:52px;letter-spacing:-1.9px}
+.eqp .cena{flex:1;display:flex;flex-direction:column;justify-content:center;
+  margin-top:10px;min-height:0}
+
+.eqp .trio{display:flex;gap:0}
+.eqp .pes{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;
+  text-align:center;padding:0 30px}
+.eqp .pes + .pes{border-left:1px solid #DCE4EF}
+
+.eqp .pes .foto{width:158px;height:158px;border-radius:50%;overflow:hidden;
+  border:3px solid #fff;box-shadow:0 20px 44px -26px rgba(15,23,42,.42)}
+.eqp .pes .foto img{width:100%;height:100%;object-fit:cover;display:block}
+.eqp .pes .nm{font-size:23px;font-weight:800;letter-spacing:-.5px;color:var(--head);
+  margin-top:22px;line-height:1.2}
+.eqp .pes .rm{font-family:var(--mono);font-size:14px;color:var(--tx2);margin-top:7px;
+  letter-spacing:.4px}
+
+/* o bloco que cada um conduz */
+.eqp .pes .bl{margin-top:20px;padding-top:18px;border-top:1px solid #E4EAF3;width:100%}
+.eqp .pes .bl b{display:block;font-size:12px;font-weight:700;letter-spacing:1.8px;
+  text-transform:uppercase;color:var(--accent)}
+.eqp .pes .bl span{display:block;font-size:15.5px;line-height:1.42;color:var(--tx);
+  margin-top:8px}
+
+/* o mentor, numa faixa própria */
+.eqp .mentor{display:flex;align-items:center;gap:18px;margin-top:46px;padding-top:24px;
+  border-top:1px solid #DCE4EF}
+.eqp .mentor .ic{width:22px;height:22px;color:var(--tx2);flex-shrink:0}
+.eqp .mentor .tx b{font-size:12px;font-weight:700;letter-spacing:1.8px;
+  text-transform:uppercase;color:var(--tx2)}
+.eqp .mentor .tx span{display:block;font-size:18px;font-weight:700;color:var(--head);
+  margin-top:5px;letter-spacing:-.2px}
+.eqp .mentor .tx span em{font-style:normal;font-weight:400;font-size:15.5px;
+  color:var(--tx2);margin-left:10px}
+.eqp .mentor .turma{margin-left:auto;text-align:right;font-size:14.5px;color:var(--tx2);
+  line-height:1.5}
+.eqp .mentor .turma b{display:block;color:var(--head);font-weight:700;font-size:16px}
+</style>
+
+<section class="slide light eqp" data-slide="2" data-var="a" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Super Data Bros</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Quem apresenta</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Super Data Bros</span></span></h1>
+
+    <div class="cena">
+      <div class="trio">
+        <div class="pes rv3" style="--d:640ms">
+          <div class="foto"><img src="../../../../brand/equipe/ana-beatriz.png" alt="Ana Beatriz Costa de Oliveira"></div>
+          <div class="nm">Ana Beatriz<br>Costa de Oliveira</div>
+          <div class="rm">RM561310</div>
+          <div class="bl"><b>Dados e modelos</b><span>o que a base mostrou e como os dois modelos foram construídos</span></div>
+        </div>
+        <div class="pes rv3" style="--d:780ms">
+          <div class="foto"><img src="../../../../brand/equipe/hygor.png" alt="Hygor Abrantes"></div>
+          <div class="nm">Hygor<br>Abrantes</div>
+          <div class="rm">RM565063</div>
+          <div class="bl"><b>Produto e demonstração</b><span>como a solução roda e o painel funcionando ao vivo</span></div>
+        </div>
+        <div class="pes rv3" style="--d:920ms">
+          <div class="foto"><img src="../../../../brand/equipe/igor.png" alt="Igor Vignola"></div>
+          <div class="nm">Igor<br>Vignola</div>
+          <div class="rm">RM561428</div>
+          <div class="bl"><b>Problema e resultados</b><span>o que a Locaweb mede, o que estava em risco e onde chegamos</span></div>
+        </div>
+      </div>
+
+      <div class="mentor rv" style="--d:1200ms">
+        <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.6 20c0-3.6 3.3-6 7.4-6s7.4 2.4 7.4 6"/></svg>
+        <div class="tx">
+          <b>Mentor Locaweb</b>
+          <span>Douglas Gouveia<em>Gerente Executivo de Operações</em></span>
+        </div>
+        <div class="turma">
+          <b>Turma 2TSCOA</b>
+          FIAP &middot; Tecnólogo em Data Science
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

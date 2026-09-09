@@ -168,3 +168,41 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 
 /* ── indicador de posição no chrome: slide e variação atual ───────────────── */
 #pos{color:rgba(255,255,255,.72);letter-spacing:.4px}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DIVISÓRIA DE BLOCO
+   Herdada do deck da Sprint 4, onde ela abre cada um dos sete blocos do
+   template oficial. Aqui ela marca as três partes que são o núcleo do
+   trabalho: a análise, os modelos e a solução em produção. Cada uma ganha
+   respiro antes de começar.
+
+   O que mudou em relação à Sprint 4: aqui ela se move. O título entra por
+   máscara, os três cartões sobem em sequência e o chip da pergunta fecha.
+   Como o slide é curto de fala, a animação é o que segura os oito segundos.
+
+   O CSS mora aqui, e não nos blocos, porque três slides usam o mesmo desenho.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.dvs .body{padding:26px 64px 44px;flex-direction:row;gap:60px;align-items:center}
+.dvs .lft{flex:1;min-width:0}
+.dvs .tt{font-size:78px;letter-spacing:-3.2px;line-height:1.02}
+/* o gradiente vai no span da máscara, não no h1: com background-clip no pai o
+   texto do filho herda color:transparent e o título some da tela */
+.dvs .tt .mask > span{background:linear-gradient(96deg,#fff,#C7E1FE);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.dvs .lead{font-size:19px;line-height:1.55;color:#98A2B3;max-width:52ch;margin-top:22px}
+.dvs .chip{display:inline-flex;align-items:center;gap:11px;margin-top:30px;font-size:15.5px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#C4CDDB;
+  padding:13px 22px;border-radius:14px}
+.dvs .chip .ic{width:18px;height:18px;color:var(--accent3);flex-shrink:0}
+.dvs .chip b{color:#fff;font-weight:700}
+
+.dvs .rgt{width:432px;flex-shrink:0;display:flex;flex-direction:column;gap:15px}
+.dvs .cd{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
+  border-radius:16px;padding:20px 24px}
+.dvs .cd .ck{font-size:11.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+  color:#8B96A8}
+.dvs .cd .cv{font-size:38px;font-weight:900;letter-spacing:-1.6px;color:#fff;margin-top:9px;
+  line-height:1;font-variant-numeric:tabular-nums}
+.dvs .cd.bad .cv{color:#F87171}
+.dvs .cd .cs{font-size:14px;line-height:1.4;color:#8B96A8;margin-top:9px}
+.dvs .cd .cs b{color:#C4CDDB;font-weight:600}

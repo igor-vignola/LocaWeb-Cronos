@@ -1,0 +1,126 @@
+<style>
+/* ═══ slide 14 · a meta do ano vai fechar? ═══════════════════════════════════
+   Responde ao pedido número 1 que o mentor da Locaweb fez na mentoria: parado
+   no meio do ano, dá para saber se a meta anual fecha?
+
+   O objeto é o trilho da tela de Projeção do próprio sistema, ampliado. Foi
+   ideia do dono do projeto usar um componente do Django aqui, e ela resolve o
+   slide: a barra escura é o que já aconteceu até 30 de setembro, a faixa clara
+   é onde a projeção diz que o ano termina, e o tracejado é o limite. Se a faixa
+   passa do tracejado, a meta está em risco. O mesmo componente aparece vivo na
+   demonstração, cinco minutos depois.
+
+   A leitura de 1º de outubro: na prioridade 2 a faixa atravessa o limite, e o
+   ano de fato fechou acima. Na prioridade 3 a faixa fica bem abaixo, e o ano
+   fechou dentro. As duas chamadas certas, dois meses antes da apuração.
+
+   Duas versões anteriores caíram. Um placar de "5 de 5" e "2 de 5" sem gráfico,
+   que o dono do projeto disse ser confuso, e um gráfico das cinco datas de
+   corte, que ficava lento de explicar.
+
+   Números de data/interim/06_projecao.parquet, corte de 01/10/2025:
+   P2 já 33, projeção 43,5, faixa 38,2 a 48,7, fechou em 42, limite 39.
+   P3 já 145, projeção 208,0, faixa 190,6 a 225,2, fechou em 196, limite 263.
+   Escala do trilho: 0 a 55 no P2, 0 a 290 no P3.
+   ══════════════════════════════════════════════════════════════════════════ */
+.prj .body{padding-top:14px}
+.prj .tt{font-size:52px;letter-spacing:-1.9px}
+.prj .cena{flex:1;display:flex;flex-direction:column;justify-content:center;
+  gap:74px;margin-top:6px;min-height:0}
+
+.prj .pr{display:flex;flex-direction:column;gap:15px}
+.prj .cab{display:flex;align-items:baseline;gap:16px}
+.prj .cab b{font-size:20px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
+.prj .cab .sel{font-size:13px;font-weight:700;letter-spacing:.4px;padding:4px 12px;
+  border-radius:999px;white-space:nowrap}
+.prj .pr.fora .sel{background:var(--bad-l);color:var(--bad)}
+.prj .pr.dentro .sel{background:var(--good-l);color:var(--good)}
+
+/* o trilho: o que já aconteceu, a faixa da projeção e o limite */
+.prj .trilho{position:relative;height:72px;border-radius:10px;background:#E9EEF5}
+.prj .ja{position:absolute;left:0;top:0;bottom:0;border-radius:10px 0 0 10px;
+  background:var(--head);transform:scaleX(0);transform-origin:left}
+.prj.is-active .ja{animation:corre 1s var(--out) var(--d,0ms) forwards}
+.prj .faixa{position:absolute;top:0;bottom:0;background:rgba(37,99,235,.26);
+  border-left:2px solid var(--accent);border-right:2px solid var(--accent);
+  opacity:0;transform:scaleX(.4)}
+.prj.is-active .faixa{animation:abreFaixa .7s var(--out) var(--d,0ms) forwards}
+@keyframes abreFaixa{to{opacity:1;transform:none}}
+.prj .proj{position:absolute;top:-7px;bottom:-7px;width:3px;background:var(--accent);
+  border-radius:2px;opacity:0}
+.prj.is-active .proj{animation:rv .5s var(--out) var(--d,0ms) forwards}
+/* o limite do ano, tracejado, atravessando o trilho */
+.prj .lim{position:absolute;top:-16px;bottom:-16px;width:0;
+  border-left:2px dashed var(--head);opacity:0}
+.prj .lim em{position:absolute;left:9px;top:-4px;font-style:normal;font-size:13.5px;
+  font-weight:700;color:var(--head);white-space:nowrap;background:var(--pg);padding:0 6px}
+.prj.is-active .lim{animation:rv .5s var(--out) var(--d,0ms) forwards}
+
+/* os rótulos, embaixo do trilho */
+.prj .rots{position:relative;height:46px}
+.prj .rots span{position:absolute;top:0;transform:translateX(-50%);text-align:center;
+  white-space:nowrap;opacity:0}
+.prj.is-active .rots span{animation:rv .5s var(--out) var(--d,0ms) forwards}
+.prj .rots b{display:block;font-size:17px;font-weight:800;color:var(--head);
+  font-variant-numeric:tabular-nums}
+.prj .rots s{display:block;text-decoration:none;font-size:13px;color:var(--tx2);margin-top:3px}
+.prj .rots .azul b{color:var(--accent)}
+
+.prj .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.prj .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.prj .fecho b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light prj" data-slide="14" data-var="a" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Projeção de 1º de outubro de 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">O pedido do mentor</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>A meta do ano vai fechar?</span></span></h1>
+
+    <div class="cena">
+      <div class="pr fora">
+        <div class="cab rv" style="--d:640ms">
+          <b>Prioridade 2</b><span class="sel">Vai passar do limite</span>
+        </div>
+        <div class="trilho">
+          <i class="ja" style="width:60%;--d:760ms"></i>
+          <i class="faixa" style="left:69.5%;width:19%;--d:1300ms"></i>
+          <i class="proj" style="left:79.1%;--d:1500ms"></i>
+          <i class="lim" style="left:70.9%;--d:1700ms"><em>limite 39</em></i>
+        </div>
+        <div class="rots">
+          <span style="left:60%;--d:900ms"><b>33</b><s>até 30 de setembro</s></span>
+          <span class="azul" style="left:79.1%;--d:1560ms"><b>38 a 49</b><s>projeção para dezembro</s></span>
+        </div>
+      </div>
+
+      <div class="pr dentro">
+        <div class="cab rv" style="--d:820ms">
+          <b>Prioridade 3</b><span class="sel">Fecha dentro</span>
+        </div>
+        <div class="trilho">
+          <i class="ja" style="width:50%;--d:940ms"></i>
+          <i class="faixa" style="left:65.7%;width:12%;--d:1400ms"></i>
+          <i class="proj" style="left:71.7%;--d:1600ms"></i>
+          <i class="lim" style="left:90.7%;--d:1800ms"><em>limite 263</em></i>
+        </div>
+        <div class="rots">
+          <span style="left:50%;--d:1080ms"><b>145</b><s>até 30 de setembro</s></span>
+          <span class="azul" style="left:71.7%;--d:1660ms"><b>191 a 225</b><s>projeção para dezembro</s></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:2100ms">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+      <span>As duas chamadas certas, <b>dois meses antes da apuração</b>: o ano fechou em 42 na prioridade 2, acima do limite, e em 196 na prioridade 3, dentro.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>
