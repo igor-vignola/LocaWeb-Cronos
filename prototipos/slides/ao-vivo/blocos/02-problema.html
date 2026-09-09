@@ -50,18 +50,6 @@
 .pb-a .fio{width:1px;height:280px;
   background:linear-gradient(180deg,transparent,#D9E1EC 20%,#D9E1EC 80%,transparent)}
 
-/* ── variação B · empilhados, rótulo ao lado, trilho na coluna da direita ── */
-.pb-b .cena{flex:1;display:flex;flex-direction:column;justify-content:center;
-  min-height:0}
-.pb-b .un{display:flex;align-items:center;gap:38px;padding:46px 0;
-  border-bottom:1px solid #DCE4EF}
-.pb-b .un:last-child{border-bottom:none}
-.pb-b .v{font-size:142px;letter-spacing:-5.6px;width:276px;text-align:right;
-  flex-shrink:0}
-.pb-b .rot{width:300px;flex-shrink:0;font-size:17px}
-.pb-b .col{display:flex;flex-direction:column;gap:20px}
-.pb-b .rot b{font-size:25px}
-
 </style>
 
 <section class="slide light prb pb-a" data-slide="2" data-var="a" data-quem="igor">
@@ -100,37 +88,3 @@
   <div class="ft"></div>
 </section>
 
-<section class="slide light prb pb-b" data-slide="2" data-var="b" data-quem="igor">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Base elegível ao KPI &middot; 2025</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">O problema</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quantidade de quebras em 2025</span></span></h1>
-
-    <div class="cena">
-      <div class="un p2 rv3" style="--d:720ms">
-        <span class="v"><span class="ct" data-to="42" data-delay="960">0</span></span>
-        <span class="col"><span class="rot"><b>Prioridade 2</b>passaram das 4 horas de prazo</span>
-        <span class="prazo" style="--d:1300ms">
-          <i class="passou"></i>
-          <i class="fora"></i>
-          <span class="marca"><em>4 h</em></span>
-        </span></span>
-      </div>
-      <div class="un p3 rv3" style="--d:880ms">
-        <span class="v"><span class="ct" data-to="196" data-delay="1120">0</span></span>
-        <span class="col"><span class="rot"><b>Prioridade 3</b>passaram das 12 horas de prazo</span>
-        <span class="prazo" style="--d:1460ms">
-          <i class="passou"></i>
-          <i class="fora"></i>
-          <span class="marca"><em>12 h</em></span>
-        </span></span>
-      </div>
-    </div>
-  </div>
-  <div class="ft"></div>
-</section>

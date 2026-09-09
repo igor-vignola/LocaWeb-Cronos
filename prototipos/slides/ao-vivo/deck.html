@@ -306,18 +306,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .pb-a .fio{width:1px;height:280px;
   background:linear-gradient(180deg,transparent,#D9E1EC 20%,#D9E1EC 80%,transparent)}
 
-/* ── variação B · empilhados, rótulo ao lado, trilho na coluna da direita ── */
-.pb-b .cena{flex:1;display:flex;flex-direction:column;justify-content:center;
-  min-height:0}
-.pb-b .un{display:flex;align-items:center;gap:38px;padding:46px 0;
-  border-bottom:1px solid #DCE4EF}
-.pb-b .un:last-child{border-bottom:none}
-.pb-b .v{font-size:142px;letter-spacing:-5.6px;width:276px;text-align:right;
-  flex-shrink:0}
-.pb-b .rot{width:300px;flex-shrink:0;font-size:17px}
-.pb-b .col{display:flex;flex-direction:column;gap:20px}
-.pb-b .rot b{font-size:25px}
-
 /* ───── 03-desafio.html ───── */
 /* ═══ slide 3 · o desafio da previsão ════════════════════════════════════════
    Um assunto só: a quebra é raríssima, e essa raridade é o problema de
@@ -370,19 +358,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   align-items:center;gap:18px}
 .ds-a .malha{grid-template-columns:repeat(25,25px);gap:6px}
 .ds-a .qd{width:25px;height:25px;border-radius:5px}
-
-/* ── variação B · malha larga em cima, os dois números lado a lado embaixo ── */
-.ds-b .cena{flex:1;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:38px;margin-top:8px;min-height:0}
-.ds-b .quadro{padding:30px 34px 24px;display:flex;flex-direction:column;
-  align-items:center;gap:18px}
-.ds-b .malha{grid-template-columns:repeat(40,23px);gap:7px}
-.ds-b .qd{width:23px;height:23px;border-radius:5px}
-.ds-b .dupla{display:flex;align-items:stretch;gap:60px;width:1120px}
-.ds-b .bat{flex:1}
-.ds-b .bat .v{font-size:104px;letter-spacing:-4.2px}
-.ds-b .vfio{width:1px;background:linear-gradient(180deg,transparent,#D9E1EC 18%,
-  #D9E1EC 82%,transparent)}
 
 /* ───── 04-salto.html ───── */
 /* ═══ slide 3 · o salto de setembro ══════════════════════════════════════════
@@ -496,194 +471,207 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
    O momento de virada do deck: sai o problema, entra a solução. Escuro, e o
    escuro é o que marca a virada.
 
-   A versão anterior deste slide virou documento: duas colunas de prosa com
-   métrica no pé, e o dono do projeto reprovou. Agora ele carrega SÓ o nome de
-   cada modelo e a pergunta que ele responde. As métricas moram nos slides 7, 8
-   e 9, um número por slide, que é a regra do deck.
+   Duas versões foram reprovadas antes desta. A primeira virou documento, com
+   duas colunas de prosa e métrica no pé. A segunda ficou só tipografia, e o
+   dono do projeto disse que estava sem graça e sobrava vazio no meio.
 
-   Quem olha este slide sabe, sem ninguém falar: são dois modelos, um chamado
-   Prophet que conta quantos incidentes chegam, e uma regressão logística que
-   aponta qual deles quebra.
+   Agora cada modelo tem um objeto, e os dois objetos são de propósito
+   diferentes um do outro, porque é essa diferença que é a mensagem:
+
+     Prophet             duas colunas que sobem   → o modelo devolve uma ALTURA
+     regressão logística linhas que se ordenam    → o modelo devolve uma ORDEM
+
+   Quem olha entende, sem ninguém falar, que os dois modelos não competem: um
+   dimensiona o dia, o outro aponta o caso dentro dele. E é essa a razão de
+   existirem dois, que está escrita no pé do slide.
+
+   Terceira correção: com uma linha de prosa embaixo de cada pergunta o slide
+   ficou cheio. As duas saíram, a pergunta cresceu e os objetos ganharam ar. A
+   pergunta grande já dizia o que a prosa repetia.
+
+   As alturas das colunas saem de CONTRATO §5: 16 incidentes de P2 e 67 de P3
+   por dia, em média. As linhas da direita não têm número nenhum de propósito —
+   são a forma de uma fila ordenada, não a fila. A fila de verdade, com os
+   incidentes, é o slide 8.
    ══════════════════════════════════════════════════════════════════════════ */
 .mdl .body{padding-top:14px}
 .mdl .tt{font-size:52px;letter-spacing:-1.9px}
 
-.mdl .md{display:flex;flex-direction:column}
+.mdl .cena{flex:1;display:flex;align-items:stretch;gap:0;margin-top:26px;
+  min-height:0}
+.mdl .md{flex:1;min-width:0;padding:0 50px;display:flex;flex-direction:column}
+.mdl .md:first-child{padding-left:0}
+.mdl .md:last-child{padding-right:0}
+.mdl .md + .md{border-left:1px solid rgba(255,255,255,.13)}
+
 .mdl .nome{display:inline-flex;align-items:center;gap:11px;align-self:flex-start;
   padding:8px 16px 8px 13px;border-radius:999px;
   background:rgba(96,165,250,.13);border:1px solid rgba(96,165,250,.26)}
 .mdl .nome .ic{width:19px;height:19px;color:var(--accent3)}
 .mdl .nome span{font-family:var(--mono);font-size:14px;font-weight:500;
   letter-spacing:.3px;color:var(--accent3)}
-.mdl .pg{font-weight:800;letter-spacing:-2.2px;line-height:1.04;color:#fff;
-  margin-top:30px}
+.mdl .pg{font-size:52px;font-weight:800;letter-spacing:-2.1px;line-height:1.05;
+  color:#fff;margin-top:26px;max-width:12ch}
 .mdl .pg em{font-style:normal;color:var(--accent3)}
-.mdl .oq{font-size:17.5px;line-height:1.5;color:#98A2B3;margin-top:20px}
-.mdl .oq b{color:#E8ECF3;font-weight:600}
+
+/* o que o modelo devolve, dito em uma palavra acima do objeto */
+.mdl .dev{display:flex;align-items:center;gap:10px;margin-top:44px;
+  font-size:12.5px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;
+  color:#5B647A}
+.mdl .dev::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.1)}
+
+/* ── objeto da esquerda: duas colunas que sobem ── */
+.mdl .colunas{display:flex;align-items:flex-end;gap:44px;height:306px;
+  margin-top:22px}
+.mdl .co{width:82px;display:flex;flex-direction:column;justify-content:flex-end;
+  height:100%}
+.mdl .co .v{font-size:34px;font-weight:900;letter-spacing:-1.4px;line-height:1;
+  color:#fff;font-variant-numeric:tabular-nums;margin-bottom:10px;opacity:0;
+  transform:translate3d(0,10px,0)}
+.mdl .co .ba{width:100%;border-radius:9px 9px 3px 3px;
+  background:linear-gradient(180deg,var(--accent3),rgba(96,165,250,.5));
+  transform:scaleY(0);transform-origin:bottom}
+.mdl .co .k{font-size:13.5px;font-weight:600;color:#98A2B3;margin-top:12px;
+  white-space:nowrap}
+.mdl.is-active .co .ba{animation:sobe .85s var(--out) var(--d,0ms) forwards}
+.mdl.is-active .co .v{animation:rv .5s var(--out) calc(var(--d,0ms) + 420ms) forwards}
+@keyframes sobe{to{transform:scaleY(1)}}
+
+/* ── objeto da direita: linhas que se ordenam por risco ── */
+.mdl .ordem{display:flex;flex-direction:column;gap:10px;height:306px;
+  justify-content:center;margin-top:22px}
+.mdl .ordem i{display:block;height:16px;border-radius:4px;
+  background:rgba(96,165,250,.34);transform:scaleX(0);transform-origin:left}
+.mdl .ordem i.q{background:#F87171}
+.mdl.is-active .ordem i{animation:corre .5s var(--out) var(--d,0ms) forwards}
+/* legenda de uma linha, igual nos dois lados, para os objetos alinharem */
+.mdl .leg{display:flex;align-items:center;gap:10px;margin-top:13px;font-size:13px;
+  color:#98A2B3;white-space:nowrap}
+.mdl .leg em{display:block;width:14px;height:11px;border-radius:3px;
+  background:#F87171;flex-shrink:0}
 
 /* a razão de existirem dois, em uma linha */
-.mdl .porque{display:flex;align-items:flex-start;gap:12px;margin-top:auto;
+.mdl .porque{display:flex;align-items:flex-start;gap:12px;margin-top:26px;
   padding-top:22px;border-top:1px solid rgba(255,255,255,.13);
   font-size:16.5px;line-height:1.45;color:#98A2B3}
 .mdl .porque .ic{width:20px;height:20px;color:var(--accent3);margin-top:2px;
   flex-shrink:0}
 .mdl .porque b{color:#fff;font-weight:700}
 
-/* ── variação A · os dois lado a lado, fio vertical entre eles ── */
-.md-a .cena{flex:1;display:flex;align-items:center;gap:0;margin-top:34px;
-  min-height:0}
-.md-a .md{flex:1;min-width:0;padding:0 46px;justify-content:center}
-.md-a .md:first-child{padding-left:0}
-.md-a .md:last-child{padding-right:0}
-.md-a .md + .md{border-left:1px solid rgba(255,255,255,.13)}
-.md-a .pg{font-size:76px;letter-spacing:-3.2px}
-.md-a .oq{max-width:430px;font-size:19px}
-
-/* ── variação B · empilhados, com fio horizontal e numeração ── */
-.md-b .cena{flex:1;display:flex;flex-direction:column;margin-top:24px;
-  min-height:0}
-.md-b .md{flex:1;justify-content:center;padding:30px 0;
-  border-bottom:1px solid rgba(255,255,255,.13)}
-.md-b .md:last-child{border-bottom:none}
-.md-b .linha{display:flex;align-items:center;gap:44px}
-.md-b .pg{font-size:56px;margin-top:0;flex:1;min-width:0}
-.md-b .dir{width:430px;flex-shrink:0;display:flex;flex-direction:column;gap:16px}
-.md-b .oq{margin-top:0;font-size:16.5px}
-
 /* ───── 07-previsao.html ───── */
-/* ═══ slide 7 · quantos incidentes chegam ════════════════════════════════════
-   O slide do Prophet. Quem olha tem de saber, sem ninguém falar, que este
-   modelo prevê QUANTIDADE de incidentes e que o desempenho dele é este.
+/* ═══ slide 7 · os próximos sete dias ════════════════════════════════════════
+   O slide do Prophet, e a saída do produto em vez de uma métrica sobre ele: os
+   sete dias que a operação lê no dia 1º de outubro de 2025, com a faixa de cada
+   dia e o ponto do que de fato chegou.
 
-   A forma escolhida para o desempenho é a mais fácil de ler que existe: quanto
-   chega por dia contra quanto o modelo erra. "Chegam 16 e erramos 4" qualquer
-   pessoa entende, e a barra deixa a proporção visível sem fazer conta.
+   Três versões antes desta. A primeira era "chegam 16, erramos 4" em número
+   grande com barra de proporção, e o dono do projeto pediu algo mais imersivo.
+   A segunda desenhava a tira em HTML, com as faixas em pixel — funcionou, e ele
+   pediu para manter o padrão da casa e fazer o gráfico no matplotlib, que é
+   mais fácil de ler. É esta.
 
-   Cuidado tomado aqui, e vale registrar: o erro de 4 e 11 por dia é o do
-   backtest deslizante, média de D+1 a D+7. Na janela de outubro a dezembro
-   isolada o erro do P3 mede 20 por dia, porque ela inclui a queda de nível de
-   novembro e dezembro. Mostrar sete dias escolhidos dessa janela daria 5,1 por
-   dia, que seria cherry-picking ao contrário. O número que vai ao palco é o do
-   protocolo, não o da janela mais conveniente.
+   O ponto vermelho é o único fora da faixa e fica no slide de propósito.
+   Esconder um ponto de quatorze seria pior que mostrá-lo, e a ressalva da
+   janela inteira está escrita no pé.
+
+   Figura em dpi 200, de _figuras_previsao.py. As duas prioridades no mesmo
+   peso, regra 10, com escalas próprias porque os volumes são diferentes.
    ══════════════════════════════════════════════════════════════════════════ */
 .pvs .body{padding-top:14px}
 .pvs .tt{font-size:52px;letter-spacing:-1.9px}
 
-.pvs .nome{display:inline-flex;align-items:center;gap:11px;align-self:flex-start;
-  padding:8px 16px 8px 13px;border-radius:999px;background:var(--accent-l);
-  border:1px solid #C9DCFB}
-.pvs .nome .ic{width:19px;height:19px;color:var(--accent)}
-.pvs .nome span{font-family:var(--mono);font-size:14px;font-weight:500;
-  letter-spacing:.3px;color:var(--accent)}
+.pvs .cena{flex:1;display:flex;align-items:center;justify-content:center;
+  margin-top:14px;min-height:0}
+.pvs .quadro{padding:18px 24px 14px}
+.pvs .fig{display:block;width:1300px;border-radius:8px}
 
-/* o par por prioridade: quanto chega, quanto erra, e a barra da proporção */
-.pvs .pr{display:flex;flex-direction:column}
-.pvs .cab{font-size:12.5px;font-weight:700;letter-spacing:1.7px;
-  text-transform:uppercase;color:var(--tx2)}
-.pvs .dupla{display:flex;align-items:baseline;gap:34px;margin-top:16px}
-.pvs .un{display:flex;flex-direction:column}
-.pvs .un .v{font-weight:900;line-height:.86;font-variant-numeric:tabular-nums}
-.pvs .un .k{font-size:14.5px;line-height:1.32;color:var(--tx);margin-top:10px}
-.pvs .un .k b{display:block;color:var(--head);font-weight:700;font-size:16px}
-.pvs .un.chega .v{color:var(--head)}
-.pvs .un.erra .v{color:var(--accent)}
-.pvs .mais{font-size:34px;font-weight:600;color:#B4BFCE;align-self:center}
-
-/* a barra: o fluxo do dia e o pedaço dele que é o erro */
-.pvs .trilho{position:relative;height:32px;border-radius:8px;background:#E8EDF4;
-  margin-top:34px;overflow:hidden}
-.pvs .cheio{position:absolute;left:0;top:0;height:32px;width:100%;
-  background:#CFD9E6;transform:scaleX(0);transform-origin:left}
-.pvs .parte{position:absolute;left:0;top:0;height:32px;border-radius:7px 0 0 7px;
-  background:var(--accent);transform:scaleX(0);transform-origin:left}
-.pvs.is-active .cheio{animation:corre .9s var(--out) var(--d,0ms) forwards}
-.pvs.is-active .parte{animation:corre .9s var(--out) calc(var(--d,0ms) + 320ms) forwards}
-.pvs .prop{font-size:14px;color:var(--tx2);margin-top:11px}
-.pvs .prop b{color:var(--head);font-weight:700}
-
-.pvs .nota{display:flex;align-items:flex-start;gap:12px;margin-top:auto;
-  padding-top:20px;border-top:1px solid #DCE4EF;font-size:15.5px;line-height:1.45;
-  color:var(--tx)}
-.pvs .nota .ic{width:19px;height:19px;color:var(--accent);margin-top:2px;
-  flex-shrink:0}
-.pvs .nota b{color:var(--head);font-weight:700}
-
-/* ── variação A · as duas prioridades lado a lado ── */
-.pv-a .cena{flex:1;display:flex;align-items:center;gap:0;margin-top:28px;
-  min-height:0}
-.pv-a .pr{flex:1;min-width:0;padding:0 44px;justify-content:center}
-.pv-a .pr:first-child{padding-left:0}
-.pv-a .pr:last-child{padding-right:0}
-.pv-a .pr + .pr{border-left:1px solid #DCE4EF}
-.pv-a .un .v{font-size:128px;letter-spacing:-5.2px}
-.pv-a .topo{display:flex;align-items:center;gap:18px;margin-bottom:8px}
-
-/* ── variação B · empilhadas, com a barra ocupando a largura ── */
-.pv-b .cena{flex:1;display:flex;flex-direction:column;margin-top:22px;
-  min-height:0}
-.pv-b .pr{flex:1;justify-content:center;padding:26px 0;
-  border-bottom:1px solid #DCE4EF}
-.pv-b .pr:last-child{border-bottom:none}
-.pv-b .linha{display:flex;align-items:center;gap:52px}
-.pv-b .esq{width:430px;flex-shrink:0}
-.pv-b .dir{flex:1;min-width:0}
-.pv-b .un .v{font-size:78px;letter-spacing:-3px}
-.pv-b .trilho{margin-top:0}
-.pv-b .topo{display:flex;align-items:center;gap:16px}
+/* o fecho: o número da janela e a ressalva, lado a lado */
+.pvs .fecho{display:flex;align-items:center;gap:32px;margin-top:auto;padding-top:20px;
+  border-top:1px solid #DCE4EF}
+.pvs .fecho .n{display:flex;align-items:baseline;gap:15px;flex-shrink:0}
+.pvs .fecho .n .v{font-size:60px;font-weight:900;letter-spacing:-2.5px;line-height:.86;
+  color:var(--head);font-variant-numeric:tabular-nums}
+.pvs .fecho .n .k{font-size:17px;line-height:1.34;color:var(--tx);max-width:196px}
+.pvs .fecho .n .k b{color:var(--head);font-weight:700}
+.pvs .fecho .obs{font-size:15px;line-height:1.46;color:var(--tx2);padding-left:32px;
+  border-left:1px solid #DCE4EF}
+.pvs .fecho .obs b{color:var(--head);font-weight:700}
 
 /* ───── 08-fila.html ───── */
-/* ═══ slide 8 · qual incidente quebra ════════════════════════════════════════
-   O slide da regressão logística. Um assunto, um número.
+/* ═══ slide 8 · a fila de risco ══════════════════════════════════════════════
+   O slide da regressão logística, e ele responde de uma vez às duas perguntas
+   que a banca faz: a fila funciona, e ela ganha do que a operação já usa hoje.
 
-   O fato que ele carrega é o mais fácil de explicar de todo o deck: os nove
-   primeiros incidentes da fila eram todos quebra. Nove de nove. Não precisa de
-   PR-AUC, nem de curva, nem de jargão nenhum, e é por isso que ele está aqui:
-   o apresentador não trava numa pergunta que não saiba responder.
+   Três versões antes desta. Uma tabela comparando modelo, prioridade e acaso
+   ficou cheia. Uma curva de ganho com o número 9 ao lado ficou pouco imersiva.
+   Uma lista com as onze primeiras linhas da fila de verdade, com incidente e
+   risco em cada linha, o dono do projeto disse que ficou com cara de IA — onze
+   linhas iguais empilhadas é justamente o molde que denuncia isso. Ele pediu
+   este slide somado ao da comparação entre ordenações, e mais visual.
 
-   A versão anterior tinha uma tabela comparando o modelo com a ordenação por
-   prioridade e com o acaso. Ficou cheia e confusa, e o dono do projeto
-   reprovou. A comparação está desenhada no gráfico, que é onde ela cabe.
+   O objeto agora é um só: cada quadrado é uma posição na fila, vermelho quer
+   dizer que aquele incidente passou do prazo. Quatro tiras de cinquenta
+   quadrados, uma por critério de ordenação — o modelo e as três regras simples
+   que a operação poderia usar sem modelo nenhum. Não tem tabela, não tem eixo, não
+   tem legenda para decorar — a diferença entre as tiras é a mensagem, e dá para
+   ver do fundo da sala.
 
-   As posições das quebras na fila, de fila_curvas.json: 0, 1, 2, 3, 4, 5, 6,
-   7, 8, 11, 16, 18, 20, 56, 60, 99 e adiante.
+   A animação é o argumento: os quadrados entram da esquerda para a direita e só
+   depois os vermelhos viram. Na tira do modelo a sala vê nove vermelhos
+   seguidos logo no começo. Na tira da prioridade não vira nenhum.
+
+   O acaso não vira tira porque nas 50 primeiras ele encontra meia quebra, e
+   meia quebra não se desenha. Ele está escrito no pé.
+
+   Regra 10: a fila é uma só e ordena as duas prioridades juntas. O que o P2 tem
+   a ver com isso está no pé, com número.
+
+   Regra 11: saber quem quebrou é conhecimento retrospectivo. Legítimo no deck,
+   proibido na tela do sistema.
+
+   As tiras são geradas, nada é digitado à mão:
+       .venv/Scripts/python.exe prototipos/slides/ao-vivo/_fila_quadros.py
    ══════════════════════════════════════════════════════════════════════════ */
 .fla .body{padding-top:14px}
 .fla .tt{font-size:52px;letter-spacing:-1.9px}
-.fla .fig{display:block;border-radius:10px}
-.fla .quadro{padding:22px 26px}
 
-.fla .nome{display:inline-flex;align-items:center;gap:11px;align-self:flex-start;
-  padding:8px 16px 8px 13px;border-radius:999px;background:var(--accent-l);
-  border:1px solid #C9DCFB;margin-bottom:26px}
-.fla .nome .ic{width:19px;height:19px;color:var(--accent)}
-.fla .nome span{font-family:var(--mono);font-size:14px;font-weight:500;
-  letter-spacing:.3px;color:var(--accent)}
+.fla .cena{flex:1;display:flex;flex-direction:column;justify-content:center;
+  gap:34px;margin-top:6px;min-height:0}
 
-.fla .bat{display:flex;align-items:baseline;gap:22px}
-.fla .bat .v{font-weight:900;line-height:.82;color:var(--accent);
+.fla .cab{display:flex;align-items:baseline;gap:16px;margin-bottom:11px}
+.fla .rt{font-size:17px;font-weight:700;color:var(--head)}
+.fla .ct2{font-size:15px;color:var(--tx2)}
+.fla .ct2 b{font-size:19px;font-weight:800;color:var(--head);
   font-variant-numeric:tabular-nums}
-.fla .bat .k{font-size:19px;line-height:1.4;color:var(--tx)}
-.fla .bat .k b{color:var(--head);font-weight:700}
+.fla .modelo .ct2 b{color:var(--bad)}
 
-/* ── variação A · figura à esquerda, o número à direita ── */
-.fl-a .cena{flex:1;display:flex;align-items:center;gap:52px;margin-top:20px;
-  min-height:0}
-.fl-a .quadro{flex-shrink:0}
-.fl-a .fig{width:880px}
-.fl-a .lado{flex:1;min-width:0;display:flex;flex-direction:column}
-.fl-a .bat{flex-direction:column;gap:18px}
-.fl-a .bat .v{font-size:194px;letter-spacing:-8px}
-.fl-a .bat .k{max-width:330px}
+/* a tira: cinquenta quadrados, um por posição da fila */
+.fla .qd{display:flex;gap:3px}
+.fla .qd i{display:block;flex:1;height:50px;border-radius:5px;background:#DEE5EF;
+  opacity:0;transform:scale(.4)}
+.fla.is-active .qd i{animation:brota .34s var(--spring) var(--d,0ms) forwards}
+@keyframes brota{to{opacity:1;transform:none}}
+/* o vermelho vira depois que o quadrado já está lá */
+.fla .qd i.q{background:#DEE5EF}
+.fla.is-active .qd i.q{animation:brota .34s var(--spring) var(--d,0ms) forwards,
+  vira .3s var(--out) var(--dq,0ms) forwards}
+@keyframes vira{to{background:var(--bad)}}
 
-/* ── variação B · o número em cima, figura em largura cheia embaixo ── */
-.fl-b .cena{flex:1;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:26px;margin-top:14px;min-height:0}
-.fl-b .topo{width:900px;display:flex;align-items:flex-end;
-  justify-content:space-between;gap:40px}
-.fl-b .bat .v{font-size:104px;letter-spacing:-4.2px}
-.fl-b .bat .k{max-width:420px}
-.fl-b .nome{margin-bottom:0}
-.fl-b .fig{width:900px}
+/* a régua de posições, uma vez só, embaixo da última tira */
+.fla .reg{display:flex;justify-content:space-between;margin-top:9px;
+  font-size:12px;color:#9AA6B6}
+
+/* o fecho: o acaso e a resposta do P2 */
+.fla .fecho{display:flex;align-items:center;gap:32px;margin-top:auto;
+  padding-top:20px;border-top:1px solid #DCE4EF}
+.fla .fecho .n{display:flex;align-items:baseline;gap:15px;flex-shrink:0}
+.fla .fecho .n .v{font-size:60px;font-weight:900;letter-spacing:-2.5px;
+  line-height:.86;color:var(--head);font-variant-numeric:tabular-nums}
+.fla .fecho .n .k{font-size:17px;line-height:1.34;color:var(--tx);max-width:214px}
+.fla .fecho .n .k b{color:var(--head);font-weight:700}
+.fla .fecho .obs{font-size:15px;line-height:1.46;color:var(--tx2);
+  padding-left:32px;border-left:1px solid #DCE4EF}
+.fla .fecho .obs b{color:var(--head);font-weight:700}
 
 /* ───── 09-projecao.html ───── */
 /* ═══ slide 8 · a projeção da meta ═══════════════════════════════════════════
@@ -733,17 +721,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 
 .pj-a .placar{width:1180px}
 
-/* ── variação B · figura à esquerda, placar na coluna da direita ── */
-.pj-b .cena{flex:1;display:flex;align-items:center;gap:44px;margin-top:14px;
-  min-height:0}
-.pj-b .quadro{flex-shrink:0}
-
-.pj-b .placar{flex-direction:column;width:388px;gap:0}
-.pj-b .pl{padding:20px 0}
-.pj-b .pl + .pl{border-left:none;border-top:1px solid #DCE4EF}
-.pj-b .pl:first-child{padding-top:0}
-
-/* ───── 10-aplicacao.html ───── */
+/* ───── 13-aplicacao.html ───── */
 /* ═══ slide 10 · o painel operacional ═══════════════════════════════════════
    Este slide tem função operacional, não decorativa: é o beat de troca para a
    demonstração ao vivo. Enquanto ele está na tela, o Hygor assume a fala e
@@ -777,16 +755,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   stroke-dasharray:1000;stroke-dashoffset:1000}
 .is-active.ap-a .serie path{animation:aplTraca 3s var(--out) .6s forwards}
 @keyframes aplTraca{to{stroke-dashoffset:0}}
-.ap-a .body{position:relative;z-index:2}
-
-/* ── variação B · o print do painel ao fundo, escuro e desfocado ── */
-.ap-b .fundo{position:absolute;inset:0;z-index:1;overflow:hidden}
-.ap-b .fundo img{width:100%;height:100%;object-fit:cover;filter:blur(14px)
-  saturate(.7);transform:scale(1.06);opacity:.34}
-.ap-b .fundo::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(100deg,rgba(10,14,23,.94) 0%,rgba(10,14,23,.82) 46%,
-  rgba(10,14,23,.62) 100%)}
-.ap-b .body{position:relative;z-index:2}</style>
+.ap-a .body{position:relative;z-index:2}</style>
 </head>
 <body>
 <div id="fit"><div id="stage">
@@ -857,41 +826,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
 </section>
 
-<section class="slide light prb pb-b" data-slide="2" data-var="b" data-quem="igor">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Base elegível ao KPI &middot; 2025</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">O problema</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quantidade de quebras em 2025</span></span></h1>
-
-    <div class="cena">
-      <div class="un p2 rv3" style="--d:720ms">
-        <span class="v"><span class="ct" data-to="42" data-delay="960">0</span></span>
-        <span class="col"><span class="rot"><b>Prioridade 2</b>passaram das 4 horas de prazo</span>
-        <span class="prazo" style="--d:1300ms">
-          <i class="passou"></i>
-          <i class="fora"></i>
-          <span class="marca"><em>4 h</em></span>
-        </span></span>
-      </div>
-      <div class="un p3 rv3" style="--d:880ms">
-        <span class="v"><span class="ct" data-to="196" data-delay="1120">0</span></span>
-        <span class="col"><span class="rot"><b>Prioridade 3</b>passaram das 12 horas de prazo</span>
-        <span class="prazo" style="--d:1460ms">
-          <i class="passou"></i>
-          <i class="fora"></i>
-          <span class="marca"><em>12 h</em></span>
-        </span></span>
-      </div>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
-</section>
-
 <section class="slide light dsf ds-a" data-slide="3" data-var="a" data-quem="igor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
@@ -918,39 +852,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
         <div class="malha" style="--base:980ms"><i class="qd" style="--i:0"></i><i class="qd" style="--i:1"></i><i class="qd" style="--i:2"></i><i class="qd" style="--i:3"></i><i class="qd" style="--i:4"></i><i class="qd" style="--i:5"></i><i class="qd" style="--i:6"></i><i class="qd" style="--i:7"></i><i class="qd" style="--i:8"></i><i class="qd" style="--i:9"></i><i class="qd" style="--i:10"></i><i class="qd" style="--i:11"></i><i class="qd" style="--i:12"></i><i class="qd" style="--i:13"></i><i class="qd" style="--i:14"></i><i class="qd" style="--i:15"></i><i class="qd" style="--i:16"></i><i class="qd" style="--i:17"></i><i class="qd" style="--i:18"></i><i class="qd" style="--i:19"></i><i class="qd" style="--i:20"></i><i class="qd" style="--i:21"></i><i class="qd" style="--i:22"></i><i class="qd" style="--i:23"></i><i class="qd" style="--i:24"></i><i class="qd" style="--i:25"></i><i class="qd" style="--i:26"></i><i class="qd" style="--i:27"></i><i class="qd" style="--i:28"></i><i class="qd" style="--i:29"></i><i class="qd" style="--i:30"></i><i class="qd" style="--i:31"></i><i class="qd" style="--i:32"></i><i class="qd" style="--i:33"></i><i class="qd" style="--i:34"></i><i class="qd" style="--i:35"></i><i class="qd" style="--i:36"></i><i class="qd" style="--i:37"></i><i class="qd" style="--i:38"></i><i class="qd" style="--i:39"></i><i class="qd" style="--i:40"></i><i class="qd" style="--i:41"></i><i class="qd" style="--i:42"></i><i class="qd" style="--i:43"></i><i class="qd" style="--i:44"></i><i class="qd" style="--i:45"></i><i class="qd" style="--i:46"></i><i class="qd" style="--i:47"></i><i class="qd" style="--i:48"></i><i class="qd" style="--i:49"></i><i class="qd" style="--i:50"></i><i class="qd" style="--i:51"></i><i class="qd" style="--i:52"></i><i class="qd" style="--i:53"></i><i class="qd" style="--i:54"></i><i class="qd" style="--i:55"></i><i class="qd" style="--i:56"></i><i class="qd perda" style="--i:57"></i><i class="qd" style="--i:58"></i><i class="qd" style="--i:59"></i><i class="qd" style="--i:60"></i><i class="qd" style="--i:61"></i><i class="qd" style="--i:62"></i><i class="qd" style="--i:63"></i><i class="qd" style="--i:64"></i><i class="qd" style="--i:65"></i><i class="qd" style="--i:66"></i><i class="qd" style="--i:67"></i><i class="qd" style="--i:68"></i><i class="qd" style="--i:69"></i><i class="qd" style="--i:70"></i><i class="qd" style="--i:71"></i><i class="qd" style="--i:72"></i><i class="qd" style="--i:73"></i><i class="qd" style="--i:74"></i><i class="qd" style="--i:75"></i><i class="qd" style="--i:76"></i><i class="qd" style="--i:77"></i><i class="qd" style="--i:78"></i><i class="qd" style="--i:79"></i><i class="qd" style="--i:80"></i><i class="qd" style="--i:81"></i><i class="qd" style="--i:82"></i><i class="qd" style="--i:83"></i><i class="qd" style="--i:84"></i><i class="qd" style="--i:85"></i><i class="qd" style="--i:86"></i><i class="qd" style="--i:87"></i><i class="qd" style="--i:88"></i><i class="qd" style="--i:89"></i><i class="qd" style="--i:90"></i><i class="qd" style="--i:91"></i><i class="qd" style="--i:92"></i><i class="qd" style="--i:93"></i><i class="qd" style="--i:94"></i><i class="qd" style="--i:95"></i><i class="qd" style="--i:96"></i><i class="qd" style="--i:97"></i><i class="qd" style="--i:98"></i><i class="qd" style="--i:99"></i><i class="qd" style="--i:100"></i><i class="qd" style="--i:101"></i><i class="qd" style="--i:102"></i><i class="qd" style="--i:103"></i><i class="qd" style="--i:104"></i><i class="qd" style="--i:105"></i><i class="qd" style="--i:106"></i><i class="qd" style="--i:107"></i><i class="qd" style="--i:108"></i><i class="qd" style="--i:109"></i><i class="qd" style="--i:110"></i><i class="qd" style="--i:111"></i><i class="qd" style="--i:112"></i><i class="qd" style="--i:113"></i><i class="qd" style="--i:114"></i><i class="qd" style="--i:115"></i><i class="qd" style="--i:116"></i><i class="qd" style="--i:117"></i><i class="qd" style="--i:118"></i><i class="qd" style="--i:119"></i><i class="qd" style="--i:120"></i><i class="qd" style="--i:121"></i><i class="qd" style="--i:122"></i><i class="qd" style="--i:123"></i><i class="qd" style="--i:124"></i><i class="qd" style="--i:125"></i><i class="qd" style="--i:126"></i><i class="qd" style="--i:127"></i><i class="qd" style="--i:128"></i><i class="qd" style="--i:129"></i><i class="qd" style="--i:130"></i><i class="qd" style="--i:131"></i><i class="qd" style="--i:132"></i><i class="qd" style="--i:133"></i><i class="qd" style="--i:134"></i><i class="qd" style="--i:135"></i><i class="qd" style="--i:136"></i><i class="qd" style="--i:137"></i><i class="qd" style="--i:138"></i><i class="qd" style="--i:139"></i><i class="qd" style="--i:140"></i><i class="qd" style="--i:141"></i><i class="qd" style="--i:142"></i><i class="qd" style="--i:143"></i><i class="qd" style="--i:144"></i><i class="qd" style="--i:145"></i><i class="qd" style="--i:146"></i><i class="qd" style="--i:147"></i><i class="qd perda" style="--i:148"></i><i class="qd" style="--i:149"></i><i class="qd" style="--i:150"></i><i class="qd" style="--i:151"></i><i class="qd" style="--i:152"></i><i class="qd" style="--i:153"></i><i class="qd" style="--i:154"></i><i class="qd" style="--i:155"></i><i class="qd" style="--i:156"></i><i class="qd" style="--i:157"></i><i class="qd" style="--i:158"></i><i class="qd" style="--i:159"></i><i class="qd" style="--i:160"></i><i class="qd" style="--i:161"></i><i class="qd" style="--i:162"></i><i class="qd" style="--i:163"></i><i class="qd" style="--i:164"></i><i class="qd" style="--i:165"></i><i class="qd" style="--i:166"></i><i class="qd" style="--i:167"></i><i class="qd" style="--i:168"></i><i class="qd" style="--i:169"></i><i class="qd" style="--i:170"></i><i class="qd" style="--i:171"></i><i class="qd" style="--i:172"></i><i class="qd" style="--i:173"></i><i class="qd" style="--i:174"></i><i class="qd" style="--i:175"></i><i class="qd" style="--i:176"></i><i class="qd" style="--i:177"></i><i class="qd" style="--i:178"></i><i class="qd" style="--i:179"></i><i class="qd" style="--i:180"></i><i class="qd" style="--i:181"></i><i class="qd" style="--i:182"></i><i class="qd" style="--i:183"></i><i class="qd" style="--i:184"></i><i class="qd" style="--i:185"></i><i class="qd" style="--i:186"></i><i class="qd" style="--i:187"></i><i class="qd" style="--i:188"></i><i class="qd" style="--i:189"></i><i class="qd" style="--i:190"></i><i class="qd" style="--i:191"></i><i class="qd" style="--i:192"></i><i class="qd" style="--i:193"></i><i class="qd" style="--i:194"></i><i class="qd" style="--i:195"></i><i class="qd" style="--i:196"></i><i class="qd" style="--i:197"></i><i class="qd" style="--i:198"></i><i class="qd" style="--i:199"></i><i class="qd" style="--i:200"></i><i class="qd" style="--i:201"></i><i class="qd" style="--i:202"></i><i class="qd" style="--i:203"></i><i class="qd" style="--i:204"></i><i class="qd" style="--i:205"></i><i class="qd" style="--i:206"></i><i class="qd" style="--i:207"></i><i class="qd" style="--i:208"></i><i class="qd" style="--i:209"></i><i class="qd" style="--i:210"></i><i class="qd" style="--i:211"></i><i class="qd" style="--i:212"></i><i class="qd" style="--i:213"></i><i class="qd" style="--i:214"></i><i class="qd" style="--i:215"></i><i class="qd" style="--i:216"></i><i class="qd" style="--i:217"></i><i class="qd" style="--i:218"></i><i class="qd" style="--i:219"></i><i class="qd" style="--i:220"></i><i class="qd" style="--i:221"></i><i class="qd" style="--i:222"></i><i class="qd" style="--i:223"></i><i class="qd" style="--i:224"></i><i class="qd" style="--i:225"></i><i class="qd" style="--i:226"></i><i class="qd" style="--i:227"></i><i class="qd" style="--i:228"></i><i class="qd" style="--i:229"></i><i class="qd" style="--i:230"></i><i class="qd" style="--i:231"></i><i class="qd" style="--i:232"></i><i class="qd" style="--i:233"></i><i class="qd" style="--i:234"></i><i class="qd" style="--i:235"></i><i class="qd" style="--i:236"></i><i class="qd" style="--i:237"></i><i class="qd" style="--i:238"></i><i class="qd" style="--i:239"></i><i class="qd" style="--i:240"></i><i class="qd" style="--i:241"></i><i class="qd" style="--i:242"></i><i class="qd" style="--i:243"></i><i class="qd" style="--i:244"></i><i class="qd" style="--i:245"></i><i class="qd" style="--i:246"></i><i class="qd" style="--i:247"></i><i class="qd" style="--i:248"></i><i class="qd" style="--i:249"></i><i class="qd" style="--i:250"></i><i class="qd" style="--i:251"></i><i class="qd" style="--i:252"></i><i class="qd" style="--i:253"></i><i class="qd" style="--i:254"></i><i class="qd" style="--i:255"></i><i class="qd" style="--i:256"></i><i class="qd" style="--i:257"></i><i class="qd" style="--i:258"></i><i class="qd" style="--i:259"></i><i class="qd" style="--i:260"></i><i class="qd" style="--i:261"></i><i class="qd" style="--i:262"></i><i class="qd perda" style="--i:263"></i><i class="qd" style="--i:264"></i><i class="qd" style="--i:265"></i><i class="qd" style="--i:266"></i><i class="qd" style="--i:267"></i><i class="qd" style="--i:268"></i><i class="qd" style="--i:269"></i><i class="qd" style="--i:270"></i><i class="qd" style="--i:271"></i><i class="qd" style="--i:272"></i><i class="qd" style="--i:273"></i><i class="qd" style="--i:274"></i><i class="qd" style="--i:275"></i><i class="qd" style="--i:276"></i><i class="qd" style="--i:277"></i><i class="qd" style="--i:278"></i><i class="qd" style="--i:279"></i><i class="qd" style="--i:280"></i><i class="qd" style="--i:281"></i><i class="qd" style="--i:282"></i><i class="qd" style="--i:283"></i><i class="qd" style="--i:284"></i><i class="qd" style="--i:285"></i><i class="qd" style="--i:286"></i><i class="qd" style="--i:287"></i><i class="qd" style="--i:288"></i><i class="qd" style="--i:289"></i><i class="qd" style="--i:290"></i><i class="qd" style="--i:291"></i><i class="qd" style="--i:292"></i><i class="qd" style="--i:293"></i><i class="qd" style="--i:294"></i><i class="qd" style="--i:295"></i><i class="qd" style="--i:296"></i><i class="qd" style="--i:297"></i><i class="qd" style="--i:298"></i><i class="qd" style="--i:299"></i><i class="qd" style="--i:300"></i><i class="qd" style="--i:301"></i><i class="qd" style="--i:302"></i><i class="qd" style="--i:303"></i><i class="qd" style="--i:304"></i><i class="qd" style="--i:305"></i><i class="qd" style="--i:306"></i><i class="qd" style="--i:307"></i><i class="qd" style="--i:308"></i><i class="qd" style="--i:309"></i><i class="qd" style="--i:310"></i><i class="qd" style="--i:311"></i><i class="qd" style="--i:312"></i><i class="qd" style="--i:313"></i><i class="qd" style="--i:314"></i><i class="qd" style="--i:315"></i><i class="qd" style="--i:316"></i><i class="qd" style="--i:317"></i><i class="qd" style="--i:318"></i><i class="qd" style="--i:319"></i><i class="qd" style="--i:320"></i><i class="qd" style="--i:321"></i><i class="qd" style="--i:322"></i><i class="qd" style="--i:323"></i><i class="qd" style="--i:324"></i><i class="qd" style="--i:325"></i><i class="qd" style="--i:326"></i><i class="qd" style="--i:327"></i><i class="qd" style="--i:328"></i><i class="qd" style="--i:329"></i><i class="qd" style="--i:330"></i><i class="qd perda" style="--i:331"></i><i class="qd" style="--i:332"></i><i class="qd" style="--i:333"></i><i class="qd" style="--i:334"></i><i class="qd" style="--i:335"></i><i class="qd" style="--i:336"></i><i class="qd" style="--i:337"></i><i class="qd" style="--i:338"></i><i class="qd" style="--i:339"></i><i class="qd" style="--i:340"></i><i class="qd" style="--i:341"></i><i class="qd" style="--i:342"></i><i class="qd" style="--i:343"></i><i class="qd" style="--i:344"></i><i class="qd" style="--i:345"></i><i class="qd" style="--i:346"></i><i class="qd" style="--i:347"></i><i class="qd" style="--i:348"></i><i class="qd" style="--i:349"></i><i class="qd" style="--i:350"></i><i class="qd" style="--i:351"></i><i class="qd" style="--i:352"></i><i class="qd" style="--i:353"></i><i class="qd" style="--i:354"></i><i class="qd" style="--i:355"></i><i class="qd" style="--i:356"></i><i class="qd" style="--i:357"></i><i class="qd" style="--i:358"></i><i class="qd" style="--i:359"></i><i class="qd" style="--i:360"></i><i class="qd" style="--i:361"></i><i class="qd" style="--i:362"></i><i class="qd" style="--i:363"></i><i class="qd" style="--i:364"></i><i class="qd" style="--i:365"></i><i class="qd" style="--i:366"></i><i class="qd" style="--i:367"></i><i class="qd" style="--i:368"></i><i class="qd" style="--i:369"></i><i class="qd" style="--i:370"></i><i class="qd" style="--i:371"></i><i class="qd" style="--i:372"></i><i class="qd" style="--i:373"></i><i class="qd" style="--i:374"></i><i class="qd" style="--i:375"></i><i class="qd" style="--i:376"></i><i class="qd" style="--i:377"></i><i class="qd" style="--i:378"></i><i class="qd" style="--i:379"></i><i class="qd" style="--i:380"></i><i class="qd" style="--i:381"></i><i class="qd" style="--i:382"></i><i class="qd" style="--i:383"></i><i class="qd" style="--i:384"></i><i class="qd" style="--i:385"></i><i class="qd" style="--i:386"></i><i class="qd" style="--i:387"></i><i class="qd" style="--i:388"></i><i class="qd" style="--i:389"></i><i class="qd" style="--i:390"></i><i class="qd" style="--i:391"></i><i class="qd" style="--i:392"></i><i class="qd" style="--i:393"></i><i class="qd" style="--i:394"></i><i class="qd" style="--i:395"></i><i class="qd" style="--i:396"></i><i class="qd" style="--i:397"></i><i class="qd" style="--i:398"></i><i class="qd" style="--i:399"></i></div>
         <div class="leg rv" style="--d:2320ms">
           <i></i>Cada quadrado representa <b>62 incidentes</b>. As <b>238 quebras</b> s&atilde;o <b>0,95%</b> da base.
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
-</section>
-
-<section class="slide light dsf ds-b" data-slide="3" data-var="b" data-quem="igor">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Base elegível ao KPI &middot; 2025</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">A raridade do evento</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>O desafio da previsão</span></span></h1>
-    <div class="cena">
-      <div class="quadro cartao rv3" style="--d:620ms">
-        <div class="malha" style="--base:780ms"><i class="qd" style="--i:0"></i><i class="qd" style="--i:1"></i><i class="qd" style="--i:2"></i><i class="qd" style="--i:3"></i><i class="qd" style="--i:4"></i><i class="qd" style="--i:5"></i><i class="qd" style="--i:6"></i><i class="qd" style="--i:7"></i><i class="qd" style="--i:8"></i><i class="qd" style="--i:9"></i><i class="qd" style="--i:10"></i><i class="qd" style="--i:11"></i><i class="qd" style="--i:12"></i><i class="qd" style="--i:13"></i><i class="qd" style="--i:14"></i><i class="qd" style="--i:15"></i><i class="qd" style="--i:16"></i><i class="qd" style="--i:17"></i><i class="qd" style="--i:18"></i><i class="qd" style="--i:19"></i><i class="qd" style="--i:20"></i><i class="qd" style="--i:21"></i><i class="qd" style="--i:22"></i><i class="qd" style="--i:23"></i><i class="qd" style="--i:24"></i><i class="qd" style="--i:25"></i><i class="qd" style="--i:26"></i><i class="qd" style="--i:27"></i><i class="qd" style="--i:28"></i><i class="qd" style="--i:29"></i><i class="qd" style="--i:30"></i><i class="qd" style="--i:31"></i><i class="qd" style="--i:32"></i><i class="qd" style="--i:33"></i><i class="qd" style="--i:34"></i><i class="qd" style="--i:35"></i><i class="qd" style="--i:36"></i><i class="qd" style="--i:37"></i><i class="qd" style="--i:38"></i><i class="qd" style="--i:39"></i><i class="qd" style="--i:40"></i><i class="qd" style="--i:41"></i><i class="qd" style="--i:42"></i><i class="qd" style="--i:43"></i><i class="qd" style="--i:44"></i><i class="qd" style="--i:45"></i><i class="qd perda" style="--i:46"></i><i class="qd" style="--i:47"></i><i class="qd" style="--i:48"></i><i class="qd" style="--i:49"></i><i class="qd" style="--i:50"></i><i class="qd" style="--i:51"></i><i class="qd" style="--i:52"></i><i class="qd" style="--i:53"></i><i class="qd" style="--i:54"></i><i class="qd" style="--i:55"></i><i class="qd" style="--i:56"></i><i class="qd" style="--i:57"></i><i class="qd" style="--i:58"></i><i class="qd" style="--i:59"></i><i class="qd" style="--i:60"></i><i class="qd" style="--i:61"></i><i class="qd" style="--i:62"></i><i class="qd" style="--i:63"></i><i class="qd" style="--i:64"></i><i class="qd" style="--i:65"></i><i class="qd" style="--i:66"></i><i class="qd" style="--i:67"></i><i class="qd" style="--i:68"></i><i class="qd" style="--i:69"></i><i class="qd" style="--i:70"></i><i class="qd" style="--i:71"></i><i class="qd" style="--i:72"></i><i class="qd" style="--i:73"></i><i class="qd" style="--i:74"></i><i class="qd" style="--i:75"></i><i class="qd" style="--i:76"></i><i class="qd" style="--i:77"></i><i class="qd" style="--i:78"></i><i class="qd" style="--i:79"></i><i class="qd" style="--i:80"></i><i class="qd" style="--i:81"></i><i class="qd" style="--i:82"></i><i class="qd" style="--i:83"></i><i class="qd" style="--i:84"></i><i class="qd" style="--i:85"></i><i class="qd" style="--i:86"></i><i class="qd" style="--i:87"></i><i class="qd" style="--i:88"></i><i class="qd" style="--i:89"></i><i class="qd" style="--i:90"></i><i class="qd" style="--i:91"></i><i class="qd" style="--i:92"></i><i class="qd" style="--i:93"></i><i class="qd" style="--i:94"></i><i class="qd" style="--i:95"></i><i class="qd" style="--i:96"></i><i class="qd" style="--i:97"></i><i class="qd" style="--i:98"></i><i class="qd" style="--i:99"></i><i class="qd" style="--i:100"></i><i class="qd" style="--i:101"></i><i class="qd" style="--i:102"></i><i class="qd" style="--i:103"></i><i class="qd" style="--i:104"></i><i class="qd" style="--i:105"></i><i class="qd" style="--i:106"></i><i class="qd" style="--i:107"></i><i class="qd" style="--i:108"></i><i class="qd" style="--i:109"></i><i class="qd" style="--i:110"></i><i class="qd" style="--i:111"></i><i class="qd" style="--i:112"></i><i class="qd" style="--i:113"></i><i class="qd" style="--i:114"></i><i class="qd" style="--i:115"></i><i class="qd" style="--i:116"></i><i class="qd" style="--i:117"></i><i class="qd" style="--i:118"></i><i class="qd" style="--i:119"></i><i class="qd" style="--i:120"></i><i class="qd" style="--i:121"></i><i class="qd" style="--i:122"></i><i class="qd" style="--i:123"></i><i class="qd" style="--i:124"></i><i class="qd" style="--i:125"></i><i class="qd" style="--i:126"></i><i class="qd" style="--i:127"></i><i class="qd" style="--i:128"></i><i class="qd" style="--i:129"></i><i class="qd" style="--i:130"></i><i class="qd" style="--i:131"></i><i class="qd" style="--i:132"></i><i class="qd" style="--i:133"></i><i class="qd" style="--i:134"></i><i class="qd" style="--i:135"></i><i class="qd" style="--i:136"></i><i class="qd perda" style="--i:137"></i><i class="qd" style="--i:138"></i><i class="qd" style="--i:139"></i><i class="qd" style="--i:140"></i><i class="qd" style="--i:141"></i><i class="qd" style="--i:142"></i><i class="qd" style="--i:143"></i><i class="qd" style="--i:144"></i><i class="qd" style="--i:145"></i><i class="qd" style="--i:146"></i><i class="qd" style="--i:147"></i><i class="qd" style="--i:148"></i><i class="qd" style="--i:149"></i><i class="qd" style="--i:150"></i><i class="qd" style="--i:151"></i><i class="qd" style="--i:152"></i><i class="qd" style="--i:153"></i><i class="qd" style="--i:154"></i><i class="qd" style="--i:155"></i><i class="qd" style="--i:156"></i><i class="qd" style="--i:157"></i><i class="qd" style="--i:158"></i><i class="qd" style="--i:159"></i><i class="qd" style="--i:160"></i><i class="qd" style="--i:161"></i><i class="qd" style="--i:162"></i><i class="qd" style="--i:163"></i><i class="qd" style="--i:164"></i><i class="qd" style="--i:165"></i><i class="qd" style="--i:166"></i><i class="qd" style="--i:167"></i><i class="qd" style="--i:168"></i><i class="qd" style="--i:169"></i><i class="qd" style="--i:170"></i><i class="qd" style="--i:171"></i><i class="qd" style="--i:172"></i><i class="qd" style="--i:173"></i><i class="qd" style="--i:174"></i><i class="qd" style="--i:175"></i><i class="qd" style="--i:176"></i><i class="qd" style="--i:177"></i><i class="qd" style="--i:178"></i><i class="qd" style="--i:179"></i><i class="qd" style="--i:180"></i><i class="qd" style="--i:181"></i><i class="qd" style="--i:182"></i><i class="qd" style="--i:183"></i><i class="qd" style="--i:184"></i><i class="qd" style="--i:185"></i><i class="qd" style="--i:186"></i><i class="qd" style="--i:187"></i><i class="qd" style="--i:188"></i><i class="qd" style="--i:189"></i><i class="qd" style="--i:190"></i><i class="qd" style="--i:191"></i><i class="qd" style="--i:192"></i><i class="qd" style="--i:193"></i><i class="qd" style="--i:194"></i><i class="qd" style="--i:195"></i><i class="qd" style="--i:196"></i><i class="qd" style="--i:197"></i><i class="qd" style="--i:198"></i><i class="qd" style="--i:199"></i><i class="qd" style="--i:200"></i><i class="qd" style="--i:201"></i><i class="qd" style="--i:202"></i><i class="qd" style="--i:203"></i><i class="qd" style="--i:204"></i><i class="qd" style="--i:205"></i><i class="qd" style="--i:206"></i><i class="qd" style="--i:207"></i><i class="qd" style="--i:208"></i><i class="qd" style="--i:209"></i><i class="qd" style="--i:210"></i><i class="qd" style="--i:211"></i><i class="qd" style="--i:212"></i><i class="qd" style="--i:213"></i><i class="qd" style="--i:214"></i><i class="qd" style="--i:215"></i><i class="qd" style="--i:216"></i><i class="qd" style="--i:217"></i><i class="qd" style="--i:218"></i><i class="qd" style="--i:219"></i><i class="qd" style="--i:220"></i><i class="qd" style="--i:221"></i><i class="qd" style="--i:222"></i><i class="qd" style="--i:223"></i><i class="qd" style="--i:224"></i><i class="qd" style="--i:225"></i><i class="qd" style="--i:226"></i><i class="qd" style="--i:227"></i><i class="qd" style="--i:228"></i><i class="qd" style="--i:229"></i><i class="qd" style="--i:230"></i><i class="qd" style="--i:231"></i><i class="qd" style="--i:232"></i><i class="qd" style="--i:233"></i><i class="qd" style="--i:234"></i><i class="qd" style="--i:235"></i><i class="qd" style="--i:236"></i><i class="qd" style="--i:237"></i><i class="qd" style="--i:238"></i><i class="qd" style="--i:239"></i><i class="qd" style="--i:240"></i><i class="qd" style="--i:241"></i><i class="qd" style="--i:242"></i><i class="qd" style="--i:243"></i><i class="qd" style="--i:244"></i><i class="qd" style="--i:245"></i><i class="qd" style="--i:246"></i><i class="qd" style="--i:247"></i><i class="qd" style="--i:248"></i><i class="qd" style="--i:249"></i><i class="qd" style="--i:250"></i><i class="qd" style="--i:251"></i><i class="qd" style="--i:252"></i><i class="qd" style="--i:253"></i><i class="qd" style="--i:254"></i><i class="qd" style="--i:255"></i><i class="qd" style="--i:256"></i><i class="qd" style="--i:257"></i><i class="qd perda" style="--i:258"></i><i class="qd" style="--i:259"></i><i class="qd" style="--i:260"></i><i class="qd" style="--i:261"></i><i class="qd" style="--i:262"></i><i class="qd" style="--i:263"></i><i class="qd" style="--i:264"></i><i class="qd" style="--i:265"></i><i class="qd" style="--i:266"></i><i class="qd" style="--i:267"></i><i class="qd" style="--i:268"></i><i class="qd" style="--i:269"></i><i class="qd" style="--i:270"></i><i class="qd" style="--i:271"></i><i class="qd" style="--i:272"></i><i class="qd" style="--i:273"></i><i class="qd" style="--i:274"></i><i class="qd" style="--i:275"></i><i class="qd" style="--i:276"></i><i class="qd" style="--i:277"></i><i class="qd" style="--i:278"></i><i class="qd" style="--i:279"></i><i class="qd" style="--i:280"></i><i class="qd" style="--i:281"></i><i class="qd" style="--i:282"></i><i class="qd" style="--i:283"></i><i class="qd" style="--i:284"></i><i class="qd" style="--i:285"></i><i class="qd" style="--i:286"></i><i class="qd" style="--i:287"></i><i class="qd" style="--i:288"></i><i class="qd" style="--i:289"></i><i class="qd" style="--i:290"></i><i class="qd" style="--i:291"></i><i class="qd" style="--i:292"></i><i class="qd" style="--i:293"></i><i class="qd" style="--i:294"></i><i class="qd" style="--i:295"></i><i class="qd" style="--i:296"></i><i class="qd" style="--i:297"></i><i class="qd" style="--i:298"></i><i class="qd" style="--i:299"></i><i class="qd" style="--i:300"></i><i class="qd" style="--i:301"></i><i class="qd" style="--i:302"></i><i class="qd" style="--i:303"></i><i class="qd" style="--i:304"></i><i class="qd" style="--i:305"></i><i class="qd" style="--i:306"></i><i class="qd" style="--i:307"></i><i class="qd" style="--i:308"></i><i class="qd" style="--i:309"></i><i class="qd" style="--i:310"></i><i class="qd" style="--i:311"></i><i class="qd" style="--i:312"></i><i class="qd" style="--i:313"></i><i class="qd" style="--i:314"></i><i class="qd" style="--i:315"></i><i class="qd" style="--i:316"></i><i class="qd" style="--i:317"></i><i class="qd" style="--i:318"></i><i class="qd" style="--i:319"></i><i class="qd" style="--i:320"></i><i class="qd" style="--i:321"></i><i class="qd" style="--i:322"></i><i class="qd" style="--i:323"></i><i class="qd" style="--i:324"></i><i class="qd" style="--i:325"></i><i class="qd" style="--i:326"></i><i class="qd" style="--i:327"></i><i class="qd" style="--i:328"></i><i class="qd" style="--i:329"></i><i class="qd" style="--i:330"></i><i class="qd" style="--i:331"></i><i class="qd" style="--i:332"></i><i class="qd" style="--i:333"></i><i class="qd" style="--i:334"></i><i class="qd" style="--i:335"></i><i class="qd" style="--i:336"></i><i class="qd" style="--i:337"></i><i class="qd" style="--i:338"></i><i class="qd" style="--i:339"></i><i class="qd" style="--i:340"></i><i class="qd perda" style="--i:341"></i><i class="qd" style="--i:342"></i><i class="qd" style="--i:343"></i><i class="qd" style="--i:344"></i><i class="qd" style="--i:345"></i><i class="qd" style="--i:346"></i><i class="qd" style="--i:347"></i><i class="qd" style="--i:348"></i><i class="qd" style="--i:349"></i><i class="qd" style="--i:350"></i><i class="qd" style="--i:351"></i><i class="qd" style="--i:352"></i><i class="qd" style="--i:353"></i><i class="qd" style="--i:354"></i><i class="qd" style="--i:355"></i><i class="qd" style="--i:356"></i><i class="qd" style="--i:357"></i><i class="qd" style="--i:358"></i><i class="qd" style="--i:359"></i><i class="qd" style="--i:360"></i><i class="qd" style="--i:361"></i><i class="qd" style="--i:362"></i><i class="qd" style="--i:363"></i><i class="qd" style="--i:364"></i><i class="qd" style="--i:365"></i><i class="qd" style="--i:366"></i><i class="qd" style="--i:367"></i><i class="qd" style="--i:368"></i><i class="qd" style="--i:369"></i><i class="qd" style="--i:370"></i><i class="qd" style="--i:371"></i><i class="qd" style="--i:372"></i><i class="qd" style="--i:373"></i><i class="qd" style="--i:374"></i><i class="qd" style="--i:375"></i><i class="qd" style="--i:376"></i><i class="qd" style="--i:377"></i><i class="qd" style="--i:378"></i><i class="qd" style="--i:379"></i><i class="qd" style="--i:380"></i><i class="qd" style="--i:381"></i><i class="qd" style="--i:382"></i><i class="qd" style="--i:383"></i><i class="qd" style="--i:384"></i><i class="qd" style="--i:385"></i><i class="qd" style="--i:386"></i><i class="qd" style="--i:387"></i><i class="qd" style="--i:388"></i><i class="qd" style="--i:389"></i><i class="qd" style="--i:390"></i><i class="qd" style="--i:391"></i><i class="qd" style="--i:392"></i><i class="qd" style="--i:393"></i><i class="qd" style="--i:394"></i><i class="qd" style="--i:395"></i><i class="qd" style="--i:396"></i><i class="qd" style="--i:397"></i><i class="qd" style="--i:398"></i><i class="qd" style="--i:399"></i></div>
-        <div class="leg rv" style="--d:2100ms">
-          <i></i>Cada quadrado representa <b>62 incidentes</b>. As <b>238 quebras</b> s&atilde;o <b>0,95%</b> da base.
-        </div>
-      </div>
-      <div class="dupla">
-        <div class="bat qb rv3" style="--d:2380ms">
-          <span class="v"><span class="ct" data-to="238" data-delay="2560">0</span></span>
-          <span class="k">incidentes <b>passaram do prazo</b> em 2025. de <b>25.156</b> eleg&iacute;veis ao KPI</span>
-        </div>
-        <i class="vfio"></i>
-        <div class="bat ac rv3" style="--d:2540ms">
-          <span class="v"><span class="ct" data-to="99" data-delay="2720">0</span>%</span>
-          <span class="k">&eacute; o que um classificador acertaria respondendo <b>n&atilde;o quebra</b> para todos. Por isso <b>acur&aacute;cia n&atilde;o serve</b> como m&eacute;trica aqui.</span>
         </div>
       </div>
     </div>
@@ -1049,7 +950,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
 </section>
 
-<section class="slide dark mdl md-a" data-slide="6" data-var="a" data-quem="ana">
+<section class="slide dark mdl" data-slide="6" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -1061,26 +962,56 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
     <h1 class="tt"><span class="mask" style="--d:340ms"><span>Dois modelos</span></span></h1>
 
     <div class="cena">
-      <div class="md rv3" style="--d:660ms">
-        <span class="nome">
+      <div class="md">
+        <span class="nome rv" style="--d:620ms">
           <svg class="ic" viewBox="0 0 24 24"><path d="M3 17.4c3.4 0 4.6-9.6 8.4-9.6 3.9 0 4.5 9.6 8.4 9.6"/><path d="M3 21h18"/></svg>
           <span>Prophet</span>
         </span>
-        <p class="pg"><em>Quantos</em> incidentes chegam</p>
-        <p class="oq">A quantidade de incidentes de <b>amanhã e dos próximos 7 dias</b>, separada por prioridade.</p>
+        <p class="pg rv" style="--d:720ms"><em>Quantos</em> incidentes chegam</p>
+
+        <div class="dev rv" style="--d:1000ms">Devolve uma altura</div>
+        <div class="colunas">
+          <div class="co">
+            <span class="v" style="--d:1120ms">16</span>
+            <i class="ba" style="height:62px;--d:1120ms"></i>
+            <span class="k">Prioridade 2</span>
+          </div>
+          <div class="co">
+            <span class="v" style="--d:1240ms">67</span>
+            <i class="ba" style="height:260px;--d:1240ms"></i>
+            <span class="k">Prioridade 3</span>
+          </div>
+        </div>
+        <p class="leg rv" style="--d:1700ms">Média por dia, no período de teste</p>
       </div>
 
-      <div class="md rv3" style="--d:840ms">
-        <span class="nome">
+      <div class="md">
+        <span class="nome rv" style="--d:760ms">
           <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.4"/><path d="M12 1.6v3M12 19.4v3M1.6 12h3M19.4 12h3"/></svg>
           <span>Regressão logística</span>
         </span>
-        <p class="pg"><em>Qual</em> incidente quebra</p>
-        <p class="oq">A chance de cada incidente aberto <b>passar do prazo</b>, com o peso de cada característica na conta.</p>
+        <p class="pg rv" style="--d:860ms"><em>Qual</em> incidente quebra</p>
+
+        <div class="dev rv" style="--d:1140ms">Devolve uma ordem</div>
+        <div class="ordem">
+          <i class="q" style="width:100%;--d:1300ms"></i>
+          <i class="q" style="width:92%;--d:1355ms"></i>
+          <i class="q" style="width:84%;--d:1410ms"></i>
+          <i style="width:71%;--d:1465ms"></i>
+          <i style="width:63%;--d:1520ms"></i>
+          <i style="width:54%;--d:1575ms"></i>
+          <i style="width:46%;--d:1630ms"></i>
+          <i style="width:38%;--d:1685ms"></i>
+          <i style="width:31%;--d:1740ms"></i>
+          <i style="width:24%;--d:1795ms"></i>
+          <i style="width:19%;--d:1850ms"></i>
+          <i style="width:14%;--d:1905ms"></i>
+        </div>
+        <p class="leg rv" style="--d:1980ms"><em></em>Em vermelho, as que quebram o prazo</p>
       </div>
     </div>
 
-    <div class="porque rv" style="--d:1280ms">
+    <div class="porque rv" style="--d:2120ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
       <span>São dois porque são duas perguntas: <b>o volume do dia explica 2,5%</b> da variação das quebras. Ele dimensiona a carga e não aponta o caso.</span>
     </div>
@@ -1088,248 +1019,79 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
 </section>
 
-<section class="slide dark mdl md-b" data-slide="6" data-var="b" data-quem="ana">
+<section class="slide light pvs" data-slide="7" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
     <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">A solução</div>
+    <div class="tag">Previsão emitida em 1º de outubro de 2025</div>
   </div>
   <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">A solução</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Dois modelos</span></span></h1>
+    <span class="eb"><span class="rv" style="--d:240ms">Prophet &middot; quantos incidentes chegam</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Os próximos sete dias</span></span></h1>
 
     <div class="cena">
-      <div class="md rv3" style="--d:640ms">
-        <div class="linha">
-          <p class="pg"><em>Quantos</em> incidentes chegam</p>
-          <div class="dir">
-            <span class="nome">
-              <svg class="ic" viewBox="0 0 24 24"><path d="M3 17.4c3.4 0 4.6-9.6 8.4-9.6 3.9 0 4.5 9.6 8.4 9.6"/><path d="M3 21h18"/></svg>
-              <span>Prophet</span>
-            </span>
-            <p class="oq">A quantidade de incidentes de <b>amanhã e dos próximos 7 dias</b>, separada por prioridade.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="md rv3" style="--d:820ms">
-        <div class="linha">
-          <p class="pg"><em>Qual</em> incidente quebra</p>
-          <div class="dir">
-            <span class="nome">
-              <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.4"/><path d="M12 1.6v3M12 19.4v3M1.6 12h3M19.4 12h3"/></svg>
-              <span>Regressão logística</span>
-            </span>
-            <p class="oq">A chance de cada incidente aberto <b>passar do prazo</b>, com o peso de cada característica.</p>
-          </div>
-        </div>
+      <div class="quadro cartao rv3" style="--d:640ms">
+        <img class="fig" src="figs/08_previsao_7dias.png" alt="Previsao diaria de incidentes para 1 a 7 de outubro de 2025, por prioridade, com a faixa prevista e o realizado">
       </div>
     </div>
 
-    <div class="porque rv" style="--d:1240ms">
-      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span>São dois porque são duas perguntas: <b>o volume do dia explica 2,5%</b> da variação das quebras. Ele dimensiona a carga e não aponta o caso.</span>
+    <div class="fecho rv" style="--d:1240ms">
+      <div class="n">
+        <span class="v"><span class="ct" data-to="13" data-delay="1440">0</span></span>
+        <span class="k">dos 14 dias caíram <b>dentro da faixa</b></span>
+      </div>
+      <p class="obs">O ponto vermelho é o único fora, e ficou <b>1 incidente acima</b> do teto. Na janela de teste inteira a faixa acerta entre <b>86% e 88%</b> dos dias na prioridade 2 e entre <b>59% e 61%</b> na prioridade 3.</p>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
 </section>
 
-<section class="slide light pvs pv-a" data-slide="7" data-var="a" data-quem="ana">
+<section class="slide light fla" data-slide="8" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
     <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Backtest deslizante &middot; D+1 a D+7</div>
+    <div class="tag">As 50 primeiras posições da fila</div>
   </div>
   <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Prophet &middot; previsão de volume</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quantos incidentes chegam</span></span></h1>
+    <span class="eb"><span class="rv" style="--d:240ms">Regressão logística &middot; cada quadrado é um incidente</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>A fila de risco</span></span></h1>
 
     <div class="cena">
-      <div class="pr rv3" style="--d:660ms">
-        <div class="topo">
-          <span class="cab">Prioridade 2</span>
+      <div class="tira modelo">
+        <div class="cab"><span class="rt rv" style="--d:700ms">Fila do modelo de risco</span><span class="ct2 rv" style="--d:760ms"><b><span class="ct" data-to="13" data-delay="1600">0</span></b> quebras encontradas</span></div>
+        <div class="qd">
+          <i class="q" style="--d:860ms;--dq:1600ms"></i><i class="q" style="--d:871ms;--dq:1609ms"></i><i class="q" style="--d:882ms;--dq:1618ms"></i><i class="q" style="--d:893ms;--dq:1627ms"></i><i class="q" style="--d:904ms;--dq:1636ms"></i><i class="q" style="--d:915ms;--dq:1645ms"></i><i class="q" style="--d:926ms;--dq:1654ms"></i><i class="q" style="--d:937ms;--dq:1663ms"></i><i class="q" style="--d:948ms;--dq:1672ms"></i><i style="--d:959ms"></i><i style="--d:970ms"></i><i class="q" style="--d:981ms;--dq:1699ms"></i><i style="--d:992ms"></i><i style="--d:1003ms"></i><i style="--d:1014ms"></i><i style="--d:1025ms"></i><i class="q" style="--d:1036ms;--dq:1744ms"></i><i style="--d:1047ms"></i><i class="q" style="--d:1058ms;--dq:1762ms"></i><i style="--d:1069ms"></i><i class="q" style="--d:1080ms;--dq:1780ms"></i><i style="--d:1091ms"></i><i style="--d:1102ms"></i><i style="--d:1113ms"></i><i style="--d:1124ms"></i><i style="--d:1135ms"></i><i style="--d:1146ms"></i><i style="--d:1157ms"></i><i style="--d:1168ms"></i><i style="--d:1179ms"></i><i style="--d:1190ms"></i><i style="--d:1201ms"></i><i style="--d:1212ms"></i><i style="--d:1223ms"></i><i style="--d:1234ms"></i><i style="--d:1245ms"></i><i style="--d:1256ms"></i><i style="--d:1267ms"></i><i style="--d:1278ms"></i><i style="--d:1289ms"></i><i style="--d:1300ms"></i><i style="--d:1311ms"></i><i style="--d:1322ms"></i><i style="--d:1333ms"></i><i style="--d:1344ms"></i><i style="--d:1355ms"></i><i style="--d:1366ms"></i><i style="--d:1377ms"></i><i style="--d:1388ms"></i><i style="--d:1399ms"></i>
         </div>
-        <div class="dupla">
-          <div class="un chega">
-            <span class="v"><span class="ct" data-to="16" data-delay="900">0</span></span>
-            <span class="k"><b>chegam</b>por dia, em média</span>
-          </div>
-          <span class="mais">&plusmn;</span>
-          <div class="un erra">
-            <span class="v"><span class="ct" data-to="4" data-delay="1020">0</span></span>
-            <span class="k"><b>o modelo erra</b>por dia, em média</span>
-          </div>
-        </div>
-        <div class="trilho" style="--d:1300ms">
-          <i class="cheio"></i>
-          <i class="parte" style="width:25%"></i>
-        </div>
-        <p class="prop rv" style="--d:1700ms">O erro é <b>26%</b> do fluxo do dia</p>
       </div>
-
-      <div class="pr rv3" style="--d:840ms">
-        <div class="topo">
-          <span class="cab">Prioridade 3</span>
+      <div class="tira time">
+        <div class="cab"><span class="rt rv" style="--d:1180ms">Regra: time com mais quebra</span><span class="ct2 rv" style="--d:1240ms"><b><span class="ct" data-to="7" data-delay="2080">0</span></b> quebras encontradas</span></div>
+        <div class="qd">
+          <i style="--d:1340ms"></i><i style="--d:1351ms"></i><i style="--d:1362ms"></i><i style="--d:1373ms"></i><i style="--d:1384ms"></i><i style="--d:1395ms"></i><i style="--d:1406ms"></i><i style="--d:1417ms"></i><i style="--d:1428ms"></i><i style="--d:1439ms"></i><i style="--d:1450ms"></i><i style="--d:1461ms"></i><i style="--d:1472ms"></i><i class="q" style="--d:1483ms;--dq:2197ms"></i><i style="--d:1494ms"></i><i style="--d:1505ms"></i><i style="--d:1516ms"></i><i style="--d:1527ms"></i><i class="q" style="--d:1538ms;--dq:2242ms"></i><i style="--d:1549ms"></i><i style="--d:1560ms"></i><i style="--d:1571ms"></i><i style="--d:1582ms"></i><i style="--d:1593ms"></i><i style="--d:1604ms"></i><i style="--d:1615ms"></i><i style="--d:1626ms"></i><i style="--d:1637ms"></i><i style="--d:1648ms"></i><i style="--d:1659ms"></i><i style="--d:1670ms"></i><i style="--d:1681ms"></i><i style="--d:1692ms"></i><i style="--d:1703ms"></i><i class="q" style="--d:1714ms;--dq:2386ms"></i><i class="q" style="--d:1725ms;--dq:2395ms"></i><i style="--d:1736ms"></i><i style="--d:1747ms"></i><i style="--d:1758ms"></i><i style="--d:1769ms"></i><i style="--d:1780ms"></i><i class="q" style="--d:1791ms;--dq:2449ms"></i><i style="--d:1802ms"></i><i style="--d:1813ms"></i><i style="--d:1824ms"></i><i style="--d:1835ms"></i><i class="q" style="--d:1846ms;--dq:2494ms"></i><i class="q" style="--d:1857ms;--dq:2503ms"></i><i style="--d:1868ms"></i><i style="--d:1879ms"></i>
         </div>
-        <div class="dupla">
-          <div class="un chega">
-            <span class="v"><span class="ct" data-to="67" data-delay="1080">0</span></span>
-            <span class="k"><b>chegam</b>por dia, em média</span>
-          </div>
-          <span class="mais">&plusmn;</span>
-          <div class="un erra">
-            <span class="v"><span class="ct" data-to="11" data-delay="1200">0</span></span>
-            <span class="k"><b>o modelo erra</b>por dia, em média</span>
-          </div>
-        </div>
-        <div class="trilho" style="--d:1440ms">
-          <i class="cheio"></i>
-          <i class="parte" style="width:16%"></i>
-        </div>
-        <p class="prop rv" style="--d:1840ms">O erro é <b>16%</b> do fluxo do dia</p>
       </div>
+      <div class="tira ativo">
+        <div class="cab"><span class="rt rv" style="--d:1660ms">Regra: ativo mais crônico</span><span class="ct2 rv" style="--d:1720ms"><b><span class="ct" data-to="0" data-delay="2560">0</span></b> quebras encontradas</span></div>
+        <div class="qd">
+          <i style="--d:1820ms"></i><i style="--d:1831ms"></i><i style="--d:1842ms"></i><i style="--d:1853ms"></i><i style="--d:1864ms"></i><i style="--d:1875ms"></i><i style="--d:1886ms"></i><i style="--d:1897ms"></i><i style="--d:1908ms"></i><i style="--d:1919ms"></i><i style="--d:1930ms"></i><i style="--d:1941ms"></i><i style="--d:1952ms"></i><i style="--d:1963ms"></i><i style="--d:1974ms"></i><i style="--d:1985ms"></i><i style="--d:1996ms"></i><i style="--d:2007ms"></i><i style="--d:2018ms"></i><i style="--d:2029ms"></i><i style="--d:2040ms"></i><i style="--d:2051ms"></i><i style="--d:2062ms"></i><i style="--d:2073ms"></i><i style="--d:2084ms"></i><i style="--d:2095ms"></i><i style="--d:2106ms"></i><i style="--d:2117ms"></i><i style="--d:2128ms"></i><i style="--d:2139ms"></i><i style="--d:2150ms"></i><i style="--d:2161ms"></i><i style="--d:2172ms"></i><i style="--d:2183ms"></i><i style="--d:2194ms"></i><i style="--d:2205ms"></i><i style="--d:2216ms"></i><i style="--d:2227ms"></i><i style="--d:2238ms"></i><i style="--d:2249ms"></i><i style="--d:2260ms"></i><i style="--d:2271ms"></i><i style="--d:2282ms"></i><i style="--d:2293ms"></i><i style="--d:2304ms"></i><i style="--d:2315ms"></i><i style="--d:2326ms"></i><i style="--d:2337ms"></i><i style="--d:2348ms"></i><i style="--d:2359ms"></i>
+        </div>
+      </div>
+      <div class="tira prioridade">
+        <div class="cab"><span class="rt rv" style="--d:2140ms">Regra: prioridade 2 primeiro</span><span class="ct2 rv" style="--d:2200ms"><b><span class="ct" data-to="0" data-delay="3040">0</span></b> quebras encontradas</span></div>
+        <div class="qd">
+          <i style="--d:2300ms"></i><i style="--d:2311ms"></i><i style="--d:2322ms"></i><i style="--d:2333ms"></i><i style="--d:2344ms"></i><i style="--d:2355ms"></i><i style="--d:2366ms"></i><i style="--d:2377ms"></i><i style="--d:2388ms"></i><i style="--d:2399ms"></i><i style="--d:2410ms"></i><i style="--d:2421ms"></i><i style="--d:2432ms"></i><i style="--d:2443ms"></i><i style="--d:2454ms"></i><i style="--d:2465ms"></i><i style="--d:2476ms"></i><i style="--d:2487ms"></i><i style="--d:2498ms"></i><i style="--d:2509ms"></i><i style="--d:2520ms"></i><i style="--d:2531ms"></i><i style="--d:2542ms"></i><i style="--d:2553ms"></i><i style="--d:2564ms"></i><i style="--d:2575ms"></i><i style="--d:2586ms"></i><i style="--d:2597ms"></i><i style="--d:2608ms"></i><i style="--d:2619ms"></i><i style="--d:2630ms"></i><i style="--d:2641ms"></i><i style="--d:2652ms"></i><i style="--d:2663ms"></i><i style="--d:2674ms"></i><i style="--d:2685ms"></i><i style="--d:2696ms"></i><i style="--d:2707ms"></i><i style="--d:2718ms"></i><i style="--d:2729ms"></i><i style="--d:2740ms"></i><i style="--d:2751ms"></i><i style="--d:2762ms"></i><i style="--d:2773ms"></i><i style="--d:2784ms"></i><i style="--d:2795ms"></i><i style="--d:2806ms"></i><i style="--d:2817ms"></i><i style="--d:2828ms"></i><i style="--d:2839ms"></i>
+        </div>
+      </div>
+      <div class="reg rv" style="--d:2760ms"><span>posição 1 da fila</span><span>posição 50</span></div>
     </div>
 
-    <div class="nota rv" style="--d:2060ms">
-      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span>O <b>11 do P3 parece pior que o 4 do P2</b>, e proporcionalmente é melhor: o fluxo dele é quatro vezes maior. Medido em backtest deslizante, com re-treino a cada origem.</span>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
-</section>
-
-<section class="slide light pvs pv-b" data-slide="7" data-var="b" data-quem="ana">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Backtest deslizante &middot; D+1 a D+7</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Prophet &middot; previsão de volume</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quantos incidentes chegam</span></span></h1>
-
-    <div class="cena">
-      <div class="pr rv3" style="--d:640ms">
-        <div class="linha">
-          <div class="esq">
-            <div class="topo"><span class="cab">Prioridade 2</span></div>
-            <div class="dupla">
-              <div class="un chega">
-                <span class="v"><span class="ct" data-to="16" data-delay="880">0</span></span>
-                <span class="k"><b>chegam</b>por dia</span>
-              </div>
-              <span class="mais">&plusmn;</span>
-              <div class="un erra">
-                <span class="v"><span class="ct" data-to="4" data-delay="1000">0</span></span>
-                <span class="k"><b>de erro</b>por dia</span>
-              </div>
-            </div>
-          </div>
-          <div class="dir">
-            <div class="trilho" style="--d:1240ms">
-              <i class="cheio"></i>
-              <i class="parte" style="width:25%"></i>
-            </div>
-            <p class="prop rv" style="--d:1640ms">O erro é <b>26%</b> do fluxo do dia</p>
-          </div>
-        </div>
+    <div class="fecho rv" style="--d:2900ms">
+      <div class="n">
+        <span class="v"><span class="ct" data-to="9" data-delay="3100">0</span></span>
+        <span class="k">primeiras posições da fila do modelo, <b>todas quebra</b></span>
       </div>
-
-      <div class="pr rv3" style="--d:820ms">
-        <div class="linha">
-          <div class="esq">
-            <div class="topo"><span class="cab">Prioridade 3</span></div>
-            <div class="dupla">
-              <div class="un chega">
-                <span class="v"><span class="ct" data-to="67" data-delay="1040">0</span></span>
-                <span class="k"><b>chegam</b>por dia</span>
-              </div>
-              <span class="mais">&plusmn;</span>
-              <div class="un erra">
-                <span class="v"><span class="ct" data-to="11" data-delay="1160">0</span></span>
-                <span class="k"><b>de erro</b>por dia</span>
-              </div>
-            </div>
-          </div>
-          <div class="dir">
-            <div class="trilho" style="--d:1380ms">
-              <i class="cheio"></i>
-              <i class="parte" style="width:16%"></i>
-            </div>
-            <p class="prop rv" style="--d:1780ms">O erro é <b>16%</b> do fluxo do dia</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="nota rv" style="--d:2000ms">
-      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span>O <b>11 do P3 parece pior que o 4 do P2</b>, e proporcionalmente é melhor: o fluxo dele é quatro vezes maior. Medido em backtest deslizante, com re-treino a cada origem.</span>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
-</section>
-
-<section class="slide light fla fl-a" data-slide="8" data-var="a" data-quem="ana">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Base de avaliação &middot; 5.183 incidentes</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Regressão logística &middot; a fila de risco</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Qual incidente quebra</span></span></h1>
-
-    <div class="cena">
-      <div class="quadro cartao rv3" style="--d:620ms">
-        <img class="fig" src="figs/05_fila.png" alt="Quebras encontradas conforme a fila de risco avanca, contra a ordenacao por prioridade e contra o acaso">
-      </div>
-
-      <div class="lado">
-        <span class="nome rv" style="--d:900ms">
-          <svg class="ic" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h9"/></svg>
-          <span>A fila ordenada por risco</span>
-        </span>
-        <div class="bat rv3" style="--d:1060ms">
-          <span class="v"><span class="ct" data-to="9" data-delay="1280">0</span></span>
-          <span class="k">primeiros incidentes da fila <b>eram todos quebra</b> de prazo</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
-</section>
-
-<section class="slide light fla fl-b" data-slide="8" data-var="b" data-quem="ana">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Base de avaliação &middot; 5.183 incidentes</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Regressão logística &middot; a fila de risco</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Qual incidente quebra</span></span></h1>
-
-    <div class="cena">
-      <div class="topo">
-        <div class="bat rv3" style="--d:640ms">
-          <span class="v"><span class="ct" data-to="9" data-delay="860">0</span></span>
-          <span class="k">primeiros incidentes da fila <b>eram todos quebra</b> de prazo</span>
-        </div>
-        <span class="nome rv" style="--d:1000ms">
-          <svg class="ic" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h9"/></svg>
-          <span>A fila ordenada por risco</span>
-        </span>
-      </div>
-
-      <div class="quadro cartao rv3" style="--d:1180ms">
-        <img class="fig" src="figs/05_fila.png" alt="Quebras encontradas conforme a fila de risco avanca, contra a ordenacao por prioridade e contra o acaso">
-      </div>
+      <p class="obs">Pegando incidente ao acaso, as 50 primeiras posições trariam <b>meia quebra</b>. A fila é uma só e ordena as duas prioridades: no P2 as nove quebras do período caem na <b>posição mediana 186</b> de 1.248, onde o acaso as colocaria na 624.</p>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
@@ -1370,63 +1132,9 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
 </section>
 
-<section class="slide light prj pj-b" data-slide="9" data-var="b" data-quem="ana">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Cinco datas de corte de 2025</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">O pedido do mentor</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>A meta vai fechar?</span></span></h1>
-
-    <div class="cena">
-
-      <div class="placar">
-        <div class="pl bom rv" style="--d:1000ms">
-          <div class="cab">Prioridade 2</div>
-          <div class="v"><span class="ct" data-to="5" data-delay="1200">0</span> <em>de 5</em></div>
-          <p class="q">datas em que a projeção caiu <b>dentro da faixa da meta</b>. O ano fechou em 42, e a faixa é de 40 a 45.</p>
-        </div>
-        <div class="pl meio rv" style="--d:1180ms">
-          <div class="cab">Prioridade 3</div>
-          <div class="v"><span class="ct" data-to="2" data-delay="1380">0</span> <em>de 5</em></div>
-          <p class="q">datas certas. Nas outras três ficou <b>acima do limite de 200</b>, e o ano fechou em 196.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="res rv" style="--d:1620ms">
-      <svg class="ic" viewBox="0 0 24 24"><path d="M12 3.4 2.4 20.2h19.2L12 3.4Z"/><path d="M12 9.6v4.4"/><path d="M12 17.2h.01"/></svg>
-      <span>Os três erros do P3 foram todos para o <b>lado pessimista</b>: a projeção avisou que a meta podia estourar e ela não estourou. Para um alarme de operação, é o lado certo de errar.</span>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
-</section>
-
-<section class="slide dark apl ap-a" data-slide="10" data-var="a" data-quem="hygor">
+<section class="slide dark apl ap-a" data-slide="13" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="serie"><svg viewBox="0 0 1600 340" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1000" d="M 0 300 L 13.4 244 L 26.9 219 L 40.3 148 L 53.8 131 L 67.2 128 L 80.7 110 L 94.1 111 L 107.6 116 L 121 99 L 134.5 52 L 147.9 74 L 161.3 104 L 174.8 106 L 188.2 104 L 201.7 116 L 215.1 122 L 228.6 101 L 242 95 L 255.5 107 L 268.9 138 L 282.4 188 L 295.8 194 L 309.2 129 L 322.7 117 L 336.1 116 L 349.6 118 L 363 113 L 376.5 109 L 389.9 131 L 403.4 136 L 416.8 107 L 430.3 99 L 443.7 133 L 457.1 156 L 470.6 170 L 484 194 L 497.5 191 L 510.9 176 L 524.4 125 L 537.8 144 L 551.3 163 L 564.7 154 L 578.2 144 L 591.6 128 L 605 126 L 618.5 121 L 631.9 113 L 645.4 113 L 658.8 110 L 672.3 114 L 685.7 142 L 699.2 125 L 712.6 106 L 726.1 126 L 739.5 131 L 752.9 146 L 766.4 170 L 779.8 134 L 793.3 135 L 806.7 152 L 820.2 156 L 833.6 160 L 847.1 150 L 860.5 146 L 873.9 148 L 887.4 152 L 900.8 152 L 914.3 147 L 927.7 134 L 941.2 127 L 954.6 121 L 968.1 132 L 981.5 128 L 995 108 L 1008.4 104 L 1021.8 115 L 1035.3 118 L 1048.7 121 L 1062.2 129 L 1075.6 150 L 1089.1 162 L 1102.5 161 L 1116 150 L 1129.4 131 L 1142.9 107 L 1156.3 104 L 1169.7 68 L 1183.2 73 L 1196.6 123 L 1210.1 122 L 1223.5 134 L 1237 132 L 1250.4 139 L 1263.9 150 L 1277.3 150 L 1290.8 147 L 1304.2 148 L 1317.6 153 L 1331.1 165 L 1344.5 160 L 1358 153 L 1371.4 170 L 1384.9 172 L 1398.3 166 L 1411.8 184 L 1425.2 210 L 1438.7 200 L 1452.1 169 L 1465.5 157 L 1479 160 L 1492.4 180 L 1505.9 179 L 1519.3 187 L 1532.8 183 L 1546.2 182 L 1559.7 168 L 1573.1 193 L 1586.6 232 L 1600 276"/></svg></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Demonstração ao vivo</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">A aplicação</span></span>
-    <h1 class="tt"><span class="mask" style="--d:360ms"><span>O painel operacional</span></span></h1>
-    <p class="sub rv" style="--d:800ms">As seis telas que a operação abre no dia, com o relógio parado em <b>1º de outubro de 2025, às 15h</b>.</p>
-    <div class="abas rv" style="--d:1100ms">
-      <span>Panorama</span><span>Previsão</span><span>Projeção</span>
-      <span>Fila de risco</span><span>Saúde por produto</span><span>Causas</span>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
-</section>
-
-<section class="slide dark apl ap-b" data-slide="10" data-var="b" data-quem="hygor">
-  <div class="fundo"><img src="../../../sprints/sprint-3/prints/01-panorama.png" alt=""></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
     <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
@@ -1544,6 +1252,20 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
     }
   });
   document.getElementById("fit").addEventListener("click",function(){ vaiSlide(1); });
+
+  /* gancho para o _verifica.py navegar sem depender de tecla: a navegação por
+     número no teclado só cobre 1 a 9, e o deck passou de nove slides. */
+  window.cronosIr=function(slide,varIdx){
+    var j=ordem.indexOf(slide);
+    if(j<0) return false;
+    i=j;
+    if(typeof varIdx==="number"){
+      var qtd=mapa[slide].length;
+      escolha[slide]=Math.min(Math.max(varIdx,0),qtd-1);
+    }
+    play();
+    return true;
+  };
 
   play();
 })();

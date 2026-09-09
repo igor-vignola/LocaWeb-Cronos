@@ -273,6 +273,20 @@ RODAPE = """
   });
   document.getElementById("fit").addEventListener("click",function(){ vaiSlide(1); });
 
+  /* gancho para o _verifica.py navegar sem depender de tecla: a navegação por
+     número no teclado só cobre 1 a 9, e o deck passou de nove slides. */
+  window.cronosIr=function(slide,varIdx){
+    var j=ordem.indexOf(slide);
+    if(j<0) return false;
+    i=j;
+    if(typeof varIdx==="number"){
+      var qtd=mapa[slide].length;
+      escolha[slide]=Math.min(Math.max(varIdx,0),qtd-1);
+    }
+    play();
+    return true;
+  };
+
   play();
 })();
 </script>

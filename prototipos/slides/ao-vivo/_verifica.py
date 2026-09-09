@@ -163,11 +163,10 @@ def main() -> int:
         pg.keyboard.press("h")
 
         for n in alvos:
-            pg.keyboard.press(str(n))
-            pg.wait_for_timeout(220)
             for i, _ in enumerate(sorted(mapa[n])):
-                if i:
-                    pg.keyboard.press("ArrowDown")
+                # pelo gancho, e não por tecla: a navegação por número do
+                # visualizador cobre só 1 a 9 e o deck passou de nove slides
+                pg.evaluate(f"() => window.cronosIr({n}, {i})")
                 pg.wait_for_timeout(ASSENTA_MS)
                 tag = pg.evaluate(
                     "() => { const a = document.querySelector('.slide.is-active');"
