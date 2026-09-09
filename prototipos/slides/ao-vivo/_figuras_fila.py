@@ -8,13 +8,18 @@ em vez do modelo?
 Cinco ordenações, todas recomputadas de data/interim/04_fila_pontuada.parquet:
 
     modelo de risco      pela pontuação da regressão logística
+    time                 pela taxa histórica de quebra do time
     ativo crônico        pelo número de quebras que o ativo já teve
-    por time             pela taxa histórica de quebra do time
-    por prioridade       P2 antes de P3, que é o que a operação faz hoje
-    sem ordenação        a diagonal, o que se acha pegando incidente ao caso
+    prioridade           P2 antes de P3, que é o que a operação faz hoje
+    sem ordenação        a diagonal, o que se acha pegando incidente ao acaso
 
-A cor aqui está comunicando qual ordenação é qual, então não é decoração. O azul
-é o modelo, e a espessura maior é dele de propósito.
+Duas decisões de leitura, porque a primeira versão ficou difícil de entender:
+
+  · o nome vai escrito na ponta de cada linha, e não numa legenda embaixo. Quem
+    olha não precisa casar cor com rótulo.
+  · só o modelo tem cor. As regras ficam em cinza, em tons diferentes. A cor
+    aqui separa o que é o nosso modelo do que é alternativa, que é a única
+    distinção que o slide precisa fazer.
 
 Uso:
     .venv/Scripts/python.exe prototipos/slides/ao-vivo/_figuras_fila.py
@@ -34,15 +39,12 @@ PARQUET = AQUI.parents[2] / "data" / "interim" / "04_fila_pontuada.parquet"
 
 COR = {
     "modelo": "#2563EB",
-    "ativo": "#D97706",
-    "time": "#16A34A",
-    "prioridade": "#DC2626",
-    "acaso": "#888888",
     "cinza_escuro": "#444444",
+    "cinza_medio": "#888888",
     "cinza_claro": "#E5E5E5",
-    "preto": "#000000",
 }
 LIMITE = 400  # onde o ganho aparece; esticar até 5.183 achata tudo
+LEITURA = 50  # a posição da fila que o slide lê em voz alta
 
 
 def estilo() -> None:
@@ -55,7 +57,7 @@ def estilo() -> None:
         "axes.labelsize": 12.5, "axes.labelcolor": COR["cinza_escuro"],
         "axes.grid": True, "axes.axisbelow": True,
         "grid.color": COR["cinza_claro"], "grid.linewidth": 0.5,
-        "xtick.color": "#888888", "ytick.color": "#888888",
+        "xtick.color": COR["cinza_medio"], "ytick.color": COR["cinza_medio"],
         "xtick.labelsize": 12, "ytick.labelsize": 12,
         "font.family": "sans-serif",
         "font.sans-serif": ["Sora", "Outfit", "Inter", "DejaVu Sans"],
@@ -77,48 +79,45 @@ def main() -> int:
     d = pd.read_parquet(PARQUET).copy()
     d["violou"] = d["violou"].astype(bool)
     total = int(d["violou"].sum())
-
-    # taxa histórica por time, que é o que a regra por time usaria
-    taxa_time = d.groupby("equipe")["violou"].mean()
-    d["taxa_time"] = d["equipe"].map(taxa_time)
-    # P2 antes de P3, que é o que a operação faz hoje
+    d["taxa_time"] = d["equipe"].map(d.groupby("equipe")["violou"].mean())
     d["ordem_pri"] = (d["prioridade"] == "P2").astype(int)
 
-    ordenacoes = [
-        ("modelo", "Fila do modelo de risco", ["risco"], [False], 3.2, "-"),
-        ("ativo", "Regra: ativo mais crônico", ["ativo_violacoes"], [False], 2, "--"),
-        ("time", "Regra: time com mais quebra", ["taxa_time"], [False], 2, "--"),
-        ("prioridade", "Regra: prioridade 2 primeiro", ["ordem_pri"], [False], 2, "--"),
+    #        chave        nome na ponta          coluna             cor      traço  largura  desvio do rótulo
+    linhas = [
+        ("modelo", "Fila do modelo", ["risco"], COR["modelo"], "-", 3.2, 0),
+        ("time", "Regra: time", ["taxa_time"], "#666666", (0, (6, 3)), 1.9, 0),
+        ("ativo", "Regra: ativo crônico", ["ativo_violacoes"], "#8A8A8A",
+         (0, (6, 3)), 1.9, 0),
+        ("acaso", "Sem ordenação", None, "#AAAAAA", (0, (1, 3)), 1.7, 8),
+        ("prioridade", "Regra: prioridade 2", ["ordem_pri"], "#666666",
+         (0, (2, 3)), 1.9, -8),
     ]
 
-    fig, ax = plt.subplots(figsize=(12.8, 4.9))
+    fig, ax = plt.subplots(figsize=(12.2, 5.2))
     x = np.arange(LIMITE + 1)
+    fim = {}
 
-    for chave, rotulo, por, asc, largura, traco in ordenacoes:
-        # desempate estável pela ordem original, para a curva ser reprodutível
-        s = d.sort_values(por + ["incidente"], ascending=asc + [True])
-        ax.plot(x, acumulado(s["violou"])[: LIMITE + 1], color=COR[chave],
-                linewidth=largura, linestyle=traco, label=rotulo,
+    for chave, nome, por, cor, traco, largura, desvio in linhas:
+        if chave == "acaso":
+            y = x * total / len(d)
+        else:
+            # desempate estável pela ordem original, para a curva ser reprodutível
+            s = d.sort_values(por + ["incidente"], ascending=[False, True])
+            y = acumulado(s["violou"])[: LIMITE + 1]
+        ax.plot(x, y, color=cor, linewidth=largura, linestyle=traco,
                 zorder=5 if chave == "modelo" else 3)
+        fim[chave] = y[LIMITE]
+        # o nome vai na ponta da linha, no lugar de uma legenda
+        ax.annotate(nome, xy=(LIMITE, y[LIMITE]), xytext=(10, desvio),
+                    textcoords="offset points", va="center", color=cor,
+                    fontsize=13,
+                    fontweight="bold" if chave == "modelo" else "normal")
 
-    # sem ordenação: a diagonal do acaso
-    ax.plot(x, x * total / len(d), color=COR["acaso"], linewidth=1.6,
-            linestyle=":", label="Sem ordenação", zorder=2)
-
-    # a leitura em N=50 vai desenhada dentro do gráfico: é a resposta à
-    # pergunta que a banca faz, que é por que não ordenar por prioridade
-    ax.axvline(50, color=COR["acaso"], linewidth=1, linestyle=(0, (3, 3)),
-               zorder=1)
-    ax.annotate("13 das 50 quebras\nnos 50 primeiros", xy=(50, 13),
-                xytext=(96, 19.4), fontsize=13, color=COR["modelo"],
-                fontweight="bold", va="center",
-                arrowprops=dict(arrowstyle="-", color=COR["modelo"],
-                                linewidth=1.1, shrinkA=0, shrinkB=4))
-    ax.annotate("nenhuma, ordenando\npor prioridade", xy=(50, 0),
-                xytext=(96, 5.2), fontsize=13, color=COR["prioridade"],
-                fontweight="bold", va="center",
-                arrowprops=dict(arrowstyle="-", color=COR["prioridade"],
-                                linewidth=1.1, shrinkA=0, shrinkB=4))
+    ax.axvline(LEITURA, color=COR["cinza_medio"], linewidth=1,
+               linestyle=(0, (3, 3)), zorder=1)
+    ax.annotate(f"{LEITURA} primeiros", xy=(LEITURA, 29.2), xytext=(7, 0),
+                textcoords="offset points", va="top", fontsize=12.5,
+                color=COR["cinza_medio"])
 
     ax.set_title("Quebras encontradas conforme a fila avança")
     ax.set_xlabel("incidentes percorridos na fila")
@@ -127,8 +126,8 @@ def main() -> int:
     ax.set_ylim(0, 30)
     ax.set_xticks([0, 50, 100, 150, 200, 250, 300, 350, 400])
     ax.set_yticks([0, 5, 10, 15, 20, 25, 30])
-    ax.legend(loc="upper left", bbox_to_anchor=(0, -0.17), ncol=5,
-              columnspacing=1.6, handlelength=2.2)
+    # espaço à direita para os nomes das pontas caberem
+    fig.subplots_adjust(right=0.79)
 
     destino = FIGS / "07_fila_regras.png"
     fig.savefig(destino, dpi=200, bbox_inches="tight", facecolor="white")
@@ -139,14 +138,16 @@ def main() -> int:
     print(f"\nbase de avaliação: {len(d):,} incidentes, {total} quebras"
           .replace(",", "."))
     print("\nquebras encontradas nos primeiros N da fila:")
-    print(f"{'N':>6s} " + " ".join(f"{r:>14s}" for _, r, _, _, _, _ in ordenacoes)
-          + f" {'sem ordenação':>14s}")
+    cabecalho = " ".join(f"{c:>12s}" for c, _, _, _, _, _, _ in linhas)
+    print(f"{'N':>6s} {cabecalho}")
     for n in (25, 50, 100, 200, 400):
         linha = f"{n:>6d} "
-        for chave, _, por, asc, _, _ in ordenacoes:
-            s = d.sort_values(por + ["incidente"], ascending=asc + [True])
-            linha += f"{int(acumulado(s['violou'])[n]):>14d} "
-        linha += f"{n * total / len(d):>14.1f}"
+        for chave, _, por, _, _, _, _ in linhas:
+            if chave == "acaso":
+                linha += f"{n * total / len(d):>12.1f} "
+            else:
+                s = d.sort_values(por + ["incidente"], ascending=[False, True])
+                linha += f"{int(acumulado(s['violou'])[n]):>12d} "
         print(linha)
     return 0
 
