@@ -62,13 +62,13 @@ def par_de_numeros(d1: int, d2: int, c1: int, c2: int) -> str:
         f'        <div class="un rv3" style="--d:{d1}ms">\n'
         '          <span class="v num p2">'
         f'<span class="ct" data-to="42" data-delay="{c1}">0</span></span>\n'
-        '          <span class="rot"><b>Prioridade 2</b>prazo de 4 horas</span>\n'
+        '          <span class="rot"><b>Prioridade 2</b>passaram das 4 horas de prazo</span>\n'
         "        </div>\n"
         '        <span class="fio"></span>\n'
         f'        <div class="un rv3" style="--d:{d2}ms">\n'
         '          <span class="v num p3">'
         f'<span class="ct" data-to="196" data-delay="{c2}">0</span></span>\n'
-        '          <span class="rot"><b>Prioridade 3</b>prazo de 12 horas</span>\n'
+        '          <span class="rot"><b>Prioridade 3</b>passaram das 12 horas de prazo</span>\n'
         "        </div>\n"
         "      </div>"
     )
@@ -86,7 +86,7 @@ CSS = """<style>
 
 .prb .par{display:flex;align-items:flex-start;justify-content:center;gap:92px}
 .prb .un{display:flex;flex-direction:column;align-items:center;width:296px}
-.prb .v{font-size:138px;font-weight:900;letter-spacing:-4.8px;line-height:.88}
+.prb .v{font-size:118px;font-weight:900;letter-spacing:-4.2px;line-height:.88}
 .prb .p2{color:var(--bad)}
 .prb .p3{color:var(--warn)}
 .prb .rot{margin-top:12px;font-size:15px;line-height:1.35;color:var(--tx);
@@ -114,10 +114,18 @@ CSS = """<style>
 .prb .leg i{width:12px;height:12px;border-radius:3px;background:#E3E9F2;flex-shrink:0}
 .prb .leg i.perda{background:var(--bad)}
 .prb .leg b{color:var(--head);font-weight:700}
+/* a nota que explica por que a desproporção importa. Ela existe porque o número
+   sozinho não diz nada: 0,95% só ganha sentido junto da consequência dele para
+   a modelagem, e é essa a pergunta que a banca faria. */
+.prb .leg .nota{font-size:15px;line-height:1.5;color:var(--tx);max-width:940px;
+  text-align:center}
+.prb .leg .nota b{color:var(--head);font-weight:700}
+.pb-a .leg{flex-direction:column;align-items:center;gap:14px}
+.pb-a .leg .lin{display:flex;align-items:center;gap:26px}
 
 /* variação A · números em cima, malha larga e baixa embaixo */
 .pb-a .cena{flex:1;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:48px;min-height:0}
+  justify-content:center;gap:44px;margin-top:30px;min-height:0}
 .pb-a .cartao{padding:40px 34px 34px;display:flex;flex-direction:column;
   align-items:center;gap:18px}
 .pb-a .malha{grid-template-columns:repeat(40,24px);gap:7px}
@@ -125,7 +133,7 @@ CSS = """<style>
 
 /* variação B · malha quadrada dominando, números na coluna da direita */
 .pb-b .cena{flex:1;display:flex;align-items:center;justify-content:center;
-  gap:58px;min-height:0}
+  gap:58px;margin-top:20px;min-height:0}
 .pb-b .cartao{padding:38px;display:flex;flex-direction:column;align-items:center;
   gap:16px}
 .pb-b .malha{grid-template-columns:repeat(25,26px);gap:6px}
@@ -150,16 +158,22 @@ def main() -> int:
         + "\n  <div class=\"body\">\n"
         '    <span class="eb"><span class="rv" style="--d:240ms">O problema</span></span>\n'
         '    <h1 class="tt"><span class="mask" style="--d:340ms">'
-        "<span>Os prazos perdidos em 2025</span></span></h1>\n"
+        "<span>Quantidade de quebras em 2025</span></span></h1>\n"
         '    <div class="cena">\n'
         f"      {par_de_numeros(700, 820, 900, 1020)}\n"
         '      <div class="cartao rv3" style="--d:1100ms">\n'
         f"        {malha(COLS_A, LINHAS_A, VERMELHOS_A, 1250)}\n"
         '        <div class="leg rv" style="--d:2520ms">\n'
-        f'          <span class="cx"><i></i>cada quadrado &eacute; <b>{por_quadrado} '
-        "incidentes</b></span>\n"
-        '          <span class="cx"><i class="perda"></i><b>238 perdas</b> em 25.156 '
-        "eleg&iacute;veis, <b>0,95%</b></span>\n"
+        '          <div class="lin">\n'
+        f'            <span class="cx"><i></i>Cada quadrado representa {por_quadrado} '
+        "incidentes eleg&iacute;veis ao KPI.</span>\n"
+        '            <span class="cx"><i class="perda"></i>As <b>238 quebras</b> '
+        "correspondem a <b>0,95%</b> da base.</span>\n"
+        "          </div>\n"
+        '          <p class="nota">A despropor&ccedil;&atilde;o entre as duas classes '
+        "&eacute; o que torna a previs&atilde;o dif&iacute;cil: um modelo que "
+        "respondesse <b>n&atilde;o quebra</b> para todos os incidentes acertaria "
+        "<b>99% dos casos</b> e n&atilde;o serviria para nada.</p>\n"
         "        </div>\n"
         "      </div>\n"
         "    </div>\n"
@@ -177,15 +191,15 @@ def main() -> int:
         + "\n  <div class=\"body\">\n"
         '    <span class="eb"><span class="rv" style="--d:240ms">O problema</span></span>\n'
         '    <h1 class="tt"><span class="mask" style="--d:340ms">'
-        "<span>Os prazos perdidos em 2025</span></span></h1>\n"
+        "<span>Quantidade de quebras em 2025</span></span></h1>\n"
         '    <div class="cena">\n'
         '      <div class="cartao rv3" style="--d:680ms">\n'
         f"        {malha(COLS_B, LINHAS_B, VERMELHOS_B, 850)}\n"
         '        <div class="leg rv" style="--d:2300ms">\n'
-        f'          <span class="cx"><i></i>cada quadrado &eacute; <b>{por_quadrado} '
-        "incidentes</b></span>\n"
-        '          <span class="cx"><i class="perda"></i><b>0,95%</b> da base '
-        "eleg&iacute;vel</span>\n"
+        f'          <span class="cx"><i></i>Cada quadrado representa {por_quadrado} '
+        "incidentes eleg&iacute;veis ao KPI.</span>\n"
+        '          <span class="cx"><i class="perda"></i>As <b>238 quebras</b> '
+        "s&atilde;o <b>0,95%</b> da base.</span>\n"
         "        </div>\n"
         "      </div>\n"
         f"      {par_de_numeros(1000, 1120, 1200, 1320)}\n"

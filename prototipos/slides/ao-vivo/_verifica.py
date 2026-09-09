@@ -60,10 +60,18 @@ MEDIDA = r"""() => {
     const r = el.getBoundingClientRect();
     const cs = getComputedStyle(el);
     const tag = el.tagName.toLowerCase();
+    const dentroDoCorpo = corpo.contains(el);
 
     if (r.width > 0 && r.height > 0) {
       if (r.left < -1 || r.right > 1601 || r.top < -1 || r.bottom > 901)
-        achados.push('FORA ' + tag + '.' + c.slice(0, 24));
+        achados.push('FORA DO PALCO ' + tag + '.' + c.slice(0, 24));
+      /* conteudo empurrado para fora do CORPO do slide: acontece quando um flex
+         em coluna nao cabe e o overflow do palco esconde o excedente. Um bloco
+         inteiro desaparece da tela sem sair dos 1600x900, e a checagem de palco
+         nao pega. Foi assim que a faixa de fatos de um slide sumiu. */
+      if (dentroDoCorpo && (r.bottom > cr.bottom + 2 || r.top < cr.top - 2))
+        achados.push('FORA DO CORPO ' + tag + '.' + c.slice(0, 24) +
+          ' (passa ' + Math.round(Math.max(r.bottom - cr.bottom, cr.top - r.top)) + 'px)');
     }
     if (parseFloat(cs.opacity) === 0 && r.width > 2)
       achados.push('INVISIVEL ' + tag + '.' + c.slice(0, 24));
