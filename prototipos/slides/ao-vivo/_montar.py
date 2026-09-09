@@ -41,40 +41,13 @@ EQUIPE = {
     "hygor": ("Hygor", "../../../brand/equipe/hygor.png"),
 }
 
-# ── ordem final do deck ─────────────────────────────────────────────────────
-# Cada agente numerou os slides dele a partir do próprio recorte, e três posições
-# viraram VAGAS: uma vaga é uma posição do deck com várias análises candidatas, que
-# o apresentador percorre com a seta para baixo e escolhe. Isso faz o data-slide de
-# origem colidir. Este mapa é onde a ordem do deck mora, e traduz
-# (arquivo, data-slide de origem, data-var de origem) para (slide final, var final).
-# O que não está aqui mantém a numeração de origem.
-#
-#   1  capa                        2 formas
-#   2  o problema                  2 formas
-#   3  VAGA 1 · o terreno          4 análises + a versão do agente 2
-#   4  os dois modelos             2 formas
-#   5  VAGA 2 · o modelo funciona  4 análises + os resultados do agente 4
-#   6  divisória + demo ao vivo    2 formas
-#   7  a stack                     2 formas
-#   8  VAGA 3 · onde agir          4 análises + a concentração do agente 4
-#   9  fecho                       2 formas
-# valor: (slide final, var final, dono da vaga ou None para manter o de origem)
-REMAP: dict[tuple[str, int, str], tuple[int, str, str | None]] = {
-    # o achado do agente 2 entra como candidata extra da vaga 1
-    ("03-solucao.html", 3, "a"): (3, "e", "ana"),
-    ("03-solucao.html", 3, "b"): (3, "f", "ana"),
-    # a aplicação e a stack descem uma casa, para a vaga 2 caber no 5
-    ("05-aplicacao.html", 5, "a"): (6, "a", None),
-    ("05-aplicacao.html", 5, "b"): (6, "b", None),
-    ("05-aplicacao.html", 6, "a"): (7, "a", None),
-    ("05-aplicacao.html", 6, "b"): (7, "b", None),
-    # os resultados do agente 4 entram como candidata extra da vaga 2
-    ("07-numeros.html", 7, "a"): (5, "e", "ana"),
-    ("07-numeros.html", 7, "b"): (5, "f", "ana"),
-    # e a concentração dele, como candidata extra da vaga 3
-    ("07-numeros.html", 8, "a"): (8, "e", "hygor"),
-    ("07-numeros.html", 8, "b"): (8, "f", "hygor"),
-}
+# ── ordem do deck ───────────────────────────────────────────────────────────
+# Um arquivo por slide, em blocos/NN-nome.html, e o NN é a ordem. Cada arquivo
+# traz duas <section>: data-var="a" e data-var="b", que são o MESMO dado em duas
+# formas de mostrar. O REMAP existiu enquanto vários agentes numeravam a partir
+# do próprio recorte; agora que a numeração nasce do nome do arquivo ele fica
+# vazio, e é o gancho para reordenar sem tocar em bloco nenhum.
+REMAP: dict[tuple[str, int, str], tuple[int, str, str | None]] = {}
 
 RE_STYLE = re.compile(r"<style>(.*?)</style>", re.S)
 RE_SECTION = re.compile(r"(<section class=\"slide.*?</section>)", re.S)
@@ -239,6 +212,9 @@ RODAPE = """
   }
   window.addEventListener("resize",fit); fit();
 
+  /* pt-BR: ponto como separador de milhar, senão 21561 aparece cru na tela */
+  function fmt(n){ return n.toLocaleString("pt-BR"); }
+
   function contar(el){
     var alvo=parseFloat(el.getAttribute("data-to").replace(",","."));
     var dec=parseInt(el.getAttribute("data-dec")||"0",10);
@@ -246,7 +222,7 @@ RODAPE = """
     (function passo(t){
       var p=Math.min((t-t0)/dur,1);
       var v=alvo*(1-Math.pow(1-p,3));
-      el.textContent=dec?v.toFixed(dec).replace(".",","):String(Math.round(v));
+      el.textContent=dec?v.toFixed(dec).replace(".",","):fmt(Math.round(v));
       if(p<1) requestAnimationFrame(passo);
     })(performance.now());
   }
