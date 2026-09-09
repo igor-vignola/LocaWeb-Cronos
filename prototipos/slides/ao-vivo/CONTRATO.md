@@ -267,3 +267,44 @@ Procure, e reporte com número:
 
 E rode a varredura de texto: ocorrências de "turno", de travessão, de emoji, e
 slide que cita prioridade 3 sem citar prioridade 2.
+
+---
+
+## 7. Adendos de 09/09/2026
+
+Registrados depois da revisão com a banca simulada. Onde este adendo e o texto
+acima discordarem, o adendo ganha.
+
+**7.1 Títulos.** A regra de §1 ("oração declarativa completa") foi substituída
+pelo dono do projeto: o título é **curto e nomeia o assunto** do slide; a
+mensagem é dita por quem apresenta. Pergunta como título é aceita quando o
+slide responde ("Dia cheio quebra mais?"). Continua proibido: fragmento com
+pausa e segundo fragmento, antítese de dois tempos, travessão, vocabulário de IA.
+
+**7.2 Um objeto por slide.** Cada slide tem um objeto visual próprio e não
+repete o molde do vizinho. Gráfico matplotlib em dpi 200 dentro do cartão da
+casa (`.quadro.cartao`), nunca solto sobre o fundo. Variação B descontinuada.
+
+**7.3 Volume × perda de prazo, números de palco.** O slide 6 usa os quatro
+grupos de volume de `_dados.py` (261 dias úteis de 2025, quartis): 56, 79, 90 e
+110 incidentes por dia, com taxas de 0,86%, 0,87%, 0,97% e 0,72%. O §5 acima
+traz 108/dia e 0,75% para "os 68 dias de maior volume", que é outro corte da
+mesma série. Os dois estão certos; no palco valem os do gráfico.
+
+**7.4 Comparação de modelos no deck.** A escolha da regressão logística contra
+o XGBoost aparece no pé do slide 9: ROC 0,87 nos dois, PR-AUC 0,30 contra 0,25,
+calibração de 48 quebras previstas onde houve 50. É a resposta à pergunta que a
+banca simulada colocou em primeiro lugar.
+
+**7.5 Meta ao lado da contagem.** 42 e 196 nunca aparecem sem o limite do ano
+(45 e 200) ao lado. Sem o limite são contagem, não problema.
+
+**7.6 Diferenciais na demo.** Resumo da manhã e saúde por produto saíram do
+deck como slides e passaram para a demonstração ao vivo, onde a operação os vê
+funcionando. As respostas sobre eles estão em `PERGUNTAS.md`.
+
+**7.7 Estrutura final, 13 slides.** 1 capa · 2 quebras de 2025 com o limite ·
+3 raridade do evento · 4 salto de setembro · 5 recorte em 2025 · 6 dia cheio
+quebra mais? · 7 dois modelos · 8 os próximos sete dias · 9 a fila de risco ·
+10 a meta do ano · 11 a stack · 12 o painel operacional, passagem para a demo ·
+13 fecho. Igor: 1–3, 6, 13. Ana: 4–5, 7–10. Hygor: 11–12 e a demo.

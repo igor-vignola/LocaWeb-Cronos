@@ -1,54 +1,45 @@
 <style>
-/* ═══ slide 10 · a projeção da meta ═══════════════════════════════════════════
-   Este slide responde ao pedido número 1 que o mentor da Locaweb fez na
-   mentoria: saber, no meio do ano, se a meta anual vai fechar.
+/* ═══ slide 10 · a meta do ano ═══════════════════════════════════════════════
+   Responde ao pedido número 1 que o mentor da Locaweb fez na mentoria: parado
+   no meio do ano, dá para saber se a meta anual vai fechar?
 
-   Um assunto só: a projeção acertou. E a leitura honesta do P3 está no slide,
-   não escondida: ele errou em três das cinco datas, e nas três para o lado
-   pessimista. Projetou acima do limite quando o ano fechou abaixo. Para um
-   alarme de operação esse é o lado certo de errar, e dizer isso antes de
-   alguém perguntar é o que sustenta o número.
+   A versão anterior era um placar de "5 de 5" e "2 de 5" sem gráfico, e o dono
+   do projeto disse que ficou confuso e que não entendia para que servia. Agora
+   o gráfico responde sozinho: em cada data de corte, a faixa que a projeção
+   dava naquele dia, a faixa da meta em verde e a linha preta de onde o ano de
+   fato fechou. Dá para ver a projeção do P2 andando dentro do verde desde
+   agosto, e a do P3 descendo e cruzando o limite em novembro.
 
-   Figura matplotlib em dpi 200, de _figuras_projecao.py.
+   A leitura desfavorável está escrita, não escondida: no P3 a projeção apontou
+   estouro em agosto, setembro e outubro, e o ano fechou abaixo do limite. Errou
+   nas três, e errou para o lado pessimista. Dizer isso antes de alguém
+   perguntar é o que sustenta o número.
+
+   Figura em dpi 200, de _figuras_meta.py.
    ══════════════════════════════════════════════════════════════════════════ */
 .prj .body{padding-top:14px}
 .prj .tt{font-size:52px;letter-spacing:-1.9px}
-.prj .fig{display:block;border-radius:10px}
-.prj .quadro{padding:22px 26px}
 
-/* o placar das duas prioridades, com o mesmo peso */
-.prj .placar{display:flex;gap:0}
-.prj .pl{flex:1;min-width:0;padding:0 30px}
-.prj .pl:first-child{padding-left:0}
-.prj .pl + .pl{border-left:1px solid #DCE4EF}
-.prj .pl .cab{font-size:12px;font-weight:700;letter-spacing:1.6px;
-  text-transform:uppercase;color:var(--tx2)}
-.prj .pl .v{font-size:150px;font-weight:900;letter-spacing:-6px;line-height:.86;
-  margin-top:12px;font-variant-numeric:tabular-nums}
-.prj .pl .v em{font-style:normal;font-size:.36em;font-weight:700;color:var(--tx2);
-  letter-spacing:-.5px}
-.prj .pl.bom .v{color:var(--good)}
-.prj .pl.meio .v{color:var(--warn)}
-.prj .pl .q{font-size:17.5px;line-height:1.42;color:var(--tx);margin-top:10px}
-.prj .pl .q b{color:var(--head);font-weight:700}
+.prj .cena{flex:1;display:flex;align-items:center;justify-content:center;
+  margin-top:12px;min-height:0}
+.prj .quadro{padding:20px 24px}
+.prj .fig{display:block;width:1188px}
 
-/* a ressalva do P3, que é o que torna o número defensável */
-.prj .res{display:flex;align-items:flex-start;gap:12px;margin-top:46px;
-  padding-top:22px;border-top:1px solid #DCE4EF;font-size:16px;line-height:1.45;
-  color:var(--tx)}
-.prj .res .ic{width:20px;height:20px;color:var(--warn);margin-top:2px;
-  flex-shrink:0}
-.prj .res b{color:var(--head);font-weight:700}
-
-/* ── variação A · figura em largura cheia, placar numa faixa embaixo ── */
-.pj-a .cena{flex:1;display:flex;align-items:center;justify-content:center;
-  margin-top:30px;min-height:0}
-
-.pj-a .placar{width:1180px}
-
+.prj .fecho{display:flex;align-items:center;gap:32px;margin-top:auto;
+  padding-top:20px;border-top:1px solid #DCE4EF}
+.prj .fecho .n{display:flex;align-items:baseline;gap:15px;flex-shrink:0}
+.prj .fecho .n .v{font-size:60px;font-weight:900;letter-spacing:-2.5px;
+  line-height:.86;color:var(--good);font-variant-numeric:tabular-nums}
+.prj .fecho .n .v em{font-style:normal;font-size:.42em;font-weight:700;
+  color:var(--tx2);letter-spacing:-.5px}
+.prj .fecho .n .k{font-size:17px;line-height:1.34;color:var(--tx);max-width:224px}
+.prj .fecho .n .k b{color:var(--head);font-weight:700}
+.prj .fecho .obs{font-size:15px;line-height:1.46;color:var(--tx2);
+  padding-left:32px;border-left:1px solid #DCE4EF}
+.prj .fecho .obs b{color:var(--head);font-weight:700}
 </style>
 
-<section class="slide light prj pj-a" data-slide="10" data-var="a" data-quem="ana">
+<section class="slide light prj" data-slide="10" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -56,30 +47,22 @@
     <div class="tag">Cinco datas de corte de 2025</div>
   </div>
   <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">O pedido do mentor</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>A meta vai fechar?</span></span></h1>
+    <span class="eb"><span class="rv" style="--d:240ms">O pedido do mentor &middot; projeção pelo ritmo do ano</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>A meta do ano</span></span></h1>
 
     <div class="cena">
-
-      <div class="placar rv3" style="--d:1080ms">
-        <div class="pl bom">
-          <div class="cab">Prioridade 2</div>
-          <div class="v"><span class="ct" data-to="5" data-delay="1300">0</span> <em>de 5</em></div>
-          <p class="q">datas em que a projeção caiu <b>dentro da faixa da meta</b>. O ano fechou em 42, e a faixa é de 40 a 45.</p>
-        </div>
-        <div class="pl meio">
-          <div class="cab">Prioridade 3</div>
-          <div class="v"><span class="ct" data-to="2" data-delay="1420">0</span> <em>de 5</em></div>
-          <p class="q">datas certas. Nas outras três a projeção ficou <b>acima do limite de 200</b>, e o ano fechou em 196.</p>
-        </div>
+      <div class="quadro cartao rv3" style="--d:620ms">
+        <img class="fig" src="../figs/09_meta_anual.png" alt="Projecao da meta anual em cinco datas de corte de 2025, por prioridade, com a faixa da projecao, a faixa da meta e onde o ano fechou">
       </div>
     </div>
 
-    <div class="res rv" style="--d:1700ms">
-      <svg class="ic" viewBox="0 0 24 24"><path d="M12 3.4 2.4 20.2h19.2L12 3.4Z"/><path d="M12 9.6v4.4"/><path d="M12 17.2h.01"/></svg>
-      <span>Os três erros do P3 foram todos para o <b>lado pessimista</b>: a projeção avisou que a meta podia estourar e ela não estourou. Para um alarme de operação, é o lado certo de errar.</span>
+    <div class="fecho rv" style="--d:1240ms">
+      <div class="n">
+        <span class="v"><span class="ct" data-to="5" data-delay="1440">0</span> <em>de 5</em></span>
+        <span class="k">datas em que a projeção da <b>prioridade 2</b> apontou dentro da meta</span>
+      </div>
+      <p class="obs">A projeção soma o que já aconteceu com o ritmo do ano até a data. O ano fechou em 42 na prioridade 2. Na prioridade 3 ela apontou estouro em agosto, setembro e outubro, e o ano fechou em 196, abaixo do limite de 200. Errou nas três para o <b>lado pessimista</b>, que para um alarme de operação é o lado certo de errar.</p>
     </div>
   </div>
   <div class="ft"></div>
 </section>
-

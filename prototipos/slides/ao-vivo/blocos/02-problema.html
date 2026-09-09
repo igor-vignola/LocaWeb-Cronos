@@ -40,6 +40,17 @@
   rgba(11,18,32,.10) 0 3px,transparent 3px 7px);opacity:0}
 .prb.is-active .fora{animation:rv .5s var(--out) calc(var(--d,0ms) + 760ms) forwards}
 
+/* o limite do ano, embaixo do trilho: sem ele 42 e 196 são contagem, não problema.
+   A banca simulada perguntou "42 é muito? a meta é 45", e é a pergunta certa. */
+.prb .lim{margin-top:46px;font-size:15.5px;color:var(--tx2)}
+.prb .lim b{color:var(--head);font-weight:800;font-size:20px;margin-left:4px}
+
+.prb .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;
+  padding-top:20px;border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;
+  color:var(--tx)}
+.prb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.prb .fecho b{color:var(--head);font-weight:700}
+
 /* ── variação A · os dois lado a lado, com fio no centro do palco ── */
 .pb-a .cena{flex:1;display:flex;align-items:center;justify-content:center;
   gap:108px;min-height:0}
@@ -72,6 +83,7 @@
           <i class="fora"></i>
           <span class="marca"><em>4 h</em></span>
         </span>
+        <span class="lim rv" style="--d:1900ms">o ano permitia até<b>45</b></span>
       </div>
       <span class="fio rv" style="--d:900ms"></span>
       <div class="un p3 rv3" style="--d:860ms">
@@ -82,7 +94,13 @@
           <i class="fora"></i>
           <span class="marca"><em>12 h</em></span>
         </span>
+        <span class="lim rv" style="--d:2040ms">o ano permitia até<b>200</b></span>
       </div>
+    </div>
+
+    <div class="fecho rv" style="--d:2400ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+      <span>A meta é anual e só se confirma em dezembro. Em 2025 a margem foi de <b>3 incidentes</b> na prioridade 2 e de <b>4</b> na prioridade 3.</span>
     </div>
   </div>
   <div class="ft"></div>

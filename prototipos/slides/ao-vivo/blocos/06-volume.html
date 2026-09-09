@@ -1,50 +1,41 @@
 <style>
-/* ═══ slide 6 · volume não é risco ═══════════════════════════════════════════
+/* ═══ slide 6 · dia cheio quebra mais? ═══════════════════════════════════════
    O achado contra-intuitivo do projeto, e a razão de o Cronos ter dois modelos
    em vez de um. Ele entra logo antes de "Dois modelos" porque é o argumento que
    torna aquele slide inevitável.
 
-   Os 261 dias úteis de 2025 divididos em quatro quartis de volume. O quartil de
-   MAIOR volume, com 110 incidentes por dia, é o que MENOS perde prazo: 0,72%
-   contra 0,97% do terceiro quartil. A curva não sobe, e é isso que o gráfico
-   mostra sem precisar de explicação.
+   A primeira versão trazia "2,5% da variação das quebras é explicada pelo
+   volume" em número grande e falava em quartil. O dono do projeto disse que não
+   sabia como apresentar nem entendia a mensagem. Tinha razão: R² é número de
+   estatístico, "quartil" é jargão, e quatro barras quase iguais parecem não
+   dizer nada — quando o ponto é exatamente que elas são iguais.
 
-   Consequência direta, e está no pé do slide: prever quantos incidentes chegam
-   não diz quais vão quebrar. São duas perguntas, e por isso são dois modelos.
+   Agora o slide tem a estrutura mais natural de apresentar que existe: uma
+   pergunta no título, o gráfico responde, e a resposta cabe numa palavra. Quem
+   apresenta diz: "A gente achava que dia cheio quebrava mais. Não. Os dias mais
+   cheios do ano perderam menos prazo que os vazios. Então prever o volume não
+   prevê a quebra, e por isso são dois modelos."
 
-   O número grande é o R² da regressão de quebras contra volume diário: 2,5%.
-   Ele fica ao lado do gráfico porque o gráfico mostra a forma e o número mede
-   a força.
+   Os números do gráfico saem de _dados.py, medidos nos 261 dias úteis de 2025
+   divididos em quatro grupos de volume. O R² de 2,5% saiu do slide e fica para
+   a sessão de perguntas.
 
    Figura em dpi 200, de _figuras_modelos.py.
    ══════════════════════════════════════════════════════════════════════════ */
 .vol .body{padding-top:14px}
 .vol .tt{font-size:52px;letter-spacing:-1.9px}
 
-.vol .cena{flex:1;display:flex;align-items:center;gap:58px;margin-top:14px;
+.vol .cena{flex:1;display:flex;align-items:center;gap:64px;margin-top:14px;
   min-height:0}
 .vol .quadro{padding:22px 26px;flex-shrink:0}
 .vol .fig{display:block;width:772px}
 
 .vol .lado{flex:1;min-width:0;display:flex;flex-direction:column}
-.vol .lado .v{font-size:132px;font-weight:900;letter-spacing:-5.4px;line-height:.84;
-  color:var(--head);font-variant-numeric:tabular-nums}
-.vol .lado .v em{font-style:normal;font-size:.42em;letter-spacing:-1.6px}
-.vol .lado .k{font-size:19px;line-height:1.42;color:var(--tx);margin-top:20px;
+.vol .lado .nao{font-size:156px;font-weight:900;letter-spacing:-7px;line-height:.84;
+  color:var(--accent)}
+.vol .lado .k{font-size:21px;line-height:1.45;color:var(--tx);margin-top:26px;
   max-width:24ch}
 .vol .lado .k b{color:var(--head);font-weight:700}
-
-/* o contraste entre o quartil mais cheio e o que mais quebra, em uma linha */
-.vol .par{display:flex;align-items:stretch;gap:0;margin-top:36px;
-  border-top:1px solid #DCE4EF;padding-top:22px}
-.vol .pc{flex:1;min-width:0}
-.vol .pc + .pc{padding-left:24px;border-left:1px solid #DCE4EF}
-.vol .pc:first-child{padding-right:24px}
-.vol .pc .t{font-size:12px;font-weight:700;letter-spacing:1.5px;
-  text-transform:uppercase;color:var(--tx2)}
-.vol .pc .n{font-size:34px;font-weight:800;letter-spacing:-1.3px;
-  color:var(--head);margin-top:9px;font-variant-numeric:tabular-nums}
-.vol .pc .d{font-size:14.5px;line-height:1.4;color:var(--tx2);margin-top:6px}
 
 .vol .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;
   padding-top:20px;border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;
@@ -59,39 +50,26 @@
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
     <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">261 dias úteis de 2025, em quatro quartis</div>
+    <div class="tag">261 dias úteis de 2025</div>
   </div>
   <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">O achado que mudou o desenho</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Volume não é risco</span></span></h1>
+    <span class="eb"><span class="rv" style="--d:240ms">Antes de modelar</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Dia cheio quebra mais?</span></span></h1>
 
     <div class="cena">
       <div class="quadro cartao rv3" style="--d:620ms">
-        <img class="fig" src="../figs/04_quartis.png" alt="Taxa de perda de prazo por quartil de volume diario: 0,86%, 0,87%, 0,97% e 0,72%">
+        <img class="fig" src="../figs/04_quartis.png" alt="Perda de prazo dos dias mais vazios aos mais cheios de 2025: 0,86%, 0,87%, 0,97% e 0,72%">
       </div>
 
       <div class="lado">
-        <span class="v rv" style="--d:940ms"><span class="ct" data-to="2.5" data-dec="1" data-delay="1140">0,0</span><em>%</em></span>
-        <p class="k rv" style="--d:1120ms">da variação das quebras é <b>explicada pelo volume do dia</b></p>
-
-        <div class="par">
-          <div class="pc rv" style="--d:1320ms">
-            <div class="t">Dia mais cheio</div>
-            <div class="n">0,72%</div>
-            <p class="d">110 incidentes por dia, e a <b>menor</b> taxa de perda de prazo</p>
-          </div>
-          <div class="pc rv" style="--d:1460ms">
-            <div class="t">Dia mais vazio</div>
-            <div class="n">0,86%</div>
-            <p class="d">56 incidentes por dia, e uma taxa <b>maior</b> que a do dia cheio</p>
-          </div>
-        </div>
+        <span class="nao mask" style="--d:1500ms"><span>Não.</span></span>
+        <p class="k rv" style="--d:1900ms">Os dias mais cheios do ano, com <b>110 incidentes por dia</b>, perderam <b>menos prazo</b> que os mais vazios.</p>
       </div>
     </div>
 
-    <div class="fecho rv" style="--d:1720ms">
+    <div class="fecho rv" style="--d:2300ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span>Saber <b>quantos incidentes chegam não diz quais vão quebrar</b>. O volume dimensiona a carga do dia; apontar o caso é outra pergunta, e pede outro modelo.</span>
+      <span>Saber <b>quantos incidentes chegam não diz quais vão quebrar</b>. São duas perguntas diferentes, e por isso são dois modelos.</span>
     </div>
   </div>
   <div class="ft"></div>

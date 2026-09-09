@@ -1,0 +1,65 @@
+<style>
+/* ═══ slide 12 · o painel operacional ════════════════════════════════════════
+   Este slide tem função operacional, não decorativa: é o beat de troca para a
+   demonstração ao vivo. Enquanto ele está na tela, o Hygor assume a fala e
+   compartilha o navegador. Sem ele, essa troca acontece no silêncio.
+
+   Escuro, porque é a segunda virada do deck: sai a análise, entra o produto.
+
+   A versão anterior reaproveitava a série de 2025 da capa como fundo, e o
+   revisor apontou a repetição. Agora o objeto é a própria tela do painel, num
+   quadro inclinado em perspectiva, chegando de lado. É a primeira vez que a
+   sala vê a aplicação, e ela vem antes de a demo começar.
+
+   Print em sprints/sprint-3/prints/01-panorama.png (3200x2000).
+   ══════════════════════════════════════════════════════════════════════════ */
+.apl .body{justify-content:center;padding-bottom:60px}
+.apl .cena{display:flex;align-items:center;gap:56px}
+.apl .txt{flex:1;min-width:0}
+.apl .tt{font-size:78px;letter-spacing:-3.4px;line-height:1;max-width:11ch}
+.apl .sub{font-size:20px;line-height:1.5;color:#98A2B3;margin-top:24px;max-width:36ch}
+.apl .sub b{color:#E8ECF3;font-weight:700}
+
+/* as seis abas como rótulo discreto, sem descrição nenhuma */
+.apl .abas{display:grid;grid-template-columns:repeat(3,max-content);gap:12px 0;
+  margin-top:34px}
+.apl .abas span{font-size:14.5px;color:#8B96A8;padding:0 18px;
+  border-left:1px solid rgba(255,255,255,.15);line-height:1.2}
+.apl .abas span:nth-child(3n+1){padding-left:0;border-left:none}
+
+/* a tela, em perspectiva, chegando de lado */
+.apl .palco{flex-shrink:0;perspective:1800px;perspective-origin:30% 50%}
+.apl .tela{width:780px;border-radius:14px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 60px 120px -50px rgba(0,0,0,.9),0 0 0 1px rgba(0,0,0,.4);
+  transform:rotateY(-26deg) rotateX(5deg) translate3d(80px,0,-120px);opacity:0}
+.apl .tela img{display:block;width:100%}
+.apl.is-active .tela{animation:chegaTela 1.3s var(--out) .7s forwards}
+@keyframes chegaTela{to{opacity:1;transform:rotateY(-11deg) rotateX(4deg) translate3d(0,0,0)}}
+</style>
+
+<section class="slide dark apl" data-slide="12" data-var="a" data-quem="hygor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Demonstração ao vivo</div>
+  </div>
+  <div class="body">
+    <div class="cena">
+      <div class="txt">
+        <span class="eb"><span class="rv" style="--d:240ms">A aplicação</span></span>
+        <h1 class="tt"><span class="mask" style="--d:360ms"><span>O painel operacional</span></span></h1>
+        <p class="sub rv" style="--d:800ms">As seis telas que a operação abre no dia, com o relógio parado em <b>1º de outubro de 2025, às 15h</b>.</p>
+        <div class="abas rv" style="--d:1100ms">
+          <span>Panorama</span><span>Previsão</span><span>Projeção</span>
+          <span>Fila de risco</span><span>Saúde por produto</span><span>Causas</span>
+        </div>
+      </div>
+      <div class="palco">
+        <div class="tela"><img src="../../../../sprints/sprint-3/prints/01-panorama.png" alt="Tela Panorama do painel operacional do Cronos"></div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

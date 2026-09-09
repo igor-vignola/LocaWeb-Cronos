@@ -73,15 +73,16 @@ def painel(ax, s: pd.DataFrame, titulo: str, limites: tuple[float, float]) -> No
     meta_min = float(s["meta mínima"].iloc[0])
     meta_max = float(s["meta máxima"].iloc[0])
 
-    ax.axhspan(meta_min, meta_max, color=COR["meta"], alpha=0.11, linewidth=0,
-               zorder=1, label="Faixa da meta")
-    ax.axhline(meta_max, color=COR["meta"], linewidth=1.3, linestyle=(0, (5, 3)),
+    # três camadas só, para a leitura ser imediata: a zona da meta, a projeção
+    # em cada data e a linha de onde o ano fechou. A faixa de incerteza da
+    # projeção saiu do gráfico — deixava o slide carregado — e fica para perguntas.
+    ax.axhspan(meta_min, meta_max, color=COR["meta"], alpha=0.12, linewidth=0,
+               zorder=1, label="Dentro da meta")
+    ax.axhline(meta_max, color=COR["meta"], linewidth=1.4, linestyle=(0, (5, 3)),
                zorder=2)
-    ax.fill_between(x, baixa, alta, color=COR["modelo"], alpha=0.17, linewidth=0,
-                    zorder=3, label="Faixa da projeção")
-    ax.plot(x, s["projeção"], color=COR["modelo"], linewidth=2, marker="o",
-            markersize=6, zorder=5, label="Projeção do modelo")
-    ax.axhline(real, color=COR["real"], linewidth=1.6, zorder=4,
+    ax.plot(x, s["projeção"], color=COR["modelo"], linewidth=2.4, marker="o",
+            markersize=9, zorder=5, label="O que a projeção dizia naquela data")
+    ax.axhline(real, color=COR["real"], linewidth=1.8, zorder=4,
                label="Onde o ano fechou")
 
     ax.set_title(titulo)
@@ -107,13 +108,13 @@ def main() -> int:
 
     fig, eixos = plt.subplots(1, 2, figsize=(13.0, 4.6))
     for ax, (pri, limites, titulo) in zip(eixos, (
-            ("P2", (28, 54), "Prioridade 2 · meta de 40 a 45"),
-            ("P3", (165, 262), "Prioridade 3 · limite de 200"))):
+            ("P2", (36, 48), "Prioridade 2 · meta de 40 a 45"),
+            ("P3", (176, 232), "Prioridade 3 · limite de 200"))):
         painel(ax, d[d.prioridade == pri].sort_values("corte")
                 .reset_index(drop=True), titulo, limites)
 
     alcas, rotulos = eixos[0].get_legend_handles_labels()
-    fig.legend(alcas, rotulos, loc="lower center", ncol=4,
+    fig.legend(alcas, rotulos, loc="lower center", ncol=3,
                bbox_to_anchor=(0.5, -0.055), columnspacing=2.2)
     fig.subplots_adjust(wspace=0.2)
 

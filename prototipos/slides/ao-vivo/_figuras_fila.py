@@ -17,9 +17,8 @@ Duas decisões de leitura, porque a primeira versão ficou difícil de entender:
 
   · o nome vai escrito na ponta de cada linha, e não numa legenda embaixo. Quem
     olha não precisa casar cor com rótulo.
-  · só o modelo tem cor. As regras ficam em cinza, em tons diferentes. A cor
-    aqui separa o que é o nosso modelo do que é alternativa, que é a única
-    distinção que o slide precisa fazer.
+  · cada ordenação tem a sua cor, com o nome na ponta na mesma cor. Uma versão
+    toda em cinza ficou sem sal; a cor diz qual regra é qual sem legenda.
 
 Uso:
     .venv/Scripts/python.exe prototipos/slides/ao-vivo/_figuras_fila.py
@@ -82,15 +81,19 @@ def main() -> int:
     d["taxa_time"] = d["equipe"].map(d.groupby("equipe")["violou"].mean())
     d["ordem_pri"] = (d["prioridade"] == "P2").astype(int)
 
+    # cada ordenação com a sua cor: a cor aqui diz qual regra é qual, e o dono do
+    # projeto pediu as linhas coloridas de volta depois de uma versão toda em
+    # cinza ter ficado sem sal. O azul continua sendo só do modelo, e é o traço
+    # mais grosso.
     #        chave        nome na ponta          coluna             cor      traço  largura  desvio do rótulo
     linhas = [
-        ("modelo", "Fila do modelo", ["risco"], COR["modelo"], "-", 3.2, 0),
-        ("time", "Regra: time", ["taxa_time"], "#666666", (0, (6, 3)), 1.9, 0),
-        ("ativo", "Regra: ativo crônico", ["ativo_violacoes"], "#8A8A8A",
-         (0, (6, 3)), 1.9, 0),
-        ("acaso", "Sem ordenação", None, "#AAAAAA", (0, (1, 3)), 1.7, 8),
-        ("prioridade", "Regra: prioridade 2", ["ordem_pri"], "#666666",
-         (0, (2, 3)), 1.9, -8),
+        ("modelo", "Fila do modelo", ["risco"], COR["modelo"], "-", 3.4, 0),
+        ("time", "Regra: time", ["taxa_time"], "#16A34A", (0, (6, 3)), 2.1, 0),
+        ("ativo", "Regra: ativo crônico", ["ativo_violacoes"], "#D97706",
+         (0, (6, 3)), 2.1, 0),
+        ("acaso", "Sem ordenação", None, "#999999", (0, (1, 3)), 1.8, 8),
+        ("prioridade", "Regra: prioridade 2", ["ordem_pri"], "#DC2626",
+         (0, (2, 3)), 2.1, -8),
     ]
 
     fig, ax = plt.subplots(figsize=(12.2, 5.2))

@@ -1,0 +1,111 @@
+# Banco de perguntas da banca · deck ao vivo de 15/09/2026
+
+Uma banca simulada (dois professores de ciência de dados e o mentor da Locaweb)
+passou pelos slides e listou o que perguntaria. Aqui está cada pergunta com a
+resposta em uma ou duas frases, o número que a sustenta e onde ele está. Quem
+apresenta deve saber estas de cor; as demais são reserva.
+
+Fonte dos números: `CONTRATO.md` §5 e os scripts `_figuras_*.py` desta pasta.
+
+## As que derrubam
+
+**1. "Por que regressão logística e não gradient boosting? Qual a métrica?"**
+Testamos as duas. A área ROC empatou (0,869 contra 0,868). Na métrica que vale
+para evento raro, a PR-AUC, a logística ganhou: 0,296 contra 0,253. E ela está
+calibrada: prevê 48,1 quebras onde houve 50; o XGBoost com balanceamento previu
+1.007. Acurácia não serve porque 99% dos incidentes não quebram. → slide 9, pé.
+
+**2. "A faixa de 80% do Prophet cobre só 60% dos dias no P3. A incerteza não
+está subestimada?"**
+Está mais estreita que o nominal no P3, e dizemos isso no slide. O erro médio
+absoluto é de 11 incidentes por dia num fluxo de 67, 16%. A faixa serve como
+ordem de grandeza para dimensionar o dia, não como intervalo de garantia. No P2
+a cobertura fica entre 86% e 88%. → slide 8, pé.
+
+**3. (Douglas) "Olhar os 50 primeiros da fila dá quanto trabalho por dia?"**
+A fila é dos incidentes abertos naquele momento, não do ano: em 1º de outubro
+às 15h eram 49 abertos somando as duas prioridades. Os 50 primeiros da avaliação
+correspondem a menos de um dia de fila. → slide 9.
+
+## Sobre o dado
+
+**"Como vocês sabem que o salto de setembro foi monitoramento automático?"**
+Porque a série elegível ao KPI não se moveu: 2.330 em agosto, 2.324 em setembro,
+enquanto o total registrado foi de 3.996 para 21.561. O que cresceu ficou fora
+do KPI, ou seja, é registro sem intervenção humana ou com incidente pai. → slide 4.
+
+**"Com um ano de dado e sazonalidade anual desligada, o que acontece em
+janeiro?"**
+O modelo carrega a sazonalidade semanal e os feriados nacionais; a anual não
+existe na base para aprender. Em janeiro ele vai errar mais, e o re-treino
+mensal corrige. Preferimos isso a aprender uma tendência de alta que era adoção
+de registro. → slide 5.
+
+**"Por que 2023 e 2024 têm 87 e 357 elegíveis? Mudou o processo?"**
+O campo "Entrou para KPI" só passou a ser preenchido de forma sistemática em
+2025. Antes disso o registro existe, mas não a marcação. → slide 5.
+
+**"0,72% contra 0,86% é diferença ou ruído?"**
+Ruído, e é esse o ponto: o volume do dia explica 2,5% da variação das quebras
+(r = 0,159; p = 0,011). Dia cheio não quebra mais. → slide 6.
+
+## Sobre os modelos
+
+**"O 16 e o 77 do slide 7 são o quê?"**
+A previsão do Prophet para o dia 1º de outubro de 2025: 15,8 incidentes na
+prioridade 2 e 77,4 na prioridade 3. São os mesmos números que aparecem no topo
+da tela do painel, no slide 12 e na demo. → slide 7.
+
+**"De onde sai a projeção anual? É o Prophet?"**
+Não. É a soma do que já aconteceu no ano com o ritmo médio de quebras até a
+data, projetado até dezembro, com faixa pela variação do ritmo. → slide 10.
+
+**"A projeção do P3 errou em agosto, setembro e outubro."**
+Errou para o lado pessimista: apontou estouro e o ano fechou em 196, abaixo de
+200. Para um alarme, avisar sem precisar é melhor que não avisar. Em novembro e
+dezembro acertou a chamada. → slide 10, pé.
+
+**"A projeção de dezembro do P3 disse 183 e o ano fechou em 196."**
+Sim, e a chamada estava certa (dentro da meta). O ponto ficou otimista em 13
+incidentes porque novembro e dezembro tiveram menos quebras que a média do ano.
+
+## Sobre o produto
+
+**"Para que a Claude API, se ela só escreve uma frase?"**
+Para a frase não ser um template: ela lê os números do dia e escreve a abertura
+do resumo em linguagem de operação. Nenhum número passa por ela. Poderia ser um
+template, e escolhemos o texto gerado porque o resumo muda de tom conforme o
+dia (dia normal, dia acima do previsto, quebra ontem). → slide 11, pé.
+
+**(Douglas) "O lvps tem a pior nota de saúde e não está entre os três para
+agir. Por quê?"**
+A nota fala do tamanho do problema; a situação fala do tipo. O lvps é "problema
+conhecido e recorrente": perde prazo acima da mediana, mas nos problemas de
+sempre. Os três em "já materializado" perdem prazo E recebem problemas inéditos,
+que é onde a operação ainda não tem procedimento. Os dois grupos pedem ação
+diferente. Fica na demo, tela de Saúde.
+
+**"O que é a nota de saúde?"**
+Cinco medidas por produto, cada uma em posição relativa entre os 15: taxa de
+perda de prazo, proporção de problemas inéditos, fechados sem causa, duração
+mediana e tendência da taxa. A nota é a média das posições, de 0 a 100. Soma
+P2 e P3; a tela mostra as duas separadas.
+
+**"Como re-treina? De onde vem o dado no dia a dia?"**
+O contêiner lê a exportação do ITSM (o mesmo formato do dataset), recalcula a
+base elegível e re-treina os dois modelos por comando. No MVP o relógio está
+parado em 1º de outubro de 2025 porque é a última data com dado, e porque o
+sistema não pode mostrar realizado depois do corte. → slide 12.
+
+**"Por que o relógio parado em 01/10/2025?"**
+Para a demonstração ser honesta: tudo o que a tela mostra existia naquele
+instante. Cobertura, acertos e erros dos modelos ficam nos slides, medidos
+depois, e não na tela. → slide 12.
+
+## Números que ficaram fora do deck e podem ser pedidos
+
+- Erro médio do Prophet: 4 incidentes por dia no P2, 11 no P3 (backtest deslizante, D+1 a D+7)
+- Concentração: Team11 e Team14 atendem o mesmo volume e a taxa do Team11 é 11,8 vezes a do Team14
+- Os 30 itens de configuração com mais perdas concentram 61,7% das perdas
+- Quebras isoladas: 87% das quebras são de incidentes sem escalada
+- DTW, cascata, ARIMA e Streamlit foram testados ou considerados e descartados; não citar como parte da solução

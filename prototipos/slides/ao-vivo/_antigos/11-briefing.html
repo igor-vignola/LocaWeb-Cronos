@@ -1,0 +1,131 @@
+<style>
+/* ═══ slide 11 · o resumo da manhã ═══════════════════════════════════════════
+   O primeiro diferencial do produto: um resumo que chega às 7h sem ninguém
+   pedir, com ontem, hoje e o botão para abrir o painel. É a única peça em que a
+   Claude API entra, e a banca vai perguntar exatamente isso — "o texto é de
+   IA?". O slide responde antes da pergunta.
+
+   O objeto é uma folha anotada: o resumo tal como aparece no sistema, à
+   esquerda, e na margem direita a fonte de cada linha, ligada por um fio. Dá
+   para ver que os números vêm dos modelos e da base, e que a Claude API redige
+   só a frase de abertura. O fio que liga cada linha à fonte é a animação: a
+   folha chega primeiro, o texto entra linha a linha, e só depois as anotações
+   da margem se desenham, uma por vez.
+
+   O texto da folha é o do print real de sprints/sprint-3/prints/07-modal-
+   briefing.png, e os números batem com data/app/painel.json: ontem.total 84,
+   ontem.violou 0, base.sem_violacao_dias 4, hoje.baixo/alto por prioridade.
+   ══════════════════════════════════════════════════════════════════════════ */
+.brf .body{padding-top:14px}
+.brf .tt{font-size:52px;letter-spacing:-1.9px}
+
+.brf .cena{flex:1;display:flex;align-items:center;margin-top:12px;min-height:0}
+
+/* a folha fica atrás da primeira coluna da grade, seja lá quantas linhas houver */
+.brf .folha{position:relative;display:grid;grid-template-columns:860px 56px 1fr;
+  row-gap:0;width:100%}
+.brf .folha::before{content:"";position:absolute;left:0;top:0;bottom:0;width:860px;
+  background:#fff;border:1px solid var(--line);border-radius:18px;
+  box-shadow:0 18px 42px -32px rgba(15,23,42,.28);z-index:0}
+.brf .folha>*{position:relative;z-index:1}
+
+/* as células da folha */
+.brf .cl{padding:0 40px}
+.brf .cl.cab{padding-top:30px;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.brf .cl.lin{display:flex;gap:22px;padding-top:22px;padding-bottom:22px}
+.brf .cl.lin + .cl.lin{border-top:1px solid var(--line)}
+.brf .cl.lin:last-of-type{padding-bottom:30px}
+.brf .selo{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:1.6px;
+  text-transform:uppercase;color:var(--tx2)}
+.brf .cab h2{font-size:34px;font-weight:800;letter-spacing:-1.2px;color:var(--head);
+  margin-top:10px;line-height:1.1}
+.brf .cab p{font-size:17.5px;line-height:1.45;color:var(--tx);margin-top:8px}
+.brf .rot{width:88px;flex-shrink:0;font-size:12px;font-weight:700;letter-spacing:1.6px;
+  text-transform:uppercase;color:var(--tx2);padding-top:9px}
+.brf .val{flex:1;min-width:0}
+.brf .val .n{font-size:30px;font-weight:800;letter-spacing:-1px;color:var(--head);
+  line-height:1.15;font-variant-numeric:tabular-nums}
+.brf .val .n small{font-size:17px;font-weight:500;color:var(--tx);letter-spacing:0;
+  margin:0 8px}
+.brf .val .n + .n{margin-top:4px}
+.brf .val p{font-size:15px;color:var(--tx2);margin-top:7px}
+
+/* o fio e a anotação na margem, alinhados à linha correspondente */
+.brf .fio{align-self:center;height:1.5px;background:var(--accent);
+  transform:scaleX(0);transform-origin:left}
+.brf .nota{align-self:center;padding-left:6px;opacity:0;
+  transform:translate3d(-8px,0,0)}
+.brf .nota b{display:block;font-family:var(--mono);font-size:13.5px;font-weight:500;
+  letter-spacing:.3px;color:var(--accent)}
+.brf .nota span{display:block;font-size:14.5px;line-height:1.4;color:var(--tx);
+  margin-top:5px;max-width:30ch}
+.brf.is-active .fio{animation:corre .5s var(--out) var(--d,0ms) forwards}
+.brf.is-active .nota{animation:rv .5s var(--out) calc(var(--d,0ms) + 240ms) forwards}
+
+.brf .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;
+  padding-top:20px;border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;
+  color:var(--tx)}
+.brf .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.brf .fecho b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light brf" data-slide="11" data-var="a" data-quem="hygor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Tal como aparece no sistema</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Diferencial 1 &middot; chega antes da pergunta</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>O resumo da manhã</span></span></h1>
+
+    <div class="cena">
+      <div class="folha rv3" style="--d:620ms">
+        <div class="cl cab">
+          <div class="selo">Resumo do dia &middot; 01/10/2025 &middot; 07h00</div>
+          <h2><span class="mask" style="--d:900ms"><span>Situação da operação</span></span></h2>
+          <p class="rv" style="--d:1040ms">Volume de uma quarta comum nas duas prioridades do KPI.</p>
+        </div>
+        <i class="fio" style="--d:1500ms"></i>
+        <div class="nota" style="--d:1500ms"><b>Claude API</b><span>A única frase redigida por modelo de linguagem. Ela recebe os números prontos e escreve a abertura.</span></div>
+
+        <div class="cl lin">
+          <span class="rot">Ontem</span>
+          <div class="val rv" style="--d:1160ms">
+            <div class="n">84<small>registrados &middot; 0 violaram o OLA</small></div>
+            <p>4 dias úteis seguidos sem violação.</p>
+          </div>
+        </div>
+        <i class="fio" style="--d:1900ms"></i>
+        <div class="nota" style="--d:1900ms"><b>Base de incidentes</b><span>Fechamento do dia anterior, contado na base elegível ao KPI.</span></div>
+
+        <div class="cl lin">
+          <span class="rot">Hoje</span>
+          <div class="val rv" style="--d:1280ms">
+            <div class="n">59 a 96<small>previstos na prioridade 3</small></div>
+            <div class="n">9 a 22<small>previstos na prioridade 2</small></div>
+          </div>
+        </div>
+        <i class="fio" style="--d:2300ms"></i>
+        <div class="nota" style="--d:2300ms"><b>Prophet</b><span>A faixa de 80% da previsão do dia, por prioridade.</span></div>
+
+        <div class="cl lin">
+          <span class="rot">Às 15h</span>
+          <div class="val rv" style="--d:1400ms">
+            <div class="n">40 <small>na prioridade 3 e</small> 9 <small>na prioridade 2</small></div>
+            <p>Contra 53,1 e 10,9 previstos a esta altura do dia.</p>
+          </div>
+        </div>
+        <i class="fio" style="--d:2700ms"></i>
+        <div class="nota" style="--d:2700ms"><b>Prophet</b><span>A curva do dia, hora a hora, comparada com o que já entrou.</span></div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:3200ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+      <span>Gerado às 7h, sem consulta do usuário. <b>Os números vêm dos modelos e da base</b>; o botão do resumo leva direto à tela que ele aponta.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

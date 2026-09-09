@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
-"""Gera o gráfico dos sete dias previstos pelo Prophet, com a faixa de cada dia.
+"""Gera o gráfico dos sete dias previstos pelo Prophet, um dia por caixa.
 
-É a saída do produto no instante em que o relógio do sistema está parado, 1º de
-outubro de 2025: para cada dia, a faixa que o modelo dá, a previsão dentro dela
-e o ponto do que de fato chegou. Treze dos quatorze pontos caem dentro.
+Cada dia é uma caixa vertical que vai do piso ao teto da faixa prevista, com um
+traço na previsão e um ponto no que de fato chegou. É a saída do produto no
+instante em que o relógio do sistema está parado, 1º de outubro de 2025.
 
-Duas prioridades, dois painéis, o mesmo peso visual — regra 10 do CLAUDE.md. As
-escalas são diferentes porque os volumes são diferentes, e o eixo de cada painel
-diz isso.
+A forma em caixas foi pedida duas vezes pelo dono do projeto, no lugar de uma
+linha com faixa sombreada: a caixa deixa claro que a previsão é um intervalo e
+que cada dia é uma leitura independente.
 
-Cor com significado, como manda a skill viz-style: azul é o modelo (faixa e
-previsão), preto é o realizado, vermelho é só o ponto que caiu fora da faixa.
+Duas prioridades, dois painéis, o mesmo peso — regra 10. Escalas diferentes
+porque os volumes são diferentes, e o eixo de cada painel diz isso.
+
+Cor com significado: azul é o modelo (caixa e traço), preto é o realizado,
+vermelho é só o ponto que caiu fora da faixa. Treze dos quatorze caem dentro.
 
 Tudo sai de data/interim/03_previsao_diaria.parquet.
 
@@ -25,6 +28,8 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from matplotlib.patches import Patch
+from matplotlib.lines import Line2D
 
 AQUI = Path(__file__).parent
 FIGS = AQUI / "figs"
@@ -34,13 +39,14 @@ INICIO, FIM = "2025-10-01", "2025-10-07"
 DIA_SEMANA = ("seg", "ter", "qua", "qui", "sex", "sáb", "dom")
 
 COR = {
-    "modelo": "#2563EB",
+    "faixa": "#2563EB",
     "realizado": "#000000",
     "fora": "#DC2626",
     "cinza_escuro": "#444444",
     "cinza_medio": "#888888",
     "cinza_claro": "#E5E5E5",
 }
+LARGURA = 0.56  # largura da caixa, em fração do espaço do dia
 
 
 def estilo() -> None:
@@ -63,24 +69,24 @@ def estilo() -> None:
 
 
 def painel(ax, s: pd.DataFrame, titulo: str, topo: float) -> int:
-    """Desenha uma prioridade e devolve quantos dias caíram dentro da faixa."""
+    """Desenha uma prioridade em caixas e devolve quantos dias caíram dentro."""
     x = np.arange(len(s))
-    ax.fill_between(x, s.baixo, s.alto, color=COR["modelo"], alpha=0.15,
-                    linewidth=0, label="Faixa prevista", zorder=2)
-    ax.plot(x, s.valor, color=COR["modelo"], linewidth=2, marker="o",
-            markersize=5, label="Previsão do modelo", zorder=4)
-
-    dentro = (s.real >= s.baixo) & (s.real <= s.alto)
-    ax.scatter(x[dentro.to_numpy()], s.real[dentro], s=58,
-               color=COR["realizado"], zorder=5, label="O que chegou")
+    # a caixa: do piso ao teto da faixa
+    ax.bar(x, s.alto - s.baixo, bottom=s.baixo, width=LARGURA,
+           color=COR["faixa"], alpha=0.16, linewidth=0, zorder=2)
+    # o traço da previsão, dentro da caixa
+    ax.hlines(s.valor, x - LARGURA / 2, x + LARGURA / 2, color=COR["faixa"],
+              linewidth=3, zorder=4)
+    # o realizado: ponto preto dentro, vermelho fora
+    dentro = ((s.real >= s.baixo) & (s.real <= s.alto)).to_numpy()
+    ax.scatter(x[dentro], s.real[dentro], s=70, color=COR["realizado"], zorder=5)
     if (~dentro).any():
-        ax.scatter(x[(~dentro).to_numpy()], s.real[~dentro], s=58,
-                   color=COR["fora"], zorder=6, label="Fora da faixa")
+        ax.scatter(x[~dentro], s.real[~dentro], s=70, color=COR["fora"], zorder=6)
 
     ax.set_title(titulo)
-    ax.set_ylabel("incidentes por dia")
+    ax.set_ylabel("incidentes no dia")
     ax.set_ylim(0, topo)
-    ax.set_xlim(-0.4, len(s) - 0.6)
+    ax.set_xlim(-0.6, len(s) - 0.4)
     ax.set_xticks(x)
     ax.set_xticklabels([f"{DIA_SEMANA[d.weekday()]}\n{d:%d/%m}" for d in s.dia])
     return int(dentro.sum())
@@ -95,21 +101,22 @@ def main() -> int:
     d["dia"] = pd.to_datetime(d["dia"])
     d = d[(d.tipo == "previsto") & (d.dia >= INICIO) & (d.dia <= FIM)]
 
-    fig, eixos = plt.subplots(1, 2, figsize=(13.0, 4.6))
+    fig, eixos = plt.subplots(1, 2, figsize=(13.0, 5.0))
     total = 0
     for ax, (pri, topo) in zip(eixos, (("P2", 28), ("P3", 110))):
         s = d[d.prioridade == pri].sort_values("dia").reset_index(drop=True)
         total += painel(ax, s, f"Prioridade {pri[1]}", topo)
 
-    # uma legenda só, embaixo, com as quatro chaves do painel da direita
-    alcas, rotulos = eixos[1].get_legend_handles_labels()
-    alcas_p2, rotulos_p2 = eixos[0].get_legend_handles_labels()
-    for alca, rotulo in zip(alcas_p2, rotulos_p2):
-        if rotulo not in rotulos:
-            alcas.append(alca)
-            rotulos.append(rotulo)
-    fig.legend(alcas, rotulos, loc="lower center", ncol=4,
-               bbox_to_anchor=(0.5, -0.055), columnspacing=2.2)
+    alcas = [
+        Patch(facecolor=COR["faixa"], alpha=0.16, label="Faixa prevista para o dia"),
+        Line2D([], [], color=COR["faixa"], linewidth=3, label="Previsão do modelo"),
+        Line2D([], [], marker="o", color="none", markerfacecolor=COR["realizado"],
+               markersize=9, label="O que chegou"),
+        Line2D([], [], marker="o", color="none", markerfacecolor=COR["fora"],
+               markersize=9, label="Fora da faixa"),
+    ]
+    fig.legend(handles=alcas, loc="lower center", ncol=4,
+               bbox_to_anchor=(0.5, -0.1), columnspacing=2.2)
     fig.subplots_adjust(wspace=0.22)
 
     destino = FIGS / "08_previsao_7dias.png"

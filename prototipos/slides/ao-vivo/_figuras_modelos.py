@@ -36,12 +36,14 @@ COR = {
     "atencao": "#D97706",
 }
 
-# quartis de volume dos 261 dias úteis de 2025, medidos em _dados.py
+# quartis de volume dos 261 dias úteis de 2025, medidos em _dados.py. O rótulo
+# fala em português comum: "quartil" é jargão, e com ele o dono do projeto não
+# conseguia explicar o slide.
 QUARTIS = [
-    ("Q1\nmenor volume", 55.5, 0.86),
-    ("Q2", 79.0, 0.87),
-    ("Q3", 89.6, 0.97),
-    ("Q4\nmaior volume", 110.0, 0.72),
+    ("os dias mais vazios", 55.5, 0.86),
+    ("", 79.0, 0.87),
+    ("", 89.6, 0.97),
+    ("os dias mais cheios", 110.0, 0.72),
 ]
 
 
@@ -107,14 +109,16 @@ def ritmo_da_semana(dados: dict) -> Path:
 
 def taxa_por_quartil() -> Path:
     """O volume dobra do primeiro para o quarto quartil e a taxa não sobe."""
-    fig, ax = plt.subplots(figsize=(8.4, 4.6))
+    fig, ax = plt.subplots(figsize=(9.2, 4.6))
     rotulos = [q[0] for q in QUARTIS]
     taxas = [q[2] for q in QUARTIS]
     volumes = [q[1] for q in QUARTIS]
     # azul só no quartil mais cheio, que é o que tem a MENOR taxa
     cores = [COR["cinza_claro"]] * 3 + [COR["accent"]]
 
-    barras = ax.bar(rotulos, taxas, color=cores, width=0.6,
+    # posição numérica, e não o rótulo: dois rótulos vazios viravam UMA categoria
+    # e duas barras caíam no mesmo lugar
+    barras = ax.bar(range(len(QUARTIS)), taxas, color=cores, width=0.6,
                     edgecolor="white", linewidth=1.2)
     for b, tx in zip(barras, taxas):
         ax.text(b.get_x() + b.get_width() / 2, tx + 0.035,
@@ -123,11 +127,13 @@ def taxa_por_quartil() -> Path:
     # o volume vai para o rótulo do eixo, e não para dentro da barra: sobre a
     # barra azul do Q4 o texto escuro ficava com contraste ruim
     ax.set_xticks(range(len(QUARTIS)))
-    ax.set_xticklabels([q[0] + "\n" + f"{q[1]:.0f}".replace(".", ",") + " por dia"
+    ax.set_xticklabels([(q[0] + "\n" if q[0] else "\n")
+                        + f"{q[1]:.0f}".replace(".", ",") + " por dia"
                         for q in QUARTIS])
+    ax.set_xlabel("os 261 dias úteis de 2025, em quatro grupos de volume")
 
-    ax.set_title("Taxa de perda de prazo por quartil de volume diário")
-    ax.set_ylabel("taxa de perda de prazo")
+    ax.set_title("Perda de prazo, dos dias mais vazios aos mais cheios")
+    ax.set_ylabel("incidentes que perderam o prazo")
     ax.set_ylim(0, max(taxas) * 1.32)
     ax.set_yticks([0, 0.25, 0.5, 0.75, 1.0])
     ax.set_yticklabels(["0", "0,25%", "0,50%", "0,75%", "1,00%"])
