@@ -1,15 +1,15 @@
 <style>
 /* ═══ slide 2 · quantidade de quebras em 2025 ════════════════════════════════
    Um assunto só: quantos incidentes passaram do prazo. A raridade desse número
-   dentro da base e o desafio que ela cria são o slide 3.
+   e o desafio que ela cria são o slide 3.
 
-   Este slide é deliberadamente vazio. Ele vale dez segundos de fala, e dez
-   segundos num slide limpo valem mais que um minuto num slide amontoado.
+   O detalhe que evidencia a mensagem é o trilho embaixo de cada número: a marca
+   é o prazo e a barra passa dela. Mostra "estourou" sem gastar palavra.
+   Ele é ESQUEMÁTICO de propósito, e não proporcional: a marca fica num ponto
+   fixo do trilho porque não existe aqui nenhuma medida de quanto cada incidente
+   passou do prazo, e inventar proporção num slide de banca é o que não se faz.
 
-   O rótulo diz "passaram das 4 horas de prazo" em vez de "prazo de 4 horas":
-   o número é de incidente que estourou, e o rótulo tem de dizer isso.
-   O rótulo fica EMBAIXO do número e centrado; ao lado, 42 e 196 têm larguras
-   diferentes e a linha de base descasa.
+   O rótulo fica embaixo do número; ao lado, 42 e 196 descasam a linha de base.
    ══════════════════════════════════════════════════════════════════════════ */
 .prb .body{padding-top:14px}
 .prb .tt{font-size:52px;letter-spacing:-1.9px}
@@ -21,25 +21,47 @@
   color:var(--head);margin-bottom:4px}
 .prb .rot{font-size:16px;line-height:1.35;color:var(--tx)}
 
+/* ── o trilho do prazo: a marca é o prazo, a barra passa dela ── */
+.prb .prazo{position:relative;width:290px;height:15px;border-radius:8px;
+  background:#E8EDF4}
+.prb .passou{position:absolute;left:0;top:0;height:15px;width:100%;
+  border-radius:8px;transform:scaleX(0);transform-origin:left}
+.prb .p2 .passou{background:var(--bad)}
+.prb .p3 .passou{background:var(--warn)}
+.prb.is-active .passou{animation:corre 1s var(--out) var(--d,0ms) forwards}
+/* a marca do prazo, com a etiqueta pendurada embaixo */
+.prb .marca{position:absolute;left:70%;top:-7px;bottom:-7px;width:2px;
+  background:var(--head);border-radius:2px;z-index:2}
+.prb .marca em{position:absolute;left:50%;top:calc(100% + 9px);
+  transform:translateX(-50%);font-style:normal;font-size:12.5px;font-weight:700;
+  color:var(--head);white-space:nowrap;font-variant-numeric:tabular-nums}
+.prb .fora{position:absolute;left:70%;right:0;top:0;bottom:0;
+  border-radius:0 8px 8px 0;background:repeating-linear-gradient(-45deg,
+  rgba(11,18,32,.10) 0 3px,transparent 3px 7px);opacity:0}
+.prb.is-active .fora{animation:rv .5s var(--out) calc(var(--d,0ms) + 760ms) forwards}
+
 /* ── variação A · os dois lado a lado, com fio no centro do palco ── */
 .pb-a .cena{flex:1;display:flex;align-items:center;justify-content:center;
-  gap:110px;min-height:0}
+  gap:108px;min-height:0}
 .pb-a .un{display:flex;flex-direction:column;align-items:center;width:330px}
-.pb-a .v{font-size:216px;letter-spacing:-9px}
-.pb-a .rot{margin-top:18px;text-align:center}
-.pb-a .fio{width:1px;height:250px;
+.pb-a .v{font-size:200px;letter-spacing:-8.4px}
+.pb-a .rot{margin-top:16px;text-align:center}
+.pb-a .prazo{margin-top:34px}
+.pb-a .fio{width:1px;height:280px;
   background:linear-gradient(180deg,transparent,#D9E1EC 20%,#D9E1EC 80%,transparent)}
 
-/* ── variação B · empilhados à esquerda, rótulo ao lado, fio entre eles ── */
+/* ── variação B · empilhados, rótulo ao lado, trilho na coluna da direita ── */
 .pb-b .cena{flex:1;display:flex;flex-direction:column;justify-content:center;
   min-height:0}
-.pb-b .un{display:flex;align-items:center;gap:36px;padding:44px 0;
+.pb-b .un{display:flex;align-items:center;gap:38px;padding:46px 0;
   border-bottom:1px solid #DCE4EF}
 .pb-b .un:last-child{border-bottom:none}
-.pb-b .v{font-size:150px;letter-spacing:-6px;width:290px;text-align:right;
+.pb-b .v{font-size:142px;letter-spacing:-5.6px;width:276px;text-align:right;
   flex-shrink:0}
-.pb-b .rot{font-size:17px}
+.pb-b .rot{width:300px;flex-shrink:0;font-size:17px}
+.pb-b .col{display:flex;flex-direction:column;gap:20px}
 .pb-b .rot b{font-size:25px}
+
 </style>
 
 <section class="slide light prb pb-a" data-slide="2" data-var="a" data-quem="igor">
@@ -57,11 +79,21 @@
       <div class="un p2 rv3" style="--d:720ms">
         <span class="v"><span class="ct" data-to="42" data-delay="960">0</span></span>
         <span class="rot"><b>Prioridade 2</b>passaram das 4 horas de prazo</span>
+        <span class="prazo" style="--d:1360ms">
+          <i class="passou"></i>
+          <i class="fora"></i>
+          <span class="marca"><em>4 h</em></span>
+        </span>
       </div>
       <span class="fio rv" style="--d:900ms"></span>
       <div class="un p3 rv3" style="--d:860ms">
         <span class="v"><span class="ct" data-to="196" data-delay="1100">0</span></span>
         <span class="rot"><b>Prioridade 3</b>passaram das 12 horas de prazo</span>
+        <span class="prazo" style="--d:1500ms">
+          <i class="passou"></i>
+          <i class="fora"></i>
+          <span class="marca"><em>12 h</em></span>
+        </span>
       </div>
     </div>
   </div>
@@ -82,11 +114,21 @@
     <div class="cena">
       <div class="un p2 rv3" style="--d:720ms">
         <span class="v"><span class="ct" data-to="42" data-delay="960">0</span></span>
-        <span class="rot"><b>Prioridade 2</b>passaram das 4 horas de prazo</span>
+        <span class="col"><span class="rot"><b>Prioridade 2</b>passaram das 4 horas de prazo</span>
+        <span class="prazo" style="--d:1300ms">
+          <i class="passou"></i>
+          <i class="fora"></i>
+          <span class="marca"><em>4 h</em></span>
+        </span></span>
       </div>
       <div class="un p3 rv3" style="--d:880ms">
         <span class="v"><span class="ct" data-to="196" data-delay="1120">0</span></span>
-        <span class="rot"><b>Prioridade 3</b>passaram das 12 horas de prazo</span>
+        <span class="col"><span class="rot"><b>Prioridade 3</b>passaram das 12 horas de prazo</span>
+        <span class="prazo" style="--d:1460ms">
+          <i class="passou"></i>
+          <i class="fora"></i>
+          <span class="marca"><em>12 h</em></span>
+        </span></span>
       </div>
     </div>
   </div>

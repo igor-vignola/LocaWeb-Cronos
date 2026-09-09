@@ -1,0 +1,128 @@
+<style>
+/* ═══ slide 8 · a projeção da meta ═══════════════════════════════════════════
+   Este slide responde ao pedido número 1 que o mentor da Locaweb fez na
+   mentoria: saber, no meio do ano, se a meta anual vai fechar.
+
+   Um assunto só: a projeção acertou. E a leitura honesta do P3 está no slide,
+   não escondida: ele errou em três das cinco datas, e nas três para o lado
+   pessimista. Projetou acima do limite quando o ano fechou abaixo. Para um
+   alarme de operação esse é o lado certo de errar, e dizer isso antes de
+   alguém perguntar é o que sustenta o número.
+
+   Figura matplotlib em dpi 200, de _figuras_projecao.py.
+   ══════════════════════════════════════════════════════════════════════════ */
+.prj .body{padding-top:14px}
+.prj .tt{font-size:52px;letter-spacing:-1.9px}
+.prj .fig{display:block;border-radius:10px}
+.prj .quadro{padding:22px 26px}
+
+/* o placar das duas prioridades, com o mesmo peso */
+.prj .placar{display:flex;gap:0}
+.prj .pl{flex:1;min-width:0;padding:0 30px}
+.prj .pl:first-child{padding-left:0}
+.prj .pl + .pl{border-left:1px solid #DCE4EF}
+.prj .pl .cab{font-size:12px;font-weight:700;letter-spacing:1.6px;
+  text-transform:uppercase;color:var(--tx2)}
+.prj .pl .v{font-size:150px;font-weight:900;letter-spacing:-6px;line-height:.86;
+  margin-top:12px;font-variant-numeric:tabular-nums}
+.prj .pl .v em{font-style:normal;font-size:.36em;font-weight:700;color:var(--tx2);
+  letter-spacing:-.5px}
+.prj .pl.bom .v{color:var(--good)}
+.prj .pl.meio .v{color:var(--warn)}
+.prj .pl .q{font-size:17.5px;line-height:1.42;color:var(--tx);margin-top:10px}
+.prj .pl .q b{color:var(--head);font-weight:700}
+
+/* a ressalva do P3, que é o que torna o número defensável */
+.prj .res{display:flex;align-items:flex-start;gap:12px;margin-top:46px;
+  padding-top:22px;border-top:1px solid #DCE4EF;font-size:16px;line-height:1.45;
+  color:var(--tx)}
+.prj .res .ic{width:20px;height:20px;color:var(--warn);margin-top:2px;
+  flex-shrink:0}
+.prj .res b{color:var(--head);font-weight:700}
+
+/* ── variação A · figura em largura cheia, placar numa faixa embaixo ── */
+.pj-a .cena{flex:1;display:flex;align-items:center;justify-content:center;
+  margin-top:30px;min-height:0}
+
+.pj-a .placar{width:1180px}
+
+/* ── variação B · figura à esquerda, placar na coluna da direita ── */
+.pj-b .cena{flex:1;display:flex;align-items:center;gap:44px;margin-top:14px;
+  min-height:0}
+.pj-b .quadro{flex-shrink:0}
+
+.pj-b .placar{flex-direction:column;width:388px;gap:0}
+.pj-b .pl{padding:20px 0}
+.pj-b .pl + .pl{border-left:none;border-top:1px solid #DCE4EF}
+.pj-b .pl:first-child{padding-top:0}
+</style>
+
+<section class="slide light prj pj-a" data-slide="9" data-var="a" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Cinco datas de corte de 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">O pedido do mentor</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>A meta vai fechar?</span></span></h1>
+
+    <div class="cena">
+
+      <div class="placar rv3" style="--d:1080ms">
+        <div class="pl bom">
+          <div class="cab">Prioridade 2</div>
+          <div class="v"><span class="ct" data-to="5" data-delay="1300">0</span> <em>de 5</em></div>
+          <p class="q">datas em que a projeção caiu <b>dentro da faixa da meta</b>. O ano fechou em 42, e a faixa é de 40 a 45.</p>
+        </div>
+        <div class="pl meio">
+          <div class="cab">Prioridade 3</div>
+          <div class="v"><span class="ct" data-to="2" data-delay="1420">0</span> <em>de 5</em></div>
+          <p class="q">datas certas. Nas outras três a projeção ficou <b>acima do limite de 200</b>, e o ano fechou em 196.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="res rv" style="--d:1700ms">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M12 3.4 2.4 20.2h19.2L12 3.4Z"/><path d="M12 9.6v4.4"/><path d="M12 17.2h.01"/></svg>
+      <span>Os três erros do P3 foram todos para o <b>lado pessimista</b>: a projeção avisou que a meta podia estourar e ela não estourou. Para um alarme de operação, é o lado certo de errar.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>
+
+<section class="slide light prj pj-b" data-slide="9" data-var="b" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Cinco datas de corte de 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">O pedido do mentor</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>A meta vai fechar?</span></span></h1>
+
+    <div class="cena">
+
+      <div class="placar">
+        <div class="pl bom rv" style="--d:1000ms">
+          <div class="cab">Prioridade 2</div>
+          <div class="v"><span class="ct" data-to="5" data-delay="1200">0</span> <em>de 5</em></div>
+          <p class="q">datas em que a projeção caiu <b>dentro da faixa da meta</b>. O ano fechou em 42, e a faixa é de 40 a 45.</p>
+        </div>
+        <div class="pl meio rv" style="--d:1180ms">
+          <div class="cab">Prioridade 3</div>
+          <div class="v"><span class="ct" data-to="2" data-delay="1380">0</span> <em>de 5</em></div>
+          <p class="q">datas certas. Nas outras três ficou <b>acima do limite de 200</b>, e o ano fechou em 196.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="res rv" style="--d:1620ms">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M12 3.4 2.4 20.2h19.2L12 3.4Z"/><path d="M12 9.6v4.4"/><path d="M12 17.2h.01"/></svg>
+      <span>Os três erros do P3 foram todos para o <b>lado pessimista</b>: a projeção avisou que a meta podia estourar e ela não estourou. Para um alarme de operação, é o lado certo de errar.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

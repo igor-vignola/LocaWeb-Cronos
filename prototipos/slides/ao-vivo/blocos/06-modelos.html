@@ -1,0 +1,145 @@
+<style>
+/* ═══ slide 6 · dois modelos ═════════════════════════════════════════════════
+   O momento de virada do deck: sai o problema, entra a solução. Escuro, e o
+   escuro é o que marca a virada.
+
+   A versão anterior deste slide virou documento: duas colunas de prosa com
+   métrica no pé, e o dono do projeto reprovou. Agora ele carrega SÓ o nome de
+   cada modelo e a pergunta que ele responde. As métricas moram nos slides 7, 8
+   e 9, um número por slide, que é a regra do deck.
+
+   Quem olha este slide sabe, sem ninguém falar: são dois modelos, um chamado
+   Prophet que conta quantos incidentes chegam, e uma regressão logística que
+   aponta qual deles quebra.
+   ══════════════════════════════════════════════════════════════════════════ */
+.mdl .body{padding-top:14px}
+.mdl .tt{font-size:52px;letter-spacing:-1.9px}
+
+.mdl .md{display:flex;flex-direction:column}
+.mdl .nome{display:inline-flex;align-items:center;gap:11px;align-self:flex-start;
+  padding:8px 16px 8px 13px;border-radius:999px;
+  background:rgba(96,165,250,.13);border:1px solid rgba(96,165,250,.26)}
+.mdl .nome .ic{width:19px;height:19px;color:var(--accent3)}
+.mdl .nome span{font-family:var(--mono);font-size:14px;font-weight:500;
+  letter-spacing:.3px;color:var(--accent3)}
+.mdl .pg{font-weight:800;letter-spacing:-2.2px;line-height:1.04;color:#fff;
+  margin-top:30px}
+.mdl .pg em{font-style:normal;color:var(--accent3)}
+.mdl .oq{font-size:17.5px;line-height:1.5;color:#98A2B3;margin-top:20px}
+.mdl .oq b{color:#E8ECF3;font-weight:600}
+
+/* a razão de existirem dois, em uma linha */
+.mdl .porque{display:flex;align-items:flex-start;gap:12px;margin-top:auto;
+  padding-top:22px;border-top:1px solid rgba(255,255,255,.13);
+  font-size:16.5px;line-height:1.45;color:#98A2B3}
+.mdl .porque .ic{width:20px;height:20px;color:var(--accent3);margin-top:2px;
+  flex-shrink:0}
+.mdl .porque b{color:#fff;font-weight:700}
+
+/* ── variação A · os dois lado a lado, fio vertical entre eles ── */
+.md-a .cena{flex:1;display:flex;align-items:center;gap:0;margin-top:34px;
+  min-height:0}
+.md-a .md{flex:1;min-width:0;padding:0 46px;justify-content:center}
+.md-a .md:first-child{padding-left:0}
+.md-a .md:last-child{padding-right:0}
+.md-a .md + .md{border-left:1px solid rgba(255,255,255,.13)}
+.md-a .pg{font-size:76px;letter-spacing:-3.2px}
+.md-a .oq{max-width:430px;font-size:19px}
+
+/* ── variação B · empilhados, com fio horizontal e numeração ── */
+.md-b .cena{flex:1;display:flex;flex-direction:column;margin-top:24px;
+  min-height:0}
+.md-b .md{flex:1;justify-content:center;padding:30px 0;
+  border-bottom:1px solid rgba(255,255,255,.13)}
+.md-b .md:last-child{border-bottom:none}
+.md-b .linha{display:flex;align-items:center;gap:44px}
+.md-b .pg{font-size:56px;margin-top:0;flex:1;min-width:0}
+.md-b .dir{width:430px;flex-shrink:0;display:flex;flex-direction:column;gap:16px}
+.md-b .oq{margin-top:0;font-size:16.5px}
+</style>
+
+<section class="slide dark mdl md-a" data-slide="6" data-var="a" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">A solução</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">A solução</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Dois modelos</span></span></h1>
+
+    <div class="cena">
+      <div class="md rv3" style="--d:660ms">
+        <span class="nome">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M3 17.4c3.4 0 4.6-9.6 8.4-9.6 3.9 0 4.5 9.6 8.4 9.6"/><path d="M3 21h18"/></svg>
+          <span>Prophet</span>
+        </span>
+        <p class="pg"><em>Quantos</em> incidentes chegam</p>
+        <p class="oq">A quantidade de incidentes de <b>amanhã e dos próximos 7 dias</b>, separada por prioridade.</p>
+      </div>
+
+      <div class="md rv3" style="--d:840ms">
+        <span class="nome">
+          <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.4"/><path d="M12 1.6v3M12 19.4v3M1.6 12h3M19.4 12h3"/></svg>
+          <span>Regressão logística</span>
+        </span>
+        <p class="pg"><em>Qual</em> incidente quebra</p>
+        <p class="oq">A chance de cada incidente aberto <b>passar do prazo</b>, com o peso de cada característica na conta.</p>
+      </div>
+    </div>
+
+    <div class="porque rv" style="--d:1280ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+      <span>São dois porque são duas perguntas: <b>o volume do dia explica 2,5%</b> da variação das quebras. Ele dimensiona a carga e não aponta o caso.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>
+
+<section class="slide dark mdl md-b" data-slide="6" data-var="b" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">A solução</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">A solução</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Dois modelos</span></span></h1>
+
+    <div class="cena">
+      <div class="md rv3" style="--d:640ms">
+        <div class="linha">
+          <p class="pg"><em>Quantos</em> incidentes chegam</p>
+          <div class="dir">
+            <span class="nome">
+              <svg class="ic" viewBox="0 0 24 24"><path d="M3 17.4c3.4 0 4.6-9.6 8.4-9.6 3.9 0 4.5 9.6 8.4 9.6"/><path d="M3 21h18"/></svg>
+              <span>Prophet</span>
+            </span>
+            <p class="oq">A quantidade de incidentes de <b>amanhã e dos próximos 7 dias</b>, separada por prioridade.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="md rv3" style="--d:820ms">
+        <div class="linha">
+          <p class="pg"><em>Qual</em> incidente quebra</p>
+          <div class="dir">
+            <span class="nome">
+              <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.4"/><path d="M12 1.6v3M12 19.4v3M1.6 12h3M19.4 12h3"/></svg>
+              <span>Regressão logística</span>
+            </span>
+            <p class="oq">A chance de cada incidente aberto <b>passar do prazo</b>, com o peso de cada característica.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="porque rv" style="--d:1240ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+      <span>São dois porque são duas perguntas: <b>o volume do dia explica 2,5%</b> da variação das quebras. Ele dimensiona a carga e não aponta o caso.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

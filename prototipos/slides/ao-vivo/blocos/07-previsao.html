@@ -1,0 +1,219 @@
+<style>
+/* ═══ slide 7 · quantos incidentes chegam ════════════════════════════════════
+   O slide do Prophet. Quem olha tem de saber, sem ninguém falar, que este
+   modelo prevê QUANTIDADE de incidentes e que o desempenho dele é este.
+
+   A forma escolhida para o desempenho é a mais fácil de ler que existe: quanto
+   chega por dia contra quanto o modelo erra. "Chegam 16 e erramos 4" qualquer
+   pessoa entende, e a barra deixa a proporção visível sem fazer conta.
+
+   Cuidado tomado aqui, e vale registrar: o erro de 4 e 11 por dia é o do
+   backtest deslizante, média de D+1 a D+7. Na janela de outubro a dezembro
+   isolada o erro do P3 mede 20 por dia, porque ela inclui a queda de nível de
+   novembro e dezembro. Mostrar sete dias escolhidos dessa janela daria 5,1 por
+   dia, que seria cherry-picking ao contrário. O número que vai ao palco é o do
+   protocolo, não o da janela mais conveniente.
+   ══════════════════════════════════════════════════════════════════════════ */
+.pvs .body{padding-top:14px}
+.pvs .tt{font-size:52px;letter-spacing:-1.9px}
+
+.pvs .nome{display:inline-flex;align-items:center;gap:11px;align-self:flex-start;
+  padding:8px 16px 8px 13px;border-radius:999px;background:var(--accent-l);
+  border:1px solid #C9DCFB}
+.pvs .nome .ic{width:19px;height:19px;color:var(--accent)}
+.pvs .nome span{font-family:var(--mono);font-size:14px;font-weight:500;
+  letter-spacing:.3px;color:var(--accent)}
+
+/* o par por prioridade: quanto chega, quanto erra, e a barra da proporção */
+.pvs .pr{display:flex;flex-direction:column}
+.pvs .cab{font-size:12.5px;font-weight:700;letter-spacing:1.7px;
+  text-transform:uppercase;color:var(--tx2)}
+.pvs .dupla{display:flex;align-items:baseline;gap:34px;margin-top:16px}
+.pvs .un{display:flex;flex-direction:column}
+.pvs .un .v{font-weight:900;line-height:.86;font-variant-numeric:tabular-nums}
+.pvs .un .k{font-size:14.5px;line-height:1.32;color:var(--tx);margin-top:10px}
+.pvs .un .k b{display:block;color:var(--head);font-weight:700;font-size:16px}
+.pvs .un.chega .v{color:var(--head)}
+.pvs .un.erra .v{color:var(--accent)}
+.pvs .mais{font-size:34px;font-weight:600;color:#B4BFCE;align-self:center}
+
+/* a barra: o fluxo do dia e o pedaço dele que é o erro */
+.pvs .trilho{position:relative;height:32px;border-radius:8px;background:#E8EDF4;
+  margin-top:34px;overflow:hidden}
+.pvs .cheio{position:absolute;left:0;top:0;height:32px;width:100%;
+  background:#CFD9E6;transform:scaleX(0);transform-origin:left}
+.pvs .parte{position:absolute;left:0;top:0;height:32px;border-radius:7px 0 0 7px;
+  background:var(--accent);transform:scaleX(0);transform-origin:left}
+.pvs.is-active .cheio{animation:corre .9s var(--out) var(--d,0ms) forwards}
+.pvs.is-active .parte{animation:corre .9s var(--out) calc(var(--d,0ms) + 320ms) forwards}
+.pvs .prop{font-size:14px;color:var(--tx2);margin-top:11px}
+.pvs .prop b{color:var(--head);font-weight:700}
+
+.pvs .nota{display:flex;align-items:flex-start;gap:12px;margin-top:auto;
+  padding-top:20px;border-top:1px solid #DCE4EF;font-size:15.5px;line-height:1.45;
+  color:var(--tx)}
+.pvs .nota .ic{width:19px;height:19px;color:var(--accent);margin-top:2px;
+  flex-shrink:0}
+.pvs .nota b{color:var(--head);font-weight:700}
+
+/* ── variação A · as duas prioridades lado a lado ── */
+.pv-a .cena{flex:1;display:flex;align-items:center;gap:0;margin-top:28px;
+  min-height:0}
+.pv-a .pr{flex:1;min-width:0;padding:0 44px;justify-content:center}
+.pv-a .pr:first-child{padding-left:0}
+.pv-a .pr:last-child{padding-right:0}
+.pv-a .pr + .pr{border-left:1px solid #DCE4EF}
+.pv-a .un .v{font-size:128px;letter-spacing:-5.2px}
+.pv-a .topo{display:flex;align-items:center;gap:18px;margin-bottom:8px}
+
+/* ── variação B · empilhadas, com a barra ocupando a largura ── */
+.pv-b .cena{flex:1;display:flex;flex-direction:column;margin-top:22px;
+  min-height:0}
+.pv-b .pr{flex:1;justify-content:center;padding:26px 0;
+  border-bottom:1px solid #DCE4EF}
+.pv-b .pr:last-child{border-bottom:none}
+.pv-b .linha{display:flex;align-items:center;gap:52px}
+.pv-b .esq{width:430px;flex-shrink:0}
+.pv-b .dir{flex:1;min-width:0}
+.pv-b .un .v{font-size:78px;letter-spacing:-3px}
+.pv-b .trilho{margin-top:0}
+.pv-b .topo{display:flex;align-items:center;gap:16px}
+</style>
+
+<section class="slide light pvs pv-a" data-slide="7" data-var="a" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Backtest deslizante &middot; D+1 a D+7</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Prophet &middot; previsão de volume</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quantos incidentes chegam</span></span></h1>
+
+    <div class="cena">
+      <div class="pr rv3" style="--d:660ms">
+        <div class="topo">
+          <span class="cab">Prioridade 2</span>
+        </div>
+        <div class="dupla">
+          <div class="un chega">
+            <span class="v"><span class="ct" data-to="16" data-delay="900">0</span></span>
+            <span class="k"><b>chegam</b>por dia, em média</span>
+          </div>
+          <span class="mais">&plusmn;</span>
+          <div class="un erra">
+            <span class="v"><span class="ct" data-to="4" data-delay="1020">0</span></span>
+            <span class="k"><b>o modelo erra</b>por dia, em média</span>
+          </div>
+        </div>
+        <div class="trilho" style="--d:1300ms">
+          <i class="cheio"></i>
+          <i class="parte" style="width:25%"></i>
+        </div>
+        <p class="prop rv" style="--d:1700ms">O erro é <b>26%</b> do fluxo do dia</p>
+      </div>
+
+      <div class="pr rv3" style="--d:840ms">
+        <div class="topo">
+          <span class="cab">Prioridade 3</span>
+        </div>
+        <div class="dupla">
+          <div class="un chega">
+            <span class="v"><span class="ct" data-to="67" data-delay="1080">0</span></span>
+            <span class="k"><b>chegam</b>por dia, em média</span>
+          </div>
+          <span class="mais">&plusmn;</span>
+          <div class="un erra">
+            <span class="v"><span class="ct" data-to="11" data-delay="1200">0</span></span>
+            <span class="k"><b>o modelo erra</b>por dia, em média</span>
+          </div>
+        </div>
+        <div class="trilho" style="--d:1440ms">
+          <i class="cheio"></i>
+          <i class="parte" style="width:16%"></i>
+        </div>
+        <p class="prop rv" style="--d:1840ms">O erro é <b>16%</b> do fluxo do dia</p>
+      </div>
+    </div>
+
+    <div class="nota rv" style="--d:2060ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+      <span>O <b>11 do P3 parece pior que o 4 do P2</b>, e proporcionalmente é melhor: o fluxo dele é quatro vezes maior. Medido em backtest deslizante, com re-treino a cada origem.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>
+
+<section class="slide light pvs pv-b" data-slide="7" data-var="b" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Backtest deslizante &middot; D+1 a D+7</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Prophet &middot; previsão de volume</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quantos incidentes chegam</span></span></h1>
+
+    <div class="cena">
+      <div class="pr rv3" style="--d:640ms">
+        <div class="linha">
+          <div class="esq">
+            <div class="topo"><span class="cab">Prioridade 2</span></div>
+            <div class="dupla">
+              <div class="un chega">
+                <span class="v"><span class="ct" data-to="16" data-delay="880">0</span></span>
+                <span class="k"><b>chegam</b>por dia</span>
+              </div>
+              <span class="mais">&plusmn;</span>
+              <div class="un erra">
+                <span class="v"><span class="ct" data-to="4" data-delay="1000">0</span></span>
+                <span class="k"><b>de erro</b>por dia</span>
+              </div>
+            </div>
+          </div>
+          <div class="dir">
+            <div class="trilho" style="--d:1240ms">
+              <i class="cheio"></i>
+              <i class="parte" style="width:25%"></i>
+            </div>
+            <p class="prop rv" style="--d:1640ms">O erro é <b>26%</b> do fluxo do dia</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pr rv3" style="--d:820ms">
+        <div class="linha">
+          <div class="esq">
+            <div class="topo"><span class="cab">Prioridade 3</span></div>
+            <div class="dupla">
+              <div class="un chega">
+                <span class="v"><span class="ct" data-to="67" data-delay="1040">0</span></span>
+                <span class="k"><b>chegam</b>por dia</span>
+              </div>
+              <span class="mais">&plusmn;</span>
+              <div class="un erra">
+                <span class="v"><span class="ct" data-to="11" data-delay="1160">0</span></span>
+                <span class="k"><b>de erro</b>por dia</span>
+              </div>
+            </div>
+          </div>
+          <div class="dir">
+            <div class="trilho" style="--d:1380ms">
+              <i class="cheio"></i>
+              <i class="parte" style="width:16%"></i>
+            </div>
+            <p class="prop rv" style="--d:1780ms">O erro é <b>16%</b> do fluxo do dia</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nota rv" style="--d:2000ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+      <span>O <b>11 do P3 parece pior que o 4 do P2</b>, e proporcionalmente é melhor: o fluxo dele é quatro vezes maior. Medido em backtest deslizante, com re-treino a cada origem.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

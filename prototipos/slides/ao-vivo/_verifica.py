@@ -38,6 +38,10 @@ CHROME = (
 )
 ASSENTA_MS = 4200
 VAO_LIMITE = 70
+# A capa e o slide das quebras respiram de propósito: neles o branco é a
+# composição, não defeito. Dez segundos num slide limpo valem mais que um
+# minuto num amontoado, e esses dois valem dez segundos.
+SEM_AVISO_DE_VAO = (1, 2)
 
 MEDIDA = r"""() => {
   const a = document.querySelector('.slide.is-active');
@@ -129,10 +133,25 @@ def main() -> int:
     if not alvos:
         print("nenhum slide para verificar")
         return 1
+    problemas: list[str] = []
+
+    # ── conferência estática antes de abrir o navegador ──
+    # tag desbalanceada o navegador tolera calado, e o print sai quase certo:
+    # é o defeito que passa pela revisão visual. Um <span> a mais já custou um
+    # bug nesta sessão.
+    for sec in re.findall(r'<section class="slide.*?</section>', html, re.S):
+        m = re.search(r'data-slide="(\d+)" data-var="([^"]+)"', sec)
+        tag_id = f"{m.group(1)}{m.group(2)}" if m else "?"
+        for tag in ("span", "div", "p"):
+            abre = len(re.findall(r"<" + tag + r"[\s>]", sec))
+            fecha = len(re.findall(rf"</{tag}>", sec))
+            if abre != fecha:
+                problemas.append(
+                    f"{tag_id}: <{tag}> desbalanceado, {abre} abre e {fecha} fecha")
+                print(f"  {tag_id}: <{tag}> DESBALANCEADO, {abre} abre / {fecha} fecha")
 
     PNG.mkdir(exist_ok=True)
     tags: list[str] = []
-    problemas: list[str] = []
     falhas: list[str] = []
 
     with sync_playwright() as p:
@@ -158,11 +177,11 @@ def main() -> int:
                 tags.append(tag)
                 m = pg.evaluate(MEDIDA)
                 aviso = ""
-                if m["vaoMeio"] > VAO_LIMITE and n != 1:
+                if m["vaoMeio"] > VAO_LIMITE and n not in SEM_AVISO_DE_VAO:
                     aviso += f"  << VAO INTERNO DE {m['vaoMeio']}px em y={m['ondeVao']}"
                     problemas.append(
                         f"{tag}: vão interno de {m['vaoMeio']}px em y={m['ondeVao']}")
-                if m["vaoPe"] > VAO_LIMITE and n != 1:
+                if m["vaoPe"] > VAO_LIMITE and n not in SEM_AVISO_DE_VAO:
                     aviso += f"  << VAO DE {m['vaoPe']}px NO PE"
                     problemas.append(f"{tag}: vão de {m['vaoPe']}px no pé do corpo")
                 for x in m["achados"]:
@@ -178,6 +197,8 @@ def main() -> int:
 
     print(f"\nrecursos faltando: {sorted(set(falhas)) or 'nenhum'}")
     print(f"problemas: {len(problemas)}")
+    for x in problemas:
+        print(f"    - {x}")
 
     largura, altura, rotulo, colunas = 700, 394, 24, 2
     linhas = (len(tags) + colunas - 1) // colunas
