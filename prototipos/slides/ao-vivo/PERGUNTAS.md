@@ -32,7 +32,7 @@ correspondem a menos de um dia de fila. → slide 13.
 **"Como vocês sabem que o salto de setembro foi monitoramento automático?"**
 Porque a série elegível ao KPI não se moveu: 2.330 em agosto, 2.324 em setembro,
 enquanto o total registrado foi de 3.996 para 21.561. O que cresceu ficou fora
-do KPI, ou seja, é registro sem intervenção humana ou com incidente pai. → slide 18.
+do KPI, ou seja, é registro sem intervenção humana ou com incidente pai. → slide 7.
 
 **"Com um ano de dado e sazonalidade anual desligada, o que acontece em
 janeiro?"**
@@ -45,16 +45,22 @@ de registro. → slide 8.
 O campo "Entrou para KPI" só passou a ser preenchido de forma sistemática em
 2025. Antes disso o registro existe, mas não a marcação. → slide 8.
 
-**"0,72% contra 0,86% é diferença ou ruído?"**
-Ruído, e é esse o ponto: o volume do dia explica 2,5% da variação das quebras
-(r = 0,159; p = 0,011). Dia cheio não quebra mais. → slide 9.
+**"Vocês olharam volume? Dia cheio não quebra mais?"**
+Olhamos, e não quebra: o volume do dia explica 2,5% da variação das quebras
+(r = 0,159; p = 0,011). Foi isso que nos levou a procurar outros sinais, e o que
+apareceu foi quem abre o chamado e quando ele chega. → slide 9.
+
+**"O fim de semana só aparece na prioridade 3. E na 2?"**
+Na prioridade 2 o efeito some: 0,75% no fim de semana contra 0,83% no dia útil.
+Está escrito no slide. O de quem abre vale nas duas, com 3,0 vezes na 2 e 3,1
+na 3. → slide 9.
 
 ## Sobre os modelos
 
-**"O 16 e o 77 do slide 7 são o quê?"**
-A previsão do Prophet para o dia 1º de outubro de 2025: 15,8 incidentes na
-prioridade 2 e 77,4 na prioridade 3. São os mesmos números que aparecem no topo
-da tela do painel, no slide 12 e na demo. → slide 18.
+**"De onde vem o 4 e o 11 de erro?"**
+Do backtest deslizante, com re-treino a cada origem e média de D+1 a D+7. É o
+protocolo que reproduz o uso real. No corte único de outubro a dezembro o P3 dá
+20 por dia, inflado pela queda de novembro e dezembro. → slide 11.
 
 **"De onde sai a projeção anual? É o Prophet?"**
 Não. É a soma do que já aconteceu no ano com o ritmo médio de quebras até a
@@ -77,13 +83,13 @@ do resumo em linguagem de operação. Nenhum número passa por ela. Poderia ser 
 template, e escolhemos o texto gerado porque o resumo muda de tom conforme o
 dia (dia normal, dia acima do previsto, quebra ontem). → slide 16, pé.
 
-**(Douglas) "O lvps tem a pior nota de saúde e não está entre os três para
-agir. Por quê?"**
-A nota fala do tamanho do problema; a situação fala do tipo. O lvps é "problema
-conhecido e recorrente": perde prazo acima da mediana, mas nos problemas de
-sempre. Os três em "já materializado" perdem prazo E recebem problemas inéditos,
-que é onde a operação ainda não tem procedimento. Os dois grupos pedem ação
-diferente. Fica na demo, tela de Saúde.
+**(Douglas) "A cor do gráfico e a ordem não batem. Por quê?"**
+Porque medem coisas diferentes, e o slide diz isso. A posição é o tamanho do
+problema, que é a nota. A cor é o tipo, e é ela que muda a ação: um produto em
+"problema já materializado" recebe casos que ninguém viu antes e precisa de
+procedimento novo; um em "conhecido e recorrente" perde prazo no problema de
+sempre e precisa de capacidade. O lvps tem a pior nota e é do segundo tipo.
+→ slide 17.
 
 **"O que é a nota de saúde?"**
 Cinco medidas por produto, cada uma em posição relativa entre os 15: taxa de
@@ -106,7 +112,7 @@ depois, e não na tela. → slide 18.
 
 - Erro médio do Prophet: 4 incidentes por dia no P2, 11 no P3 (backtest deslizante, D+1 a D+7)
 - Concentração: Team11 e Team14 atendem o mesmo volume e a taxa do Team11 é 11,8 vezes a do Team14
-- Os 30 itens de configuração com mais perdas concentram 61,7% das perdas
+- Os 30 itens de configuração com mais perdas concentram 61,3% das quebras de 2025
 - Quebras isoladas: 87% das quebras são de incidentes sem escalada
 - DTW, cascata, ARIMA e Streamlit foram testados ou considerados e descartados; não citar como parte da solução
 
