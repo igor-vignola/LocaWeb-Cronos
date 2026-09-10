@@ -36,8 +36,11 @@
 .anx .cx .ord{font-family:var(--mono);font-size:13px;font-weight:500;color:#B9C4D4;
   width:20px;flex-shrink:0}
 .anx .cx .nm{flex:1;min-width:0}
-.anx .cx .nm b{display:block;font-size:25px;font-weight:800;letter-spacing:-.6px;color:var(--head)}
-.anx .cx .nm span{display:block;font-size:14px;color:var(--tx2);margin-top:4px}
+/* o destaque é a sigla da prioridade, que é como a operação chama; o nome
+   longo vira subtítulo, senão a sala compara Alta com Média e se perde */
+.anx .cx .nm b{display:block;font-size:28px;font-weight:900;letter-spacing:-.9px;
+  color:var(--head);font-variant-numeric:tabular-nums}
+.anx .cx .nm span{display:block;font-size:14.5px;color:var(--tx2);margin-top:5px}
 .anx .cx .vl{text-align:right;flex-shrink:0}
 .anx .cx .vl strong{display:block;font-size:31px;font-weight:900;letter-spacing:-1.2px;
   color:var(--head);font-variant-numeric:tabular-nums;line-height:1}
@@ -81,12 +84,12 @@
         </div>
         <div class="cx rv" style="--d:900ms">
           <span class="ord">1º</span>
-          <div class="nm"><b>Alta</b><span>prioridade 2</span></div>
+          <div class="nm"><b>P2</b><span>Alta &middot; prazo de 4 horas</span></div>
           <div class="vl"><strong><span class="ct" data-to="5159" data-delay="1020">0</span></strong><small>incidentes</small></div>
         </div>
         <div class="cx rv" style="--d:1040ms">
           <span class="ord">2º</span>
-          <div class="nm"><b>Média</b><span>prioridade 3</span></div>
+          <div class="nm"><b>P3</b><span>Média &middot; prazo de 12 horas</span></div>
           <div class="vl"><strong><span class="ct" data-to="20441" data-delay="1160">0</span></strong><small>incidentes</small></div>
         </div>
       </div>
@@ -113,12 +116,12 @@
         </div>
         <div class="cx viro rv" style="--d:1260ms">
           <span class="ord">1º</span>
-          <div class="nm"><b>Média</b><span>206 quebras em 20.441</span></div>
+          <div class="nm"><b>P3</b><span>Média &middot; 206 quebras em 20.441</span></div>
           <div class="vl"><strong><span class="ct" data-to="1.01" data-dec="2" data-delay="1380">0,00</span>%</strong><small>taxa de quebra</small></div>
         </div>
         <div class="cx rv" style="--d:1400ms">
           <span class="ord">2º</span>
-          <div class="nm"><b>Alta</b><span>42 quebras em 5.159</span></div>
+          <div class="nm"><b>P2</b><span>Alta &middot; 42 quebras em 5.159</span></div>
           <div class="vl"><strong><span class="ct" data-to="0.81" data-dec="2" data-delay="1520">0,00</span>%</strong><small>taxa de quebra</small></div>
         </div>
       </div>

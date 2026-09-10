@@ -1,0 +1,37 @@
+<script>
+(function(){
+  var barra = document.querySelector('.bar');
+  var prog  = document.querySelector('.prog');
+  var nome  = document.querySelector('.bar .nome');
+  var rot   = {igor:'Igor', ana:'Ana', hygor:'Hygor'};
+  var secoes = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+
+  function pinta(quem){
+    if(barra.dataset.quem === quem) return;
+    barra.dataset.quem = quem;
+    prog.dataset.quem = quem;
+    nome.textContent = rot[quem];
+  }
+
+  var ultimo = 'igor';
+  function varre(){
+    var alvo = ultimo, corte = 120;
+    for(var i=0;i<secoes.length;i++){
+      if(secoes[i].getBoundingClientRect().top <= corte) alvo = secoes[i].dataset.quem;
+    }
+    if(alvo !== ultimo){ ultimo = alvo; pinta(alvo); }
+
+    var doc = document.documentElement;
+    var alt = doc.scrollHeight - doc.clientHeight;
+    prog.firstElementChild.style.width = (alt > 0 ? (doc.scrollTop/alt)*100 : 0) + '%';
+  }
+
+  var pedido = false;
+  addEventListener('scroll', function(){
+    if(pedido) return;
+    pedido = true;
+    requestAnimationFrame(function(){ varre(); pedido = false; });
+  }, {passive:true});
+  varre();
+})();
+</script>

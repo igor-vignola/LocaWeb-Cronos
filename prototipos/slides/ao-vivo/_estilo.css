@@ -286,3 +286,16 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   background:rgba(59,130,246,.13);border:1px solid rgba(96,165,250,.26);border-radius:8px;
   padding:6px 12px;opacity:0;transform:translate3d(0,6px,0)}
 .dv3.is-active .abas i{animation:rv .42s var(--out) var(--d,0ms) forwards}
+
+/* barras de cobertura da divisória de previsão: as duas prioridades lado a
+   lado, porque nenhuma métrica do deck aparece só de uma. */
+.dv3 .cob{display:grid;grid-template-columns:26px 1fr 108px;align-items:center;gap:12px;
+  margin-top:14px}
+.dv3 .cob span{font-family:var(--mono);font-size:12.5px;color:#7A8494}
+.dv3 .cob .tr{height:10px;border-radius:6px;background:rgba(255,255,255,.09);overflow:hidden}
+.dv3 .cob .tr i{display:block;height:100%;border-radius:6px;background:#3B82F6;
+  transform:scaleX(0);transform-origin:left}
+.dv3 .cob .tr i.menos{background:#D97706}
+.dv3.is-active .cob .tr i{animation:corre .8s var(--out) var(--d,0ms) forwards}
+.dv3 .cob b{font-size:14.5px;font-weight:700;color:#E8ECF3;text-align:right;
+  font-variant-numeric:tabular-nums}

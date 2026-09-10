@@ -1,0 +1,129 @@
+<style>
+/* ═══ slide 12 · o alvo ═══════════════════════════════════════════════════════
+   O cartão que o dono do projeto pediu de volta, vindo do d10a e do d21a do
+   deck da Sprint 3. Fecha a análise exploratória dizendo o que, no fim, o
+   trabalho tem de achar, e é o slide que impede a banca de aceitar acurácia
+   como régua mais adiante.
+
+   Três coisas, e nenhuma a mais:
+     · 248 violações em 25.600 elegíveis, uma a cada 103
+     · como elas se repartem entre as duas prioridades, 206 e 42
+     · por que responder "não quebra" para todo mundo não resolve
+
+   A grade de 400 quadrados é a leitura imediata da raridade: cada quadrado
+   vale 64 incidentes e a mancha vermelha é a fração equivalente às violações.
+   Ela entra quadrado a quadrado, em onda, e os vermelhos acendem por último.
+
+   Números de data/interim/incidentes_kpi.parquet, base elegível ao indicador,
+   2023 a 2025: 25.600 incidentes, 248 violações (0,97%), sendo 206 na
+   prioridade 3 e 42 na 2. Acerto de quem nunca sinaliza: 1 - 248/25.600 =
+   99,03%.
+   ══════════════════════════════════════════════════════════════════════════ */
+.alv .body{padding-top:14px}
+.alv .tt{font-size:52px;letter-spacing:-1.9px}
+.alv .cena{flex:1;display:grid;grid-template-columns:352px 1fr;align-items:center;
+  gap:0 60px;margin-top:16px;min-height:0}
+
+.alv .big{font-size:152px;font-weight:900;letter-spacing:-7px;line-height:.84;
+  color:var(--bad);font-variant-numeric:tabular-nums}
+.alv .rot{font-size:11.5px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
+  color:var(--tx2);margin-top:20px}
+.alv .chip{display:inline-block;margin-top:16px;font-size:15px;font-weight:700;
+  color:#B42222;background:#FCECEC;border:1px solid #F6CFCF;border-radius:999px;
+  padding:8px 18px}
+.alv .diz{font-size:16.5px;line-height:1.55;color:var(--tx);margin-top:22px;max-width:34ch}
+.alv .diz b{color:var(--head);font-weight:700}
+
+/* a grade: 400 quadrados para os 25.600 elegíveis, 40 por linha.
+   A grade inteira entra de uma vez e só os quatro vermelhos dão o pulo: 400
+   atrasos individuais precisariam de script, e o _montar.py só recolhe <style>
+   e <section> de cada bloco. */
+.alv .grade{display:grid;grid-template-columns:repeat(40,1fr);gap:3.5px}
+.alv .grade i{aspect-ratio:1;border-radius:2px;background:#DCE3EC}
+.alv .grade i.q{background:var(--bad);transform:scale(0)}
+.alv.is-active .grade i.q{animation:pipoca .5s var(--spring) 1780ms forwards}
+.alv.is-active .grade i.q:nth-of-type(2n){animation-delay:1900ms}
+.alv.is-active .grade i.q:nth-of-type(3n){animation-delay:2020ms}
+@keyframes pipoca{to{transform:scale(1)}}
+.alv .leg{font-size:13.5px;line-height:1.45;color:var(--tx2);margin-top:14px}
+.alv .leg b{color:var(--bad);font-weight:700}
+
+/* as duas prioridades, na mesma escala */
+.alv .pri{margin-top:26px;padding-top:20px;border-top:1px solid #DCE4EF}
+.alv .pri .k{font-size:11.5px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
+  color:var(--tx2)}
+.alv .lin{display:grid;grid-template-columns:118px 1fr 46px;align-items:center;gap:14px;
+  margin-top:14px}
+.alv .lin .nm b{font-size:19px;font-weight:800;color:var(--head);letter-spacing:-.3px}
+.alv .lin .nm span{font-size:13px;color:var(--tx2);margin-left:7px}
+.alv .lin .tr{height:16px;border-radius:8px;background:#EDF1F7;overflow:hidden}
+.alv .lin .tr i{display:block;height:100%;border-radius:8px;background:var(--bad);
+  transform:scaleX(0);transform-origin:left}
+.alv.is-active .lin .tr i{animation:corre .8s var(--out) var(--d,0ms) forwards}
+.alv .lin .v{font-size:20px;font-weight:800;color:var(--bad);text-align:right;
+  font-variant-numeric:tabular-nums}
+
+.alv .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.alv .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.alv .fecho b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light alv" data-slide="12" data-var="a" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Base elegível ao KPI &middot; 2023 a 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">O que vamos prever</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>O alvo é raro</span></span></h1>
+
+    <div class="cena">
+      <div>
+        <div class="big"><span class="ct" data-to="248" data-delay="820">0</span></div>
+        <div class="rot rv" style="--d:900ms">Violações de OLA &middot; 2023 a 2025</div>
+        <span class="chip rv" style="--d:1000ms">0,97% dos 25.600 elegíveis</span>
+        <p class="diz rv" style="--d:1120ms">É a variável que o modelo de risco prevê, <b>incidente a incidente</b>. Uma a cada 103 passa do prazo.</p>
+      </div>
+
+      <div>
+        <div class="grade rv" style="--d:1300ms">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="q"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="q"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="q"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="q"></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <p class="leg rv" style="--d:2000ms">400 quadrados para os 25.600 elegíveis, cada um valendo 64 incidentes. <b>Em vermelho, a fração equivalente às 248 violações.</b></p>
+
+        <div class="pri">
+          <div class="k rv" style="--d:2100ms">Violações por prioridade</div>
+          <div class="lin rv" style="--d:2180ms">
+            <div class="nm"><b>P3</b><span>Média &middot; 12h</span></div>
+            <div class="tr"><i style="--d:2280ms"></i></div>
+            <span class="v">206</span>
+          </div>
+          <div class="lin rv" style="--d:2300ms">
+            <div class="nm"><b>P2</b><span>Alta &middot; 4h</span></div>
+            <div class="tr"><i style="width:20.4%;--d:2400ms"></i></div>
+            <span class="v">42</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:2560ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M9.6 9.4a2.6 2.6 0 1 1 3.4 2.5c-.7.3-1 .8-1 1.5v.4"/><path d="M12 17.2h.01"/></svg>
+      <span>Responder <b>&ldquo;não quebra&rdquo;</b> para todos os 25.600 acerta 99,03% das vezes e não encontra nenhuma. Por isso acurácia não é a régua deste problema.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>
+

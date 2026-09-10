@@ -24,10 +24,10 @@
   margin-top:10px;min-height:0}
 
 /* ── variação A · cartões, o líder em destaque ─────────────────────────────── */
-.eq-a .trio{display:flex;align-items:flex-end;gap:26px}
-.eq-a .ps{flex:1;min-width:0;border-radius:22px;padding:40px 30px 36px;text-align:center;
-  display:flex;flex-direction:column;align-items:center}
-.eq-a .ps .foto{width:172px;height:172px;border-radius:50%;overflow:hidden}
+.eq-a .trio{display:flex;align-items:stretch;gap:26px}
+.eq-a .ps{position:relative;flex:1;min-width:0;border-radius:22px;padding:44px 30px 40px;
+  text-align:center;display:flex;flex-direction:column;align-items:center}
+.eq-a .ps .foto{width:186px;height:186px;border-radius:50%;overflow:hidden}
 .eq-a .ps .foto img{width:100%;height:100%;object-fit:cover;display:block}
 .eq-a .ps .nm{font-size:24px;font-weight:800;letter-spacing:-.55px;margin-top:22px;
   line-height:1.18}
@@ -41,20 +41,24 @@
 .eq-a .ps.par .rm{color:var(--tx2)}
 
 /* o cartão do líder: escuro, mais alto, retrato maior */
-.eq-a .ps.lid{background:var(--ink);border:1px solid var(--ink);margin-bottom:30px;
-  padding:44px 30px 40px;box-shadow:0 34px 70px -38px rgba(10,14,23,.62);position:relative;
-  overflow:hidden}
-.eq-a .ps.lid::before{content:"";position:absolute;inset:0;
+/* o cartão do líder tem o mesmo tamanho dos outros: o que muda é a cor.
+   O brilho vai num ::before com o mesmo raio, para o cartão poder ficar com
+   overflow visível e o selo passar por cima da borda. */
+.eq-a .ps.lid{background:var(--ink);border:1px solid var(--ink);
+  box-shadow:0 34px 70px -38px rgba(10,14,23,.62)}
+.eq-a .ps.lid::before{content:"";position:absolute;inset:0;border-radius:22px;
   background:radial-gradient(560px 320px at 50% -30%,rgba(37,99,235,.34),transparent 62%)}
 .eq-a .ps.lid > *{position:relative}
-.eq-a .ps.lid .foto{width:192px;height:192px;border:3px solid rgba(255,255,255,.16);
+.eq-a .ps.lid .foto{border:3px solid rgba(255,255,255,.16);
   box-shadow:0 20px 44px -22px rgba(0,0,0,.7)}
 .eq-a .ps.lid .nm{color:#fff;font-size:26px}
 .eq-a .ps.lid .rm{color:#8FB4F5}
-.eq-a .ps.lid .selo{display:inline-flex;align-items:center;gap:8px;margin-top:18px;
-  font-size:12px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;color:#BFDBFE;
-  background:rgba(59,130,246,.2);border:1px solid rgba(96,165,250,.36);border-radius:999px;
-  padding:7px 15px}
+/* o selo monta sobre a borda de cima, no canto direito */
+.eq-a .ps.lid .selo{position:absolute;top:-15px;right:24px;display:inline-flex;
+  align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:1.7px;
+  text-transform:uppercase;color:#0A0E17;background:#60A5FA;border:1px solid #93C5FD;
+  border-radius:999px;padding:8px 16px;
+  box-shadow:0 12px 26px -14px rgba(37,99,235,.75)}
 .eq-a .ps.lid .selo svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.9}
 
 /* o mentor, numa faixa própria: ele não apresenta */
@@ -157,51 +161,3 @@
      Fica de reserva: se a banca preferir saber de antemão quem fala o quê, esta
      é a que diz. A troca de voz continua sinalizada pelo marcador do rodapé.
      ─────────────────────────────────────────────────────────────────────────── -->
-<section class="slide light eqp eq-b" data-slide="2" data-var="b" data-quem="igor">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Super Data Bros</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Quem apresenta</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Super Data Bros</span></span></h1>
-
-    <div class="cena">
-      <div class="trio">
-        <div class="pes rv3" style="--d:640ms">
-          <div class="foto"><img src="../../../../brand/equipe/ana-beatriz.png" alt="Ana Beatriz Costa de Oliveira"></div>
-          <div class="nm">Ana Beatriz<br>Costa de Oliveira</div>
-          <div class="rm">RM561310</div>
-          <div class="bl"><b>Dados e modelos</b><span>o que a base mostrou e como os dois modelos foram construídos</span></div>
-        </div>
-        <div class="pes rv3" style="--d:780ms">
-          <div class="foto"><img src="../../../../brand/equipe/hygor.png" alt="Hygor Abrantes"></div>
-          <div class="nm">Hygor<br>Abrantes</div>
-          <div class="rm">RM565063</div>
-          <div class="bl"><b>Produto e demonstração</b><span>como a solução roda e o painel funcionando ao vivo</span></div>
-        </div>
-        <div class="pes rv3" style="--d:920ms">
-          <div class="foto"><img src="../../../../brand/equipe/igor.png" alt="Igor Vignola"></div>
-          <div class="nm">Igor<br>Vignola</div>
-          <div class="rm">RM561428</div>
-          <div class="bl"><b>Problema e resultados</b><span>o que a Locaweb mede, o que estava em risco e onde chegamos</span></div>
-        </div>
-      </div>
-
-      <div class="mentor rv" style="--d:1200ms">
-        <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.6 20c0-3.6 3.3-6 7.4-6s7.4 2.4 7.4 6"/></svg>
-        <div class="tx">
-          <b>Mentor Locaweb</b>
-          <span>Douglas Gouveia<em>Gerente Executivo de Operações</em></span>
-        </div>
-        <div class="turma">
-          <b>Turma 2TSCOA</b>
-          FIAP &middot; Tecnólogo em Data Science
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="ft"></div>
-</section>
