@@ -414,9 +414,10 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
    O fio de fundo é a série real de incidentes elegíveis de 2025, a mesma da
    composição A. A textura do slide é dado, não enfeite.
 
-   O keyframe `cap-letra` é o da composição A e está no arquivo 01-capa.html:
-   nome de keyframe é global no deck montado, então aqui ele é reaproveitado
-   em vez de duplicado com outro nome.
+   `cap-letra` vem de 01-capa.html, que também anima a marca letra por letra:
+   nome de keyframe é global no deck montado, e reaproveitar é melhor do que
+   duplicar com outro nome. Já `cap-traca` é definido aqui, porque a A parou
+   de usar o traçado da série quando adotou a forma da Sprint 2.
    ══════════════════════════════════════════════════════════════════════════ */
 .cpb{overflow:hidden}
 .cpb::before,.cpb::after{content:"";position:absolute;border-radius:50%;
@@ -433,6 +434,9 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .cpb .serie path{fill:none;stroke:#60A5FA;stroke-width:2.5;opacity:.22;
   stroke-dasharray:1000;stroke-dashoffset:1000}
 .cpb.is-active .serie path{animation:cap-traca 3.2s var(--out) .5s forwards}
+/* a composição A deixou de desenhar a série quando adotou a forma da Sprint 2;
+   o keyframe passou a morar aqui, que é quem o usa. */
+@keyframes cap-traca{to{stroke-dashoffset:0}}
 
 .cpb .body{padding:14px 64px 84px;align-items:stretch;justify-content:flex-start}
 .cpb .hero{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;
@@ -468,97 +472,71 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .cpb .regua b{color:#E8ECF3;font-weight:600}
 
 /* ───── 01-capa.html ───── */
-/* ═══ slide 1 · capa ═══
-   O único slide do deck em que uma frase de marca é permitida, porque
-   "Veja antes. Aja antes." é a tagline registrada e não copy inventada.
-   Ao fundo, a série real de incidentes elegíveis de 2025 se desenhando. */
-/* ═══════════════ 1 · CAPA ═══════════════ */
-.cap{background:#fff}
-.cap .mesh{background:radial-gradient(900px 620px at 84% -8%,rgba(37,99,235,.20),transparent 56%),
-  radial-gradient(760px 560px at 8% 108%,rgba(37,99,235,.14),transparent 58%)}
+/* ═══ slide 1 · capa · composição A ═══════════════════════════════════════════
+   Refeita em 10/09/2026 na forma que o dono do projeto apontou: a capa do deck
+   da Sprint 2 (`prototipos/slides/capa-slide.html`). Borrões azuis desfocados
+   sobre o branco, rótulo de vidro em versalete, a marca em 220px, a assinatura
+   de duas partes e uma linha de apoio. Nada mais.
+
+   O que saiu, a pedido dele:
+     · a régua do pé com "Super Data Bros · Turma 2TSCOA" e "Challenge FIAP
+       2026 com Locaweb" — o cabeçalho já traz a segunda e o slide 2 traz a
+       primeira;
+     · o cartão de créditos com equipe e mentor, que a referência tem e ele
+       mandou tirar antes, porque o slide 2 é inteiro deles;
+     · o fio da série de 2025, que a referência não tem. Ele continua na
+       composição B.
+
+   Os borrões são pseudo-elementos, não `<div>`: eles sangram pela borda de
+   propósito, e elemento real ali seria acusado de "fora do palco" pelo
+   verificador.
+
+   "Veja antes. Aja antes." é a tagline registrada, e é o único lugar do deck
+   onde uma frase de marca é permitida. Na referência a primeira metade é
+   preta e a segunda cinza; aqui é igual.
+
+   `cap-letra` é usado também pela composição B, em 01-capa-b.html. Nome de
+   keyframe é global no deck montado.
+   ══════════════════════════════════════════════════════════════════════════ */
+.cap{background:#fff;overflow:hidden}
+.cap .mesh{background:
+  radial-gradient(900px 640px at 20% 20%,rgba(37,99,235,.18),transparent 52%),
+  radial-gradient(880px 620px at 80% 70%,rgba(37,99,235,.15),transparent 56%),
+  radial-gradient(760px 460px at 50% 104%,rgba(17,17,17,.06),transparent 60%)}
 .cap .grid-bg{background-image:linear-gradient(rgba(17,24,39,.03) 1px,transparent 1px),
   linear-gradient(90deg,rgba(17,24,39,.03) 1px,transparent 1px);background-size:48px 48px}
-/* a série real de 2025 desenhada atrás: a textura é dado, não enfeite */
-.cap .serie{position:absolute;left:0;right:0;z-index:1;pointer-events:none}
-.cap .serie svg{width:100%;height:100%;display:block}
-.cap .serie path{fill:none;stroke:var(--accent);stroke-width:2.5;opacity:.14;
-  stroke-dasharray:1000;stroke-dashoffset:1000}
-.is-active.cap .serie path{animation:cap-traca 3.2s var(--out) .5s forwards}
-@keyframes cap-traca{to{stroke-dashoffset:0}}
-/* a marca, letra por letra */
-.cap .word{font-weight:900;color:#000;display:flex;overflow:hidden;padding-bottom:.06em}
-.cap .word i{font-style:normal;display:inline-block;transform:translate3d(0,112%,0)}
-.is-active.cap .word i{animation:cap-letra .9s var(--spring) forwards;animation-delay:var(--d,0ms)}
-@keyframes cap-letra{to{transform:translate3d(0,0,0)}}
-.cap .pil{font-size:15.5px;font-weight:600;color:var(--accent);background:#fff;
-  border:1px solid var(--line);border-radius:999px;padding:10px 22px;
-  box-shadow:0 6px 20px -10px rgba(37,99,235,.32)}
-.cap .tag2{font-weight:800;color:#000;position:relative}
-.cap .tag2 em{font-style:normal;color:var(--accent)}
-.cap .tag2::after{content:"";position:absolute;left:52%;right:0;bottom:-13px;height:5px;
-  border-radius:5px;background:var(--accent);transform:scaleX(0);transform-origin:left}
-.is-active.cap .tag2::after{animation:tick .9s var(--out) 1.5s forwards}
-/* os créditos: rótulo, nomes e cargo. O mesmo conteúdo nas duas variações. */
-.cap .ck{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
-  color:var(--tx2)}
-.cap .cn{font-size:16.5px;font-weight:700;letter-spacing:-.3px;color:var(--head);margin-top:8px}
-.cap .cs{font-size:13.5px;color:var(--tx);margin-top:5px}
-/* ── capa A · marca centralizada, créditos num cartão no rodapé ───────────── */
-.cap.ca .serie{bottom:150px;height:262px}
-.cap.ca .body{padding:14px 64px 74px;align-items:stretch}
-.cap.ca .hero{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;text-align:center}
-.cap.ca .word{font-size:200px;letter-spacing:-9px;line-height:.9;margin-top:26px;
-  justify-content:center}
-.cap.ca .tag2{font-size:58px;letter-spacing:-2.2px;line-height:1.1;margin-top:20px;align-self:center}
-/* as colunas encolhem para o texto e a sobra vai para os lados do fio, senão
-   o cartão abre um vão morto entre o nome e a divisória */
-.cap.ca .cred{width:1004px;margin:0 auto;display:grid;grid-template-columns:auto 1px auto;
-  justify-content:space-between;align-items:center;gap:0 30px;background:rgba(255,255,255,.86);
-  border:1px solid var(--line);border-radius:16px;padding:20px 34px;
-  box-shadow:0 20px 48px -34px rgba(15,23,42,.32)}
-.cap.ca .cd.r{text-align:right}
-.cap.ca .vl{align-self:stretch;background:linear-gradient(180deg,transparent,#D9E0EA,transparent)}
-/* ── capa B · marca à esquerda, créditos na coluna da direita ─────────────── */
-.cap.cb .serie{bottom:66px;height:300px}
-.cap.cb .serie path{opacity:.12}
-.cap.cb .body{padding:14px 64px 76px}
-.cap.cb .duo{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) auto;
-  align-items:center;gap:0 54px}
-.cap.cb .mrc{display:flex;flex-direction:column;align-items:flex-start}
-/* a marca ocupa a coluna inteira: com corpo menor sobrava um vão no centro */
-.cap.cb .word{font-size:248px;letter-spacing:-11px;line-height:.9;margin-top:22px}
-.cap.cb .tag2{font-size:56px;letter-spacing:-2.1px;line-height:1.1;margin-top:18px}
-/* o fio vertical vira espinha da coluna de créditos: solto no meio do vão ele
-   parecia acidental, encostado no texto ele ancora o bloco */
-.cap.cb .cred{position:relative;display:flex;flex-direction:column;gap:22px;padding-left:40px}
-.cap.cb .cred::before{content:"";position:absolute;left:0;top:2px;bottom:2px;width:1px;
-  background:linear-gradient(180deg,#D2DAE5,rgba(210,218,229,.28))}
-.cap.cb .cred .hr{display:block;height:1px;
-  background:linear-gradient(90deg,#D9E0EA,rgba(217,224,234,0))}
-.cap.cb .cn{font-size:17px;line-height:1.45}
-.cap.cb .cn span{display:block}
 
-/* ── capa C · a pegada do deck da Sprint 4: marca só, sem créditos ─────────
-   O dono do projeto pediu esta forma e pediu para tirar equipe e mentor,
-   porque os dois têm o slide seguinte inteiro. Sem o cartão do rodapé a marca
-   pode crescer e ficar sozinha no centro, que é o que a referência faz.
-   O fio de 2025 continua atrás: a textura do slide é dado, não enfeite. */
-.cap.cc .serie{bottom:118px;height:300px}
-.cap.cc .serie path{opacity:.13}
-.cap.cc .body{padding:14px 64px 88px;align-items:stretch}
-.cap.cc .hero{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;text-align:center}
-.cap.cc .word{font-size:250px;letter-spacing:-11px;line-height:.88;margin-top:34px;
-  justify-content:center}
-.cap.cc .tag2{font-size:66px;letter-spacing:-2.6px;line-height:1.08;margin-top:26px;
-  align-self:center}
-.cap.cc .tag2::after{bottom:-16px;height:6px}
-/* a régua do pé fecha a composição sem trazer nome de ninguém */
-.cap.cc .regua{display:flex;justify-content:space-between;align-items:center;
-  padding-top:20px;border-top:1px solid #E2E8F1;font-family:var(--mono);font-size:12.5px;
-  letter-spacing:1.5px;text-transform:uppercase;color:#A6B0BE}
-.cap.cc .regua b{color:var(--head);font-weight:600}
+/* os três borrões da referência */
+.cap::before,.cap::after{content:"";position:absolute;border-radius:50%;filter:blur(80px);
+  pointer-events:none;z-index:0}
+.cap::before{width:520px;height:520px;top:-160px;left:-110px;background:rgba(37,99,235,.30)}
+.cap::after{width:420px;height:420px;bottom:-130px;right:-90px;background:rgba(37,99,235,.22)}
+.cap .body::before{content:"";position:absolute;width:310px;height:310px;left:8%;top:58%;
+  border-radius:50%;filter:blur(80px);background:rgba(17,17,17,.08);pointer-events:none;z-index:0}
+
+.cap .body{padding:14px 64px 64px;align-items:stretch;justify-content:flex-start}
+.cap .hero{flex:1;min-height:0;position:relative;z-index:2;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center}
+
+.cap .pil{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:2.4px;
+  text-transform:uppercase;color:var(--accent);padding:8px 20px;border-radius:999px;
+  background:rgba(255,255,255,.55);-webkit-backdrop-filter:blur(16px) saturate(160%);
+  backdrop-filter:blur(16px) saturate(160%);border:1px solid rgba(37,99,235,.22);
+  box-shadow:0 4px 14px -4px rgba(37,99,235,.12)}
+
+/* a marca entra letra por letra */
+.cap .word{display:flex;justify-content:center;overflow:hidden;margin-top:26px;
+  font-size:220px;font-weight:900;letter-spacing:-10px;line-height:.88;color:#000;
+  padding-bottom:.06em}
+.cap .word i{font-style:normal;display:inline-block;transform:translate3d(0,112%,0)}
+.cap.is-active .word i{animation:cap-letra .9s var(--spring) var(--d,0ms) forwards}
+@keyframes cap-letra{to{transform:translate3d(0,0,0)}}
+
+.cap .tag2{font-size:40px;font-weight:500;letter-spacing:-.9px;line-height:1.1;color:#5B6879;
+  margin-top:14px}
+.cap .tag2 b{color:#000;font-weight:700}
+.cap .sub{font-size:17px;font-weight:500;line-height:1.5;color:#5B6879;margin-top:24px;
+  max-width:660px}
 
 /* ───── 02-equipe.html ───── */
 /* ═══ slide 2 · quem apresenta ═══════════════════════════════════════════════
@@ -3063,21 +3041,20 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 </head>
 <body>
 <div id="fit"><div id="stage">
-<section class="slide light cap cc" data-slide="1" data-var="a" data-quem="igor">
+<section class="slide light cap" data-slide="1" data-var="a" data-quem="igor">
   <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="serie"><svg viewBox="0 0 1600 260" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1000" d="M 0 245 L 13.4 193.3 L 26.9 170.2 L 40.3 104.4 L 53.8 88 L 67.2 85.1 L 80.7 69.1 L 94.1 69.5 L 107.6 74.1 L 121 58.4 L 134.5 15 L 147.9 35.3 L 161.3 63.4 L 174.8 64.8 L 188.2 63.1 L 201.7 74.5 L 215.1 80.2 L 228.6 60.9 L 242 54.9 L 255.5 65.9 L 268.9 95.1 L 282.4 141.7 L 295.8 146.7 L 309.2 86.2 L 322.7 75.2 L 336.1 74.5 L 349.6 76.2 L 363 71.3 L 376.5 68 L 389.9 88.3 L 403.4 93.3 L 416.8 66.6 L 430.3 59.1 L 443.7 90.1 L 457.1 111.5 L 470.6 125 L 484 146.4 L 497.5 143.9 L 510.9 130 L 524.4 82.6 L 537.8 100.1 L 551.3 117.9 L 564.7 109.3 L 578.2 100.1 L 591.6 85.1 L 605 83.4 L 618.5 79.1 L 631.9 71.3 L 645.4 71.3 L 658.8 69.1 L 672.3 72 L 685.7 98.3 L 699.2 82.3 L 712.6 64.5 L 726.1 83.7 L 739.5 87.6 L 752.9 101.5 L 766.4 124.3 L 779.8 90.5 L 793.3 91.9 L 806.7 107.2 L 820.2 111.5 L 833.6 115 L 847.1 105.4 L 860.5 101.9 L 873.9 103.7 L 887.4 107.6 L 900.8 107.9 L 914.3 103.3 L 927.7 90.5 L 941.2 84.1 L 954.6 79.1 L 968.1 89.1 L 981.5 85.1 L 995 66.3 L 1008.4 63.1 L 1021.8 73 L 1035.3 75.5 L 1048.7 79.1 L 1062.2 86.2 L 1075.6 105.4 L 1089.1 117.2 L 1102.5 115.8 L 1116 105.4 L 1129.4 88.3 L 1142.9 65.2 L 1156.3 62.7 L 1169.7 29.6 L 1183.2 33.9 L 1196.6 80.9 L 1210.1 80.2 L 1223.5 90.5 L 1237 89.1 L 1250.4 95.8 L 1263.9 105.4 L 1277.3 105.1 L 1290.8 102.6 L 1304.2 103.3 L 1317.6 108.3 L 1331.1 119.7 L 1344.5 114.7 L 1358 108.6 L 1371.4 125 L 1384.9 126.4 L 1398.3 120.4 L 1411.8 137.5 L 1425.2 162 L 1438.7 152.8 L 1452.1 123.6 L 1465.5 112.6 L 1479 115 L 1492.4 133.6 L 1505.9 133.2 L 1519.3 140 L 1532.8 136.4 L 1546.2 135.7 L 1559.7 122.9 L 1573.1 145.7 L 1586.6 182 L 1600 224"/></svg></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL · 15/09/2026</span>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
     <div class="tag">Challenge FIAP 2026 com Locaweb</div>
   </div>
   <div class="body">
     <div class="hero">
       <div class="pil rv" style="--d:200ms">Inteligência preditiva para incidentes</div>
-      <div class="word"><i style="--d:380ms">C</i><i style="--d:400ms">r</i><i style="--d:460ms">o</i><i style="--d:520ms">n</i><i style="--d:580ms">o</i><i style="--d:640ms">s</i></div>
-      <div class="tag2 rv" style="--d:980ms">Veja antes. <em>Aja antes.</em></div>
+      <div class="word"><i style="--d:380ms">C</i><i style="--d:440ms">r</i><i style="--d:500ms">o</i><i style="--d:560ms">n</i><i style="--d:620ms">o</i><i style="--d:680ms">s</i></div>
+      <div class="tag2 rv" style="--d:1040ms"><b>Veja antes.</b> Aja antes.</div>
+      <p class="sub rv" style="--d:1400ms">Lê o histórico de incidentes da Locaweb e avisa antes do KPI estourar.</p>
     </div>
-    <div class="regua rv" style="--d:1700ms"><span><b>Super Data Bros</b> &middot; Turma 2TSCOA</span><span>Challenge FIAP 2026 com Locaweb</span></div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
 </section>

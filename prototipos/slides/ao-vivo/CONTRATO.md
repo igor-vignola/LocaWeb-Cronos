@@ -323,7 +323,7 @@ modelo por vez, o que a operação recebe, o resultado do ano e a arquitetura.
 
 | # | Slide | Quem | Outras versões |
 |---|---|---|---|
-| 1 | Capa | Igor | B a pegada escura da Sprint 2 |
+| 1 | Capa | Igor | B a mesma forma, no escuro |
 | 2 | Super Data Bros | Igor | — |
 | 3 | Cronos, o deus do tempo | Igor | — |
 | 4 | O prazo de cada incidente | Igor | — |
@@ -537,3 +537,11 @@ nunca existiu — o indicador do rodapé dizia "versão única" e foi assim que 
 percebeu. A B agora é a capa escura da Sprint 2, para ser escolha de verdade
 ao lado da A, que é clara. Lição: quando o pedido é "mantém o atual e cria uma
 versão B", promover a forma nova para A não cumpre o pedido.
+
+Em seguida ele apontou a capa da Sprint 2 e disse que a **A** é que deveria
+ter aquela forma, e mandou tirar a régua do pé com "Super Data Bros · Turma
+2TSCOA" e "Challenge FIAP 2026 com Locaweb". A A passou a ser: borrões azuis
+sobre o branco, rótulo de vidro em versalete, a marca em 220px letra por
+letra, a tagline com a primeira metade preta e a segunda cinza, e a linha de
+apoio. Sem créditos, sem régua e sem o fio da série, que a referência não tem
+e que continua na B.

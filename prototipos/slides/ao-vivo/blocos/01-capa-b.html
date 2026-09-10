@@ -17,9 +17,10 @@
    O fio de fundo é a série real de incidentes elegíveis de 2025, a mesma da
    composição A. A textura do slide é dado, não enfeite.
 
-   O keyframe `cap-letra` é o da composição A e está no arquivo 01-capa.html:
-   nome de keyframe é global no deck montado, então aqui ele é reaproveitado
-   em vez de duplicado com outro nome.
+   `cap-letra` vem de 01-capa.html, que também anima a marca letra por letra:
+   nome de keyframe é global no deck montado, e reaproveitar é melhor do que
+   duplicar com outro nome. Já `cap-traca` é definido aqui, porque a A parou
+   de usar o traçado da série quando adotou a forma da Sprint 2.
    ══════════════════════════════════════════════════════════════════════════ */
 .cpb{overflow:hidden}
 .cpb::before,.cpb::after{content:"";position:absolute;border-radius:50%;
@@ -36,6 +37,9 @@
 .cpb .serie path{fill:none;stroke:#60A5FA;stroke-width:2.5;opacity:.22;
   stroke-dasharray:1000;stroke-dashoffset:1000}
 .cpb.is-active .serie path{animation:cap-traca 3.2s var(--out) .5s forwards}
+/* a composição A deixou de desenhar a série quando adotou a forma da Sprint 2;
+   o keyframe passou a morar aqui, que é quem o usa. */
+@keyframes cap-traca{to{stroke-dashoffset:0}}
 
 .cpb .body{padding:14px 64px 84px;align-items:stretch;justify-content:flex-start}
 .cpb .hero{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;
