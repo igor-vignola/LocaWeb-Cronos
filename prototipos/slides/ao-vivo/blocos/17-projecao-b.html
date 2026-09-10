@@ -1,0 +1,165 @@
+<style>
+/* ═══ slide 17 · variação B · o tubo que enche até o limite ═══════════════════
+   A composição anterior usava o trilho horizontal do Django e não comunicava:
+   duas barras pretas do mesmo comprimento, em escalas diferentes, sem eixo.
+
+   Aqui a metáfora é física e resolve sozinha: um tubo por prioridade, o limite
+   do ano é uma linha atravessada, e a coluna enche em duas partes — o que já
+   aconteceu até 1º de outubro, em cor cheia, e o que o modelo diz que ainda
+   entra até dezembro, em cor vazada. Se a coluna passa da linha, o ano estoura.
+   Não precisa de eixo: a linha é a régua.
+
+   A faixa de incerteza é o retângulo claro em volta do topo. O realizado entra
+   por último, como um traço fino, e só depois do selo: primeiro a sala vê a
+   chamada, depois vê que ela estava certa.
+
+   A classe é `.prt` e não `.prj`: o bloco 17-projecao.html já ocupa `.prj`, e
+   como o _montar.py junta o CSS de todos os blocos num arquivo só, duas
+   folhas com o mesmo prefixo se sobrescrevem.
+
+   Escalas escolhidas para o limite cair mais ou menos na mesma altura nos dois
+   tubos, senão a comparação visual mente: P2 de 0 a 55 e P3 de 0 a 290.
+
+   Números de data/app/06_projecao.parquet, posição de 2025-10-01:
+     P2  já 33 · projeção 43 · faixa 38 a 49 · limite 39 · fechou em 42
+     P3  já 145 · projeção 208 · faixa 191 a 225 · limite 263 · fechou em 196
+   Posições em porcentagem da altura do tubo:
+     P2  já 60,0 · baixo 69,5 · projeção 79,1 · alto 88,5 · limite 70,9 · real 76,4
+     P3  já 50,0 · baixo 65,7 · projeção 71,7 · alto 77,7 · limite 90,7 · real 67,6
+   ══════════════════════════════════════════════════════════════════════════ */
+.prt .body{padding-top:14px}
+.prt .tt{font-size:52px;letter-spacing:-1.9px}
+.prt .cena{flex:1;display:flex;align-items:center;justify-content:center;gap:72px;
+  margin-top:10px;min-height:0}
+
+.prt .col{flex:1;max-width:430px;display:flex;flex-direction:column}
+/* o rótulo do limite vai à direita e o do realizado à esquerda: os dois caem
+   quase na mesma altura no P2 e se sobreporiam no mesmo lado */
+.prt .cab{display:flex;align-items:baseline;gap:12px}
+.prt .cab b{font-size:30px;font-weight:900;letter-spacing:-1px;color:var(--head)}
+.prt .cab span{font-size:15px;color:var(--tx2)}
+
+/* o tubo */
+.prt .tubo{position:relative;height:322px;margin-top:22px;border-radius:16px;
+  background:#EEF2F8;border:1px solid var(--line)}
+
+/* a coluna: parte cheia é o realizado até o corte, parte vazada é o que entra */
+.prt .ja,.prt .entra{position:absolute;left:0;right:0;bottom:0;border-radius:0 0 15px 15px;
+  transform:scaleY(0);transform-origin:bottom}
+.prt .ja{z-index:2}
+.prt .entra{z-index:1;border-radius:14px 14px 15px 15px}
+.prt.is-active .ja{animation:enche .9s var(--out) var(--d,0ms) forwards}
+.prt.is-active .entra{animation:enche 1s var(--out) var(--d,0ms) forwards}
+@keyframes enche{to{transform:scaleY(1)}}
+.prt .fora .ja{background:var(--bad)}
+.prt .fora .entra{background:repeating-linear-gradient(-45deg,#F7C9C9 0 6px,#FBE0E0 6px 12px)}
+.prt .dentro .ja{background:var(--good)}
+.prt .dentro .entra{background:repeating-linear-gradient(-45deg,#BFE6D0 0 6px,#DDF2E7 6px 12px)}
+
+/* a faixa da projeção */
+.prt .faixa{position:absolute;left:0;right:0;z-index:3;background:rgba(11,18,32,.07);
+  border-top:1px dashed rgba(11,18,32,.22);border-bottom:1px dashed rgba(11,18,32,.22);
+  opacity:0}
+.prt.is-active .faixa{animation:rv .5s var(--out) var(--d,0ms) forwards}
+
+/* o limite do ano, atravessado */
+.prt .lim{position:absolute;left:-14px;right:-14px;height:3px;background:var(--head);
+  border-radius:3px;z-index:5;transform:scaleX(0);transform-origin:left}
+.prt.is-active .lim{animation:corre .7s var(--out) var(--d,0ms) forwards}
+.prt .lim em{position:absolute;right:0;bottom:11px;font-style:normal;font-size:13px;
+  font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--head);
+  white-space:nowrap}
+
+/* o veredito e o realizado, na mesma tira sob o tubo. O realizado é dado de
+   depois do corte: só existe no slide, nunca na tela do sistema. */
+.prt .fim{display:flex;align-items:center;gap:18px;margin-top:20px}
+.prt .real{font-size:14.5px;color:var(--tx2)}
+.prt .real b{color:var(--head);font-weight:800;font-variant-numeric:tabular-nums}
+
+/* os rótulos dentro do tubo */
+.prt .mk{position:absolute;left:18px;z-index:4;font-size:13px;line-height:1.3;
+  color:rgba(255,255,255,.82);opacity:0}
+.prt .mk.escuro{color:var(--head)}
+.prt .mk b{display:block;font-size:22px;font-weight:900;letter-spacing:-.6px;color:#fff}
+.prt .mk.escuro{color:var(--tx2)}
+.prt .mk.escuro b{color:var(--head)}
+.prt.is-active .mk{animation:rv .5s var(--out) var(--d,0ms) forwards}
+
+.prt .sel{display:inline-flex;align-items:center;gap:9px;flex-shrink:0;
+  font-size:15px;font-weight:700;border-radius:999px;padding:10px 20px}
+.prt .sel svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}
+.prt .fora .sel{color:#B42222;background:#FCECEC;border:1px solid #F6CFCF}
+.prt .dentro .sel{color:#12794A;background:#E7F6EE;border:1px solid #C7E9D7}
+
+.prt .legenda{display:flex;align-items:center;gap:26px;margin-top:auto;padding-top:18px;
+  border-top:1px solid #DCE4EF;font-size:14.5px;color:var(--tx2)}
+.prt .legenda i{display:inline-block;width:22px;height:11px;border-radius:3px;
+  margin-right:9px;vertical-align:-1px}
+.prt .legenda .c1{background:#9AA6B6}
+.prt .legenda .c2{background:repeating-linear-gradient(-45deg,#C9D3E1 0 5px,#E7ECF3 5px 10px)}
+.prt .legenda .c3{background:var(--head);height:3px;border-radius:3px}
+.prt .legenda .dir{margin-left:auto;color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light prt" data-slide="17" data-var="b" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Projeção feita em 1º de outubro de 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Três meses antes da apuração</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>A meta do ano vai fechar?</span></span></h1>
+
+    <div class="cena">
+      <div class="col fora">
+        <div class="cab rv" style="--d:660ms"><b>P2</b><span>Alta &middot; limite de 39 no ano</span></div>
+        <div class="tubo">
+          <div class="entra" style="height:79.1%;--d:1080ms"></div>
+          <div class="ja" style="height:60%;--d:860ms"></div>
+          <div class="faixa" style="bottom:69.5%;height:19%;--d:1400ms"></div>
+          <div class="lim" style="bottom:70.9%;--d:1600ms"><em>Limite &middot; 39</em></div>
+          <div class="mk escuro" style="bottom:80.5%;--d:1500ms"><b>43</b>projeção do ano</div>
+          <div class="mk" style="bottom:34%;--d:1000ms"><b>33</b>já aconteceu até 1º/10</div>
+          <!-- o realizado saiu para a tira de baixo: 42 -->
+        </div>
+        <div class="fim">
+          <span class="sel rv" style="--d:1900ms">
+            <svg viewBox="0 0 24 24"><path d="M12 3.4 2.4 20.2h19.2L12 3.4Z" stroke-linejoin="round"/><path d="M12 9.6v4.4"/><path d="M12 17.2h.01"/></svg>
+            Passa do limite
+          </span>
+          <span class="real rv" style="--d:2300ms">O ano fechou em <b>42</b></span>
+        </div>
+      </div>
+
+      <div class="col dentro">
+        <div class="cab rv" style="--d:740ms"><b>P3</b><span>Média &middot; limite de 263 no ano</span></div>
+        <div class="tubo">
+          <div class="entra" style="height:71.7%;--d:1160ms"></div>
+          <div class="ja" style="height:50%;--d:940ms"></div>
+          <div class="faixa" style="bottom:65.7%;height:12%;--d:1480ms"></div>
+          <div class="lim" style="bottom:90.7%;--d:1680ms"><em>Limite &middot; 263</em></div>
+          <div class="mk escuro" style="bottom:73%;--d:1580ms"><b>208</b>projeção do ano</div>
+          <div class="mk" style="bottom:26%;--d:1080ms"><b>145</b>já aconteceu até 1º/10</div>
+          <!-- o realizado saiu para a tira de baixo: 196 -->
+        </div>
+        <div class="fim">
+          <span class="sel rv" style="--d:1980ms">
+            <svg viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+            Fecha dentro
+          </span>
+          <span class="real rv" style="--d:2380ms">O ano fechou em <b>196</b></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="legenda rv" style="--d:2560ms">
+      <span><i class="c1"></i>o que já tinha acontecido</span>
+      <span><i class="c2"></i>o que o modelo diz que ainda entra</span>
+      <span><i class="c3"></i>limite do ano</span>
+      <span class="dir">As duas chamadas certas, três meses antes da apuração.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>
