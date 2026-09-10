@@ -1,5 +1,5 @@
 <style>
-/* ═══ slide 19 · explicabilidade ══════════════════════════════════════════════
+/* ═══ slide 21 · explicabilidade ══════════════════════════════════════════════
    O quarto desafio analítico da Locaweb chama-se Explicabilidade e faz duas
    perguntas nominais: "quais fatores mais influenciam o aumento de incidentes?"
    e "onde estão os principais riscos operacionais?". As duas estavam
@@ -29,11 +29,13 @@
 .exp .tt{font-size:48px;letter-spacing:-1.75px}
 .exp .sub{font-size:17px;line-height:1.45;color:var(--tx);margin-top:10px}
 .exp .sub b{color:var(--head);font-weight:700}
+/* stretch e não center: com alturas diferentes os dois painéis começavam em
+   linhas diferentes, e o olho lê como se um fosse mais importante */
 .exp .cena{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0 30px;
-  align-items:center;margin-top:18px;min-height:0}
+  align-items:stretch;align-content:center;margin-top:18px;min-height:0}
 
 .exp .painel{background:#fff;border:1px solid var(--line);border-radius:20px;
-  padding:24px 28px 26px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5)}
+  padding:24px 28px 26px;display:flex;flex-direction:column;box-shadow:0 18px 46px -38px rgba(15,23,42,.5)}
 .exp .painel h2{font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
 .exp .painel .un{font-size:12.5px;color:var(--tx2);margin-top:5px}
 
@@ -81,12 +83,12 @@
 .exp .fecho b{color:var(--head);font-weight:700}
 </style>
 
-<section class="slide light exp" data-slide="19" data-var="a" data-quem="ana">
+<section class="slide light exp" data-slide="21" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
     <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Exigência do desafio &middot; explicabilidade</div>
+    <div class="tag">Seção 04 &middot; explicabilidade</div>
   </div>
   <div class="body">
     <span class="eb"><span class="rv" style="--d:240ms">Por que o modelo diz o que diz</span></span>

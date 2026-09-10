@@ -314,9 +314,11 @@ do núcleo: análise exploratória, modelagem e a solução em produção. Desen
 não no `h1`: com `background-clip` no pai o texto do filho herda
 `color:transparent` e o título some.
 
-**7.9 Estrutura final, 28 slides.**
+**7.9 Estrutura final, 32 slides.**
 
-Seis seções, cada uma abrindo por divisória no mesmo desenho.
+Sete seções, cada uma abrindo por divisória no mesmo desenho. A ordem segue o
+percurso do trabalho: o problema, o que o dado mostrou, os padrões, cada
+modelo por vez, o que a operação recebe, o resultado do ano e a arquitetura.
 
 | # | Slide | Quem | Outras versões |
 |---|---|---|---|
@@ -324,41 +326,44 @@ Seis seções, cada uma abrindo por divisória no mesmo desenho.
 | 2 | Super Data Bros | Igor | — |
 | 3 | Cronos, o deus do tempo | Igor | — |
 | 4 | O prazo de cada incidente | Igor | — |
-| 5 | Quantidade de quebras em 2025 | Igor | B três degraus, sem curva |
+| 5 | Quantidade de quebras em 2025 | Igor | — |
 | 6 | A fila não atende na ordem em que o prazo estoura | Igor | — |
 | 7 | **Seção 01 · Análise Exploratória** | Igor | — |
 | 8 | O salto de setembro | Ana | — |
 | 9 | Por que treinamos só em 2025 | Ana | — |
-| 10 | Quem abre, e quando | Ana | B os dois multiplicadores, C a A sobre cartões |
-| 11 | O mesmo ativo quebra de novo | Ana | — |
-| 12 | Participação do código de fechamento Outro | Ana | — |
-| 13 | O alvo é raro | Ana | — |
-| 14 | **Seção 02 · Previsão de Volume** | Ana | — |
-| 15 | Os próximos sete dias | Ana | — |
-| 16 | Comparação do erro com os baselines | Ana | — |
-| 17 | **Seção 03 · Risco de OLA** | Ana | — |
-| 18 | A fila de risco | Ana | — |
-| 19 | **Seção 04 · Projeção da meta e saúde** | Ana | — |
-| 20 | A meta do ano vai fechar? | Ana | B legenda, C quatro passos, D a meta em cartão |
-| 21 | Onde agir primeiro | Hygor | — |
+| 10 | Quem abre, e quando | Ana | — |
+| 11 | O alvo é raro | Ana | — |
+| 12 | **Seção 02 · Padrões e causas** | Ana | — |
+| 13 | O mesmo ativo quebra de novo | Ana | — |
+| 14 | Participação do código de fechamento Outro | Ana | — |
+| 15 | O que mais aparece não é o que mais estoura | Ana | — |
+| 16 | **Seção 03 · Previsão de Volume** | Ana | — |
+| 17 | Os próximos sete dias | Ana | — |
+| 18 | Comparação do erro com os baselines | Ana | — |
+| 19 | **Seção 04 · Risco de OLA** | Ana | — |
+| 20 | A fila de risco | Ana | — |
+| 21 | Quais fatores mais influenciam (explicabilidade) | Ana | — |
 | 22 | **Seção 05 · Morning Brief** | Hygor | — |
 | 23 | Morning Brief | Hygor | — |
-| 24 | **Seção 06 · Arquitetura da solução** | Hygor | — |
-| 25 | Como o Cronos antecipa o resultado do ano | Hygor | — |
-| 26 | Como isso roda | Hygor | B arquitetura da planilha ao painel |
-| 27 | Aplicação web Cronos · **demonstração** | Hygor | B baralho de telas, C a chamada ao vivo |
-| 28 | Obrigado | Igor | — |
+| 24 | **Seção 06 · Projeção da meta e saúde** | Hygor | — |
+| 25 | A meta do ano vai fechar? | Hygor | B legenda, C quatro passos, D a meta em cartão |
+| 26 | Onde agir primeiro | Hygor | — |
+| 27 | **Seção 07 · Arquitetura da solução** | Hygor | — |
+| 28 | Como o Cronos antecipa o resultado do ano | Hygor | B a arquitetura de ponta a ponta, em cinco estágios |
+| 29 | Como isso roda | Hygor | B da planilha ao painel do gestor |
+| 30 | Aplicação web Cronos · **demonstração** | Hygor | B baralho de telas, C a chamada ao vivo |
+| 31 | O que aprendemos e o que falta | Igor | — |
+| 32 | Obrigado | Igor | — |
 
-Três trocas de voz: 7→8, 20→21 e 27→28.
+Três trocas de voz: 7→8, 21→22 e 30→31.
 
-**7.10 Um assunto por slide, e cada entrega no seu lugar.** Previsão de volume
-e risco de OLA têm divisória própria e são apresentados um de cada vez. A
-previsão ocupa dois slides: a semana prevista contra o que chegou, e o erro
-por horizonte contra os baselines. A projeção da meta e a nota de saúde
-dividem a seção 04, porque saem da mesma leitura. O Morning Brief abre a sua
-própria seção, porque é entrega prometida e não detalhe de tela. A arquitetura
-vem por último, antes da demonstração, e a seção se chama arquitetura e não
-aplicação: "aplicação" é o nome do slide 27 e não diz nada sobre estrutura.
+**7.10 Cada exigência do briefing tem endereço.** O documento da Locaweb lista
+quatro desafios analíticos e o deck responde cada um em slide com nome:
+sazonalidade e recorrência na seção 01, agrupar causas recorrentes e
+agrupamentos críticos na 02, previsão de volume na 03, risco de OLA na 04 e
+**explicabilidade no slide 21**, que responde as duas perguntas nominais da
+página 9. O bloco 7 do template da FIAP, conclusão e próximos passos, é o
+slide 31.
 
 **7.11 As variações vêm do deck da Sprint 3.** O dono do projeto trabalha com o
 `.pptx` da Sprint 4 como referência, mas considera acabado o da **Sprint 3**.
@@ -448,3 +453,22 @@ Intervenção". Em setembro de 2025 entraram 897 dos 20.008 registros de
 monitoramento, contra 1.427 dos 1.553 manuais. Na base elegível de 2025 são
 9.485 de monitoramento e 15.671 manuais. Os slides 8 e 10 não se contradizem,
 e a resposta está no banco de perguntas.
+
+**7.25 A Claude API não está implementada.** A regra 8 do `CLAUDE.md` previa
+gerar o texto do resumo com modelo de linguagem. Isso não foi feito: não há
+SDK da Anthropic em `webapp/requirements.txt` e a frase sai de uma f-string em
+`webapp/painel/views.py:115`. O deck da Sprint 4 já tratava a geração de
+linguagem como próximo passo. Nenhum slide pode afirmar o contrário, porque a
+demonstração ao vivo abre justamente a tela dessa frase.
+
+**7.26 Desempate de baseline nunca usa a ordem do arquivo.** O parquet da fila
+é gravado na ordem do modelo. Ordenar por uma regra simples com muitos empates
+e deixar o pandas desfazê-los na ordem original faz a regra herdar a
+inteligência do modelo: a do ativo crônico saltava de 0 para 9 nas 50
+primeiras posições. Desempate sempre por `incidente`, que é o que o
+`_figuras_fila.py` faz.
+
+**7.27 Antes de dizer que está pronto, olhar o slide sozinho.** A folha de
+contato tem 700px por slide e esconde defeito de alinhamento, rótulo colado e
+proporção errada. O `_verifica.py` grava `_png/NNv.png` de cada composição em
+1600x900: é esse arquivo que se olha antes de entregar, não a folha.

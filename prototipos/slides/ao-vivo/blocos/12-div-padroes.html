@@ -1,0 +1,86 @@
+<!-- ───────────────────────────────────────────────────────────────────────────
+     slide 12 · divisória de padrões e causas
+     Cópia do d29a do deck da Sprint 3. Abre a seção que responde a duas
+     exigências nominais do briefing da Locaweb: agrupar causas recorrentes e
+     identificar padrões de incidentes críticos. Sem ela, os três slides que
+     vêm em seguida ficam soltos no meio da análise exploratória.
+
+     O painel traz a composição das causas, com a conta que faz o ponto da
+     seção: as três maiores respondem por 79% do volume, e nenhuma delas é a
+     que mais estoura.
+
+     Números de data/interim/05_causas.parquet e da base elegível de jan a set
+     de 2025, 19.973 incidentes e 188 violações:
+       Falha de Aplicação 60,3% · Falha de Sistema Operacional 11,0% ·
+       Outro 8,0% · Falha causada pelo cliente 4,8% · Falha não reproduzida 4,5%
+       16 causas no total; as três maiores somam 79,3% do volume
+     ─────────────────────────────────────────────────────────────────────── -->
+<style>
+/* a composição das causas: barras finas numa escala de 0 a 60,3% */
+.dv3 .comp{margin-top:16px;display:flex;flex-direction:column;gap:9px}
+.dv3 .comp .l{display:grid;grid-template-columns:1fr 132px 44px;align-items:center;gap:12px;
+  opacity:0;transform:translate3d(-8px,0,0)}
+.dv3.is-active .comp .l{animation:rv .45s var(--out) var(--d,0ms) forwards}
+.dv3 .comp .nm{font-size:13px;color:#8E97A8;text-align:right}
+.dv3 .comp .tr{height:9px;border-radius:5px;background:rgba(255,255,255,.08);overflow:hidden}
+.dv3 .comp .tr i{display:block;height:100%;border-radius:5px;background:#5B7FB9;
+  transform:scaleX(0);transform-origin:left}
+.dv3.is-active .comp .tr i{animation:corre .55s var(--out) var(--d,0ms) forwards}
+.dv3 .comp .l.top .nm{color:#E8ECF3;font-weight:600}
+.dv3 .comp .l.top .tr i{background:#3B82F6}
+.dv3 .comp .vl{font-size:12.5px;color:#8E97A8;text-align:right;font-variant-numeric:tabular-nums}
+.dv3 .comp .l.top .vl{color:#E8ECF3;font-weight:700}
+.dv3 .soma{display:flex;justify-content:space-between;gap:20px;margin-top:14px;padding-top:12px;
+  border-top:1px solid rgba(255,255,255,.09);font-size:12px;color:#5B647A}
+.dv3 .soma b{color:#93C5FD;font-weight:700}
+</style>
+
+<section class="slide dark dv3" data-slide="12" data-var="a" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Seção 02 &middot; Padrões</div>
+  </div>
+  <div class="body">
+    <div class="lft">
+      <span class="eb"><span class="rv" style="--d:220ms">Seção 02 &middot; Padrões</span></span>
+      <h1 class="tt">
+        <span class="mask" style="--d:340ms"><span>Causas e</span></span>
+        <span class="mask" style="--d:450ms"><span>o que <span class="hl">repete</span></span></span>
+      </h1>
+      <p class="lead rv" style="--d:820ms">Quais causas geram os incidentes, quais problemas se repetem, e o que diferencia o incidente que estoura o prazo do que é resolvido em tempo.</p>
+      <div class="q rv" style="--d:1900ms">
+        <span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
+        <span>A pergunta desta seção: <b>o que a operação já conhece?</b></span>
+      </div>
+    </div>
+    <div class="pv rv3" style="--d:900ms">
+      <div class="pvh"><span class="dot"></span>Composição das causas &middot; 19.973 incidentes</div>
+      <div class="pvgrid">
+        <div class="pc rv" style="--d:1160ms">
+          <div class="pl">Causas catalogadas</div>
+          <div class="pn"><span class="ct" data-to="16" data-delay="1260">0</span></div>
+          <div class="ps">códigos de fechamento distintos</div>
+        </div>
+        <div class="pc rv" style="--d:1280ms">
+          <div class="pl">As três maiores somam</div>
+          <div class="pn"><span class="ct" data-to="79" data-delay="1380">0</span><span class="u">%</span></div>
+          <div class="ps">do volume, e nenhuma é a que mais estoura</div>
+        </div>
+        <div class="pc wide rv" style="--d:1400ms">
+          <div class="pl">Participação de cada causa no volume</div>
+          <div class="comp">
+            <div class="l top" style="--d:1520ms"><span class="nm">Falha de Aplicação</span><div class="tr"><i style="width:100%;--d:1560ms"></i></div><span class="vl">60,3%</span></div>
+            <div class="l top" style="--d:1580ms"><span class="nm">Falha de Sistema Operacional</span><div class="tr"><i style="width:18%;--d:1620ms"></i></div><span class="vl">11,0%</span></div>
+            <div class="l top" style="--d:1640ms"><span class="nm">Outro</span><div class="tr"><i style="width:13%;--d:1680ms"></i></div><span class="vl">8,0%</span></div>
+            <div class="l" style="--d:1700ms"><span class="nm">Falha causada pelo cliente</span><div class="tr"><i style="width:8%;--d:1740ms"></i></div><span class="vl">4,8%</span></div>
+            <div class="l" style="--d:1760ms"><span class="nm">Falha não reproduzida</span><div class="tr"><i style="width:7%;--d:1800ms"></i></div><span class="vl">4,5%</span></div>
+          </div>
+          <div class="soma"><span>escala de 0 a 60,3%</span><span>as três maiores somam <b>79%</b> do volume</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Duas exigências do desafio nesta seção &middot; agrupar causas recorrentes e identificar padrões de incidentes críticos</span></div>
+</section>
