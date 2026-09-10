@@ -1,0 +1,141 @@
+<style>
+/* ═══ slide 15 · variação B · a fila com o painel de leitura ══════════════════
+   A forma do deck da Sprint 3, que o dono do projeto marcou pedindo mais
+   clareza: a curva à esquerda e, à direita, três cartões que dizem em números
+   o que a curva mostra em traço. Quem não lê gráfico sai com o mesmo recado.
+
+   O painel tem três degraus, do mais direto ao mais completo:
+     1. o número que se fala em voz alta: 13 quebras nas 50 primeiras posições
+     2. a mesma fila em três ordenações, em barra, para comparar de relance
+     3. o ganho em cada tamanho de fila, para quem quiser a tabela
+
+   Todos os números recomputados de data/interim/04_fila_pontuada.parquet,
+   5.183 incidentes avaliados fora do período de treino, 50 quebras:
+
+     percorrendo   modelo   melhor regra simples   por prioridade   sem ordenar
+             50      13         9 (ativo crônico)         0             0,5
+            100      16        11 (ativo crônico)         1             1,0
+            400      27        18 (taxa do time)          2             3,9
+          1.000      38        32 (taxa do time)          6             9,6
+
+   A regra simples da tabela é sempre a melhor das quatro naquele ponto, o que
+   é o teste honesto: o modelo ganha do melhor concorrente, não da média deles.
+   ══════════════════════════════════════════════════════════════════════════ */
+.flb .body{padding-top:14px}
+.flb .tt{font-size:48px;letter-spacing:-1.75px}
+.flb .tt em{font-style:normal;color:var(--accent)}
+.flb .cena{flex:1;display:flex;align-items:stretch;gap:26px;margin-top:14px;min-height:0}
+.flb .quadro{flex:1;min-width:0;display:flex;align-items:center;padding:16px 20px}
+.flb .fig{display:block;width:100%}
+
+.flb .rail{width:390px;flex-shrink:0;display:flex;flex-direction:column;gap:16px}
+
+/* 1 · o número que se fala */
+.flb .topo{background:var(--ink);border-radius:18px;padding:24px 26px;color:#fff;
+  box-shadow:0 30px 62px -38px rgba(10,14,23,.6)}
+.flb .topo .k{font-size:11px;font-weight:700;letter-spacing:2.1px;text-transform:uppercase;
+  color:#8B96A8}
+.flb .topo .v{font-size:62px;font-weight:900;letter-spacing:-2.8px;line-height:.9;
+  margin-top:12px;font-variant-numeric:tabular-nums}
+.flb .topo .v em{font-style:normal;font-size:.36em;letter-spacing:-.6px;color:#8B96A8;
+  margin-left:8px}
+
+/* 2 · a mesma fila em três ordenações */
+.flb .cx{flex:1;min-height:0;background:#fff;border:1px solid var(--line);border-radius:18px;
+  padding:20px 24px;box-shadow:0 16px 40px -34px rgba(15,23,42,.45);
+  display:flex;flex-direction:column;justify-content:center}
+.flb .cx .k{font-size:11px;font-weight:700;letter-spacing:2.1px;text-transform:uppercase;
+  color:var(--tx2)}
+.flb .ord{display:grid;grid-template-columns:132px 1fr 26px;align-items:center;gap:11px;
+  margin-top:14px}
+.flb .ord + .ord{margin-top:11px}
+.flb .ord span{font-size:14.5px;color:var(--tx)}
+.flb .ord .tr{height:11px;border-radius:6px;background:#EDF1F7;overflow:hidden}
+.flb .ord .tr i{display:block;height:100%;border-radius:6px;transform:scaleX(0);
+  transform-origin:left}
+.flb.is-active .ord .tr i{animation:corre .7s var(--out) var(--d,0ms) forwards}
+.flb .ord b{font-size:17px;font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+.flb .ord.mod span{color:var(--head);font-weight:700}
+.flb .ord.mod .tr i{background:var(--accent)} .flb .ord.mod b{color:var(--accent)}
+.flb .ord.reg .tr i{background:#9AA6B6}        .flb .ord.reg b{color:var(--tx)}
+.flb .ord.pri .tr i{background:var(--bad)}      .flb .ord.pri b{color:var(--bad)}
+
+/* 3 · a tabela do ganho */
+.flb .tab{width:100%;border-collapse:collapse;margin-top:12px}
+.flb .tab th{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--tx2);text-align:right;padding:0 0 9px;border-bottom:1px solid #E4EAF3}
+.flb .tab th:first-child{text-align:left}
+.flb .tab td{font-size:14.5px;padding:9px 0;border-bottom:1px solid #F0F3F8;text-align:right;
+  font-variant-numeric:tabular-nums;color:var(--tx)}
+.flb .tab td:first-child{text-align:left;color:var(--head)}
+.flb .tab tr:last-child td{border-bottom:none}
+.flb .tab .m{color:var(--accent);font-weight:800}
+.flb .tab .g{color:var(--good);font-weight:700}
+
+.flb .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
+  border-top:1px solid #DCE4EF;font-size:16px;line-height:1.45;color:var(--tx)}
+.flb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.flb .fecho b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light flb" data-slide="15" data-var="b" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Avaliação fora do período de treino</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Regressão logística &middot; contra as regras simples</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quebras encontradas por tamanho da fila percorrida</span></span></h1>
+
+    <div class="cena">
+      <div class="quadro cartao rv3" style="--d:620ms">
+        <img class="fig" src="../figs/07_fila_regras.png" alt="Quebras de prazo encontradas conforme a fila avanca, comparando a fila do modelo com quatro ordenacoes simples">
+      </div>
+
+      <div class="rail">
+        <div class="topo rv3" style="--d:860ms">
+          <div class="k">Nos 50 primeiros da fila</div>
+          <div class="v"><span class="ct" data-to="13" data-delay="1000">0</span><em>de 50 quebras</em></div>
+        </div>
+
+        <div class="cx rv3" style="--d:1000ms">
+          <div class="k">A mesma fila, ordenada de outro jeito</div>
+          <div class="ord mod">
+            <span>Modelo de risco</span>
+            <div class="tr"><i style="width:100%;--d:1220ms"></i></div>
+            <b>13</b>
+          </div>
+          <div class="ord reg">
+            <span>Melhor regra simples</span>
+            <div class="tr"><i style="width:69%;--d:1320ms"></i></div>
+            <b>9</b>
+          </div>
+          <div class="ord pri">
+            <span>Por prioridade</span>
+            <div class="tr"><i style="width:2%;--d:1420ms"></i></div>
+            <b>0</b>
+          </div>
+        </div>
+
+        <div class="cx rv3" style="--d:1160ms">
+          <div class="k">Ganho em cada tamanho de fila</div>
+          <table class="tab">
+            <tr><th>Percorrendo</th><th>Modelo</th><th>Melhor regra</th><th>Ganho</th></tr>
+            <tr><td>50 incidentes</td><td class="m">13</td><td>9</td><td class="g">+44%</td></tr>
+            <tr><td>100 incidentes</td><td class="m">16</td><td>11</td><td class="g">+45%</td></tr>
+            <tr><td>400 incidentes</td><td class="m">27</td><td>18</td><td class="g">+50%</td></tr>
+            <tr><td>1.000 incidentes</td><td class="m">38</td><td>32</td><td class="g">+19%</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:1700ms">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+      <span>A regra simples da tabela é sempre a <b>melhor</b> das quatro naquele ponto. A fila é uma só e cobre as duas prioridades; ordenar por prioridade, que é o método de hoje, não acha nenhuma nas 50 primeiras.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

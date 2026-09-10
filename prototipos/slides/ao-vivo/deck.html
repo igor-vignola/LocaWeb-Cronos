@@ -1316,6 +1316,85 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .rar .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .rar .fecho b{color:var(--head);font-weight:700}
 
+/* ───── 15-fila-b.html ───── */
+/* ═══ slide 15 · variação B · a fila com o painel de leitura ══════════════════
+   A forma do deck da Sprint 3, que o dono do projeto marcou pedindo mais
+   clareza: a curva à esquerda e, à direita, três cartões que dizem em números
+   o que a curva mostra em traço. Quem não lê gráfico sai com o mesmo recado.
+
+   O painel tem três degraus, do mais direto ao mais completo:
+     1. o número que se fala em voz alta: 13 quebras nas 50 primeiras posições
+     2. a mesma fila em três ordenações, em barra, para comparar de relance
+     3. o ganho em cada tamanho de fila, para quem quiser a tabela
+
+   Todos os números recomputados de data/interim/04_fila_pontuada.parquet,
+   5.183 incidentes avaliados fora do período de treino, 50 quebras:
+
+     percorrendo   modelo   melhor regra simples   por prioridade   sem ordenar
+             50      13         9 (ativo crônico)         0             0,5
+            100      16        11 (ativo crônico)         1             1,0
+            400      27        18 (taxa do time)          2             3,9
+          1.000      38        32 (taxa do time)          6             9,6
+
+   A regra simples da tabela é sempre a melhor das quatro naquele ponto, o que
+   é o teste honesto: o modelo ganha do melhor concorrente, não da média deles.
+   ══════════════════════════════════════════════════════════════════════════ */
+.flb .body{padding-top:14px}
+.flb .tt{font-size:48px;letter-spacing:-1.75px}
+.flb .tt em{font-style:normal;color:var(--accent)}
+.flb .cena{flex:1;display:flex;align-items:stretch;gap:26px;margin-top:14px;min-height:0}
+.flb .quadro{flex:1;min-width:0;display:flex;align-items:center;padding:16px 20px}
+.flb .fig{display:block;width:100%}
+
+.flb .rail{width:390px;flex-shrink:0;display:flex;flex-direction:column;gap:16px}
+
+/* 1 · o número que se fala */
+.flb .topo{background:var(--ink);border-radius:18px;padding:24px 26px;color:#fff;
+  box-shadow:0 30px 62px -38px rgba(10,14,23,.6)}
+.flb .topo .k{font-size:11px;font-weight:700;letter-spacing:2.1px;text-transform:uppercase;
+  color:#8B96A8}
+.flb .topo .v{font-size:62px;font-weight:900;letter-spacing:-2.8px;line-height:.9;
+  margin-top:12px;font-variant-numeric:tabular-nums}
+.flb .topo .v em{font-style:normal;font-size:.36em;letter-spacing:-.6px;color:#8B96A8;
+  margin-left:8px}
+
+/* 2 · a mesma fila em três ordenações */
+.flb .cx{flex:1;min-height:0;background:#fff;border:1px solid var(--line);border-radius:18px;
+  padding:20px 24px;box-shadow:0 16px 40px -34px rgba(15,23,42,.45);
+  display:flex;flex-direction:column;justify-content:center}
+.flb .cx .k{font-size:11px;font-weight:700;letter-spacing:2.1px;text-transform:uppercase;
+  color:var(--tx2)}
+.flb .ord{display:grid;grid-template-columns:132px 1fr 26px;align-items:center;gap:11px;
+  margin-top:14px}
+.flb .ord + .ord{margin-top:11px}
+.flb .ord span{font-size:14.5px;color:var(--tx)}
+.flb .ord .tr{height:11px;border-radius:6px;background:#EDF1F7;overflow:hidden}
+.flb .ord .tr i{display:block;height:100%;border-radius:6px;transform:scaleX(0);
+  transform-origin:left}
+.flb.is-active .ord .tr i{animation:corre .7s var(--out) var(--d,0ms) forwards}
+.flb .ord b{font-size:17px;font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+.flb .ord.mod span{color:var(--head);font-weight:700}
+.flb .ord.mod .tr i{background:var(--accent)} .flb .ord.mod b{color:var(--accent)}
+.flb .ord.reg .tr i{background:#9AA6B6}        .flb .ord.reg b{color:var(--tx)}
+.flb .ord.pri .tr i{background:var(--bad)}      .flb .ord.pri b{color:var(--bad)}
+
+/* 3 · a tabela do ganho */
+.flb .tab{width:100%;border-collapse:collapse;margin-top:12px}
+.flb .tab th{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--tx2);text-align:right;padding:0 0 9px;border-bottom:1px solid #E4EAF3}
+.flb .tab th:first-child{text-align:left}
+.flb .tab td{font-size:14.5px;padding:9px 0;border-bottom:1px solid #F0F3F8;text-align:right;
+  font-variant-numeric:tabular-nums;color:var(--tx)}
+.flb .tab td:first-child{text-align:left;color:var(--head)}
+.flb .tab tr:last-child td{border-bottom:none}
+.flb .tab .m{color:var(--accent);font-weight:800}
+.flb .tab .g{color:var(--good);font-weight:700}
+
+.flb .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
+  border-top:1px solid #DCE4EF;font-size:16px;line-height:1.45;color:var(--tx)}
+.flb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.flb .fecho b{color:var(--head);font-weight:700}
+
 /* ───── 15-fila.html ───── */
 /* ═══ slide 15 · a fila de risco ══════════════════════════════════════════════
    O slide da regressão logística, e ele responde de uma vez às duas perguntas
@@ -1634,6 +1713,84 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .sau .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .sau .fecho b{color:var(--head);font-weight:700}
 
+/* ───── 21-stack-b.html ───── */
+/* ═══ slide 21 · variação B · a arquitetura da planilha ao painel ═════════════
+   A forma que o dono do projeto marcou no deck da Sprint 3: o caminho inteiro
+   numa tela, da planilha que a Locaweb entregou até o gestor que abre o
+   painel, com a versão de cada peça escrita.
+
+   A variação A responde "onde isso roda" e cabe em vinte segundos. Esta
+   responde "com o quê", e é a que sustenta a pergunta de reprodutibilidade:
+   quem quiser rodar de novo tem aqui o que instalar e o que sai gravado.
+
+   A separação importa e está desenhada: os notebooks treinam e gravam; o
+   contêiner só lê. Nada de modelo roda dentro da aplicação.
+
+   Versões conferidas no ambiente do projeto em 09/09/2026, e tamanhos medidos
+   em data/app/: painel.json 85 kB, dias.json 24 kB, fila.parquet 241 kB.
+   ══════════════════════════════════════════════════════════════════════════ */
+.arq .body{padding-top:14px}
+.arq .tt{font-size:46px;letter-spacing:-1.7px}
+.arq .tt em{font-style:normal;color:var(--accent)}
+.arq .sub{font-size:17px;line-height:1.45;color:var(--tx);margin-top:11px}
+.arq .sub b{color:var(--head);font-weight:700}
+.arq .cena{flex:1;display:flex;align-items:center;gap:14px;margin-top:16px;min-height:0}
+
+.arq .gr{border:1px dashed #C9D5E6;border-radius:18px;padding:34px 18px 18px;position:relative;
+  display:flex;flex-direction:column;gap:12px;align-self:stretch;justify-content:center}
+.arq .gr > .rot{position:absolute;top:-10px;left:18px;font-size:10.5px;font-weight:700;
+  letter-spacing:1.9px;text-transform:uppercase;color:var(--tx2);background:#F5F8FC;
+  padding:2px 10px;border-radius:6px;border:1px solid #E2E9F3}
+.arq .g1{width:292px;flex-shrink:0}
+.arq .g2{width:206px;flex-shrink:0;border-style:solid;border-color:var(--line)}
+.arq .g3{width:266px;flex-shrink:0}
+.arq .g4{flex:1;min-width:0}
+.arq .g5{width:184px;flex-shrink:0;border:none;padding:0}
+
+.arq .bx{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px 15px;
+  box-shadow:0 10px 26px -24px rgba(15,23,42,.5)}
+.arq .bx .tp{display:flex;align-items:center;gap:9px;flex-wrap:wrap;row-gap:5px}
+.arq .bx .ic{width:24px;height:24px;border-radius:7px;background:var(--accent-l);
+  color:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.arq .bx .ic svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8}
+.arq .bx b{font-size:14px;font-weight:700;color:var(--head);letter-spacing:-.15px}
+.arq .bx .vs{font-family:var(--mono);font-size:10.5px;color:var(--tx2);margin-left:auto;
+  white-space:nowrap}
+.arq .bx p{font-size:12.5px;line-height:1.4;color:var(--tx2);margin-top:8px}
+.arq .bx p b{font-weight:700;color:var(--head);font-size:12.5px}
+
+/* os artefatos: o que os notebooks gravam e o contêiner lê */
+.arq .art{background:#F7FAFF;border-color:#D8E4F7}
+.arq .art .lst{margin-top:9px;display:flex;flex-direction:column;gap:5px}
+.arq .art .lst i{display:flex;justify-content:space-between;font-family:var(--mono);
+  font-size:11.5px;color:var(--tx2);font-style:normal}
+.arq .art .lst i b{color:var(--head);font-weight:500}
+
+/* as abas do Django, em endereço */
+.arq .urls{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.arq .urls i{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--accent);
+  background:var(--accent-l);border-radius:5px;padding:2px 7px}
+
+.arq .seta{flex-shrink:0;width:20px;display:flex;align-items:center;justify-content:center;
+  color:#B9C4D4}
+.arq .seta svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;
+  opacity:0;transform:translate3d(-6px,0,0)}
+.arq.is-active .seta svg{animation:rv .45s var(--out) var(--d,0ms) forwards}
+
+/* o destino, sem caixa: é uma pessoa, não um componente */
+.arq .g5 .pes{text-align:left}
+.arq .g5 .av{width:46px;height:46px;border-radius:13px;background:var(--ink);color:#fff;
+  display:flex;align-items:center;justify-content:center}
+.arq .g5 .av svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7}
+.arq .g5 b{display:block;font-size:17px;font-weight:800;color:var(--head);margin-top:14px;
+  letter-spacing:-.3px}
+.arq .g5 p{font-size:13.5px;line-height:1.45;color:var(--tx2);margin-top:7px}
+
+.arq .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:16px;
+  border-top:1px solid #DCE4EF;font-size:16px;line-height:1.45;color:var(--tx)}
+.arq .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.arq .fecho b{color:var(--head);font-weight:700}
+
 /* ───── 21-stack.html ───── */
 /* ═══ slide 21 · como isso roda ══════════════════════════════════════════════
    A stack, e ela precisa fazer dois argumentos que a banca vai testar: tudo
@@ -1898,6 +2055,51 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
 .lim .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .lim .fecho b{color:var(--head);font-weight:700}
+
+/* ───── 25-fecho-b.html ───── */
+/* ═══ slide 25 · variação B · agradecimento ═══════════════════════════════════
+   O fecho do deck da Sprint 3, que era estático no .pptx e aqui ganha
+   movimento: a palavra sobe por máscara, o traço corre sob ela, os três blocos
+   de crédito entram em sequência e a série de 2025 termina de se desenhar ao
+   fundo. É o último quadro que a banca vê, e ele fica na tela durante as
+   perguntas, então precisa aguentar dois minutos parado.
+
+   A variação A fecha com a marca. Esta fecha com o agradecimento, que é o que
+   o template da FIAP pede no bloco final e o que a Locaweb espera ouvir.
+
+   Nada aqui volta a falar do que foi testado e não se confirmou. Esse assunto
+   tem lugar no banco de perguntas, não na última tela.
+   ══════════════════════════════════════════════════════════════════════════ */
+.fmb .serie{position:absolute;left:0;right:0;bottom:0;height:360px;z-index:1;
+  pointer-events:none}
+.fmb .serie svg{width:100%;height:100%;display:block}
+.fmb .serie path{fill:none;stroke:var(--accent3);stroke-width:2.4;opacity:.12;
+  stroke-dasharray:1000;stroke-dashoffset:1000}
+.fmb.is-active .serie path{animation:cap-traca 3.4s var(--out) .6s forwards}
+
+.fmb .body{justify-content:center;padding:24px 64px 64px}
+.fmb .obg{font-size:150px;font-weight:900;letter-spacing:-6.6px;line-height:.92;color:#fff}
+.fmb .risco{width:0;height:6px;border-radius:6px;margin-top:22px;
+  background:linear-gradient(90deg,#60A5FA,rgba(96,165,250,0))}
+.fmb.is-active .risco{animation:corre2 1.1s var(--out) 900ms forwards}
+@keyframes corre2{to{width:420px}}
+.fmb .txt{font-size:22px;line-height:1.5;color:#98A2B3;margin-top:34px;max-width:62ch}
+.fmb .txt b{color:#E8ECF3;font-weight:700}
+
+/* o bloco inteiro centraliza e os créditos ficam a uma distância fixa: presos
+   no pé por margin-top:auto abriam 300px de vão no meio da tela */
+.fmb .cred{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:78px;
+  padding-top:28px;border-top:1px solid rgba(255,255,255,.12)}
+.fmb .cd{padding-right:36px}
+.fmb .cd + .cd{padding-left:36px;border-left:1px solid rgba(255,255,255,.1)}
+.fmb .cd b{display:block;font-size:11px;font-weight:700;letter-spacing:2.1px;
+  text-transform:uppercase;color:#5B647A}
+.fmb .cd span{display:block;font-size:18px;font-weight:700;color:#fff;margin-top:11px;
+  letter-spacing:-.25px;line-height:1.35}
+.fmb .cd em{display:block;font-style:normal;font-size:14.5px;color:#8B96A8;margin-top:6px;
+  line-height:1.45}
+.fmb .cd .url{font-family:var(--mono);font-size:14px;color:#8FB4F5;letter-spacing:-.2px;
+  word-break:break-all}
 
 /* ───── 25-fecho.html ───── */
 /* ═══ slide 25 · fecho ═══════════════════════════════════════════════════════
@@ -2979,6 +3181,68 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
 </section>
 
+<section class="slide light flb" data-slide="15" data-var="b" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Avaliação fora do período de treino</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Regressão logística &middot; contra as regras simples</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quebras encontradas por tamanho da fila percorrida</span></span></h1>
+
+    <div class="cena">
+      <div class="quadro cartao rv3" style="--d:620ms">
+        <img class="fig" src="figs/07_fila_regras.png" alt="Quebras de prazo encontradas conforme a fila avanca, comparando a fila do modelo com quatro ordenacoes simples">
+      </div>
+
+      <div class="rail">
+        <div class="topo rv3" style="--d:860ms">
+          <div class="k">Nos 50 primeiros da fila</div>
+          <div class="v"><span class="ct" data-to="13" data-delay="1000">0</span><em>de 50 quebras</em></div>
+        </div>
+
+        <div class="cx rv3" style="--d:1000ms">
+          <div class="k">A mesma fila, ordenada de outro jeito</div>
+          <div class="ord mod">
+            <span>Modelo de risco</span>
+            <div class="tr"><i style="width:100%;--d:1220ms"></i></div>
+            <b>13</b>
+          </div>
+          <div class="ord reg">
+            <span>Melhor regra simples</span>
+            <div class="tr"><i style="width:69%;--d:1320ms"></i></div>
+            <b>9</b>
+          </div>
+          <div class="ord pri">
+            <span>Por prioridade</span>
+            <div class="tr"><i style="width:2%;--d:1420ms"></i></div>
+            <b>0</b>
+          </div>
+        </div>
+
+        <div class="cx rv3" style="--d:1160ms">
+          <div class="k">Ganho em cada tamanho de fila</div>
+          <table class="tab">
+            <tr><th>Percorrendo</th><th>Modelo</th><th>Melhor regra</th><th>Ganho</th></tr>
+            <tr><td>50 incidentes</td><td class="m">13</td><td>9</td><td class="g">+44%</td></tr>
+            <tr><td>100 incidentes</td><td class="m">16</td><td>11</td><td class="g">+45%</td></tr>
+            <tr><td>400 incidentes</td><td class="m">27</td><td>18</td><td class="g">+50%</td></tr>
+            <tr><td>1.000 incidentes</td><td class="m">38</td><td>32</td><td class="g">+19%</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:1700ms">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+      <span>A regra simples da tabela é sempre a <b>melhor</b> das quatro naquele ponto. A fila é uma só e cobre as duas prioridades; ordenar por prioridade, que é o método de hoje, não acha nenhuma nas 50 primeiras.</span>
+    </div>
+  </div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
+</section>
+
 <section class="slide light prj" data-slide="16" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
@@ -3339,6 +3603,98 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
+<section class="slide light arq" data-slide="21" data-var="b" data-quem="hygor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Arquitetura da solução</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Como isso roda</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Da planilha ao painel do gestor</span></span></h1>
+    <p class="sub rv" style="--d:620ms">Os notebooks treinam e gravam. <b>O contêiner apenas lê</b>, e roda em qualquer infraestrutura.</p>
+
+    <div class="cena">
+      <div class="gr g1 rv3" style="--d:780ms">
+        <span class="rot">Fontes de dados</span>
+        <div class="bx">
+          <div class="tp"><span class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="3.4" width="16" height="17.2" rx="2.2"/><path d="M8 8.6h8M8 12.6h8M8 16.6h5"/></svg></span><b>LW-DATASET.xlsx</b><span class="vs">openpyxl 3.1.5</span></div>
+          <p><b>122.543</b> incidentes, 19 colunas</p>
+        </div>
+        <div class="bx">
+          <div class="tp"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3.4" y="5" width="17.2" height="15.6" rx="2.4"/><path d="M3.4 9.8h17.2M8 2.8v4M16 2.8v4"/></svg></span><b>holidays</b><span class="vs">0.97</span></div>
+          <p>feriado nacional, país BR &mdash; o dataset não traz</p>
+        </div>
+      </div>
+
+      <div class="seta" style="--d:900ms"><svg viewBox="0 0 24 24"><path d="M4 12h15M13.4 6.6 19.6 12l-6.2 5.4"/></svg></div>
+
+      <div class="gr g2 rv3" style="--d:940ms">
+        <span class="rot">Preparação</span>
+        <div class="bx">
+          <div class="tp"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16M7 12h10M10 17h4"/></svg></span><b>pandas</b><span class="vs">2.2.3</span></div>
+          <p>A regra <b>Entrou para KPI?</b> reduz a base a <b>25.600</b>. Monta dia da semana e feriado.</p>
+        </div>
+      </div>
+
+      <div class="seta" style="--d:1040ms"><svg viewBox="0 0 24 24"><path d="M4 12h15M13.4 6.6 19.6 12l-6.2 5.4"/></svg></div>
+
+      <div class="gr g3 rv3" style="--d:1080ms">
+        <span class="rot">Modelagem &middot; notebooks</span>
+        <div class="bx">
+          <div class="tp"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3.6 17.4 9 11.4l3.6 3 6.8-8.4"/><path d="M15.4 6h4.6v4.6"/></svg></span><b>Prophet</b><span class="vs">1.3.0</span></div>
+          <p>volume diário de D+1 a D+7, em P2 e P3</p>
+        </div>
+        <div class="bx">
+          <div class="tp"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4"/></svg></span><b>scikit-learn</b><span class="vs">1.6.1</span></div>
+          <p>regressão logística do risco por incidente</p>
+        </div>
+        <div class="bx art">
+          <div class="tp"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 3.4h8.4L19 8v12.6H6z"/><path d="M14 3.4V8h5"/></svg></span><b>Artefatos gravados</b></div>
+          <div class="lst">
+            <i>painel.json<b>85 kB</b></i><i>dias.json<b>24 kB</b></i><i>fila.parquet<b>241 kB</b></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="seta" style="--d:1200ms"><svg viewBox="0 0 24 24"><path d="M4 12h15M13.4 6.6 19.6 12l-6.2 5.4"/></svg></div>
+
+      <div class="gr g4 rv3" style="--d:1240ms">
+        <span class="rot">Produto Cronos &middot; contêiner Docker</span>
+        <div class="bx">
+          <div class="tp"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3.4" y="4.6" width="17.2" height="14.8" rx="2.4"/><path d="M3.4 9.4h17.2M9.6 9.4v10"/></svg></span><b>Django</b><span class="vs">6.1</span></div>
+          <div class="urls"><i>/</i><i>/previsao</i><i>/projecao</i><i>/fila</i><i>/saude</i><i>/causas</i></div>
+        </div>
+        <div class="bx">
+          <div class="tp"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 20V9.6M10 20V4.4M16 20v-7.4M4 20h16"/></svg></span><b>Plotly</b><span class="vs">6.0.1</span></div>
+          <p>os gráficos do painel, renderizados no navegador</p>
+        </div>
+        <div class="bx">
+          <div class="tp"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3.4 4 7.4v6c0 4.4 3.4 7 8 7.6 4.6-.6 8-3.2 8-7.6v-6l-8-4Z"/></svg></span><b>python:3.13-slim</b><span class="vs">gunicorn 26 &middot; whitenoise 6.12</span></div>
+          <p>a imagem sobe onde houver Docker e <b>lê 350 kB de artefato</b>. Nenhum modelo treina aqui dentro.</p>
+        </div>
+      </div>
+
+      <div class="seta" style="--d:1400ms"><svg viewBox="0 0 24 24"><path d="M4 12h15M13.4 6.6 19.6 12l-6.2 5.4"/></svg></div>
+
+      <div class="gr g5 rv" style="--d:1440ms">
+        <div class="pes">
+          <span class="av"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.6 20c0-3.6 3.3-6 7.4-6s7.4 2.4 7.4 6"/></svg></span>
+          <b>Gestor operacional</b>
+          <p>abre o painel e recebe o resumo das 07h sem pedir</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:1700ms">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+      <span>Nenhum serviço proprietário de nuvem no caminho, e <b>a Claude API não toca em número nenhum</b>: ela só escreve a frase de abertura do resumo.</span>
+    </div>
+  </div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
+</section>
+
 <section class="slide dark apl" data-slide="22" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
@@ -3523,6 +3879,41 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
     <div class="quem rv" style="--d:1500ms">
       <div class="eq"><b>Super Data Bros</b><br>Ana Beatriz Costa de Oliveira &middot; Hygor Abrantes &middot; Igor Vignola</div>
       <div class="ct2">Mentor Locaweb &middot; Douglas Gouveia<br>Turma 2TSCOA</div>
+    </div>
+  </div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+</section>
+
+<section class="slide dark fmb" data-slide="25" data-var="b" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="serie"><svg viewBox="0 0 1600 360" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1000" d="M 0 318 L 13.4 258 L 26.9 232 L 40.3 157 L 53.8 139 L 67.2 135 L 80.7 117 L 94.1 117 L 107.6 123 L 121 105 L 134.5 55 L 147.9 78 L 161.3 110 L 174.8 112 L 188.2 110 L 201.7 123 L 215.1 129 L 228.6 107 L 242 101 L 255.5 113 L 268.9 146 L 282.4 199 L 295.8 205 L 309.2 136 L 322.7 124 L 336.1 123 L 349.6 125 L 363 120 L 376.5 115 L 389.9 139 L 403.4 144 L 416.8 113 L 430.3 105 L 443.7 141 L 457.1 165 L 470.6 180 L 484 205 L 497.5 202 L 510.9 186 L 524.4 132 L 537.8 152 L 551.3 172 L 564.7 163 L 578.2 152 L 591.6 135 L 605 133 L 618.5 128 L 631.9 120 L 645.4 120 L 658.8 117 L 672.3 121 L 685.7 150 L 699.2 132 L 712.6 112 L 726.1 133 L 739.5 139 L 752.9 154 L 766.4 180 L 779.8 142 L 793.3 143 L 806.7 161 L 820.2 165 L 833.6 169 L 847.1 159 L 860.5 154 L 873.9 157 L 887.4 161 L 900.8 161 L 914.3 156 L 927.7 142 L 941.2 134 L 954.6 128 L 968.1 140 L 981.5 135 L 995 114 L 1008.4 110 L 1021.8 122 L 1035.3 125 L 1048.7 128 L 1062.2 137 L 1075.6 159 L 1089.1 172 L 1102.5 170 L 1116 159 L 1129.4 139 L 1142.9 113 L 1156.3 110 L 1169.7 72 L 1183.2 77 L 1196.6 130 L 1210.1 129 L 1223.5 142 L 1237 140 L 1250.4 147 L 1263.9 159 L 1277.3 159 L 1290.8 156 L 1304.2 157 L 1317.6 162 L 1331.1 175 L 1344.5 170 L 1358 162 L 1371.4 180 L 1384.9 182 L 1398.3 176 L 1411.8 195 L 1425.2 222 L 1438.7 212 L 1452.1 179 L 1465.5 166 L 1479 169 L 1492.4 191 L 1505.9 190 L 1519.3 198 L 1532.8 194 L 1546.2 193 L 1559.7 178 L 1573.1 204 L 1586.6 246 L 1600 292"/></svg></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Finalização e agradecimentos</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:220ms">Veja antes. Aja antes.</span></span>
+    <h1 class="obg"><span class="mask" style="--d:360ms"><span>Obrigado.</span></span></h1>
+    <div class="risco"></div>
+    <p class="txt rv" style="--d:1000ms">Por confiar no Cronos, abrir a operação real e apontar <b>as hipóteses que valia a pena testar</b>. O que está no ar hoje saiu dessas conversas.</p>
+
+    <div class="cred">
+      <div class="cd rv" style="--d:1500ms">
+        <b>Empresa parceira</b>
+        <span>Locaweb</span>
+        <em>Douglas Gouveia &middot; Gerente Executivo de Operações</em>
+      </div>
+      <div class="cd rv" style="--d:1640ms">
+        <b>Instituição</b>
+        <span>FIAP &middot; Turma 2TSCOA</span>
+        <em>Ana Beatriz Costa de Oliveira &middot; Hygor Abrantes &middot; Igor Vignola</em>
+      </div>
+      <div class="cd rv" style="--d:1780ms">
+        <b>Repositório</b>
+        <span class="url">github.com/igor-vignola/LocaWeb-Cronos</span>
+        <em>os notebooks executados, os scripts e a aplicação Django</em>
+      </div>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>

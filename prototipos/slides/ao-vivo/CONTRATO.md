@@ -314,34 +314,66 @@ do núcleo: análise exploratória, modelagem e a solução em produção. Desen
 não no `h1`: com `background-clip` no pai o texto do filho herda
 `color:transparent` e o título some.
 
-**7.9 Estrutura final, 22 slides.**
+**7.9 Estrutura final, 25 slides.**
 
-| # | Slide | Quem |
-|---|---|---|
-| 1 | Capa | Igor |
-| 2 | Super Data Bros | Igor |
-| 3 | Por que Cronos | Igor |
-| 4 | O prazo de cada incidente | Igor |
-| 5 | Quantidade de quebras em 2025 | Igor |
-| 6 | Divisória · Análise exploratória | Igor |
-| 7 | O salto de setembro | Ana |
-| 8 | Por que treinamos só em 2025 | Ana |
-| 9 | Quem abre, e quando | Ana |
-| 10 | O mesmo ativo quebra de novo | Ana |
-| 11 | Divisória · Modelagem | Ana |
-| 12 | Os próximos sete dias | Ana |
-| 13 | A fila de risco | Ana |
-| 14 | A meta do ano vai fechar? | Ana |
-| 15 | Divisória · A solução | Hygor |
-| 16 | O resumo da manhã | Hygor |
-| 17 | Onde agir primeiro | Hygor |
-| 18 | Como isso roda | Hygor |
-| 19 | O painel operacional · **demonstração** | Hygor |
-| 20 | O que ficou pronto | Igor |
-| 21 | O que ainda não está resolvido | Igor |
-| 22 | Veja antes. Aja antes. | Igor |
+| # | Slide | Quem | Variação B |
+|---|---|---|---|
+| 1 | Capa | Igor | só a marca, sem equipe nem mentor |
+| 2 | Super Data Bros | Igor | com o bloco que cada um conduz |
+| 3 | Por que Cronos | Igor | a marca em caixa alta e baixa |
+| 4 | O prazo de cada incidente | Igor | — |
+| 5 | Quantidade de quebras em 2025 | Igor | curva do acumulado com o limite |
+| 6 | A fila não atende na ordem em que o prazo estoura | Igor | — |
+| 7 | Divisória · Análise exploratória | Igor | painel de prévia da Sprint 3 |
+| 8 | O salto de setembro | Ana | — |
+| 9 | Por que treinamos só em 2025 | Ana | — |
+| 10 | Quem abre, e quando | Ana | cartões flutuantes |
+| 11 | O mesmo ativo quebra de novo | Ana | — |
+| 12 | Divisória · Modelagem | Ana | painel com a curva de ganho |
+| 13 | Os próximos sete dias | Ana | — |
+| 14 | Por que a acurácia não serve aqui | Ana | — |
+| 15 | A fila de risco | Ana | com o painel de leitura ao lado |
+| 16 | A meta do ano vai fechar? | Ana | — |
+| 17 | Divisória · A solução | Hygor | painel com as seis abas |
+| 18 | Como o Cronos antecipa o resultado do ano | Hygor | — |
+| 19 | O resumo da manhã | Hygor | — |
+| 20 | Onde agir primeiro | Hygor | — |
+| 21 | Como isso roda | Hygor | arquitetura da planilha ao painel |
+| 22 | O painel operacional · **demonstração** | Hygor | as seis telas em baralho |
+| 23 | O que ficou pronto | Igor | — |
+| 24 | O que ainda não está resolvido | Igor | — |
+| 25 | Veja antes. Aja antes. | Igor | Obrigado, com os créditos |
 
-Três trocas de voz: 6→7, 14→15 e 19→20.
+Três trocas de voz: 7→8, 16→17 e 22→23.
+
+**7.11 As variações vêm do deck da Sprint 3.** O dono do projeto trabalha com o
+`.pptx` da Sprint 4 como referência, mas considera acabado o da **Sprint 3**.
+Onde aquele deck resolveu melhor, a forma de lá entra como **variação B** e a
+composição atual fica como A; ele escolhe uma por slide na revisão. Fonte dos
+originais: `prototipos/slides/mvp/deck/` e `prototipos/slides/mvp/abertura/`,
+com o mapa de escolhas em `scripts/monta_deck_sprint3.py`.
+
+Duas coisas mudam ao trazer uma forma de lá: ela ganha animação, que o `.pptx`
+não tinha, e passa pela conferência de números deste arquivo. O slide 18 é o
+exemplo: no deck da Sprint 4 o cartão dizia "quatro modelos", e aqui diz "o que
+o Cronos calcula", porque são dois modelos e dois cálculos derivados.
+
+**7.12 Variação sinalizada no chrome.** O rodapé de navegação mostra uma pílula
+azul com bolinhas quando o slide tem mais de uma composição, e "variação única"
+em cinza quando não tem. Sem isso era preciso apertar a seta para baixo em
+todos os slides para descobrir onde havia variação.
+
+**7.13 Bloco com duas composições pode morar em dois arquivos.** O `_montar.py`
+lê `blocos/NN-*.html` e ordena por `(data-slide, data-var)`, então a variação B
+pode ficar em `NN-nome-b.html` em vez de virar uma segunda `<section>` no mesmo
+arquivo. Para bloco grande, dois arquivos é o que se usa.
+
+**7.14 Desenho vetorial dentro do slide.** Curva, cruzada e marcador feitos em
+SVG inline seguem duas regras. Traço que se desenha usa `stroke-dasharray` e
+`stroke-dashoffset` iguais a um `--len` maior que o comprimento real do caminho.
+E se o `svg` tem `preserveAspectRatio="none"`, todo `svg` sobreposto a ele
+precisa da mesma declaração, senão o marcador sai do lugar; num `viewBox`
+esticado, círculo vira `ellipse` com dois raios.
 
 **7.10 Denominadores que se cruzam.** Os 25.600 do slide 4 são dos três anos; o
 ano de 2025 sozinho tem 25.156, e é dele que fala o slide 5. O slide 4 diz
