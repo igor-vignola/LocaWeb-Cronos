@@ -1,0 +1,100 @@
+<style>
+/* ═══ slide 29 · aprendizados, limites e próximos passos ══════════════════════
+   O bloco 7 do template da Sprint 4 pede, por nome, "conclusão e próximos
+   passos: síntese, aprendizados, limitações e próximos passos". O deck hoje
+   termina em agradecimento, e o critério de storytelling cobra esse
+   fechamento.
+
+   Este slide NÃO é o "O que ficou pronto" que o dono do projeto tirou: aquele
+   repetia quatro números que a banca tinha acabado de ver. Aqui não há
+   recapitulação de resultado. São três colunas curtas: o que o dado ensinou,
+   o que continua em aberto e o passo que endereça cada limite.
+
+   Os três limites são reais e estão medidos:
+   · cobertura da faixa de 80% cai para 59 a 61% dos dias na prioridade 3,
+     contra 86 a 88% na 2 (CONTRATO §5)
+   · o dataset não traz custo por violação, então o ganho defensável é ordenar
+     a fila, não reduzir volume
+   · não existe alarme de descalibragem; o re-treino reabsorve o desvio com
+     atraso
+
+   Os três aprendizados também: volume não prediz quebra (R² = 0,025), o campo
+   Entrou para KPI muda a base de 107.416 para 25.600, e acurácia não serve
+   para evento que acontece uma vez a cada 103.
+   ══════════════════════════════════════════════════════════════════════════ */
+.fim3 .body{padding-top:14px}
+.fim3 .tt{font-size:50px;letter-spacing:-1.8px}
+.fim3 .cena{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:0 34px;
+  align-items:stretch;margin-top:20px;min-height:0}
+
+.fim3 .col{display:flex;flex-direction:column}
+.fim3 .cb{display:flex;align-items:center;gap:11px;font-size:12px;font-weight:700;
+  letter-spacing:2.1px;text-transform:uppercase;padding-bottom:16px;
+  border-bottom:2px solid currentColor}
+.fim3 .cb .ic{width:17px;height:17px}
+.fim3 .col.a .cb{color:var(--accent)}
+.fim3 .col.b .cb{color:var(--warn)}
+.fim3 .col.c .cb{color:var(--good)}
+
+.fim3 .it{padding:20px 0;font-size:16px;line-height:1.5;color:var(--tx)}
+.fim3 .it + .it{border-top:1px solid #EDF1F7}
+.fim3 .it b{display:block;font-size:17.5px;font-weight:800;color:var(--head);
+  letter-spacing:-.25px;margin-bottom:7px}
+.fim3 .it em{font-style:normal;font-weight:700;color:var(--head)}
+
+.fim3 .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.fim3 .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.fim3 .fecho b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light fim3" data-slide="29" data-var="a" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Conclusão e próximos passos</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Para fechar</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>O que aprendemos e o que falta</span></span></h1>
+
+    <div class="cena">
+      <div class="col a">
+        <div class="cb rv" style="--d:640ms">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9.6 9.4a2.6 2.6 0 1 1 3.4 2.5c-.7.3-1 .8-1 1.5v.4"/><path d="M12 17.2h.01"/><circle cx="12" cy="12" r="9.4"/></svg>
+          O que o dado ensinou
+        </div>
+        <div class="it rv" style="--d:760ms"><b>Volume não prevê quebra</b>O dia cheio explica <em>2,5%</em> da variação. Dimensionar equipe e apontar o caso são dois problemas diferentes.</div>
+        <div class="it rv" style="--d:880ms"><b>A base certa é um quarto da bruta</b>A regra oficial de elegibilidade leva de 107.416 para <em>25.600</em>. Errar o filtro muda toda conclusão.</div>
+        <div class="it rv" style="--d:1000ms"><b>Acurácia não serve</b>Com uma quebra a cada <em>103</em>, não fazer nada acerta 99%. A régua é a fila.</div>
+      </div>
+
+      <div class="col b">
+        <div class="cb rv" style="--d:820ms">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3.4 2.4 20.2h19.2L12 3.4Z" stroke-linejoin="round"/><path d="M12 9.6v4.4"/><path d="M12 17.2h.01"/></svg>
+          O que fica em aberto
+        </div>
+        <div class="it rv" style="--d:940ms"><b>A faixa é estreita na prioridade 3</b>Cobre <em>59% a 61%</em> dos dias, contra 86% a 88% na prioridade 2, quando a base muda de patamar.</div>
+        <div class="it rv" style="--d:1060ms"><b>Não há custo por violação no dataset</b>Sem ele, o ganho que sustentamos é ordenar a fila, e não reduzir volume em reais.</div>
+        <div class="it rv" style="--d:1180ms"><b>Não há alarme de descalibragem</b>O re-treino reabsorve o desvio, com atraso, e ninguém é avisado enquanto isso.</div>
+      </div>
+
+      <div class="col c">
+        <div class="cb rv" style="--d:1000ms">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h14M13 6.6 19.4 12 13 17.4"/></svg>
+          O que vem em seguida
+        </div>
+        <div class="it rv" style="--d:1120ms"><b>Recesso como evento de calendário</b>Modelar o fim de ano e re-treinar por origem a cada semana, que é onde a faixa da prioridade 3 se perde.</div>
+        <div class="it rv" style="--d:1240ms"><b>Custo por violação com a Locaweb</b>Com ele, a fila deixa de ser ordem de risco e passa a ser ordem de prejuízo evitado.</div>
+        <div class="it rv" style="--d:1360ms"><b>Monitorar a cobertura semana a semana</b>E disparar aviso quando ela cair do nominal, em vez de esperar o re-treino.</div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:1560ms">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+      <span>Os três limites estão medidos e documentados no repositório. <b>Nenhum deles impede a operação de usar o que já está no ar.</b></span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

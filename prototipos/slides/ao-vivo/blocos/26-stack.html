@@ -1,15 +1,21 @@
 <style>
 /* ═══ slide 26 · como isso roda ══════════════════════════════════════════════
    A stack, e ela precisa fazer dois argumentos que a banca vai testar: tudo
-   roda dentro de um contêiner só, sem serviço proprietário de nuvem; e a Claude
-   API é uma lasca no topo, não o produto.
+   roda dentro de um contêiner só, sem serviço proprietário de nuvem; e o texto
+   do resumo é montado por regra, não por modelo de linguagem.
+
+   CORREÇÃO de 10/09/2026: este slide afirmava que a Claude API escrevia a
+   frase de abertura do resumo, com a marca dela ligada ao contorno. Não é o
+   que o código faz. Não há SDK da Anthropic em webapp/requirements.txt e a
+   frase sai de uma f-string em webapp/painel/views.py:115. O deck da Sprint 4
+   já tratava a geração de linguagem como próximo passo, e aqui passa a ser a
+   mesma coisa. A demonstração ao vivo abre justamente a tela dessa frase.
 
    O objeto é um corte transversal: um contorno que se desenha (a imagem
    Docker), e dentro dele quatro camadas que se preenchem de baixo para cima —
    Python e pandas, os dois modelos, o Django com as seis telas, e no topo uma
-   camada fina, a frase de abertura do resumo. A marca da Claude fica FORA do
-   contorno e só encosta nessa camada fina. À direita, fora de tudo, os nomes
-   dos provedores em cinza, sem nada ligando eles ao contorno.
+   camada fina, o texto do resumo. Fora do contorno, à direita, fica o próximo
+   passo declarado: gerar esse texto com modelo de linguagem.
 
    Não é grade de logos nem trilho de pipeline, que é o slide que todos os seis
    grupos vão mostrar. As camadas são nomeadas, e a hierarquia é a mensagem.
@@ -49,12 +55,15 @@
 .stk .cam.fina{height:50px;background:var(--accent-l);border-color:#C9DCFB}
 .stk .cam.fina b{font-size:15.5px;color:var(--accent)}
 
-/* a Claude, do lado de fora, encostando na camada fina */
+/* o próximo passo, do lado de fora do contorno: o que ainda não está no
+   contêiner encosta na camada fina, mas não faz parte dela */
 .stk .fora{position:absolute;right:-80px;display:flex;align-items:center;gap:0;
   opacity:0;transform:translate3d(14px,0,0)}
 .stk .fora .fio{width:38px;height:1.5px;background:var(--accent)}
-.stk .fora img{width:40px;height:40px;border-radius:9px;
-  box-shadow:0 8px 20px -10px rgba(37,99,235,.5)}
+.stk .fora .et{width:168px;font-size:12px;line-height:1.42;color:var(--tx2);
+  padding-left:12px;border-left:2px dashed #C6D3E4}
+.stk .fora .et b{display:block;color:var(--head);font-weight:700;font-size:13px;margin-top:3px}
+.stk .fora .fio{border-top:1.5px dashed var(--accent);background:none;height:0}
 .stk.is-active .fora{animation:rv .55s var(--out) var(--d,0ms) forwards}
 
 /* os provedores, fora de tudo e sem ligação com o contorno */
@@ -86,8 +95,8 @@
 .stk .cmd .pr{font-family:var(--mono);font-size:15px;color:#4ADE80}
 .stk .cmd code{font-family:var(--mono);font-size:15px;color:#E8ECF3;white-space:nowrap;
   overflow:hidden;display:inline-block;width:0}
-.stk.is-active .cmd code{animation:digita 1.3s steps(38,end) 2700ms forwards}
-@keyframes digita{to{width:38ch}}
+.stk.is-active .cmd code{animation:digita 1.3s steps(34,end) 2700ms forwards}
+@keyframes digita{to{width:34ch}}
 .stk .cmd .cur{width:9px;height:18px;background:#4ADE80;opacity:0}
 /* o cursor acende junto com o fim da digitacao e fica: piscar exigia uma
    animacao que terminava depois do instante em que a captura mede */
@@ -132,10 +141,10 @@
             <span>as seis telas do painel operacional e o resumo da manhã</span>
           </div>
           <div class="cam fina" style="--d:1440ms">
-            <b>A frase de abertura do resumo</b>
+            <b>O texto de abertura do resumo</b>
           </div>
         </div>
-        <div class="fora" style="top:28px;--d:1900ms"><i class="fio"></i><img src="../../../../brand/logos/claude.png" alt="Claude"></div>
+        <div class="fora prox" style="top:22px;--d:1900ms"><i class="fio"></i><span class="et">Próximo passo<br><b>gerar o texto com modelo de linguagem</b></span></div>
       </div>
 
       <div class="nuvens rv" style="--d:2200ms">
@@ -150,12 +159,12 @@
     </div>
 
     <div class="cmd">
-      <span class="pr">$</span><code>docker run -p 8000:8000 cronos:1.0</code><span class="cur"></span>
+      <span class="pr">$</span><code>docker run -p 8000:8000 cronos</code><span class="cur"></span>
     </div>
 
     <div class="fecho rv" style="--d:2900ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span><b>A Claude API não toca em número nenhum.</b> Ela recebe a saída dos modelos e escreve a frase de abertura do resumo; tudo o mais é calculado dentro do contêiner.</span>
+      <span><b>Tudo é calculado dentro do contêiner.</b> O texto do resumo é montado por regra a partir da saída dos modelos; gerar essa frase com modelo de linguagem é o próximo passo declarado, e não está no ar.</span>
     </div>
   </div>
   <div class="ft"></div>

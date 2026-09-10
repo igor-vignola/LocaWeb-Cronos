@@ -1,0 +1,137 @@
+<style>
+/* ═══ slide 19 · explicabilidade ══════════════════════════════════════════════
+   O quarto desafio analítico da Locaweb chama-se Explicabilidade e faz duas
+   perguntas nominais: "quais fatores mais influenciam o aumento de incidentes?"
+   e "onde estão os principais riscos operacionais?". As duas estavam
+   respondidas de forma espalhada pelo deck, sem slide com esse nome. Este
+   slide junta as duas e fecha o requisito.
+
+   Dois lados. À esquerda, a leitura global: quanto cada família de variável
+   pesa no escore do modelo de risco. À direita, a leitura de um caso: o
+   incidente do topo da fila com a razão de cada ponto da sua nota. É o que
+   diferencia explicabilidade de importância de variável — o modelo não diz só
+   o que pesa em geral, diz por que ESTE incidente subiu.
+
+   Peso global calculado sobre data/interim/04_fila_pontuada.parquet, coluna
+   `sinais`, somando o valor absoluto da contribuição de cada sinal nos 5.183
+   incidentes avaliados e agrupando por família:
+     categoria 29,9% · subcategoria 19,2% · produto 18,4% · dia da semana 12,5%
+     item de configuração 11,2% · hora da abertura 4,6% · grupo designado 4,2%
+
+   O caso é o primeiro da fila, INC8595245, P3, produto lsin, escore 62,97,
+   que de fato violou o prazo. Os seis sinais e os pesos saem do mesmo campo.
+
+   Os grupos críticos vêm de data/interim/05_grupos_criticos.parquet, 38 grupos
+   de produto/categoria/prioridade com pelo menos 100 incidentes. As duas
+   prioridades aparecem, como manda a regra 10.
+   ══════════════════════════════════════════════════════════════════════════ */
+.exp .body{padding-top:14px}
+.exp .tt{font-size:48px;letter-spacing:-1.75px}
+.exp .sub{font-size:17px;line-height:1.45;color:var(--tx);margin-top:10px}
+.exp .sub b{color:var(--head);font-weight:700}
+.exp .cena{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0 30px;
+  align-items:center;margin-top:18px;min-height:0}
+
+.exp .painel{background:#fff;border:1px solid var(--line);border-radius:20px;
+  padding:24px 28px 26px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5)}
+.exp .painel h2{font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
+.exp .painel .un{font-size:12.5px;color:var(--tx2);margin-top:5px}
+
+/* esquerda · o peso de cada família no escore */
+.exp .fat{display:flex;flex-direction:column;gap:11px;margin-top:20px}
+.exp .fat .l{display:grid;grid-template-columns:1fr 168px 46px;align-items:center;gap:14px}
+.exp .fat .nm{font-size:15px;color:var(--tx);text-align:right}
+.exp .fat .tr{height:16px;border-radius:8px;background:#EDF1F7;overflow:hidden}
+.exp .fat .tr i{display:block;height:100%;border-radius:8px;background:#C4CEDC;
+  transform:scaleX(0);transform-origin:left}
+.exp.is-active .fat .tr i{animation:corre .65s var(--out) var(--d,0ms) forwards}
+.exp .fat .vl{font-size:14px;color:#9AA6B6;text-align:right;font-variant-numeric:tabular-nums}
+.exp .fat .l.forte .nm{color:var(--head);font-weight:700}
+.exp .fat .l.forte .tr i{background:var(--accent)}
+.exp .fat .l.forte .vl{color:var(--accent);font-weight:800}
+
+/* direita · o caso, com a razão de cada ponto */
+.exp .caso{display:flex;align-items:baseline;gap:14px;margin-top:20px;padding-bottom:18px;
+  border-bottom:1px solid #EDF1F7}
+.exp .caso .id{font-family:var(--mono);font-size:17px;color:var(--head)}
+.exp .caso .et{font-family:var(--mono);font-size:11.5px;color:var(--tx2);background:#F4F7FC;
+  border:1px solid var(--line);border-radius:5px;padding:1px 7px}
+.exp .caso .sc{margin-left:auto;text-align:right}
+.exp .caso .sc b{font-size:30px;font-weight:900;letter-spacing:-1.2px;color:var(--bad);
+  line-height:1;font-variant-numeric:tabular-nums}
+.exp .caso .sc span{display:block;font-size:12px;color:var(--tx2);margin-top:4px}
+
+.exp .sinais{display:flex;flex-direction:column;gap:9px;margin-top:18px}
+.exp .sn{display:grid;grid-template-columns:1fr 120px 44px;align-items:center;gap:12px;
+  opacity:0;transform:translate3d(-8px,0,0)}
+.exp.is-active .sn{animation:rv .45s var(--out) var(--d,0ms) forwards}
+.exp .sn .q{font-size:14.5px;color:var(--tx)}
+.exp .sn .tr{height:12px;border-radius:6px;background:#F4F7FC;overflow:hidden}
+.exp .sn .tr i{display:block;height:100%;border-radius:6px;
+  background:linear-gradient(90deg,#F87171,#DC2626)}
+.exp .sn .p{font-size:13.5px;color:var(--tx2);text-align:right;
+  font-variant-numeric:tabular-nums}
+.exp .caso2{font-size:14px;line-height:1.45;color:var(--tx2);margin-top:18px;padding-top:16px;
+  border-top:1px solid #EDF1F7}
+.exp .caso2 b{color:var(--head);font-weight:700}
+
+.exp .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
+  border-top:1px solid #DCE4EF;font-size:16px;line-height:1.45;color:var(--tx)}
+.exp .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.exp .fecho b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light exp" data-slide="19" data-var="a" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Exigência do desafio &middot; explicabilidade</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Por que o modelo diz o que diz</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quais fatores mais influenciam</span></span></h1>
+    <p class="sub rv" style="--d:620ms">A regressão logística é explicável por construção: cada posição da fila vem com o <b>motivo dela</b>. Foi por isso que ela ficou no lugar do gradient boosting.</p>
+
+    <div class="cena">
+      <div class="painel rv3" style="--d:780ms">
+        <h2>No modelo inteiro</h2>
+        <p class="un">quanto cada família de variável pesa no escore, nos 5.183 incidentes avaliados</p>
+        <div class="fat">
+          <div class="l forte"><span class="nm">Categoria do incidente</span><div class="tr"><i style="width:100%;--d:1000ms"></i></div><span class="vl">29,9%</span></div>
+          <div class="l forte"><span class="nm">Subcategoria</span><div class="tr"><i style="width:64%;--d:1060ms"></i></div><span class="vl">19,2%</span></div>
+          <div class="l forte"><span class="nm">Produto</span><div class="tr"><i style="width:62%;--d:1120ms"></i></div><span class="vl">18,4%</span></div>
+          <div class="l"><span class="nm">Dia da semana</span><div class="tr"><i style="width:42%;--d:1180ms"></i></div><span class="vl">12,5%</span></div>
+          <div class="l"><span class="nm">Item de configuração</span><div class="tr"><i style="width:37%;--d:1240ms"></i></div><span class="vl">11,2%</span></div>
+          <div class="l"><span class="nm">Hora da abertura</span><div class="tr"><i style="width:15%;--d:1300ms"></i></div><span class="vl">4,6%</span></div>
+          <div class="l"><span class="nm">Grupo designado</span><div class="tr"><i style="width:14%;--d:1360ms"></i></div><span class="vl">4,2%</span></div>
+        </div>
+      </div>
+
+      <div class="painel rv3" style="--d:900ms">
+        <h2>Num incidente só</h2>
+        <p class="un">o primeiro da fila, com a razão de cada ponto da nota</p>
+        <div class="caso">
+          <span class="id">INC8595245</span>
+          <span class="et">P3 &middot; lsin</span>
+          <span class="sc"><b>62,97</b><span>escore de risco</span></span>
+        </div>
+        <div class="sinais">
+          <div class="sn" style="--d:1500ms"><span class="q">categoria cat31</span><div class="tr"><i style="width:100%"></i></div><span class="p">45,1%</span></div>
+          <div class="sn" style="--d:1580ms"><span class="q">produto lsin</span><div class="tr"><i style="width:61%"></i></div><span class="p">27,5%</span></div>
+          <div class="sn" style="--d:1660ms"><span class="q">sábado</span><div class="tr"><i style="width:23%"></i></div><span class="p">10,3%</span></div>
+          <div class="sn" style="--d:1740ms"><span class="q">subcategoria pouco frequente</span><div class="tr"><i style="width:20%"></i></div><span class="p">9,1%</span></div>
+          <div class="sn" style="--d:1820ms"><span class="q">ativo pouco frequente</span><div class="tr"><i style="width:9%"></i></div><span class="p">4,2%</span></div>
+          <div class="sn" style="--d:1900ms"><span class="q">aberto às 19h</span><div class="tr"><i style="width:8%"></i></div><span class="p">3,7%</span></div>
+        </div>
+        <p class="caso2 rv" style="--d:2000ms">Este incidente <b>violou o prazo</b>, e a tela de fila mostra essa mesma lista quando alguém clica na linha.</p>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:2140ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+      <span>Onde estão os maiores riscos: <b>lsin / cat24 / P3</b> quebra 2,46 vezes a média e <b>lsin / cat77 / P2</b>, 1,65 vezes, entre 38 grupos de produto, categoria e prioridade.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

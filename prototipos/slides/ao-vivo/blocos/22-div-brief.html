@@ -8,6 +8,10 @@
      o que o brief carrega, com os números do corte de 01/10/2025 às 07h, de
      data/app/painel.json: 84 registrados e 0 violações no dia anterior, quatro
      dias úteis seguidos sem violação, e as faixas previstas para o dia.
+
+     As duas faixas dividem a MESMA escala de 0 a 100 incidentes no dia, e cada
+     uma é desenhada como um trecho, do piso ao teto. Antes eram duas barras
+     cheias em escalas diferentes, e a razão desenhada não era a razão do dado.
      ─────────────────────────────────────────────────────────────────────── -->
 <section class="slide dark dv3" data-slide="22" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
@@ -44,17 +48,17 @@
         </div>
         <div class="pc wide rv" style="--d:1400ms">
           <div class="pl">Previsto para hoje</div>
-          <div class="cob">
+          <div class="cob faixa2">
             <span>P2</span>
-            <div class="tr"><i style="width:38%;--d:1540ms"></i></div>
+            <div class="tr"><i style="left:9%;width:14%;--d:1540ms"></i></div>
             <b>9 a 22</b>
           </div>
-          <div class="cob">
+          <div class="cob faixa2">
             <span>P3</span>
-            <div class="tr"><i style="width:88%;--d:1640ms"></i></div>
+            <div class="tr"><i style="left:59%;width:38%;--d:1640ms"></i></div>
             <b>59 a 96</b>
           </div>
-          <div class="ps" style="margin-top:12px">a faixa de 80% do Prophet, por prioridade, escrita em linguagem de operação</div>
+          <div class="ps" style="margin-top:12px">a faixa de 80% do Prophet, nas duas prioridades, na mesma escala de 0 a 100 incidentes no dia</div>
         </div>
       </div>
     </div>

@@ -311,7 +311,11 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .dv3 .cob{display:grid;grid-template-columns:26px 1fr 108px;align-items:center;gap:12px;
   margin-top:14px}
 .dv3 .cob span{font-family:var(--mono);font-size:12.5px;color:#7A8494}
-.dv3 .cob .tr{height:10px;border-radius:6px;background:rgba(255,255,255,.09);overflow:hidden}
+.dv3 .cob .tr{position:relative;height:10px;border-radius:6px;
+  background:rgba(255,255,255,.09);overflow:hidden}
+/* faixa2: o trecho não começa na esquerda, ele tem piso e teto na mesma
+   escala das duas prioridades. A barra cheia mentia a proporção. */
+.dv3 .cob.faixa2 .tr i{position:absolute;top:0;transform-origin:left}
 .dv3 .cob .tr i{display:block;height:100%;border-radius:6px;background:#3B82F6;
   transform:scaleX(0);transform-origin:left}
 .dv3 .cob .tr i.menos{background:#D97706}

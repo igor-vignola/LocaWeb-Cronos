@@ -323,7 +323,11 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .dv3 .cob{display:grid;grid-template-columns:26px 1fr 108px;align-items:center;gap:12px;
   margin-top:14px}
 .dv3 .cob span{font-family:var(--mono);font-size:12.5px;color:#7A8494}
-.dv3 .cob .tr{height:10px;border-radius:6px;background:rgba(255,255,255,.09);overflow:hidden}
+.dv3 .cob .tr{position:relative;height:10px;border-radius:6px;
+  background:rgba(255,255,255,.09);overflow:hidden}
+/* faixa2: o trecho não começa na esquerda, ele tem piso e teto na mesma
+   escala das duas prioridades. A barra cheia mentia a proporção. */
+.dv3 .cob.faixa2 .tr i{position:absolute;top:0;transform-origin:left}
 .dv3 .cob .tr i{display:block;height:100%;border-radius:6px;background:#3B82F6;
   transform:scaleX(0);transform-origin:left}
 .dv3 .cob .tr i.menos{background:#D97706}
@@ -1030,7 +1034,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
    volta no mesmo lugar. Das 107 quebras do segundo semestre de 2025, 53 foram
    em itens de configuração que já tinham quebrado no primeiro semestre. Metade.
 
-   E esses ativos conhecidos são 75, ou 1,6% dos 4.633 que aparecem na base. Em
+   E os ativos que quebraram no primeiro semestre são 75, ou 1,6% dos 4.633 da base. Em
    metade dos casos, o histórico do próprio ativo já dizia onde olhar.
 
    O objeto é uma célula por quebra do semestre, 107 delas. As 53 de ativo
@@ -1043,11 +1047,13 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
    concentração por um fato temporal, que é mais fácil de narrar e é o que
    justifica a variável do modelo.
 
-   Ressalva no pé, obrigatória: o efeito é da prioridade 3, com 48 de 87. Na
-   prioridade 2 são 2 de 20, e o volume de quebras lá é pequeno demais para
+   Ressalva no pé, obrigatória: o efeito é da prioridade 3, com 49 de 87. Na
+   prioridade 2 são 4 de 20, e o volume de quebras lá é pequeno demais para
    afirmar o mesmo.
 
    Medido em data/interim/incidentes_kpi.parquet, 2025, base elegível ao KPI.
+   Recontado em 10/09/2026: a repartição por prioridade estava em 48 e 2, que
+   somam 50 e não 53. O certo é 49 de 87 na prioridade 3 e 4 de 20 na 2.
    ══════════════════════════════════════════════════════════════════════════ */
 .rep .body{padding-top:14px}
 .rep .tt{font-size:52px;letter-spacing:-1.9px}
@@ -1400,10 +1406,17 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
    5.183 incidentes avaliados fora do período de treino, 50 quebras:
 
      percorrendo   modelo   melhor regra simples   por prioridade   sem ordenar
-             50      13         9 (ativo crônico)         0             0,5
-            100      16        11 (ativo crônico)         1             1,0
-            400      27        18 (taxa do time)          2             3,9
-          1.000      38        32 (taxa do time)          6             9,6
+             50      13          7 (taxa do time)         0             0,5
+            100      16          9 (taxa do time)         0             1,0
+            400      27         19 (taxa do time)         2             3,9
+          1.000      38         26 (taxa do time)         8             9,6
+
+   Corrigido em 10/09/2026. O texto dizia 9 nas 50 primeiras posições, valor
+   que só aparece quando os empates da regra do ativo crônico são desfeitos na
+   ordem do arquivo — que é a ordem do próprio modelo. São 357 incidentes
+   empatados no topo daquela regra. Desempatando pelo número do incidente, que
+   é o que o `_figuras_fila.py` faz e o que a figura plota, a regra do ativo
+   devolve 0 e a melhor das simples passa a ser a do time, com 7.
 
    A regra simples da tabela é sempre a melhor das quatro naquele ponto, o que
    é o teste honesto: o modelo ganha do melhor concorrente, não da média deles.
@@ -1819,9 +1832,10 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
    · 76%         38 das 50 quebras do período estão nos 20% de maior risco da
                  fila (5.183 incidentes, 1.037 posições), medido em
                  data/interim/04_fila_pontuada.parquet
-   · 2 meses     a chamada das duas prioridades feita em 1º/10, apurada em 31/12
+   · 3 meses     a chamada das duas prioridades feita em 1º/10, apurada em 31/12
    · 15 · 94%    os 15 produtos acompanhados somam 18.742 dos 19.973 elegíveis
-                 da janela, em data/app/painel.json
+                 de jan a set de 2025, em data/app/painel.json. Não são 94% dos
+                 25.600, que são de três anos: por isso a linha diz "de 2025"
    ══════════════════════════════════════════════════════════════════════════ */
 .ant .body{padding-top:14px}
 .ant .tt{font-size:50px;letter-spacing:-1.8px}
@@ -1957,15 +1971,21 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 /* ───── 26-stack.html ───── */
 /* ═══ slide 26 · como isso roda ══════════════════════════════════════════════
    A stack, e ela precisa fazer dois argumentos que a banca vai testar: tudo
-   roda dentro de um contêiner só, sem serviço proprietário de nuvem; e a Claude
-   API é uma lasca no topo, não o produto.
+   roda dentro de um contêiner só, sem serviço proprietário de nuvem; e o texto
+   do resumo é montado por regra, não por modelo de linguagem.
+
+   CORREÇÃO de 10/09/2026: este slide afirmava que a Claude API escrevia a
+   frase de abertura do resumo, com a marca dela ligada ao contorno. Não é o
+   que o código faz. Não há SDK da Anthropic em webapp/requirements.txt e a
+   frase sai de uma f-string em webapp/painel/views.py:115. O deck da Sprint 4
+   já tratava a geração de linguagem como próximo passo, e aqui passa a ser a
+   mesma coisa. A demonstração ao vivo abre justamente a tela dessa frase.
 
    O objeto é um corte transversal: um contorno que se desenha (a imagem
    Docker), e dentro dele quatro camadas que se preenchem de baixo para cima —
    Python e pandas, os dois modelos, o Django com as seis telas, e no topo uma
-   camada fina, a frase de abertura do resumo. A marca da Claude fica FORA do
-   contorno e só encosta nessa camada fina. À direita, fora de tudo, os nomes
-   dos provedores em cinza, sem nada ligando eles ao contorno.
+   camada fina, o texto do resumo. Fora do contorno, à direita, fica o próximo
+   passo declarado: gerar esse texto com modelo de linguagem.
 
    Não é grade de logos nem trilho de pipeline, que é o slide que todos os seis
    grupos vão mostrar. As camadas são nomeadas, e a hierarquia é a mensagem.
@@ -2005,12 +2025,15 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .stk .cam.fina{height:50px;background:var(--accent-l);border-color:#C9DCFB}
 .stk .cam.fina b{font-size:15.5px;color:var(--accent)}
 
-/* a Claude, do lado de fora, encostando na camada fina */
+/* o próximo passo, do lado de fora do contorno: o que ainda não está no
+   contêiner encosta na camada fina, mas não faz parte dela */
 .stk .fora{position:absolute;right:-80px;display:flex;align-items:center;gap:0;
   opacity:0;transform:translate3d(14px,0,0)}
 .stk .fora .fio{width:38px;height:1.5px;background:var(--accent)}
-.stk .fora img{width:40px;height:40px;border-radius:9px;
-  box-shadow:0 8px 20px -10px rgba(37,99,235,.5)}
+.stk .fora .et{width:168px;font-size:12px;line-height:1.42;color:var(--tx2);
+  padding-left:12px;border-left:2px dashed #C6D3E4}
+.stk .fora .et b{display:block;color:var(--head);font-weight:700;font-size:13px;margin-top:3px}
+.stk .fora .fio{border-top:1.5px dashed var(--accent);background:none;height:0}
 .stk.is-active .fora{animation:rv .55s var(--out) var(--d,0ms) forwards}
 
 /* os provedores, fora de tudo e sem ligação com o contorno */
@@ -2042,8 +2065,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .stk .cmd .pr{font-family:var(--mono);font-size:15px;color:#4ADE80}
 .stk .cmd code{font-family:var(--mono);font-size:15px;color:#E8ECF3;white-space:nowrap;
   overflow:hidden;display:inline-block;width:0}
-.stk.is-active .cmd code{animation:digita 1.3s steps(38,end) 2700ms forwards}
-@keyframes digita{to{width:38ch}}
+.stk.is-active .cmd code{animation:digita 1.3s steps(34,end) 2700ms forwards}
+@keyframes digita{to{width:34ch}}
 .stk .cmd .cur{width:9px;height:18px;background:#4ADE80;opacity:0}
 /* o cursor acende junto com o fim da digitacao e fica: piscar exigia uma
    animacao que terminava depois do instante em que a captura mede */
@@ -2788,14 +2811,14 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
         <p class="k rv" style="--d:2900ms">quebras do segundo semestre foram em <b>ativo que já tinha quebrado</b></p>
         <p class="pq rv" style="--d:3100ms">
           <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-          <span>São <b>75 ativos</b>, de 4.633 que aparecem na base. Em metade dos casos, o próprio histórico já dizia onde olhar.</span>
+          <span>As 53 caíram em <b>14 ativos</b>, de 4.633 na base. Em metade das quebras do segundo semestre, o próprio histórico já dizia onde olhar.</span>
         </p>
       </div>
     </div>
 
     <div class="fecho rv" style="--d:3300ms">
       <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
-      <span>O efeito é da prioridade 3, com <b>48 de 87</b>. Na prioridade 2 são 2 de 20, e o volume é pequeno demais para afirmar o mesmo. É daqui que sai a variável mais forte do modelo de risco.</span>
+      <span>O efeito é da prioridade 3, com <b>49 de 87</b>. Na prioridade 2 são 4 de 20, e o volume é pequeno demais para afirmar o mesmo. É daqui que sai a variável de histórico do ativo, uma das dez que o modelo usa.</span>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
@@ -2961,7 +2984,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
           <div class="ps">no mesmo horizonte</div>
         </div>
         <div class="pc wide rv" style="--d:1620ms">
-          <div class="pl">Volume diário &middot; histórico e previsão</div>
+          <div class="pl">Volume diário na prioridade 3 &middot; histórico e previsão</div>
           <svg viewBox="0 0 520 132" style="width:100%;height:118px;margin-top:12px;overflow:visible">
             <path class="faixa" style="--d:2100ms" fill="rgba(59,130,246,.2)" stroke="none"
               d="M385.2,52.2 L404.4,19.9 L423.7,19.6 L443,29.3 L462.2,64.3 L481.5,79.9 L500.7,24.9 L520,19.4 L520,57.3 L500.7,64.3 L481.5,117.7 L462.2,104.1 L443,68.2 L423.7,58 L404.4,58.6 Z"/>
@@ -2974,7 +2997,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
             <line x1="385.2" y1="-6" x2="385.2" y2="126" stroke="rgba(255,255,255,.22)"
               stroke-width="1" stroke-dasharray="3 4"/>
           </svg>
-          <div class="eixo3"><span>histórico &middot; 21 dias até 30/09</span><span>previsão + faixa de 80%</span></div>
+          <div class="eixo3"><span>histórico &middot; 21 dias até 30/09</span><span>a P2 tem a mesma forma, num patamar quatro vezes menor</span></div>
         </div>
       </div>
     </div>
@@ -3109,7 +3132,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
           <div class="ps">uma quebra a cada <b>103</b> incidentes</div>
         </div>
         <div class="pc wide rv" style="--d:1400ms">
-          <div class="pl">Topo da fila, com o risco estimado</div>
+          <div class="pl">Topo da fila, com o escore de risco de 0 a 100</div>
           <div class="fila">
             <div class="l" style="--d:1520ms"><span class="p">1º</span><span class="id">INC8595245</span><div class="tr"><i style="width:100%;--d:1560ms"></i></div><b>62,97</b></div>
             <div class="l" style="--d:1580ms"><span class="p">2º</span><span class="id">INC8607669</span><div class="tr"><i style="width:91%;--d:1620ms"></i></div><b>57,32</b></div>
@@ -3155,8 +3178,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
           </div>
           <div class="ord reg">
             <span>Melhor regra simples</span>
-            <div class="tr"><i style="width:69%;--d:1320ms"></i></div>
-            <b>9</b>
+            <div class="tr"><i style="width:54%;--d:1320ms"></i></div>
+            <b>7</b>
           </div>
           <div class="ord pri">
             <span>Por prioridade</span>
@@ -3170,7 +3193,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 
     <div class="fecho rv" style="--d:1700ms">
       <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
-      <span><b>Regra simples</b> é ordenar por um campo só, sem modelo: pela taxa histórica do time, pelo ativo que mais quebrou ou pela prioridade. A melhor delas acha 9 no mesmo trecho; <b>por prioridade, que é o método de hoje, nenhuma</b>.</span>
+      <span><b>Regra simples</b> é ordenar por um campo só, sem modelo: pela taxa histórica do time, pelo ativo que mais quebrou ou pela prioridade. A melhor delas acha 7 no mesmo trecho; <b>por prioridade, que é o método de hoje, nenhuma</b>.</span>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
@@ -3206,8 +3229,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
         </div>
         <div class="pc rv" style="--d:1280ms">
           <div class="pl">Chamadas certas</div>
-          <div class="pn"><span class="ct" data-to="2" data-delay="1380">0</span><span class="u">de 2</span></div>
-          <div class="ps">nas duas prioridades do indicador</div>
+          <div class="pn"><span class="ct" data-to="7" data-delay="1380">0</span><span class="u">de 10</span></div>
+          <div class="ps">em <b>cinco datas de corte</b>, nas duas prioridades</div>
         </div>
         <div class="pc wide rv" style="--d:1400ms">
           <div class="pl">Violações projetadas para o ano, contra o limite</div>
@@ -3228,7 +3251,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       </div>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span><span>Projeção por três parcelas &middot; o que já aconteceu, o que a fila aberta ainda deve virar e o ritmo até dezembro</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span><span>Cinco datas de corte &middot; erro máximo de 15,0% &middot; nenhuma projeção errou para o lado otimista</span></div>
 </section>
 
 <section class="slide light prj" data-slide="20" data-var="a" data-quem="ana">
@@ -3278,7 +3301,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 
     <div class="fecho rv" style="--d:2100ms">
       <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
-      <span>As duas chamadas certas, <b>três meses antes da apuração</b>: o ano fechou em 42 na prioridade 2, acima do limite, e em 196 na prioridade 3, dentro.</span>
+      <span>As duas chamadas certas, <b>três meses antes da apuração</b>: o ano fechou em 42 na prioridade 2 e em 196 na 3. Repetindo em cinco datas de corte, acerta <b>7 das 10 leituras</b>, e nenhuma errou para o lado otimista.</span>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
@@ -3534,17 +3557,17 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
         </div>
         <div class="pc wide rv" style="--d:1400ms">
           <div class="pl">Previsto para hoje</div>
-          <div class="cob">
+          <div class="cob faixa2">
             <span>P2</span>
-            <div class="tr"><i style="width:38%;--d:1540ms"></i></div>
+            <div class="tr"><i style="left:9%;width:14%;--d:1540ms"></i></div>
             <b>9 a 22</b>
           </div>
-          <div class="cob">
+          <div class="cob faixa2">
             <span>P3</span>
-            <div class="tr"><i style="width:88%;--d:1640ms"></i></div>
+            <div class="tr"><i style="left:59%;width:38%;--d:1640ms"></i></div>
             <b>59 a 96</b>
           </div>
-          <div class="ps" style="margin-top:12px">a faixa de 80% do Prophet, por prioridade, escrita em linguagem de operação</div>
+          <div class="ps" style="margin-top:12px">a faixa de 80% do Prophet, nas duas prioridades, na mesma escala de 0 a 100 incidentes no dia</div>
         </div>
       </div>
     </div>
@@ -3573,7 +3596,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
           </svg>
           <div>
             <div class="h">07h00</div>
-            <div class="k">1º de outubro de 2025, uma quarta comum</div>
+            <div class="k">chega às sete; ao lado, o mesmo resumo reaberto às 15h, o relógio do sistema</div>
           </div>
         </div>
 
@@ -3588,7 +3611,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
           </div>
           <div class="it rv" style="--d:1580ms">
             <span class="n">03</span>
-            <div><b>Uma frase escrita por modelo de linguagem</b><span>só a abertura. Ela <em>recebe os números prontos</em> e não calcula nada.</span></div>
+            <div><b>Todo número sai dos modelos e da base</b><span>o texto de abertura é montado por regra sobre eles; <em>nada aqui é estimado na hora</em>.</span></div>
           </div>
         </div>
       </div>
@@ -3712,7 +3735,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
         <div class="lin rv" style="--d:1640ms">
           <div class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V9.6M10 20V4.4M16 20v-7.4M4 20h16"/></svg></div>
           <div><div class="nome">Projeção da meta</div><span class="et">Soma de três parcelas</span></div>
-          <div class="v"><span class="ct" data-to="2" data-delay="1760">0</span><em> meses</em></div>
+          <div class="v"><span class="ct" data-to="3" data-delay="1760">0</span><em> meses</em></div>
           <p class="d">de antecedência na chamada, <b>certa nas duas prioridades</b></p>
         </div>
 
@@ -3720,7 +3743,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
           <div class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12.4h4.2l2.2-5.6 3.4 11 2.4-6.2 1.8 2.4H21"/></svg></div>
           <div><div class="nome">Saúde por produto</div><span class="et">Nota de 0 a 100</span></div>
           <div class="v"><span class="ct" data-to="15" data-delay="1900">0</span></div>
-          <p class="d">produtos acompanhados, <b>94% do volume</b> elegível</p>
+          <p class="d">produtos acompanhados, <b>94% do volume</b> elegível de 2025</p>
         </div>
       </div>
 
@@ -3779,10 +3802,10 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
             <span>as seis telas do painel operacional e o resumo da manhã</span>
           </div>
           <div class="cam fina" style="--d:1440ms">
-            <b>A frase de abertura do resumo</b>
+            <b>O texto de abertura do resumo</b>
           </div>
         </div>
-        <div class="fora" style="top:28px;--d:1900ms"><i class="fio"></i><img src="../../../brand/logos/claude.png" alt="Claude"></div>
+        <div class="fora prox" style="top:22px;--d:1900ms"><i class="fio"></i><span class="et">Próximo passo<br><b>gerar o texto com modelo de linguagem</b></span></div>
       </div>
 
       <div class="nuvens rv" style="--d:2200ms">
@@ -3797,12 +3820,12 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
     </div>
 
     <div class="cmd">
-      <span class="pr">$</span><code>docker run -p 8000:8000 cronos:1.0</code><span class="cur"></span>
+      <span class="pr">$</span><code>docker run -p 8000:8000 cronos</code><span class="cur"></span>
     </div>
 
     <div class="fecho rv" style="--d:2900ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span><b>A Claude API não toca em número nenhum.</b> Ela recebe a saída dos modelos e escreve a frase de abertura do resumo; tudo o mais é calculado dentro do contêiner.</span>
+      <span><b>Tudo é calculado dentro do contêiner.</b> O texto do resumo é montado por regra a partir da saída dos modelos; gerar essa frase com modelo de linguagem é o próximo passo declarado, e não está no ar.</span>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
@@ -3894,7 +3917,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 
     <div class="fecho rv" style="--d:1700ms">
       <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
-      <span>Nenhum serviço proprietário de nuvem no caminho, e <b>a Claude API não toca em número nenhum</b>: ela só escreve a frase de abertura do resumo.</span>
+      <span>Nenhum serviço proprietário de nuvem no caminho, e <b>nada além destes cinco pacotes</b>: o texto do resumo é montado por regra a partir da saída dos modelos, dentro do próprio contêiner.</span>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>

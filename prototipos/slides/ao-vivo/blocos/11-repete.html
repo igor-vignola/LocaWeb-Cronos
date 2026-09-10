@@ -4,7 +4,7 @@
    volta no mesmo lugar. Das 107 quebras do segundo semestre de 2025, 53 foram
    em itens de configuração que já tinham quebrado no primeiro semestre. Metade.
 
-   E esses ativos conhecidos são 75, ou 1,6% dos 4.633 que aparecem na base. Em
+   E os ativos que quebraram no primeiro semestre são 75, ou 1,6% dos 4.633 da base. Em
    metade dos casos, o histórico do próprio ativo já dizia onde olhar.
 
    O objeto é uma célula por quebra do semestre, 107 delas. As 53 de ativo
@@ -17,11 +17,13 @@
    concentração por um fato temporal, que é mais fácil de narrar e é o que
    justifica a variável do modelo.
 
-   Ressalva no pé, obrigatória: o efeito é da prioridade 3, com 48 de 87. Na
-   prioridade 2 são 2 de 20, e o volume de quebras lá é pequeno demais para
+   Ressalva no pé, obrigatória: o efeito é da prioridade 3, com 49 de 87. Na
+   prioridade 2 são 4 de 20, e o volume de quebras lá é pequeno demais para
    afirmar o mesmo.
 
    Medido em data/interim/incidentes_kpi.parquet, 2025, base elegível ao KPI.
+   Recontado em 10/09/2026: a repartição por prioridade estava em 48 e 2, que
+   somam 50 e não 53. O certo é 49 de 87 na prioridade 3 e 4 de 20 na 2.
    ══════════════════════════════════════════════════════════════════════════ */
 .rep .body{padding-top:14px}
 .rep .tt{font-size:52px;letter-spacing:-1.9px}
@@ -97,14 +99,14 @@
         <p class="k rv" style="--d:2900ms">quebras do segundo semestre foram em <b>ativo que já tinha quebrado</b></p>
         <p class="pq rv" style="--d:3100ms">
           <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-          <span>São <b>75 ativos</b>, de 4.633 que aparecem na base. Em metade dos casos, o próprio histórico já dizia onde olhar.</span>
+          <span>As 53 caíram em <b>14 ativos</b>, de 4.633 na base. Em metade das quebras do segundo semestre, o próprio histórico já dizia onde olhar.</span>
         </p>
       </div>
     </div>
 
     <div class="fecho rv" style="--d:3300ms">
       <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
-      <span>O efeito é da prioridade 3, com <b>48 de 87</b>. Na prioridade 2 são 2 de 20, e o volume é pequeno demais para afirmar o mesmo. É daqui que sai a variável mais forte do modelo de risco.</span>
+      <span>O efeito é da prioridade 3, com <b>49 de 87</b>. Na prioridade 2 são 4 de 20, e o volume é pequeno demais para afirmar o mesmo. É daqui que sai a variável de histórico do ativo, uma das dez que o modelo usa.</span>
     </div>
   </div>
   <div class="ft"></div>
