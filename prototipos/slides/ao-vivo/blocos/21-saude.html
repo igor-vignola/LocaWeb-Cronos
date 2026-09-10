@@ -1,88 +1,97 @@
 <style>
-/* ═══ slide 21 · onde agir primeiro ══════════════════════════════════════════
-   O segundo diferencial do produto: uma nota de saúde de 0 a 100 por produto,
-   que responde à pergunta que a operação faz de manhã — por onde começo?
+/* ═══ slide 21 · variação C · as duas ordens ══════════════════════════════════
+   O dono do projeto pediu algo na forma do slide de causas do deck da Sprint 3,
+   dois painéis lado a lado, e mais limpo.
 
-   O objeto é o ranking dos quinze produtos, que é o que a tela mostra. Foi
-   escolhido depois de julgar o plano de quadrantes: elegante, mas os rótulos
-   colidiam e ele criava uma contradição na sala, porque o produto de pior nota
-   não cai no quadrante "agir primeiro". A taxonomia dos quadrantes fala do TIPO
-   do problema; a nota fala do TAMANHO. O ranking não precisa dessa explicação.
+   Os dois painéis mostram os oito piores de cada régua, em ordens diferentes: à
+   esquerda pela nota de saúde, à direita pela taxa de perda de prazo. E as
+   ordens não coincidem, que é o que explica a nota sem precisar de fórmula: a
+   nota junta cinco medidas, e a taxa é só uma delas.
 
-   O gráfico fica à direita e o texto à esquerda, ao contrário do slide 6, para
-   os dois não parecerem o mesmo molde.
+   O exemplo que faz o ponto sozinho é o lgoa: taxa de 1,88%, a segunda maior
+   dos quinze, e mesmo assim nota 68,0, a segunda melhor. Ele perde prazo com
+   frequência mas resolve rápido, fecha com causa e a taxa está caindo.
 
-   Os três produtos em vermelho são onde o problema já se materializou, e estão
-   nomeados no slide com a nota: é a resposta concreta à pergunta do título.
-   Códigos de produto são os do dataset, os mesmos que a tela usa.
+   O lvps é o pior nos dois painéis, e é por isso que ele encabeça a fila.
 
-   Figura em dpi 200, de _figuras_saude.py.
+   Dados de data/app/painel.json, campo saude, corte de 01/10/2025. A nota vai
+   de 0 a 100 e as barras de taxa usam 2,90% como 100% da escala.
    ══════════════════════════════════════════════════════════════════════════ */
-.sau .body{padding-top:14px}
-.sau .tt{font-size:52px;letter-spacing:-1.9px}
+.sdc .body{padding-top:14px}
+.sdc .tt{font-size:50px;letter-spacing:-1.8px}
+.sdc .sub{font-size:17px;line-height:1.45;color:var(--tx);margin-top:10px}
+.sdc .sub b{color:var(--head);font-weight:700}
+.sdc .cena{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0 30px;
+  align-items:stretch;margin-top:18px;min-height:0}
 
-.sau .cena{flex:1;display:flex;align-items:center;gap:56px;margin-top:12px;
-  min-height:0}
-.sau .lado{flex:1;min-width:0;display:flex;flex-direction:column}
-.sau .quadro{padding:20px 24px;flex-shrink:0}
-.sau .fig{display:block;width:672px}
+.sdc .painel{background:#fff;border:1px solid var(--line);border-radius:20px;
+  padding:22px 26px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5);
+  display:flex;flex-direction:column}
+.sdc .painel h2{font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
+.sdc .painel .un{font-size:12.5px;color:var(--tx2);margin-top:5px}
+.sdc .lista{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;
+  gap:12px;margin-top:20px}
+.sdc .l{display:grid;grid-template-columns:64px 1fr 58px;align-items:center;gap:16px}
+.sdc .l .nm{font-family:var(--mono);font-size:15px;color:#8E9AAA;text-align:right}
+.sdc .l .tr{height:24px;border-radius:8px;background:#EDF1F7;overflow:hidden}
+.sdc .l .tr i{display:block;height:100%;border-radius:8px;background:#C4CEDC;
+  transform:scaleX(0);transform-origin:left}
+.sdc.is-active .l .tr i{animation:corre .6s var(--out) var(--d,0ms) forwards}
+.sdc .l .vl{font-size:15px;color:#8E9AAA;text-align:right;font-variant-numeric:tabular-nums}
+/* o pior dos dois painéis, e o caso que mostra que as ordens não coincidem */
+.sdc .l.pior .nm,.sdc .l.pior .vl{color:var(--bad);font-weight:800;font-size:17px}
+.sdc .l.pior .tr i{background:var(--bad)}
+.sdc .l.pior .tr{height:32px}
+.sdc .l.marca .nm,.sdc .l.marca .vl{color:var(--accent);font-weight:800;font-size:17px}
+.sdc .l.marca .tr i{background:var(--accent)}
+.sdc .l.marca .tr{height:32px}
 
-.sau .lado .v{font-size:132px;font-weight:900;letter-spacing:-5.4px;line-height:.84;
-  color:var(--bad);font-variant-numeric:tabular-nums}
-.sau .lado .k{font-size:19px;line-height:1.42;color:var(--tx);margin-top:18px;
-  max-width:26ch}
-.sau .lado .k b{color:var(--head);font-weight:700}
-
-/* os três, nomeados, com a nota */
-.sau .tres{margin-top:34px;border-top:1px solid #DCE4EF}
-.sau .tres .pr{display:flex;align-items:baseline;gap:16px;padding:13px 0;
-  border-bottom:1px solid #DCE4EF}
-.sau .tres .pr i{display:block;width:10px;height:10px;border-radius:3px;
-  background:var(--tx2);flex-shrink:0;align-self:center}
-.sau .tres .pr b{font-family:var(--mono);font-size:17px;font-weight:500;color:var(--head);
-  width:64px}
-.sau .tres .pr span{font-size:15px;color:var(--tx2);flex:1}
-.sau .tres .pr em{font-style:normal;font-size:20px;font-weight:800;color:var(--head);
-  font-variant-numeric:tabular-nums}
-
-.sau .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;
-  padding-top:20px;border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;
-  color:var(--tx)}
-.sau .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
-.sau .fecho b{color:var(--head);font-weight:700}
 </style>
 
-<section class="slide light sau" data-slide="21" data-var="a" data-quem="hygor">
+<section class="slide light sdc" data-slide="21" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
     <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">15 produtos &middot; nota de 0 a 100</div>
+    <div class="tag">Nota de saúde &middot; 15 produtos</div>
   </div>
   <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Diferencial 2 &middot; saúde por produto</span></span>
+    <span class="eb"><span class="rv" style="--d:240ms">Diferencial 2</span></span>
     <h1 class="tt"><span class="mask" style="--d:340ms"><span>Onde agir primeiro</span></span></h1>
+    <p class="sub rv" style="--d:620ms">As duas ordens não coincidem, e é isso que a nota resolve: ela junta cinco medidas, e a taxa de perda de prazo é só uma delas. O <b>lvps</b> lidera as duas; o <b>lgoa</b> aparece só na da direita.</p>
 
     <div class="cena">
-      <div class="lado">
-        <span class="v rv" style="--d:900ms"><span class="ct" data-to="21.3" data-dec="1" data-delay="1080">0,0</span></span>
-        <p class="k rv" style="--d:1060ms">é a nota do produto que mais precisa de atenção, numa escala em que o melhor tem <b>69,3</b></p>
-        <div class="tres">
-          <div class="pr rv" style="--d:1300ms"><i></i><b>lvps</b><span>taxa de 2,9%, a maior das quinze</span><em>21,3</em></div>
-          <div class="pr rv" style="--d:1420ms"><i></i><b>lrdo</b><span>68% de problemas inéditos, o maior dos quinze</span><em>25,3</em></div>
-          <div class="pr rv" style="--d:1540ms"><i></i><b>lcsp</b><span>metade dos problemas é inédita e a taxa sobe</span><em>26,7</em></div>
+      <div class="painel rv3" style="--d:780ms">
+        <h2>Nota de saúde, da pior para a melhor</h2>
+        <p class="un">os oito piores dos quinze, na escala de 0 a 100</p>
+        <div class="lista">
+          <div class="l pior"><span class="nm">lvps</span><div class="tr"><i style="width:21.3%;--d:1000ms"></i></div><span class="vl">21,3</span></div>
+          <div class="l"><span class="nm">lrdo</span><div class="tr"><i style="width:25.3%;--d:1040ms"></i></div><span class="vl">25,3</span></div>
+          <div class="l"><span class="nm">lcsp</span><div class="tr"><i style="width:26.7%;--d:1080ms"></i></div><span class="vl">26,7</span></div>
+          <div class="l"><span class="nm">lssl</span><div class="tr"><i style="width:30.7%;--d:1120ms"></i></div><span class="vl">30,7</span></div>
+          <div class="l"><span class="nm">lrel</span><div class="tr"><i style="width:32%;--d:1160ms"></i></div><span class="vl">32,0</span></div>
+          <div class="l"><span class="nm">lsin</span><div class="tr"><i style="width:41.3%;--d:1200ms"></i></div><span class="vl">41,3</span></div>
+          <div class="l"><span class="nm">lsaa</span><div class="tr"><i style="width:42.7%;--d:1240ms"></i></div><span class="vl">42,7</span></div>
+          <div class="l"><span class="nm">lcsi</span><div class="tr"><i style="width:48%;--d:1280ms"></i></div><span class="vl">48,0</span></div>
         </div>
       </div>
 
-      <div class="quadro cartao rv3" style="--d:620ms">
-        <img class="fig" src="../figs/10_saude_ranking.png" alt="Ranking da nota de saude dos quinze produtos, de 69,3 a 21,3, com a situacao de cada um">
+      <div class="painel rv3" style="--d:900ms">
+        <h2>Taxa de perda de prazo, da maior para a menor</h2>
+        <p class="un">as oito maiores dos quinze, em % dos incidentes do produto</p>
+        <div class="lista">
+          <div class="l pior"><span class="nm">lvps</span><div class="tr"><i style="width:100%;--d:1120ms"></i></div><span class="vl">2,90</span></div>
+          <div class="l marca"><span class="nm">lgoa</span><div class="tr"><i style="width:64.8%;--d:1160ms"></i></div><span class="vl">1,88</span></div>
+          <div class="l"><span class="nm">lsin</span><div class="tr"><i style="width:63.4%;--d:1200ms"></i></div><span class="vl">1,84</span></div>
+          <div class="l"><span class="nm">lssl</span><div class="tr"><i style="width:48.3%;--d:1240ms"></i></div><span class="vl">1,40</span></div>
+          <div class="l"><span class="nm">lrdo</span><div class="tr"><i style="width:45.9%;--d:1280ms"></i></div><span class="vl">1,33</span></div>
+          <div class="l"><span class="nm">lrel</span><div class="tr"><i style="width:45.2%;--d:1320ms"></i></div><span class="vl">1,31</span></div>
+          <div class="l"><span class="nm">lsaa</span><div class="tr"><i style="width:32.8%;--d:1360ms"></i></div><span class="vl">0,95</span></div>
+          <div class="l"><span class="nm">lhvp</span><div class="tr"><i style="width:32.4%;--d:1400ms"></i></div><span class="vl">0,94</span></div>
+        </div>
       </div>
     </div>
 
-    <div class="fecho rv" style="--d:1800ms">
-      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span>A <b>posição</b> diz o tamanho do problema e a <b>cor</b> diz o tipo, que é o que muda a ação. A nota junta cinco medidas das duas prioridades, e a tela mostra P2 e P3 separados.</span>
-    </div>
   </div>
   <div class="ft"></div>
 </section>

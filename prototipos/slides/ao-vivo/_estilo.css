@@ -26,8 +26,14 @@
 html,body{height:100%;overflow:hidden}
 body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility}
-#fit{position:fixed;inset:0;display:grid;place-items:center}
-#stage{width:1600px;height:900px;position:relative;overflow:hidden;transform-origin:center;
+/* centralização por posição absoluta, não por grid: com place-items o palco
+   ficava fora do eixo quando a janela tinha barra lateral ou proporção
+   diferente de 16:9. Aqui o canto do palco vai ao centro exato e o
+   translate(-50%,-50%) o traz de volta metade da largura e da altura, antes
+   de escalar. */
+#fit{position:fixed;inset:0;overflow:hidden}
+#stage{position:absolute;left:50%;top:50%;width:1600px;height:900px;overflow:hidden;
+  transform-origin:center;transform:translate(-50%,-50%) scale(1);
   box-shadow:0 40px 130px -50px rgba(0,0,0,.7)}
 
 .slide{position:absolute;inset:0;overflow:hidden;display:none;flex-direction:column}

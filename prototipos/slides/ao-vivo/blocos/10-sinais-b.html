@@ -1,89 +1,63 @@
 <style>
-/* ═══ slide 10 · variação B · cartões flutuantes ══════════════════════════════
-   Mesmo dado da variação A, outra forma. Lá os dois cortes são barras num
-   trilho compartilhado; aqui cada valor é um cartão solto, e a diferença de
-   risco vira diferença de altura: o cartão que quebra mais fica acima do outro.
-   O multiplicador é uma ficha que paira entre os dois e amarra a leitura.
+/* ═══ slide 10 · variação B · os dois multiplicadores ═════════════════════════
+   A variação anterior, de cartões flutuantes com uma ficha no meio, foi
+   descartada. Esta vai no sentido oposto: tira tudo o que não é a conclusão.
 
-   Os cartões respiram devagar, com fases diferentes, para o conjunto parecer
-   suspenso. O movimento é de 6px e não desloca texto: quem lê não persegue
-   nada. Em `prefers-reduced-motion` a respiração para.
+   O objeto são os dois multiplicadores em corpo grande, um por corte. Debaixo
+   de cada um, duas linhas finas com as taxas que produziram aquele número, e
+   nada mais. Sem cartão, sem trilho, sem moldura: só tipografia e muito
+   branco, que é o que o dono do projeto chama de imersivo.
 
-   Números, base elegível ao KPI de 2025, os mesmos da variação A:
-     quem abre    pessoa 1,24% em 15.671   monitoramento 0,46% em 9.485   2,7x
-                  vale nas duas prioridades: 3,0x na 2 e 3,1x na 3
-     quando chega fim de semana 1,88% (24/dia)  dia util 0,85% (67/dia)   2,2x
-                  na prioridade 2 o efeito some: 0,75% contra 0,83%
+   Os multiplicadores contam e a régua de comparação se desenha depois deles,
+   então o olho chega primeiro na conclusão e só então confere a conta.
+
+   Mesmos números da variação A, base elegível ao KPI de 2025:
+     quem abre     pessoa 1,24% em 15.671 · monitoramento 0,46% em 9.485 · 2,7x
+                   vale nas duas prioridades: 3,0x na 2 e 3,1x na 3
+     quando chega  fim de semana 1,88% (24/dia) · dia útil 0,85% (67/dia) · 2,2x
+                   na prioridade 2 o efeito some: 0,75% contra 0,83%
    ══════════════════════════════════════════════════════════════════════════ */
 .snb .body{padding-top:14px}
 .snb .tt{font-size:52px;letter-spacing:-1.9px}
-.snb .cena{flex:1;display:grid;grid-template-columns:1fr 1px 1fr;gap:0 54px;
+.snb .cena{flex:1;display:grid;grid-template-columns:1fr 1px 1fr;gap:0 76px;
   align-items:center;margin-top:6px;min-height:0}
-.snb .div{background:linear-gradient(180deg,transparent,#DCE4EF 18%,#DCE4EF 82%,transparent)}
+.snb .div{align-self:stretch;margin:26px 0;
+  background:linear-gradient(180deg,transparent,#DCE4EF 16%,#DCE4EF 84%,transparent)}
 
 .snb .cab{display:flex;align-items:center;gap:11px;font-size:12px;font-weight:700;
-  letter-spacing:2.1px;text-transform:uppercase;color:var(--tx2)}
+  letter-spacing:2.2px;text-transform:uppercase;color:var(--tx2)}
 .snb .cab .ic{width:17px;height:17px;color:var(--accent)}
 
-/* o par de cartões, com a ficha do multiplicador pairando entre eles */
-/* três colunas na mesma linha: cartão, ficha, cartão. A ordem no HTML mantém
-   os dois cartões juntos, e o grid coloca a ficha no vão entre eles. */
-/* align-items:stretch com margem oposta em cada cartao: os dois ficam do mesmo
-   tamanho e mesmo assim um fica acima do outro. Com align-items:center e
-   margem negativa eles saiam de alturas diferentes. */
-.snb .duo{display:grid;grid-template-columns:1fr 132px 1fr;gap:0 14px;align-items:stretch;
-  margin-top:26px;padding:26px 0}
-.snb .fc.alto{grid-column:1;grid-row:1}
-.snb .fc.baixo{grid-column:3;grid-row:1}
-.snb .ficha{grid-column:2;grid-row:1;align-self:center}
+/* o número que se fala, e é ele que ocupa a tela */
+.snb .heroi{display:flex;align-items:baseline;gap:4px;margin-top:34px}
+.snb .heroi .v{font-size:180px;font-weight:900;letter-spacing:-8.5px;line-height:.8;
+  color:var(--accent);font-variant-numeric:tabular-nums}
+.snb .heroi em{font-style:normal;font-size:74px;font-weight:900;letter-spacing:-2px;
+  color:var(--accent)}
+.snb .diz{font-size:24px;line-height:1.35;color:var(--head);font-weight:600;
+  letter-spacing:-.4px;margin-top:26px;max-width:22ch}
+.snb .diz b{font-weight:800}
 
-.snb .fc{border-radius:20px;padding:26px 24px;background:#fff;border:1px solid var(--line);
-  display:flex;flex-direction:column;
-  will-change:transform}
-.snb .fc .rot{font-size:16.5px;font-weight:700;color:var(--head);letter-spacing:-.2px;
-  display:flex;align-items:center;gap:8px}
-.snb .fc .rot .chip{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--tx2);
-  background:#F4F7FC;border:1px solid var(--line);border-radius:5px;padding:1px 6px}
-.snb .fc .qt{font-size:13.5px;color:var(--tx2);margin-top:6px}
-.snb .fc .tx{font-size:52px;font-weight:900;letter-spacing:-2.2px;line-height:.9;
-  margin-top:20px;font-variant-numeric:tabular-nums}
-.snb .fc .un{font-size:14px;color:var(--tx2);margin-top:auto;padding-top:12px}
-
-/* o que quebra mais sobe e ganha peso; o outro fica embaixo e recuado */
-.snb .fc.alto{margin-bottom:48px;box-shadow:0 34px 64px -34px rgba(37,99,235,.5);
-  border-color:#C6D9FB}
-.snb .fc.alto .tx{color:var(--accent)}
-.snb .fc.baixo{margin-top:48px;background:#FBFCFE;
-  box-shadow:0 16px 40px -34px rgba(15,23,42,.45)}
-.snb .fc.baixo .rot{color:var(--tx)}
-.snb .fc.baixo .tx{color:#9AA6B6}
-
-.snb.is-active .fc.alto{animation:rv3 .8s var(--out) var(--d,0ms) forwards,
-  boia 6.5s ease-in-out 1.6s infinite}
-.snb.is-active .fc.baixo{animation:rv3 .8s var(--out) var(--d,0ms) forwards,
-  boia 7.4s ease-in-out 2.3s infinite reverse}
-@keyframes boia{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-6px,0)}}
-@media (prefers-reduced-motion:reduce){
-  .snb.is-active .fc.alto,.snb.is-active .fc.baixo{animation:rv3 .8s var(--out) var(--d,0ms) forwards}
-}
-
-/* a ficha do multiplicador, no vão entre os dois cartões */
-.snb .ficha{justify-self:center;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;width:118px;height:118px;border-radius:50%;background:var(--ink);
-  color:#fff;box-shadow:0 26px 54px -22px rgba(10,14,23,.62);opacity:0;transform:scale(.86)}
-.snb.is-active .ficha{animation:ficha .7s var(--spring) var(--d,0ms) forwards}
-@keyframes ficha{to{opacity:1;transform:scale(1)}}
-.snb .ficha b{font-size:38px;font-weight:900;letter-spacing:-1.7px;line-height:1;
+/* a conta, em duas linhas finas */
+.snb .conta{margin-top:38px;padding-top:22px;border-top:1px solid #DCE4EF}
+.snb .l{display:grid;grid-template-columns:1fr 92px;align-items:baseline;gap:18px;
+  padding:11px 0;opacity:0;transform:translate3d(0,8px,0)}
+.snb.is-active .l{animation:rv .5s var(--out) var(--d,0ms) forwards}
+.snb .l + .l{border-top:1px solid #EDF1F7}
+.snb .l .nm{font-size:18px;color:var(--tx)}
+.snb .l .nm .chip{font-family:var(--mono);font-size:11px;color:var(--tx2);background:#F1F5FB;
+  border:1px solid var(--line);border-radius:5px;padding:1px 6px;margin-left:8px;
+  vertical-align:2px}
+.snb .l .nm small{display:block;font-size:13.5px;color:#A6B0BE;margin-top:4px}
+.snb .l .tx{font-size:26px;font-weight:800;text-align:right;letter-spacing:-.8px;
   font-variant-numeric:tabular-nums}
-.snb .ficha b em{font-style:normal;font-size:.56em;margin-left:1px}
-.snb .ficha span{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
-  color:#8FB4F5;margin-top:7px}
+.snb .l.alto .nm{color:var(--head);font-weight:700}
+.snb .l.alto .tx{color:var(--head)}
+.snb .l.baixo .nm,.snb .l.baixo .tx{color:#A6B0BE}
 
-.snb .leg{font-size:17px;line-height:1.45;color:var(--tx);margin-top:8px}
-.snb .leg b{color:var(--head);font-weight:700}
-.snb .pri{display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.42;
-  color:var(--tx2);margin-top:16px}
-.snb .pri .ic{width:17px;height:17px;color:var(--good);margin-top:1px;flex-shrink:0}
+.snb .pri{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.42;
+  color:var(--tx2);margin-top:22px}
+.snb .pri .ic{width:16px;height:16px;margin-top:2px;flex-shrink:0;color:#9AA6B6}
 .snb .pri b{color:var(--head);font-weight:700}
 
 .snb .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
@@ -106,30 +80,27 @@
     <div class="cena">
       <div>
         <div class="cab rv" style="--d:620ms">
-          <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.6 20c0-3.6 3.3-6 7.4-6s7.4 2.4 7.4 6"/></svg>
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.6"/><path d="M4.6 20c0-3.6 3.3-6 7.4-6s7.4 2.4 7.4 6"/></svg>
           Quem abre o chamado
         </div>
-        <div class="duo">
-          <div class="fc alto" style="--d:760ms">
-            <div class="rot">Uma pessoa</div>
-            <div class="qt">15.671 chamados</div>
-            <div class="tx">1,24<span style="font-size:.5em">%</span></div>
-            <div class="un">passam do prazo</div>
+        <div class="heroi rv" style="--d:760ms">
+          <span class="v"><span class="ct" data-to="2.7" data-dec="1" data-delay="900">0,0</span></span>
+          <em>&times;</em>
+        </div>
+        <p class="diz rv" style="--d:1080ms">mais risco quando <b>quem abre é uma pessoa</b>, e não o monitoramento</p>
+
+        <div class="conta">
+          <div class="l alto" style="--d:1400ms">
+            <span class="nm">Uma pessoa<small>15.671 chamados</small></span>
+            <span class="tx">1,24%</span>
           </div>
-          <div class="fc baixo" style="--d:900ms">
-            <div class="rot">O monitoramento</div>
-            <div class="qt">9.485 chamados</div>
-            <div class="tx">0,46<span style="font-size:.5em">%</span></div>
-            <div class="un">passam do prazo</div>
-          </div>
-          <div class="ficha" style="--d:1440ms">
-            <b><span class="ct" data-to="2.7" data-dec="1" data-delay="1560">0,0</span><em>&times;</em></b>
-            <span>mais risco</span>
+          <div class="l baixo" style="--d:1520ms">
+            <span class="nm">O monitoramento<small>9.485 chamados</small></span>
+            <span class="tx">0,46%</span>
           </div>
         </div>
-        <p class="leg rv" style="--d:1700ms">O chamado aberto por <b>uma pessoa</b> quebra quase três vezes mais que o aberto pelo monitoramento.</p>
-        <p class="pri rv" style="--d:1840ms">
-          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+        <p class="pri rv" style="--d:1700ms">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="color:var(--good)"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
           <span>Vale nas duas prioridades: <b>3,0&times;</b> na 2 e <b>3,1&times;</b> na 3.</span>
         </p>
       </div>
@@ -141,33 +112,30 @@
           <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.4" y="5" width="17.2" height="15.6" rx="2.6"/><path d="M3.4 9.8h17.2M8 2.8v4M16 2.8v4"/></svg>
           Quando ele chega
         </div>
-        <div class="duo">
-          <div class="fc alto" style="--d:840ms">
-            <div class="rot">Fim de semana <span class="chip">P3</span></div>
-            <div class="qt">24 chamados por dia</div>
-            <div class="tx">1,88<span style="font-size:.5em">%</span></div>
-            <div class="un">passam do prazo</div>
+        <div class="heroi rv" style="--d:840ms">
+          <span class="v"><span class="ct" data-to="2.2" data-dec="1" data-delay="980">0,0</span></span>
+          <em>&times;</em>
+        </div>
+        <p class="diz rv" style="--d:1160ms">mais risco no <b>fim de semana</b>, com um terço do volume do dia útil</p>
+
+        <div class="conta">
+          <div class="l alto" style="--d:1480ms">
+            <span class="nm">Fim de semana<span class="chip">P3</span><small>24 chamados por dia</small></span>
+            <span class="tx">1,88%</span>
           </div>
-          <div class="fc baixo" style="--d:980ms">
-            <div class="rot">Dia útil <span class="chip">P3</span></div>
-            <div class="qt">67 chamados por dia</div>
-            <div class="tx">0,85<span style="font-size:.5em">%</span></div>
-            <div class="un">passam do prazo</div>
-          </div>
-          <div class="ficha" style="--d:1520ms">
-            <b><span class="ct" data-to="2.2" data-dec="1" data-delay="1640">0,0</span><em>&times;</em></b>
-            <span>mais risco</span>
+          <div class="l baixo" style="--d:1600ms">
+            <span class="nm">Dia útil<span class="chip">P3</span><small>67 chamados por dia</small></span>
+            <span class="tx">0,85%</span>
           </div>
         </div>
-        <p class="leg rv" style="--d:1780ms">O fim de semana traz <b>um terço do volume</b> e mais que o dobro do risco por chamado.</p>
-        <p class="pri rv" style="--d:1920ms">
-          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="color:var(--tx2)"><path d="M4 9.6h16M4 14.4h16"/></svg>
+        <p class="pri rv" style="--d:1780ms">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 9.6h16M4 14.4h16"/></svg>
           <span>Na prioridade 2 não há diferença: <b>0,75%</b> contra <b>0,83%</b>.</span>
         </p>
       </div>
     </div>
 
-    <div class="fecho rv" style="--d:2100ms">
+    <div class="fecho rv" style="--d:2000ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
       <span>Medimos as duas prioridades em cada corte. Quem abre e quando chega <b>viram variáveis do modelo de risco</b>, junto com o produto, o ativo e a categoria.</span>
     </div>

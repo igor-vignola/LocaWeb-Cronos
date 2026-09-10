@@ -35,16 +35,29 @@
 .alv .diz b{color:var(--head);font-weight:700}
 
 /* a grade: 400 quadrados para os 25.600 elegíveis, 40 por linha.
-   A grade inteira entra de uma vez e só os quatro vermelhos dão o pulo: 400
-   atrasos individuais precisariam de script, e o _montar.py só recolhe <style>
-   e <section> de cada bloco. */
+   A onda varre linha a linha, com dez regras de nth-child em vez de 400
+   atrasos individuais: o _montar.py só recolhe <style> e <section> de cada
+   bloco, então script de bloco não sobrevive à montagem. */
 .alv .grade{display:grid;grid-template-columns:repeat(40,1fr);gap:3.5px}
-.alv .grade i{aspect-ratio:1;border-radius:2px;background:#DCE3EC}
-.alv .grade i.q{background:var(--bad);transform:scale(0)}
-.alv.is-active .grade i.q{animation:pipoca .5s var(--spring) 1780ms forwards}
-.alv.is-active .grade i.q:nth-of-type(2n){animation-delay:1900ms}
-.alv.is-active .grade i.q:nth-of-type(3n){animation-delay:2020ms}
-@keyframes pipoca{to{transform:scale(1)}}
+.alv .grade i{aspect-ratio:1;border-radius:2px;background:#DCE3EC;
+  opacity:0;transform:scale(.5)}
+.alv.is-active .grade i{animation:pipoca .38s var(--out) forwards}
+.alv.is-active .grade i:nth-child(-n+40){animation-delay:1300ms}
+.alv.is-active .grade i:nth-child(n+41):nth-child(-n+80){animation-delay:1370ms}
+.alv.is-active .grade i:nth-child(n+81):nth-child(-n+120){animation-delay:1440ms}
+.alv.is-active .grade i:nth-child(n+121):nth-child(-n+160){animation-delay:1510ms}
+.alv.is-active .grade i:nth-child(n+161):nth-child(-n+200){animation-delay:1580ms}
+.alv.is-active .grade i:nth-child(n+201):nth-child(-n+240){animation-delay:1650ms}
+.alv.is-active .grade i:nth-child(n+241):nth-child(-n+280){animation-delay:1720ms}
+.alv.is-active .grade i:nth-child(n+281):nth-child(-n+320){animation-delay:1790ms}
+.alv.is-active .grade i:nth-child(n+321):nth-child(-n+360){animation-delay:1860ms}
+.alv.is-active .grade i:nth-child(n+361){animation-delay:1930ms}
+.alv .grade i.q{background:var(--bad)}
+/* os vermelhos acendem depois de toda a grade assentar, com um pulo maior */
+.alv.is-active .grade i.q{animation:acende .6s var(--spring) 2200ms forwards}
+@keyframes pipoca{to{opacity:1;transform:scale(1)}}
+@keyframes acende{0%{opacity:1;transform:scale(1)}
+  45%{opacity:1;transform:scale(2.1)}100%{opacity:1;transform:scale(1)}}
 .alv .leg{font-size:13.5px;line-height:1.45;color:var(--tx2);margin-top:14px}
 .alv .leg b{color:var(--bad);font-weight:700}
 
@@ -89,7 +102,7 @@
       </div>
 
       <div>
-        <div class="grade rv" style="--d:1300ms">
+        <div class="grade">
           <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
           <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
           <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="q"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
@@ -101,16 +114,16 @@
           <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="q"></i><i></i><i></i><i></i><i></i>
           <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
         </div>
-        <p class="leg rv" style="--d:2000ms">400 quadrados para os 25.600 elegíveis, cada um valendo 64 incidentes. <b>Em vermelho, a fração equivalente às 248 violações.</b></p>
+        <p class="leg rv" style="--d:2800ms">400 quadrados para os 25.600 elegíveis, cada um valendo 64 incidentes. <b>Em vermelho, a fração equivalente às 248 violações.</b></p>
 
         <div class="pri">
-          <div class="k rv" style="--d:2100ms">Violações por prioridade</div>
-          <div class="lin rv" style="--d:2180ms">
+          <div class="k rv" style="--d:2500ms">Violações por prioridade</div>
+          <div class="lin rv" style="--d:2580ms">
             <div class="nm"><b>P3</b><span>Média &middot; 12h</span></div>
-            <div class="tr"><i style="--d:2280ms"></i></div>
+            <div class="tr"><i style="--d:2680ms"></i></div>
             <span class="v">206</span>
           </div>
-          <div class="lin rv" style="--d:2300ms">
+          <div class="lin rv" style="--d:2700ms">
             <div class="nm"><b>P2</b><span>Alta &middot; 4h</span></div>
             <div class="tr"><i style="width:20.4%;--d:2400ms"></i></div>
             <span class="v">42</span>
@@ -119,7 +132,7 @@
       </div>
     </div>
 
-    <div class="fecho rv" style="--d:2560ms">
+    <div class="fecho rv" style="--d:2960ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M9.6 9.4a2.6 2.6 0 1 1 3.4 2.5c-.7.3-1 .8-1 1.5v.4"/><path d="M12 17.2h.01"/></svg>
       <span>Responder <b>&ldquo;não quebra&rdquo;</b> para todos os 25.600 acerta 99,03% das vezes e não encontra nenhuma. Por isso acurácia não é a régua deste problema.</span>
     </div>

@@ -12,12 +12,17 @@
    ══════════════════════════════════════════════════════════════════════════ */
 /* altura do conteúdo, não da linha: esticados, os cartões abriam um quarto
    de vão morto embaixo e o bloco parecia cortado */
-.sn-c .cena{gap:28px;align-items:center;justify-content:center}
-.sn-c .bl{flex:1;min-width:0;padding:34px 36px;background:#fff;
-  border:1px solid var(--line);border-radius:24px;justify-content:flex-start;
+.sn-c .cena{gap:28px;justify-content:center}
+.sn-c .bl{flex:1;min-width:0;padding:40px 38px;background:#fff;
+  border:1px solid var(--line);border-radius:24px;
   box-shadow:0 34px 74px -46px rgba(15,23,42,.55);will-change:transform}
 .sn-c .bl:first-child,.sn-c .bl:last-child{padding:34px 36px}
+/* o cartão já separa: a borda vertical entre eles ficava como uma emenda */
 .sn-c .bl + .bl{border-left:1px solid var(--line)}
+/* o pé do cartão colava no conteúdo em cima e sobrava embaixo: agora o
+   conteúdo se distribui na altura que o cartão tem */
+.sn-c .bl{justify-content:space-between}
+.sn-c .cena{align-items:stretch}
 /* dentro do cartão a barra não precisa de 30px de altura */
 .sn-c .trilho,.sn-c .trilho i{height:24px}
 .sn-c .mult .v{font-size:74px}

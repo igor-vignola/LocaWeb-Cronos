@@ -316,8 +316,7 @@ não no `h1`: com `background-clip` no pai o texto do filho herda
 
 **7.9 Estrutura final, 28 slides.**
 
-As seções seguem as do deck da Sprint 3, que é o acabado, e cada uma abre por
-divisória no mesmo desenho.
+Seis seções, cada uma abrindo por divisória no mesmo desenho.
 
 | # | Slide | Quem | Outras versões |
 |---|---|---|---|
@@ -325,38 +324,41 @@ divisória no mesmo desenho.
 | 2 | Super Data Bros | Igor | — |
 | 3 | Cronos, o deus do tempo | Igor | — |
 | 4 | O prazo de cada incidente | Igor | — |
-| 5 | Quantidade de quebras em 2025 | Igor | — |
+| 5 | Quantidade de quebras em 2025 | Igor | B três degraus, sem curva |
 | 6 | A fila não atende na ordem em que o prazo estoura | Igor | — |
 | 7 | **Seção 01 · Análise Exploratória** | Igor | — |
 | 8 | O salto de setembro | Ana | — |
 | 9 | Por que treinamos só em 2025 | Ana | — |
-| 10 | Quem abre, e quando | Ana | B cartões flutuantes, C a A sobre cartões |
+| 10 | Quem abre, e quando | Ana | B os dois multiplicadores, C a A sobre cartões |
 | 11 | O mesmo ativo quebra de novo | Ana | — |
-| 12 | Quando ninguém sabe nomear a causa | Ana | — |
+| 12 | Participação do código de fechamento Outro | Ana | — |
 | 13 | O alvo é raro | Ana | — |
 | 14 | **Seção 02 · Previsão de Volume** | Ana | — |
-| 15 | Os próximos sete dias | Ana | B figura em largura cheia |
+| 15 | Os próximos sete dias | Ana | — |
 | 16 | Comparação do erro com os baselines | Ana | — |
 | 17 | **Seção 03 · Risco de OLA** | Ana | — |
-| 18 | A fila de risco | Ana | B seca, só a figura |
+| 18 | A fila de risco | Ana | — |
 | 19 | **Seção 04 · Projeção da meta e saúde** | Ana | — |
 | 20 | A meta do ano vai fechar? | Ana | B legenda, C quatro passos, D a meta em cartão |
-| 21 | Onde agir primeiro | Hygor | B sem matplotlib, C os dois painéis |
-| 22 | **Seção 05 · A aplicação web do Cronos** | Hygor | B desenho de seis molduras |
-| 23 | Como o Cronos antecipa o resultado do ano | Hygor | — |
-| 24 | **Morning Brief** (divisória) | Hygor | — |
-| 25 | Morning Brief | Hygor | B a folha redesenhada |
+| 21 | Onde agir primeiro | Hygor | — |
+| 22 | **Seção 05 · Morning Brief** | Hygor | — |
+| 23 | Morning Brief | Hygor | — |
+| 24 | **Seção 06 · Arquitetura da solução** | Hygor | — |
+| 25 | Como o Cronos antecipa o resultado do ano | Hygor | — |
 | 26 | Como isso roda | Hygor | B arquitetura da planilha ao painel |
 | 27 | Aplicação web Cronos · **demonstração** | Hygor | B baralho de telas, C a chamada ao vivo |
 | 28 | Obrigado | Igor | — |
 
 Três trocas de voz: 7→8, 20→21 e 27→28.
 
-**7.10 Um assunto por slide, e os modelos separados.** Previsão de volume e
-risco de OLA têm divisória própria e são apresentados um de cada vez, como no
-deck da Sprint 3. A previsão ocupa dois slides: a semana prevista contra o que
-chegou, e o erro por horizonte contra os baselines. A projeção da meta e a
-nota de saúde compartilham a seção 04, porque saem da mesma leitura.
+**7.10 Um assunto por slide, e cada entrega no seu lugar.** Previsão de volume
+e risco de OLA têm divisória própria e são apresentados um de cada vez. A
+previsão ocupa dois slides: a semana prevista contra o que chegou, e o erro
+por horizonte contra os baselines. A projeção da meta e a nota de saúde
+dividem a seção 04, porque saem da mesma leitura. O Morning Brief abre a sua
+própria seção, porque é entrega prometida e não detalhe de tela. A arquitetura
+vem por último, antes da demonstração, e a seção se chama arquitetura e não
+aplicação: "aplicação" é o nome do slide 27 e não diz nada sobre estrutura.
 
 **7.11 As variações vêm do deck da Sprint 3.** O dono do projeto trabalha com o
 `.pptx` da Sprint 4 como referência, mas considera acabado o da **Sprint 3**.
@@ -424,3 +426,10 @@ de escore entre as duas rodadas.
 `_verifica.py` mede a tela. Cascata que passa disso é medida no meio e o
 elemento sai marcado como invisível; e, no palco, quem apresenta já falou. A
 sequência mais longa do deck é a chamada da demonstração, que fecha em 3,35s.
+
+**7.22 Centralização do palco.** O `#stage` é posicionado em `left:50%;top:50%`
+e trazido de volta por `translate(-50%,-50%)` antes do `scale()` — nessa ordem,
+senão o deslocamento também encolhe. O `#fit` deixou de usar `place-items` do
+grid: com barra lateral no navegador ou proporção diferente de 16:9 o palco
+saía do eixo. A escala usa o menor entre `clientWidth/clientHeight` do
+documento e a caixa medida, o que descarta a largura de barra de rolagem.

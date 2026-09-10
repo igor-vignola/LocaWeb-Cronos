@@ -1,64 +1,74 @@
 <style>
 /* ═══ slide 12 · o código de fechamento "Outro" ═══════════════════════════════
-   Vindo do d32a do deck da Sprint 3, a pedido do dono do projeto. É um
-   apontamento de processo, não uma variável de modelo: o código de fechamento
-   só existe depois que o incidente fecha, então o modelo de risco não pode
-   usá-lo. O que ele diz é outra coisa, e é útil para a gestão: quando ninguém
-   consegue nomear a causa, o prazo estoura quase três vezes mais.
+   Cópia do d32a do deck da Sprint 3, que o dono do projeto mandou seguir: duas
+   colunas altas na mesma escala, o pedaço colorido embaixo de cada uma, a taxa
+   no meio e a cunha clara ligando um pedaço ao outro.
 
-   Duas colunas na mesma escala vertical, uma de volume e outra de violações.
-   O "Outro" é uma fatia pequena de uma e uma fatia grande da outra, e a
-   ligação entre as duas é o objeto do slide.
+   O que o slide diz: o incidente fechado como "Outro" é 8% do que entra e 22,9%
+   do que estoura. A cunha é a leitura, e ela sobe da esquerda para a direita.
+
+   O campo só é preenchido no fechamento, então não pode entrar no modelo de
+   risco, que pontua na abertura. Vale como apontamento de processo.
 
    Medido em data/interim/incidentes_kpi.parquet, janeiro a setembro de 2025,
    base elegível ao KPI:
      total          19.973 incidentes, 188 violações, taxa média 0,94%
      código Outro    1.596 incidentes (8,0%), 43 violações (22,9%), taxa 2,69%
+   A coluna tem 420px e o pedaço de cada lado usa a porcentagem como altura:
+   33,6px no volume e 96,2px nas violações.
    ══════════════════════════════════════════════════════════════════════════ */
 .otr .body{padding-top:14px}
-.otr .tt{font-size:50px;letter-spacing:-1.8px}
-.otr .sub{font-size:17px;line-height:1.45;color:var(--tx);margin-top:11px}
-.otr .sub b{color:var(--head);font-weight:700}
-.otr .cena{flex:1;display:flex;align-items:center;justify-content:center;gap:0;
-  margin-top:10px;min-height:0}
+.otr .tt{font-size:44px;letter-spacing:-1.6px}
+.otr .tt em{font-style:normal;color:var(--accent)}
+.otr .sub{font-size:16px;color:var(--tx2);margin-top:10px}
+.otr .cena{flex:1;display:flex;align-items:center;margin-top:14px;min-height:0}
+.otr .quadro{width:100%;padding:26px 40px}
 
-.otr .quadro{width:100%;height:100%;display:grid;
-  grid-template-columns:1fr 300px 1fr;align-items:center;gap:0 20px;padding:26px 34px}
+.otr .grade{position:relative;display:grid;grid-template-columns:1fr 330px 1fr;
+  align-items:end;gap:0 30px}
 
-/* as duas colunas, na mesma escala de 100% */
-.otr .col{display:flex;flex-direction:column;align-items:center;height:100%;
-  justify-content:flex-end}
+.otr .col{display:flex;flex-direction:column;align-items:center}
 .otr .col .k{font-size:11.5px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
-  color:var(--tx2);margin-bottom:16px;order:-1}
-.otr .barra{width:132px;flex:1;min-height:0;background:#E7ECF3;border-radius:10px;
-  position:relative;display:flex;flex-direction:column;justify-content:flex-end;
-  overflow:hidden}
-.otr .barra i{display:block;width:100%;border-radius:8px;transform:scaleY(0);
+  color:var(--tx2);margin-bottom:18px}
+.otr .barra{position:relative;width:118px;height:420px;background:#E9EDF4;border-radius:8px;
+  display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.otr .barra i{display:block;width:100%;border-radius:6px;transform:scaleY(0);
   transform-origin:bottom}
-.otr.is-active .barra i{animation:enche2 .9s var(--out) var(--d,0ms) forwards}
-@keyframes enche2{to{transform:scaleY(1)}}
+.otr.is-active .barra i{animation:sobePedaco .9s var(--out) var(--d,0ms) forwards}
+@keyframes sobePedaco{to{transform:scaleY(1)}}
 .otr .col.vol .barra i{background:#8593A6}
 .otr .col.qbr .barra i{background:var(--bad)}
-.otr .col .pc{font-size:40px;font-weight:900;letter-spacing:-1.8px;margin-top:16px;
-  font-variant-numeric:tabular-nums}
-.otr .col.vol .pc{color:#5B6879}
-.otr .col.qbr .pc{color:var(--bad)}
-.otr .col .qt{font-size:14px;color:var(--tx2);margin-top:6px}
-.otr .col .tot{font-size:13px;color:#A6B0BE;margin-top:14px;padding-top:12px;
-  border-top:1px solid #E7ECF3;width:150px;text-align:center}
+/* o rótulo fica ao lado do pedaço, fora da coluna, como no deck da Sprint 3 */
+.otr .col .marca{position:absolute;bottom:0;white-space:nowrap;opacity:0}
+.otr.is-active .col .marca{animation:rv .5s var(--out) var(--d,0ms) forwards}
+.otr .col.vol .marca{right:calc(100% + 18px);text-align:right}
+.otr .col.qbr .marca{left:calc(100% + 18px)}
+.otr .col .marca b{display:block;font-size:40px;font-weight:900;letter-spacing:-1.7px;
+  line-height:1;font-variant-numeric:tabular-nums}
+.otr .col.vol .marca b{color:#5B6879}
+.otr .col.qbr .marca b{color:var(--bad)}
+.otr .col .marca span{display:block;font-size:14px;color:var(--tx2);margin-top:7px}
+.otr .col .tot{font-size:13px;color:#A6B0BE;margin-top:14px}
+.otr .col .cx{position:relative;display:flex;justify-content:center}
 
-/* o meio: a taxa, que é a leitura do slide */
-.otr .meio{text-align:center}
-.otr .meio .v{font-size:82px;font-weight:900;letter-spacing:-3.6px;line-height:.9;
+/* a cunha que liga um pedaço ao outro */
+.otr .cunha{position:absolute;left:0;right:0;bottom:0;height:420px;pointer-events:none}
+.otr .cunha svg{width:100%;height:100%;display:block}
+.otr .cunha path{fill:rgba(220,38,38,.10);opacity:0}
+.otr.is-active .cunha path{animation:rv .7s var(--out) 1700ms forwards}
+
+/* o meio */
+.otr .meio{text-align:center;padding-bottom:96px}
+.otr .meio .v{font-size:78px;font-weight:900;letter-spacing:-3.4px;line-height:.9;
   color:var(--bad);font-variant-numeric:tabular-nums}
 .otr .meio .r{font-size:17px;line-height:1.4;color:var(--head);font-weight:700;margin-top:14px}
 .otr .meio .c{font-size:14.5px;color:var(--tx2);margin-top:9px}
-.otr .meio .mult{display:inline-flex;align-items:center;gap:9px;margin-top:20px;
+.otr .meio .mult{display:inline-flex;align-items:center;gap:9px;margin-top:18px;
   font-size:14.5px;font-weight:700;color:#B42222;background:#FCECEC;
   border:1px solid #F6CFCF;border-radius:999px;padding:8px 18px}
 
-.otr .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
-  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.otr .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:16px;
+  border-top:1px solid #DCE4EF;font-size:16px;line-height:1.45;color:var(--tx)}
 .otr .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .otr .fecho b{color:var(--head);font-weight:700}
 </style>
@@ -68,43 +78,53 @@
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
     <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Jan a set de 2025 &middot; base elegível ao KPI</div>
+    <div class="tag">Causas &middot; código de fechamento</div>
   </div>
   <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Apontamento de processo</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quando ninguém sabe nomear a causa</span></span></h1>
-    <p class="sub rv" style="--d:620ms">O incidente fechado como <b>Outro</b> é o que a operação não conseguiu encaixar em nenhuma categoria. Ele é 8% do volume e um quinto das quebras.</p>
+    <span class="eb"><span class="rv" style="--d:240ms">Apontamento de processo para a gestão</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Participação do código de fechamento Outro no volume e nas violações</span></span></h1>
+    <p class="sub rv" style="--d:620ms">Jan a set de 2025, base elegível ao KPI.</p>
 
     <div class="cena">
       <div class="quadro cartao rv3" style="--d:760ms">
-        <div class="col vol">
-          <div class="k">Volume</div>
-          <div class="barra"><i style="height:8%;--d:1000ms"></i></div>
-          <div class="pc"><span class="ct" data-to="8" data-delay="1140">0</span>%</div>
-          <p class="qt">1.596 incidentes</p>
-          <p class="tot">de 19.973 no período</p>
-        </div>
+        <div class="grade">
+          <div class="col vol">
+            <div class="k">Volume</div>
+            <div class="cx">
+              <div class="barra"><i style="height:8%;--d:1000ms"></i></div>
+              <div class="marca" style="--d:1300ms"><b>8,0%</b><span>1.596 incidentes</span></div>
+            </div>
+            <p class="tot">19.973 incidentes</p>
+          </div>
 
-        <div class="meio">
-          <div class="v"><span class="ct" data-to="2.69" data-dec="2" data-delay="1500">0,00</span>%</div>
-          <p class="r">é a taxa de quebra dentro do código Outro</p>
-          <p class="c">contra <b>0,94%</b> na média da base</p>
-          <span class="mult rv" style="--d:1900ms">quase 3 vezes o risco médio</span>
-        </div>
+          <div class="meio">
+            <div class="v"><span class="ct" data-to="2.69" data-dec="2" data-delay="1500">0,00</span>%</div>
+            <p class="r">taxa de violação dentro do código Outro</p>
+            <p class="c">contra <b>0,94%</b> na média da base</p>
+            <span class="mult rv" style="--d:1900ms">quase 3 vezes o risco médio</span>
+          </div>
 
-        <div class="col qbr">
-          <div class="k">Violações de OLA</div>
-          <div class="barra"><i style="height:22.9%;--d:1200ms"></i></div>
-          <div class="pc"><span class="ct" data-to="22.9" data-dec="1" data-delay="1340">0,0</span>%</div>
-          <p class="qt">43 quebras</p>
-          <p class="tot">de 188 no período</p>
+          <div class="col qbr">
+            <div class="k">Violações de OLA</div>
+            <div class="cx">
+              <div class="barra"><i style="height:22.9%;--d:1160ms"></i></div>
+              <div class="marca" style="--d:1420ms"><b>22,9%</b><span>43 quebras</span></div>
+            </div>
+            <p class="tot">188 quebras</p>
+          </div>
+
+          <div class="cunha">
+            <svg viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M0,386.4 L1000,323.8 L1000,420 L0,420 Z"/>
+            </svg>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="fecho rv" style="--d:2100ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span>O campo só é preenchido no fechamento, então <b>fica fora do modelo</b>. Vale como apontamento: problema sem categoria clara merece atenção antes, não depois.</span>
+      <span>O campo só existe no fechamento e não separa causa de consequência, então <b>fica fora do modelo</b> e vale como apontamento de processo.</span>
     </div>
   </div>
   <div class="ft"></div>

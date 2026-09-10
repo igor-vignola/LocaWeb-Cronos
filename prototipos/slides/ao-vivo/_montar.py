@@ -212,8 +212,12 @@ RODAPE = """
   var caixa=document.getElementById("fit");
   function fit(){
     var r=caixa.getBoundingClientRect();
-    if(!r.width||!r.height) return;
-    stage.style.transform="scale("+Math.min(r.width/1600,r.height/900)+")";
+    var l=Math.min(document.documentElement.clientWidth,r.width);
+    var a=Math.min(document.documentElement.clientHeight,r.height);
+    if(!l||!a) return;
+    /* o translate vem antes do scale: primeiro tira o palco de cima do centro,
+       depois encolhe. Na ordem inversa o deslocamento também encolheria. */
+    stage.style.transform="translate(-50%,-50%) scale("+Math.min(l/1600,a/900)+")";
   }
   if(window.ResizeObserver) new ResizeObserver(fit).observe(caixa);
   window.addEventListener("resize",fit);

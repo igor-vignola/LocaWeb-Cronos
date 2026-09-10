@@ -81,7 +81,7 @@ incidentes porque novembro e dezembro tiveram menos quebras que a média do ano.
 Para a frase não ser um template: ela lê os números do dia e escreve a abertura
 do resumo em linguagem de operação. Nenhum número passa por ela. Poderia ser um
 template, e escolhemos o texto gerado porque o resumo muda de tom conforme o
-dia (dia normal, dia acima do previsto, quebra ontem). → slide 25, pé.
+dia (dia normal, dia acima do previsto, quebra ontem). → slide 23, pé.
 
 **(Douglas) "A cor do gráfico e a ordem não batem. Por quê?"**
 Porque medem coisas diferentes, e o slide diz isso. A posição é o tamanho do
@@ -154,11 +154,11 @@ Dois modelos: Prophet para o volume e regressão logística para o risco. As
 outras duas saídas são cálculos derivados deles: a projeção da meta soma três
 parcelas (o que já aconteceu, o que a fila aberta ainda deve virar e o que
 entra até dezembro) e a nota de saúde é um índice de cinco medidas por produto.
-O slide 23 traz as quatro com a etiqueta de cada uma. → slide 23.
+O slide 25 traz as quatro com a etiqueta de cada uma. → slide 25.
 
-**"De onde saem os 76% do slide 23?"**
+**"De onde saem os 76% do slide 25?"**
 Da mesma base de avaliação da fila: ordenando os 5.183 incidentes pelo risco do
-modelo, os 20% do topo (1.037 posições) contêm 38 das 50 quebras. → slide 23.
+modelo, os 20% do topo (1.037 posições) contêm 38 das 50 quebras. → slide 25.
 
 **"Na prioridade 3 o baseline ganha do Prophet. Por que manter o Prophet?"**
 Por três motivos. A diferença é de 4,5% no erro médio, dentro do ruído do

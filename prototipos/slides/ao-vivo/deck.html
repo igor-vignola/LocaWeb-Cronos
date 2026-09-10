@@ -38,8 +38,14 @@
 html,body{height:100%;overflow:hidden}
 body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility}
-#fit{position:fixed;inset:0;display:grid;place-items:center}
-#stage{width:1600px;height:900px;position:relative;overflow:hidden;transform-origin:center;
+/* centralização por posição absoluta, não por grid: com place-items o palco
+   ficava fora do eixo quando a janela tinha barra lateral ou proporção
+   diferente de 16:9. Aqui o canto do palco vai ao centro exato e o
+   translate(-50%,-50%) o traz de volta metade da largura e da altura, antes
+   de escalar. */
+#fit{position:fixed;inset:0;overflow:hidden}
+#stage{position:absolute;left:50%;top:50%;width:1600px;height:900px;overflow:hidden;
+  transform-origin:center;transform:translate(-50%,-50%) scale(1);
   box-shadow:0 40px 130px -50px rgba(0,0,0,.7)}
 
 .slide{position:absolute;inset:0;overflow:hidden;display:none;flex-direction:column}
@@ -674,6 +680,66 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .med .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .med .fecho b{color:var(--head);font-weight:700}
 
+/* ───── 05-quebras-b.html ───── */
+/* ═══ slide 5 · variação B · sem curva ════════════════════════════════════════
+   Mesma estrutura da A: os dois números no centro, cada um com o limite do ano
+   e o selo de situação. O que muda é o desenho debaixo do número.
+
+   A curva do acumulado mês a mês era pequena demais para ser lida de longe. No
+   lugar dela entram três degraus, out, nov e dez, com o acumulado de cada um.
+   É a mesma história em três números em vez de doze pontos, e o degrau que
+   passa do limite fica vermelho e sozinho.
+
+   Acumulado de 2025, de data/interim/incidentes_kpi.parquet:
+     P2  out 35 · nov 41 · dez 42     limite 39, passa em novembro
+     P3  out 164 · nov 179 · dez 196  limite 263, nunca chega perto
+   ══════════════════════════════════════════════════════════════════════════ */
+.qbd .body{padding-top:14px}
+.qbd .tt{font-size:52px;letter-spacing:-1.9px}
+.qbd .cena{flex:1;display:flex;align-items:center;justify-content:center;gap:96px;
+  margin-top:10px;min-height:0}
+.qbd .fio{width:1px;align-self:stretch;margin:40px 0;
+  background:linear-gradient(180deg,transparent,#D9E1EC 18%,#D9E1EC 82%,transparent)}
+
+.qbd .un{width:430px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.qbd .un .cb{font-size:12px;font-weight:700;letter-spacing:2.3px;text-transform:uppercase;
+  color:var(--tx2)}
+.qbd .un .n{font-size:168px;font-weight:900;letter-spacing:-7.8px;line-height:.84;
+  margin-top:18px;font-variant-numeric:tabular-nums}
+.qbd .un.fora .n{color:var(--bad)}
+.qbd .un.dentro .n{color:var(--good)}
+.qbd .un .lim{font-size:18px;color:var(--tx);margin-top:20px}
+.qbd .un .lim b{color:var(--head);font-weight:800}
+
+/* os três degraus do fim do ano */
+.qbd .degraus{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;
+  margin-top:30px}
+.qbd .dg{border-radius:14px;border:1px solid var(--line);background:#fff;padding:16px 10px;
+  opacity:0;transform:translate3d(0,12px,0)}
+.qbd.is-active .dg{animation:rv .55s var(--out) var(--d,0ms) forwards}
+.qbd .dg .m{font-family:var(--mono);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;
+  color:#A6B0BE}
+.qbd .dg .a{font-size:34px;font-weight:900;letter-spacing:-1.4px;color:var(--head);
+  margin-top:9px;line-height:1;font-variant-numeric:tabular-nums}
+/* o degrau que passa do limite */
+.qbd .dg.passou{border-color:#F5C2C2;background:#FFF6F6}
+.qbd .dg.passou .a{color:var(--bad)}
+.qbd .dg.passou .m{color:#C97070}
+.qbd .marca{font-size:14.5px;color:var(--tx2);margin-top:16px}
+.qbd .marca b{font-weight:700}
+.qbd .un.fora .marca b{color:var(--bad)}
+.qbd .un.dentro .marca b{color:var(--good)}
+
+.qbd .sel{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-size:14.5px;
+  font-weight:700;border-radius:999px;padding:9px 19px}
+.qbd .un.fora .sel{color:#B42222;background:#FCECEC;border:1px solid #F6CFCF}
+.qbd .un.dentro .sel{color:#12794A;background:#E7F6EE;border:1px solid #C7E9D7}
+
+.qbd .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.qbd .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.qbd .fecho b{color:var(--head);font-weight:700}
+
 /* ───── 05-quebras.html ───── */
 /* ═══ slide 5 · as quebras de 2025 ════════════════════════════════════════════
    A composição escolhida pelo dono do projeto entre três: a estrutura da
@@ -943,91 +1009,65 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .rc-a .lado{flex:1;min-width:0;display:flex;flex-direction:column;gap:22px}
 
 /* ───── 10-sinais-b.html ───── */
-/* ═══ slide 10 · variação B · cartões flutuantes ══════════════════════════════
-   Mesmo dado da variação A, outra forma. Lá os dois cortes são barras num
-   trilho compartilhado; aqui cada valor é um cartão solto, e a diferença de
-   risco vira diferença de altura: o cartão que quebra mais fica acima do outro.
-   O multiplicador é uma ficha que paira entre os dois e amarra a leitura.
+/* ═══ slide 10 · variação B · os dois multiplicadores ═════════════════════════
+   A variação anterior, de cartões flutuantes com uma ficha no meio, foi
+   descartada. Esta vai no sentido oposto: tira tudo o que não é a conclusão.
 
-   Os cartões respiram devagar, com fases diferentes, para o conjunto parecer
-   suspenso. O movimento é de 6px e não desloca texto: quem lê não persegue
-   nada. Em `prefers-reduced-motion` a respiração para.
+   O objeto são os dois multiplicadores em corpo grande, um por corte. Debaixo
+   de cada um, duas linhas finas com as taxas que produziram aquele número, e
+   nada mais. Sem cartão, sem trilho, sem moldura: só tipografia e muito
+   branco, que é o que o dono do projeto chama de imersivo.
 
-   Números, base elegível ao KPI de 2025, os mesmos da variação A:
-     quem abre    pessoa 1,24% em 15.671   monitoramento 0,46% em 9.485   2,7x
-                  vale nas duas prioridades: 3,0x na 2 e 3,1x na 3
-     quando chega fim de semana 1,88% (24/dia)  dia util 0,85% (67/dia)   2,2x
-                  na prioridade 2 o efeito some: 0,75% contra 0,83%
+   Os multiplicadores contam e a régua de comparação se desenha depois deles,
+   então o olho chega primeiro na conclusão e só então confere a conta.
+
+   Mesmos números da variação A, base elegível ao KPI de 2025:
+     quem abre     pessoa 1,24% em 15.671 · monitoramento 0,46% em 9.485 · 2,7x
+                   vale nas duas prioridades: 3,0x na 2 e 3,1x na 3
+     quando chega  fim de semana 1,88% (24/dia) · dia útil 0,85% (67/dia) · 2,2x
+                   na prioridade 2 o efeito some: 0,75% contra 0,83%
    ══════════════════════════════════════════════════════════════════════════ */
 .snb .body{padding-top:14px}
 .snb .tt{font-size:52px;letter-spacing:-1.9px}
-.snb .cena{flex:1;display:grid;grid-template-columns:1fr 1px 1fr;gap:0 54px;
+.snb .cena{flex:1;display:grid;grid-template-columns:1fr 1px 1fr;gap:0 76px;
   align-items:center;margin-top:6px;min-height:0}
-.snb .div{background:linear-gradient(180deg,transparent,#DCE4EF 18%,#DCE4EF 82%,transparent)}
+.snb .div{align-self:stretch;margin:26px 0;
+  background:linear-gradient(180deg,transparent,#DCE4EF 16%,#DCE4EF 84%,transparent)}
 
 .snb .cab{display:flex;align-items:center;gap:11px;font-size:12px;font-weight:700;
-  letter-spacing:2.1px;text-transform:uppercase;color:var(--tx2)}
+  letter-spacing:2.2px;text-transform:uppercase;color:var(--tx2)}
 .snb .cab .ic{width:17px;height:17px;color:var(--accent)}
 
-/* o par de cartões, com a ficha do multiplicador pairando entre eles */
-/* três colunas na mesma linha: cartão, ficha, cartão. A ordem no HTML mantém
-   os dois cartões juntos, e o grid coloca a ficha no vão entre eles. */
-/* align-items:stretch com margem oposta em cada cartao: os dois ficam do mesmo
-   tamanho e mesmo assim um fica acima do outro. Com align-items:center e
-   margem negativa eles saiam de alturas diferentes. */
-.snb .duo{display:grid;grid-template-columns:1fr 132px 1fr;gap:0 14px;align-items:stretch;
-  margin-top:26px;padding:26px 0}
-.snb .fc.alto{grid-column:1;grid-row:1}
-.snb .fc.baixo{grid-column:3;grid-row:1}
-.snb .ficha{grid-column:2;grid-row:1;align-self:center}
+/* o número que se fala, e é ele que ocupa a tela */
+.snb .heroi{display:flex;align-items:baseline;gap:4px;margin-top:34px}
+.snb .heroi .v{font-size:180px;font-weight:900;letter-spacing:-8.5px;line-height:.8;
+  color:var(--accent);font-variant-numeric:tabular-nums}
+.snb .heroi em{font-style:normal;font-size:74px;font-weight:900;letter-spacing:-2px;
+  color:var(--accent)}
+.snb .diz{font-size:24px;line-height:1.35;color:var(--head);font-weight:600;
+  letter-spacing:-.4px;margin-top:26px;max-width:22ch}
+.snb .diz b{font-weight:800}
 
-.snb .fc{border-radius:20px;padding:26px 24px;background:#fff;border:1px solid var(--line);
-  display:flex;flex-direction:column;
-  will-change:transform}
-.snb .fc .rot{font-size:16.5px;font-weight:700;color:var(--head);letter-spacing:-.2px;
-  display:flex;align-items:center;gap:8px}
-.snb .fc .rot .chip{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--tx2);
-  background:#F4F7FC;border:1px solid var(--line);border-radius:5px;padding:1px 6px}
-.snb .fc .qt{font-size:13.5px;color:var(--tx2);margin-top:6px}
-.snb .fc .tx{font-size:52px;font-weight:900;letter-spacing:-2.2px;line-height:.9;
-  margin-top:20px;font-variant-numeric:tabular-nums}
-.snb .fc .un{font-size:14px;color:var(--tx2);margin-top:auto;padding-top:12px}
-
-/* o que quebra mais sobe e ganha peso; o outro fica embaixo e recuado */
-.snb .fc.alto{margin-bottom:48px;box-shadow:0 34px 64px -34px rgba(37,99,235,.5);
-  border-color:#C6D9FB}
-.snb .fc.alto .tx{color:var(--accent)}
-.snb .fc.baixo{margin-top:48px;background:#FBFCFE;
-  box-shadow:0 16px 40px -34px rgba(15,23,42,.45)}
-.snb .fc.baixo .rot{color:var(--tx)}
-.snb .fc.baixo .tx{color:#9AA6B6}
-
-.snb.is-active .fc.alto{animation:rv3 .8s var(--out) var(--d,0ms) forwards,
-  boia 6.5s ease-in-out 1.6s infinite}
-.snb.is-active .fc.baixo{animation:rv3 .8s var(--out) var(--d,0ms) forwards,
-  boia 7.4s ease-in-out 2.3s infinite reverse}
-@keyframes boia{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-6px,0)}}
-@media (prefers-reduced-motion:reduce){
-  .snb.is-active .fc.alto,.snb.is-active .fc.baixo{animation:rv3 .8s var(--out) var(--d,0ms) forwards}
-}
-
-/* a ficha do multiplicador, no vão entre os dois cartões */
-.snb .ficha{justify-self:center;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;width:118px;height:118px;border-radius:50%;background:var(--ink);
-  color:#fff;box-shadow:0 26px 54px -22px rgba(10,14,23,.62);opacity:0;transform:scale(.86)}
-.snb.is-active .ficha{animation:ficha .7s var(--spring) var(--d,0ms) forwards}
-@keyframes ficha{to{opacity:1;transform:scale(1)}}
-.snb .ficha b{font-size:38px;font-weight:900;letter-spacing:-1.7px;line-height:1;
+/* a conta, em duas linhas finas */
+.snb .conta{margin-top:38px;padding-top:22px;border-top:1px solid #DCE4EF}
+.snb .l{display:grid;grid-template-columns:1fr 92px;align-items:baseline;gap:18px;
+  padding:11px 0;opacity:0;transform:translate3d(0,8px,0)}
+.snb.is-active .l{animation:rv .5s var(--out) var(--d,0ms) forwards}
+.snb .l + .l{border-top:1px solid #EDF1F7}
+.snb .l .nm{font-size:18px;color:var(--tx)}
+.snb .l .nm .chip{font-family:var(--mono);font-size:11px;color:var(--tx2);background:#F1F5FB;
+  border:1px solid var(--line);border-radius:5px;padding:1px 6px;margin-left:8px;
+  vertical-align:2px}
+.snb .l .nm small{display:block;font-size:13.5px;color:#A6B0BE;margin-top:4px}
+.snb .l .tx{font-size:26px;font-weight:800;text-align:right;letter-spacing:-.8px;
   font-variant-numeric:tabular-nums}
-.snb .ficha b em{font-style:normal;font-size:.56em;margin-left:1px}
-.snb .ficha span{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
-  color:#8FB4F5;margin-top:7px}
+.snb .l.alto .nm{color:var(--head);font-weight:700}
+.snb .l.alto .tx{color:var(--head)}
+.snb .l.baixo .nm,.snb .l.baixo .tx{color:#A6B0BE}
 
-.snb .leg{font-size:17px;line-height:1.45;color:var(--tx);margin-top:8px}
-.snb .leg b{color:var(--head);font-weight:700}
-.snb .pri{display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.42;
-  color:var(--tx2);margin-top:16px}
-.snb .pri .ic{width:17px;height:17px;color:var(--good);margin-top:1px;flex-shrink:0}
+.snb .pri{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.42;
+  color:var(--tx2);margin-top:22px}
+.snb .pri .ic{width:16px;height:16px;margin-top:2px;flex-shrink:0;color:#9AA6B6}
 .snb .pri b{color:var(--head);font-weight:700}
 
 .snb .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
@@ -1049,12 +1089,17 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
    ══════════════════════════════════════════════════════════════════════════ */
 /* altura do conteúdo, não da linha: esticados, os cartões abriam um quarto
    de vão morto embaixo e o bloco parecia cortado */
-.sn-c .cena{gap:28px;align-items:center;justify-content:center}
-.sn-c .bl{flex:1;min-width:0;padding:34px 36px;background:#fff;
-  border:1px solid var(--line);border-radius:24px;justify-content:flex-start;
+.sn-c .cena{gap:28px;justify-content:center}
+.sn-c .bl{flex:1;min-width:0;padding:40px 38px;background:#fff;
+  border:1px solid var(--line);border-radius:24px;
   box-shadow:0 34px 74px -46px rgba(15,23,42,.55);will-change:transform}
 .sn-c .bl:first-child,.sn-c .bl:last-child{padding:34px 36px}
+/* o cartão já separa: a borda vertical entre eles ficava como uma emenda */
 .sn-c .bl + .bl{border-left:1px solid var(--line)}
+/* o pé do cartão colava no conteúdo em cima e sobrava embaixo: agora o
+   conteúdo se distribui na altura que o cartão tem */
+.sn-c .bl{justify-content:space-between}
+.sn-c .cena{align-items:stretch}
 /* dentro do cartão a barra não precisa de 30px de altura */
 .sn-c .trilho,.sn-c .trilho i{height:24px}
 .sn-c .mult .v{font-size:74px}
@@ -1218,65 +1263,75 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 
 /* ───── 12-outro.html ───── */
 /* ═══ slide 12 · o código de fechamento "Outro" ═══════════════════════════════
-   Vindo do d32a do deck da Sprint 3, a pedido do dono do projeto. É um
-   apontamento de processo, não uma variável de modelo: o código de fechamento
-   só existe depois que o incidente fecha, então o modelo de risco não pode
-   usá-lo. O que ele diz é outra coisa, e é útil para a gestão: quando ninguém
-   consegue nomear a causa, o prazo estoura quase três vezes mais.
+   Cópia do d32a do deck da Sprint 3, que o dono do projeto mandou seguir: duas
+   colunas altas na mesma escala, o pedaço colorido embaixo de cada uma, a taxa
+   no meio e a cunha clara ligando um pedaço ao outro.
 
-   Duas colunas na mesma escala vertical, uma de volume e outra de violações.
-   O "Outro" é uma fatia pequena de uma e uma fatia grande da outra, e a
-   ligação entre as duas é o objeto do slide.
+   O que o slide diz: o incidente fechado como "Outro" é 8% do que entra e 22,9%
+   do que estoura. A cunha é a leitura, e ela sobe da esquerda para a direita.
+
+   O campo só é preenchido no fechamento, então não pode entrar no modelo de
+   risco, que pontua na abertura. Vale como apontamento de processo.
 
    Medido em data/interim/incidentes_kpi.parquet, janeiro a setembro de 2025,
    base elegível ao KPI:
      total          19.973 incidentes, 188 violações, taxa média 0,94%
      código Outro    1.596 incidentes (8,0%), 43 violações (22,9%), taxa 2,69%
+   A coluna tem 420px e o pedaço de cada lado usa a porcentagem como altura:
+   33,6px no volume e 96,2px nas violações.
    ══════════════════════════════════════════════════════════════════════════ */
 .otr .body{padding-top:14px}
-.otr .tt{font-size:50px;letter-spacing:-1.8px}
-.otr .sub{font-size:17px;line-height:1.45;color:var(--tx);margin-top:11px}
-.otr .sub b{color:var(--head);font-weight:700}
-.otr .cena{flex:1;display:flex;align-items:center;justify-content:center;gap:0;
-  margin-top:10px;min-height:0}
+.otr .tt{font-size:44px;letter-spacing:-1.6px}
+.otr .tt em{font-style:normal;color:var(--accent)}
+.otr .sub{font-size:16px;color:var(--tx2);margin-top:10px}
+.otr .cena{flex:1;display:flex;align-items:center;margin-top:14px;min-height:0}
+.otr .quadro{width:100%;padding:26px 40px}
 
-.otr .quadro{width:100%;height:100%;display:grid;
-  grid-template-columns:1fr 300px 1fr;align-items:center;gap:0 20px;padding:26px 34px}
+.otr .grade{position:relative;display:grid;grid-template-columns:1fr 330px 1fr;
+  align-items:end;gap:0 30px}
 
-/* as duas colunas, na mesma escala de 100% */
-.otr .col{display:flex;flex-direction:column;align-items:center;height:100%;
-  justify-content:flex-end}
+.otr .col{display:flex;flex-direction:column;align-items:center}
 .otr .col .k{font-size:11.5px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
-  color:var(--tx2);margin-bottom:16px;order:-1}
-.otr .barra{width:132px;flex:1;min-height:0;background:#E7ECF3;border-radius:10px;
-  position:relative;display:flex;flex-direction:column;justify-content:flex-end;
-  overflow:hidden}
-.otr .barra i{display:block;width:100%;border-radius:8px;transform:scaleY(0);
+  color:var(--tx2);margin-bottom:18px}
+.otr .barra{position:relative;width:118px;height:420px;background:#E9EDF4;border-radius:8px;
+  display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.otr .barra i{display:block;width:100%;border-radius:6px;transform:scaleY(0);
   transform-origin:bottom}
-.otr.is-active .barra i{animation:enche2 .9s var(--out) var(--d,0ms) forwards}
-@keyframes enche2{to{transform:scaleY(1)}}
+.otr.is-active .barra i{animation:sobePedaco .9s var(--out) var(--d,0ms) forwards}
+@keyframes sobePedaco{to{transform:scaleY(1)}}
 .otr .col.vol .barra i{background:#8593A6}
 .otr .col.qbr .barra i{background:var(--bad)}
-.otr .col .pc{font-size:40px;font-weight:900;letter-spacing:-1.8px;margin-top:16px;
-  font-variant-numeric:tabular-nums}
-.otr .col.vol .pc{color:#5B6879}
-.otr .col.qbr .pc{color:var(--bad)}
-.otr .col .qt{font-size:14px;color:var(--tx2);margin-top:6px}
-.otr .col .tot{font-size:13px;color:#A6B0BE;margin-top:14px;padding-top:12px;
-  border-top:1px solid #E7ECF3;width:150px;text-align:center}
+/* o rótulo fica ao lado do pedaço, fora da coluna, como no deck da Sprint 3 */
+.otr .col .marca{position:absolute;bottom:0;white-space:nowrap;opacity:0}
+.otr.is-active .col .marca{animation:rv .5s var(--out) var(--d,0ms) forwards}
+.otr .col.vol .marca{right:calc(100% + 18px);text-align:right}
+.otr .col.qbr .marca{left:calc(100% + 18px)}
+.otr .col .marca b{display:block;font-size:40px;font-weight:900;letter-spacing:-1.7px;
+  line-height:1;font-variant-numeric:tabular-nums}
+.otr .col.vol .marca b{color:#5B6879}
+.otr .col.qbr .marca b{color:var(--bad)}
+.otr .col .marca span{display:block;font-size:14px;color:var(--tx2);margin-top:7px}
+.otr .col .tot{font-size:13px;color:#A6B0BE;margin-top:14px}
+.otr .col .cx{position:relative;display:flex;justify-content:center}
 
-/* o meio: a taxa, que é a leitura do slide */
-.otr .meio{text-align:center}
-.otr .meio .v{font-size:82px;font-weight:900;letter-spacing:-3.6px;line-height:.9;
+/* a cunha que liga um pedaço ao outro */
+.otr .cunha{position:absolute;left:0;right:0;bottom:0;height:420px;pointer-events:none}
+.otr .cunha svg{width:100%;height:100%;display:block}
+.otr .cunha path{fill:rgba(220,38,38,.10);opacity:0}
+.otr.is-active .cunha path{animation:rv .7s var(--out) 1700ms forwards}
+
+/* o meio */
+.otr .meio{text-align:center;padding-bottom:96px}
+.otr .meio .v{font-size:78px;font-weight:900;letter-spacing:-3.4px;line-height:.9;
   color:var(--bad);font-variant-numeric:tabular-nums}
 .otr .meio .r{font-size:17px;line-height:1.4;color:var(--head);font-weight:700;margin-top:14px}
 .otr .meio .c{font-size:14.5px;color:var(--tx2);margin-top:9px}
-.otr .meio .mult{display:inline-flex;align-items:center;gap:9px;margin-top:20px;
+.otr .meio .mult{display:inline-flex;align-items:center;gap:9px;margin-top:18px;
   font-size:14.5px;font-weight:700;color:#B42222;background:#FCECEC;
   border:1px solid #F6CFCF;border-radius:999px;padding:8px 18px}
 
-.otr .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
-  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.otr .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:16px;
+  border-top:1px solid #DCE4EF;font-size:16px;line-height:1.45;color:var(--tx)}
 .otr .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .otr .fecho b{color:var(--head);font-weight:700}
 
@@ -1317,16 +1372,29 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .alv .diz b{color:var(--head);font-weight:700}
 
 /* a grade: 400 quadrados para os 25.600 elegíveis, 40 por linha.
-   A grade inteira entra de uma vez e só os quatro vermelhos dão o pulo: 400
-   atrasos individuais precisariam de script, e o _montar.py só recolhe <style>
-   e <section> de cada bloco. */
+   A onda varre linha a linha, com dez regras de nth-child em vez de 400
+   atrasos individuais: o _montar.py só recolhe <style> e <section> de cada
+   bloco, então script de bloco não sobrevive à montagem. */
 .alv .grade{display:grid;grid-template-columns:repeat(40,1fr);gap:3.5px}
-.alv .grade i{aspect-ratio:1;border-radius:2px;background:#DCE3EC}
-.alv .grade i.q{background:var(--bad);transform:scale(0)}
-.alv.is-active .grade i.q{animation:pipoca .5s var(--spring) 1780ms forwards}
-.alv.is-active .grade i.q:nth-of-type(2n){animation-delay:1900ms}
-.alv.is-active .grade i.q:nth-of-type(3n){animation-delay:2020ms}
-@keyframes pipoca{to{transform:scale(1)}}
+.alv .grade i{aspect-ratio:1;border-radius:2px;background:#DCE3EC;
+  opacity:0;transform:scale(.5)}
+.alv.is-active .grade i{animation:pipoca .38s var(--out) forwards}
+.alv.is-active .grade i:nth-child(-n+40){animation-delay:1300ms}
+.alv.is-active .grade i:nth-child(n+41):nth-child(-n+80){animation-delay:1370ms}
+.alv.is-active .grade i:nth-child(n+81):nth-child(-n+120){animation-delay:1440ms}
+.alv.is-active .grade i:nth-child(n+121):nth-child(-n+160){animation-delay:1510ms}
+.alv.is-active .grade i:nth-child(n+161):nth-child(-n+200){animation-delay:1580ms}
+.alv.is-active .grade i:nth-child(n+201):nth-child(-n+240){animation-delay:1650ms}
+.alv.is-active .grade i:nth-child(n+241):nth-child(-n+280){animation-delay:1720ms}
+.alv.is-active .grade i:nth-child(n+281):nth-child(-n+320){animation-delay:1790ms}
+.alv.is-active .grade i:nth-child(n+321):nth-child(-n+360){animation-delay:1860ms}
+.alv.is-active .grade i:nth-child(n+361){animation-delay:1930ms}
+.alv .grade i.q{background:var(--bad)}
+/* os vermelhos acendem depois de toda a grade assentar, com um pulo maior */
+.alv.is-active .grade i.q{animation:acende .6s var(--spring) 2200ms forwards}
+@keyframes pipoca{to{opacity:1;transform:scale(1)}}
+@keyframes acende{0%{opacity:1;transform:scale(1)}
+  45%{opacity:1;transform:scale(2.1)}100%{opacity:1;transform:scale(1)}}
 .alv .leg{font-size:13.5px;line-height:1.45;color:var(--tx2);margin-top:14px}
 .alv .leg b{color:var(--bad);font-weight:700}
 
@@ -1353,7 +1421,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 /* ───── 14-div-previsao.html ───── */
 
 
-/* ───── 15-previsao-b.html ───── */
+/* ───── 15-previsao.html ───── */
 /* ═══ slide 15 · variação B · a figura ocupa a largura ════════════════════════
    Pedido do dono do projeto: esticar o gráfico e aliviar o texto de baixo, que
    na variação A pesava e disputava a atenção com a figura.
@@ -1398,45 +1466,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
 .pvb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .pvb .fecho b{color:var(--head);font-weight:700}
-
-/* ───── 15-previsao.html ───── */
-/* ═══ slide 15 · os próximos sete dias ════════════════════════════════════════
-   O slide do Prophet, e a saída do produto em vez de uma métrica sobre ele: os
-   sete dias que a operação lê no dia 1º de outubro de 2025, com a faixa de cada
-   dia e o ponto do que de fato chegou.
-
-   Três versões antes desta. A primeira era "chegam 16, erramos 4" em número
-   grande com barra de proporção, e o dono do projeto pediu algo mais imersivo.
-   A segunda desenhava a tira em HTML, com as faixas em pixel — funcionou, e ele
-   pediu para manter o padrão da casa e fazer o gráfico no matplotlib, que é
-   mais fácil de ler. É esta.
-
-   O ponto vermelho é o único fora da faixa e fica no slide de propósito.
-   Esconder um ponto de quatorze seria pior que mostrá-lo, e a ressalva da
-   janela inteira está escrita no pé.
-
-   Figura em dpi 200, de _figuras_previsao.py. As duas prioridades no mesmo
-   peso, regra 10, com escalas próprias porque os volumes são diferentes.
-   ══════════════════════════════════════════════════════════════════════════ */
-.pvs .body{padding-top:14px}
-.pvs .tt{font-size:52px;letter-spacing:-1.9px}
-
-.pvs .cena{flex:1;display:flex;align-items:center;justify-content:center;
-  margin-top:14px;min-height:0}
-.pvs .quadro{padding:20px 24px}
-.pvs .fig{display:block;width:1120px}
-
-/* o fecho: o número da janela e a ressalva, lado a lado */
-.pvs .fecho{display:flex;align-items:center;gap:32px;margin-top:auto;padding-top:20px;
-  border-top:1px solid #DCE4EF}
-.pvs .fecho .n{display:flex;align-items:baseline;gap:15px;flex-shrink:0}
-.pvs .fecho .n .v{font-size:60px;font-weight:900;letter-spacing:-2.5px;line-height:.86;
-  color:var(--head);font-variant-numeric:tabular-nums}
-.pvs .fecho .n .k{font-size:17px;line-height:1.34;color:var(--tx);max-width:196px}
-.pvs .fecho .n .k b{color:var(--head);font-weight:700}
-.pvs .fecho .obs{font-size:15px;line-height:1.46;color:var(--tx2);padding-left:32px;
-  border-left:1px solid #DCE4EF}
-.pvs .fecho .obs b{color:var(--head);font-weight:700}
 
 /* ───── 16-erro.html ───── */
 /* ═══ slide 16 · o erro do Prophet contra os baselines ════════════════════════
@@ -1513,46 +1542,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .dv3.is-active .fila .tr i{animation:corre .6s var(--out) var(--d,0ms) forwards}
 .dv3 .fila b{font-size:13px;font-weight:700;color:#FCA5A5;text-align:right;
   font-variant-numeric:tabular-nums}
-
-/* ───── 18-fila-b.html ───── */
-/* ═══ slide 18 · variação B · seco ════════════════════════════════════════════
-   O dono do projeto pediu uma versão seca. A composição A traz o gráfico e um
-   trilho de leitura ao lado; esta tira o trilho.
-
-   Fica o gráfico ocupando a largura inteira, o número que se fala numa ficha
-   ao lado do título, e uma linha embaixo. Nada mais. É o slide para quem
-   prefere que a figura fale sozinha e a explicação venha da boca de quem
-   apresenta.
-
-   Os valores que saíram para o pé continuam medidos em
-   data/interim/04_fila_pontuada.parquet: 13 quebras nas 50 primeiras posições
-   contra 9 da melhor regra simples e nenhuma ordenando por prioridade, de 50
-   quebras em 5.183 incidentes avaliados fora do período de treino.
-   ══════════════════════════════════════════════════════════════════════════ */
-.flc .body{padding-top:14px}
-.flc .topo{display:flex;align-items:flex-end;justify-content:space-between;gap:40px}
-.flc .tt{font-size:50px;letter-spacing:-1.8px}
-
-.flc .ficha{flex-shrink:0;display:flex;align-items:baseline;gap:14px;padding:16px 26px;
-  border-radius:16px;background:var(--ink);color:#fff;
-  box-shadow:0 26px 54px -30px rgba(10,14,23,.6)}
-.flc .ficha b{font-size:52px;font-weight:900;letter-spacing:-2.4px;line-height:.9;
-  font-variant-numeric:tabular-nums}
-.flc .ficha > span{font-size:15px;line-height:1.35;color:#98A2B3;max-width:16ch}
-.flc .ficha > span em{font-style:normal;color:#fff;font-weight:700}
-
-/* a figura tem 2158 por 1016: em largura cheia ela passa de 700px de altura e
-   subia por cima do título. Com o cartão esticado e a imagem limitada pela
-   altura, ela encolhe até caber. */
-.flc .cena{flex:1;display:flex;align-items:stretch;margin-top:18px;min-height:0}
-.flc .quadro{width:100%;display:flex;align-items:center;justify-content:center;
-  padding:14px 20px}
-.flc .fig{display:block;max-width:100%;max-height:100%;width:auto}
-
-.flc .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
-  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
-.flc .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
-.flc .fecho b{color:var(--head);font-weight:700}
 
 /* ───── 18-fila.html ───── */
 /* ═══ slide 18 · variação B · a fila com o painel de leitura ══════════════════
@@ -1811,73 +1800,12 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .prj .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .prj .fecho b{color:var(--head);font-weight:700}
 
-/* ───── 21-saude-b.html ───── */
-/* ═══ slide 21 · variação B · a nota, sem gráfico ═════════════════════════════
-   O dono do projeto pediu mais curto, mais objetivo e sem a figura em
-   matplotlib. A variação A trazia o ranking dos quinze como gráfico e repetia
-   os mesmos três produtos em lista ao lado; aqui a lista é o gráfico.
-
-   Uma barra por produto, os quinze na mesma escala de 0 a 100, e só os três
-   últimos ganham nome grande e cor. O resto fica cinza e serve de régua: é o
-   que mostra que 21,3 é longe do topo, e não um número solto.
-
-   A tela do produto tem quadrante e tendência; aqui não entram, porque isso é
-   assunto da demonstração. Este slide responde uma coisa: por onde começar.
-
-   Notas de data/app/painel.json, campo saude, corte de 01/10/2025. A nota é a
-   média das posições relativas do produto em cinco medidas: taxa de perda de
-   prazo, proporção de problemas inéditos, fechados sem causa, duração mediana
-   e tendência da taxa. Soma P2 e P3; a tela mostra as duas separadas.
-   ══════════════════════════════════════════════════════════════════════════ */
-.sdb .body{padding-top:14px}
-.sdb .tt{font-size:52px;letter-spacing:-1.9px}
-.sdb .cena{flex:1;display:grid;grid-template-columns:392px 1fr;align-items:center;
-  gap:0 64px;margin-top:16px;min-height:0}
-
-.sdb .pior{font-size:132px;font-weight:900;letter-spacing:-6px;line-height:.84;
-  color:var(--bad);font-variant-numeric:tabular-nums}
-.sdb .pior em{font-style:normal;font-size:.3em;letter-spacing:-1.4px;color:var(--tx2);
-  margin-left:10px}
-.sdb .nome{font-family:var(--mono);font-size:26px;font-weight:500;color:var(--head);
-  margin-top:18px;letter-spacing:.4px}
-.sdb .diz{font-size:17px;line-height:1.55;color:var(--tx);margin-top:18px;max-width:36ch}
-.sdb .diz b{color:var(--head);font-weight:700}
-.sdb .oq{margin-top:24px;padding-top:18px;border-top:1px solid #DCE4EF;font-size:14.5px;
-  line-height:1.5;color:var(--tx2);max-width:38ch}
-
-/* o ranking: quinze barras na mesma escala, três com nome */
-.sdb .rk{display:flex;flex-direction:column;gap:7px}
-.sdb .rk .l{display:grid;grid-template-columns:70px 1fr 52px;align-items:center;gap:14px}
-.sdb .rk .l span{font-family:var(--mono);font-size:13px;color:#B0BBC9;text-align:right}
-.sdb .rk .tr{height:15px;border-radius:8px;background:#EDF1F7;overflow:hidden}
-.sdb .rk .tr i{display:block;height:100%;border-radius:8px;background:#C9D3E1;
-  transform:scaleX(0);transform-origin:left}
-.sdb.is-active .rk .tr i{animation:corre .7s var(--out) var(--d,0ms) forwards}
-.sdb .rk .n{font-size:13.5px;color:#B0BBC9;font-variant-numeric:tabular-nums}
-/* os três de baixo, que são a ação da semana */
-.sdb .rk .l.aca span{color:var(--head);font-weight:700;font-size:15px}
-.sdb .rk .l.aca .tr{height:22px}
-.sdb .rk .l.aca .tr i{background:var(--bad)}
-.sdb .rk .l.aca .n{color:var(--bad);font-weight:800;font-size:16px}
-.sdb .rk .l.top span{color:var(--tx)}
-.sdb .rk .l.top .tr i{background:#9AA6B6}
-.sdb .rk .l.top .n{color:var(--tx)}
-/* o eixo é irmão do .rk, não filho: o seletor aninhado não pegava e os três
-   números colavam num só */
-.sdb .eixo{display:flex;justify-content:space-between;margin-top:14px;padding-left:84px;
-  padding-right:66px;font-family:var(--mono);font-size:11.5px;color:#B0BBC9}
-
-.sdb .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
-  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
-.sdb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
-.sdb .fecho b{color:var(--head);font-weight:700}
-
-/* ───── 21-saude-c.html ───── */
+/* ───── 21-saude.html ───── */
 /* ═══ slide 21 · variação C · as duas ordens ══════════════════════════════════
    O dono do projeto pediu algo na forma do slide de causas do deck da Sprint 3,
    dois painéis lado a lado, e mais limpo.
 
-   Os dois painéis mostram os mesmos quinze produtos em ordens diferentes: à
+   Os dois painéis mostram os oito piores de cada régua, em ordens diferentes: à
    esquerda pela nota de saúde, à direita pela taxa de perda de prazo. E as
    ordens não coincidem, que é o que explica a nota sem precisar de fórmula: a
    nota junta cinco medidas, e a taxa é só uma delas.
@@ -1895,8 +1823,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .sdc .tt{font-size:50px;letter-spacing:-1.8px}
 .sdc .sub{font-size:17px;line-height:1.45;color:var(--tx);margin-top:10px}
 .sdc .sub b{color:var(--head);font-weight:700}
-.sdc .cena{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0 26px;
-  align-items:stretch;margin-top:16px;min-height:0}
+.sdc .cena{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0 30px;
+  align-items:stretch;margin-top:18px;min-height:0}
 
 .sdc .painel{background:#fff;border:1px solid var(--line);border-radius:20px;
   padding:22px 26px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5);
@@ -1904,127 +1832,90 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .sdc .painel h2{font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
 .sdc .painel .un{font-size:12.5px;color:var(--tx2);margin-top:5px}
 .sdc .lista{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;
-  gap:5px;margin-top:14px}
-.sdc .l{display:grid;grid-template-columns:52px 1fr 48px;align-items:center;gap:12px}
-.sdc .l .nm{font-family:var(--mono);font-size:12.5px;color:#AAB4C2;text-align:right}
-.sdc .l .tr{height:12px;border-radius:6px;background:#EDF1F7;overflow:hidden}
-.sdc .l .tr i{display:block;height:100%;border-radius:6px;background:#C4CEDC;
+  gap:12px;margin-top:20px}
+.sdc .l{display:grid;grid-template-columns:64px 1fr 58px;align-items:center;gap:16px}
+.sdc .l .nm{font-family:var(--mono);font-size:15px;color:#8E9AAA;text-align:right}
+.sdc .l .tr{height:24px;border-radius:8px;background:#EDF1F7;overflow:hidden}
+.sdc .l .tr i{display:block;height:100%;border-radius:8px;background:#C4CEDC;
   transform:scaleX(0);transform-origin:left}
 .sdc.is-active .l .tr i{animation:corre .6s var(--out) var(--d,0ms) forwards}
-.sdc .l .vl{font-size:12.5px;color:#AAB4C2;text-align:right;font-variant-numeric:tabular-nums}
+.sdc .l .vl{font-size:15px;color:#8E9AAA;text-align:right;font-variant-numeric:tabular-nums}
 /* o pior dos dois painéis, e o caso que mostra que as ordens não coincidem */
-.sdc .l.pior .nm,.sdc .l.pior .vl{color:var(--bad);font-weight:800;font-size:14px}
+.sdc .l.pior .nm,.sdc .l.pior .vl{color:var(--bad);font-weight:800;font-size:17px}
 .sdc .l.pior .tr i{background:var(--bad)}
-.sdc .l.pior .tr{height:17px}
-.sdc .l.marca .nm,.sdc .l.marca .vl{color:var(--accent);font-weight:800;font-size:14px}
+.sdc .l.pior .tr{height:32px}
+.sdc .l.marca .nm,.sdc .l.marca .vl{color:var(--accent);font-weight:800;font-size:17px}
 .sdc .l.marca .tr i{background:var(--accent)}
-.sdc .l.marca .tr{height:17px}
+.sdc .l.marca .tr{height:32px}
 
-.sdc .rodape{display:flex;gap:16px;margin-top:auto;padding-top:18px;
-  border-top:1px solid #DCE4EF}
-.sdc .cd{flex:1;border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:16px}
-.sdc .cd.vermelho{background:#FCECEC;border:1px solid #F6CFCF}
-.sdc .cd.azul{background:#F1F6FE;border:1px solid #D3E2FA}
-.sdc .cd .id{font-family:var(--mono);font-size:19px;font-weight:500;flex-shrink:0}
-.sdc .cd.vermelho .id{color:#B42222}
-.sdc .cd.azul .id{color:var(--accent)}
-.sdc .cd p{font-size:14.5px;line-height:1.42;color:var(--tx)}
-.sdc .cd p b{color:var(--head);font-weight:700}
+/* ───── 22-div-brief.html ───── */
 
-/* ───── 21-saude.html ───── */
-/* ═══ slide 21 · onde agir primeiro ══════════════════════════════════════════
-   O segundo diferencial do produto: uma nota de saúde de 0 a 100 por produto,
-   que responde à pergunta que a operação faz de manhã — por onde começo?
 
-   O objeto é o ranking dos quinze produtos, que é o que a tela mostra. Foi
-   escolhido depois de julgar o plano de quadrantes: elegante, mas os rótulos
-   colidiam e ele criava uma contradição na sala, porque o produto de pior nota
-   não cai no quadrante "agir primeiro". A taxonomia dos quadrantes fala do TIPO
-   do problema; a nota fala do TAMANHO. O ranking não precisa dessa explicação.
+/* ───── 23-brief.html ───── */
+/* ═══ slide 23 · variação B · o resumo como ele chega ═════════════════════════
+   A composição anterior redesenhava o resumo em HTML e ligava cada linha à sua
+   procedência por fios. Ficou uma folha de anotações: muita marcação e pouca
+   coisa acontecendo. O dono do projeto reprovou.
 
-   O gráfico fica à direita e o texto à esquerda, ao contrário do slide 6, para
-   os dois não parecerem o mesmo molde.
+   Aqui o objeto é a tela de verdade, o mesmo modal que a demonstração vai
+   abrir, num quadro inclinado. À esquerda, três linhas curtas e um relógio que
+   marca 07h. A sala vê o produto, não um diagrama do produto.
 
-   Os três produtos em vermelho são onde o problema já se materializou, e estão
-   nomeados no slide com a nota: é a resposta concreta à pergunta do título.
-   Códigos de produto são os do dataset, os mesmos que a tela usa.
+   O relógio é o único desenho e ele existe por um motivo: o resumo não é uma
+   consulta, é um horário. O ponteiro anda até as sete quando o slide entra.
 
-   Figura em dpi 200, de _figuras_saude.py.
+   A imagem é o recorte do modal em figs/10_morning_brief.png, tirado do print
+   sprints/sprint-3/prints/07-modal-briefing.png com uma margem que deixa ver o
+   painel desfocado atrás. O print inteiro, com a página escura em volta,
+   virava uma mancha ilegível deste tamanho. Corte de 01/10/2025 às 07h; os
+   números saem de data/app/painel.json.
    ══════════════════════════════════════════════════════════════════════════ */
-.sau .body{padding-top:14px}
-.sau .tt{font-size:52px;letter-spacing:-1.9px}
+.brb .body{padding-top:14px}
+.brb .tt{font-size:52px;letter-spacing:-1.9px}
+.brb .cena{flex:1;display:flex;align-items:stretch;gap:44px;margin-top:16px;min-height:0}
 
-.sau .cena{flex:1;display:flex;align-items:center;gap:56px;margin-top:12px;
-  min-height:0}
-.sau .lado{flex:1;min-width:0;display:flex;flex-direction:column}
-.sau .quadro{padding:20px 24px;flex-shrink:0}
-.sau .fig{display:block;width:672px}
+.brb .lado{width:392px;flex-shrink:0}
 
-.sau .lado .v{font-size:132px;font-weight:900;letter-spacing:-5.4px;line-height:.84;
-  color:var(--bad);font-variant-numeric:tabular-nums}
-.sau .lado .k{font-size:19px;line-height:1.42;color:var(--tx);margin-top:18px;
-  max-width:26ch}
-.sau .lado .k b{color:var(--head);font-weight:700}
+/* o relógio das sete */
+.brb .rel{display:flex;align-items:center;gap:18px}
+.brb .rel svg{width:64px;height:64px;flex-shrink:0}
+.brb .rel .mostrador{fill:none;stroke:#D6DEE9;stroke-width:2}
+.brb .rel .pont{stroke:var(--accent);stroke-width:3;stroke-linecap:round;
+  transform-origin:32px 32px;transform:rotate(-90deg)}
+.brb.is-active .rel .pont{animation:hora 1.1s var(--out) 700ms forwards}
+@keyframes hora{to{transform:rotate(120deg)}}
+.brb .rel .h{font-size:44px;font-weight:900;letter-spacing:-2px;color:var(--head);
+  line-height:1;font-variant-numeric:tabular-nums}
+.brb .rel .k{font-size:15px;color:var(--tx2);margin-top:7px}
 
-/* os três, nomeados, com a nota */
-.sau .tres{margin-top:34px;border-top:1px solid #DCE4EF}
-.sau .tres .pr{display:flex;align-items:baseline;gap:16px;padding:13px 0;
-  border-bottom:1px solid #DCE4EF}
-.sau .tres .pr i{display:block;width:10px;height:10px;border-radius:3px;
-  background:var(--tx2);flex-shrink:0;align-self:center}
-.sau .tres .pr b{font-family:var(--mono);font-size:17px;font-weight:500;color:var(--head);
-  width:64px}
-.sau .tres .pr span{font-size:15px;color:var(--tx2);flex:1}
-.sau .tres .pr em{font-style:normal;font-size:20px;font-weight:800;color:var(--head);
-  font-variant-numeric:tabular-nums}
+.brb .itens{margin-top:34px}
+.brb .it{display:flex;gap:16px;padding:22px 0}
+.brb .it + .it{border-top:1px solid #DCE4EF}
+.brb .it .n{font-family:var(--mono);font-size:12.5px;color:var(--accent);padding-top:4px;
+  flex-shrink:0}
+.brb .it b{display:block;font-size:19px;font-weight:700;color:var(--head);letter-spacing:-.25px}
+.brb .it span{display:block;font-size:15.5px;line-height:1.45;color:var(--tx2);margin-top:7px}
+.brb .it span em{font-style:normal;color:var(--head);font-weight:700}
 
-.sau .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;
-  padding-top:20px;border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;
-  color:var(--tx)}
-.sau .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
-.sau .fecho b{color:var(--head);font-weight:700}
+/* a tela, em perspectiva */
+/* o teto em px e não em %: max-height percentual só resolve contra altura
+   definida do pai, e aqui o pai é um item de flex esticado. Com 578px a
+   imagem de 1440x1276 cai em 652 de largura e sobra respiro dos dois lados. */
+.brb .palco{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;
+  perspective:2000px;perspective-origin:70% 50%}
+.brb .tela{border-radius:14px;overflow:hidden;border:1px solid #DCE4EF;
+  box-shadow:0 50px 100px -44px rgba(15,23,42,.55);background:#fff;
+  opacity:0;transform:rotateY(9deg) rotateX(3deg) translate3d(-46px,0,-110px)}
+.brb .tela img{display:block;height:578px;width:auto;max-width:100%}
+.brb.is-active .tela{animation:chega 1.2s var(--out) 900ms forwards}
+@keyframes chega{to{opacity:1;transform:rotateY(3deg) rotateX(1deg) translate3d(0,0,0)}}
 
-/* ───── 22-div-aplicacao-b.html ───── */
-/* ═══ slide 22 · variação B · divisória da solução, com desenho ═══════════════
-   O dono do projeto achou a composição anterior pesada e o título comprido, e
-   pediu um desenho mais bonito no lugar do painel de cartões.
+.brb .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.brb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.brb .fecho b{color:var(--head);font-weight:700}
 
-   Aqui o lado direito é um desenho e não um painel de dados: seis molduras em
-   perspectiva, a da frente com a silhueta do painel, tudo em traço sobre o
-   escuro. Nenhum número, porque os números vêm nos slides seguintes e a
-   demonstração mostra as telas de verdade. A divisória só precisa dizer
-   "agora é produto".
-
-   Tudo em SVG inline: as molduras entram uma a uma, de trás para a frente, e a
-   linha do gráfico dentro da moldura da frente se desenha por último.
-   ══════════════════════════════════════════════════════════════════════════ */
-.dsb .body{padding:26px 64px 44px;flex-direction:row;gap:60px;align-items:center}
-.dsb .lft{flex:1;min-width:0;display:flex;flex-direction:column}
-.dsb .tt{font-size:82px;font-weight:900;letter-spacing:-3.4px;line-height:.98;color:#fff;
-  margin-top:18px}
-.dsb .tt .mask > span.hl{background:linear-gradient(90deg,#60A5FA,#2563EB);
-  -webkit-background-clip:text;background-clip:text;color:transparent}
-.dsb .lead{font-size:19.5px;line-height:1.55;color:#98A2B3;max-width:480px;margin-top:24px}
-.dsb .q{margin-top:32px;display:inline-flex;align-items:center;gap:13px;
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
-  border-radius:14px;padding:15px 20px;max-width:480px}
-.dsb .q .ci{width:34px;height:34px;border-radius:9px;background:rgba(59,130,246,.18);
-  color:#93C5FD;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.dsb .q .ci svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7}
-.dsb .q span{font-size:16px;line-height:1.45;color:#C4CBD8}
-.dsb .q b{color:#fff;font-weight:700}
-
-/* o desenho */
-.dsb .arte{width:620px;flex-shrink:0}
-.dsb .arte svg{width:100%;height:auto;display:block;overflow:visible}
-.dsb .mold{opacity:0;transform:translate3d(0,26px,0)}
-.dsb.is-active .mold{animation:rv .7s var(--out) var(--d,0ms) forwards}
-.dsb .tracado{fill:none;stroke-dasharray:var(--len);stroke-dashoffset:var(--len)}
-.dsb.is-active .tracado{animation:tracar 1.2s var(--out) var(--d,0ms) forwards}
-.dsb .brilho{opacity:0}
-.dsb.is-active .brilho{animation:rv .6s var(--out) var(--d,0ms) forwards}
-
-/* ───── 22-div-aplicacao.html ───── */
+/* ───── 24-div-arquitetura.html ───── */
 /* a barra segmentada dos artefatos, só desta divisória */
 .dv3 .carga{margin-top:16px}
 .dv3 .carga .tr{display:flex;gap:3px;height:18px;border-radius:9px;overflow:hidden}
@@ -2041,8 +1932,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .dv3 .carga .lg span:nth-child(3) i{background:#60A5FA}
 .dv3 .carga .lg b{color:#E8ECF3;font-weight:500}
 
-/* ───── 23-antecipa.html ───── */
-/* ═══ slide 23 · como o Cronos antecipa o resultado do ano ════════════════════
+/* ───── 25-antecipa.html ───── */
+/* ═══ slide 25 · como o Cronos antecipa o resultado do ano ════════════════════
    O slide que o dono do projeto marcou como obrigatório, vindo do deck da
    Sprint 4. É o único lugar do deck onde as quatro saídas aparecem juntas, com
    o que entra de um lado e para onde vai do outro. Abre o bloco do produto:
@@ -2115,138 +2006,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
 .ant .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .ant .fecho b{color:var(--head);font-weight:700}
-
-/* ───── 24-div-brief.html ───── */
-
-
-/* ───── 25-brief-antigo.html ───── */
-/* ═══ slide 25 · o resumo da manhã ═══════════════════════════════════════════
-   O primeiro dos dois diferenciais prometidos desde a Sprint 1, e o único lugar
-   do produto onde a Claude API entra. A banca vai perguntar exatamente isso, e
-   o slide responde antes da pergunta.
-
-   O objeto é a folha do resumo como ela aparece no sistema, e na margem direita
-   a procedência de cada linha, ligada por um fio. Fica claro de onde vem cada
-   número, e que o modelo de linguagem escreve só a frase de abertura.
-
-   Este slide já existiu e foi retirado do deck quando os diferenciais passaram
-   para a demonstração. Volta porque o dono do projeto lembrou que o resumo e a
-   nota de saúde são o pacote que o projeto prometeu entregar, e cada um merece
-   o seu espaço. A demonstração continua mostrando os dois funcionando.
-
-   Números de data/app/painel.json, corte de 01/10/2025: ontem.total 84,
-   ontem.violou 0, base.sem_violacao_dias 4, hoje.baixo_p3 58,8 e hoje.alto_p3
-   95,9, hoje.baixo_p2 9,4 e hoje.alto_p2 22,3. O texto é o do print em
-   sprints/sprint-3/prints/07-modal-briefing.png.
-   ══════════════════════════════════════════════════════════════════════════ */
-.brf .body{padding-top:14px}
-.brf .tt{font-size:52px;letter-spacing:-1.9px}
-.brf .cena{flex:1;display:flex;align-items:center;margin-top:12px;min-height:0}
-
-/* a folha ocupa a primeira coluna da grade, atrás de tudo que estiver nela */
-.brf .folha{position:relative;display:grid;grid-template-columns:892px 70px 1fr;width:100%}
-.brf .folha::before{content:"";position:absolute;left:0;top:0;bottom:0;width:892px;
-  background:#fff;border:1px solid var(--line);border-radius:18px;
-  box-shadow:0 20px 46px -34px rgba(15,23,42,.3);z-index:0}
-.brf .folha > *{position:relative;z-index:1}
-
-.brf .cl{padding:0 44px}
-.brf .cl.cab{padding-top:38px;padding-bottom:30px;border-bottom:1px solid var(--line)}
-.brf .cl.lin{display:flex;gap:24px;padding-top:30px;padding-bottom:30px}
-.brf .cl.lin + .cl.lin{border-top:1px solid var(--line)}
-.brf .cl.lin:last-of-type{padding-bottom:38px}
-.brf .selo{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:1.6px;
-  text-transform:uppercase;color:var(--tx2)}
-.brf .cab h2{font-size:35px;font-weight:800;letter-spacing:-1.1px;color:var(--head);
-  margin-top:10px;line-height:1.12}
-.brf .cab p{font-size:17.5px;line-height:1.45;color:var(--tx);margin-top:8px}
-.brf .rot{width:80px;flex-shrink:0;font-size:12px;font-weight:700;letter-spacing:1.6px;
-  text-transform:uppercase;color:var(--tx2);padding-top:9px}
-.brf .val{flex:1;min-width:0}
-.brf .val .n{font-size:32px;font-weight:800;letter-spacing:-.9px;color:var(--head);
-  line-height:1.18;font-variant-numeric:tabular-nums}
-.brf .val .n small{font-size:17px;font-weight:500;color:var(--tx);letter-spacing:0;
-  margin:0 7px}
-.brf .val p{font-size:15px;color:var(--tx2);margin-top:7px}
-
-/* o fio e a procedência, alinhados com a linha */
-.brf .fio{align-self:center;height:1.5px;background:var(--accent);transform:scaleX(0);
-  transform-origin:left}
-.brf .nota{align-self:center;opacity:0;transform:translate3d(-8px,0,0)}
-.brf .nota b{display:block;font-family:var(--mono);font-size:13.5px;font-weight:500;
-  letter-spacing:.3px;color:var(--accent)}
-.brf .nota span{display:block;font-size:14.5px;line-height:1.42;color:var(--tx);margin-top:5px}
-.brf.is-active .fio{animation:corre .5s var(--out) var(--d,0ms) forwards}
-.brf.is-active .nota{animation:rv .5s var(--out) calc(var(--d,0ms) + 240ms) forwards}
-
-.brf .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
-  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
-.brf .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
-.brf .fecho b{color:var(--head);font-weight:700}
-
-/* ───── 25-brief.html ───── */
-/* ═══ slide 25 · variação B · o resumo como ele chega ═════════════════════════
-   A composição anterior redesenhava o resumo em HTML e ligava cada linha à sua
-   procedência por fios. Ficou uma folha de anotações: muita marcação e pouca
-   coisa acontecendo. O dono do projeto reprovou.
-
-   Aqui o objeto é a tela de verdade, o mesmo modal que a demonstração vai
-   abrir, num quadro inclinado. À esquerda, três linhas curtas e um relógio que
-   marca 07h. A sala vê o produto, não um diagrama do produto.
-
-   O relógio é o único desenho e ele existe por um motivo: o resumo não é uma
-   consulta, é um horário. O ponteiro anda até as sete quando o slide entra.
-
-   A imagem é o recorte do modal em figs/10_morning_brief.png, tirado do print
-   sprints/sprint-3/prints/07-modal-briefing.png com uma margem que deixa ver o
-   painel desfocado atrás. O print inteiro, com a página escura em volta,
-   virava uma mancha ilegível deste tamanho. Corte de 01/10/2025 às 07h; os
-   números saem de data/app/painel.json.
-   ══════════════════════════════════════════════════════════════════════════ */
-.brb .body{padding-top:14px}
-.brb .tt{font-size:52px;letter-spacing:-1.9px}
-.brb .cena{flex:1;display:flex;align-items:stretch;gap:44px;margin-top:16px;min-height:0}
-
-.brb .lado{width:392px;flex-shrink:0}
-
-/* o relógio das sete */
-.brb .rel{display:flex;align-items:center;gap:18px}
-.brb .rel svg{width:64px;height:64px;flex-shrink:0}
-.brb .rel .mostrador{fill:none;stroke:#D6DEE9;stroke-width:2}
-.brb .rel .pont{stroke:var(--accent);stroke-width:3;stroke-linecap:round;
-  transform-origin:32px 32px;transform:rotate(-90deg)}
-.brb.is-active .rel .pont{animation:hora 1.1s var(--out) 700ms forwards}
-@keyframes hora{to{transform:rotate(120deg)}}
-.brb .rel .h{font-size:44px;font-weight:900;letter-spacing:-2px;color:var(--head);
-  line-height:1;font-variant-numeric:tabular-nums}
-.brb .rel .k{font-size:15px;color:var(--tx2);margin-top:7px}
-
-.brb .itens{margin-top:34px}
-.brb .it{display:flex;gap:16px;padding:22px 0}
-.brb .it + .it{border-top:1px solid #DCE4EF}
-.brb .it .n{font-family:var(--mono);font-size:12.5px;color:var(--accent);padding-top:4px;
-  flex-shrink:0}
-.brb .it b{display:block;font-size:19px;font-weight:700;color:var(--head);letter-spacing:-.25px}
-.brb .it span{display:block;font-size:15.5px;line-height:1.45;color:var(--tx2);margin-top:7px}
-.brb .it span em{font-style:normal;color:var(--head);font-weight:700}
-
-/* a tela, em perspectiva */
-/* o teto em px e não em %: max-height percentual só resolve contra altura
-   definida do pai, e aqui o pai é um item de flex esticado. Com 578px a
-   imagem de 1440x1276 cai em 652 de largura e sobra respiro dos dois lados. */
-.brb .palco{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;
-  perspective:2000px;perspective-origin:70% 50%}
-.brb .tela{border-radius:14px;overflow:hidden;border:1px solid #DCE4EF;
-  box-shadow:0 50px 100px -44px rgba(15,23,42,.55);background:#fff;
-  opacity:0;transform:rotateY(9deg) rotateX(3deg) translate3d(-46px,0,-110px)}
-.brb .tela img{display:block;height:578px;width:auto;max-width:100%}
-.brb.is-active .tela{animation:chega 1.2s var(--out) 900ms forwards}
-@keyframes chega{to{opacity:1;transform:rotateY(3deg) rotateX(1deg) translate3d(0,0,0)}}
-
-.brb .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
-  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
-.brb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
-.brb .fecho b{color:var(--head);font-weight:700}
 
 /* ───── 26-stack-b.html ───── */
 /* ═══ slide 26 · variação B · a arquitetura da planilha ao painel ═════════════
@@ -2866,6 +2625,55 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
 </section>
 
+<section class="slide light qbd" data-slide="5" data-var="b" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">O indicador de 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">O problema</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quantidade de quebras em 2025</span></span></h1>
+
+    <div class="cena">
+      <div class="un fora">
+        <div class="cb rv" style="--d:700ms">Prioridade 2</div>
+        <div class="n"><span class="ct" data-to="42" data-delay="840">0</span></div>
+        <p class="lim rv" style="--d:940ms">violações de <b>39 permitidas</b></p>
+        <div class="degraus">
+          <div class="dg" style="--d:1200ms"><div class="m">outubro</div><div class="a">35</div></div>
+          <div class="dg passou" style="--d:1400ms"><div class="m">novembro</div><div class="a">41</div></div>
+          <div class="dg passou" style="--d:1600ms"><div class="m">dezembro</div><div class="a">42</div></div>
+        </div>
+        <p class="marca rv" style="--d:1800ms">passou o limite em <b>novembro</b></p>
+        <span class="sel rv" style="--d:1900ms">Acima do limite do ano</span>
+      </div>
+
+      <div class="fio"></div>
+
+      <div class="un dentro">
+        <div class="cb rv" style="--d:780ms">Prioridade 3</div>
+        <div class="n"><span class="ct" data-to="196" data-delay="920">0</span></div>
+        <p class="lim rv" style="--d:1020ms">violações de <b>263 permitidas</b></p>
+        <div class="degraus">
+          <div class="dg" style="--d:1280ms"><div class="m">outubro</div><div class="a">164</div></div>
+          <div class="dg" style="--d:1480ms"><div class="m">novembro</div><div class="a">179</div></div>
+          <div class="dg" style="--d:1680ms"><div class="m">dezembro</div><div class="a">196</div></div>
+        </div>
+        <p class="marca rv" style="--d:1860ms">fechou o ano a <b>67 do limite</b></p>
+        <span class="sel rv" style="--d:1960ms">Dentro do limite do ano</span>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:2100ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 6.8V12l3.4 2"/></svg>
+      <span>Em outubro a prioridade 2 estava em <b>35</b>, dentro do limite. Um único mês somou seis, e <b>o resultado só apareceu na apuração de dezembro</b>.</span>
+    </div>
+  </div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+</section>
+
 <section class="slide light anx" data-slide="6" data-var="a" data-quem="igor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
@@ -3160,30 +2968,27 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
     <div class="cena">
       <div>
         <div class="cab rv" style="--d:620ms">
-          <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.6 20c0-3.6 3.3-6 7.4-6s7.4 2.4 7.4 6"/></svg>
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.6"/><path d="M4.6 20c0-3.6 3.3-6 7.4-6s7.4 2.4 7.4 6"/></svg>
           Quem abre o chamado
         </div>
-        <div class="duo">
-          <div class="fc alto" style="--d:760ms">
-            <div class="rot">Uma pessoa</div>
-            <div class="qt">15.671 chamados</div>
-            <div class="tx">1,24<span style="font-size:.5em">%</span></div>
-            <div class="un">passam do prazo</div>
+        <div class="heroi rv" style="--d:760ms">
+          <span class="v"><span class="ct" data-to="2.7" data-dec="1" data-delay="900">0,0</span></span>
+          <em>&times;</em>
+        </div>
+        <p class="diz rv" style="--d:1080ms">mais risco quando <b>quem abre é uma pessoa</b>, e não o monitoramento</p>
+
+        <div class="conta">
+          <div class="l alto" style="--d:1400ms">
+            <span class="nm">Uma pessoa<small>15.671 chamados</small></span>
+            <span class="tx">1,24%</span>
           </div>
-          <div class="fc baixo" style="--d:900ms">
-            <div class="rot">O monitoramento</div>
-            <div class="qt">9.485 chamados</div>
-            <div class="tx">0,46<span style="font-size:.5em">%</span></div>
-            <div class="un">passam do prazo</div>
-          </div>
-          <div class="ficha" style="--d:1440ms">
-            <b><span class="ct" data-to="2.7" data-dec="1" data-delay="1560">0,0</span><em>&times;</em></b>
-            <span>mais risco</span>
+          <div class="l baixo" style="--d:1520ms">
+            <span class="nm">O monitoramento<small>9.485 chamados</small></span>
+            <span class="tx">0,46%</span>
           </div>
         </div>
-        <p class="leg rv" style="--d:1700ms">O chamado aberto por <b>uma pessoa</b> quebra quase três vezes mais que o aberto pelo monitoramento.</p>
-        <p class="pri rv" style="--d:1840ms">
-          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+        <p class="pri rv" style="--d:1700ms">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="color:var(--good)"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
           <span>Vale nas duas prioridades: <b>3,0&times;</b> na 2 e <b>3,1&times;</b> na 3.</span>
         </p>
       </div>
@@ -3195,33 +3000,30 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
           <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.4" y="5" width="17.2" height="15.6" rx="2.6"/><path d="M3.4 9.8h17.2M8 2.8v4M16 2.8v4"/></svg>
           Quando ele chega
         </div>
-        <div class="duo">
-          <div class="fc alto" style="--d:840ms">
-            <div class="rot">Fim de semana <span class="chip">P3</span></div>
-            <div class="qt">24 chamados por dia</div>
-            <div class="tx">1,88<span style="font-size:.5em">%</span></div>
-            <div class="un">passam do prazo</div>
+        <div class="heroi rv" style="--d:840ms">
+          <span class="v"><span class="ct" data-to="2.2" data-dec="1" data-delay="980">0,0</span></span>
+          <em>&times;</em>
+        </div>
+        <p class="diz rv" style="--d:1160ms">mais risco no <b>fim de semana</b>, com um terço do volume do dia útil</p>
+
+        <div class="conta">
+          <div class="l alto" style="--d:1480ms">
+            <span class="nm">Fim de semana<span class="chip">P3</span><small>24 chamados por dia</small></span>
+            <span class="tx">1,88%</span>
           </div>
-          <div class="fc baixo" style="--d:980ms">
-            <div class="rot">Dia útil <span class="chip">P3</span></div>
-            <div class="qt">67 chamados por dia</div>
-            <div class="tx">0,85<span style="font-size:.5em">%</span></div>
-            <div class="un">passam do prazo</div>
-          </div>
-          <div class="ficha" style="--d:1520ms">
-            <b><span class="ct" data-to="2.2" data-dec="1" data-delay="1640">0,0</span><em>&times;</em></b>
-            <span>mais risco</span>
+          <div class="l baixo" style="--d:1600ms">
+            <span class="nm">Dia útil<span class="chip">P3</span><small>67 chamados por dia</small></span>
+            <span class="tx">0,85%</span>
           </div>
         </div>
-        <p class="leg rv" style="--d:1780ms">O fim de semana traz <b>um terço do volume</b> e mais que o dobro do risco por chamado.</p>
-        <p class="pri rv" style="--d:1920ms">
-          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="color:var(--tx2)"><path d="M4 9.6h16M4 14.4h16"/></svg>
+        <p class="pri rv" style="--d:1780ms">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 9.6h16M4 14.4h16"/></svg>
           <span>Na prioridade 2 não há diferença: <b>0,75%</b> contra <b>0,83%</b>.</span>
         </p>
       </div>
     </div>
 
-    <div class="fecho rv" style="--d:2100ms">
+    <div class="fecho rv" style="--d:2000ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
       <span>Medimos as duas prioridades em cada corte. Quem abre e quando chega <b>viram variáveis do modelo de risco</b>, junto com o produto, o ativo e a categoria.</span>
     </div>
@@ -3351,43 +3153,53 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
     <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Jan a set de 2025 &middot; base elegível ao KPI</div>
+    <div class="tag">Causas &middot; código de fechamento</div>
   </div>
   <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Apontamento de processo</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quando ninguém sabe nomear a causa</span></span></h1>
-    <p class="sub rv" style="--d:620ms">O incidente fechado como <b>Outro</b> é o que a operação não conseguiu encaixar em nenhuma categoria. Ele é 8% do volume e um quinto das quebras.</p>
+    <span class="eb"><span class="rv" style="--d:240ms">Apontamento de processo para a gestão</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Participação do código de fechamento Outro no volume e nas violações</span></span></h1>
+    <p class="sub rv" style="--d:620ms">Jan a set de 2025, base elegível ao KPI.</p>
 
     <div class="cena">
       <div class="quadro cartao rv3" style="--d:760ms">
-        <div class="col vol">
-          <div class="k">Volume</div>
-          <div class="barra"><i style="height:8%;--d:1000ms"></i></div>
-          <div class="pc"><span class="ct" data-to="8" data-delay="1140">0</span>%</div>
-          <p class="qt">1.596 incidentes</p>
-          <p class="tot">de 19.973 no período</p>
-        </div>
+        <div class="grade">
+          <div class="col vol">
+            <div class="k">Volume</div>
+            <div class="cx">
+              <div class="barra"><i style="height:8%;--d:1000ms"></i></div>
+              <div class="marca" style="--d:1300ms"><b>8,0%</b><span>1.596 incidentes</span></div>
+            </div>
+            <p class="tot">19.973 incidentes</p>
+          </div>
 
-        <div class="meio">
-          <div class="v"><span class="ct" data-to="2.69" data-dec="2" data-delay="1500">0,00</span>%</div>
-          <p class="r">é a taxa de quebra dentro do código Outro</p>
-          <p class="c">contra <b>0,94%</b> na média da base</p>
-          <span class="mult rv" style="--d:1900ms">quase 3 vezes o risco médio</span>
-        </div>
+          <div class="meio">
+            <div class="v"><span class="ct" data-to="2.69" data-dec="2" data-delay="1500">0,00</span>%</div>
+            <p class="r">taxa de violação dentro do código Outro</p>
+            <p class="c">contra <b>0,94%</b> na média da base</p>
+            <span class="mult rv" style="--d:1900ms">quase 3 vezes o risco médio</span>
+          </div>
 
-        <div class="col qbr">
-          <div class="k">Violações de OLA</div>
-          <div class="barra"><i style="height:22.9%;--d:1200ms"></i></div>
-          <div class="pc"><span class="ct" data-to="22.9" data-dec="1" data-delay="1340">0,0</span>%</div>
-          <p class="qt">43 quebras</p>
-          <p class="tot">de 188 no período</p>
+          <div class="col qbr">
+            <div class="k">Violações de OLA</div>
+            <div class="cx">
+              <div class="barra"><i style="height:22.9%;--d:1160ms"></i></div>
+              <div class="marca" style="--d:1420ms"><b>22,9%</b><span>43 quebras</span></div>
+            </div>
+            <p class="tot">188 quebras</p>
+          </div>
+
+          <div class="cunha">
+            <svg viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M0,386.4 L1000,323.8 L1000,420 L0,420 Z"/>
+            </svg>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="fecho rv" style="--d:2100ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span>O campo só é preenchido no fechamento, então <b>fica fora do modelo</b>. Vale como apontamento: problema sem categoria clara merece atenção antes, não depois.</span>
+      <span>O campo só existe no fechamento e não separa causa de consequência, então <b>fica fora do modelo</b> e vale como apontamento de processo.</span>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
@@ -3413,7 +3225,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       </div>
 
       <div>
-        <div class="grade rv" style="--d:1300ms">
+        <div class="grade">
           <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
           <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
           <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="q"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
@@ -3425,16 +3237,16 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
           <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="q"></i><i></i><i></i><i></i><i></i>
           <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
         </div>
-        <p class="leg rv" style="--d:2000ms">400 quadrados para os 25.600 elegíveis, cada um valendo 64 incidentes. <b>Em vermelho, a fração equivalente às 248 violações.</b></p>
+        <p class="leg rv" style="--d:2800ms">400 quadrados para os 25.600 elegíveis, cada um valendo 64 incidentes. <b>Em vermelho, a fração equivalente às 248 violações.</b></p>
 
         <div class="pri">
-          <div class="k rv" style="--d:2100ms">Violações por prioridade</div>
-          <div class="lin rv" style="--d:2180ms">
+          <div class="k rv" style="--d:2500ms">Violações por prioridade</div>
+          <div class="lin rv" style="--d:2580ms">
             <div class="nm"><b>P3</b><span>Média &middot; 12h</span></div>
-            <div class="tr"><i style="--d:2280ms"></i></div>
+            <div class="tr"><i style="--d:2680ms"></i></div>
             <span class="v">206</span>
           </div>
-          <div class="lin rv" style="--d:2300ms">
+          <div class="lin rv" style="--d:2700ms">
             <div class="nm"><b>P2</b><span>Alta &middot; 4h</span></div>
             <div class="tr"><i style="width:20.4%;--d:2400ms"></i></div>
             <span class="v">42</span>
@@ -3443,7 +3255,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       </div>
     </div>
 
-    <div class="fecho rv" style="--d:2560ms">
+    <div class="fecho rv" style="--d:2960ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M9.6 9.4a2.6 2.6 0 1 1 3.4 2.5c-.7.3-1 .8-1 1.5v.4"/><path d="M12 17.2h.01"/></svg>
       <span>Responder <b>&ldquo;não quebra&rdquo;</b> para todos os 25.600 acerta 99,03% das vezes e não encontra nenhuma. Por isso acurácia não é a régua deste problema.</span>
     </div>
@@ -3516,35 +3328,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span><span>Treino em 2025 &middot; sazonalidade semanal ligada, anual desligada &middot; feriado nacional como variável</span></div>
 </section>
 
-<section class="slide light pvs" data-slide="15" data-var="a" data-quem="ana">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Avaliação &middot; a previsão de 1º/10 contra a semana real</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Prophet &middot; quantos incidentes chegam</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Os próximos sete dias</span></span></h1>
-
-    <div class="cena">
-      <div class="quadro cartao rv3" style="--d:640ms">
-        <img class="fig" src="figs/08_previsao_7dias.png" alt="Previsao diaria de incidentes para 1 a 7 de outubro de 2025, por prioridade, com a faixa prevista e o realizado">
-      </div>
-    </div>
-
-    <div class="fecho rv" style="--d:1240ms">
-      <div class="n">
-        <span class="v"><span class="ct" data-to="13" data-delay="1440">0</span></span>
-        <span class="k">dos 14 dias caíram <b>dentro da faixa</b></span>
-      </div>
-      <p class="obs">Cada caixa é a faixa que o modelo deu para o dia, feita em 1º de outubro. O ponto vermelho é o único fora, <b>1 incidente acima</b> do teto. Na janela de teste inteira a faixa acerta entre <b>86% e 88%</b> dos dias na prioridade 2 e entre <b>59% e 61%</b> na prioridade 3.</p>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
-</section>
-
-<section class="slide light pvb" data-slide="15" data-var="b" data-quem="ana">
+<section class="slide light pvb" data-slide="15" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -3733,39 +3517,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
     <div class="fecho rv" style="--d:1700ms">
       <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
       <span><b>Regra simples</b> é ordenar por um campo só, sem modelo: pela taxa histórica do time, pelo ativo que mais quebrou ou pela prioridade. A melhor delas acha 9 no mesmo trecho; <b>por prioridade, que é o método de hoje, nenhuma</b>.</span>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
-</section>
-
-<section class="slide light flc" data-slide="18" data-var="b" data-quem="ana">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Avaliação fora do período de treino</div>
-  </div>
-  <div class="body">
-    <div class="topo">
-      <div>
-        <span class="eb"><span class="rv" style="--d:240ms">Regressão logística</span></span>
-        <h1 class="tt"><span class="mask" style="--d:340ms"><span>A fila de risco</span></span></h1>
-      </div>
-      <div class="ficha rv" style="--d:1400ms">
-        <b><span class="ct" data-to="13" data-delay="1540">0</span></b>
-        <span>quebras nos <em>50 primeiros</em> da fila</span>
-      </div>
-    </div>
-
-    <div class="cena">
-      <div class="quadro cartao rv3" style="--d:620ms">
-        <img class="fig" src="figs/07_fila_regras.png" alt="Quebras de prazo encontradas conforme a fila avanca, comparando a fila do modelo com quatro ordenacoes simples">
-      </div>
-    </div>
-
-    <div class="fecho rv" style="--d:1720ms">
-      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
-      <span><b>Regra simples</b> é ordenar por um campo só, sem modelo: taxa do time, ativo crônico ou prioridade. A melhor acha <b>9</b> no mesmo trecho, e por prioridade, que é o método de hoje, <b>nenhuma</b>.</span>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
@@ -4046,42 +3797,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
 </section>
 
-<section class="slide light sau" data-slide="21" data-var="a" data-quem="hygor">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">15 produtos &middot; nota de 0 a 100</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Diferencial 2 &middot; saúde por produto</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Onde agir primeiro</span></span></h1>
-
-    <div class="cena">
-      <div class="lado">
-        <span class="v rv" style="--d:900ms"><span class="ct" data-to="21.3" data-dec="1" data-delay="1080">0,0</span></span>
-        <p class="k rv" style="--d:1060ms">é a nota do produto que mais precisa de atenção, numa escala em que o melhor tem <b>69,3</b></p>
-        <div class="tres">
-          <div class="pr rv" style="--d:1300ms"><i></i><b>lvps</b><span>taxa de 2,9%, a maior das quinze</span><em>21,3</em></div>
-          <div class="pr rv" style="--d:1420ms"><i></i><b>lrdo</b><span>68% de problemas inéditos, o maior dos quinze</span><em>25,3</em></div>
-          <div class="pr rv" style="--d:1540ms"><i></i><b>lcsp</b><span>metade dos problemas é inédita e a taxa sobe</span><em>26,7</em></div>
-        </div>
-      </div>
-
-      <div class="quadro cartao rv3" style="--d:620ms">
-        <img class="fig" src="figs/10_saude_ranking.png" alt="Ranking da nota de saude dos quinze produtos, de 69,3 a 21,3, com a situacao de cada um">
-      </div>
-    </div>
-
-    <div class="fecho rv" style="--d:1800ms">
-      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span>A <b>posição</b> diz o tamanho do problema e a <b>cor</b> diz o tipo, que é o que muda a ação. A nota junta cinco medidas das duas prioridades, e a tela mostra P2 e P3 separados.</span>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
-</section>
-
-<section class="slide light sdb" data-slide="21" data-var="b" data-quem="hygor">
+<section class="slide light sdc" data-slide="21" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -4091,61 +3807,12 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="body">
     <span class="eb"><span class="rv" style="--d:240ms">Diferencial 2</span></span>
     <h1 class="tt"><span class="mask" style="--d:340ms"><span>Onde agir primeiro</span></span></h1>
-
-    <div class="cena">
-      <div>
-        <div class="pior"><span class="ct" data-to="21.3" data-dec="1" data-delay="820">0,0</span><em>de 100</em></div>
-        <div class="nome rv" style="--d:940ms">lvps</div>
-        <p class="diz rv" style="--d:1060ms">É a pior nota dos quinze produtos acompanhados, contra <b>69,3</b> do primeiro. Perde prazo em <b>2,90%</b> dos casos, três vezes a média da base.</p>
-        <p class="oq rv" style="--d:1180ms">A nota junta cinco medidas por produto: perda de prazo, problemas inéditos, fechados sem causa, duração mediana e para onde a taxa está indo.</p>
-      </div>
-
-      <div>
-        <div class="rk">
-          <div class="l top"><span>lcho</span><div class="tr"><i style="width:69.3%;--d:1300ms"></i></div><span class="n">69,3</span></div>
-          <div class="l"><span>lgoa</span><div class="tr"><i style="width:68%;--d:1340ms"></i></div><span class="n">68,0</span></div>
-          <div class="l"><span>lcem</span><div class="tr"><i style="width:66.7%;--d:1380ms"></i></div><span class="n">66,7</span></div>
-          <div class="l"><span>lrev</span><div class="tr"><i style="width:62.7%;--d:1420ms"></i></div><span class="n">62,7</span></div>
-          <div class="l"><span>lhvp</span><div class="tr"><i style="width:60%;--d:1460ms"></i></div><span class="n">60,0</span></div>
-          <div class="l"><span>lhco</span><div class="tr"><i style="width:56%;--d:1500ms"></i></div><span class="n">56,0</span></div>
-          <div class="l"><span>lemg</span><div class="tr"><i style="width:49.3%;--d:1540ms"></i></div><span class="n">49,3</span></div>
-          <div class="l"><span>lcsi</span><div class="tr"><i style="width:48%;--d:1580ms"></i></div><span class="n">48,0</span></div>
-          <div class="l"><span>lsaa</span><div class="tr"><i style="width:42.7%;--d:1620ms"></i></div><span class="n">42,7</span></div>
-          <div class="l"><span>lsin</span><div class="tr"><i style="width:41.3%;--d:1660ms"></i></div><span class="n">41,3</span></div>
-          <div class="l"><span>lrel</span><div class="tr"><i style="width:32%;--d:1700ms"></i></div><span class="n">32,0</span></div>
-          <div class="l"><span>lssl</span><div class="tr"><i style="width:30.7%;--d:1740ms"></i></div><span class="n">30,7</span></div>
-          <div class="l aca"><span>lcsp</span><div class="tr"><i style="width:26.7%;--d:1820ms"></i></div><span class="n">26,7</span></div>
-          <div class="l aca"><span>lrdo</span><div class="tr"><i style="width:25.3%;--d:1900ms"></i></div><span class="n">25,3</span></div>
-          <div class="l aca"><span>lvps</span><div class="tr"><i style="width:21.3%;--d:1980ms"></i></div><span class="n">21,3</span></div>
-        </div>
-        <div class="eixo rv" style="--d:2100ms"><span>0</span><span>50</span><span>100</span></div>
-      </div>
-    </div>
-
-    <div class="fecho rv" style="--d:2240ms">
-      <svg class="ic" viewBox="0 0 24 24"><path d="M4 12h14M13 6.6 19.4 12 13 17.4"/></svg>
-      <span>Os <b>três últimos</b> são a fila de trabalho da semana. A nota é recalculada todo dia, e a tela mostra a tendência de cada um.</span>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
-</section>
-
-<section class="slide light sdc" data-slide="21" data-var="c" data-quem="hygor">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Nota de saúde &middot; 15 produtos</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Diferencial 2</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Onde agir primeiro</span></span></h1>
-    <p class="sub rv" style="--d:620ms">Os mesmos quinze produtos em duas ordens. <b>Elas não coincidem</b>, e é isso que a nota resolve: ela junta cinco medidas, e a taxa de perda de prazo é só uma delas.</p>
+    <p class="sub rv" style="--d:620ms">As duas ordens não coincidem, e é isso que a nota resolve: ela junta cinco medidas, e a taxa de perda de prazo é só uma delas. O <b>lvps</b> lidera as duas; o <b>lgoa</b> aparece só na da direita.</p>
 
     <div class="cena">
       <div class="painel rv3" style="--d:780ms">
         <h2>Nota de saúde, da pior para a melhor</h2>
-        <p class="un">de 0 a 100, quanto maior melhor</p>
+        <p class="un">os oito piores dos quinze, na escala de 0 a 100</p>
         <div class="lista">
           <div class="l pior"><span class="nm">lvps</span><div class="tr"><i style="width:21.3%;--d:1000ms"></i></div><span class="vl">21,3</span></div>
           <div class="l"><span class="nm">lrdo</span><div class="tr"><i style="width:25.3%;--d:1040ms"></i></div><span class="vl">25,3</span></div>
@@ -4155,19 +3822,12 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
           <div class="l"><span class="nm">lsin</span><div class="tr"><i style="width:41.3%;--d:1200ms"></i></div><span class="vl">41,3</span></div>
           <div class="l"><span class="nm">lsaa</span><div class="tr"><i style="width:42.7%;--d:1240ms"></i></div><span class="vl">42,7</span></div>
           <div class="l"><span class="nm">lcsi</span><div class="tr"><i style="width:48%;--d:1280ms"></i></div><span class="vl">48,0</span></div>
-          <div class="l"><span class="nm">lemg</span><div class="tr"><i style="width:49.3%;--d:1320ms"></i></div><span class="vl">49,3</span></div>
-          <div class="l"><span class="nm">lhco</span><div class="tr"><i style="width:56%;--d:1360ms"></i></div><span class="vl">56,0</span></div>
-          <div class="l"><span class="nm">lhvp</span><div class="tr"><i style="width:60%;--d:1400ms"></i></div><span class="vl">60,0</span></div>
-          <div class="l"><span class="nm">lrev</span><div class="tr"><i style="width:62.7%;--d:1440ms"></i></div><span class="vl">62,7</span></div>
-          <div class="l"><span class="nm">lcem</span><div class="tr"><i style="width:66.7%;--d:1480ms"></i></div><span class="vl">66,7</span></div>
-          <div class="l marca"><span class="nm">lgoa</span><div class="tr"><i style="width:68%;--d:1520ms"></i></div><span class="vl">68,0</span></div>
-          <div class="l"><span class="nm">lcho</span><div class="tr"><i style="width:69.3%;--d:1560ms"></i></div><span class="vl">69,3</span></div>
         </div>
       </div>
 
       <div class="painel rv3" style="--d:900ms">
         <h2>Taxa de perda de prazo, da maior para a menor</h2>
-        <p class="un">% dos incidentes do produto que passaram do prazo</p>
+        <p class="un">as oito maiores dos quinze, em % dos incidentes do produto</p>
         <div class="lista">
           <div class="l pior"><span class="nm">lvps</span><div class="tr"><i style="width:100%;--d:1120ms"></i></div><span class="vl">2,90</span></div>
           <div class="l marca"><span class="nm">lgoa</span><div class="tr"><i style="width:64.8%;--d:1160ms"></i></div><span class="vl">1,88</span></div>
@@ -4177,27 +3837,10 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
           <div class="l"><span class="nm">lrel</span><div class="tr"><i style="width:45.2%;--d:1320ms"></i></div><span class="vl">1,31</span></div>
           <div class="l"><span class="nm">lsaa</span><div class="tr"><i style="width:32.8%;--d:1360ms"></i></div><span class="vl">0,95</span></div>
           <div class="l"><span class="nm">lhvp</span><div class="tr"><i style="width:32.4%;--d:1400ms"></i></div><span class="vl">0,94</span></div>
-          <div class="l"><span class="nm">lcsp</span><div class="tr"><i style="width:31%;--d:1440ms"></i></div><span class="vl">0,90</span></div>
-          <div class="l"><span class="nm">lhco</span><div class="tr"><i style="width:25.9%;--d:1480ms"></i></div><span class="vl">0,75</span></div>
-          <div class="l"><span class="nm">lcho</span><div class="tr"><i style="width:24.1%;--d:1520ms"></i></div><span class="vl">0,70</span></div>
-          <div class="l"><span class="nm">lemg</span><div class="tr"><i style="width:21.4%;--d:1560ms"></i></div><span class="vl">0,62</span></div>
-          <div class="l"><span class="nm">lcem</span><div class="tr"><i style="width:19.7%;--d:1600ms"></i></div><span class="vl">0,57</span></div>
-          <div class="l"><span class="nm">lrev</span><div class="tr"><i style="width:16.9%;--d:1640ms"></i></div><span class="vl">0,49</span></div>
-          <div class="l"><span class="nm">lcsi</span><div class="tr"><i style="width:3.4%;--d:1680ms"></i></div><span class="vl">0,10</span></div>
         </div>
       </div>
     </div>
 
-    <div class="rodape">
-      <div class="cd vermelho rv" style="--d:1900ms">
-        <span class="id">lvps</span>
-        <p>Pior nos dois painéis: <b>nota 21,3</b> e <b>2,90%</b> de perda de prazo, três vezes a média da base. É por onde a semana começa.</p>
-      </div>
-      <div class="cd azul rv" style="--d:2020ms">
-        <span class="id">lgoa</span>
-        <p>Perde prazo com frequência, <b>1,88%</b>, e mesmo assim tem a <b>segunda melhor nota</b>: resolve rápido, fecha com causa e a taxa está caindo.</p>
-      </div>
-    </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
@@ -4207,24 +3850,130 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
     <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Seção 05 &middot; A aplicação</div>
+    <div class="tag">Seção 05 &middot; O que a operação recebe</div>
   </div>
   <div class="body">
     <div class="lft">
-      <span class="eb"><span class="rv" style="--d:220ms">Seção 05 &middot; A aplicação</span></span>
+      <span class="eb"><span class="rv" style="--d:220ms">Seção 05 &middot; O que a operação recebe</span></span>
       <h1 class="tt">
-        <span class="mask" style="--d:340ms"><span>A aplicação</span></span>
-        <span class="mask" style="--d:440ms"><span>web do</span></span>
-        <span class="mask" style="--d:540ms"><span class="hl">Cronos</span></span>
+        <span class="mask" style="--d:340ms"><span>Morning</span></span>
+        <span class="mask" style="--d:450ms"><span class="hl">Brief</span></span>
       </h1>
-      <p class="lead rv" style="--d:820ms">A saída dos dois modelos publicada em Django. O que era parquet de notebook virou a tela que a coordenação abre no início do dia.</p>
+      <p class="lead rv" style="--d:800ms">O resumo que abre sozinho às sete da manhã, com o fechamento de ontem e a previsão de hoje nas duas prioridades. Ninguém precisa perguntar.</p>
+      <div class="q rv" style="--d:1800ms">
+        <span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
+        <span>A pergunta desta seção: <b>o que a operação precisa saber antes de começar?</b></span>
+      </div>
+    </div>
+    <div class="pv rv3" style="--d:880ms">
+      <div class="pvh"><span class="dot"></span>01/10/2025 &middot; 07h00</div>
+      <div class="pvgrid">
+        <div class="pc rv" style="--d:1140ms">
+          <div class="pl">Ontem</div>
+          <div class="pn"><span class="ct" data-to="84" data-delay="1240">0</span></div>
+          <div class="ps">registrados, <b>nenhum</b> violou o prazo</div>
+        </div>
+        <div class="pc rv" style="--d:1260ms">
+          <div class="pl">Sem violação</div>
+          <div class="pn"><span class="ct" data-to="4" data-delay="1360">0</span><span class="u">dias úteis</span></div>
+          <div class="ps">seguidos, até o corte</div>
+        </div>
+        <div class="pc wide rv" style="--d:1400ms">
+          <div class="pl">Previsto para hoje</div>
+          <div class="cob">
+            <span>P2</span>
+            <div class="tr"><i style="width:38%;--d:1540ms"></i></div>
+            <b>9 a 22</b>
+          </div>
+          <div class="cob">
+            <span>P3</span>
+            <div class="tr"><i style="width:88%;--d:1640ms"></i></div>
+            <b>59 a 96</b>
+          </div>
+          <div class="ps" style="margin-top:12px">a faixa de 80% do Prophet, por prioridade, escrita em linguagem de operação</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span><span>O primeiro dos dois diferenciais entregues; a nota de saúde por produto veio na seção anterior</span></div>
+</section>
+
+<section class="slide light brb" data-slide="23" data-var="a" data-quem="hygor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Tal como aparece no sistema</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">O resumo que abre às sete</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Morning Brief</span></span></h1>
+
+    <div class="cena">
+      <div class="lado">
+        <div class="rel rv" style="--d:640ms">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <circle class="mostrador" cx="32" cy="32" r="27"/>
+            <line class="pont" x1="32" y1="32" x2="32" y2="14"/>
+            <circle cx="32" cy="32" r="2.6" fill="#2563EB"/>
+          </svg>
+          <div>
+            <div class="h">07h00</div>
+            <div class="k">1º de outubro de 2025, uma quarta comum</div>
+          </div>
+        </div>
+
+        <div class="itens">
+          <div class="it rv" style="--d:1300ms">
+            <span class="n">01</span>
+            <div><b>Chega sozinho</b><span>ninguém abre, ninguém pergunta. O resumo está na tela quando o dia começa.</span></div>
+          </div>
+          <div class="it rv" style="--d:1440ms">
+            <span class="n">02</span>
+            <div><b>Ontem e hoje, nas duas prioridades</b><span>o que fechou no dia anterior e a faixa prevista para hoje, em <em>P2 e P3</em>.</span></div>
+          </div>
+          <div class="it rv" style="--d:1580ms">
+            <span class="n">03</span>
+            <div><b>Uma frase escrita por modelo de linguagem</b><span>só a abertura. Ela <em>recebe os números prontos</em> e não calcula nada.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="palco">
+        <div class="tela"><img src="figs/10_morning_brief.png" alt="Modal do resumo da manhã no painel operacional do Cronos"></div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:2200ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 6.8V12l3.4 2"/></svg>
+      <span>Cada linha tem um botão que leva à tela de onde ela veio. <b>O resumo é o começo do caminho</b>, não um relatório para arquivar.</span>
+    </div>
+  </div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
+</section>
+
+<section class="slide dark dv3" data-slide="24" data-var="a" data-quem="hygor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Seção 06 &middot; Arquitetura</div>
+  </div>
+  <div class="body">
+    <div class="lft">
+      <span class="eb"><span class="rv" style="--d:220ms">Seção 06 &middot; Arquitetura</span></span>
+      <h1 class="tt">
+        <span class="mask" style="--d:340ms"><span>Arquitetura</span></span>
+        <span class="mask" style="--d:450ms"><span>da <span class="hl">solução</span></span></span>
+      </h1>
+      <p class="lead rv" style="--d:820ms">Com o quê a solução foi feita e como ela roda. Os notebooks treinam e gravam; o contêiner apenas lê, e sobe onde houver Docker.</p>
       <div class="q rv" style="--d:1900ms">
         <span class="ci"><svg viewBox="0 0 24 24"><rect x="3.4" y="4.6" width="17.2" height="14.8" rx="2.4"/><path d="M3.4 9.4h17.2"/></svg></span>
-        <span>A pergunta desta seção: <b>o modelo cabe na rotina de quem opera?</b></span>
+        <span>A pergunta desta seção: <b>isso roda fora do notebook?</b></span>
       </div>
     </div>
     <div class="pv rv3" style="--d:900ms">
-      <div class="pvh"><span class="dot"></span>A aplicação em 01/10/2025, 15h</div>
+      <div class="pvh"><span class="dot"></span>O que a solução tem em 01/10/2025, 15h</div>
       <div class="pvgrid">
         <div class="pc rv" style="--d:1140ms">
           <div class="pl">Base do KPI</div>
@@ -4267,108 +4016,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span><span>Django 6.1 &middot; Plotly 6.0 &middot; imagem python:3.13-slim &middot; nenhum modelo treina dentro do contêiner</span></div>
 </section>
 
-<section class="slide dark dsb" data-slide="22" data-var="b" data-quem="hygor">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Seção 04 &middot; O produto</div>
-  </div>
-  <div class="body">
-    <div class="lft">
-      <span class="eb"><span class="rv" style="--d:220ms">Seção 04</span></span>
-      <h1 class="tt">
-        <span class="mask" style="--d:340ms"><span>Seis telas</span></span>
-        <span class="mask" style="--d:450ms"><span class="hl">num contêiner</span></span>
-      </h1>
-      <p class="lead rv" style="--d:820ms">Os dois modelos entregues como produto, com o relógio parado em 1º de outubro de 2025 às 15h. Tudo o que a tela mostra existia naquele instante.</p>
-      <div class="q rv" style="--d:2000ms">
-        <span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
-        <span>A pergunta desta seção: <b>isso cabe na rotina de quem opera?</b></span>
-      </div>
-    </div>
-
-    <div class="arte">
-      <svg viewBox="0 0 620 420" aria-hidden="true">
-        <defs>
-          <linearGradient id="vidro" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#1B2434"/><stop offset="1" stop-color="#111826"/>
-          </linearGradient>
-        </defs>
-
-        <!-- as molduras de trás, uma por tela, entrando de trás para a frente -->
-        <g class="mold" style="--d:1000ms">
-          <rect x="150" y="20" width="440" height="248" rx="14" fill="url(#vidro)"
-            stroke="rgba(255,255,255,.10)"/>
-        </g>
-        <g class="mold" style="--d:1120ms">
-          <rect x="112" y="52" width="440" height="248" rx="14" fill="url(#vidro)"
-            stroke="rgba(255,255,255,.12)"/>
-        </g>
-        <g class="mold" style="--d:1240ms">
-          <rect x="74" y="84" width="440" height="248" rx="14" fill="url(#vidro)"
-            stroke="rgba(255,255,255,.14)"/>
-        </g>
-
-        <!-- a moldura da frente, com a silhueta do painel -->
-        <g class="mold" style="--d:1380ms">
-          <rect x="18" y="120" width="470" height="272" rx="16" fill="#0E1622"
-            stroke="rgba(96,165,250,.4)"/>
-          <line x1="18" y1="156" x2="488" y2="156" stroke="rgba(255,255,255,.12)"/>
-          <circle cx="38" cy="138" r="4" fill="#3B82F6"/>
-          <rect x="52" y="133" width="62" height="10" rx="5" fill="rgba(255,255,255,.16)"/>
-          <rect x="126" y="133" width="44" height="10" rx="5" fill="rgba(255,255,255,.08)"/>
-          <rect x="182" y="133" width="52" height="10" rx="5" fill="rgba(255,255,255,.08)"/>
-          <rect x="246" y="133" width="40" height="10" rx="5" fill="rgba(255,255,255,.08)"/>
-
-          <!-- dois cartões e um gráfico, só a silhueta -->
-          <rect x="40" y="178" width="128" height="70" rx="10" fill="rgba(255,255,255,.05)"
-            stroke="rgba(255,255,255,.09)"/>
-          <rect x="54" y="196" width="46" height="8" rx="4" fill="rgba(255,255,255,.14)"/>
-          <rect x="54" y="212" width="72" height="18" rx="5" fill="rgba(96,165,250,.55)"/>
-
-          <rect x="182" y="178" width="128" height="70" rx="10" fill="rgba(255,255,255,.05)"
-            stroke="rgba(255,255,255,.09)"/>
-          <rect x="196" y="196" width="46" height="8" rx="4" fill="rgba(255,255,255,.14)"/>
-          <rect x="196" y="212" width="58" height="18" rx="5" fill="rgba(255,255,255,.22)"/>
-
-          <rect x="324" y="178" width="140" height="70" rx="10" fill="rgba(255,255,255,.05)"
-            stroke="rgba(255,255,255,.09)"/>
-          <rect x="338" y="196" width="40" height="8" rx="4" fill="rgba(255,255,255,.14)"/>
-        </g>
-
-        <!-- a linha do gráfico, que se desenha por último -->
-        <path class="tracado" style="--len:190;--d:1900ms" stroke="#60A5FA" stroke-width="2.4"
-          stroke-linecap="round" stroke-linejoin="round"
-          d="M338 236 L360 224 L382 230 L404 210 L426 218 L448 202"/>
-
-        <!-- a fila do painel, três linhas -->
-        <g class="brilho" style="--d:2100ms">
-          <rect x="40" y="268" width="424" height="12" rx="6" fill="rgba(255,255,255,.07)"/>
-          <rect x="40" y="268" width="118" height="12" rx="6" fill="rgba(239,68,68,.6)"/>
-          <rect x="40" y="292" width="424" height="12" rx="6" fill="rgba(255,255,255,.07)"/>
-          <rect x="40" y="292" width="86" height="12" rx="6" fill="rgba(217,119,6,.6)"/>
-          <rect x="40" y="316" width="424" height="12" rx="6" fill="rgba(255,255,255,.07)"/>
-          <rect x="40" y="316" width="54" height="12" rx="6" fill="rgba(96,165,250,.5)"/>
-        </g>
-
-        <!-- o selo do relógio parado -->
-        <g class="brilho" style="--d:2320ms">
-          <rect x="330" y="352" width="158" height="30" rx="15" fill="rgba(59,130,246,.16)"
-            stroke="rgba(96,165,250,.34)"/>
-          <circle cx="352" cy="367" r="7" fill="none" stroke="#93C5FD" stroke-width="1.6"/>
-          <path d="M352 363v4l2.6 1.6" fill="none" stroke="#93C5FD" stroke-width="1.6"
-            stroke-linecap="round"/>
-          <text x="368" y="372" fill="#93C5FD" font-size="14" font-family="Outfit, sans-serif"
-            font-weight="600">01/10 &#183; 15h</text>
-        </g>
-      </svg>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span><span>Django 6.1 &middot; Plotly 6.0 &middot; imagem python:3.13-slim, sem serviço proprietário de nuvem</span></div>
-</section>
-
-<section class="slide light ant" data-slide="23" data-var="a" data-quem="hygor">
+<section class="slide light ant" data-slide="25" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -4445,164 +4093,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
     <div class="fecho rv" style="--d:2320ms">
       <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
       <span>Os quatro rodam sobre a mesma base elegível ao indicador, e <b>cada um responde a uma pergunta diferente do dia</b>.</span>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
-</section>
-
-<section class="slide dark dv3" data-slide="24" data-var="a" data-quem="hygor">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Diferencial 1 de 2</div>
-  </div>
-  <div class="body">
-    <div class="lft">
-      <span class="eb"><span class="rv" style="--d:220ms">Diferencial 1 de 2</span></span>
-      <h1 class="tt">
-        <span class="mask" style="--d:340ms"><span>Morning</span></span>
-        <span class="mask" style="--d:450ms"><span class="hl">Brief</span></span>
-      </h1>
-      <p class="lead rv" style="--d:800ms">O resumo que abre sozinho às sete da manhã, com o fechamento de ontem e a previsão de hoje nas duas prioridades. Ninguém precisa perguntar.</p>
-      <div class="q rv" style="--d:1800ms">
-        <span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
-        <span>A pergunta desta seção: <b>o que a operação precisa saber antes de começar?</b></span>
-      </div>
-    </div>
-    <div class="pv rv3" style="--d:880ms">
-      <div class="pvh"><span class="dot"></span>01/10/2025 &middot; 07h00</div>
-      <div class="pvgrid">
-        <div class="pc rv" style="--d:1140ms">
-          <div class="pl">Ontem</div>
-          <div class="pn"><span class="ct" data-to="84" data-delay="1240">0</span></div>
-          <div class="ps">registrados, <b>nenhum</b> violou o prazo</div>
-        </div>
-        <div class="pc rv" style="--d:1260ms">
-          <div class="pl">Sem violação</div>
-          <div class="pn"><span class="ct" data-to="4" data-delay="1360">0</span><span class="u">dias úteis</span></div>
-          <div class="ps">seguidos, até o corte</div>
-        </div>
-        <div class="pc wide rv" style="--d:1400ms">
-          <div class="pl">Previsto para hoje</div>
-          <div class="cob">
-            <span>P2</span>
-            <div class="tr"><i style="width:38%;--d:1540ms"></i></div>
-            <b>9 a 22</b>
-          </div>
-          <div class="cob">
-            <span>P3</span>
-            <div class="tr"><i style="width:88%;--d:1640ms"></i></div>
-            <b>59 a 96</b>
-          </div>
-          <div class="ps" style="margin-top:12px">a faixa de 80% do Prophet, por prioridade, escrita em linguagem de operação</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span><span>O segundo diferencial vem em seguida: a nota de saúde por produto, de 0 a 100</span></div>
-</section>
-
-<section class="slide light brb" data-slide="25" data-var="a" data-quem="hygor">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Tal como aparece no sistema</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">O resumo que abre às sete</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Morning Brief</span></span></h1>
-
-    <div class="cena">
-      <div class="lado">
-        <div class="rel rv" style="--d:640ms">
-          <svg viewBox="0 0 64 64" aria-hidden="true">
-            <circle class="mostrador" cx="32" cy="32" r="27"/>
-            <line class="pont" x1="32" y1="32" x2="32" y2="14"/>
-            <circle cx="32" cy="32" r="2.6" fill="#2563EB"/>
-          </svg>
-          <div>
-            <div class="h">07h00</div>
-            <div class="k">1º de outubro de 2025, uma quarta comum</div>
-          </div>
-        </div>
-
-        <div class="itens">
-          <div class="it rv" style="--d:1300ms">
-            <span class="n">01</span>
-            <div><b>Chega sozinho</b><span>ninguém abre, ninguém pergunta. O resumo está na tela quando o dia começa.</span></div>
-          </div>
-          <div class="it rv" style="--d:1440ms">
-            <span class="n">02</span>
-            <div><b>Ontem e hoje, nas duas prioridades</b><span>o que fechou no dia anterior e a faixa prevista para hoje, em <em>P2 e P3</em>.</span></div>
-          </div>
-          <div class="it rv" style="--d:1580ms">
-            <span class="n">03</span>
-            <div><b>Uma frase escrita por modelo de linguagem</b><span>só a abertura. Ela <em>recebe os números prontos</em> e não calcula nada.</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="palco">
-        <div class="tela"><img src="figs/10_morning_brief.png" alt="Modal do resumo da manhã no painel operacional do Cronos"></div>
-      </div>
-    </div>
-
-    <div class="fecho rv" style="--d:2200ms">
-      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 6.8V12l3.4 2"/></svg>
-      <span>Cada linha tem um botão que leva à tela de onde ela veio. <b>O resumo é o começo do caminho</b>, não um relatório para arquivar.</span>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
-</section>
-
-<section class="slide light brf" data-slide="25" data-var="b" data-quem="hygor">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Tal como aparece no sistema</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">O resumo que abre às sete</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Morning Brief</span></span></h1>
-
-    <div class="cena">
-      <div class="folha rv3" style="--d:620ms">
-        <div class="cl cab">
-          <div class="selo">Resumo do dia &middot; 01/10/2025 &middot; 07h00</div>
-          <h2><span class="mask" style="--d:900ms"><span>Situação da operação</span></span></h2>
-          <p class="rv" style="--d:1040ms">Volume de uma quarta comum nas duas prioridades do KPI.</p>
-        </div>
-        <i class="fio" style="--d:1500ms"></i>
-        <div class="nota" style="--d:1500ms"><b>Claude API</b><span>A única frase escrita por modelo de linguagem. Ela recebe os números prontos.</span></div>
-
-        <div class="cl lin">
-          <span class="rot">Ontem</span>
-          <div class="val rv" style="--d:1160ms">
-            <div class="n">84<small>registrados</small>0<small>violaram o prazo</small></div>
-            <p>Quatro dias úteis seguidos sem violação.</p>
-          </div>
-        </div>
-        <i class="fio" style="--d:1900ms"></i>
-        <div class="nota" style="--d:1900ms"><b>Base de incidentes</b><span>Fechamento do dia anterior, na base elegível ao KPI.</span></div>
-
-        <div class="cl lin">
-          <span class="rot">Hoje</span>
-          <div class="val rv" style="--d:1280ms">
-            <div class="n">59 a 96<small>previstos na prioridade 3</small></div>
-            <div class="n">9 a 22<small>previstos na prioridade 2</small></div>
-          </div>
-        </div>
-        <i class="fio" style="--d:2300ms"></i>
-        <div class="nota" style="--d:2300ms"><b>Prophet</b><span>A faixa de 80% da previsão do dia, por prioridade.</span></div>
-      </div>
-    </div>
-
-    <div class="fecho rv" style="--d:2700ms">
-      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.2v5.2l3.2 2"/></svg>
-      <span>Gerado às 7h, sem consulta de ninguém. <b>Os números saem dos modelos e da base</b>, e o botão do resumo leva direto à tela que ele aponta.</span>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
@@ -4947,8 +4437,12 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   var caixa=document.getElementById("fit");
   function fit(){
     var r=caixa.getBoundingClientRect();
-    if(!r.width||!r.height) return;
-    stage.style.transform="scale("+Math.min(r.width/1600,r.height/900)+")";
+    var l=Math.min(document.documentElement.clientWidth,r.width);
+    var a=Math.min(document.documentElement.clientHeight,r.height);
+    if(!l||!a) return;
+    /* o translate vem antes do scale: primeiro tira o palco de cima do centro,
+       depois encolhe. Na ordem inversa o deslocamento também encolheria. */
+    stage.style.transform="translate(-50%,-50%) scale("+Math.min(l/1600,a/900)+")";
   }
   if(window.ResizeObserver) new ResizeObserver(fit).observe(caixa);
   window.addEventListener("resize",fit);
