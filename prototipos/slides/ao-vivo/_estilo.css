@@ -326,3 +326,55 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 /* legenda do gráfico da divisória de previsão */
 .dv3 .eixo3{display:flex;justify-content:space-between;font-size:12px;color:#7A8494;
   margin-top:10px}
+
+/* ═══ divisória · composição B · o desenho do deck da Sprint 2 ═══════════════
+   O dono do projeto pediu, em 10/09/2026, que cada divisória ganhasse uma
+   segunda composição na pegada da Sprint 2 (prototipos/gestao/intro.html e
+   prototipos/gestao/_shared.css), que ele considera mais bonita.
+
+   O que muda em relação à composição A, que é a `.dv3` e continua no lugar:
+     · uma linha de bloco acima do olho, em caixa alta com muito espacejamento
+     · o título sobe de 76px para 96px e recebe o gradiente branco→azul no
+       texto inteiro, não só numa palavra
+     · a caixa da pergunta sai e entram três pílulas de número
+     · o rodapé ganha o filete e a chamada das próximas páginas
+
+   O painel da direita é o MESMO da composição A, de propósito: a informação
+   não muda entre variações, só a forma. Por isso a `<section>` da B carrega
+   as duas classes, `dv3 dv2`, e este bloco vem depois para vencer no empate
+   de especificidade.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.dv2 .bl{font-size:13px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;
+  color:rgba(255,255,255,.42);opacity:0;transform:translate3d(0,10px,0)}
+.dv2.is-active .bl{animation:rv .5s var(--out) var(--d,0ms) forwards}
+.dv2 .bl b{color:#60A5FA;font-weight:800}
+.dv2 .eb{margin-top:15px}
+.dv2 .tt{font-size:96px;font-weight:900;letter-spacing:-4px;line-height:1.05;margin-top:16px;
+  padding-top:.05em}
+/* o gradiente vai no span da máscara: no h1 o filho herda color:transparent */
+.dv2 .tt .mask > span{background:linear-gradient(135deg,#fff 0%,#93C5FD 62%,#60A5FA 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.dv2 .lead{font-size:19px;line-height:1.5;max-width:560px;margin-top:22px}
+.dv2 .q{display:none}
+
+/* as três pílulas de número, no lugar da caixa da pergunta */
+.dv2 .pilhas{display:flex;gap:12px;margin-top:28px}
+.dv2 .pilhas .st{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;padding:14px 20px;min-width:132px;
+  opacity:0;transform:translate3d(0,12px,0)}
+.dv2.is-active .pilhas .st{animation:rv .5s var(--out) var(--d,0ms) forwards}
+.dv2 .pilhas .lbl{display:block;font-size:9.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:rgba(255,255,255,.45)}
+.dv2 .pilhas .val{display:block;font-size:26px;font-weight:800;letter-spacing:-.65px;color:#fff;
+  margin-top:5px;font-variant-numeric:tabular-nums;line-height:1.1}
+.dv2 .pilhas .val.ac{color:#60A5FA} .dv2 .pilhas .val.ok{color:#34D399}
+.dv2 .pilhas .val small{font-size:14px;color:rgba(255,255,255,.5);font-weight:500;
+  letter-spacing:0;margin-left:3px}
+
+/* o rodapé com filete, como na Sprint 2 */
+.dv2 .ft{letter-spacing:.11em}
+.dv2 .ft::before{content:"";position:absolute;left:0;right:0;top:-16px;height:1px;
+  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.15) 30%,
+    rgba(255,255,255,.15) 70%,rgba(255,255,255,0))}
+.dv2 .ft .dir{color:rgba(255,255,255,.6);font-weight:500;text-transform:none;letter-spacing:.02em}
+.dv2 .ft .dir b{color:#fff;font-weight:700}

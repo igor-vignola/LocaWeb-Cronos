@@ -1,92 +1,106 @@
 <style>
-/* ═══ slide 20 · variação B · a fila com o painel de leitura ══════════════════
-   A forma do deck da Sprint 3, que o dono do projeto marcou pedindo mais
-   clareza: a curva à esquerda e, à direita, três cartões que dizem em números
-   o que a curva mostra em traço. Quem não lê gráfico sai com o mesmo recado.
+/* ═══ slide 20 · a fila de risco, e o que o modelo acerta ════════════════════
+   A forma do deck da Sprint 3: a curva à esquerda e, à direita, o painel que
+   diz em número o que a curva diz em traço. Quem não lê gráfico sai com o
+   mesmo recado.
 
-   O painel tem dois degraus:
-     1. o número que se fala em voz alta: 13 quebras nas 50 primeiras posições
-     2. a mesma fila em três ordenações, em barra, para comparar de relance
+   Duas mudanças de 10/09/2026, pedidas pelo dono do projeto:
 
-   A tabela de ganho por tamanho de fila existia aqui e saiu: quatro linhas de
-   número ao lado de um gráfico que mostra a mesma coisa era peso sem leitura
-   nova. Os valores continuam em PERGUNTAS.md, para quem cobrar.
+   1. "Melhor regra simples" era genérico. Ele perguntou qual regra era, e com
+      razão: o cartão dizia 7 sem dizer de quem. Agora as quatro ordenações
+      aparecem nomeadas e **na cor da própria linha do gráfico**, que é o que
+      liga o painel à curva sem legenda:
+        modelo #2563EB · time #16A34A · ativo crônico #D97706 ·
+        sem ordenação #999999 · prioridade 2 #DC2626
+      As cores são as mesmas de `_figuras_fila.py`, linha 90 em diante.
+
+   2. O desempenho do modelo de risco não estava em slide nenhum deste bloco.
+      Ele pediu para encaixar aqui, que é onde a pergunta "o modelo funciona?"
+      está sendo respondida. A tira do pé traz ROC, PR-AUC e calibração, que
+      antes estavam no slide 21 — lá o assunto é explicabilidade, e a métrica
+      ficava fora de lugar.
 
    Todos os números recomputados de data/interim/04_fila_pontuada.parquet,
    5.183 incidentes avaliados fora do período de treino, 50 quebras:
 
-     percorrendo   modelo   melhor regra simples   por prioridade   sem ordenar
-             50      13          7 (taxa do time)         0             0,5
-            100      16          9 (taxa do time)         0             1,0
-            400      27         19 (taxa do time)         2             3,9
-          1.000      38         26 (taxa do time)         8             9,6
+     percorrendo   modelo   time   ativo crônico   prioridade 2   sem ordenar
+             50       13      7          0              0             0,5
+            100       16      9          0              0             1,0
+            400       27     19         14              2             3,9
+          1.000       38     26         26              8             9,6
 
-   Corrigido em 10/09/2026. O texto dizia 9 nas 50 primeiras posições, valor
+   Corrigido em 10/09/2026: o texto dizia 9 nas 50 primeiras posições, valor
    que só aparece quando os empates da regra do ativo crônico são desfeitos na
    ordem do arquivo — que é a ordem do próprio modelo. São 357 incidentes
    empatados no topo daquela regra. Desempatando pelo número do incidente, que
-   é o que o `_figuras_fila.py` faz e o que a figura plota, a regra do ativo
-   devolve 0 e a melhor das simples passa a ser a do time, com 7.
+   é o que o `_figuras_fila.py` faz e o que a figura plota, o ativo devolve 0 e
+   a melhor das simples passa a ser a do time, com 7.
 
-   A regra simples da tabela é sempre a melhor das quatro naquele ponto, o que
-   é o teste honesto: o modelo ganha do melhor concorrente, não da média deles.
+   Métricas de notebooks/04_risco_ola.ipynb, período de teste:
+     ROC AUC   0,869 contra 0,868 do gradient boosting
+     PR-AUC    0,2958 contra 0,2526 · a taxa da base é 0,0096, ou 31 vezes
+     calibra   prevê 48,1 quebras onde houve 50
    ══════════════════════════════════════════════════════════════════════════ */
 .flb .body{padding-top:14px}
 .flb .tt{font-size:48px;letter-spacing:-1.75px}
 .flb .tt em{font-style:normal;color:var(--accent)}
 .flb .cena{flex:1;display:flex;align-items:stretch;gap:26px;margin-top:14px;min-height:0}
-.flb .quadro{flex:1;min-width:0;display:flex;align-items:center;padding:16px 20px}
+.flb .quadro{flex:1;min-width:0;display:flex;align-items:center;padding:14px 18px}
 .flb .fig{display:block;width:100%}
 
-.flb .rail{width:372px;flex-shrink:0;display:flex;flex-direction:column;gap:20px;
+.flb .rail{width:372px;flex-shrink:0;display:flex;flex-direction:column;gap:18px;
   justify-content:center}
 
 /* 1 · o número que se fala */
-.flb .topo{background:var(--ink);border-radius:18px;padding:24px 26px;color:#fff;
+.flb .topo{background:var(--ink);border-radius:18px;padding:22px 26px;color:#fff;
   box-shadow:0 30px 62px -38px rgba(10,14,23,.6)}
 .flb .topo .k{font-size:11px;font-weight:700;letter-spacing:2.1px;text-transform:uppercase;
   color:#8B96A8}
-.flb .topo .v{font-size:70px;font-weight:900;letter-spacing:-2.8px;line-height:.9;
-  margin-top:12px;font-variant-numeric:tabular-nums}
+.flb .topo .v{font-size:64px;font-weight:900;letter-spacing:-2.6px;line-height:.9;
+  margin-top:11px;font-variant-numeric:tabular-nums}
 .flb .topo .v em{font-style:normal;font-size:.36em;letter-spacing:-.6px;color:#8B96A8;
   margin-left:8px}
 
-/* 2 · a mesma fila em três ordenações */
+/* 2 · a mesma fila em cinco ordenações, cada uma na cor da sua linha */
 .flb .cx{background:#fff;border:1px solid var(--line);border-radius:18px;
-  padding:20px 24px;box-shadow:0 16px 40px -34px rgba(15,23,42,.45);
-  display:flex;flex-direction:column;justify-content:center}
+  padding:20px 24px 22px;box-shadow:0 16px 40px -34px rgba(15,23,42,.45)}
 .flb .cx .k{font-size:11px;font-weight:700;letter-spacing:2.1px;text-transform:uppercase;
   color:var(--tx2)}
-.flb .ord{display:grid;grid-template-columns:132px 1fr 30px;align-items:center;gap:12px;
-  margin-top:16px}
-.flb .ord + .ord{margin-top:13px}
-.flb .ord span{font-size:14.5px;color:var(--tx)}
+.flb .ord{display:grid;grid-template-columns:14px 128px 1fr 30px;align-items:center;gap:0 11px;
+  margin-top:15px}
+.flb .ord + .ord{margin-top:11px}
+/* o traço reproduz o estilo da linha no gráfico: cheio, tracejado, pontilhado */
+.flb .ord s{text-decoration:none;display:block;height:0;border-top-width:3px;border-radius:2px}
+.flb .ord > span{font-size:14px;color:var(--tx);line-height:1.2}
 .flb .ord .tr{height:11px;border-radius:6px;background:#EDF1F7;overflow:hidden}
 .flb .ord .tr i{display:block;height:100%;border-radius:6px;transform:scaleX(0);
   transform-origin:left}
 .flb.is-active .ord .tr i{animation:corre .7s var(--out) var(--d,0ms) forwards}
-.flb .ord b{font-size:17px;font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
-.flb .ord.mod span{color:var(--head);font-weight:700}
-.flb .ord.mod .tr i{background:var(--accent)} .flb .ord.mod b{color:var(--accent)}
-.flb .ord.reg .tr i{background:#9AA6B6}        .flb .ord.reg b{color:var(--tx)}
-.flb .ord.pri .tr i{background:var(--bad)}      .flb .ord.pri b{color:var(--bad)}
+.flb .ord b{font-size:16.5px;font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
 
-/* 3 · a tabela do ganho */
-.flb .tab{width:100%;border-collapse:collapse;margin-top:12px}
-.flb .tab th{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--tx2);text-align:right;padding:0 0 9px;border-bottom:1px solid #E4EAF3}
-.flb .tab th:first-child{text-align:left}
-.flb .tab td{font-size:14.5px;padding:9px 0;border-bottom:1px solid #F0F3F8;text-align:right;
-  font-variant-numeric:tabular-nums;color:var(--tx)}
-.flb .tab td:first-child{text-align:left;color:var(--head)}
-.flb .tab tr:last-child td{border-bottom:none}
-.flb .tab .m{color:var(--accent);font-weight:800}
-.flb .tab .g{color:var(--good);font-weight:700}
+.flb .ord.mod > span{color:var(--head);font-weight:700}
+.flb .ord.mod s{border-top-style:solid;border-top-color:#2563EB;border-top-width:4px}
+.flb .ord.mod .tr i{background:#2563EB} .flb .ord.mod b{color:#2563EB}
+.flb .ord.tim s{border-top-style:dashed;border-top-color:#16A34A}
+.flb .ord.tim .tr i{background:#16A34A} .flb .ord.tim b{color:#16A34A}
+.flb .ord.atv s{border-top-style:dashed;border-top-color:#D97706}
+.flb .ord.atv .tr i{background:#D97706} .flb .ord.atv b{color:#D97706}
+.flb .ord.aca s{border-top-style:dotted;border-top-color:#999}
+.flb .ord.aca .tr i{background:#999} .flb .ord.aca b{color:#8E9AAA}
+.flb .ord.pri s{border-top-style:dotted;border-top-color:#DC2626}
+.flb .ord.pri .tr i{background:#DC2626} .flb .ord.pri b{color:#DC2626}
 
-.flb .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
-  border-top:1px solid #DCE4EF;font-size:16px;line-height:1.45;color:var(--tx)}
-.flb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
-.flb .fecho b{color:var(--head);font-weight:700}
+/* 3 · a tira do desempenho, que veio do slide 21 */
+.flb .metrica{display:grid;grid-template-columns:1.12fr 1.18fr 1fr 1.5fr;gap:0 28px;
+  margin-top:auto;padding-top:16px;border-top:1px solid #DCE4EF}
+.flb .metrica .m b{display:block;font-size:27px;font-weight:900;letter-spacing:-1.1px;
+  color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}
+.flb .metrica .m > span{display:block;font-size:13px;line-height:1.38;color:var(--tx2);
+  margin-top:7px}
+.flb .metrica .m > span em{font-style:normal;color:var(--head);font-weight:700}
+.flb .metrica .nota{font-size:14.5px;line-height:1.45;color:var(--tx);align-self:center;
+  padding-left:30px;border-left:1px solid #E4EAF3}
+.flb .metrica .nota b{color:var(--head);font-weight:700}
 </style>
 
 <section class="slide light flb" data-slide="20" data-var="a" data-quem="ana">
@@ -114,28 +128,48 @@
         <div class="cx rv3" style="--d:1000ms">
           <div class="k">A mesma fila, ordenada de outro jeito</div>
           <div class="ord mod">
-            <span>Modelo de risco</span>
-            <div class="tr"><i style="width:100%;--d:1220ms"></i></div>
+            <s></s><span>Modelo de risco</span>
+            <div class="tr"><i style="width:100%;--d:1180ms"></i></div>
             <b>13</b>
           </div>
-          <div class="ord reg">
-            <span>Melhor regra simples</span>
-            <div class="tr"><i style="width:54%;--d:1320ms"></i></div>
+          <div class="ord tim">
+            <s></s><span>Regra: taxa do time</span>
+            <div class="tr"><i style="width:54%;--d:1260ms"></i></div>
             <b>7</b>
           </div>
+          <div class="ord atv">
+            <s></s><span>Regra: ativo crônico</span>
+            <div class="tr"><i style="width:0;--d:1340ms"></i></div>
+            <b>0</b>
+          </div>
+          <div class="ord aca">
+            <s></s><span>Sem ordenação</span>
+            <div class="tr"><i style="width:4%;--d:1420ms"></i></div>
+            <b>0,5</b>
+          </div>
           <div class="ord pri">
-            <span>Por prioridade</span>
-            <div class="tr"><i style="width:2%;--d:1420ms"></i></div>
+            <s></s><span>Regra: prioridade 2</span>
+            <div class="tr"><i style="width:0;--d:1500ms"></i></div>
             <b>0</b>
           </div>
         </div>
-
       </div>
     </div>
 
-    <div class="fecho rv" style="--d:1700ms">
-      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
-      <span><b>Regra simples</b> é ordenar por um campo só, sem modelo: pela taxa histórica do time, pelo ativo que mais quebrou ou pela prioridade. A melhor delas acha 7 no mesmo trecho; <b>por prioridade, que é o método de hoje, nenhuma</b>.</span>
+    <div class="metrica">
+      <div class="m rv" style="--d:1720ms">
+        <b><span class="ct" data-to="0.869" data-dec="3" data-delay="1820">0,000</span></b>
+        <span>de <em>área sob a curva ROC</em>, contra 0,868 do gradient boosting</span>
+      </div>
+      <div class="m rv" style="--d:1800ms">
+        <b><span class="ct" data-to="0.296" data-dec="3" data-delay="1900">0,000</span></b>
+        <span>de <em>PR-AUC</em>, contra 0,253 — e 31 vezes a taxa da base, que é 0,0096</span>
+      </div>
+      <div class="m rv" style="--d:1880ms">
+        <b><span class="ct" data-to="48.1" data-dec="1" data-delay="1980">0,0</span> <span style="font-size:.5em;letter-spacing:-.4px">de 50</span></b>
+        <span>quebras <em>previstas</em> no período, ou seja, o modelo fica calibrado</span>
+      </div>
+      <p class="nota rv" style="--d:1960ms"><b>Regra simples</b> é ordenar por um campo só, sem modelo. A melhor delas, a taxa histórica do time, acha 7 no mesmo trecho; <b>por prioridade, que é o método de hoje, nenhuma</b>.</p>
     </div>
   </div>
   <div class="ft"></div>

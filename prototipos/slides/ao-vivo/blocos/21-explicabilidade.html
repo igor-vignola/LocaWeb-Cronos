@@ -2,8 +2,11 @@
 /* ═══ slide 21 · explicabilidade ══════════════════════════════════════════════
    Quarto desafio analítico da Locaweb, que a página 9 chama por esse nome e
    faz duas perguntas: quais fatores mais influenciam, e onde estão os maiores
-   riscos. E o slide fecha também o resultado do modelo, que não estava em tela
-   nenhuma: ROC, PR-AUC e calibração.
+   riscos.
+
+   Em 10/09/2026 a tira de ROC, PR-AUC e calibração saiu daqui e foi para o
+   slide 20, a pedido do dono do projeto: lá é onde a curva já responde "o
+   modelo funciona?", e aqui o assunto é por que ESTE incidente subiu.
 
    Forma herdada do d27a do deck da Sprint 3, que o dono do projeto mandou
    olhar: a decomposição em barras à esquerda e, à direita, a tela de detalhe
@@ -21,8 +24,6 @@
      cat31 45,1% · lsin 27,5% · sábado 10,3% · subcategoria rara 9,1% ·
      ativo raro 4,2% · aberto às 19h 3,7%
      ativo IC00840: 63 passagens no período, 21 com violação
-     ROC 0,869 contra 0,868 do XGBoost · PR-AUC 0,296 contra 0,253 ·
-     prevê 48,1 quebras onde houve 50
    ══════════════════════════════════════════════════════════════════════════ */
 .exp .body{padding-top:14px}
 .exp .tt{font-size:44px;letter-spacing:-1.6px}
@@ -75,18 +76,18 @@
 .exp .lst{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.09)}
 .exp .lst .k{font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
   color:#7A8494}
+/* o rodapé da tela: sem ele sobravam 150px de preto abaixo do último sinal */
+.exp .tela .rod{margin-top:auto;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);
+  font-size:13px;line-height:1.45;color:#98A2B3}
+.exp .tela .rod b{color:#E8ECF3;font-weight:700}
 
-/* a tira do resultado do modelo, que não estava em slide nenhum */
-.exp .metrica{display:grid;grid-template-columns:repeat(3,1fr) 1.5fr;gap:0 30px;
-  margin-top:auto;padding-top:18px;border-top:1px solid #DCE4EF}
-.exp .metrica .m b{display:block;font-size:28px;font-weight:900;letter-spacing:-1.1px;
-  color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}
-.exp .metrica .m span{display:block;font-size:13.5px;line-height:1.4;color:var(--tx2);
-  margin-top:7px}
-.exp .metrica .m span em{font-style:normal;color:var(--head);font-weight:700}
-.exp .metrica .nota{font-size:14.5px;line-height:1.45;color:var(--tx);align-self:center;
-  padding-left:30px;border-left:1px solid #E4EAF3}
-.exp .metrica .nota b{color:var(--head);font-weight:700}
+/* o fecho: a tira de ROC, PR-AUC e calibração mudou para o slide 20, que é
+   onde a pergunta "o modelo funciona?" está sendo respondida. Aqui o assunto
+   é por que ESTE incidente subiu, e a métrica ficava fora de lugar. */
+.exp .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.exp .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.exp .fecho b{color:var(--head);font-weight:700}
 </style>
 
 <section class="slide light exp" data-slide="21" data-var="a" data-quem="ana">
@@ -125,23 +126,13 @@
           <div class="sn" style="--d:1680ms"><span class="q">ativo pouco frequente</span><div class="tr"><i style="width:9%"></i></div><span class="p">4,2%</span></div>
           <div class="sn" style="--d:1750ms"><span class="q">aberto às 19h</span><div class="tr"><i style="width:8%"></i></div><span class="p">3,7%</span></div>
         </div>
+        <p class="rod">As seis parcelas somam a nota. Nada fica de fora da tela, e a mesma decomposição existe para <b>cada um dos 5.183 incidentes</b> da fila.</p>
       </div>
     </div>
 
-    <div class="metrica">
-      <div class="m rv" style="--d:1900ms">
-        <b><span class="ct" data-to="0.87" data-dec="2" data-delay="2000">0,00</span></b>
-        <span>de <em>área sob a curva ROC</em>, contra 0,868 do gradient boosting</span>
-      </div>
-      <div class="m rv" style="--d:1980ms">
-        <b><span class="ct" data-to="0.30" data-dec="2" data-delay="2080">0,00</span></b>
-        <span>de <em>PR-AUC</em>, contra 0,25 — a métrica que vale no evento raro</span>
-      </div>
-      <div class="m rv" style="--d:2060ms">
-        <b><span class="ct" data-to="48" data-delay="2160">0</span> <span style="font-size:.5em;letter-spacing:-.4px">de 50</span></b>
-        <span>quebras <em>previstas</em>, ou seja, o modelo fica calibrado</span>
-      </div>
-      <p class="nota rv" style="--d:2160ms">A regressão logística ficou no lugar do gradient boosting por isto: <b>mesma ordenação, melhor precisão no raro, e cada nota vem com o motivo</b>.</p>
+    <div class="fecho rv" style="--d:1900ms">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+      <span>A regressão logística ficou no lugar do gradient boosting por isto: empata na ordenação, ganha na precisão do evento raro e <b>devolve cada nota com o motivo</b>. É a decomposição desta tela, e ela existe para todo incidente da fila.</span>
     </div>
   </div>
   <div class="ft"></div>
