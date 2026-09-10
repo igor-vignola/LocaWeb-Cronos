@@ -1,86 +1,92 @@
 <style>
 /* ═══ slide 21 · explicabilidade ══════════════════════════════════════════════
-   O quarto desafio analítico da Locaweb chama-se Explicabilidade e faz duas
-   perguntas nominais: "quais fatores mais influenciam o aumento de incidentes?"
-   e "onde estão os principais riscos operacionais?". As duas estavam
-   respondidas de forma espalhada pelo deck, sem slide com esse nome. Este
-   slide junta as duas e fecha o requisito.
+   Quarto desafio analítico da Locaweb, que a página 9 chama por esse nome e
+   faz duas perguntas: quais fatores mais influenciam, e onde estão os maiores
+   riscos. E o slide fecha também o resultado do modelo, que não estava em tela
+   nenhuma: ROC, PR-AUC e calibração.
 
-   Dois lados. À esquerda, a leitura global: quanto cada família de variável
-   pesa no escore do modelo de risco. À direita, a leitura de um caso: o
-   incidente do topo da fila com a razão de cada ponto da sua nota. É o que
-   diferencia explicabilidade de importância de variável — o modelo não diz só
-   o que pesa em geral, diz por que ESTE incidente subiu.
+   Forma herdada do d27a do deck da Sprint 3, que o dono do projeto mandou
+   olhar: a decomposição em barras à esquerda e, à direita, a tela de detalhe
+   do incidente como ela aparece no produto. É o que separa explicabilidade de
+   importância de variável — o modelo não diz só o que pesa em geral, diz por
+   que ESTE incidente subiu, e devolve isso na interface.
 
-   Peso global calculado sobre data/interim/04_fila_pontuada.parquet, coluna
-   `sinais`, somando o valor absoluto da contribuição de cada sinal nos 5.183
-   incidentes avaliados e agrupando por família:
-     categoria 29,9% · subcategoria 19,2% · produto 18,4% · dia da semana 12,5%
-     item de configuração 11,2% · hora da abertura 4,6% · grupo designado 4,2%
+   A figura foi regerada e não copiada: a do deck antigo saiu de uma versão
+   anterior do escore e diz categoria 38% e produto 19%, contra 45,1% e 27,5%
+   do parquet de hoje. Gerador em _figuras_explica.py, sobre a coluna `sinais`
+   de data/interim/04_fila_pontuada.parquet. As parcelas somam o escore.
 
-   O caso é o primeiro da fila, INC8595245, P3, produto lsin, escore 62,97,
-   que de fato violou o prazo. Os seis sinais e os pesos saem do mesmo campo.
-
-   Os grupos críticos vêm de data/interim/05_grupos_criticos.parquet, 38 grupos
-   de produto/categoria/prioridade com pelo menos 100 incidentes. As duas
-   prioridades aparecem, como manda a regra 10.
+   Números, todos daquele parquet e do CONTRATO §5:
+     INC8595245 · P3 · lsin · escore 62,97 · violou o prazo
+     cat31 45,1% · lsin 27,5% · sábado 10,3% · subcategoria rara 9,1% ·
+     ativo raro 4,2% · aberto às 19h 3,7%
+     ativo IC00840: 63 passagens no período, 21 com violação
+     ROC 0,869 contra 0,868 do XGBoost · PR-AUC 0,296 contra 0,253 ·
+     prevê 48,1 quebras onde houve 50
    ══════════════════════════════════════════════════════════════════════════ */
 .exp .body{padding-top:14px}
-.exp .tt{font-size:48px;letter-spacing:-1.75px}
-.exp .sub{font-size:17px;line-height:1.45;color:var(--tx);margin-top:10px}
-.exp .sub b{color:var(--head);font-weight:700}
-/* stretch e não center: com alturas diferentes os dois painéis começavam em
-   linhas diferentes, e o olho lê como se um fosse mais importante */
-.exp .cena{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0 30px;
-  align-items:stretch;align-content:center;margin-top:18px;min-height:0}
+.exp .tt{font-size:44px;letter-spacing:-1.6px}
+.exp .tt em{font-style:normal;color:var(--accent)}
+.exp .cena{flex:1;display:flex;align-items:stretch;gap:26px;margin-top:16px;min-height:0}
+.exp .quadro{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;
+  padding:12px 16px}
+.exp .fig{display:block;max-width:100%;max-height:100%;width:auto}
 
-.exp .painel{background:#fff;border:1px solid var(--line);border-radius:20px;
-  padding:24px 28px 26px;display:flex;flex-direction:column;box-shadow:0 18px 46px -38px rgba(15,23,42,.5)}
-.exp .painel h2{font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
-.exp .painel .un{font-size:12.5px;color:var(--tx2);margin-top:5px}
+/* a tela de detalhe, como no produto */
+.exp .tela{width:400px;flex-shrink:0;background:var(--ink);border-radius:20px;
+  padding:22px 24px;box-shadow:0 30px 66px -38px rgba(10,14,23,.65);
+  display:flex;flex-direction:column}
+.exp .tela .cab{display:flex;align-items:center;gap:9px;font-size:10.5px;font-weight:700;
+  letter-spacing:1.8px;text-transform:uppercase;color:#7A8494}
+.exp .tela .cab i{width:7px;height:7px;border-radius:50%;background:#4ADE80;
+  box-shadow:0 0 9px #4ADE80}
+.exp .tela .id{display:flex;align-items:center;gap:11px;margin-top:14px}
+.exp .tela .id b{font-family:var(--mono);font-size:19px;color:#fff;letter-spacing:-.3px}
+.exp .tela .id span{font-size:10.5px;font-weight:700;letter-spacing:1.4px;
+  text-transform:uppercase;color:#FCA5A5;background:rgba(220,38,38,.2);
+  border:1px solid rgba(220,38,38,.42);border-radius:999px;padding:4px 11px}
 
-/* esquerda · o peso de cada família no escore */
-.exp .fat{display:flex;flex-direction:column;gap:11px;margin-top:20px}
-.exp .fat .l{display:grid;grid-template-columns:1fr 168px 46px;align-items:center;gap:14px}
-.exp .fat .nm{font-size:15px;color:var(--tx);text-align:right}
-.exp .fat .tr{height:16px;border-radius:8px;background:#EDF1F7;overflow:hidden}
-.exp .fat .tr i{display:block;height:100%;border-radius:8px;background:#C4CEDC;
-  transform:scaleX(0);transform-origin:left}
-.exp.is-active .fat .tr i{animation:corre .65s var(--out) var(--d,0ms) forwards}
-.exp .fat .vl{font-size:14px;color:#9AA6B6;text-align:right;font-variant-numeric:tabular-nums}
-.exp .fat .l.forte .nm{color:var(--head);font-weight:700}
-.exp .fat .l.forte .tr i{background:var(--accent)}
-.exp .fat .l.forte .vl{color:var(--accent);font-weight:800}
+.exp .regua{margin-top:16px}
+.exp .regua .tr{height:12px;border-radius:7px;background:rgba(255,255,255,.09);
+  overflow:hidden}
+.exp .regua .tr i{display:block;height:100%;border-radius:7px;
+  background:linear-gradient(90deg,#F87171,#DC2626);transform:scaleX(0);
+  transform-origin:left}
+.exp.is-active .regua .tr i{animation:corre .8s var(--out) 1200ms forwards}
+.exp .regua .lg{display:flex;justify-content:space-between;margin-top:9px;font-size:12px;
+  color:#7A8494}
+.exp .regua .lg b{color:#FCA5A5;font-weight:700}
 
-/* direita · o caso, com a razão de cada ponto */
-.exp .caso{display:flex;align-items:baseline;gap:14px;margin-top:20px;padding-bottom:18px;
-  border-bottom:1px solid #EDF1F7}
-.exp .caso .id{font-family:var(--mono);font-size:17px;color:var(--head)}
-.exp .caso .et{font-family:var(--mono);font-size:11.5px;color:var(--tx2);background:#F4F7FC;
-  border:1px solid var(--line);border-radius:5px;padding:1px 7px}
-.exp .caso .sc{margin-left:auto;text-align:right}
-.exp .caso .sc b{font-size:30px;font-weight:900;letter-spacing:-1.2px;color:var(--bad);
-  line-height:1;font-variant-numeric:tabular-nums}
-.exp .caso .sc span{display:block;font-size:12px;color:var(--tx2);margin-top:4px}
+.exp .hist{margin-top:18px;padding:15px 17px;border-radius:13px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+.exp .hist b{display:block;font-size:10.5px;font-weight:700;letter-spacing:1.6px;
+  text-transform:uppercase;color:#7A8494}
+.exp .hist p{font-size:14.5px;line-height:1.45;color:#C4CBD8;margin-top:8px}
+.exp .hist p em{font-style:normal;color:#fff;font-weight:700}
 
-.exp .sinais{display:flex;flex-direction:column;gap:9px;margin-top:18px}
-.exp .sn{display:grid;grid-template-columns:1fr 120px 44px;align-items:center;gap:12px;
-  opacity:0;transform:translate3d(-8px,0,0)}
+.exp .sn{display:grid;grid-template-columns:1fr 96px 42px;align-items:center;gap:11px;
+  margin-top:11px;opacity:0;transform:translate3d(-8px,0,0)}
 .exp.is-active .sn{animation:rv .45s var(--out) var(--d,0ms) forwards}
-.exp .sn .q{font-size:14.5px;color:var(--tx)}
-.exp .sn .tr{height:12px;border-radius:6px;background:#F4F7FC;overflow:hidden}
-.exp .sn .tr i{display:block;height:100%;border-radius:6px;
-  background:linear-gradient(90deg,#F87171,#DC2626)}
-.exp .sn .p{font-size:13.5px;color:var(--tx2);text-align:right;
+.exp .sn .q{font-size:13px;color:#98A2B3}
+.exp .sn .tr{height:8px;border-radius:5px;background:rgba(255,255,255,.09);overflow:hidden}
+.exp .sn .tr i{display:block;height:100%;border-radius:5px;background:#3B82F6}
+.exp .sn .p{font-size:12.5px;font-weight:700;color:#E8ECF3;text-align:right;
   font-variant-numeric:tabular-nums}
-.exp .caso2{font-size:14px;line-height:1.45;color:var(--tx2);margin-top:18px;padding-top:16px;
-  border-top:1px solid #EDF1F7}
-.exp .caso2 b{color:var(--head);font-weight:700}
+.exp .lst{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.09)}
+.exp .lst .k{font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  color:#7A8494}
 
-.exp .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
-  border-top:1px solid #DCE4EF;font-size:16px;line-height:1.45;color:var(--tx)}
-.exp .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
-.exp .fecho b{color:var(--head);font-weight:700}
+/* a tira do resultado do modelo, que não estava em slide nenhum */
+.exp .metrica{display:grid;grid-template-columns:repeat(3,1fr) 1.5fr;gap:0 30px;
+  margin-top:auto;padding-top:18px;border-top:1px solid #DCE4EF}
+.exp .metrica .m b{display:block;font-size:28px;font-weight:900;letter-spacing:-1.1px;
+  color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}
+.exp .metrica .m span{display:block;font-size:13.5px;line-height:1.4;color:var(--tx2);
+  margin-top:7px}
+.exp .metrica .m span em{font-style:normal;color:var(--head);font-weight:700}
+.exp .metrica .nota{font-size:14.5px;line-height:1.45;color:var(--tx);align-self:center;
+  padding-left:30px;border-left:1px solid #E4EAF3}
+.exp .metrica .nota b{color:var(--head);font-weight:700}
 </style>
 
 <section class="slide light exp" data-slide="21" data-var="a" data-quem="ana">
@@ -91,48 +97,51 @@
     <div class="tag">Seção 04 &middot; explicabilidade</div>
   </div>
   <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Por que o modelo diz o que diz</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quais fatores mais influenciam</span></span></h1>
-    <p class="sub rv" style="--d:620ms">A regressão logística é explicável por construção: cada posição da fila vem com o <b>motivo dela</b>. Foi por isso que ela ficou no lugar do gradient boosting.</p>
+    <span class="eb"><span class="rv" style="--d:240ms">Explicabilidade do modelo</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Decomposição da pontuação de risco por <em>característica</em></span></span></h1>
 
     <div class="cena">
-      <div class="painel rv3" style="--d:780ms">
-        <h2>No modelo inteiro</h2>
-        <p class="un">quanto cada família de variável pesa no escore, nos 5.183 incidentes avaliados</p>
-        <div class="fat">
-          <div class="l forte"><span class="nm">Categoria do incidente</span><div class="tr"><i style="width:100%;--d:1000ms"></i></div><span class="vl">29,9%</span></div>
-          <div class="l forte"><span class="nm">Subcategoria</span><div class="tr"><i style="width:64%;--d:1060ms"></i></div><span class="vl">19,2%</span></div>
-          <div class="l forte"><span class="nm">Produto</span><div class="tr"><i style="width:62%;--d:1120ms"></i></div><span class="vl">18,4%</span></div>
-          <div class="l"><span class="nm">Dia da semana</span><div class="tr"><i style="width:42%;--d:1180ms"></i></div><span class="vl">12,5%</span></div>
-          <div class="l"><span class="nm">Item de configuração</span><div class="tr"><i style="width:37%;--d:1240ms"></i></div><span class="vl">11,2%</span></div>
-          <div class="l"><span class="nm">Hora da abertura</span><div class="tr"><i style="width:15%;--d:1300ms"></i></div><span class="vl">4,6%</span></div>
-          <div class="l"><span class="nm">Grupo designado</span><div class="tr"><i style="width:14%;--d:1360ms"></i></div><span class="vl">4,2%</span></div>
-        </div>
+      <div class="quadro cartao rv3" style="--d:680ms">
+        <img class="fig" src="../figs/12_explica_peso.png" alt="Peso de cada caracteristica na pontuacao de risco do incidente INC8595245">
       </div>
 
-      <div class="painel rv3" style="--d:900ms">
-        <h2>Num incidente só</h2>
-        <p class="un">o primeiro da fila, com a razão de cada ponto da nota</p>
-        <div class="caso">
-          <span class="id">INC8595245</span>
-          <span class="et">P3 &middot; lsin</span>
-          <span class="sc"><b>62,97</b><span>escore de risco</span></span>
+      <div class="tela rv3" style="--d:860ms">
+        <div class="cab"><i></i>Tela de detalhe do incidente</div>
+        <div class="id"><b>INC8595245</b><span>Risco alto</span></div>
+        <div class="regua">
+          <div class="tr"><i style="width:63%"></i></div>
+          <div class="lg"><span>média da base <b style="color:#98A2B3">0,97%</b></span><span>risco estimado <b>62,97</b></span></div>
         </div>
-        <div class="sinais">
-          <div class="sn" style="--d:1500ms"><span class="q">categoria cat31</span><div class="tr"><i style="width:100%"></i></div><span class="p">45,1%</span></div>
-          <div class="sn" style="--d:1580ms"><span class="q">produto lsin</span><div class="tr"><i style="width:61%"></i></div><span class="p">27,5%</span></div>
-          <div class="sn" style="--d:1660ms"><span class="q">sábado</span><div class="tr"><i style="width:23%"></i></div><span class="p">10,3%</span></div>
-          <div class="sn" style="--d:1740ms"><span class="q">subcategoria pouco frequente</span><div class="tr"><i style="width:20%"></i></div><span class="p">9,1%</span></div>
-          <div class="sn" style="--d:1820ms"><span class="q">ativo pouco frequente</span><div class="tr"><i style="width:9%"></i></div><span class="p">4,2%</span></div>
-          <div class="sn" style="--d:1900ms"><span class="q">aberto às 19h</span><div class="tr"><i style="width:8%"></i></div><span class="p">3,7%</span></div>
+        <div class="hist">
+          <b>O que já aconteceu com casos iguais</b>
+          <p>Dos <em>63 incidentes</em> deste ativo no período, <em>21 estouraram</em> o prazo.</p>
         </div>
-        <p class="caso2 rv" style="--d:2000ms">Este incidente <b>violou o prazo</b>, e a tela de fila mostra essa mesma lista quando alguém clica na linha.</p>
+        <div class="lst">
+          <div class="k">Por que ele está no topo</div>
+          <div class="sn" style="--d:1400ms"><span class="q">categoria cat31</span><div class="tr"><i style="width:100%"></i></div><span class="p">45,1%</span></div>
+          <div class="sn" style="--d:1470ms"><span class="q">produto lsin</span><div class="tr"><i style="width:61%"></i></div><span class="p">27,5%</span></div>
+          <div class="sn" style="--d:1540ms"><span class="q">sábado</span><div class="tr"><i style="width:23%"></i></div><span class="p">10,3%</span></div>
+          <div class="sn" style="--d:1610ms"><span class="q">subcategoria pouco frequente</span><div class="tr"><i style="width:20%"></i></div><span class="p">9,1%</span></div>
+          <div class="sn" style="--d:1680ms"><span class="q">ativo pouco frequente</span><div class="tr"><i style="width:9%"></i></div><span class="p">4,2%</span></div>
+          <div class="sn" style="--d:1750ms"><span class="q">aberto às 19h</span><div class="tr"><i style="width:8%"></i></div><span class="p">3,7%</span></div>
+        </div>
       </div>
     </div>
 
-    <div class="fecho rv" style="--d:2140ms">
-      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span>Onde estão os maiores riscos: <b>lsin / cat24 / P3</b> quebra 2,46 vezes a média e <b>lsin / cat77 / P2</b>, 1,65 vezes, entre 38 grupos de produto, categoria e prioridade.</span>
+    <div class="metrica">
+      <div class="m rv" style="--d:1900ms">
+        <b><span class="ct" data-to="0.87" data-dec="2" data-delay="2000">0,00</span></b>
+        <span>de <em>área sob a curva ROC</em>, contra 0,868 do gradient boosting</span>
+      </div>
+      <div class="m rv" style="--d:1980ms">
+        <b><span class="ct" data-to="0.30" data-dec="2" data-delay="2080">0,00</span></b>
+        <span>de <em>PR-AUC</em>, contra 0,25 — a métrica que vale no evento raro</span>
+      </div>
+      <div class="m rv" style="--d:2060ms">
+        <b><span class="ct" data-to="48" data-delay="2160">0</span> <span style="font-size:.5em;letter-spacing:-.4px">de 50</span></b>
+        <span>quebras <em>previstas</em>, ou seja, o modelo fica calibrado</span>
+      </div>
+      <p class="nota rv" style="--d:2160ms">A regressão logística ficou no lugar do gradient boosting por isto: <b>mesma ordenação, melhor precisão no raro, e cada nota vem com o motivo</b>.</p>
     </div>
   </div>
   <div class="ft"></div>

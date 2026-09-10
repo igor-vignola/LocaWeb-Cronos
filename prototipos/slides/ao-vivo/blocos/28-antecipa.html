@@ -11,6 +11,18 @@
    a divisória de modelagem, que diz dois. O cartão agora se chama "o que o
    Cronos calcula" e cada linha traz a sua etiqueta.
 
+   Ajuste de 10/09/2026, a pedido do dono do projeto: a coluna da direita
+   dizia só o nome das duas saídas e o slide não contava COMO elas chegam ao
+   navegador — Django, contêiner e a fronteira de quem treina não apareciam em
+   lugar nenhum antes do slide 29. Em vez de abrir uma composição B só para
+   isso, a coluna virou o próprio contêiner: as duas telas agora estão
+   desenhadas DENTRO dele, com o que ele lê no topo e a stack que o serve no
+   pé. A fronteira fica visível na forma, não numa frase.
+
+   Versões conferidas no ambiente: python:3.13-slim, Django 6.1, gunicorn 26,
+   whitenoise 6.12. Os três arquivos somam 350 kB: fila.parquet 241,
+   painel.json 85 e dias.json 24.
+
    Números, todos conferidos:
    · 4,2 e 11,8  erro médio por dia de D+1 a D+7, backtest deslizante, P2 e P3
    · 76%         38 das 50 quebras do período estão nos 20% de maior risco da
@@ -68,6 +80,29 @@
 .ant .lin .d{font-size:14px;line-height:1.42;color:var(--tx2);padding-left:18px;
   border-left:1px solid #EDF1F7}
 .ant .lin .d b{color:var(--head);font-weight:700}
+
+/* ── a coluna da direita é o contêiner, e as duas telas moram dentro dele ──── */
+.ant .col.dir{width:280px}
+.ant .cont{background:var(--ink);border-radius:20px;padding:18px 18px 16px;
+  box-shadow:0 28px 62px -38px rgba(10,14,23,.7)}
+.ant .cont .ch{display:flex;align-items:center;gap:11px}
+.ant .cont .ch .ci{width:34px;height:34px;border-radius:10px;background:rgba(59,130,246,.16);
+  color:#8FB4F5;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ant .cont .ch .ci svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7}
+.ant .cont .ch b{display:block;font-size:15.5px;font-weight:700;color:#fff;letter-spacing:-.2px}
+.ant .cont .ch span{display:block;font-family:var(--mono);font-size:11px;color:#8FB4F5;margin-top:3px}
+.ant .cont .cl{margin-top:13px;padding:11px 13px;border-radius:11px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  font-size:12.5px;line-height:1.42;color:#98A2B3}
+.ant .cont .cl b{color:#fff;font-weight:700}
+.ant .cont .cx{margin-top:11px;padding:14px 15px;border-radius:13px}
+.ant .cont .cx .ic{width:28px;height:28px;border-radius:8px}
+.ant .cont .cx b{font-size:15.5px;margin-top:10px}
+.ant .cont .cx span{font-size:12.5px}
+.ant .cont .cf{display:flex;flex-wrap:wrap;gap:5px;margin-top:14px;padding-top:13px;
+  border-top:1px solid rgba(255,255,255,.1)}
+.ant .cont .cf i{font-style:normal;font-family:var(--mono);font-size:10.5px;color:#8FB4F5;
+  background:rgba(59,130,246,.16);border-radius:5px;padding:2px 7px}
 
 .ant .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
   border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
@@ -136,22 +171,30 @@
 
       <div class="seta" style="--d:1940ms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 12h15M13.4 6.6 19.6 12l-6.2 5.4"/></svg></div>
 
-      <div class="col">
-        <div class="cb rv" style="--d:1960ms">Saída</div>
-        <div class="cx rv3" style="--d:2020ms">
+      <div class="col dir">
+        <div class="cb rv" style="--d:1940ms">Saída</div>
+        <div class="cont rv3" style="--d:1980ms">
+        <div class="ch">
+          <span class="ci"><svg viewBox="0 0 24 24"><rect x="3.2" y="9.6" width="4.2" height="4.2"/><rect x="8.2" y="9.6" width="4.2" height="4.2"/><rect x="13.2" y="9.6" width="4.2" height="4.2"/><rect x="8.2" y="5" width="4.2" height="4.2"/><path d="M2 14.4c0 4 2.8 5.8 7 5.8 5.6 0 9.4-2.6 10.6-6.6 1.6.3 2.8-.3 3.4-1.4-1.4-1-3-.8-3.8-.2"/></svg></span>
+          <div><b>Um contêiner</b><span>python:3.13-slim</span></div>
+        </div>
+        <p class="cl">Sobe lendo os <b>350 kB</b> gravados pelos notebooks. <b>Nenhum modelo treina aqui dentro.</b></p>
+        <div class="cx rv3" style="--d:2080ms">
           <div class="ic"><svg viewBox="0 0 24 24"><rect x="3.4" y="4.6" width="17.2" height="14.8" rx="2.4"/><path d="M3.4 9.4h17.2M9.6 9.4v10"/></svg></div>
           <b>Painel operacional</b><span>fila de risco, saúde por produto e projeção da meta</span>
         </div>
-        <div class="cx rv3" style="--d:2140ms">
+        <div class="cx rv3" style="--d:2180ms">
           <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.6M12 18.8v2.6M2.6 12h2.6M18.8 12h2.6M5.3 5.3l1.9 1.9M16.8 16.8l1.9 1.9M18.7 5.3l-1.9 1.9M7.2 16.8l-1.9 1.9"/></svg></div>
           <b>Resumo das 07h</b><span>abre sozinho no início do dia, sem ninguém pedir</span>
+        </div>
+        <div class="cf"><i>Django 6.1</i><i>gunicorn 26</i><i>whitenoise 6.12</i><i>seis rotas</i></div>
         </div>
       </div>
     </div>
 
     <div class="fecho rv" style="--d:2320ms">
       <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
-      <span>Os quatro rodam sobre a mesma base elegível ao indicador, e <b>cada um responde a uma pergunta diferente do dia</b>.</span>
+      <span>Os quatro cálculos rodam sobre a mesma base elegível ao indicador, e o contêiner <b>só lê o que os notebooks gravaram</b> — sobe onde houver Docker, sem serviço proprietário de nuvem.</span>
     </div>
   </div>
   <div class="ft"></div>

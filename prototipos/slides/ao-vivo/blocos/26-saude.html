@@ -1,53 +1,125 @@
 <style>
-/* ═══ slide 26 · variação C · as duas ordens ══════════════════════════════════
-   O dono do projeto pediu algo na forma do slide de causas do deck da Sprint 3,
-   dois painéis lado a lado, e mais limpo.
+/* ═══ slide 26 · o que a nota de saúde resolve ════════════════════════════════
+   Refeito em 10/09/2026. A versão anterior eram dois painéis de oito barras
+   cinzas, um por nota e outro por taxa, e o dono do projeto devolveu com a
+   pergunta certa: "qual a mensagem desse slide?". Não havia uma. Havia dois
+   rankings, e a divergência entre eles ficava por conta de quem lesse.
 
-   Os dois painéis mostram os oito piores de cada régua, em ordens diferentes: à
-   esquerda pela nota de saúde, à direita pela taxa de perda de prazo. E as
-   ordens não coincidem, que é o que explica a nota sem precisar de fórmula: a
-   nota junta cinco medidas, e a taxa é só uma delas.
+   A mensagem é esta: **a taxa de quebra sozinha aponta o produto errado**.
+   O lgoa e o lsin quebram o prazo quase na mesma proporção — 1,88% e 1,84% —
+   e um é o segundo melhor dos quinze enquanto o outro é o décimo. O que separa
+   os dois são as outras medidas da nota, e é por isso que a nota existe.
 
-   O exemplo que faz o ponto sozinho é o lgoa: taxa de 1,88%, a segunda maior
-   dos quinze, e mesmo assim nota 68,0, a segunda melhor. Ele perde prazo com
-   frequência mas resolve rápido, fecha com causa e a taxa está caindo.
+   Forma: um gráfico de haltere. Cada linha é uma das cinco medidas, o trilho
+   vai da melhor posição entre os quinze produtos até a pior, e os dois pontos
+   são os dois produtos. Na primeira linha eles estão colados no fim ruim; nas
+   três seguintes, longe. A distância desenhada é a mensagem, e não precisa de
+   legenda para ser lida.
 
-   O lvps é o pior nos dois painéis, e é por isso que ele encabeça a fila.
+   Números de data/app/painel.json, campo `saude`, corte de 01/10/2025. A nota
+   é a média das cinco posições relativas, invertida: lgoa (0,933 + 0,133 +
+   0,133 + 0,333 + 0,067) / 5 = 0,320 → 68,0. As posições saem do notebook
+   07_saude_produto e os rótulos são os mesmos de webapp/painel/servicos.py.
 
-   Dados de data/app/painel.json, campo saude, corte de 01/10/2025. A nota vai
-   de 0 a 100 e as barras de taxa usam 2,90% como 100% da escala.
+     medida                lgoa                lsin
+     Taxa de violação      1,88%   14º de 15   1,84%   13º de 15
+     Problemas inéditos    18,8%    2º         30,6%    6º
+     Fechados sem causa     3,8%    2º         21,3%   12º
+     Duração mediana       0,99 h   5º          1,46 h 11º
+     Tendência da taxa    −2,41 pp  1º         −1,75 pp 2º
+     nota                  68,0    2º de 15    41,3    10º de 15
+
+   A resposta da nota é o lvps: 21,3, último dos quinze, pior em taxa (2,90%),
+   pior em fechados sem causa (30,7%) e a única tendência que sobe (+2,98 pp).
+   Nas duas prioridades: 125 incidentes na 2 com 2 violações e 185 na 3 com 7.
    ══════════════════════════════════════════════════════════════════════════ */
 .sdc .body{padding-top:14px}
 .sdc .tt{font-size:50px;letter-spacing:-1.8px}
-.sdc .sub{font-size:17px;line-height:1.45;color:var(--tx);margin-top:10px}
+.sdc .tt em{font-style:normal;color:var(--accent)}
+.sdc .sub{font-size:17px;line-height:1.45;color:var(--tx);margin-top:11px;max-width:104ch}
 .sdc .sub b{color:var(--head);font-weight:700}
-/* center e não stretch: esticado, o painel abria um terço de vão dentro
-   dele e as barras boiavam no meio. Com a altura do conteúdo o vão vai
-   todo para fora do cartão, que é onde ele não incomoda. */
-.sdc .cena{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0 30px;
-  align-items:center;margin-top:20px;min-height:0}
+.sdc .cena{flex:1;display:flex;align-items:center;gap:26px;margin-top:18px;min-height:0}
 
-.sdc .painel{background:#fff;border:1px solid var(--line);border-radius:20px;
-  padding:26px 28px 28px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5);
-  display:flex;flex-direction:column}
-.sdc .painel h2{font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
-.sdc .painel .un{font-size:12.5px;color:var(--tx2);margin-top:5px}
-.sdc .lista{display:flex;flex-direction:column;gap:13px;margin-top:22px}
-.sdc .l{display:grid;grid-template-columns:64px 1fr 58px;align-items:center;gap:16px}
-.sdc .l .nm{font-family:var(--mono);font-size:15px;color:#8E9AAA;text-align:right}
-.sdc .l .tr{height:24px;border-radius:8px;background:#EDF1F7;overflow:hidden}
-.sdc .l .tr i{display:block;height:100%;border-radius:8px;background:#C4CEDC;
-  transform:scaleX(0);transform-origin:left}
-.sdc.is-active .l .tr i{animation:corre .6s var(--out) var(--d,0ms) forwards}
-.sdc .l .vl{font-size:15px;color:#8E9AAA;text-align:right;font-variant-numeric:tabular-nums}
-/* o pior dos dois painéis, e o caso que mostra que as ordens não coincidem */
-.sdc .l.pior .nm,.sdc .l.pior .vl{color:var(--bad);font-weight:800;font-size:17px}
-.sdc .l.pior .tr i{background:var(--bad)}
-.sdc .l.pior .tr{height:32px}
-.sdc .l.marca .nm,.sdc .l.marca .vl{color:var(--accent);font-weight:800;font-size:17px}
-.sdc .l.marca .tr i{background:var(--accent)}
-.sdc .l.marca .tr{height:32px}
+/* ── o haltere ─────────────────────────────────────────────────────────────── */
+.sdc .halt{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:20px;
+  padding:22px 30px 24px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5)}
+.sdc .cab{display:grid;grid-template-columns:196px 1fr 86px 86px;align-items:center;gap:0 20px;
+  padding-bottom:13px;border-bottom:1px solid #E7EDF6}
+.sdc .cab .t{font-size:11px;font-weight:700;letter-spacing:1.9px;text-transform:uppercase;
+  color:var(--tx2)}
+.sdc .cab .esc{display:flex;justify-content:space-between;font-size:11.5px;color:#9AA6B6}
+.sdc .cab .pd{display:flex;align-items:center;justify-content:flex-end;gap:7px;
+  font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:-.2px}
+.sdc .cab .pd i{width:11px;height:11px;border-radius:50%}
+.sdc .cab .pd.a{color:var(--accent)} .sdc .cab .pd.a i{background:var(--accent)}
+.sdc .cab .pd.b{color:var(--head)}
+.sdc .cab .pd.b i{background:#fff;border:2.4px solid var(--head)}
 
+.sdc .rw{display:grid;grid-template-columns:196px 1fr 86px 86px;align-items:center;gap:0 20px;
+  padding:15px 0}
+.sdc .rw + .rw{border-top:1px solid #F0F4FA}
+.sdc .rw .md{font-size:15.5px;color:var(--head);font-weight:600;letter-spacing:-.15px}
+.sdc .rw .md small{display:block;font-size:12px;font-weight:400;color:var(--tx2);margin-top:3px}
+.sdc .rw .vl{font-size:16px;font-weight:800;text-align:right;font-variant-numeric:tabular-nums;
+  letter-spacing:-.3px}
+.sdc .rw .vl small{display:block;font-size:11px;font-weight:400;color:var(--tx2);margin-top:3px;
+  letter-spacing:0}
+.sdc .rw .vl.a{color:var(--accent)} .sdc .rw .vl.b{color:var(--head)}
+
+/* o trilho vai da melhor posição entre os quinze até a pior */
+.sdc .tk{position:relative;height:22px}
+.sdc .tk::before{content:"";position:absolute;left:0;right:0;top:9.5px;height:3px;border-radius:2px;
+  background:#EDF1F7}
+.sdc .tk .lig{position:absolute;top:9.5px;height:3px;border-radius:2px;
+  background:linear-gradient(90deg,var(--accent),#9FB4CE);transform:scaleX(0);transform-origin:left}
+.sdc.is-active .tk .lig{animation:corre .55s var(--out) var(--d,0ms) forwards}
+.sdc .tk .pt{position:absolute;top:50%;width:15px;height:15px;border-radius:50%;
+  transform:translate(-50%,-50%) scale(0)}
+.sdc.is-active .tk .pt{animation:brotaPonto .42s var(--spring) var(--d,0ms) forwards}
+.sdc .tk .pt.a{background:var(--accent);box-shadow:0 0 0 4px rgba(37,99,235,.14)}
+.sdc .tk .pt.b{background:#fff;border:3px solid var(--head)}
+@keyframes brotaPonto{to{transform:translate(-50%,-50%) scale(1)}}
+
+/* a linha da nota, que fecha a conta */
+.sdc .nt{display:grid;grid-template-columns:196px 1fr 86px 86px;align-items:center;gap:0 20px;
+  margin-top:14px;padding-top:16px;border-top:2px solid var(--head)}
+.sdc .nt .md{font-size:16.5px;font-weight:800;color:var(--head);letter-spacing:-.3px}
+.sdc .nt .md small{display:block;font-size:12px;font-weight:400;color:var(--tx2);margin-top:3px}
+.sdc .nt .vl{font-size:30px;font-weight:900;text-align:right;letter-spacing:-1.2px;line-height:1;
+  font-variant-numeric:tabular-nums}
+.sdc .nt .vl small{display:block;font-size:11px;font-weight:400;color:var(--tx2);margin-top:6px;
+  letter-spacing:0}
+.sdc .nt .vl.a{color:var(--accent)} .sdc .nt .vl.b{color:var(--head)}
+
+/* ── a resposta da nota ────────────────────────────────────────────────────── */
+.sdc .resp{width:352px;flex-shrink:0;background:var(--ink);border-radius:20px;padding:24px 26px;
+  box-shadow:0 30px 66px -38px rgba(10,14,23,.65);display:flex;flex-direction:column}
+.sdc .resp .k{font-size:10.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+  color:#7A8494}
+.sdc .resp .qm{display:flex;align-items:baseline;gap:12px;margin-top:13px}
+.sdc .resp .qm b{font-family:var(--mono);font-size:26px;color:#fff;letter-spacing:-.6px}
+.sdc .resp .qm span{font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+  color:#FCA5A5;background:rgba(220,38,38,.2);border:1px solid rgba(220,38,38,.42);
+  border-radius:999px;padding:4px 11px}
+.sdc .resp .nota{display:flex;align-items:baseline;gap:10px;margin-top:16px}
+.sdc .resp .nota em{font-style:normal;font-size:46px;font-weight:900;color:#fff;letter-spacing:-2px;
+  line-height:1;font-variant-numeric:tabular-nums}
+.sdc .resp .nota i{font-style:normal;font-size:13.5px;color:#98A2B3;line-height:1.35}
+.sdc .resp ul{list-style:none;margin-top:18px;padding-top:16px;
+  border-top:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;gap:11px}
+.sdc .resp li{display:flex;gap:11px;font-size:13.5px;line-height:1.42;color:#C4CBD8;
+  opacity:0;transform:translate3d(-8px,0,0)}
+.sdc.is-active .resp li{animation:rv .45s var(--out) var(--d,0ms) forwards}
+.sdc .resp li s{text-decoration:none;flex-shrink:0;width:6px;height:6px;border-radius:50%;
+  background:#DC2626;margin-top:7px}
+.sdc .resp li b{color:#fff;font-weight:700}
+.sdc .resp .pri{margin-top:auto;padding-top:16px;font-size:12.5px;line-height:1.45;color:#7A8494}
+.sdc .resp .pri b{color:#C4CBD8;font-weight:700}
+
+.sdc .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:16px;
+  border-top:1px solid #DCE4EF;font-size:15.5px;line-height:1.45;color:var(--tx)}
+.sdc .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.sdc .fecho b{color:var(--head);font-weight:700}
 </style>
 
 <section class="slide light sdc" data-slide="26" data-var="a" data-quem="hygor">
@@ -58,42 +130,99 @@
     <div class="tag">Nota de saúde &middot; 15 produtos</div>
   </div>
   <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Diferencial 2</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Onde agir primeiro</span></span></h1>
-    <p class="sub rv" style="--d:620ms">As duas ordens não coincidem, e é isso que a nota resolve: ela junta cinco medidas, e a taxa de perda de prazo é só uma delas. O <b>lvps</b> lidera as duas; o <b>lgoa</b> aparece só na da direita.</p>
+    <span class="eb"><span class="rv" style="--d:240ms">Diferencial 2 &middot; nota de saúde por produto</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Mesma taxa, <em>notas opostas</em></span></span></h1>
+    <p class="sub rv" style="--d:620ms">O <b>lgoa</b> e o <b>lsin</b> perdem o prazo praticamente na mesma proporção, e mesmo assim um é o segundo melhor dos quinze e o outro é o décimo. <b>Priorizar pela taxa apontaria o produto errado.</b></p>
 
     <div class="cena">
-      <div class="painel rv3" style="--d:780ms">
-        <h2>Nota de saúde, da pior para a melhor</h2>
-        <p class="un">os oito piores dos quinze, na escala de 0 a 100</p>
-        <div class="lista">
-          <div class="l pior"><span class="nm">lvps</span><div class="tr"><i style="width:21.3%;--d:1000ms"></i></div><span class="vl">21,3</span></div>
-          <div class="l"><span class="nm">lrdo</span><div class="tr"><i style="width:25.3%;--d:1040ms"></i></div><span class="vl">25,3</span></div>
-          <div class="l"><span class="nm">lcsp</span><div class="tr"><i style="width:26.7%;--d:1080ms"></i></div><span class="vl">26,7</span></div>
-          <div class="l"><span class="nm">lssl</span><div class="tr"><i style="width:30.7%;--d:1120ms"></i></div><span class="vl">30,7</span></div>
-          <div class="l"><span class="nm">lrel</span><div class="tr"><i style="width:32%;--d:1160ms"></i></div><span class="vl">32,0</span></div>
-          <div class="l"><span class="nm">lsin</span><div class="tr"><i style="width:41.3%;--d:1200ms"></i></div><span class="vl">41,3</span></div>
-          <div class="l"><span class="nm">lsaa</span><div class="tr"><i style="width:42.7%;--d:1240ms"></i></div><span class="vl">42,7</span></div>
-          <div class="l"><span class="nm">lcsi</span><div class="tr"><i style="width:48%;--d:1280ms"></i></div><span class="vl">48,0</span></div>
+      <div class="halt rv3" style="--d:780ms">
+        <div class="cab">
+          <span class="t">As cinco medidas</span>
+          <span class="esc"><span>1º &middot; melhor dos quinze</span><span>pior dos quinze &middot; 15º</span></span>
+          <span class="pd a"><i></i>lgoa</span>
+          <span class="pd b"><i></i>lsin</span>
+        </div>
+
+        <div class="rw">
+          <span class="md">Taxa de violação<small>quanto do que abriu passou do prazo</small></span>
+          <div class="tk">
+            <i class="lig" style="left:86.7%;width:6.6%;--d:1080ms"></i>
+            <i class="pt b" style="left:86.7%;--d:1120ms"></i>
+            <i class="pt a" style="left:93.3%;--d:1160ms"></i>
+          </div>
+          <span class="vl a">1,88%<small>14º</small></span>
+          <span class="vl b">1,84%<small>13º</small></span>
+        </div>
+
+        <div class="rw">
+          <span class="md">Problemas inéditos<small>casos que a base nunca tinha visto</small></span>
+          <div class="tk">
+            <i class="lig" style="left:13.3%;width:26.7%;--d:1180ms"></i>
+            <i class="pt a" style="left:13.3%;--d:1220ms"></i>
+            <i class="pt b" style="left:40%;--d:1260ms"></i>
+          </div>
+          <span class="vl a">18,8%<small>2º</small></span>
+          <span class="vl b">30,6%<small>6º</small></span>
+        </div>
+
+        <div class="rw">
+          <span class="md">Fechados sem causa<small>encerrados sem registrar o porquê</small></span>
+          <div class="tk">
+            <i class="lig" style="left:13.3%;width:66.7%;--d:1280ms"></i>
+            <i class="pt a" style="left:13.3%;--d:1320ms"></i>
+            <i class="pt b" style="left:80%;--d:1360ms"></i>
+          </div>
+          <span class="vl a">3,8%<small>2º</small></span>
+          <span class="vl b">21,3%<small>12º</small></span>
+        </div>
+
+        <div class="rw">
+          <span class="md">Duração mediana<small>tempo típico até o fechamento</small></span>
+          <div class="tk">
+            <i class="lig" style="left:33.3%;width:40%;--d:1380ms"></i>
+            <i class="pt a" style="left:33.3%;--d:1420ms"></i>
+            <i class="pt b" style="left:73.3%;--d:1460ms"></i>
+          </div>
+          <span class="vl a">0,99 h<small>5º</small></span>
+          <span class="vl b">1,46 h<small>11º</small></span>
+        </div>
+
+        <div class="rw">
+          <span class="md">Tendência da taxa<small>terceiro trimestre contra o primeiro semestre</small></span>
+          <div class="tk">
+            <i class="lig" style="left:6.7%;width:6.6%;--d:1480ms"></i>
+            <i class="pt a" style="left:6.7%;--d:1520ms"></i>
+            <i class="pt b" style="left:13.3%;--d:1560ms"></i>
+          </div>
+          <span class="vl a">&minus;2,41 pp<small>1º</small></span>
+          <span class="vl b">&minus;1,75 pp<small>2º</small></span>
+        </div>
+
+        <div class="nt">
+          <span class="md">Nota de saúde<small>a média das cinco posições, invertida</small></span>
+          <span></span>
+          <span class="vl a"><span class="ct" data-to="68.0" data-dec="1" data-delay="1700">0,0</span><small>2º de 15</small></span>
+          <span class="vl b"><span class="ct" data-to="41.3" data-dec="1" data-delay="1760">0,0</span><small>10º de 15</small></span>
         </div>
       </div>
 
-      <div class="painel rv3" style="--d:900ms">
-        <h2>Taxa de perda de prazo, da maior para a menor</h2>
-        <p class="un">as oito maiores dos quinze, em % dos incidentes do produto</p>
-        <div class="lista">
-          <div class="l pior"><span class="nm">lvps</span><div class="tr"><i style="width:100%;--d:1120ms"></i></div><span class="vl">2,90</span></div>
-          <div class="l marca"><span class="nm">lgoa</span><div class="tr"><i style="width:64.8%;--d:1160ms"></i></div><span class="vl">1,88</span></div>
-          <div class="l"><span class="nm">lsin</span><div class="tr"><i style="width:63.4%;--d:1200ms"></i></div><span class="vl">1,84</span></div>
-          <div class="l"><span class="nm">lssl</span><div class="tr"><i style="width:48.3%;--d:1240ms"></i></div><span class="vl">1,40</span></div>
-          <div class="l"><span class="nm">lrdo</span><div class="tr"><i style="width:45.9%;--d:1280ms"></i></div><span class="vl">1,33</span></div>
-          <div class="l"><span class="nm">lrel</span><div class="tr"><i style="width:45.2%;--d:1320ms"></i></div><span class="vl">1,31</span></div>
-          <div class="l"><span class="nm">lsaa</span><div class="tr"><i style="width:32.8%;--d:1360ms"></i></div><span class="vl">0,95</span></div>
-          <div class="l"><span class="nm">lhvp</span><div class="tr"><i style="width:32.4%;--d:1400ms"></i></div><span class="vl">0,94</span></div>
-        </div>
+      <div class="resp rv3" style="--d:900ms">
+        <div class="k">Onde a nota manda agir primeiro</div>
+        <div class="qm"><b>lvps</b><span>último dos 15</span></div>
+        <div class="nota"><em><span class="ct" data-to="21.3" data-dec="1" data-delay="1900">0,0</span></em><i>de nota,<br>contra 68,0 do lgoa</i></div>
+        <ul>
+          <li style="--d:2000ms"><s></s><span>Pior taxa de violação da lista: <b>2,90%</b></span></li>
+          <li style="--d:2080ms"><s></s><span>Pior em fechados sem causa: <b>30,7%</b> encerram sem o porquê</span></li>
+          <li style="--d:2160ms"><s></s><span>A única tendência que sobe: <b>+2,98 pp</b> do primeiro semestre para o terceiro trimestre</span></li>
+        </ul>
+        <p class="pri">Nas duas prioridades: <b>125</b> incidentes na 2, com 2 violações, e <b>185</b> na 3, com 7.</p>
       </div>
     </div>
 
+    <div class="fecho rv" style="--d:2320ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+      <span>O lgoa perde prazo com frequência, mas <b>resolve rápido, fecha com causa e está caindo</b>. O lsin, com a mesma taxa, não faz nenhuma das três. A nota vê a diferença; a taxa sozinha, não.</span>
+    </div>
   </div>
   <div class="ft"></div>
 </section>

@@ -1,19 +1,76 @@
-<!-- ───────────────────────────────────────────────────────────────────────────
-     slide 21 · divisória do Morning Brief
-     O dono do projeto pediu divisória para este bloco e o nome em inglês, que é
-     como o produto foi batizado desde a Sprint 1. Ela abre os dois diferenciais
-     prometidos: o brief das 07h e a nota de saúde por produto.
+<style>
+/* ═══ slide 22 · divisória do Morning Brief ═══════════════════════════════════
+   O dono do projeto pediu divisória para este bloco e o nome em inglês, que é
+   como o produto foi batizado desde a Sprint 1. Ela abre o primeiro dos dois
+   diferenciais entregues.
 
-     Mesmo desenho das outras divisórias, `.dv3` em _estilo.css. O painel traz
-     o que o brief carrega, com os números do corte de 01/10/2025 às 07h, de
-     data/app/painel.json: 84 registrados e 0 violações no dia anterior, quatro
-     dias úteis seguidos sem violação, e as faixas previstas para o dia.
+   Refeito o painel da direita em 10/09/2026: ele era estático — dois cartões
+   pequenos e uma faixa — e o pedido foi "poderia ser mais dinâmico". O que
+   entrou no lugar não é enfeite, é informação que faltava: os dez últimos dias
+   úteis de violação, em coluna, com a sequência de quatro dias sem nenhuma
+   marcada por baixo. O número 4 estava no cartão antigo sem nada que o
+   sustentasse na tela; agora ele é a parte desenhada da série.
 
-     As duas faixas dividem a MESMA escala de 0 a 100 incidentes no dia, e cada
-     uma é desenhada como um trecho, do piso ao teto. Antes eram duas barras
-     cheias em escalas diferentes, e a razão desenhada não era a razão do dado.
-     ─────────────────────────────────────────────────────────────────────── -->
-<section class="slide dark dv3" data-slide="22" data-var="a" data-quem="hygor">
+   O painel também passou a ter a forma do próprio resumo: um bloco "Ontem" e
+   um bloco "Hoje", que são duas das três seções do brief.
+
+   Números de data/app/painel.json, corte de 01/10/2025:
+     ontem            30/09, 84 registrados, 0 violações
+     ultimos_dias     17/09 a 30/09, violações 1 1 0 0 3 1 0 0 0 0
+     sem_violacao_dias 4
+     hoje             P2 de 9,4 a 22,3 e P3 de 58,8 a 95,9, faixa de 80%
+
+   As duas faixas dividem a MESMA escala de 0 a 100 incidentes no dia, e cada
+   uma é desenhada como um trecho, do piso ao teto. Antes eram duas barras
+   cheias em escalas diferentes, e a razão desenhada não era a razão do dado.
+   ══════════════════════════════════════════════════════════════════════════ */
+.brf .pvh{justify-content:space-between}
+.brf .pvh .lado{display:flex;align-items:center;gap:9px}
+.brf .pvh .sozinho{font-size:11px;font-weight:700;letter-spacing:1.4px;color:#93C5FD;
+  background:rgba(59,130,246,.14);border:1px solid rgba(96,165,250,.24);border-radius:999px;
+  padding:4px 12px}
+.brf .pvgrid{grid-template-columns:1fr}
+
+/* o cabeçalho de cada bloco do resumo */
+.brf .bh{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.brf .bh .pl{font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  color:#7A8494}
+.brf .bh .dia{font-family:var(--mono);font-size:12px;color:#5F6B7C}
+.brf .top{display:flex;align-items:baseline;gap:12px;margin-top:9px}
+.brf .top .pn{font-size:36px;font-weight:800;letter-spacing:-1.7px;color:#fff;line-height:1;
+  font-variant-numeric:tabular-nums}
+.brf .top .ps{font-size:13.5px;line-height:1.4;color:#8E97A8;margin-top:0}
+.brf .top .ps b{color:#4ADE80;font-weight:700}
+
+/* ── os dez últimos dias úteis, em coluna ─────────────────────────────────── */
+.brf .serie{display:grid;grid-template-columns:repeat(10,1fr);gap:7px;margin-top:16px}
+.brf .serie .d{display:flex;flex-direction:column;align-items:stretch;gap:6px}
+.brf .serie .cl{height:52px;display:flex;align-items:flex-end}
+.brf .serie .cl i{display:block;width:100%;border-radius:4px;transform:scaleY(0);
+  transform-origin:bottom;background:linear-gradient(180deg,#F87171,#DC2626)}
+.brf.is-active .serie .cl i{animation:sobe .42s var(--out) var(--d,0ms) forwards}
+.brf .serie .d.zero .cl i{background:rgba(255,255,255,.13)}
+.brf .serie .v{font-size:11px;text-align:center;color:#8E97A8;font-variant-numeric:tabular-nums}
+.brf .serie .d.zero .v{color:#4B5563}
+.brf .serie .rt{font-family:var(--mono);font-size:10.5px;text-align:center;color:#5F6B7C}
+.brf .serie .d.seq .rt{color:#4ADE80}
+
+/* a régua da sequência sem violação, sob as quatro últimas colunas */
+.brf .regua{position:relative;height:26px;margin-top:4px}
+.brf .regua .rg{position:absolute;top:0;right:0;width:39%;height:8px;
+  border:1.5px solid rgba(74,222,128,.55);border-top:0;border-radius:0 0 7px 7px;
+  transform:scaleX(0);transform-origin:right}
+.brf.is-active .regua .rg{animation:corre .5s var(--out) var(--d,0ms) forwards}
+.brf .regua .lb{position:absolute;top:11px;right:0;width:39%;text-align:center;
+  font-size:12px;color:#4ADE80;opacity:0}
+.brf.is-active .regua .lb{animation:rv .45s var(--out) var(--d,0ms) forwards}
+.brf .regua .lb b{font-weight:800}
+
+.brf .nota{font-size:12.5px;line-height:1.45;color:#6B7686;margin-top:14px;padding-top:13px;
+  border-top:1px solid rgba(255,255,255,.07)}
+</style>
+
+<section class="slide dark dv3 brf" data-slide="22" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -33,35 +90,57 @@
         <span>A pergunta desta seção: <b>o que a operação precisa saber antes de começar?</b></span>
       </div>
     </div>
+
     <div class="pv rv3" style="--d:880ms">
-      <div class="pvh"><span class="dot"></span>01/10/2025 &middot; 07h00</div>
+      <div class="pvh">
+        <span class="lado"><span class="dot"></span>01/10/2025 &middot; 07h00</span>
+        <span class="sozinho">chega sozinho</span>
+      </div>
       <div class="pvgrid">
-        <div class="pc rv" style="--d:1140ms">
-          <div class="pl">Ontem</div>
-          <div class="pn"><span class="ct" data-to="84" data-delay="1240">0</span></div>
-          <div class="ps">registrados, <b>nenhum</b> violou o prazo</div>
+
+        <div class="pc rv" style="--d:1100ms">
+          <div class="bh"><span class="pl">Ontem</span><span class="dia">30/09/2025</span></div>
+          <div class="top">
+            <span class="pn"><span class="ct" data-to="84" data-delay="1220">0</span></span>
+            <span class="ps">registrados, <b>nenhum</b> violou o prazo</span>
+          </div>
+
+          <div class="serie">
+            <div class="d"><span class="cl"><i style="height:33%;--d:1300ms"></i></span><span class="v">1</span><span class="rt">qua</span></div>
+            <div class="d"><span class="cl"><i style="height:33%;--d:1345ms"></i></span><span class="v">1</span><span class="rt">qui</span></div>
+            <div class="d zero"><span class="cl"><i style="height:9%;--d:1390ms"></i></span><span class="v">0</span><span class="rt">sex</span></div>
+            <div class="d zero"><span class="cl"><i style="height:9%;--d:1435ms"></i></span><span class="v">0</span><span class="rt">seg</span></div>
+            <div class="d"><span class="cl"><i style="height:100%;--d:1480ms"></i></span><span class="v">3</span><span class="rt">ter</span></div>
+            <div class="d"><span class="cl"><i style="height:33%;--d:1525ms"></i></span><span class="v">1</span><span class="rt">qua</span></div>
+            <div class="d zero seq"><span class="cl"><i style="height:9%;--d:1570ms"></i></span><span class="v">0</span><span class="rt">qui</span></div>
+            <div class="d zero seq"><span class="cl"><i style="height:9%;--d:1615ms"></i></span><span class="v">0</span><span class="rt">sex</span></div>
+            <div class="d zero seq"><span class="cl"><i style="height:9%;--d:1660ms"></i></span><span class="v">0</span><span class="rt">seg</span></div>
+            <div class="d zero seq"><span class="cl"><i style="height:9%;--d:1705ms"></i></span><span class="v">0</span><span class="rt">ter</span></div>
+          </div>
+          <div class="regua">
+            <span class="rg" style="--d:1780ms"></span>
+            <span class="lb" style="--d:1900ms"><b>4</b> dias úteis sem violação</span>
+          </div>
+          <p class="nota">violações de OLA por dia útil, de 17/09 a 30/09, nas duas prioridades juntas</p>
         </div>
-        <div class="pc rv" style="--d:1260ms">
-          <div class="pl">Sem violação</div>
-          <div class="pn"><span class="ct" data-to="4" data-delay="1360">0</span><span class="u">dias úteis</span></div>
-          <div class="ps">seguidos, até o corte</div>
-        </div>
-        <div class="pc wide rv" style="--d:1400ms">
-          <div class="pl">Previsto para hoje</div>
+
+        <div class="pc rv" style="--d:1400ms">
+          <div class="bh"><span class="pl">Previsto para hoje</span><span class="dia">01/10/2025</span></div>
           <div class="cob faixa2">
             <span>P2</span>
-            <div class="tr"><i style="left:9%;width:14%;--d:1540ms"></i></div>
+            <div class="tr"><i style="left:9%;width:14%;--d:1560ms"></i></div>
             <b>9 a 22</b>
           </div>
           <div class="cob faixa2">
             <span>P3</span>
-            <div class="tr"><i style="left:59%;width:38%;--d:1640ms"></i></div>
+            <div class="tr"><i style="left:59%;width:38%;--d:1660ms"></i></div>
             <b>59 a 96</b>
           </div>
-          <div class="ps" style="margin-top:12px">a faixa de 80% do Prophet, nas duas prioridades, na mesma escala de 0 a 100 incidentes no dia</div>
+          <p class="nota">a faixa de 80% do Prophet, nas duas prioridades, na mesma escala de 0 a 100 incidentes no dia</p>
         </div>
+
       </div>
     </div>
   </div>
-  <div class="ft"><span>O primeiro dos dois diferenciais entregues; a nota de saúde por produto veio na seção anterior</span></div>
+  <div class="ft"><span>O primeiro dos dois diferenciais entregues; a nota de saúde por produto vem na seção seguinte</span></div>
 </section>

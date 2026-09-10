@@ -347,9 +347,9 @@ modelo por vez, o que a operação recebe, o resultado do ano e a arquitetura.
 | 23 | Morning Brief | Hygor | — |
 | 24 | **Seção 06 · Projeção da meta e saúde** | Hygor | — |
 | 25 | A meta do ano vai fechar? | Hygor | B legenda, C quatro passos, D a meta em cartão |
-| 26 | Onde agir primeiro | Hygor | — |
+| 26 | Mesma taxa, notas opostas | Hygor | — |
 | 27 | **Seção 07 · Arquitetura da solução** | Hygor | — |
-| 28 | Como o Cronos antecipa o resultado do ano | Hygor | B a arquitetura de ponta a ponta, em cinco estágios |
+| 28 | Como o Cronos antecipa o resultado do ano | Hygor | — |
 | 29 | Como isso roda | Hygor | B da planilha ao painel do gestor |
 | 30 | Aplicação web Cronos · **demonstração** | Hygor | B baralho de telas, C a chamada ao vivo |
 | 31 | Obrigado | Igor | — |
@@ -475,3 +475,27 @@ primeiras posições. Desempate sempre por `incidente`, que é o que o
 contato tem 700px por slide e esconde defeito de alinhamento, rótulo colado e
 proporção errada. O `_verifica.py` grava `_png/NNv.png` de cada composição em
 1600x900: é esse arquivo que se olha antes de entregar, não a folha.
+
+**7.28 Modificador de linha não pode repetir o nome de um bloco irmão.** Na
+divisória 22 as quatro colunas da sequência sem violação levavam `class="d
+zero streak"` e a régua abaixo delas era `class="streak"`. A regra
+`.brf .streak{height:26px}`, escrita para a régua, casou também com as quatro
+colunas: elas encolheram para 26px, subiram na linha do grid e ficaram
+desalinhadas das outras seis, sem erro nenhum. Modificador de estado tem
+nome próprio (`seq`), e o nome do bloco fica só no bloco.
+
+**7.29 O slide 26 mudou de mensagem, não de forma.** Ele era dois painéis de
+oito barras cinzas, um por nota e outro por taxa, e o dono do projeto devolveu
+com "qual a mensagem desse slide?". Não havia uma: a divergência entre os dois
+rankings ficava por conta de quem lesse. Agora é um haltere de cinco linhas
+comparando **lgoa e lsin**, que têm taxa quase igual (1,88% e 1,84%) e notas
+opostas (68,0 e 41,3). A distância desenhada entre os dois pontos é o
+argumento, e a conclusão — agir primeiro no lvps — fica no cartão da direita.
+
+**7.30 Django e contêiner entraram no slide 28, sem composição nova.** A
+coluna "Saída" nomeava as duas telas mas não dizia como elas chegam ao
+navegador. O pedido foi adaptar o slide em vez de abrir uma variação: a coluna
+virou o próprio contêiner, com o que ele lê no topo (350 kB gravados pelos
+notebooks), as duas telas desenhadas dentro dele e a stack no pé (Django 6.1,
+gunicorn 26, whitenoise 6.12, seis rotas). A fronteira entre quem treina e
+quem serve passou a ser visível na forma. O `28-antecipa-b.html` foi removido.
