@@ -37,6 +37,10 @@ body{background:var(--pg);color:var(--tx);font-family:Outfit,system-ui,sans-seri
 .seg button[data-v="enxuta"] i{background:var(--ok)}
 .seg button[data-v="livre"] i{background:var(--wn)}
 .seg button[aria-pressed="true"] i{opacity:1}
+/* a versão que ele escolheu para aquela aba */
+.seg button.eleita{box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.34)}
+.seg button.eleita[aria-pressed="true"]{box-shadow:inset 0 0 0 1.5px #0B0E14}
+.seg button.eleita::after{content:"\2713";margin-left:2px;font-size:11px;opacity:.7}
 
 .dir{margin-left:auto;display:flex;align-items:center;gap:14px}
 .mt{display:flex;gap:16px;font-size:12.5px;color:var(--tx2);font-variant-numeric:tabular-nums}
@@ -124,11 +128,14 @@ const FONTE = {
 
 const NOME = {panorama:'Panorama', previsao:'Previsão', projecao:'Projeção', fila:'Fila'};
 
+// o que ele escolheu, em 10/09/2026
+const ESCOLHA = {panorama:'livre', previsao:'enxuta', projecao:'enxuta', fila:'enxuta'};
+
 const MEDIDA = {
   panorama: {atual:[477,11,1743], enxuta:[329,4,1615], livre:[270,3,1561]},
   previsao: {atual:[372,11,1614], enxuta:[213,3,1415]},
   projecao: {atual:[228, 4, 950], enxuta:[185,3, 950], livre:[159,3, 950]},
-  fila:     {atual:[1182,3,3840], enxuta:[1141,1,3801], livre:[405,2,1534]}
+  fila:     {atual:[1182,3,3840], enxuta:[893,1,3776], livre:[333,2,1534]}
 };
 
 const CORTES = {
@@ -180,7 +187,10 @@ const CORTES = {
     enxuta: [
       ['1','<q>Os 49 casos abertos até as 15h, do maior risco para o menor.</q>','O título já diz <q>Em qual caso olhar primeiro</q>, e o contador está nos filtros logo abaixo.'],
       ['2','<q>Escala até o limite de alerta, 10%</q>, no cabeçalho da coluna','As quatro faixas estão nomeadas nos filtros, com os intervalos, um bloco acima.'],
-      ['3','<q>O desfecho do OLA não é conhecido enquanto o caso está em aberto, então a fila mostra risco, e não violação.</q>','Metodologia no pé da tela. Ficou <q>49 casos · corte às 15h de hoje</q>, que é o fato.']
+      ['3','<q>O desfecho do OLA não é conhecido enquanto o caso está em aberto, então a fila mostra risco, e não violação.</q>','Metodologia no pé da tela. Ficou <q>49 casos · corte às 15h de hoje</q>, que é o fato.'],
+      ['4','A coluna <q>Ativo</q> inteira','Em 34 das 49 linhas ela dizia <q>0 em N passagens</q>, ou seja, o ativo nunca violou. O histórico completo do ativo está no painel que abre ao clicar na linha.'],
+      ['5','O fator dominante em duas linhas','<q>Produto lsin</q> e <q>54% do peso</q> eram duas linhas empilhadas em cada uma das 49 posições. Viraram uma.'],
+      ['6','A régua rotulada dos dois cartões do topo','<q>Média da base 0,94%</q> já está dito na linha <q>8,6× a média da base</q>, logo acima, e <q>Limite de alerta 10%</q> é a ponta da própria barra. Os dois cartões também ganharam respiro entre si.']
     ],
     livre: [
       ['A','Os dois cartões de maior risco saíram','Eram as linhas 1 e 13 da tabela, abertas em tamanho grande, com o mesmo 8,1% escrito três vezes em cada um. A tabela já começa pelo maior risco.'],
@@ -200,6 +210,7 @@ function pinta(){
     const tem = !!FONTE[aba][b.dataset.v];
     b.hidden = !tem;
     b.setAttribute('aria-pressed', String(tem && b.dataset.v === ver));
+    b.classList.toggle('eleita', ESCOLHA[aba] === b.dataset.v);
   }
 
   const [p, f, a] = MEDIDA[aba][ver], base = MEDIDA[aba].atual;

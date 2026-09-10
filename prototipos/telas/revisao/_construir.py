@@ -410,8 +410,46 @@ def _fila_base() -> BeautifulSoup:
     return s
 
 
+def _fila_enxuga_tabela(s: BeautifulSoup) -> None:
+    """A linha da tabela para de repetir o que o modal do incidente mostra.
+
+    Sai a coluna do ativo inteira — em 34 das 49 linhas ela diz "0 em N
+    passagens", que e o ativo nunca ter violado, e o painel do incidente traz
+    o historico completo do ativo ao abrir. O fator dominante fica, porque e
+    ele que separa dois casos de risco parecido, mas em uma linha so.
+    """
+    for cab in s.select(".fl-tb-h"):
+        cols = cab.find_all("span", recursive=False)
+        if len(cols) >= 5:
+            cols[4].decompose()          # "Ativo"
+    for l in s.select(".fl-tb .fl-l"):
+        a = l.select_one(".fl-l-a")
+        if a:
+            a.decompose()
+        # "Produto lsin" + "54% do peso" em duas linhas viram uma
+        m = l.select_one(".fl-l-m")
+        if m:
+            partes = [x.strip() for x in m.stripped_strings]
+            if len(partes) >= 2:
+                m.clear()
+                m.append(BeautifulSoup(
+                    f"<b>{partes[0]}</b> <em>{partes[1]}</em>", "html.parser"))
+
+
+def _fila_enxuga_cartoes(s: BeautifulSoup) -> None:
+    """Os dois cartoes do topo perdem a regua rotulada.
+
+    "Media da base 0,94%" ja esta dito na linha "8,6x a media da base", logo
+    acima, e "Limite de alerta 10%" e a ponta da propria barra. A barra fica;
+    os dois rotulos saem.
+    """
+    limpa(s, ".fl-rg-l")
+
+
 def fila_enxuta() -> None:
     s = _fila_base()
+    _fila_enxuga_cartoes(s)
+    _fila_enxuga_tabela(s)
     folha(s, livre=False)
     salva(s, "fila-enxuta.html")
 
@@ -419,6 +457,7 @@ def fila_enxuta() -> None:
 def fila_livre() -> None:
     """Trinta e quatro das 49 linhas dizem 'nada aqui'. Elas se recolhem."""
     s = _fila_base()
+    _fila_enxuga_tabela(s)
 
     # 1 · os dois cartões do topo são as linhas 1 e 13 da tabela, abertas em
     # tamanho grande, com o mesmo 8,1% escrito três vezes em cada um. A tabela

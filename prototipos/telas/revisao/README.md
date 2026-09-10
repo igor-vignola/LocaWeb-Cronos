@@ -18,7 +18,14 @@ tela.
 | **Enxuta** | só cortes e fusões. Nenhum dado novo e nenhum componente novo: vira Django trocando marcação. |
 | **Livre** | a tela repensada em torno da pergunta que ela responde. Muda a ordem dos blocos, funde seções e aposenta o que é interno do modelo. |
 
-A Previsão fica só com a enxuta: ele escolheu essa e dispensou a livre.
+O seletor marca com **✓** a versão que ele escolheu em cada aba:
+
+| aba | escolhida |
+|---|---|
+| Panorama | livre |
+| Previsão | enxuta *(a livre foi dispensada)* |
+| Projeção | enxuta |
+| Fila | enxuta |
 
 ## A regra de corte
 
@@ -39,11 +46,11 @@ que é dado, rótulo e unidade.
 | Previsão | atual | 372 | 11 | 1614px · 1,7 telas |
 | | **enxuta** | **213** | **3** | **1415px** |
 | Projeção | atual | 228 | 4 | uma tela |
-| | enxuta | 185 | 3 | uma tela |
-| | **livre** | **159** | **3** | **uma tela** |
+| | **enxuta** | **185** | **3** | **uma tela** |
+| | livre | 159 | 3 | uma tela |
 | Fila | atual | 1182 | 3 | 3840px · 4,0 telas |
-| | enxuta | 1141 | 1 | 3801px |
-| | **livre** | **405** | **2** | **1534px · 1,6 telas** |
+| | **enxuta** | **893** | **1** | **3776px** |
+| | livre | 333 | 2 | 1534px · 1,6 telas |
 
 As frases que sobraram são todas leitura de dado, não método: *"No ritmo atual
 o dia fecha em 58, abaixo do intervalo previsto de 59 a 96"*, *"Projeção entre
@@ -62,10 +69,18 @@ sai, porque os três estão desenhados na régua logo abaixo; a decomposição s
 para o topo e fecha a conta: *145 + 5,3 de risco na fila + 57,7 do volume que
 ainda entra = 208 projetadas até dezembro*.
 
-**Fila livre** — os dois cartões de maior risco saem (eram as linhas 1 e 13 da
-tabela, em corpo grande); os 34 casos da faixa de rotina, entre 0,0% e 1,0% de
-risco, recolhem-se atrás de uma linha que abre. A tela cai de 4,0 para 1,6
-telas e continua com os 15 casos que pedem decisão.
+**Fila enxuta** — além dos cortes de texto, a linha da tabela parou de repetir
+o que o painel do incidente mostra ao clicar: saiu a coluna **Ativo** inteira
+(em 34 das 49 linhas ela dizia "0 em N passagens", ou seja, o ativo nunca
+violou) e o fator dominante virou uma linha em vez de duas. Os dois cartões
+do topo perderam a régua rotulada — "Média da base 0,94%" já está dito acima e
+"Limite de alerta 10%" é a ponta da barra — e ganharam respiro entre si.
+De 1.182 para 893 palavras.
+
+**Fila livre** — sobre a enxuta: os dois cartões de maior risco saem (eram as
+linhas 1 e 13 da tabela, em corpo grande); os 34 casos da faixa de rotina,
+entre 0,0% e 1,0% de risco, recolhem-se atrás de uma linha que abre. A tela
+cai de 4,0 para 1,6 telas e continua com os 15 casos que pedem decisão.
 
 ## Os arquivos
 

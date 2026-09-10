@@ -65,3 +65,22 @@
 
 /* sem a linha de apoio, a faixa escura sobrava altura embaixo do título */
 .pj-h,.fl-h{padding-bottom:22px}
+
+/* ── Fila ───────────────────────────────────────────────────────────────── */
+/* os dois cartões do topo estavam colados: o gap do grid é o mesmo de blocos
+   que não dividem a mesma leitura, e aqui são duas prioridades lado a lado. */
+.fl-rs{gap:26px}
+/* sem a régua rotulada embaixo, o cartão fecha mais cedo */
+.fl-rc{padding:18px 20px 14px}
+.fl-rg{margin:12px 0 12px}
+
+/* a linha perdeu a coluna do ativo: cinco colunas viram quatro */
+/* o cabeçalho e as linhas são grids SEPARADOS: com `max-content` cada um
+   resolvia a largura pelo próprio conteúdo e os rótulos saíam do eixo das
+   colunas. Largura fixa no caso, e o fator dominante fica do lado. */
+.fl-tb-h,.fl-l{grid-template-columns:58px 168px 240px minmax(220px,1fr) 24px}
+/* o fator dominante em uma linha, e não em duas */
+.fl-l-m{display:flex;align-items:baseline;gap:8px;min-width:0}
+.fl-l-m b{font-weight:600;color:var(--tt,#0C1017);white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis}
+.fl-l-m em{font-style:normal;font-size:12.5px;color:var(--tx2,#6B7688);flex-shrink:0}
