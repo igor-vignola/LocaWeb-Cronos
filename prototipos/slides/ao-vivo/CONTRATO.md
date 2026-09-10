@@ -314,7 +314,7 @@ do núcleo: análise exploratória, modelagem e a solução em produção. Desen
 não no `h1`: com `background-clip` no pai o texto do filho herda
 `color:transparent` e o título some.
 
-**7.9 Estrutura final, 32 slides.**
+**7.9 Estrutura final, 31 slides.**
 
 Sete seções, cada uma abrindo por divisória no mesmo desenho. A ordem segue o
 percurso do trabalho: o problema, o que o dado mostrou, os padrões, cada
@@ -352,18 +352,21 @@ modelo por vez, o que a operação recebe, o resultado do ano e a arquitetura.
 | 28 | Como o Cronos antecipa o resultado do ano | Hygor | B a arquitetura de ponta a ponta, em cinco estágios |
 | 29 | Como isso roda | Hygor | B da planilha ao painel do gestor |
 | 30 | Aplicação web Cronos · **demonstração** | Hygor | B baralho de telas, C a chamada ao vivo |
-| 31 | O que aprendemos e o que falta | Igor | — |
-| 32 | Obrigado | Igor | — |
+| 31 | Obrigado | Igor | — |
 
 Três trocas de voz: 7→8, 21→22 e 30→31.
+
+O deck não tem slide de síntese, limitações e próximos passos. O bloco 7 do
+template da FIAP pede um, e ele chegou a existir duas vezes; o dono do
+projeto retirou nas duas. As três limitações medidas continuam em
+`PERGUNTAS.md`, prontas para quem perguntar.
 
 **7.10 Cada exigência do briefing tem endereço.** O documento da Locaweb lista
 quatro desafios analíticos e o deck responde cada um em slide com nome:
 sazonalidade e recorrência na seção 01, agrupar causas recorrentes e
 agrupamentos críticos na 02, previsão de volume na 03, risco de OLA na 04 e
 **explicabilidade no slide 21**, que responde as duas perguntas nominais da
-página 9. O bloco 7 do template da FIAP, conclusão e próximos passos, é o
-slide 31.
+página 9.
 
 **7.11 As variações vêm do deck da Sprint 3.** O dono do projeto trabalha com o
 `.pptx` da Sprint 4 como referência, mas considera acabado o da **Sprint 3**.

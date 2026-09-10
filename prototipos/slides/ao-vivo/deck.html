@@ -1263,7 +1263,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
    colunas. Ela é irmã das colunas dentro da grade, e a base da grade é a base
    das barras: os totais saíram para uma faixa abaixo, senão a cunha ficava
    ancorada no rodapé do texto e descia 40px do lugar. */
-.otr .cunha{position:absolute;left:0;right:0;bottom:0;height:352px;z-index:1;
+.otr .cunha{position:absolute;left:260px;right:260px;bottom:0;height:352px;z-index:1;
   pointer-events:none}
 .otr .cunha svg{width:100%;height:100%;display:block}
 .otr .cunha path{fill:rgba(220,38,38,.10);opacity:0}
@@ -1291,27 +1291,33 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 
 /* ───── 15-causas.html ───── */
 /* ═══ slide 15 · causas agrupadas e grupos críticos ═══════════════════════════
-   Paga dois pedidos nominais da página 9 do briefing da Locaweb que estavam
-   sem slide: "agrupar causas recorrentes" e "agrupamentos críticos (produto +
-   categoria + prioridade)". O slide 12 trata de um código só, o Outro; este
-   agrupa todos e depois cruza produto, categoria e prioridade.
+   Paga dois pedidos nominais da página 9 do briefing da Locaweb: "agrupar
+   causas recorrentes" e "agrupamentos críticos (produto + categoria +
+   prioridade)". O slide 14 trata de um código só; este agrupa todos e depois
+   cruza as três colunas.
 
-   Forma herdada do d30a do deck da Sprint 3: dois painéis, ordenados pela taxa
-   e não pelo volume, porque a ordem do volume é outra e é justamente esse o
-   ponto — o que mais aparece não é o que mais estoura.
+   A primeira versão ficou feia e foi refeita. Os três defeitos eram: nome à
+   direita, o que empurrava a barra para um canto de 118px; painéis de alturas
+   diferentes, começando em linhas diferentes; e cinco barras vermelhas de cada
+   lado, sem hierarquia nenhuma.
+
+   Agora o nome fica à esquerda numa coluna fixa, a barra ocupa o resto, e a
+   cor conta a história em vez de decorar: vermelho só no primeiro de cada
+   painel, azul no contraponto de volume, cinza no resto. O tracejado marca a
+   média da base, e é ele que separa quem está acima de quem está abaixo.
 
    Esquerda, de data/interim/05_causas.parquet, código de fechamento com pelo
-   menos 100 incidentes, jan a set de 2025, base elegível ao KPI:
-     Falha de Storage 2,91% (103) · Outro 2,69% (1.596) · Banco de Dados 2,20%
-     (182) · Sem retorno do solicitante 2,13% (329) · causado por Change 1,37%
-     (364) · Cloud 0,85% (351) · Aplicação 0,82% (12.041, a maior em volume)
-   Média da base: 0,94%.
+   menos 100 incidentes, jan a set de 2025, base elegível ao KPI. Escala de 0 a
+   2,91%; média da base 0,94%, que cai em 32% da largura:
+     Storage 2,91 (103) · Outro 2,69 (1.596) · Banco de Dados 2,20 (182) ·
+     Sem retorno 2,13 (329) · Change 1,37 (364) · Cloud 0,85 (351) ·
+     Aplicação 0,82 (12.041, 60% da base)
 
    Direita, de data/interim/05_grupos_criticos.parquet, 38 grupos com pelo
-   menos 100 incidentes; a coluna "vezes" é a taxa dividida pela média:
-     lsin/cat24/P3 2,32% (2,46x) · lgoa/cat103/P3 1,92% (2,04x) ·
-     lrel/cat123/P3 1,92% (2,04x) · lsin/cat77/P2 1,55% (1,65x) ·
-     lssl/cat102/P3 1,47% (1,56x)
+   menos 100 incidentes. Escala de 0 a 2,46x a média:
+     lsin/cat24/P3 2,46x (259 inc, 6 quebras) · lgoa/cat103/P3 2,04x (312, 6) ·
+     lrel/cat123/P3 2,04x (104, 2) · lsin/cat77/P2 1,65x (515, 8) ·
+     lssl/cat102/P3 1,56x (273, 4)
    As duas prioridades aparecem, como manda a regra 10.
    ══════════════════════════════════════════════════════════════════════════ */
 .cau .body{padding-top:14px}
@@ -1319,43 +1325,47 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .cau .sub{font-size:16.5px;line-height:1.45;color:var(--tx);margin-top:10px}
 .cau .sub b{color:var(--head);font-weight:700}
 .cau .cena{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0 28px;
-  align-items:center;margin-top:18px;min-height:0}
+  align-items:stretch;align-content:center;margin-top:18px;min-height:0}
 
 .cau .painel{background:#fff;border:1px solid var(--line);border-radius:20px;
-  padding:24px 26px 26px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5)}
+  padding:24px 28px 26px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5);
+  display:flex;flex-direction:column}
 .cau .painel h2{font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
 .cau .painel .un{font-size:12.5px;color:var(--tx2);margin-top:5px}
 
-.cau .lista{display:flex;flex-direction:column;gap:10px;margin-top:20px}
-.cau .l{display:grid;grid-template-columns:1fr 118px 46px;align-items:center;gap:13px}
-.cau .l .nm{font-size:14.5px;color:var(--tx);text-align:right;line-height:1.25}
+.cau .lista{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.cau .l{display:grid;grid-template-columns:214px 1fr 58px;align-items:center;gap:16px}
+.cau .l .nm{font-size:14.5px;line-height:1.25;color:var(--tx)}
 .cau .l .nm small{display:block;font-size:11.5px;color:#AAB4C2;margin-top:3px;
   font-variant-numeric:tabular-nums}
-.cau .l .tr{height:15px;border-radius:8px;background:#EDF1F7;overflow:hidden}
-.cau .l .tr i{display:block;height:100%;border-radius:8px;background:#C4CEDC;
+/* o trilho leva a marca da média por dentro, para a leitura não precisar de legenda */
+.cau .l .tr{position:relative;height:18px;border-radius:9px;background:#EDF1F7}
+.cau .l .tr i{display:block;height:100%;border-radius:9px;background:#C9D3E1;
   transform:scaleX(0);transform-origin:left}
 .cau.is-active .l .tr i{animation:corre .6s var(--out) var(--d,0ms) forwards}
-.cau .l .vl{font-size:14px;color:#9AA6B6;text-align:right;font-variant-numeric:tabular-nums}
-/* acima da média da base */
-.cau .l.alto .nm{color:var(--head);font-weight:700}
-.cau .l.alto .tr i{background:var(--bad)}
-.cau .l.alto .vl{color:var(--bad);font-weight:800}
-/* o de maior volume, que é o contraponto do slide */
-.cau .l.volume .nm{color:var(--accent);font-weight:700}
-.cau .l.volume .tr i{background:var(--accent)}
-.cau .l.volume .vl{color:var(--accent);font-weight:800}
-/* a marca da média, no mesmo lugar dos dois painéis */
-.cau .media{display:flex;align-items:center;gap:10px;margin-top:16px;padding-top:14px;
-  border-top:1px dashed #DCE4EF;font-size:13px;color:var(--tx2)}
-.cau .media b{color:var(--head);font-weight:700}
+.cau .l .tr u{position:absolute;top:-5px;bottom:-5px;width:1.5px;background:#9AA6B6;
+  text-decoration:none;opacity:0}
+.cau.is-active .l .tr u{animation:rv .4s var(--out) 1600ms forwards}
+.cau .l .vl{font-size:15px;color:#9AA6B6;text-align:right;font-variant-numeric:tabular-nums;
+  font-weight:700}
+/* o primeiro de cada painel é o assunto; o contraponto de volume é azul */
+.cau .l.pico .nm{color:var(--head);font-weight:700}
+.cau .l.pico .tr i{background:var(--bad)}
+.cau .l.pico .vl{color:var(--bad);font-weight:800}
+.cau .l.vol .nm{color:var(--accent);font-weight:700}
+.cau .l.vol .tr i{background:var(--accent)}
+.cau .l.vol .vl{color:var(--accent);font-weight:800}
 
-/* direita · os grupos, com a sigla da prioridade em destaque */
-.cau .gr .nm{font-family:var(--mono);font-size:14px;color:var(--tx)}
+.cau .gr .nm{font-family:var(--mono);font-size:14px;letter-spacing:-.2px}
 .cau .gr .nm em{font-style:normal;font-weight:700;color:var(--head)}
-.cau .gr .l{grid-template-columns:1fr 100px 62px}
-.cau .gr .vz{font-size:14px;font-weight:800;text-align:right;color:var(--bad);
-  font-variant-numeric:tabular-nums}
-.cau .gr .vz small{display:block;font-size:11px;font-weight:400;color:#AAB4C2;margin-top:2px}
+.cau .gr .l{grid-template-columns:190px 1fr 62px}
+.cau .gr .vl small{display:block;font-size:10.5px;font-weight:400;color:#AAB4C2;margin-top:2px}
+
+.cau .media{margin-top:auto;padding-top:18px;border-top:1px solid #EDF1F7;font-size:13.5px;
+  line-height:1.45;color:var(--tx2)}
+.cau .media b{color:var(--head);font-weight:700}
+.cau .media .tick{display:inline-block;width:1.5px;height:11px;background:#9AA6B6;
+  vertical-align:-1px;margin:0 6px}
 
 .cau .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
   border-top:1px solid #DCE4EF;font-size:16px;line-height:1.45;color:var(--tx)}
@@ -1998,6 +2008,9 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
    navegador ficam de fora. A do slide 29 diz com o quê, mas para na imagem e
    não nomeia as quatro saídas.
 
+   Cada estágio tem ícone: sem eles as cinco colunas liam como cinco listas
+   iguais de texto pequeno, sem identidade.
+
    Aqui as duas coisas cabem na mesma tela, em cinco estágios: de onde vem o
    dado, o que é feito com ele, o que os notebooks gravam, o que o contêiner
    serve e quem abre. Cada estágio traz a ferramenta com a versão e o que sai
@@ -2021,7 +2034,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 /* a faixa dos cinco estágios centraliza na vertical: presa ao topo por
    align-items:stretch, sobravam 350px de branco embaixo. O invólucro tem a
    altura do conteúdo e as colunas continuam esticando entre si. */
-.arqb .cena{flex:1;display:flex;align-items:center;margin-top:18px;min-height:0}
+.arqb .cena{flex:1;display:flex;align-items:center;margin-top:12px;min-height:0}
 .arqb .fluxo5{display:flex;align-items:stretch;width:100%}
 
 .arqb .et{flex:1;min-width:0;display:flex;flex-direction:column;padding:0 16px;
@@ -2029,19 +2042,27 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .arqb.is-active .et{animation:rv .55s var(--out) var(--d,0ms) forwards}
 .arqb .et:first-child{padding-left:0}
 .arqb .et:last-child{padding-right:0}
-.arqb .nm{display:flex;align-items:center;gap:9px;font-size:11px;font-weight:700;
-  letter-spacing:1.9px;text-transform:uppercase;color:var(--tx2);padding-bottom:12px;
-  border-bottom:2px solid #E2E9F3}
+/* o ícone dá identidade ao estágio: sem ele as cinco colunas viravam cinco
+   listas iguais de texto pequeno */
+.arqb .ic{width:44px;height:44px;border-radius:13px;background:#fff;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;color:var(--accent);
+  box-shadow:0 10px 24px -18px rgba(15,23,42,.5)}
+.arqb .ic svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7}
+.arqb .et.serve .ic{background:var(--accent);border-color:var(--accent);color:#fff;
+  box-shadow:0 12px 28px -14px rgba(37,99,235,.7)}
+.arqb .nm{display:flex;align-items:baseline;gap:9px;font-size:12px;font-weight:700;
+  letter-spacing:1.9px;text-transform:uppercase;color:var(--tx2);margin-top:14px;
+  padding-bottom:14px;border-bottom:2px solid #E2E9F3}
 .arqb .nm i{font-family:var(--mono);font-style:normal;font-size:11px;color:#B9C4D4}
 .arqb .et.serve .nm{color:var(--accent);border-bottom-color:var(--accent)}
 
-.arqb .cx{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:13px;
-  padding:13px 15px;box-shadow:0 10px 26px -24px rgba(15,23,42,.5)}
+.arqb .cx{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:16px 18px;box-shadow:0 10px 26px -24px rgba(15,23,42,.5)}
 .arqb .cx + .cx{margin-top:9px}
-.arqb .cx b{display:block;font-size:14px;font-weight:700;color:var(--head);letter-spacing:-.15px}
-.arqb .cx b em{font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--tx2);
+.arqb .cx b{display:block;font-size:15px;font-weight:700;color:var(--head);letter-spacing:-.15px}
+.arqb .cx b em{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--tx2);
   font-weight:400;margin-left:6px}
-.arqb .cx span{display:block;font-size:12px;line-height:1.4;color:var(--tx2);margin-top:5px}
+.arqb .cx span{display:block;font-size:12.5px;line-height:1.45;color:var(--tx2);margin-top:5px}
 .arqb .cx.forte{background:#F7FAFF;border-color:#D8E4F7}
 .arqb .cx.azul{background:var(--ink);border-color:var(--ink)}
 .arqb .cx.azul b{color:#fff}
@@ -2050,7 +2071,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 
 /* as saídas nomeadas, que a composição A tem e a do 29 não */
 .arqb .saidas{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
-.arqb .saidas i{font-style:normal;font-size:11px;color:var(--accent);background:var(--accent-l);
+.arqb .saidas i{font-style:normal;font-size:11.5px;color:var(--accent);background:var(--accent-l);
   border-radius:5px;padding:2px 7px}
 .arqb .rotas{display:flex;flex-wrap:wrap;gap:4px;margin-top:9px}
 .arqb .rotas i{font-family:var(--mono);font-style:normal;font-size:10.5px;color:#8FB4F5;
@@ -2058,9 +2079,9 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 
 /* a seta entre estágios */
 .arqb .sep{width:0;flex-shrink:0;align-self:stretch;position:relative}
-.arqb .sep::before{content:"";position:absolute;left:-1px;top:44px;bottom:6px;width:1px;
+.arqb .sep::before{content:"";position:absolute;left:-1px;top:106px;bottom:6px;width:1px;
   background:#E2E9F3}
-.arqb .sep::after{content:"";position:absolute;left:-4px;top:30px;border-left:7px solid #C3CEDD;
+.arqb .sep::after{content:"";position:absolute;left:-4px;top:92px;border-left:7px solid #C3CEDD;
   border-top:4.5px solid transparent;border-bottom:4.5px solid transparent}
 
 /* a fronteira: onde termina o notebook e começa o contêiner */
@@ -2243,8 +2264,12 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
    O objeto é um corte transversal: um contorno que se desenha (a imagem
    Docker), e dentro dele quatro camadas que se preenchem de baixo para cima —
    Python e pandas, os dois modelos, o Django com as seis telas, e no topo uma
-   camada fina, o texto do resumo. Fora do contorno, à direita, fica o próximo
-   passo declarado: gerar esse texto com modelo de linguagem.
+   camada fina, o texto do resumo.
+
+   A etiqueta do próximo passo que ficava à direita foi removida: posicionada
+   por `right:-80px`, ela media a partir da borda direita do contorno e a
+   própria largura a jogava 126px para dentro dele, por cima do desenho. O
+   recado continua no pé do slide, que é onde ele já estava escrito.
 
    Não é grade de logos nem trilho de pipeline, que é o slide que todos os seis
    grupos vão mostrar. As camadas são nomeadas, e a hierarquia é a mensagem.
@@ -2284,16 +2309,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .stk .cam.fina{height:50px;background:var(--accent-l);border-color:#C9DCFB}
 .stk .cam.fina b{font-size:15.5px;color:var(--accent)}
 
-/* o próximo passo, do lado de fora do contorno: o que ainda não está no
-   contêiner encosta na camada fina, mas não faz parte dela */
-.stk .fora{position:absolute;right:-80px;display:flex;align-items:center;gap:0;
-  opacity:0;transform:translate3d(14px,0,0)}
-.stk .fora .fio{width:38px;height:1.5px;background:var(--accent)}
-.stk .fora .et{width:168px;font-size:12px;line-height:1.42;color:var(--tx2);
-  padding-left:12px;border-left:2px dashed #C6D3E4}
-.stk .fora .et b{display:block;color:var(--head);font-weight:700;font-size:13px;margin-top:3px}
-.stk .fora .fio{border-top:1.5px dashed var(--accent);background:none;height:0}
-.stk.is-active .fora{animation:rv .55s var(--out) var(--d,0ms) forwards}
 
 /* os provedores, fora de tudo e sem ligação com o contorno */
 /* desce para não parecer que a marca da Claude é o cabeçalho desta coluna */
@@ -2500,59 +2515,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .apl.is-active .tela{animation:chegaTela 1.3s var(--out) .7s forwards}
 @keyframes chegaTela{to{opacity:1;transform:rotateY(-11deg) rotateX(4deg) translate3d(0,0,0)}}
 
-/* ───── 31-fecho-tecnico.html ───── */
-/* ═══ slide 31 · aprendizados, limites e próximos passos ══════════════════════
-   O bloco 7 do template da Sprint 4 pede, por nome, "conclusão e próximos
-   passos: síntese, aprendizados, limitações e próximos passos". O deck hoje
-   termina em agradecimento, e o critério de storytelling cobra esse
-   fechamento.
-
-   Este slide NÃO é o "O que ficou pronto" que o dono do projeto tirou: aquele
-   repetia quatro números que a banca tinha acabado de ver. Aqui não há
-   recapitulação de resultado. São três colunas curtas: o que o dado ensinou,
-   o que continua em aberto e o passo que endereça cada limite.
-
-   Os três limites são reais e estão medidos:
-   · cobertura da faixa de 80% cai para 59 a 61% dos dias na prioridade 3,
-     contra 86 a 88% na 2 (CONTRATO §5)
-   · o dataset não traz custo por violação, então o ganho defensável é ordenar
-     a fila, não reduzir volume
-   · não existe alarme de descalibragem; o re-treino reabsorve o desvio com
-     atraso
-
-   Os três aprendizados também: volume não prediz quebra (R² = 0,025), o campo
-   Entrou para KPI muda a base de 107.416 para 25.600, e acurácia não serve
-   para evento que acontece uma vez a cada 103.
-   ══════════════════════════════════════════════════════════════════════════ */
-.fim3 .body{padding-top:14px}
-.fim3 .tt{font-size:50px;letter-spacing:-1.8px}
-/* align-content centraliza a faixa das três colunas: com stretch elas
-   encostavam no topo e sobravam 218px de branco embaixo */
-.fim3 .cena{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:0 34px;
-  align-items:start;align-content:center;margin-top:20px;min-height:0}
-
-.fim3 .col{display:flex;flex-direction:column}
-.fim3 .cb{display:flex;align-items:center;gap:11px;font-size:12px;font-weight:700;
-  letter-spacing:2.1px;text-transform:uppercase;padding-bottom:16px;
-  border-bottom:2px solid currentColor}
-.fim3 .cb .ic{width:17px;height:17px}
-.fim3 .col.a .cb{color:var(--accent)}
-.fim3 .col.b .cb{color:var(--warn)}
-.fim3 .col.c .cb{color:var(--good)}
-
-.fim3 .it{padding:20px 0;font-size:16px;line-height:1.5;color:var(--tx)}
-.fim3 .it + .it{border-top:1px solid #EDF1F7}
-.fim3 .it b{display:block;font-size:17.5px;font-weight:800;color:var(--head);
-  letter-spacing:-.25px;margin-bottom:7px}
-.fim3 .it em{font-style:normal;font-weight:700;color:var(--head)}
-
-.fim3 .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
-  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
-.fim3 .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
-.fim3 .fecho b{color:var(--head);font-weight:700}
-
-/* ───── 32-fecho.html ───── */
-/* ═══ slide 32 · variação B · agradecimento ═══════════════════════════════════
+/* ───── 31-fecho.html ───── */
+/* ═══ slide 31 · variação B · agradecimento ═══════════════════════════════════
    O fecho do deck da Sprint 3, que era estático no .pptx e aqui ganha
    movimento: a palavra sobe por máscara, o traço corre sob ela, os três blocos
    de crédito entram em sequência e a série de 2025 termina de se desenhar ao
@@ -3269,8 +3233,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
             <div class="v"><span class="ct" data-to="2.69" data-dec="2" data-delay="1500">0,00</span>%</div>
             <p class="r">taxa de violação dentro do código Outro</p>
             <p class="c">contra <b>0,94%</b> na média da base</p>
-            <span class="mult rv" style="--d:1900ms">quase 3 vezes o risco médio</span>
-          </div>
+            </div>
 
           <div class="col qbr">
             <div class="k">Violações de OLA</div>
@@ -3281,8 +3244,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
           </div>
 
           <div class="cunha">
-            <svg viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M0,386.4 L1000,323.8 L1000,420 L0,420 Z"/>
+            <svg viewBox="0 0 1000 352" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M0,323.8 L1000,271.4 L1000,352 L0,352 Z"/>
             </svg>
           </div>
         </div>
@@ -3310,41 +3273,41 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="body">
     <span class="eb"><span class="rv" style="--d:240ms">Onde o risco se concentra</span></span>
     <h1 class="tt"><span class="mask" style="--d:340ms"><span>O que mais aparece não é o que mais estoura</span></span></h1>
-    <p class="sub rv" style="--d:620ms">Os dois painéis estão ordenados pela <b>taxa de quebra</b>, não pelo volume. A causa mais comum da base é a que menos estoura.</p>
+    <p class="sub rv" style="--d:620ms">Os dois painéis estão ordenados pela <b>taxa de quebra</b>, não pelo volume. A causa mais comum da base é a penúltima em risco.</p>
 
     <div class="cena">
       <div class="painel rv3" style="--d:780ms">
         <h2>Por causa de fechamento</h2>
         <p class="un">taxa de quebra de OLA, entre os códigos com 100 incidentes ou mais</p>
         <div class="lista">
-          <div class="l alto"><span class="nm">Falha de Storage<small>103 incidentes</small></span><div class="tr"><i style="width:100%;--d:1000ms"></i></div><span class="vl">2,91</span></div>
-          <div class="l alto"><span class="nm">Outro<small>1.596 incidentes</small></span><div class="tr"><i style="width:92%;--d:1060ms"></i></div><span class="vl">2,69</span></div>
-          <div class="l alto"><span class="nm">Falha de Banco de Dados<small>182 incidentes</small></span><div class="tr"><i style="width:76%;--d:1120ms"></i></div><span class="vl">2,20</span></div>
-          <div class="l alto"><span class="nm">Sem retorno do solicitante<small>329 incidentes</small></span><div class="tr"><i style="width:73%;--d:1180ms"></i></div><span class="vl">2,13</span></div>
-          <div class="l alto"><span class="nm">Incidente causado por Change<small>364 incidentes</small></span><div class="tr"><i style="width:47%;--d:1240ms"></i></div><span class="vl">1,37</span></div>
-          <div class="l"><span class="nm">Falha de Cloud<small>351 incidentes</small></span><div class="tr"><i style="width:29%;--d:1300ms"></i></div><span class="vl">0,85</span></div>
-          <div class="l volume"><span class="nm">Falha de Aplicação<small>12.041 incidentes, 60% da base</small></span><div class="tr"><i style="width:28%;--d:1360ms"></i></div><span class="vl">0,82</span></div>
+          <div class="l pico"><span class="nm">Falha de Storage<small>103 incidentes</small></span><div class="tr"><i style="width:100%;--d:1000ms"></i><u style="left:32%"></u></div><span class="vl">2,91</span></div>
+          <div class="l"><span class="nm">Outro<small>1.596 incidentes</small></span><div class="tr"><i style="width:92%;--d:1060ms"></i><u style="left:32%"></u></div><span class="vl">2,69</span></div>
+          <div class="l"><span class="nm">Falha de Banco de Dados<small>182 incidentes</small></span><div class="tr"><i style="width:76%;--d:1120ms"></i><u style="left:32%"></u></div><span class="vl">2,20</span></div>
+          <div class="l"><span class="nm">Sem retorno do solicitante<small>329 incidentes</small></span><div class="tr"><i style="width:73%;--d:1180ms"></i><u style="left:32%"></u></div><span class="vl">2,13</span></div>
+          <div class="l"><span class="nm">Incidente causado por Change<small>364 incidentes</small></span><div class="tr"><i style="width:47%;--d:1240ms"></i><u style="left:32%"></u></div><span class="vl">1,37</span></div>
+          <div class="l"><span class="nm">Falha de Cloud<small>351 incidentes</small></span><div class="tr"><i style="width:29%;--d:1300ms"></i><u style="left:32%"></u></div><span class="vl">0,85</span></div>
+          <div class="l vol"><span class="nm">Falha de Aplicação<small>12.041 incidentes &middot; 60% da base</small></span><div class="tr"><i style="width:28%;--d:1360ms"></i><u style="left:32%"></u></div><span class="vl">0,82</span></div>
         </div>
-        <p class="media rv" style="--d:1440ms">Média da base: <b>0,94%</b>. Os cinco de cima estão acima dela.</p>
+        <p class="media rv" style="--d:1700ms">O traço <span class="tick"></span> é a média da base, <b>0,94%</b>. Cinco causas ficam acima dela, e as duas maiores em volume ficam abaixo.</p>
       </div>
 
       <div class="painel gr rv3" style="--d:900ms">
         <h2>Por produto, categoria e prioridade</h2>
         <p class="un">os cinco grupos de maior taxa, entre 38 com 100 incidentes ou mais</p>
         <div class="lista">
-          <div class="l alto"><span class="nm"><em>lsin</em> / cat24 / <em>P3</em><small>259 incidentes, 6 quebras</small></span><div class="tr"><i style="width:100%;--d:1120ms"></i></div><span class="vz">2,46&times;<small>a média</small></span></div>
-          <div class="l alto"><span class="nm"><em>lgoa</em> / cat103 / <em>P3</em><small>312 incidentes, 6 quebras</small></span><div class="tr"><i style="width:83%;--d:1180ms"></i></div><span class="vz">2,04&times;<small>a média</small></span></div>
-          <div class="l alto"><span class="nm"><em>lrel</em> / cat123 / <em>P3</em><small>104 incidentes, 2 quebras</small></span><div class="tr"><i style="width:83%;--d:1240ms"></i></div><span class="vz">2,04&times;<small>a média</small></span></div>
-          <div class="l alto"><span class="nm"><em>lsin</em> / cat77 / <em>P2</em><small>515 incidentes, 8 quebras</small></span><div class="tr"><i style="width:67%;--d:1300ms"></i></div><span class="vz">1,65&times;<small>a média</small></span></div>
-          <div class="l alto"><span class="nm"><em>lssl</em> / cat102 / <em>P3</em><small>273 incidentes, 4 quebras</small></span><div class="tr"><i style="width:63%;--d:1360ms"></i></div><span class="vz">1,56&times;<small>a média</small></span></div>
+          <div class="l pico"><span class="nm"><em>lsin</em> / cat24 / <em>P3</em><small>259 incidentes, 6 quebras</small></span><div class="tr"><i style="width:100%;--d:1120ms"></i></div><span class="vl">2,46&times;<small>a média</small></span></div>
+          <div class="l"><span class="nm"><em>lgoa</em> / cat103 / <em>P3</em><small>312 incidentes, 6 quebras</small></span><div class="tr"><i style="width:83%;--d:1180ms"></i></div><span class="vl">2,04&times;<small>a média</small></span></div>
+          <div class="l"><span class="nm"><em>lrel</em> / cat123 / <em>P3</em><small>104 incidentes, 2 quebras</small></span><div class="tr"><i style="width:83%;--d:1240ms"></i></div><span class="vl">2,04&times;<small>a média</small></span></div>
+          <div class="l vol"><span class="nm"><em>lsin</em> / cat77 / <em>P2</em><small>515 incidentes, 8 quebras</small></span><div class="tr"><i style="width:67%;--d:1300ms"></i></div><span class="vl">1,65&times;<small>a média</small></span></div>
+          <div class="l"><span class="nm"><em>lssl</em> / cat102 / <em>P3</em><small>273 incidentes, 4 quebras</small></span><div class="tr"><i style="width:63%;--d:1360ms"></i></div><span class="vl">1,56&times;<small>a média</small></span></div>
         </div>
-        <p class="media rv" style="--d:1480ms">O cruzamento acha bolsões que nenhuma das três colunas acha sozinha, <b>nas duas prioridades</b>.</p>
+        <p class="media rv" style="--d:1760ms">O cruzamento acha bolsões que nenhuma das três colunas acha sozinha. O quarto é de <b>prioridade 2</b>, e é o de maior volume da lista.</p>
       </div>
     </div>
 
-    <div class="fecho rv" style="--d:1640ms">
+    <div class="fecho rv" style="--d:1900ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span><b>Falha de Aplicação</b> é 60% do volume e a segunda menor taxa da lista. Priorizar pelo que mais aparece é atender o que menos quebra.</span>
+      <span><b>Falha de Aplicação</b> é 60% do volume e a penúltima em taxa. Priorizar pelo que mais aparece é atender justamente o que menos quebra.</span>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
@@ -4308,6 +4271,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
     <div class="cena">
      <div class="fluxo5">
       <div class="et" style="--d:800ms">
+        <span class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="3.4" width="16" height="17.2" rx="2.2"/><path d="M8 8.6h8M8 12.6h8M8 16.6h5"/></svg></span>
         <div class="nm">Fonte <i>01</i></div>
         <div class="cx">
           <b>LW-DATASET.xlsx<em>openpyxl 3.1.5</em></b>
@@ -4322,6 +4286,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <div class="sep"></div>
 
       <div class="et" style="--d:900ms">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M3.4 5.4h17.2L14 12.6v6.2l-4 2v-8.2L3.4 5.4Z" stroke-linejoin="round"/></svg></span>
         <div class="nm">Preparação <i>02</i></div>
         <div class="cx">
           <b>pandas<em>2.2.3</em></b>
@@ -4332,6 +4297,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <div class="sep"></div>
 
       <div class="et" style="--d:1000ms">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M3.6 17.4 9 11.4l3.6 3 6.8-8.4"/><path d="M15.4 6h4.6v4.6"/></svg></span>
         <div class="nm">Modelagem <i>03</i></div>
         <div class="cx">
           <b>Prophet<em>1.3.0</em></b>
@@ -4349,6 +4315,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <div class="sep"></div>
 
       <div class="et" style="--d:1100ms">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M6 3.4h8.4L19 8v12.6H6z"/><path d="M14 3.4V8h5"/></svg></span>
         <div class="nm">Artefatos <i>04</i></div>
         <div class="cx forte">
           <b>350 kB gravados</b>
@@ -4363,6 +4330,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <div class="sep"></div>
 
       <div class="et serve" style="--d:1200ms">
+        <span class="ic"><svg viewBox="0 0 24 24"><rect x="3.4" y="4.6" width="17.2" height="14.8" rx="2.4"/><path d="M3.4 9.4h17.2M9.6 9.4v10"/></svg></span>
         <div class="nm">Serviço <i>05</i></div>
         <div class="cx azul">
           <b>python:3.13-slim<em>um contêiner</em></b>
@@ -4421,7 +4389,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
             <b>O texto de abertura do resumo</b>
           </div>
         </div>
-        <div class="fora prox" style="top:22px;--d:1900ms"><i class="fio"></i><span class="et">Próximo passo<br><b>gerar o texto com modelo de linguagem</b></span></div>
       </div>
 
       <div class="nuvens rv" style="--d:2200ms">
@@ -4650,58 +4617,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide light fim3" data-slide="31" data-var="a" data-quem="igor">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Conclusão e próximos passos</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Para fechar</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>O que aprendemos e o que falta</span></span></h1>
-
-    <div class="cena">
-      <div class="col a">
-        <div class="cb rv" style="--d:640ms">
-          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9.6 9.4a2.6 2.6 0 1 1 3.4 2.5c-.7.3-1 .8-1 1.5v.4"/><path d="M12 17.2h.01"/><circle cx="12" cy="12" r="9.4"/></svg>
-          O que o dado ensinou
-        </div>
-        <div class="it rv" style="--d:760ms"><b>Volume não prevê quebra</b>O dia cheio explica <em>2,5%</em> da variação. Dimensionar equipe e apontar o caso são dois problemas diferentes.</div>
-        <div class="it rv" style="--d:880ms"><b>A base certa é um quarto da bruta</b>A regra oficial de elegibilidade leva de 107.416 para <em>25.600</em>. Errar o filtro muda toda conclusão.</div>
-        <div class="it rv" style="--d:1000ms"><b>Acurácia não serve</b>Com uma quebra a cada <em>103</em>, não fazer nada acerta 99%. A régua é a fila.</div>
-      </div>
-
-      <div class="col b">
-        <div class="cb rv" style="--d:820ms">
-          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3.4 2.4 20.2h19.2L12 3.4Z" stroke-linejoin="round"/><path d="M12 9.6v4.4"/><path d="M12 17.2h.01"/></svg>
-          O que fica em aberto
-        </div>
-        <div class="it rv" style="--d:940ms"><b>A faixa é estreita na prioridade 3</b>Cobre <em>59% a 61%</em> dos dias, contra 86% a 88% na prioridade 2, quando a base muda de patamar.</div>
-        <div class="it rv" style="--d:1060ms"><b>Não há custo por violação no dataset</b>Sem ele, o ganho que sustentamos é ordenar a fila, e não reduzir volume em reais.</div>
-        <div class="it rv" style="--d:1180ms"><b>Não há alarme de descalibragem</b>O re-treino reabsorve o desvio, com atraso, e ninguém é avisado enquanto isso.</div>
-      </div>
-
-      <div class="col c">
-        <div class="cb rv" style="--d:1000ms">
-          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h14M13 6.6 19.4 12 13 17.4"/></svg>
-          O que vem em seguida
-        </div>
-        <div class="it rv" style="--d:1120ms"><b>Recesso como evento de calendário</b>Modelar o fim de ano e re-treinar por origem a cada semana, que é onde a faixa da prioridade 3 se perde.</div>
-        <div class="it rv" style="--d:1240ms"><b>Custo por violação com a Locaweb</b>Com ele, a fila deixa de ser ordem de risco e passa a ser ordem de prejuízo evitado.</div>
-        <div class="it rv" style="--d:1360ms"><b>Monitorar a cobertura semana a semana</b>E disparar aviso quando ela cair do nominal, em vez de esperar o re-treino.</div>
-      </div>
-    </div>
-
-    <div class="fecho rv" style="--d:1560ms">
-      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
-      <span>Os três limites estão medidos e documentados no repositório. <b>Nenhum deles impede a operação de usar o que já está no ar.</b></span>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
-</section>
-
-<section class="slide dark fmb" data-slide="32" data-var="a" data-quem="igor">
+<section class="slide dark fmb" data-slide="31" data-var="a" data-quem="igor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="serie"><svg viewBox="0 0 1600 360" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1000" d="M 0 318 L 13.4 258 L 26.9 232 L 40.3 157 L 53.8 139 L 67.2 135 L 80.7 117 L 94.1 117 L 107.6 123 L 121 105 L 134.5 55 L 147.9 78 L 161.3 110 L 174.8 112 L 188.2 110 L 201.7 123 L 215.1 129 L 228.6 107 L 242 101 L 255.5 113 L 268.9 146 L 282.4 199 L 295.8 205 L 309.2 136 L 322.7 124 L 336.1 123 L 349.6 125 L 363 120 L 376.5 115 L 389.9 139 L 403.4 144 L 416.8 113 L 430.3 105 L 443.7 141 L 457.1 165 L 470.6 180 L 484 205 L 497.5 202 L 510.9 186 L 524.4 132 L 537.8 152 L 551.3 172 L 564.7 163 L 578.2 152 L 591.6 135 L 605 133 L 618.5 128 L 631.9 120 L 645.4 120 L 658.8 117 L 672.3 121 L 685.7 150 L 699.2 132 L 712.6 112 L 726.1 133 L 739.5 139 L 752.9 154 L 766.4 180 L 779.8 142 L 793.3 143 L 806.7 161 L 820.2 165 L 833.6 169 L 847.1 159 L 860.5 154 L 873.9 157 L 887.4 161 L 900.8 161 L 914.3 156 L 927.7 142 L 941.2 134 L 954.6 128 L 968.1 140 L 981.5 135 L 995 114 L 1008.4 110 L 1021.8 122 L 1035.3 125 L 1048.7 128 L 1062.2 137 L 1075.6 159 L 1089.1 172 L 1102.5 170 L 1116 159 L 1129.4 139 L 1142.9 113 L 1156.3 110 L 1169.7 72 L 1183.2 77 L 1196.6 130 L 1210.1 129 L 1223.5 142 L 1237 140 L 1250.4 147 L 1263.9 159 L 1277.3 159 L 1290.8 156 L 1304.2 157 L 1317.6 162 L 1331.1 175 L 1344.5 170 L 1358 162 L 1371.4 180 L 1384.9 182 L 1398.3 176 L 1411.8 195 L 1425.2 222 L 1438.7 212 L 1452.1 179 L 1465.5 166 L 1479 169 L 1492.4 191 L 1505.9 190 L 1519.3 198 L 1532.8 194 L 1546.2 193 L 1559.7 178 L 1573.1 204 L 1586.6 246 L 1600 292"/></svg></div>
   <div class="hd">

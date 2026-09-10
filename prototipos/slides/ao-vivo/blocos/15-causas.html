@@ -1,26 +1,32 @@
 <style>
 /* ═══ slide 15 · causas agrupadas e grupos críticos ═══════════════════════════
-   Paga dois pedidos nominais da página 9 do briefing da Locaweb que estavam
-   sem slide: "agrupar causas recorrentes" e "agrupamentos críticos (produto +
-   categoria + prioridade)". O slide 12 trata de um código só, o Outro; este
-   agrupa todos e depois cruza produto, categoria e prioridade.
+   Paga dois pedidos nominais da página 9 do briefing da Locaweb: "agrupar
+   causas recorrentes" e "agrupamentos críticos (produto + categoria +
+   prioridade)". O slide 14 trata de um código só; este agrupa todos e depois
+   cruza as três colunas.
 
-   Forma herdada do d30a do deck da Sprint 3: dois painéis, ordenados pela taxa
-   e não pelo volume, porque a ordem do volume é outra e é justamente esse o
-   ponto — o que mais aparece não é o que mais estoura.
+   A primeira versão ficou feia e foi refeita. Os três defeitos eram: nome à
+   direita, o que empurrava a barra para um canto de 118px; painéis de alturas
+   diferentes, começando em linhas diferentes; e cinco barras vermelhas de cada
+   lado, sem hierarquia nenhuma.
+
+   Agora o nome fica à esquerda numa coluna fixa, a barra ocupa o resto, e a
+   cor conta a história em vez de decorar: vermelho só no primeiro de cada
+   painel, azul no contraponto de volume, cinza no resto. O tracejado marca a
+   média da base, e é ele que separa quem está acima de quem está abaixo.
 
    Esquerda, de data/interim/05_causas.parquet, código de fechamento com pelo
-   menos 100 incidentes, jan a set de 2025, base elegível ao KPI:
-     Falha de Storage 2,91% (103) · Outro 2,69% (1.596) · Banco de Dados 2,20%
-     (182) · Sem retorno do solicitante 2,13% (329) · causado por Change 1,37%
-     (364) · Cloud 0,85% (351) · Aplicação 0,82% (12.041, a maior em volume)
-   Média da base: 0,94%.
+   menos 100 incidentes, jan a set de 2025, base elegível ao KPI. Escala de 0 a
+   2,91%; média da base 0,94%, que cai em 32% da largura:
+     Storage 2,91 (103) · Outro 2,69 (1.596) · Banco de Dados 2,20 (182) ·
+     Sem retorno 2,13 (329) · Change 1,37 (364) · Cloud 0,85 (351) ·
+     Aplicação 0,82 (12.041, 60% da base)
 
    Direita, de data/interim/05_grupos_criticos.parquet, 38 grupos com pelo
-   menos 100 incidentes; a coluna "vezes" é a taxa dividida pela média:
-     lsin/cat24/P3 2,32% (2,46x) · lgoa/cat103/P3 1,92% (2,04x) ·
-     lrel/cat123/P3 1,92% (2,04x) · lsin/cat77/P2 1,55% (1,65x) ·
-     lssl/cat102/P3 1,47% (1,56x)
+   menos 100 incidentes. Escala de 0 a 2,46x a média:
+     lsin/cat24/P3 2,46x (259 inc, 6 quebras) · lgoa/cat103/P3 2,04x (312, 6) ·
+     lrel/cat123/P3 2,04x (104, 2) · lsin/cat77/P2 1,65x (515, 8) ·
+     lssl/cat102/P3 1,56x (273, 4)
    As duas prioridades aparecem, como manda a regra 10.
    ══════════════════════════════════════════════════════════════════════════ */
 .cau .body{padding-top:14px}
@@ -28,43 +34,47 @@
 .cau .sub{font-size:16.5px;line-height:1.45;color:var(--tx);margin-top:10px}
 .cau .sub b{color:var(--head);font-weight:700}
 .cau .cena{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0 28px;
-  align-items:center;margin-top:18px;min-height:0}
+  align-items:stretch;align-content:center;margin-top:18px;min-height:0}
 
 .cau .painel{background:#fff;border:1px solid var(--line);border-radius:20px;
-  padding:24px 26px 26px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5)}
+  padding:24px 28px 26px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5);
+  display:flex;flex-direction:column}
 .cau .painel h2{font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
 .cau .painel .un{font-size:12.5px;color:var(--tx2);margin-top:5px}
 
-.cau .lista{display:flex;flex-direction:column;gap:10px;margin-top:20px}
-.cau .l{display:grid;grid-template-columns:1fr 118px 46px;align-items:center;gap:13px}
-.cau .l .nm{font-size:14.5px;color:var(--tx);text-align:right;line-height:1.25}
+.cau .lista{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.cau .l{display:grid;grid-template-columns:214px 1fr 58px;align-items:center;gap:16px}
+.cau .l .nm{font-size:14.5px;line-height:1.25;color:var(--tx)}
 .cau .l .nm small{display:block;font-size:11.5px;color:#AAB4C2;margin-top:3px;
   font-variant-numeric:tabular-nums}
-.cau .l .tr{height:15px;border-radius:8px;background:#EDF1F7;overflow:hidden}
-.cau .l .tr i{display:block;height:100%;border-radius:8px;background:#C4CEDC;
+/* o trilho leva a marca da média por dentro, para a leitura não precisar de legenda */
+.cau .l .tr{position:relative;height:18px;border-radius:9px;background:#EDF1F7}
+.cau .l .tr i{display:block;height:100%;border-radius:9px;background:#C9D3E1;
   transform:scaleX(0);transform-origin:left}
 .cau.is-active .l .tr i{animation:corre .6s var(--out) var(--d,0ms) forwards}
-.cau .l .vl{font-size:14px;color:#9AA6B6;text-align:right;font-variant-numeric:tabular-nums}
-/* acima da média da base */
-.cau .l.alto .nm{color:var(--head);font-weight:700}
-.cau .l.alto .tr i{background:var(--bad)}
-.cau .l.alto .vl{color:var(--bad);font-weight:800}
-/* o de maior volume, que é o contraponto do slide */
-.cau .l.volume .nm{color:var(--accent);font-weight:700}
-.cau .l.volume .tr i{background:var(--accent)}
-.cau .l.volume .vl{color:var(--accent);font-weight:800}
-/* a marca da média, no mesmo lugar dos dois painéis */
-.cau .media{display:flex;align-items:center;gap:10px;margin-top:16px;padding-top:14px;
-  border-top:1px dashed #DCE4EF;font-size:13px;color:var(--tx2)}
-.cau .media b{color:var(--head);font-weight:700}
+.cau .l .tr u{position:absolute;top:-5px;bottom:-5px;width:1.5px;background:#9AA6B6;
+  text-decoration:none;opacity:0}
+.cau.is-active .l .tr u{animation:rv .4s var(--out) 1600ms forwards}
+.cau .l .vl{font-size:15px;color:#9AA6B6;text-align:right;font-variant-numeric:tabular-nums;
+  font-weight:700}
+/* o primeiro de cada painel é o assunto; o contraponto de volume é azul */
+.cau .l.pico .nm{color:var(--head);font-weight:700}
+.cau .l.pico .tr i{background:var(--bad)}
+.cau .l.pico .vl{color:var(--bad);font-weight:800}
+.cau .l.vol .nm{color:var(--accent);font-weight:700}
+.cau .l.vol .tr i{background:var(--accent)}
+.cau .l.vol .vl{color:var(--accent);font-weight:800}
 
-/* direita · os grupos, com a sigla da prioridade em destaque */
-.cau .gr .nm{font-family:var(--mono);font-size:14px;color:var(--tx)}
+.cau .gr .nm{font-family:var(--mono);font-size:14px;letter-spacing:-.2px}
 .cau .gr .nm em{font-style:normal;font-weight:700;color:var(--head)}
-.cau .gr .l{grid-template-columns:1fr 100px 62px}
-.cau .gr .vz{font-size:14px;font-weight:800;text-align:right;color:var(--bad);
-  font-variant-numeric:tabular-nums}
-.cau .gr .vz small{display:block;font-size:11px;font-weight:400;color:#AAB4C2;margin-top:2px}
+.cau .gr .l{grid-template-columns:190px 1fr 62px}
+.cau .gr .vl small{display:block;font-size:10.5px;font-weight:400;color:#AAB4C2;margin-top:2px}
+
+.cau .media{margin-top:auto;padding-top:18px;border-top:1px solid #EDF1F7;font-size:13.5px;
+  line-height:1.45;color:var(--tx2)}
+.cau .media b{color:var(--head);font-weight:700}
+.cau .media .tick{display:inline-block;width:1.5px;height:11px;background:#9AA6B6;
+  vertical-align:-1px;margin:0 6px}
 
 .cau .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
   border-top:1px solid #DCE4EF;font-size:16px;line-height:1.45;color:var(--tx)}
@@ -82,41 +92,41 @@
   <div class="body">
     <span class="eb"><span class="rv" style="--d:240ms">Onde o risco se concentra</span></span>
     <h1 class="tt"><span class="mask" style="--d:340ms"><span>O que mais aparece não é o que mais estoura</span></span></h1>
-    <p class="sub rv" style="--d:620ms">Os dois painéis estão ordenados pela <b>taxa de quebra</b>, não pelo volume. A causa mais comum da base é a que menos estoura.</p>
+    <p class="sub rv" style="--d:620ms">Os dois painéis estão ordenados pela <b>taxa de quebra</b>, não pelo volume. A causa mais comum da base é a penúltima em risco.</p>
 
     <div class="cena">
       <div class="painel rv3" style="--d:780ms">
         <h2>Por causa de fechamento</h2>
         <p class="un">taxa de quebra de OLA, entre os códigos com 100 incidentes ou mais</p>
         <div class="lista">
-          <div class="l alto"><span class="nm">Falha de Storage<small>103 incidentes</small></span><div class="tr"><i style="width:100%;--d:1000ms"></i></div><span class="vl">2,91</span></div>
-          <div class="l alto"><span class="nm">Outro<small>1.596 incidentes</small></span><div class="tr"><i style="width:92%;--d:1060ms"></i></div><span class="vl">2,69</span></div>
-          <div class="l alto"><span class="nm">Falha de Banco de Dados<small>182 incidentes</small></span><div class="tr"><i style="width:76%;--d:1120ms"></i></div><span class="vl">2,20</span></div>
-          <div class="l alto"><span class="nm">Sem retorno do solicitante<small>329 incidentes</small></span><div class="tr"><i style="width:73%;--d:1180ms"></i></div><span class="vl">2,13</span></div>
-          <div class="l alto"><span class="nm">Incidente causado por Change<small>364 incidentes</small></span><div class="tr"><i style="width:47%;--d:1240ms"></i></div><span class="vl">1,37</span></div>
-          <div class="l"><span class="nm">Falha de Cloud<small>351 incidentes</small></span><div class="tr"><i style="width:29%;--d:1300ms"></i></div><span class="vl">0,85</span></div>
-          <div class="l volume"><span class="nm">Falha de Aplicação<small>12.041 incidentes, 60% da base</small></span><div class="tr"><i style="width:28%;--d:1360ms"></i></div><span class="vl">0,82</span></div>
+          <div class="l pico"><span class="nm">Falha de Storage<small>103 incidentes</small></span><div class="tr"><i style="width:100%;--d:1000ms"></i><u style="left:32%"></u></div><span class="vl">2,91</span></div>
+          <div class="l"><span class="nm">Outro<small>1.596 incidentes</small></span><div class="tr"><i style="width:92%;--d:1060ms"></i><u style="left:32%"></u></div><span class="vl">2,69</span></div>
+          <div class="l"><span class="nm">Falha de Banco de Dados<small>182 incidentes</small></span><div class="tr"><i style="width:76%;--d:1120ms"></i><u style="left:32%"></u></div><span class="vl">2,20</span></div>
+          <div class="l"><span class="nm">Sem retorno do solicitante<small>329 incidentes</small></span><div class="tr"><i style="width:73%;--d:1180ms"></i><u style="left:32%"></u></div><span class="vl">2,13</span></div>
+          <div class="l"><span class="nm">Incidente causado por Change<small>364 incidentes</small></span><div class="tr"><i style="width:47%;--d:1240ms"></i><u style="left:32%"></u></div><span class="vl">1,37</span></div>
+          <div class="l"><span class="nm">Falha de Cloud<small>351 incidentes</small></span><div class="tr"><i style="width:29%;--d:1300ms"></i><u style="left:32%"></u></div><span class="vl">0,85</span></div>
+          <div class="l vol"><span class="nm">Falha de Aplicação<small>12.041 incidentes &middot; 60% da base</small></span><div class="tr"><i style="width:28%;--d:1360ms"></i><u style="left:32%"></u></div><span class="vl">0,82</span></div>
         </div>
-        <p class="media rv" style="--d:1440ms">Média da base: <b>0,94%</b>. Os cinco de cima estão acima dela.</p>
+        <p class="media rv" style="--d:1700ms">O traço <span class="tick"></span> é a média da base, <b>0,94%</b>. Cinco causas ficam acima dela, e as duas maiores em volume ficam abaixo.</p>
       </div>
 
       <div class="painel gr rv3" style="--d:900ms">
         <h2>Por produto, categoria e prioridade</h2>
         <p class="un">os cinco grupos de maior taxa, entre 38 com 100 incidentes ou mais</p>
         <div class="lista">
-          <div class="l alto"><span class="nm"><em>lsin</em> / cat24 / <em>P3</em><small>259 incidentes, 6 quebras</small></span><div class="tr"><i style="width:100%;--d:1120ms"></i></div><span class="vz">2,46&times;<small>a média</small></span></div>
-          <div class="l alto"><span class="nm"><em>lgoa</em> / cat103 / <em>P3</em><small>312 incidentes, 6 quebras</small></span><div class="tr"><i style="width:83%;--d:1180ms"></i></div><span class="vz">2,04&times;<small>a média</small></span></div>
-          <div class="l alto"><span class="nm"><em>lrel</em> / cat123 / <em>P3</em><small>104 incidentes, 2 quebras</small></span><div class="tr"><i style="width:83%;--d:1240ms"></i></div><span class="vz">2,04&times;<small>a média</small></span></div>
-          <div class="l alto"><span class="nm"><em>lsin</em> / cat77 / <em>P2</em><small>515 incidentes, 8 quebras</small></span><div class="tr"><i style="width:67%;--d:1300ms"></i></div><span class="vz">1,65&times;<small>a média</small></span></div>
-          <div class="l alto"><span class="nm"><em>lssl</em> / cat102 / <em>P3</em><small>273 incidentes, 4 quebras</small></span><div class="tr"><i style="width:63%;--d:1360ms"></i></div><span class="vz">1,56&times;<small>a média</small></span></div>
+          <div class="l pico"><span class="nm"><em>lsin</em> / cat24 / <em>P3</em><small>259 incidentes, 6 quebras</small></span><div class="tr"><i style="width:100%;--d:1120ms"></i></div><span class="vl">2,46&times;<small>a média</small></span></div>
+          <div class="l"><span class="nm"><em>lgoa</em> / cat103 / <em>P3</em><small>312 incidentes, 6 quebras</small></span><div class="tr"><i style="width:83%;--d:1180ms"></i></div><span class="vl">2,04&times;<small>a média</small></span></div>
+          <div class="l"><span class="nm"><em>lrel</em> / cat123 / <em>P3</em><small>104 incidentes, 2 quebras</small></span><div class="tr"><i style="width:83%;--d:1240ms"></i></div><span class="vl">2,04&times;<small>a média</small></span></div>
+          <div class="l vol"><span class="nm"><em>lsin</em> / cat77 / <em>P2</em><small>515 incidentes, 8 quebras</small></span><div class="tr"><i style="width:67%;--d:1300ms"></i></div><span class="vl">1,65&times;<small>a média</small></span></div>
+          <div class="l"><span class="nm"><em>lssl</em> / cat102 / <em>P3</em><small>273 incidentes, 4 quebras</small></span><div class="tr"><i style="width:63%;--d:1360ms"></i></div><span class="vl">1,56&times;<small>a média</small></span></div>
         </div>
-        <p class="media rv" style="--d:1480ms">O cruzamento acha bolsões que nenhuma das três colunas acha sozinha, <b>nas duas prioridades</b>.</p>
+        <p class="media rv" style="--d:1760ms">O cruzamento acha bolsões que nenhuma das três colunas acha sozinha. O quarto é de <b>prioridade 2</b>, e é o de maior volume da lista.</p>
       </div>
     </div>
 
-    <div class="fecho rv" style="--d:1640ms">
+    <div class="fecho rv" style="--d:1900ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span><b>Falha de Aplicação</b> é 60% do volume e a segunda menor taxa da lista. Priorizar pelo que mais aparece é atender o que menos quebra.</span>
+      <span><b>Falha de Aplicação</b> é 60% do volume e a penúltima em taxa. Priorizar pelo que mais aparece é atender justamente o que menos quebra.</span>
     </div>
   </div>
   <div class="ft"></div>

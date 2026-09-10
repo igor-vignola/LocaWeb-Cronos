@@ -14,8 +14,12 @@
    O objeto é um corte transversal: um contorno que se desenha (a imagem
    Docker), e dentro dele quatro camadas que se preenchem de baixo para cima —
    Python e pandas, os dois modelos, o Django com as seis telas, e no topo uma
-   camada fina, o texto do resumo. Fora do contorno, à direita, fica o próximo
-   passo declarado: gerar esse texto com modelo de linguagem.
+   camada fina, o texto do resumo.
+
+   A etiqueta do próximo passo que ficava à direita foi removida: posicionada
+   por `right:-80px`, ela media a partir da borda direita do contorno e a
+   própria largura a jogava 126px para dentro dele, por cima do desenho. O
+   recado continua no pé do slide, que é onde ele já estava escrito.
 
    Não é grade de logos nem trilho de pipeline, que é o slide que todos os seis
    grupos vão mostrar. As camadas são nomeadas, e a hierarquia é a mensagem.
@@ -55,16 +59,6 @@
 .stk .cam.fina{height:50px;background:var(--accent-l);border-color:#C9DCFB}
 .stk .cam.fina b{font-size:15.5px;color:var(--accent)}
 
-/* o próximo passo, do lado de fora do contorno: o que ainda não está no
-   contêiner encosta na camada fina, mas não faz parte dela */
-.stk .fora{position:absolute;right:-80px;display:flex;align-items:center;gap:0;
-  opacity:0;transform:translate3d(14px,0,0)}
-.stk .fora .fio{width:38px;height:1.5px;background:var(--accent)}
-.stk .fora .et{width:168px;font-size:12px;line-height:1.42;color:var(--tx2);
-  padding-left:12px;border-left:2px dashed #C6D3E4}
-.stk .fora .et b{display:block;color:var(--head);font-weight:700;font-size:13px;margin-top:3px}
-.stk .fora .fio{border-top:1.5px dashed var(--accent);background:none;height:0}
-.stk.is-active .fora{animation:rv .55s var(--out) var(--d,0ms) forwards}
 
 /* os provedores, fora de tudo e sem ligação com o contorno */
 /* desce para não parecer que a marca da Claude é o cabeçalho desta coluna */
@@ -144,7 +138,6 @@
             <b>O texto de abertura do resumo</b>
           </div>
         </div>
-        <div class="fora prox" style="top:22px;--d:1900ms"><i class="fio"></i><span class="et">Próximo passo<br><b>gerar o texto com modelo de linguagem</b></span></div>
       </div>
 
       <div class="nuvens rv" style="--d:2200ms">
