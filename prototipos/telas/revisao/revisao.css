@@ -14,14 +14,6 @@
    primeira linha dela */
 .en-dp.rv-so-lista{grid-template-columns:minmax(0,1fr)}
 
-/* a primeira linha da lista é o caso do dia: fundo, corpo e o fator dominante
-   que só ela tem. Continua sendo uma linha, e não um cartão à parte. */
-.en-dp-i.rv-topo{background:#FFF8F1;border-left:3px solid #C2410C}
-.en-dp-i.rv-topo .en-dp-iv{font-size:1.24em}
-.en-dp-i.rv-topo .en-dp-ic .id{font-size:1.06em}
-.rv-topo-f{display:block;font-size:11.5px;line-height:1.4;color:#6B5544;margin-top:3px}
-.rv-topo-f b{color:#7C2D12;font-weight:700}
-
 /* a linha da meta: o que já aconteceu, a projeção e o teto da faixa numa
    frase só, no lugar do par de porcentagens de atingimento. Elas continuam
    na aba Projeção, que é onde a escada inteira mora. */
@@ -50,3 +42,26 @@
    altura vazia: ele esticava para acompanhar a lista de cinco ao lado. Passa
    a ter a altura do próprio conteúdo. */
 .en-dp-c{align-self:start}
+
+/* a faixa de rotina recolhida, na Fila. Trinta e quatro das 49 linhas dizem
+   "nada aqui", e ocupavam duas telas e meia. */
+.rv-rotina{border-top:1px solid var(--ln,#E6EAF0)}
+.rv-rotina > summary{display:flex;align-items:center;gap:14px;cursor:pointer;
+  padding:16px 20px;list-style:none;font-size:14px;color:#5A6779}
+.rv-rotina > summary::-webkit-details-marker{display:none}
+.rv-rotina > summary b{color:#0C1017;font-weight:700}
+.rv-rotina > summary em{margin-left:auto;font-style:normal;font-size:12.5px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;color:#2563EB}
+.rv-rotina[open] > summary em::after{content:" \2014 recolher"}
+.rv-rotina[open] > summary em{font-size:0}
+.rv-rotina[open] > summary em::after{font-size:12.5px}
+.rv-rotina > summary:hover{background:#F7F9FC}
+
+/* o resultado da conta, na mesma linha da decomposição. O trio de números que
+   ficava acima repetia o que a régua desenha; o que ele tinha de próprio era
+   o total projetado, e ele passa a fechar a soma. */
+.rv-igual{border-left:1px solid rgba(12,16,23,.12);padding-left:16px;margin-left:2px}
+.rv-igual b{color:#0C1017}
+
+/* sem a linha de apoio, a faixa escura sobrava altura embaixo do título */
+.pj-h,.fl-h{padding-bottom:22px}

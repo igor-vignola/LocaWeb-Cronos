@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<title>Cronos · revisão das duas primeiras abas</title>
+<title>Cronos · revisão das telas</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -83,12 +83,14 @@ body.aberta .gav{width:432px;border-left-color:var(--ln)}
 <body class="aberta" tabindex="-1">
 
 <div class="bar" onmouseenter="window.focus();document.body.focus()">
-  <span class="mk"><b>Cronos</b><span>revisão · duas primeiras abas</span></span>
+  <span class="mk"><b>Cronos</b><span>revisão das telas</span></span>
 
   <span class="gr"><em>Aba</em>
     <span class="seg" id="segAba">
       <button data-a="panorama" aria-pressed="true">Panorama</button>
       <button data-a="previsao" aria-pressed="false">Previsão</button>
+      <button data-a="projecao" aria-pressed="false">Projeção</button>
+      <button data-a="fila"     aria-pressed="false">Fila</button>
     </span>
   </span>
 
@@ -115,12 +117,18 @@ body.aberta .gav{width:432px;border-left-color:var(--ln)}
 <script>
 const FONTE = {
   panorama: {atual:'../../../app/index.html',          enxuta:'panorama-enxuta.html', livre:'panorama-livre.html'},
-  previsao: {atual:'../../../app/previsao/index.html', enxuta:'previsao-enxuta.html', livre:'previsao-livre.html'}
+  previsao: {atual:'../../../app/previsao/index.html', enxuta:'previsao-enxuta.html'},
+  projecao: {atual:'../../../app/projecao/index.html', enxuta:'projecao-enxuta.html', livre:'projecao-livre.html'},
+  fila:     {atual:'../../../app/fila/index.html',     enxuta:'fila-enxuta.html',     livre:'fila-livre.html'}
 };
 
+const NOME = {panorama:'Panorama', previsao:'Previsão', projecao:'Projeção', fila:'Fila'};
+
 const MEDIDA = {
-  panorama: {atual:[477,11,1743], enxuta:[329,4,1615], livre:[271,2,1581]},
-  previsao: {atual:[372,11,1614], enxuta:[213,3,1415], livre:[176,3,1216]}
+  panorama: {atual:[477,11,1743], enxuta:[329,4,1615], livre:[270,3,1561]},
+  previsao: {atual:[372,11,1614], enxuta:[213,3,1415]},
+  projecao: {atual:[228, 4, 950], enxuta:[185,3, 950], livre:[159,3, 950]},
+  fila:     {atual:[1182,3,3840], enxuta:[1141,1,3801], livre:[405,2,1534]}
 };
 
 const CORTES = {
@@ -155,23 +163,44 @@ const CORTES = {
       ['5','<q>A barra é o intervalo previsto. O tique é a média do dia da semana.</q> (nos dois cartões)','Repetia, palavra por palavra, metade do item 3 — três parágrafos acima.'],
       ['6','<q>Intervalo de 59 a 96 · 40 registrados até as 15h</q>, dentro das placas','É o que a faixa escura diz no topo, sem mudar uma vírgula.'],
       ['7','<q>Dia cheio não é dia de violação. Esta aba dimensiona a equipe. Quem diz em qual caso olhar é a fila.</q>','Opinião da tela sobre si mesma. O caminho para a Fila já está na navegação.']
+    ]
+  },
+  projecao: {
+    enxuta: [
+      ['1','<q>As violações de OLA já acumuladas em cada prioridade, e a nota em que dezembro deve terminar.</q>','É o título <q>Onde o ano fecha</q> escrito de novo, em 16 palavras.'],
+      ['2','A legenda <q>Já aconteceram · Intervalo da projeção · Projeção central</q>','A régua já traz <q>191 a 225</q> sobre a faixa e <q>100% até 263</q> na marca do teto.'],
+      ['3','<q>Entre 191 e 225 até dezembro</q>, sob PROJETADAS','É a mesma faixa, desenhada três linhas abaixo.']
     ],
     livre: [
-      ['A','O gráfico <q>Média por dia da semana</q> saiu','A média já é o tique dentro de cada barra dos oito dias. O gráfico de sete barras só mostrava de onde o tique veio — é o modelo explicando a si mesmo.'],
-      ['B','A ordem inverteu','Os oito dias vêm primeiro: são eles que dimensionam a equipe. O histórico emendado na previsão desceu, porque prova vem depois da afirmação.'],
-      ['C','Os títulos passaram a nomear a função','<q>O que vem pela frente</q> e <q>Como o modelo chegou nesses números</q>, no lugar de <q>Histórico recente e previsão</q> e <q>Base da previsão: a sazonalidade semanal</q>.']
+      ['A','O trio <q>Já aconteceram / Limite para 100% / Projetadas</q> saiu','Os três números estão na régua logo abaixo: 145 é a barra escura, 263 é a marca do teto, 208 é o tique no meio da faixa. E cada um vinha com uma linha de apoio própria.'],
+      ['B','A decomposição subiu para o topo do cartão','<q>145 já aconteceram + 5,3 de risco na fila aberta + 57,7 do volume que ainda entra</q> é a única coisa da tela que diz <b>de onde</b> a projeção sai. Agora ela fecha a conta: <q>= 208 projetadas até dezembro</q>, com o total vindo do próprio cartão que saiu.']
+    ]
+  },
+  fila: {
+    enxuta: [
+      ['1','<q>Os 49 casos abertos até as 15h, do maior risco para o menor.</q>','O título já diz <q>Em qual caso olhar primeiro</q>, e o contador está nos filtros logo abaixo.'],
+      ['2','<q>Escala até o limite de alerta, 10%</q>, no cabeçalho da coluna','As quatro faixas estão nomeadas nos filtros, com os intervalos, um bloco acima.'],
+      ['3','<q>O desfecho do OLA não é conhecido enquanto o caso está em aberto, então a fila mostra risco, e não violação.</q>','Metodologia no pé da tela. Ficou <q>49 casos · corte às 15h de hoje</q>, que é o fato.']
+    ],
+    livre: [
+      ['A','Os dois cartões de maior risco saíram','Eram as linhas 1 e 13 da tabela, abertas em tamanho grande, com o mesmo 8,1% escrito três vezes em cada um. A tabela já começa pelo maior risco.'],
+      ['B','Os 34 casos de rotina se recolhem','De 49 casos, 34 estão entre 0,0% e 1,0% de risco — uma violação a cada mil — e ocupavam duas telas e meia dizendo que não há o que fazer. Ficam atrás de uma linha que abre, e o filtro <q>Rotina</q> continua no topo. A tela passou de <b>4,0</b> para <b>1,6</b> telas.']
     ]
   }
 };
 
 let aba = 'panorama', ver = 'atual';
+const temVer = (a, v) => !!FONTE[a][v];
 
 function pinta(){
   document.getElementById('qd').src = FONTE[aba][ver];
   for (const b of document.querySelectorAll('#segAba button'))
     b.setAttribute('aria-pressed', String(b.dataset.a === aba));
-  for (const b of document.querySelectorAll('#segVer button'))
-    b.setAttribute('aria-pressed', String(b.dataset.v === ver));
+  for (const b of document.querySelectorAll('#segVer button')){
+    const tem = !!FONTE[aba][b.dataset.v];
+    b.hidden = !tem;
+    b.setAttribute('aria-pressed', String(tem && b.dataset.v === ver));
+  }
 
   const [p, f, a] = MEDIDA[aba][ver], base = MEDIDA[aba].atual;
   const dp = ver === 'atual' ? '' : ` <s>(${p - base[0]})</s>`;
@@ -183,7 +212,7 @@ function pinta(){
     `<span><b>${(a / 950).toFixed(1)}</b> telas${da}</span>`;
 
   const g = document.getElementById('gav');
-  const nome = aba === 'panorama' ? 'Panorama' : 'Previsão';
+  const nome = NOME[aba];
   if (ver === 'atual'){
     g.innerHTML = `<h2>${nome} · como está hoje</h2>
       <p class="nada">Esta é a página exportada da aplicação, carregada de <b>app/</b>,
@@ -200,7 +229,7 @@ function pinta(){
     <div class="res">
       <span class="pil"><b>${base[0] - p}</b> palavras a menos</span>
       <span class="pil"><b>${base[1] - f}</b> frases longas a menos</span>
-      <span class="pil"><b>${base[2] - a}px</b> de altura</span>
+      ${base[2] === a ? '' : `<span class="pil"><b>${base[2] - a}px</b> de altura</span>`}
     </div>`;
   if (ver === 'enxuta'){
     h += `<h3>Só cortes — vira Django trocando marcação</h3>${lista(CORTES[aba].enxuta)}`;
@@ -211,7 +240,10 @@ function pinta(){
 }
 
 document.getElementById('segAba').addEventListener('click', e => {
-  const b = e.target.closest('button'); if (!b) return; aba = b.dataset.a; pinta();
+  const b = e.target.closest('button'); if (!b) return;
+  aba = b.dataset.a;
+  if (!temVer(aba, ver)) ver = 'enxuta';   // a Previsao nao tem versao livre
+  pinta();
 });
 document.getElementById('segVer').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return; ver = b.dataset.v; pinta();
@@ -223,9 +255,15 @@ document.getElementById('btGav').addEventListener('click', e => {
 addEventListener('keydown', e => {
   if (e.target.tagName === 'INPUT') return;
   const vs = ['atual','enxuta','livre'];
-  if (e.key >= '1' && e.key <= '3'){ ver = vs[+e.key - 1]; pinta(); }
+  if (e.key >= '1' && e.key <= '3'){
+    const alvo = vs[+e.key - 1];
+    if (temVer(aba, alvo)){ ver = alvo; pinta(); }
+  }
   if (e.key === 'ArrowLeft' || e.key === 'ArrowRight'){
-    aba = aba === 'panorama' ? 'previsao' : 'panorama'; pinta();
+    const as = Object.keys(FONTE), n = as.length;
+    aba = as[(as.indexOf(aba) + (e.key === 'ArrowRight' ? 1 : n - 1)) % n];
+    if (!temVer(aba, ver)) ver = 'enxuta';
+    pinta();
   }
 });
 pinta();

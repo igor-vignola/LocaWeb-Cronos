@@ -39,8 +39,9 @@ AQUI = Path(__file__).parent
 RAIZ = AQUI.parents[2]
 APP = RAIZ / "app"
 
-# a profundidade daqui até app/estatico, para as folhas e os scripts
-PREFIXO = {"index.html": "../../../app/", "previsao/index.html": "../../../app/"}
+# a profundidade daqui até app/estatico é a mesma para toda aba, porque o
+# caminho é reescrito a partir da raiz de app/ e não da pasta da página
+PREFIXO = "../../../app/"
 
 
 # ── utilidades ──────────────────────────────────────────────────────────────
@@ -54,8 +55,8 @@ def reancora(s: BeautifulSoup, rel: str) -> None:
     Os links de navegação viram âncoras mortas: a comparação é de duas telas,
     e clicar em "Fila" a partir daqui levaria a lugar nenhum.
     """
-    base = PREFIXO[rel]
-    subiu = "../" if rel.startswith("previsao") else ""
+    base = PREFIXO
+    subiu = "../" if "/" in rel else ""
     for tag, attr in (("link", "href"), ("script", "src"), ("img", "src")):
         for n in s.find_all(tag):
             v = n.get(attr)
@@ -199,13 +200,16 @@ def panorama_livre() -> None:
         rot = lista.select_one(".en-dp-rh")
         if rot:
             rot.string = "Casos abertos, do maior risco para o menor"
+        # sem tinta e sem borda: o dono do projeto apontou a lista original
+        # como referência de ritmo, e ali as seis linhas são iguais. O fator
+        # dominante entra na MESMA linha do produto, para não abrir uma
+        # terceira linha só na primeira posição.
         topo = BeautifulSoup(
-            '<button class="en-dp-i wn rv-topo" data-mod="incidente" data-k="INC8552480">'
+            '<button class="en-dp-i wn" data-mod="incidente" data-k="INC8552480">'
             '<span class="en-dp-iv">8,1<u>%</u></span>'
             '<span class="en-fl-b"><i style="width:81.3%"></i></span>'
             '<span class="en-dp-ic"><b class="id">INC8552480</b>'
-            '<em>Lsin · Team10 · 15h</em>'
-            '<em class="rv-topo-f">Fator dominante: <b>produto lsin</b>, 54% do peso</em>'
+            '<em>Lsin · Team10 · 15h · produto lsin, 54% do peso</em>'
             '</span>'
             '<span class="pn-i-s"><svg class="ic" width="15" height="15" aria-hidden="true">'
             '<use href="#i-seta"></use></svg></span></button>', "html.parser")
@@ -321,7 +325,130 @@ def previsao_livre() -> None:
     salva(s, "previsao-livre.html")
 
 
+# ═══ PROJEÇÃO ══════════════════════════════════════════════════════════════
+def _projecao_base() -> BeautifulSoup:
+    s = carrega("projecao/index.html"); reancora(s, "projecao/index.html")
+
+    # "As violações de OLA já acumuladas em cada prioridade, e a nota em que
+    # dezembro deve terminar." É o título "Onde o ano fecha" outra vez.
+    limpa(s, ".pj-h p")
+
+    # a régua já traz "191 a 225" escrito em cima da faixa e "100% até 263" na
+    # marca do teto. A legenda de três itens embaixo diz o mesmo em palavra.
+    limpa(s, ".pj-rg .pj-lg, .pj-rg-l, .pj-rg > .lg")
+    for l in s.select(".pj-rg div, .pj-rg p"):
+        if "Já aconteceram" in l.get_text() and "Intervalo da projeção" in l.get_text():
+            l.decompose()
+
+    # sob PROJETADAS estava "Entre 191 e 225 até dezembro", que é a mesma
+    # faixa desenhada na régua três linhas abaixo
+    for e in s.select(".pj-n em, .pj-n small, .pj-n span"):
+        if e.get_text(strip=True).startswith("Entre "):
+            e.decompose()
+    return s
+
+
+def projecao_enxuta() -> None:
+    s = _projecao_base()
+    folha(s, livre=False)
+    salva(s, "projecao-enxuta.html")
+
+
+def projecao_livre() -> None:
+    """A conta da projeção sobe: é ela que responde de onde vem o número."""
+    s = _projecao_base()
+
+    # o trio "Já aconteceram / Limite para 100% / Projetadas" repete em número
+    # o que a régua desenha logo abaixo, com o agravante de que cada um traz
+    # uma linha de apoio própria. A régua fica; a decomposição, que é a única
+    # coisa da tela que explica de ONDE sai a projeção, sobe para o lugar dela.
+    for card in s.select(".pj-c"):
+        trio, dec, regua = (card.select_one(".pj-n"), card.select_one(".pj-dec"),
+                            card.select_one(".pj-rg"))
+        if not (trio and dec and regua):
+            continue
+        # a conta fecha na própria linha: o resultado sai do cartão "Projetadas"
+        # que estava no trio, e não de soma feita aqui
+        proj = ""
+        for c in trio.select(".pj-n-c"):
+            if "Projetadas" in c.get_text():
+                b = c.select_one("b")
+                proj = b.get_text(strip=True) if b else ""
+        if proj:
+            dec.append(BeautifulSoup(
+                f'<span class="rv-igual">= <b>{proj}</b> <em>projetadas até dezembro</em>'
+                f'</span>', "html.parser"))
+        trio.decompose()
+        regua.insert_before(dec.extract())
+
+    folha(s, livre=True)
+    salva(s, "projecao-livre.html")
+
+
+# ═══ FILA ══════════════════════════════════════════════════════════════════
+def _fila_base() -> BeautifulSoup:
+    s = carrega("fila/index.html"); reancora(s, "fila/index.html")
+
+    # "Os 49 casos abertos até as 15h, do maior risco para o menor." é o
+    # título "Em qual caso olhar primeiro" dito de novo, e o contador já está
+    # nos filtros logo abaixo.
+    limpa(s, ".fl-h p")
+
+    # "Escala até o limite de alerta, 10%" no cabeçalho da coluna: as faixas
+    # estão nomeadas nos filtros, com os intervalos, dois blocos acima.
+    for e in s.select(".fl-tb-h em, .fl-tb-h small, .fl-tb-h span span"):
+        if "Escala at" in e.get_text():
+            e.decompose()
+
+    # "O desfecho do OLA não é conhecido enquanto o caso está em aberto, então
+    # a fila mostra risco, e não violação." Metodologia no pé da tela.
+    for frase in s.select("p.fl-tb-f"):
+        if "desfecho do OLA" in frase.get_text():
+            # sobra a contagem e o corte, que sao fato; sai a explicacao de por
+            # que a coluna se chama risco e nao violacao
+            frase.string = "49 casos · corte às 15h de hoje."
+    return s
+
+
+def fila_enxuta() -> None:
+    s = _fila_base()
+    folha(s, livre=False)
+    salva(s, "fila-enxuta.html")
+
+
+def fila_livre() -> None:
+    """Trinta e quatro das 49 linhas dizem 'nada aqui'. Elas se recolhem."""
+    s = _fila_base()
+
+    # 1 · os dois cartões do topo são as linhas 1 e 13 da tabela, abertas em
+    # tamanho grande, com o mesmo 8,1% escrito três vezes em cada um. A tabela
+    # já começa pelo maior risco: o cartão não acrescenta posição nenhuma.
+    limpa(s, ".fl-rs")
+
+    # 2 · a fila tem 49 casos e 34 deles estão na faixa de rotina, de 0,0% a
+    # 1,0% — uma violação a cada mil. Eles ocupam duas telas e meia dizendo
+    # que não há o que fazer. Ficam recolhidos atrás de um resumo, e o filtro
+    # "Rotina" continua no topo para quem quiser todos.
+    linhas = s.select(".fl-tb .fl-l")
+    rotina = [l for l in linhas if "rotina" in l.get_text(" ", strip=True).lower()]
+    if rotina:
+        det = s.new_tag("details"); det["class"] = "rv-rotina"
+        res = s.new_tag("summary")
+        res.append(BeautifulSoup(
+            f"<span><b>{len(rotina)} casos na faixa de rotina</b>, de 0,0% a 1,0% de risco"
+            f"</span><em>abrir</em>", "html.parser"))
+        det.append(res)
+        rotina[0].insert_before(det)
+        for l in rotina:
+            det.append(l.extract())
+
+    folha(s, livre=True)
+    salva(s, "fila-livre.html")
+
+
 if __name__ == "__main__":
     print("gerando as versões:")
     panorama_enxuta(); panorama_livre()
-    previsao_enxuta(); previsao_livre()
+    projecao_enxuta(); projecao_livre()
+    fila_enxuta(); fila_livre()
+    previsao_enxuta()

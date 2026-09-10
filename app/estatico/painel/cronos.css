@@ -482,11 +482,14 @@ tr:focus-visible{outline:0;box-shadow:inset 0 0 0 2px var(--ac)}
 .campo .cam{transform:translate3d(calc(var(--viagem,0px) * var(--prof)),0,0);
  transition:transform .9s cubic-bezier(.08,.92,.16,1)}
 /* traco de 1.4 com opacidade baixa desaparecia atras do vidro dos cartoes: sobrava linha visivel
-   so nas margens da pagina. 1.8 mantem a linha discreta e a faz existir. */
-.campo .cv{fill:none;stroke:var(--cv);stroke-width:1.8;stroke-linecap:round;opacity:0;
+   so nas margens da pagina. 1.8 fazia a linha existir, e em 10/09/2026 desceu 20% para 1.44:
+   discreta de novo, sem sumir. A entrada tambem ficou 50% mais rapida — 2.6s de tracado e .9s
+   de opacidade viraram 1.3s e .45s, e os atrasos por linha no _campo.html cairam pela metade.
+   O balanco (cvm) nao mudou: ele e o ambiente, nao a entrada. */
+.campo .cv{fill:none;stroke:var(--cv);stroke-width:1.44;stroke-linecap:round;opacity:0;
  stroke-dasharray:4200;stroke-dashoffset:4200;
- animation:cvd 2.6s cubic-bezier(.19,1,.22,1) var(--t) forwards,
-           cvo .9s ease var(--t) forwards,
+ animation:cvd 1.3s cubic-bezier(.19,1,.22,1) var(--t) forwards,
+           cvo .45s ease var(--t) forwards,
            cvm var(--d) ease-in-out infinite alternate}
 @keyframes cvd{to{stroke-dashoffset:0}}
 @keyframes cvo{to{opacity:var(--o)}}
