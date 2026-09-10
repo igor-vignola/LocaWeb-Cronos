@@ -1,0 +1,120 @@
+<style>
+/* ═══ slide 16 · o erro do Prophet contra os baselines ════════════════════════
+   Cópia do d15n do deck da Sprint 3, que o dono do projeto mandou seguir de
+   perto: a figura à esquerda, e à direita um cartão por prioridade com as duas
+   barras, o veredito de cada uma e, embaixo, a linha que fecha o assunto.
+
+   É o segundo slide da previsão de volume. O anterior mostra uma semana
+   prevista contra o que chegou; este responde se vale a pena ter modelo.
+
+   A resposta é honesta e é por isso que o slide existe: na prioridade 2 o
+   Prophet ganha por 15%; na prioridade 3 o melhor baseline fica 4,5% à frente.
+   Dizer isso antes que a banca pergunte vale mais do que esconder.
+
+   MAE médio no rolling backtest, de D+1 a D+7, com reajuste a cada origem:
+     P2   Prophet 4,2   melhor baseline 4,9   ganho de 15%
+     P3   Prophet 11,8  melhor baseline 11,3  baseline à frente por 4,5%
+   As barras usam o maior valor de cada par como 100% da escala.
+   Figura em figs/09_erro_horizonte.png, gerada pelo notebook de previsão.
+   ══════════════════════════════════════════════════════════════════════════ */
+.err .body{padding-top:14px}
+.err .tt{font-size:44px;letter-spacing:-1.6px}
+.err .tt em{font-style:normal;color:var(--accent)}
+.err .sub{font-size:16.5px;line-height:1.45;color:var(--tx);margin-top:10px}
+.err .cena{flex:1;display:flex;align-items:stretch;gap:30px;margin-top:16px;min-height:0}
+.err .quadro{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;
+  padding:16px 20px}
+.err .fig{display:block;max-width:100%;max-height:100%;width:auto}
+
+.err .rail{width:344px;flex-shrink:0;display:flex;flex-direction:column;gap:14px;
+  justify-content:center}
+.err .cx{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 22px;
+  box-shadow:0 18px 44px -36px rgba(15,23,42,.5)}
+.err .cx .k{font-size:11px;font-weight:700;letter-spacing:1.9px;text-transform:uppercase;
+  color:var(--tx2)}
+.err .lin{display:grid;grid-template-columns:104px 1fr 42px;align-items:center;gap:12px;
+  margin-top:14px}
+.err .lin span{font-size:14.5px;color:var(--tx)}
+.err .lin .tr{height:13px;border-radius:7px;background:#EDF1F7;overflow:hidden}
+.err .lin .tr i{display:block;height:100%;border-radius:7px;transform:scaleX(0);
+  transform-origin:left}
+.err.is-active .lin .tr i{animation:corre .7s var(--out) var(--d,0ms) forwards}
+.err .lin.mo span{color:var(--head);font-weight:700}
+.err .lin.mo .tr i{background:var(--accent)}
+.err .lin.mo b{color:var(--accent)}
+.err .lin.bl .tr i{background:#9AA6B6}
+.err .lin.bl b{color:var(--tx2)}
+.err .lin b{font-size:17px;font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+.err .vd{display:inline-block;margin-top:16px;font-size:13.5px;font-weight:700;
+  border-radius:999px;padding:7px 15px}
+.err .cx.ganha .vd{color:#12794A;background:#E7F6EE;border:1px solid #C7E9D7}
+.err .cx.perde .vd{color:#8A5B08;background:#FBF1DC;border:1px solid #EFDCB3}
+
+.err .final{background:#F7FAFF;border:1px solid #D8E4F7;border-radius:16px;padding:18px 22px;
+  font-size:16px;line-height:1.45;color:var(--head);font-weight:700}
+
+.err .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:16px;
+  border-top:1px solid #DCE4EF;font-size:16px;line-height:1.45;color:var(--tx)}
+.err .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.err .fecho b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light err" data-slide="16" data-var="a" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Previsão de volume &middot; resultado</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Previsão de volume &middot; rolling backtest</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Comparação do erro do Prophet com os baselines, por horizonte</span></span></h1>
+    <p class="sub rv" style="--d:620ms">Cada curva é o erro médio de um método em cada horizonte, no mesmo protocolo de reajuste.</p>
+
+    <div class="cena">
+      <div class="quadro cartao rv3" style="--d:760ms">
+        <img class="fig" src="../figs/09_erro_horizonte.png" alt="Erro medio do Prophet comparado com os baselines em cada horizonte, de D+1 a D+7, nas duas prioridades">
+      </div>
+
+      <div class="rail">
+        <div class="cx ganha rv3" style="--d:960ms">
+          <div class="k">P2 &middot; MAE médio, menor é melhor</div>
+          <div class="lin mo">
+            <span>Prophet</span>
+            <div class="tr"><i style="width:86%;--d:1120ms"></i></div>
+            <b>4,2</b>
+          </div>
+          <div class="lin bl">
+            <span>Melhor baseline</span>
+            <div class="tr"><i style="width:100%;--d:1200ms"></i></div>
+            <b>4,9</b>
+          </div>
+          <span class="vd">Ganho de 15%</span>
+        </div>
+
+        <div class="cx perde rv3" style="--d:1120ms">
+          <div class="k">P3 &middot; MAE médio, menor é melhor</div>
+          <div class="lin mo">
+            <span>Prophet</span>
+            <div class="tr"><i style="width:100%;--d:1280ms"></i></div>
+            <b>11,8</b>
+          </div>
+          <div class="lin bl">
+            <span>Melhor baseline</span>
+            <div class="tr"><i style="width:96%;--d:1360ms"></i></div>
+            <b>11,3</b>
+          </div>
+          <span class="vd">Baseline à frente por 4,5%</span>
+        </div>
+
+        <div class="final rv" style="--d:1560ms">O erro não cresce do primeiro ao sétimo dia.</div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:1740ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+      <span>Mantemos o Prophet porque ele ganha onde a meta estourou e <b>devolve faixa e calendário</b>, que o baseline não devolve e o resumo das 07h precisa.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

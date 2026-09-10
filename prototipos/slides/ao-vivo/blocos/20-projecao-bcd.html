@@ -1,0 +1,249 @@
+<style>
+/* ═══ slide 20 · variações B, C e D ═══════════════════════════════════════════
+   O dono do projeto escolheu a composição A e pediu três variações em cima
+   dela, todas atrás da mesma coisa: destrinchar o que é a meta e como se lê o
+   trilho. Nenhuma muda o desenho do trilho, os números ou as escalas.
+
+     B  ganha a legenda que nomeia cada parte do trilho e diz de onde sai o
+        limite do ano
+     C  ganha a leitura em quatro passos, numerada sobre o trilho da P2 e
+        acesa em sequência
+     D  põe a meta num cartão à esquerda, com os dois limites escritos, e os
+        trilhos passam para a direita
+
+   Herdam tudo de `.prj`, no bloco 20-projecao.html. Números idênticos aos da
+   composição A, de data/interim/06_projecao.parquet, corte de 01/10/2025:
+     P2  já 33 · faixa 38 a 49 · projeção 43,5 · limite 39 · fechou em 42
+     P3  já 145 · faixa 191 a 225 · projeção 208,0 · limite 263 · fechou em 196
+   Escalas do trilho: 0 a 55 na P2 e 0 a 290 na P3.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── B · a legenda do trilho ─────────────────────────────────────────────── */
+.pj-b .cena{gap:56px}
+/* grade de quatro colunas: em flex com gap os quatro itens não cabiam numa
+   linha só e a legenda quebrava no meio de um deles */
+.pj-b .legenda{display:grid;grid-template-columns:auto auto auto 1fr;align-items:center;
+  gap:0 30px;padding-top:22px;border-top:1px solid #DCE4EF;font-size:14px;color:var(--tx2)}
+.pj-b .legenda .it{display:flex;align-items:center;gap:10px;white-space:nowrap}
+.pj-b .legenda .am{width:24px;height:13px;border-radius:4px;flex-shrink:0}
+.pj-b .legenda .am.ja{background:var(--head)}
+.pj-b .legenda .am.fx{background:rgba(37,99,235,.26);border-left:2px solid var(--accent);
+  border-right:2px solid var(--accent)}
+.pj-b .legenda .am.lm{width:24px;height:0;background:none;border-radius:0;
+  border-top:2px dashed var(--head)}
+.pj-b .legenda b{color:var(--head);font-weight:700}
+.pj-b .legenda .fonte{margin-left:auto;text-align:right;max-width:34ch;line-height:1.4}
+
+/* ── C · a leitura em quatro passos ──────────────────────────────────────── */
+.pj-c .cena{gap:60px}
+.pj-c .passo{position:absolute;top:-13px;width:26px;height:26px;border-radius:50%;
+  background:var(--accent);color:#fff;font-size:13px;font-weight:800;display:flex;
+  align-items:center;justify-content:center;transform:translateX(-50%) scale(0);z-index:4;
+  box-shadow:0 6px 16px -6px rgba(37,99,235,.7)}
+.pj-c.is-active .passo{animation:pipoca2 .5s var(--spring) var(--d,0ms) forwards}
+@keyframes pipoca2{to{transform:translateX(-50%) scale(1)}}
+.pj-c .passo.escuro{background:var(--head);box-shadow:0 6px 16px -6px rgba(11,18,32,.6)}
+/* o quarto passo é o veredito, e ele mora no selo e não no trilho */
+.pj-c .passo4{display:inline-flex;align-items:center;justify-content:center;width:20px;
+  height:20px;border-radius:50%;background:var(--bad);color:#fff;font-size:11.5px;
+  font-weight:800;font-style:normal;margin-left:9px;transform:scale(0)}
+.pj-c.is-active .passo4{animation:pipoca3 .5s var(--spring) 1980ms forwards}
+@keyframes pipoca3{to{transform:scale(1)}}
+.pj-c .guia{display:grid;grid-template-columns:repeat(4,1fr);gap:0 22px;padding-top:22px;
+  border-top:1px solid #DCE4EF}
+.pj-c .guia .g{display:flex;gap:12px;opacity:0;transform:translate3d(0,10px,0)}
+.pj-c.is-active .guia .g{animation:rv .5s var(--out) var(--d,0ms) forwards}
+.pj-c .guia .n{width:24px;height:24px;border-radius:50%;background:#EDF1F7;color:var(--head);
+  font-size:12.5px;font-weight:800;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0}
+.pj-c .guia p{font-size:14.5px;line-height:1.42;color:var(--tx2)}
+.pj-c .guia p b{color:var(--head);font-weight:700}
+
+/* ── D · a meta num cartão à esquerda ────────────────────────────────────── */
+.pj-d .corpo2{flex:1;display:grid;grid-template-columns:376px 1fr;gap:0 56px;
+  align-items:center;margin-top:12px;min-height:0}
+.pj-d .cena{gap:62px;margin-top:0}
+.pj-d .oque{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px 30px;
+  box-shadow:0 22px 54px -40px rgba(15,23,42,.45)}
+.pj-d .oque .k{font-size:11.5px;font-weight:700;letter-spacing:2.1px;text-transform:uppercase;
+  color:var(--accent)}
+.pj-d .oque h2{font-size:24px;font-weight:800;letter-spacing:-.6px;color:var(--head);
+  margin-top:12px;line-height:1.25}
+.pj-d .oque p{font-size:15.5px;line-height:1.5;color:var(--tx2);margin-top:12px}
+.pj-d .lims{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px;
+  padding-top:20px;border-top:1px solid #EDF1F7}
+.pj-d .lims div b{display:block;font-size:38px;font-weight:900;letter-spacing:-1.6px;
+  color:var(--head);line-height:1;font-variant-numeric:tabular-nums}
+.pj-d .lims div span{display:block;font-size:13px;color:var(--tx2);margin-top:8px}
+.pj-d .oque .fnt{font-size:12.5px;color:#A6B0BE;margin-top:18px}
+</style>
+
+<!-- ─────────────── B · a legenda que nomeia cada parte do trilho ─────────── -->
+<section class="slide light prj pj-b" data-slide="20" data-var="b" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Projeção de 1º de outubro de 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">O pedido do mentor</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>A meta do ano vai fechar?</span></span></h1>
+
+    <div class="cena">
+      <div class="pr fora">
+        <div class="cab rv" style="--d:640ms"><b>Prioridade 2</b><span class="sel">Vai passar do limite</span></div>
+        <div class="trilho">
+          <i class="ja" style="width:60%;--d:760ms"></i>
+          <i class="faixa" style="left:69.5%;width:19%;--d:1300ms"></i>
+          <i class="proj" style="left:79.1%;--d:1500ms"></i>
+          <i class="lim" style="left:70.9%;--d:1700ms"><em>limite 39</em></i>
+        </div>
+        <div class="rots">
+          <span style="left:60%;--d:900ms"><b>33</b><s>até 30 de setembro</s></span>
+          <span class="azul" style="left:79.1%;--d:1560ms"><b>38 a 49</b><s>projeção para dezembro</s></span>
+        </div>
+      </div>
+
+      <div class="pr dentro">
+        <div class="cab rv" style="--d:820ms"><b>Prioridade 3</b><span class="sel">Fecha dentro</span></div>
+        <div class="trilho">
+          <i class="ja" style="width:50%;--d:940ms"></i>
+          <i class="faixa" style="left:65.7%;width:12%;--d:1400ms"></i>
+          <i class="proj" style="left:71.7%;--d:1600ms"></i>
+          <i class="lim" style="left:90.7%;--d:1800ms"><em>limite 263</em></i>
+        </div>
+        <div class="rots">
+          <span style="left:50%;--d:1080ms"><b>145</b><s>até 30 de setembro</s></span>
+          <span class="azul" style="left:71.7%;--d:1660ms"><b>191 a 225</b><s>projeção para dezembro</s></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="legenda rv" style="--d:2100ms">
+      <span class="it"><i class="am ja"></i><b>já aconteceu</b></span>
+      <span class="it"><i class="am fx"></i><b>onde dezembro termina</b></span>
+      <span class="it"><i class="am lm"></i><b>limite do ano</b></span>
+      <span class="fonte">O limite é quantas violações de OLA a operação pode ter no ano em cada prioridade, na régua da Locaweb.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>
+
+<!-- ─────────────── C · a leitura em quatro passos ────────────────────────── -->
+<section class="slide light prj pj-c" data-slide="20" data-var="c" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Projeção de 1º de outubro de 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">O pedido do mentor</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>A meta do ano vai fechar?</span></span></h1>
+
+    <div class="cena">
+      <div class="pr fora">
+        <div class="cab rv" style="--d:640ms"><b>Prioridade 2</b><span class="sel">Vai passar do limite <i class="passo4">4</i></span></div>
+        <div class="trilho">
+          <i class="ja" style="width:60%;--d:760ms"></i>
+          <i class="faixa" style="left:69.5%;width:19%;--d:1300ms"></i>
+          <i class="proj" style="left:79.1%;--d:1500ms"></i>
+          <i class="lim" style="left:70.9%;--d:1700ms"><em>limite 39</em></i>
+          <span class="passo escuro" style="left:30%;--d:1000ms">1</span>
+          <span class="passo" style="left:79.1%;--d:1580ms">2</span>
+          <span class="passo escuro" style="left:70.9%;--d:1780ms">3</span>
+        </div>
+        <div class="rots">
+          <span style="left:60%;--d:900ms"><b>33</b><s>até 30 de setembro</s></span>
+          <span class="azul" style="left:79.1%;--d:1560ms"><b>38 a 49</b><s>projeção para dezembro</s></span>
+        </div>
+      </div>
+
+      <div class="pr dentro">
+        <div class="cab rv" style="--d:820ms"><b>Prioridade 3</b><span class="sel">Fecha dentro</span></div>
+        <div class="trilho">
+          <i class="ja" style="width:50%;--d:940ms"></i>
+          <i class="faixa" style="left:65.7%;width:12%;--d:1400ms"></i>
+          <i class="proj" style="left:71.7%;--d:1600ms"></i>
+          <i class="lim" style="left:90.7%;--d:1800ms"><em>limite 263</em></i>
+        </div>
+        <div class="rots">
+          <span style="left:50%;--d:1080ms"><b>145</b><s>até 30 de setembro</s></span>
+          <span class="azul" style="left:71.7%;--d:1660ms"><b>191 a 225</b><s>projeção para dezembro</s></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="guia">
+      <div class="g" style="--d:2000ms"><span class="n">1</span><p><b>O que já aconteceu</b> no ano, até o corte de 30 de setembro.</p></div>
+      <div class="g" style="--d:2120ms"><span class="n">2</span><p><b>Onde o ano termina</b>, segundo a projeção, com a faixa de incerteza.</p></div>
+      <div class="g" style="--d:2240ms"><span class="n">3</span><p><b>O limite do ano</b>: quantas violações a operação pode ter na prioridade.</p></div>
+      <div class="g" style="--d:2360ms"><span class="n">4</span><p><b>O veredito</b>: se a faixa passa do limite, a meta está em risco.</p></div>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>
+
+<!-- ─────────────── D · a meta explicada num cartão à esquerda ────────────── -->
+<section class="slide light prj pj-d" data-slide="20" data-var="d" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Projeção de 1º de outubro de 2025</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">O pedido do mentor</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>A meta do ano vai fechar?</span></span></h1>
+
+    <div class="corpo2">
+      <div class="oque rv3" style="--d:620ms">
+        <div class="k">O que é a meta</div>
+        <h2>Quantas violações de OLA a operação pode ter no ano</h2>
+        <p>Uma por prioridade, definida pela Locaweb. Passou do número, o indicador do ano fecha abaixo do combinado.</p>
+        <div class="lims">
+          <div><b><span class="ct" data-to="39" data-delay="900">0</span></b><span>na prioridade 2, prazo de 4 horas</span></div>
+          <div><b><span class="ct" data-to="263" data-delay="1000">0</span></b><span>na prioridade 3, prazo de 12 horas</span></div>
+        </div>
+        <p class="fnt">O trilho ao lado é o mesmo componente da tela de Projeção do sistema.</p>
+      </div>
+
+      <div class="cena">
+        <div class="pr fora">
+          <div class="cab rv" style="--d:820ms"><b>Prioridade 2</b><span class="sel">Vai passar do limite</span></div>
+          <div class="trilho">
+            <i class="ja" style="width:60%;--d:940ms"></i>
+            <i class="faixa" style="left:69.5%;width:19%;--d:1400ms"></i>
+            <i class="proj" style="left:79.1%;--d:1580ms"></i>
+            <i class="lim" style="left:70.9%;--d:1760ms"><em>limite 39</em></i>
+          </div>
+          <div class="rots">
+            <span style="left:60%;--d:1060ms"><b>33</b><s>até 30 de setembro</s></span>
+            <span class="azul" style="left:79.1%;--d:1640ms"><b>38 a 49</b><s>projeção para dezembro</s></span>
+          </div>
+        </div>
+
+        <div class="pr dentro">
+          <div class="cab rv" style="--d:1000ms"><b>Prioridade 3</b><span class="sel">Fecha dentro</span></div>
+          <div class="trilho">
+            <i class="ja" style="width:50%;--d:1120ms"></i>
+            <i class="faixa" style="left:65.7%;width:12%;--d:1500ms"></i>
+            <i class="proj" style="left:71.7%;--d:1680ms"></i>
+            <i class="lim" style="left:90.7%;--d:1860ms"><em>limite 263</em></i>
+          </div>
+          <div class="rots">
+            <span style="left:50%;--d:1240ms"><b>145</b><s>até 30 de setembro</s></span>
+            <span class="azul" style="left:71.7%;--d:1740ms"><b>191 a 225</b><s>projeção para dezembro</s></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:2100ms">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+      <span>As duas chamadas certas, <b>três meses antes da apuração</b>: o ano fechou em 42 na prioridade 2, acima do limite, e em 196 na prioridade 3, dentro.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

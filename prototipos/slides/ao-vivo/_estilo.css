@@ -20,8 +20,12 @@
   --inout:cubic-bezier(.77,0,.175,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
+/* altura travada em 100% e sem rolagem em lugar nenhum: com min-height:100dvh
+   o Opera abria uma barra de rolagem vertical, e a barra estreitava a janela
+   depois de o fit() já ter medido, o que cortava o slide do lado direito */
+html,body{height:100%;overflow:hidden}
 body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;overflow:hidden;min-height:100dvh}
+  text-rendering:optimizeLegibility}
 #fit{position:fixed;inset:0;display:grid;place-items:center}
 #stage{width:1600px;height:900px;position:relative;overflow:hidden;transform-origin:center;
   box-shadow:0 40px 130px -50px rgba(0,0,0,.7)}
@@ -308,3 +312,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .dv3.is-active .cob .tr i{animation:corre .8s var(--out) var(--d,0ms) forwards}
 .dv3 .cob b{font-size:14.5px;font-weight:700;color:#E8ECF3;text-align:right;
   font-variant-numeric:tabular-nums}
+
+/* legenda do gráfico da divisória de previsão */
+.dv3 .eixo3{display:flex;justify-content:space-between;font-size:12px;color:#7A8494;
+  margin-top:10px}

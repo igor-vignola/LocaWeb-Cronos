@@ -1,0 +1,92 @@
+<!-- ───────────────────────────────────────────────────────────────────────────
+     slide 19 · divisória da projeção da meta e da saúde
+     Cópia do d34a do deck da Sprint 3, que o dono do projeto pediu igual: é a
+     seção em que os dois modelos se combinam para responder a pergunta do
+     mentor, e a nota de saúde por produto entra junto porque sai da mesma
+     leitura.
+
+     O painel traz a projeção de 1º de outubro contra o limite do ano, com as
+     duas prioridades na mesma tela. Números de data/app/painel.json, campo
+     projecao, e os limites da faixa de 100% do dicionário:
+       P2  projeta 43,5 · limite 39 · acima
+       P3  projeta 208,0 · limite 263 · dentro
+     As barras usam o limite como 100% da escala de cada prioridade, e o traço
+     branco marca onde o limite cai.
+     ─────────────────────────────────────────────────────────────────────── -->
+<style>
+/* as duas barras da projeção contra a meta, com a marca do limite */
+.dv3 .meta{margin-top:16px;display:flex;flex-direction:column;gap:14px}
+.dv3 .meta .l{display:grid;grid-template-columns:30px 1fr 126px;align-items:center;gap:14px}
+.dv3 .meta .p{font-family:var(--mono);font-size:13px;color:#7A8494}
+.dv3 .meta .tr{position:relative;height:20px;border-radius:10px;
+  background:rgba(255,255,255,.08);overflow:visible}
+.dv3 .meta .tr i{display:block;height:100%;border-radius:10px;transform:scaleX(0);
+  transform-origin:left}
+.dv3.is-active .meta .tr i{animation:corre .85s var(--out) var(--d,0ms) forwards}
+.dv3 .meta .l.fora .tr i{background:linear-gradient(90deg,#EF4444,#DC2626)}
+.dv3 .meta .l.dentro .tr i{background:linear-gradient(90deg,#22C55E,#15A05B)}
+.dv3 .meta .tr u{position:absolute;top:-5px;bottom:-5px;width:2px;background:#fff;
+  border-radius:2px;text-decoration:none;opacity:0}
+.dv3.is-active .meta .tr u{animation:rv .4s var(--out) var(--d,0ms) forwards}
+.dv3 .meta .vl{text-align:right}
+.dv3 .meta .vl b{display:block;font-size:19px;font-weight:800;color:#fff;line-height:1;
+  font-variant-numeric:tabular-nums}
+.dv3 .meta .vl span{display:block;font-size:12px;color:#7A8494;margin-top:5px}
+.dv3 .meta .nota{display:flex;justify-content:space-between;gap:26px;font-size:12px;
+  color:#5B647A;margin-top:12px}
+</style>
+
+<section class="slide dark dv3" data-slide="19" data-var="a" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Seção 04 &middot; Os modelos juntos</div>
+  </div>
+  <div class="body">
+    <div class="lft">
+      <span class="eb"><span class="rv" style="--d:220ms">Seção 04 &middot; Os modelos juntos</span></span>
+      <h1 class="tt">
+        <span class="mask" style="--d:340ms"><span>Projeção da</span></span>
+        <span class="mask" style="--d:450ms"><span>meta e <span class="hl">saúde</span></span></span>
+      </h1>
+      <p class="lead rv" style="--d:820ms">Os dois modelos se combinam para responder se o ano fecha dentro da meta, e cada produto recebe uma nota que sintetiza a sua condição operacional.</p>
+      <div class="q rv" style="--d:1900ms">
+        <span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
+        <span>A pergunta desta seção: <b>o ano fecha dentro da meta?</b></span>
+      </div>
+    </div>
+    <div class="pv rv3" style="--d:900ms">
+      <div class="pvh"><span class="dot"></span>Projeção feita em 01/10/2025</div>
+      <div class="pvgrid">
+        <div class="pc rv" style="--d:1160ms">
+          <div class="pl">Antecedência</div>
+          <div class="pn"><span class="ct" data-to="3" data-delay="1260">0</span><span class="u">meses</span></div>
+          <div class="ps">antes da apuração de dezembro</div>
+        </div>
+        <div class="pc rv" style="--d:1280ms">
+          <div class="pl">Chamadas certas</div>
+          <div class="pn"><span class="ct" data-to="2" data-delay="1380">0</span><span class="u">de 2</span></div>
+          <div class="ps">nas duas prioridades do indicador</div>
+        </div>
+        <div class="pc wide rv" style="--d:1400ms">
+          <div class="pl">Violações projetadas para o ano, contra o limite</div>
+          <div class="meta">
+            <div class="l fora">
+              <span class="p">P2</span>
+              <div class="tr"><i style="width:100%;--d:1560ms"></i><u style="left:89.7%;--d:2000ms"></u></div>
+              <span class="vl"><b>43,5</b><span>de 39 permitidas</span></span>
+            </div>
+            <div class="l dentro">
+              <span class="p">P3</span>
+              <div class="tr"><i style="width:79.1%;--d:1680ms"></i><u style="left:100%;--d:2080ms"></u></div>
+              <span class="vl"><b>208,0</b><span>de 263 permitidas</span></span>
+            </div>
+          </div>
+          <div class="nota"><span>o traço branco é o limite do ano</span><span>P2 acima &middot; P3 dentro</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Projeção por três parcelas &middot; o que já aconteceu, o que a fila aberta ainda deve virar e o ritmo até dezembro</span></div>
+</section>

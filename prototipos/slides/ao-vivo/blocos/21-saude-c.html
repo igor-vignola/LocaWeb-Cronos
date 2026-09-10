@@ -1,0 +1,131 @@
+<style>
+/* ═══ slide 21 · variação C · as duas ordens ══════════════════════════════════
+   O dono do projeto pediu algo na forma do slide de causas do deck da Sprint 3,
+   dois painéis lado a lado, e mais limpo.
+
+   Os dois painéis mostram os mesmos quinze produtos em ordens diferentes: à
+   esquerda pela nota de saúde, à direita pela taxa de perda de prazo. E as
+   ordens não coincidem, que é o que explica a nota sem precisar de fórmula: a
+   nota junta cinco medidas, e a taxa é só uma delas.
+
+   O exemplo que faz o ponto sozinho é o lgoa: taxa de 1,88%, a segunda maior
+   dos quinze, e mesmo assim nota 68,0, a segunda melhor. Ele perde prazo com
+   frequência mas resolve rápido, fecha com causa e a taxa está caindo.
+
+   O lvps é o pior nos dois painéis, e é por isso que ele encabeça a fila.
+
+   Dados de data/app/painel.json, campo saude, corte de 01/10/2025. A nota vai
+   de 0 a 100 e as barras de taxa usam 2,90% como 100% da escala.
+   ══════════════════════════════════════════════════════════════════════════ */
+.sdc .body{padding-top:14px}
+.sdc .tt{font-size:50px;letter-spacing:-1.8px}
+.sdc .sub{font-size:17px;line-height:1.45;color:var(--tx);margin-top:10px}
+.sdc .sub b{color:var(--head);font-weight:700}
+.sdc .cena{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0 26px;
+  align-items:stretch;margin-top:16px;min-height:0}
+
+.sdc .painel{background:#fff;border:1px solid var(--line);border-radius:20px;
+  padding:22px 26px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5);
+  display:flex;flex-direction:column}
+.sdc .painel h2{font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
+.sdc .painel .un{font-size:12.5px;color:var(--tx2);margin-top:5px}
+.sdc .lista{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;
+  gap:5px;margin-top:14px}
+.sdc .l{display:grid;grid-template-columns:52px 1fr 48px;align-items:center;gap:12px}
+.sdc .l .nm{font-family:var(--mono);font-size:12.5px;color:#AAB4C2;text-align:right}
+.sdc .l .tr{height:12px;border-radius:6px;background:#EDF1F7;overflow:hidden}
+.sdc .l .tr i{display:block;height:100%;border-radius:6px;background:#C4CEDC;
+  transform:scaleX(0);transform-origin:left}
+.sdc.is-active .l .tr i{animation:corre .6s var(--out) var(--d,0ms) forwards}
+.sdc .l .vl{font-size:12.5px;color:#AAB4C2;text-align:right;font-variant-numeric:tabular-nums}
+/* o pior dos dois painéis, e o caso que mostra que as ordens não coincidem */
+.sdc .l.pior .nm,.sdc .l.pior .vl{color:var(--bad);font-weight:800;font-size:14px}
+.sdc .l.pior .tr i{background:var(--bad)}
+.sdc .l.pior .tr{height:17px}
+.sdc .l.marca .nm,.sdc .l.marca .vl{color:var(--accent);font-weight:800;font-size:14px}
+.sdc .l.marca .tr i{background:var(--accent)}
+.sdc .l.marca .tr{height:17px}
+
+.sdc .rodape{display:flex;gap:16px;margin-top:auto;padding-top:18px;
+  border-top:1px solid #DCE4EF}
+.sdc .cd{flex:1;border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:16px}
+.sdc .cd.vermelho{background:#FCECEC;border:1px solid #F6CFCF}
+.sdc .cd.azul{background:#F1F6FE;border:1px solid #D3E2FA}
+.sdc .cd .id{font-family:var(--mono);font-size:19px;font-weight:500;flex-shrink:0}
+.sdc .cd.vermelho .id{color:#B42222}
+.sdc .cd.azul .id{color:var(--accent)}
+.sdc .cd p{font-size:14.5px;line-height:1.42;color:var(--tx)}
+.sdc .cd p b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light sdc" data-slide="21" data-var="c" data-quem="hygor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Nota de saúde &middot; 15 produtos</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Diferencial 2</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Onde agir primeiro</span></span></h1>
+    <p class="sub rv" style="--d:620ms">Os mesmos quinze produtos em duas ordens. <b>Elas não coincidem</b>, e é isso que a nota resolve: ela junta cinco medidas, e a taxa de perda de prazo é só uma delas.</p>
+
+    <div class="cena">
+      <div class="painel rv3" style="--d:780ms">
+        <h2>Nota de saúde, da pior para a melhor</h2>
+        <p class="un">de 0 a 100, quanto maior melhor</p>
+        <div class="lista">
+          <div class="l pior"><span class="nm">lvps</span><div class="tr"><i style="width:21.3%;--d:1000ms"></i></div><span class="vl">21,3</span></div>
+          <div class="l"><span class="nm">lrdo</span><div class="tr"><i style="width:25.3%;--d:1040ms"></i></div><span class="vl">25,3</span></div>
+          <div class="l"><span class="nm">lcsp</span><div class="tr"><i style="width:26.7%;--d:1080ms"></i></div><span class="vl">26,7</span></div>
+          <div class="l"><span class="nm">lssl</span><div class="tr"><i style="width:30.7%;--d:1120ms"></i></div><span class="vl">30,7</span></div>
+          <div class="l"><span class="nm">lrel</span><div class="tr"><i style="width:32%;--d:1160ms"></i></div><span class="vl">32,0</span></div>
+          <div class="l"><span class="nm">lsin</span><div class="tr"><i style="width:41.3%;--d:1200ms"></i></div><span class="vl">41,3</span></div>
+          <div class="l"><span class="nm">lsaa</span><div class="tr"><i style="width:42.7%;--d:1240ms"></i></div><span class="vl">42,7</span></div>
+          <div class="l"><span class="nm">lcsi</span><div class="tr"><i style="width:48%;--d:1280ms"></i></div><span class="vl">48,0</span></div>
+          <div class="l"><span class="nm">lemg</span><div class="tr"><i style="width:49.3%;--d:1320ms"></i></div><span class="vl">49,3</span></div>
+          <div class="l"><span class="nm">lhco</span><div class="tr"><i style="width:56%;--d:1360ms"></i></div><span class="vl">56,0</span></div>
+          <div class="l"><span class="nm">lhvp</span><div class="tr"><i style="width:60%;--d:1400ms"></i></div><span class="vl">60,0</span></div>
+          <div class="l"><span class="nm">lrev</span><div class="tr"><i style="width:62.7%;--d:1440ms"></i></div><span class="vl">62,7</span></div>
+          <div class="l"><span class="nm">lcem</span><div class="tr"><i style="width:66.7%;--d:1480ms"></i></div><span class="vl">66,7</span></div>
+          <div class="l marca"><span class="nm">lgoa</span><div class="tr"><i style="width:68%;--d:1520ms"></i></div><span class="vl">68,0</span></div>
+          <div class="l"><span class="nm">lcho</span><div class="tr"><i style="width:69.3%;--d:1560ms"></i></div><span class="vl">69,3</span></div>
+        </div>
+      </div>
+
+      <div class="painel rv3" style="--d:900ms">
+        <h2>Taxa de perda de prazo, da maior para a menor</h2>
+        <p class="un">% dos incidentes do produto que passaram do prazo</p>
+        <div class="lista">
+          <div class="l pior"><span class="nm">lvps</span><div class="tr"><i style="width:100%;--d:1120ms"></i></div><span class="vl">2,90</span></div>
+          <div class="l marca"><span class="nm">lgoa</span><div class="tr"><i style="width:64.8%;--d:1160ms"></i></div><span class="vl">1,88</span></div>
+          <div class="l"><span class="nm">lsin</span><div class="tr"><i style="width:63.4%;--d:1200ms"></i></div><span class="vl">1,84</span></div>
+          <div class="l"><span class="nm">lssl</span><div class="tr"><i style="width:48.3%;--d:1240ms"></i></div><span class="vl">1,40</span></div>
+          <div class="l"><span class="nm">lrdo</span><div class="tr"><i style="width:45.9%;--d:1280ms"></i></div><span class="vl">1,33</span></div>
+          <div class="l"><span class="nm">lrel</span><div class="tr"><i style="width:45.2%;--d:1320ms"></i></div><span class="vl">1,31</span></div>
+          <div class="l"><span class="nm">lsaa</span><div class="tr"><i style="width:32.8%;--d:1360ms"></i></div><span class="vl">0,95</span></div>
+          <div class="l"><span class="nm">lhvp</span><div class="tr"><i style="width:32.4%;--d:1400ms"></i></div><span class="vl">0,94</span></div>
+          <div class="l"><span class="nm">lcsp</span><div class="tr"><i style="width:31%;--d:1440ms"></i></div><span class="vl">0,90</span></div>
+          <div class="l"><span class="nm">lhco</span><div class="tr"><i style="width:25.9%;--d:1480ms"></i></div><span class="vl">0,75</span></div>
+          <div class="l"><span class="nm">lcho</span><div class="tr"><i style="width:24.1%;--d:1520ms"></i></div><span class="vl">0,70</span></div>
+          <div class="l"><span class="nm">lemg</span><div class="tr"><i style="width:21.4%;--d:1560ms"></i></div><span class="vl">0,62</span></div>
+          <div class="l"><span class="nm">lcem</span><div class="tr"><i style="width:19.7%;--d:1600ms"></i></div><span class="vl">0,57</span></div>
+          <div class="l"><span class="nm">lrev</span><div class="tr"><i style="width:16.9%;--d:1640ms"></i></div><span class="vl">0,49</span></div>
+          <div class="l"><span class="nm">lcsi</span><div class="tr"><i style="width:3.4%;--d:1680ms"></i></div><span class="vl">0,10</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rodape">
+      <div class="cd vermelho rv" style="--d:1900ms">
+        <span class="id">lvps</span>
+        <p>Pior nos dois painéis: <b>nota 21,3</b> e <b>2,90%</b> de perda de prazo, três vezes a média da base. É por onde a semana começa.</p>
+      </div>
+      <div class="cd azul rv" style="--d:2020ms">
+        <span class="id">lgoa</span>
+        <p>Perde prazo com frequência, <b>1,88%</b>, e mesmo assim tem a <b>segunda melhor nota</b>: resolve rápido, fecha com causa e a taxa está caindo.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>
