@@ -1,67 +1,65 @@
 <style>
-/* ═══ slide 5 · as quebras de 2025 ════════════════════════════════════════════
-   A composição escolhida pelo dono do projeto entre três: a estrutura da
-   primeira com o tratamento da segunda.
+/* ═══ slide 5 · as quebras de 2025 ══════════════════════════════════════════
+   Os dois números no centro, cada um com o limite do ano e o selo de situação.
 
-   Da A vem a composição: os dois números sozinhos no centro da tela, do mesmo
-   tamanho, separados por um fio, sem coluna de texto ao lado. É o que faz o
-   slide caber em quinze segundos.
-
-   Da B vem o tratamento: cor por situação, o limite escrito embaixo do número,
-   o selo de dentro ou fora, e a curva do acumulado com o limite tracejado, que
-   é o que responde "quando o ano virou".
+   Duas composições anteriores caíram: a do trilho de prazo, que não dizia como
+   o ano andou, e a da curva do acumulado mês a mês, pequena demais para ser
+   lida de longe. Ficaram três degraus, out, nov e dez, com o acumulado de cada um.
+   É a mesma história em três números em vez de doze pontos, e o degrau que
+   passa do limite fica vermelho e sozinho.
 
    Acumulado de 2025, de data/interim/incidentes_kpi.parquet:
-     P2   4  8 11 13 19 22 28 31 33 35 41 42     cruza as 39 em novembro
-     P3  19 40 56 66 81 109 132 146 155 164 179 196     nunca chega a 263
-   Escala do desenho: P2 de 0 a 45 e P3 de 0 a 280, viewBox de 96 esticado
-   para 132px, então o marcador é elipse e não círculo.
+     P2  out 35 · nov 41 · dez 42     limite 39, passa em novembro
+     P3  out 164 · nov 179 · dez 196  limite 263, nunca chega perto
    ══════════════════════════════════════════════════════════════════════════ */
-.qbc .body{padding-top:14px}
-.qbc .tt{font-size:52px;letter-spacing:-1.9px}
-.qbc .cena{flex:1;display:flex;align-items:center;justify-content:center;gap:96px;
+.qbd .body{padding-top:14px}
+.qbd .tt{font-size:52px;letter-spacing:-1.9px}
+.qbd .cena{flex:1;display:flex;align-items:center;justify-content:center;gap:96px;
   margin-top:10px;min-height:0}
-.qbc .fio{width:1px;align-self:stretch;margin:36px 0;
+.qbd .fio{width:1px;align-self:stretch;margin:40px 0;
   background:linear-gradient(180deg,transparent,#D9E1EC 18%,#D9E1EC 82%,transparent)}
 
-.qbc .un{width:430px;display:flex;flex-direction:column;align-items:center;text-align:center}
-.qbc .un .cb{font-size:12px;font-weight:700;letter-spacing:2.3px;text-transform:uppercase;
+.qbd .un{width:430px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.qbd .un .cb{font-size:12px;font-weight:700;letter-spacing:2.3px;text-transform:uppercase;
   color:var(--tx2)}
-.qbc .un .n{font-size:172px;font-weight:900;letter-spacing:-8px;line-height:.84;
+.qbd .un .n{font-size:168px;font-weight:900;letter-spacing:-7.8px;line-height:.84;
   margin-top:18px;font-variant-numeric:tabular-nums}
-.qbc .un.fora .n{color:var(--bad)}
-.qbc .un.dentro .n{color:var(--good)}
-.qbc .un .lim{font-size:18px;color:var(--tx);margin-top:22px}
-.qbc .un .lim b{color:var(--head);font-weight:800}
+.qbd .un.fora .n{color:var(--bad)}
+.qbd .un.dentro .n{color:var(--good)}
+.qbd .un .lim{font-size:18px;color:var(--tx);margin-top:20px}
+.qbd .un .lim b{color:var(--head);font-weight:800}
 
-/* a curva do ano, com o limite tracejado */
-.qbc .graf{width:100%;margin-top:30px;position:relative}
-.qbc .graf svg{width:100%;height:132px;display:block;overflow:visible}
-.qbc .graf svg.sobre{position:absolute;left:0;top:0}
-.qbc .cur{fill:none;stroke-width:2.8;stroke-linejoin:round;stroke-linecap:round;
-  stroke-dasharray:var(--len);stroke-dashoffset:var(--len)}
-.qbc.is-active .cur{animation:tracar 1.3s var(--out) var(--d,0ms) forwards}
-.qbc .marca{opacity:0}
-.qbc.is-active .marca{animation:rv .5s var(--out) var(--d,0ms) forwards}
-.qbc .eixo{display:flex;justify-content:space-between;width:100%;font-family:var(--mono);
-  font-size:12px;letter-spacing:.6px;color:#AEB9C7;margin-top:10px}
-.qbc .nota{font-size:15px;color:var(--tx2);margin-top:14px}
-.qbc .nota b{font-weight:700}
-.qbc .un.fora .nota b{color:var(--bad)}
-.qbc .un.dentro .nota b{color:var(--good)}
+/* os três degraus do fim do ano */
+.qbd .degraus{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;
+  margin-top:30px}
+.qbd .dg{border-radius:14px;border:1px solid var(--line);background:#fff;padding:16px 10px;
+  opacity:0;transform:translate3d(0,12px,0)}
+.qbd.is-active .dg{animation:rv .55s var(--out) var(--d,0ms) forwards}
+.qbd .dg .m{font-family:var(--mono);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;
+  color:#A6B0BE}
+.qbd .dg .a{font-size:34px;font-weight:900;letter-spacing:-1.4px;color:var(--head);
+  margin-top:9px;line-height:1;font-variant-numeric:tabular-nums}
+/* o degrau que passa do limite */
+.qbd .dg.passou{border-color:#F5C2C2;background:#FFF6F6}
+.qbd .dg.passou .a{color:var(--bad)}
+.qbd .dg.passou .m{color:#C97070}
+.qbd .marca{font-size:14.5px;color:var(--tx2);margin-top:16px}
+.qbd .marca b{font-weight:700}
+.qbd .un.fora .marca b{color:var(--bad)}
+.qbd .un.dentro .marca b{color:var(--good)}
 
-.qbc .sel{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-size:14.5px;
+.qbd .sel{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-size:14.5px;
   font-weight:700;border-radius:999px;padding:9px 19px}
-.qbc .un.fora .sel{color:#B42222;background:#FCECEC;border:1px solid #F6CFCF}
-.qbc .un.dentro .sel{color:#12794A;background:#E7F6EE;border:1px solid #C7E9D7}
+.qbd .un.fora .sel{color:#B42222;background:#FCECEC;border:1px solid #F6CFCF}
+.qbd .un.dentro .sel{color:#12794A;background:#E7F6EE;border:1px solid #C7E9D7}
 
-.qbc .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
+.qbd .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
   border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
-.qbc .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
-.qbc .fecho b{color:var(--head);font-weight:700}
+.qbd .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.qbd .fecho b{color:var(--head);font-weight:700}
 </style>
 
-<section class="slide light qbc" data-slide="5" data-var="a" data-quem="igor">
+<section class="slide light qbd" data-slide="5" data-var="a" data-quem="igor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -77,24 +75,13 @@
         <div class="cb rv" style="--d:700ms">Prioridade 2</div>
         <div class="n"><span class="ct" data-to="42" data-delay="840">0</span></div>
         <p class="lim rv" style="--d:940ms">violações de <b>39 permitidas</b></p>
-        <div class="graf rv" style="--d:1080ms">
-          <svg viewBox="0 0 250 96" preserveAspectRatio="none" aria-hidden="true">
-            <line x1="0" y1="11.7" x2="250" y2="11.7" stroke="#DC2626" stroke-width="1.4"
-              stroke-dasharray="5 5" opacity=".5" vector-effect="non-scaling-stroke"/>
-            <path class="cur" style="--len:340;--d:1220ms" stroke="#DC2626"
-              vector-effect="non-scaling-stroke"
-              d="M0,80.2 L22.7,72.4 L45.5,66.5 L68.2,62.6 L90.9,50.8 L113.6,45 L136.4,33.2 L159.1,27.4 L181.8,23.5 L204.5,19.6 L227.3,8 L250,6.1"/>
-          </svg>
-          <svg class="sobre" viewBox="0 0 250 96" preserveAspectRatio="none" aria-hidden="true">
-            <g class="marca" style="--d:2380ms">
-              <ellipse cx="227.3" cy="8" rx="4.6" ry="7" fill="#DC2626" opacity=".15"/>
-              <ellipse cx="227.3" cy="8" rx="1.9" ry="2.9" fill="#DC2626"/>
-            </g>
-          </svg>
+        <div class="degraus">
+          <div class="dg" style="--d:1200ms"><div class="m">outubro</div><div class="a">35</div></div>
+          <div class="dg passou" style="--d:1400ms"><div class="m">novembro</div><div class="a">41</div></div>
+          <div class="dg passou" style="--d:1600ms"><div class="m">dezembro</div><div class="a">42</div></div>
         </div>
-        <div class="eixo rv" style="--d:2420ms"><span>jan</span><span>dez</span></div>
-        <p class="nota rv" style="--d:2460ms">passou o limite em <b>novembro</b></p>
-        <span class="sel rv" style="--d:2560ms">Acima do limite do ano</span>
+        <p class="marca rv" style="--d:1800ms">passou o limite em <b>novembro</b></p>
+        <span class="sel rv" style="--d:1900ms">Acima do limite do ano</span>
       </div>
 
       <div class="fio"></div>
@@ -103,25 +90,17 @@
         <div class="cb rv" style="--d:780ms">Prioridade 3</div>
         <div class="n"><span class="ct" data-to="196" data-delay="920">0</span></div>
         <p class="lim rv" style="--d:1020ms">violações de <b>263 permitidas</b></p>
-        <div class="graf rv" style="--d:1160ms">
-          <svg viewBox="0 0 250 96" preserveAspectRatio="none" aria-hidden="true">
-            <line x1="0" y1="5.3" x2="250" y2="5.3" stroke="#15A05B" stroke-width="1.4"
-              stroke-dasharray="5 5" opacity=".5" vector-effect="non-scaling-stroke"/>
-            <path class="cur" style="--len:340;--d:1300ms" stroke="#15A05B"
-              vector-effect="non-scaling-stroke"
-              d="M0,82 L22.7,75.4 L45.5,70.4 L68.2,67.3 L90.9,62.5 L113.6,53.7 L136.4,46.5 L159.1,42.1 L181.8,39.3 L204.5,36.5 L227.3,31.7 L250,26.4"/>
-          </svg>
-          <svg class="sobre" viewBox="0 0 250 96" preserveAspectRatio="none" aria-hidden="true">
-            <g class="marca" style="--d:2380ms"><ellipse cx="247.5" cy="26.4" rx="1.9" ry="2.9" fill="#15A05B"/></g>
-          </svg>
+        <div class="degraus">
+          <div class="dg" style="--d:1280ms"><div class="m">outubro</div><div class="a">164</div></div>
+          <div class="dg" style="--d:1480ms"><div class="m">novembro</div><div class="a">179</div></div>
+          <div class="dg" style="--d:1680ms"><div class="m">dezembro</div><div class="a">196</div></div>
         </div>
-        <div class="eixo rv" style="--d:2500ms"><span>jan</span><span>dez</span></div>
-        <p class="nota rv" style="--d:2540ms">fechou o ano a <b>67 do limite</b></p>
-        <span class="sel rv" style="--d:2640ms">Dentro do limite do ano</span>
+        <p class="marca rv" style="--d:1860ms">fechou o ano a <b>67 do limite</b></p>
+        <span class="sel rv" style="--d:1960ms">Dentro do limite do ano</span>
       </div>
     </div>
 
-    <div class="fecho rv" style="--d:2760ms">
+    <div class="fecho rv" style="--d:2100ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 6.8V12l3.4 2"/></svg>
       <span>Em outubro a prioridade 2 estava em <b>35</b>, dentro do limite. Um único mês somou seis, e <b>o resultado só apareceu na apuração de dezembro</b>.</span>
     </div>

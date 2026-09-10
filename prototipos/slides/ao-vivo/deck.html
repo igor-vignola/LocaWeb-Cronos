@@ -680,13 +680,13 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .med .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .med .fecho b{color:var(--head);font-weight:700}
 
-/* ───── 05-quebras-b.html ───── */
-/* ═══ slide 5 · variação B · sem curva ════════════════════════════════════════
-   Mesma estrutura da A: os dois números no centro, cada um com o limite do ano
-   e o selo de situação. O que muda é o desenho debaixo do número.
+/* ───── 05-quebras.html ───── */
+/* ═══ slide 5 · as quebras de 2025 ══════════════════════════════════════════
+   Os dois números no centro, cada um com o limite do ano e o selo de situação.
 
-   A curva do acumulado mês a mês era pequena demais para ser lida de longe. No
-   lugar dela entram três degraus, out, nov e dez, com o acumulado de cada um.
+   Duas composições anteriores caíram: a do trilho de prazo, que não dizia como
+   o ano andou, e a da curva do acumulado mês a mês, pequena demais para ser
+   lida de longe. Ficaram três degraus, out, nov e dez, com o acumulado de cada um.
    É a mesma história em três números em vez de doze pontos, e o degrau que
    passa do limite fica vermelho e sozinho.
 
@@ -739,68 +739,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
 .qbd .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .qbd .fecho b{color:var(--head);font-weight:700}
-
-/* ───── 05-quebras.html ───── */
-/* ═══ slide 5 · as quebras de 2025 ════════════════════════════════════════════
-   A composição escolhida pelo dono do projeto entre três: a estrutura da
-   primeira com o tratamento da segunda.
-
-   Da A vem a composição: os dois números sozinhos no centro da tela, do mesmo
-   tamanho, separados por um fio, sem coluna de texto ao lado. É o que faz o
-   slide caber em quinze segundos.
-
-   Da B vem o tratamento: cor por situação, o limite escrito embaixo do número,
-   o selo de dentro ou fora, e a curva do acumulado com o limite tracejado, que
-   é o que responde "quando o ano virou".
-
-   Acumulado de 2025, de data/interim/incidentes_kpi.parquet:
-     P2   4  8 11 13 19 22 28 31 33 35 41 42     cruza as 39 em novembro
-     P3  19 40 56 66 81 109 132 146 155 164 179 196     nunca chega a 263
-   Escala do desenho: P2 de 0 a 45 e P3 de 0 a 280, viewBox de 96 esticado
-   para 132px, então o marcador é elipse e não círculo.
-   ══════════════════════════════════════════════════════════════════════════ */
-.qbc .body{padding-top:14px}
-.qbc .tt{font-size:52px;letter-spacing:-1.9px}
-.qbc .cena{flex:1;display:flex;align-items:center;justify-content:center;gap:96px;
-  margin-top:10px;min-height:0}
-.qbc .fio{width:1px;align-self:stretch;margin:36px 0;
-  background:linear-gradient(180deg,transparent,#D9E1EC 18%,#D9E1EC 82%,transparent)}
-
-.qbc .un{width:430px;display:flex;flex-direction:column;align-items:center;text-align:center}
-.qbc .un .cb{font-size:12px;font-weight:700;letter-spacing:2.3px;text-transform:uppercase;
-  color:var(--tx2)}
-.qbc .un .n{font-size:172px;font-weight:900;letter-spacing:-8px;line-height:.84;
-  margin-top:18px;font-variant-numeric:tabular-nums}
-.qbc .un.fora .n{color:var(--bad)}
-.qbc .un.dentro .n{color:var(--good)}
-.qbc .un .lim{font-size:18px;color:var(--tx);margin-top:22px}
-.qbc .un .lim b{color:var(--head);font-weight:800}
-
-/* a curva do ano, com o limite tracejado */
-.qbc .graf{width:100%;margin-top:30px;position:relative}
-.qbc .graf svg{width:100%;height:132px;display:block;overflow:visible}
-.qbc .graf svg.sobre{position:absolute;left:0;top:0}
-.qbc .cur{fill:none;stroke-width:2.8;stroke-linejoin:round;stroke-linecap:round;
-  stroke-dasharray:var(--len);stroke-dashoffset:var(--len)}
-.qbc.is-active .cur{animation:tracar 1.3s var(--out) var(--d,0ms) forwards}
-.qbc .marca{opacity:0}
-.qbc.is-active .marca{animation:rv .5s var(--out) var(--d,0ms) forwards}
-.qbc .eixo{display:flex;justify-content:space-between;width:100%;font-family:var(--mono);
-  font-size:12px;letter-spacing:.6px;color:#AEB9C7;margin-top:10px}
-.qbc .nota{font-size:15px;color:var(--tx2);margin-top:14px}
-.qbc .nota b{font-weight:700}
-.qbc .un.fora .nota b{color:var(--bad)}
-.qbc .un.dentro .nota b{color:var(--good)}
-
-.qbc .sel{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-size:14.5px;
-  font-weight:700;border-radius:999px;padding:9px 19px}
-.qbc .un.fora .sel{color:#B42222;background:#FCECEC;border:1px solid #F6CFCF}
-.qbc .un.dentro .sel{color:#12794A;background:#E7F6EE;border:1px solid #C7E9D7}
-
-.qbc .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
-  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
-.qbc .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
-.qbc .fecho b{color:var(--head);font-weight:700}
 
 /* ───── 06-antecipar.html ───── */
 /* ═══ slide 6 · por que o estouro é difícil de antecipar ══════════════════════
@@ -1008,116 +946,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .rc-a .fig{width:690px}
 .rc-a .lado{flex:1;min-width:0;display:flex;flex-direction:column;gap:22px}
 
-/* ───── 10-sinais-b.html ───── */
-/* ═══ slide 10 · variação B · os dois multiplicadores ═════════════════════════
-   A variação anterior, de cartões flutuantes com uma ficha no meio, foi
-   descartada. Esta vai no sentido oposto: tira tudo o que não é a conclusão.
-
-   O objeto são os dois multiplicadores em corpo grande, um por corte. Debaixo
-   de cada um, duas linhas finas com as taxas que produziram aquele número, e
-   nada mais. Sem cartão, sem trilho, sem moldura: só tipografia e muito
-   branco, que é o que o dono do projeto chama de imersivo.
-
-   Os multiplicadores contam e a régua de comparação se desenha depois deles,
-   então o olho chega primeiro na conclusão e só então confere a conta.
-
-   Mesmos números da variação A, base elegível ao KPI de 2025:
-     quem abre     pessoa 1,24% em 15.671 · monitoramento 0,46% em 9.485 · 2,7x
-                   vale nas duas prioridades: 3,0x na 2 e 3,1x na 3
-     quando chega  fim de semana 1,88% (24/dia) · dia útil 0,85% (67/dia) · 2,2x
-                   na prioridade 2 o efeito some: 0,75% contra 0,83%
-   ══════════════════════════════════════════════════════════════════════════ */
-.snb .body{padding-top:14px}
-.snb .tt{font-size:52px;letter-spacing:-1.9px}
-.snb .cena{flex:1;display:grid;grid-template-columns:1fr 1px 1fr;gap:0 76px;
-  align-items:center;margin-top:6px;min-height:0}
-.snb .div{align-self:stretch;margin:26px 0;
-  background:linear-gradient(180deg,transparent,#DCE4EF 16%,#DCE4EF 84%,transparent)}
-
-.snb .cab{display:flex;align-items:center;gap:11px;font-size:12px;font-weight:700;
-  letter-spacing:2.2px;text-transform:uppercase;color:var(--tx2)}
-.snb .cab .ic{width:17px;height:17px;color:var(--accent)}
-
-/* o número que se fala, e é ele que ocupa a tela */
-.snb .heroi{display:flex;align-items:baseline;gap:4px;margin-top:34px}
-.snb .heroi .v{font-size:180px;font-weight:900;letter-spacing:-8.5px;line-height:.8;
-  color:var(--accent);font-variant-numeric:tabular-nums}
-.snb .heroi em{font-style:normal;font-size:74px;font-weight:900;letter-spacing:-2px;
-  color:var(--accent)}
-.snb .diz{font-size:24px;line-height:1.35;color:var(--head);font-weight:600;
-  letter-spacing:-.4px;margin-top:26px;max-width:22ch}
-.snb .diz b{font-weight:800}
-
-/* a conta, em duas linhas finas */
-.snb .conta{margin-top:38px;padding-top:22px;border-top:1px solid #DCE4EF}
-.snb .l{display:grid;grid-template-columns:1fr 92px;align-items:baseline;gap:18px;
-  padding:11px 0;opacity:0;transform:translate3d(0,8px,0)}
-.snb.is-active .l{animation:rv .5s var(--out) var(--d,0ms) forwards}
-.snb .l + .l{border-top:1px solid #EDF1F7}
-.snb .l .nm{font-size:18px;color:var(--tx)}
-.snb .l .nm .chip{font-family:var(--mono);font-size:11px;color:var(--tx2);background:#F1F5FB;
-  border:1px solid var(--line);border-radius:5px;padding:1px 6px;margin-left:8px;
-  vertical-align:2px}
-.snb .l .nm small{display:block;font-size:13.5px;color:#A6B0BE;margin-top:4px}
-.snb .l .tx{font-size:26px;font-weight:800;text-align:right;letter-spacing:-.8px;
-  font-variant-numeric:tabular-nums}
-.snb .l.alto .nm{color:var(--head);font-weight:700}
-.snb .l.alto .tx{color:var(--head)}
-.snb .l.baixo .nm,.snb .l.baixo .tx{color:#A6B0BE}
-
-.snb .pri{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.42;
-  color:var(--tx2);margin-top:22px}
-.snb .pri .ic{width:16px;height:16px;margin-top:2px;flex-shrink:0;color:#9AA6B6}
-.snb .pri b{color:var(--head);font-weight:700}
-
-.snb .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:20px;
-  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
-.snb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
-.snb .fecho b{color:var(--head);font-weight:700}
-
-/* ───── 10-sinais-c.html ───── */
-/* ═══ slide 10 · variação C · a A sobre cartões que pairam ════════════════════
-   Pedido do dono do projeto: a variação A exatamente como está, sem mexer na
-   estrutura, só com os dois blocos apoiados em cartões flutuantes.
-
-   O que muda em relação à A: some o fio divisório entre as colunas, que o
-   cartão já separa, e cada cartão respira devagar com fase própria, num
-   deslocamento de 6px que não move texto de lugar. Em `prefers-reduced-motion`
-   a respiração para e fica só a entrada.
-
-   Herda todo o resto de `.sin`, no bloco 10-sinais.html. Nenhum número muda.
-   ══════════════════════════════════════════════════════════════════════════ */
-/* altura do conteúdo, não da linha: esticados, os cartões abriam um quarto
-   de vão morto embaixo e o bloco parecia cortado */
-.sn-c .cena{gap:28px;justify-content:center}
-.sn-c .bl{flex:1;min-width:0;padding:40px 38px;background:#fff;
-  border:1px solid var(--line);border-radius:24px;
-  box-shadow:0 34px 74px -46px rgba(15,23,42,.55);will-change:transform}
-.sn-c .bl:first-child,.sn-c .bl:last-child{padding:34px 36px}
-/* o cartão já separa: a borda vertical entre eles ficava como uma emenda */
-.sn-c .bl + .bl{border-left:1px solid var(--line)}
-/* o pé do cartão colava no conteúdo em cima e sobrava embaixo: agora o
-   conteúdo se distribui na altura que o cartão tem */
-.sn-c .bl{justify-content:space-between}
-.sn-c .cena{align-items:stretch}
-/* dentro do cartão a barra não precisa de 30px de altura */
-.sn-c .trilho,.sn-c .trilho i{height:24px}
-.sn-c .mult .v{font-size:74px}
-.sn-c .pri{margin-top:18px;padding-top:14px}
-.sn-c .bl.flut{opacity:0;transform:perspective(1600px) rotateX(8deg) translate3d(0,26px,0)}
-.sn-c.is-active .bl.flut:nth-of-type(1){animation:rv3 .8s var(--out) 620ms forwards,
-  boiac 6.8s ease-in-out 1.8s infinite}
-.sn-c.is-active .bl.flut:nth-of-type(2){animation:rv3 .8s var(--out) 760ms forwards,
-  boiac 7.6s ease-in-out 2.5s infinite reverse}
-@keyframes boiac{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-6px,0)}}
-@media (prefers-reduced-motion:reduce){
-  .sn-c.is-active .bl.flut:nth-of-type(1),
-  .sn-c.is-active .bl.flut:nth-of-type(2){animation:rv3 .8s var(--out) 620ms forwards}
-}
-/* dentro do cartão o conteúdo aperta um pouco: os 46px da A abriam demais */
-.sn-c .lin{margin-top:30px}
-.sn-c .mult{margin-top:30px}
-
 /* ───── 10-sinais.html ───── */
 /* ═══ slide 10 · quem abre, e quando ══════════════════════════════════════════
    O slide que substitui o do volume por quartil, que o dono do projeto achou
@@ -1293,7 +1121,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .otr .col{display:flex;flex-direction:column;align-items:center}
 .otr .col .k{font-size:11.5px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
   color:var(--tx2);margin-bottom:18px}
-.otr .barra{position:relative;width:118px;height:420px;background:#E9EDF4;border-radius:8px;
+.otr .barra{position:relative;width:104px;height:420px;background:#E9EDF4;border-radius:8px;
   display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
 .otr .barra i{display:block;width:100%;border-radius:6px;transform:scaleY(0);
   transform-origin:bottom}
@@ -1302,11 +1130,16 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .otr .col.vol .barra i{background:#8593A6}
 .otr .col.qbr .barra i{background:var(--bad)}
 /* o rótulo fica ao lado do pedaço, fora da coluna, como no deck da Sprint 3 */
-.otr .col .marca{position:absolute;bottom:0;white-space:nowrap;opacity:0}
+ /* o rótulo alinha com o TOPO do pedaço, não com a base da coluna: é assim no
+   d32a, e é o que faz o olho ligar o número ao pedaço colorido. 8% de 420 dá
+   33,6px e 22,9% dá 96,2px. */
+.otr .col .marca{position:absolute;white-space:nowrap;opacity:0}
+.otr .col.vol .marca{bottom:26px}
+.otr .col.qbr .marca{bottom:88px}
 .otr.is-active .col .marca{animation:rv .5s var(--out) var(--d,0ms) forwards}
-.otr .col.vol .marca{right:calc(100% + 18px);text-align:right}
-.otr .col.qbr .marca{left:calc(100% + 18px)}
-.otr .col .marca b{display:block;font-size:40px;font-weight:900;letter-spacing:-1.7px;
+.otr .col.vol .marca{right:calc(100% + 20px);text-align:right}
+.otr .col.qbr .marca{left:calc(100% + 20px)}
+.otr .col .marca b{display:block;font-size:44px;font-weight:900;letter-spacing:-1.9px;
   line-height:1;font-variant-numeric:tabular-nums}
 .otr .col.vol .marca b{color:#5B6879}
 .otr .col.qbr .marca b{color:var(--bad)}
@@ -1391,9 +1224,12 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .alv.is-active .grade i:nth-child(n+361){animation-delay:1930ms}
 .alv .grade i.q{background:var(--bad)}
 /* os vermelhos acendem depois de toda a grade assentar, com um pulo maior */
-.alv.is-active .grade i.q{animation:acende .6s var(--spring) 2200ms forwards}
+/* nome único: `acende` já existe no bloco 11-repete e, como o _montar.py
+   junta o CSS de todos os blocos, o último @keyframes com aquele nome
+   vale para o deck inteiro. O waffle do 11 parou de pintar de azul. */
+.alv.is-active .grade i.q{animation:estoura .6s var(--spring) 2200ms forwards}
 @keyframes pipoca{to{opacity:1;transform:scale(1)}}
-@keyframes acende{0%{opacity:1;transform:scale(1)}
+@keyframes estoura{0%{opacity:1;transform:scale(1)}
   45%{opacity:1;transform:scale(2.1)}100%{opacity:1;transform:scale(1)}}
 .alv .leg{font-size:13.5px;line-height:1.45;color:var(--tx2);margin-top:14px}
 .alv .leg b{color:var(--bad);font-weight:700}
@@ -1823,16 +1659,18 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .sdc .tt{font-size:50px;letter-spacing:-1.8px}
 .sdc .sub{font-size:17px;line-height:1.45;color:var(--tx);margin-top:10px}
 .sdc .sub b{color:var(--head);font-weight:700}
+/* center e não stretch: esticado, o painel abria um terço de vão dentro
+   dele e as barras boiavam no meio. Com a altura do conteúdo o vão vai
+   todo para fora do cartão, que é onde ele não incomoda. */
 .sdc .cena{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0 30px;
-  align-items:stretch;margin-top:18px;min-height:0}
+  align-items:center;margin-top:20px;min-height:0}
 
 .sdc .painel{background:#fff;border:1px solid var(--line);border-radius:20px;
-  padding:22px 26px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5);
+  padding:26px 28px 28px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5);
   display:flex;flex-direction:column}
 .sdc .painel h2{font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
 .sdc .painel .un{font-size:12.5px;color:var(--tx2);margin-top:5px}
-.sdc .lista{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;
-  gap:12px;margin-top:20px}
+.sdc .lista{display:flex;flex-direction:column;gap:13px;margin-top:22px}
 .sdc .l{display:grid;grid-template-columns:64px 1fr 58px;align-items:center;gap:16px}
 .sdc .l .nm{font-family:var(--mono);font-size:15px;color:#8E9AAA;text-align:right}
 .sdc .l .tr{height:24px;border-radius:8px;background:#EDF1F7;overflow:hidden}
@@ -1916,6 +1754,34 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .brb .fecho b{color:var(--head);font-weight:700}
 
 /* ───── 24-div-arquitetura.html ───── */
+/* o desenho da arquitetura: cinco nós num trilho vertical, do arquivo que a
+   Locaweb entregou até o navegador de quem opera. O corte entre o que treina e
+   o que só lê é a informação do slide, e ele aparece na cor do nó. */
+.dv3 .fluxo{position:relative;margin-top:20px;padding-left:6px}
+.dv3 .fluxo .trilho{position:absolute;left:23px;top:14px;bottom:14px;width:2px;
+  background:linear-gradient(180deg,rgba(96,165,250,.5),rgba(96,165,250,.14));
+  transform:scaleY(0);transform-origin:top}
+.dv3.is-active .fluxo .trilho{animation:desce .9s var(--out) 1100ms forwards}
+@keyframes desce{to{transform:scaleY(1)}}
+.dv3 .no{position:relative;display:flex;align-items:center;gap:16px;padding:9px 0;
+  opacity:0;transform:translate3d(-10px,0,0)}
+.dv3.is-active .no{animation:rv .5s var(--out) var(--d,0ms) forwards}
+.dv3 .no .mk{width:36px;height:36px;border-radius:11px;flex-shrink:0;display:flex;
+  align-items:center;justify-content:center;background:#111A28;
+  border:1px solid rgba(255,255,255,.14);color:#93C5FD;position:relative;z-index:2}
+.dv3 .no .mk svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7}
+.dv3 .no .tx b{display:block;font-size:15px;font-weight:700;color:#E8ECF3;letter-spacing:-.2px}
+.dv3 .no .tx span{display:block;font-size:13px;color:#8E97A8;margin-top:3px}
+/* o artefato é a fronteira, e o último nó é o que a operação abre */
+.dv3 .no.art .mk{background:rgba(59,130,246,.16);border-color:rgba(96,165,250,.42)}
+.dv3 .no.fim .mk{background:#2563EB;border-color:#3B82F6;color:#fff}
+.dv3 .no.fim .tx b{color:#fff}
+.dv3 .marco{display:flex;gap:26px;margin-top:18px;padding-top:16px;
+  border-top:1px solid rgba(255,255,255,.09);font-size:12.5px;color:#7A8494}
+.dv3 .marco span{display:flex;align-items:center;gap:9px}
+.dv3 .marco i{width:9px;height:9px;border-radius:3px;background:#111A28;
+  border:1px solid rgba(255,255,255,.2)}
+.dv3 .marco i.c2{background:#2563EB;border-color:#3B82F6}
 /* a barra segmentada dos artefatos, só desta divisória */
 .dv3 .carga{margin-top:16px}
 .dv3 .carga .tr{display:flex;gap:3px;height:18px;border-radius:9px;overflow:hidden}
@@ -2557,75 +2423,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
 </section>
 
-<section class="slide light qbc" data-slide="5" data-var="a" data-quem="igor">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">O indicador de 2025</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">O problema</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quantidade de quebras em 2025</span></span></h1>
-
-    <div class="cena">
-      <div class="un fora">
-        <div class="cb rv" style="--d:700ms">Prioridade 2</div>
-        <div class="n"><span class="ct" data-to="42" data-delay="840">0</span></div>
-        <p class="lim rv" style="--d:940ms">violações de <b>39 permitidas</b></p>
-        <div class="graf rv" style="--d:1080ms">
-          <svg viewBox="0 0 250 96" preserveAspectRatio="none" aria-hidden="true">
-            <line x1="0" y1="11.7" x2="250" y2="11.7" stroke="#DC2626" stroke-width="1.4"
-              stroke-dasharray="5 5" opacity=".5" vector-effect="non-scaling-stroke"/>
-            <path class="cur" style="--len:340;--d:1220ms" stroke="#DC2626"
-              vector-effect="non-scaling-stroke"
-              d="M0,80.2 L22.7,72.4 L45.5,66.5 L68.2,62.6 L90.9,50.8 L113.6,45 L136.4,33.2 L159.1,27.4 L181.8,23.5 L204.5,19.6 L227.3,8 L250,6.1"/>
-          </svg>
-          <svg class="sobre" viewBox="0 0 250 96" preserveAspectRatio="none" aria-hidden="true">
-            <g class="marca" style="--d:2380ms">
-              <ellipse cx="227.3" cy="8" rx="4.6" ry="7" fill="#DC2626" opacity=".15"/>
-              <ellipse cx="227.3" cy="8" rx="1.9" ry="2.9" fill="#DC2626"/>
-            </g>
-          </svg>
-        </div>
-        <div class="eixo rv" style="--d:2420ms"><span>jan</span><span>dez</span></div>
-        <p class="nota rv" style="--d:2460ms">passou o limite em <b>novembro</b></p>
-        <span class="sel rv" style="--d:2560ms">Acima do limite do ano</span>
-      </div>
-
-      <div class="fio"></div>
-
-      <div class="un dentro">
-        <div class="cb rv" style="--d:780ms">Prioridade 3</div>
-        <div class="n"><span class="ct" data-to="196" data-delay="920">0</span></div>
-        <p class="lim rv" style="--d:1020ms">violações de <b>263 permitidas</b></p>
-        <div class="graf rv" style="--d:1160ms">
-          <svg viewBox="0 0 250 96" preserveAspectRatio="none" aria-hidden="true">
-            <line x1="0" y1="5.3" x2="250" y2="5.3" stroke="#15A05B" stroke-width="1.4"
-              stroke-dasharray="5 5" opacity=".5" vector-effect="non-scaling-stroke"/>
-            <path class="cur" style="--len:340;--d:1300ms" stroke="#15A05B"
-              vector-effect="non-scaling-stroke"
-              d="M0,82 L22.7,75.4 L45.5,70.4 L68.2,67.3 L90.9,62.5 L113.6,53.7 L136.4,46.5 L159.1,42.1 L181.8,39.3 L204.5,36.5 L227.3,31.7 L250,26.4"/>
-          </svg>
-          <svg class="sobre" viewBox="0 0 250 96" preserveAspectRatio="none" aria-hidden="true">
-            <g class="marca" style="--d:2380ms"><ellipse cx="247.5" cy="26.4" rx="1.9" ry="2.9" fill="#15A05B"/></g>
-          </svg>
-        </div>
-        <div class="eixo rv" style="--d:2500ms"><span>jan</span><span>dez</span></div>
-        <p class="nota rv" style="--d:2540ms">fechou o ano a <b>67 do limite</b></p>
-        <span class="sel rv" style="--d:2640ms">Dentro do limite do ano</span>
-      </div>
-    </div>
-
-    <div class="fecho rv" style="--d:2760ms">
-      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 6.8V12l3.4 2"/></svg>
-      <span>Em outubro a prioridade 2 estava em <b>35</b>, dentro do limite. Um único mês somou seis, e <b>o resultado só apareceu na apuração de dezembro</b>.</span>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
-</section>
-
-<section class="slide light qbd" data-slide="5" data-var="b" data-quem="igor">
+<section class="slide light qbd" data-slide="5" data-var="a" data-quem="igor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -2921,154 +2719,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       </div>
 
       <div class="bl">
-        <div class="cab rv" style="--d:700ms">
-          <svg class="ic" viewBox="0 0 24 24"><rect x="3.4" y="5" width="17.2" height="15.6" rx="2.6"/><path d="M3.4 9.8h17.2M8 2.8v4M16 2.8v4"/></svg>
-          Quando ele chega
-        </div>
-
-        <div class="lin">
-          <div class="rt rv" style="--d:840ms"><b>Fim de semana<span class="chip">P3</span><small>24 por dia</small></b><i>1,88%</i></div>
-          <div class="trilho"><i style="width:94%;--d:900ms"></i></div>
-        </div>
-        <div class="lin baixa">
-          <div class="rt rv" style="--d:1040ms"><b>Dia útil<span class="chip">P3</span><small>67 por dia</small></b><i>0,85%</i></div>
-          <div class="trilho"><i style="width:43%;--d:1100ms"></i></div>
-        </div>
-
-        <div class="mult rv" style="--d:1560ms">
-          <span class="v"><span class="ct" data-to="2.2" data-dec="1" data-delay="1720">0,0</span><em>&times;</em></span>
-          <span class="k">mais risco no fim de semana, com <b>um terço do volume</b></span>
-        </div>
-        <p class="pri rv" style="--d:1940ms">
-          <svg class="ic" viewBox="0 0 24 24"><path d="M4 9.6h16M4 14.4h16"/></svg>
-          <span>Na prioridade 2 não há diferença: <b>0,75%</b> contra <b>0,83%</b>.</span>
-        </p>
-      </div>
-    </div>
-
-    <div class="fecho rv" style="--d:2000ms">
-      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span>Medimos as duas prioridades em cada corte. Quem abre e quando chega <b>viram variáveis do modelo de risco</b>, junto com o produto, o ativo e a categoria.</span>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
-</section>
-
-<section class="slide light snb" data-slide="10" data-var="b" data-quem="ana">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Base elegível ao KPI &middot; 2025</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">O que os dados disseram</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quem abre, e quando</span></span></h1>
-
-    <div class="cena">
-      <div>
-        <div class="cab rv" style="--d:620ms">
-          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.6"/><path d="M4.6 20c0-3.6 3.3-6 7.4-6s7.4 2.4 7.4 6"/></svg>
-          Quem abre o chamado
-        </div>
-        <div class="heroi rv" style="--d:760ms">
-          <span class="v"><span class="ct" data-to="2.7" data-dec="1" data-delay="900">0,0</span></span>
-          <em>&times;</em>
-        </div>
-        <p class="diz rv" style="--d:1080ms">mais risco quando <b>quem abre é uma pessoa</b>, e não o monitoramento</p>
-
-        <div class="conta">
-          <div class="l alto" style="--d:1400ms">
-            <span class="nm">Uma pessoa<small>15.671 chamados</small></span>
-            <span class="tx">1,24%</span>
-          </div>
-          <div class="l baixo" style="--d:1520ms">
-            <span class="nm">O monitoramento<small>9.485 chamados</small></span>
-            <span class="tx">0,46%</span>
-          </div>
-        </div>
-        <p class="pri rv" style="--d:1700ms">
-          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="color:var(--good)"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
-          <span>Vale nas duas prioridades: <b>3,0&times;</b> na 2 e <b>3,1&times;</b> na 3.</span>
-        </p>
-      </div>
-
-      <div class="div"></div>
-
-      <div>
-        <div class="cab rv" style="--d:700ms">
-          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.4" y="5" width="17.2" height="15.6" rx="2.6"/><path d="M3.4 9.8h17.2M8 2.8v4M16 2.8v4"/></svg>
-          Quando ele chega
-        </div>
-        <div class="heroi rv" style="--d:840ms">
-          <span class="v"><span class="ct" data-to="2.2" data-dec="1" data-delay="980">0,0</span></span>
-          <em>&times;</em>
-        </div>
-        <p class="diz rv" style="--d:1160ms">mais risco no <b>fim de semana</b>, com um terço do volume do dia útil</p>
-
-        <div class="conta">
-          <div class="l alto" style="--d:1480ms">
-            <span class="nm">Fim de semana<span class="chip">P3</span><small>24 chamados por dia</small></span>
-            <span class="tx">1,88%</span>
-          </div>
-          <div class="l baixo" style="--d:1600ms">
-            <span class="nm">Dia útil<span class="chip">P3</span><small>67 chamados por dia</small></span>
-            <span class="tx">0,85%</span>
-          </div>
-        </div>
-        <p class="pri rv" style="--d:1780ms">
-          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 9.6h16M4 14.4h16"/></svg>
-          <span>Na prioridade 2 não há diferença: <b>0,75%</b> contra <b>0,83%</b>.</span>
-        </p>
-      </div>
-    </div>
-
-    <div class="fecho rv" style="--d:2000ms">
-      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span>Medimos as duas prioridades em cada corte. Quem abre e quando chega <b>viram variáveis do modelo de risco</b>, junto com o produto, o ativo e a categoria.</span>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
-</section>
-
-<section class="slide light sin sn-c" data-slide="10" data-var="c" data-quem="ana">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Base elegível ao KPI &middot; 2025</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">O que os dados disseram</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quem abre, e quando</span></span></h1>
-
-    <div class="cena">
-      <div class="bl flut">
-        <div class="cab rv" style="--d:620ms">
-          <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.6 20c0-3.6 3.3-6 7.4-6s7.4 2.4 7.4 6"/></svg>
-          Quem abre o chamado
-        </div>
-
-        <div class="lin">
-          <div class="rt rv" style="--d:760ms"><b>Uma pessoa<small>15.671 chamados</small></b><i>1,24%</i></div>
-          <div class="trilho"><i style="width:62%;--d:820ms"></i></div>
-        </div>
-        <div class="lin baixa">
-          <div class="rt rv" style="--d:960ms"><b>O monitoramento<small>9.485 chamados</small></b><i>0,46%</i></div>
-          <div class="trilho"><i style="width:23%;--d:1020ms"></i></div>
-        </div>
-
-        <div class="mult rv" style="--d:1400ms">
-          <span class="v"><span class="ct" data-to="2.7" data-dec="1" data-delay="1560">0,0</span><em>&times;</em></span>
-          <span class="k">mais risco quando <b>quem abre é uma pessoa</b></span>
-        </div>
-        <p class="pri rv" style="--d:1800ms">
-          <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
-          <span>Vale nas duas prioridades: <b>3,0&times;</b> na 2 e <b>3,1&times;</b> na 3.</span>
-        </p>
-      </div>
-
-      <div class="bl flut">
         <div class="cab rv" style="--d:700ms">
           <svg class="ic" viewBox="0 0 24 24"><rect x="3.4" y="5" width="17.2" height="15.6" rx="2.6"/><path d="M3.4 9.8h17.2M8 2.8v4M16 2.8v4"/></svg>
           Quando ele chega
@@ -3973,43 +3623,38 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       </div>
     </div>
     <div class="pv rv3" style="--d:900ms">
-      <div class="pvh"><span class="dot"></span>O que a solução tem em 01/10/2025, 15h</div>
-      <div class="pvgrid">
-        <div class="pc rv" style="--d:1140ms">
-          <div class="pl">Base do KPI</div>
-          <div class="pn"><span class="ct" data-to="25600" data-delay="1240">0</span></div>
-          <div class="ps">incidentes elegíveis, 2023 a 2025</div>
+      <div class="pvh"><span class="dot"></span>Do arquivo ao navegador</div>
+      <div class="fluxo">
+        <i class="trilho"></i>
+
+        <div class="no" style="--d:1160ms">
+          <span class="mk"><svg viewBox="0 0 24 24"><rect x="4" y="3.4" width="16" height="17.2" rx="2.2"/><path d="M8 8.6h8M8 12.6h8M8 16.6h5"/></svg></span>
+          <div class="tx"><b>LW-DATASET.xlsx</b><span>122.543 incidentes, 19 colunas</span></div>
         </div>
-        <div class="pc rv" style="--d:1250ms">
-          <div class="pl">Casos abertos na fila</div>
-          <div class="pn"><span class="ct" data-to="49" data-delay="1350">0</span></div>
-          <div class="ps">ordenados por risco, P3 e P2</div>
+
+        <div class="no" style="--d:1300ms">
+          <span class="mk"><svg viewBox="0 0 24 24"><path d="M4 7h16M7 12h10M10 17h4"/></svg></span>
+          <div class="tx"><b>pandas &middot; a regra do KPI</b><span>reduz a base a 25.600 elegíveis</span></div>
         </div>
-        <div class="pc rv" style="--d:1360ms">
-          <div class="pl">Produtos com nota</div>
-          <div class="pn"><span class="ct" data-to="15" data-delay="1460">0</span></div>
-          <div class="ps">cobrem <b>94%</b> do volume elegível</div>
+
+        <div class="no" style="--d:1440ms">
+          <span class="mk"><svg viewBox="0 0 24 24"><path d="M3.6 17.4 9 11.4l3.6 3 6.8-8.4"/><path d="M15.4 6h4.6v4.6"/></svg></span>
+          <div class="tx"><b>Prophet e regressão logística</b><span>os notebooks treinam e gravam</span></div>
         </div>
-        <div class="pc rv" style="--d:1470ms">
-          <div class="pl">Prazo de OLA</div>
-          <div class="pn">4<span class="u">h P2</span> &nbsp;12<span class="u">h P3</span></div>
-          <div class="ps">a régua que define a violação</div>
+
+        <div class="no art" style="--d:1580ms">
+          <span class="mk"><svg viewBox="0 0 24 24"><path d="M6 3.4h8.4L19 8v12.6H6z"/><path d="M14 3.4V8h5"/></svg></span>
+          <div class="tx"><b>Três artefatos &middot; 350 kB</b><span>fila.parquet, painel.json e dias.json</span></div>
         </div>
-        <div class="pc wide rv" style="--d:1580ms">
-          <div class="pl">O que a aplicação carrega &middot; 350 kB</div>
-          <div class="carga">
-            <div class="tr">
-              <i style="width:68.9%;--d:1720ms"></i>
-              <i style="width:24.3%;--d:1800ms"></i>
-              <i style="width:6.8%;--d:1880ms"></i>
-            </div>
-            <div class="lg">
-              <span><i></i>fila.parquet <b>241</b></span>
-              <span><i></i>painel.json <b>85</b></span>
-              <span><i></i>dias.json <b>24</b></span>
-            </div>
-          </div>
+
+        <div class="no fim" style="--d:1720ms">
+          <span class="mk"><svg viewBox="0 0 24 24"><rect x="3.4" y="4.6" width="17.2" height="14.8" rx="2.4"/><path d="M3.4 9.4h17.2M9.6 9.4v10"/></svg></span>
+          <div class="tx"><b>Django num contêiner</b><span>lê os artefatos e serve as seis telas</span></div>
         </div>
+      </div>
+      <div class="marco">
+        <span><i></i>notebooks: treinam e gravam</span>
+        <span><i class="c2"></i>contêiner: só lê</span>
       </div>
     </div>
   </div>

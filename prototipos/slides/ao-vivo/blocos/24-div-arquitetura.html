@@ -1,3 +1,34 @@
+<style>
+/* o desenho da arquitetura: cinco nós num trilho vertical, do arquivo que a
+   Locaweb entregou até o navegador de quem opera. O corte entre o que treina e
+   o que só lê é a informação do slide, e ele aparece na cor do nó. */
+.dv3 .fluxo{position:relative;margin-top:20px;padding-left:6px}
+.dv3 .fluxo .trilho{position:absolute;left:23px;top:14px;bottom:14px;width:2px;
+  background:linear-gradient(180deg,rgba(96,165,250,.5),rgba(96,165,250,.14));
+  transform:scaleY(0);transform-origin:top}
+.dv3.is-active .fluxo .trilho{animation:desce .9s var(--out) 1100ms forwards}
+@keyframes desce{to{transform:scaleY(1)}}
+.dv3 .no{position:relative;display:flex;align-items:center;gap:16px;padding:9px 0;
+  opacity:0;transform:translate3d(-10px,0,0)}
+.dv3.is-active .no{animation:rv .5s var(--out) var(--d,0ms) forwards}
+.dv3 .no .mk{width:36px;height:36px;border-radius:11px;flex-shrink:0;display:flex;
+  align-items:center;justify-content:center;background:#111A28;
+  border:1px solid rgba(255,255,255,.14);color:#93C5FD;position:relative;z-index:2}
+.dv3 .no .mk svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7}
+.dv3 .no .tx b{display:block;font-size:15px;font-weight:700;color:#E8ECF3;letter-spacing:-.2px}
+.dv3 .no .tx span{display:block;font-size:13px;color:#8E97A8;margin-top:3px}
+/* o artefato é a fronteira, e o último nó é o que a operação abre */
+.dv3 .no.art .mk{background:rgba(59,130,246,.16);border-color:rgba(96,165,250,.42)}
+.dv3 .no.fim .mk{background:#2563EB;border-color:#3B82F6;color:#fff}
+.dv3 .no.fim .tx b{color:#fff}
+.dv3 .marco{display:flex;gap:26px;margin-top:18px;padding-top:16px;
+  border-top:1px solid rgba(255,255,255,.09);font-size:12.5px;color:#7A8494}
+.dv3 .marco span{display:flex;align-items:center;gap:9px}
+.dv3 .marco i{width:9px;height:9px;border-radius:3px;background:#111A28;
+  border:1px solid rgba(255,255,255,.2)}
+.dv3 .marco i.c2{background:#2563EB;border-color:#3B82F6}
+</style>
+
 <!-- ───────────────────────────────────────────────────────────────────────────
      slide 24 · divisória da arquitetura
      Mesmo desenho da divisória de aplicação do deck da Sprint 3, com outro
@@ -54,43 +85,38 @@
       </div>
     </div>
     <div class="pv rv3" style="--d:900ms">
-      <div class="pvh"><span class="dot"></span>O que a solução tem em 01/10/2025, 15h</div>
-      <div class="pvgrid">
-        <div class="pc rv" style="--d:1140ms">
-          <div class="pl">Base do KPI</div>
-          <div class="pn"><span class="ct" data-to="25600" data-delay="1240">0</span></div>
-          <div class="ps">incidentes elegíveis, 2023 a 2025</div>
+      <div class="pvh"><span class="dot"></span>Do arquivo ao navegador</div>
+      <div class="fluxo">
+        <i class="trilho"></i>
+
+        <div class="no" style="--d:1160ms">
+          <span class="mk"><svg viewBox="0 0 24 24"><rect x="4" y="3.4" width="16" height="17.2" rx="2.2"/><path d="M8 8.6h8M8 12.6h8M8 16.6h5"/></svg></span>
+          <div class="tx"><b>LW-DATASET.xlsx</b><span>122.543 incidentes, 19 colunas</span></div>
         </div>
-        <div class="pc rv" style="--d:1250ms">
-          <div class="pl">Casos abertos na fila</div>
-          <div class="pn"><span class="ct" data-to="49" data-delay="1350">0</span></div>
-          <div class="ps">ordenados por risco, P3 e P2</div>
+
+        <div class="no" style="--d:1300ms">
+          <span class="mk"><svg viewBox="0 0 24 24"><path d="M4 7h16M7 12h10M10 17h4"/></svg></span>
+          <div class="tx"><b>pandas &middot; a regra do KPI</b><span>reduz a base a 25.600 elegíveis</span></div>
         </div>
-        <div class="pc rv" style="--d:1360ms">
-          <div class="pl">Produtos com nota</div>
-          <div class="pn"><span class="ct" data-to="15" data-delay="1460">0</span></div>
-          <div class="ps">cobrem <b>94%</b> do volume elegível</div>
+
+        <div class="no" style="--d:1440ms">
+          <span class="mk"><svg viewBox="0 0 24 24"><path d="M3.6 17.4 9 11.4l3.6 3 6.8-8.4"/><path d="M15.4 6h4.6v4.6"/></svg></span>
+          <div class="tx"><b>Prophet e regressão logística</b><span>os notebooks treinam e gravam</span></div>
         </div>
-        <div class="pc rv" style="--d:1470ms">
-          <div class="pl">Prazo de OLA</div>
-          <div class="pn">4<span class="u">h P2</span> &nbsp;12<span class="u">h P3</span></div>
-          <div class="ps">a régua que define a violação</div>
+
+        <div class="no art" style="--d:1580ms">
+          <span class="mk"><svg viewBox="0 0 24 24"><path d="M6 3.4h8.4L19 8v12.6H6z"/><path d="M14 3.4V8h5"/></svg></span>
+          <div class="tx"><b>Três artefatos &middot; 350 kB</b><span>fila.parquet, painel.json e dias.json</span></div>
         </div>
-        <div class="pc wide rv" style="--d:1580ms">
-          <div class="pl">O que a aplicação carrega &middot; 350 kB</div>
-          <div class="carga">
-            <div class="tr">
-              <i style="width:68.9%;--d:1720ms"></i>
-              <i style="width:24.3%;--d:1800ms"></i>
-              <i style="width:6.8%;--d:1880ms"></i>
-            </div>
-            <div class="lg">
-              <span><i></i>fila.parquet <b>241</b></span>
-              <span><i></i>painel.json <b>85</b></span>
-              <span><i></i>dias.json <b>24</b></span>
-            </div>
-          </div>
+
+        <div class="no fim" style="--d:1720ms">
+          <span class="mk"><svg viewBox="0 0 24 24"><rect x="3.4" y="4.6" width="17.2" height="14.8" rx="2.4"/><path d="M3.4 9.4h17.2M9.6 9.4v10"/></svg></span>
+          <div class="tx"><b>Django num contêiner</b><span>lê os artefatos e serve as seis telas</span></div>
         </div>
+      </div>
+      <div class="marco">
+        <span><i></i>notebooks: treinam e gravam</span>
+        <span><i class="c2"></i>contêiner: só lê</span>
       </div>
     </div>
   </div>

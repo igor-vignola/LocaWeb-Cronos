@@ -433,3 +433,18 @@ senão o deslocamento também encolhe. O `#fit` deixou de usar `place-items` do
 grid: com barra lateral no navegador ou proporção diferente de 16:9 o palco
 saía do eixo. A escala usa o menor entre `clientWidth/clientHeight` do
 documento e a caixa medida, o que descarta a largura de barra de rolagem.
+
+**7.23 Nome de @keyframes também é global.** A regra §7.19, de prefixo único
+por bloco, vale igual para keyframe: o `_montar.py` junta o CSS de todos os
+blocos num arquivo só, e o último `@keyframes` com um nome vale para o deck
+inteiro. Um `@keyframes acende` criado no slide 13 apagou o do slide 11 e o
+waffle parou de pintar de azul, sem erro nenhum no console. Keyframe novo
+recebe nome do bloco ou nome que não exista em lugar nenhum.
+
+**7.24 Monitoramento e elegibilidade ao KPI.** Ser aberto pelo monitoramento
+não exclui do indicador. O que decide é o campo `Entrou para KPI?`, que exige
+prioridade 1, 2 ou 3, incidente sem pai e status diferente de "Sem
+Intervenção". Em setembro de 2025 entraram 897 dos 20.008 registros de
+monitoramento, contra 1.427 dos 1.553 manuais. Na base elegível de 2025 são
+9.485 de monitoramento e 15.671 manuais. Os slides 8 e 10 não se contradizem,
+e a resposta está no banco de perguntas.

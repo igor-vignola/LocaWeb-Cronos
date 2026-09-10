@@ -54,9 +54,12 @@
 .alv.is-active .grade i:nth-child(n+361){animation-delay:1930ms}
 .alv .grade i.q{background:var(--bad)}
 /* os vermelhos acendem depois de toda a grade assentar, com um pulo maior */
-.alv.is-active .grade i.q{animation:acende .6s var(--spring) 2200ms forwards}
+/* nome único: `acende` já existe no bloco 11-repete e, como o _montar.py
+   junta o CSS de todos os blocos, o último @keyframes com aquele nome
+   vale para o deck inteiro. O waffle do 11 parou de pintar de azul. */
+.alv.is-active .grade i.q{animation:estoura .6s var(--spring) 2200ms forwards}
 @keyframes pipoca{to{opacity:1;transform:scale(1)}}
-@keyframes acende{0%{opacity:1;transform:scale(1)}
+@keyframes estoura{0%{opacity:1;transform:scale(1)}
   45%{opacity:1;transform:scale(2.1)}100%{opacity:1;transform:scale(1)}}
 .alv .leg{font-size:13.5px;line-height:1.45;color:var(--tx2);margin-top:14px}
 .alv .leg b{color:var(--bad);font-weight:700}

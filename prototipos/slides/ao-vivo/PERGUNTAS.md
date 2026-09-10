@@ -173,3 +173,17 @@ Porque só existe depois que o incidente fecha, e o modelo pontua na abertura.
 Usá-lo seria olhar o gabarito. Ele entra como apontamento de processo: 1.596
 incidentes fechados como Outro em nove meses, 43 deles fora do prazo, taxa de
 2,69% contra 0,94% da média. → slide 12.
+
+**"Chamado aberto pelo monitoramento entra no KPI ou não? No slide 8 vocês
+dizem que o salto de setembro ficou de fora, e no 10 dizem que o
+monitoramento quebra menos."**
+Entra, quando alguém trabalha nele. Quem decide não é o abridor, é o campo
+`Entrou para KPI?`, que exige prioridade 1, 2 ou 3, incidente sem pai e status
+diferente de "Sem Intervenção". Em setembro de 2025 chegaram **20.008**
+registros de monitoramento e só **897** entraram, 4,5%: o resto fechou sem
+intervenção humana ou pendurado num incidente pai. Dos 1.553 manuais do mesmo
+mês, 1.427 entraram, 92%. No ano inteiro a base elegível tem **9.485** abertos
+por monitoramento e 15.671 manuais, e é entre esses que a taxa é 0,46% contra
+1,24%. Faz sentido: o alerta automático nasce no instante em que o problema
+aparece, com o prazo inteiro pela frente; o chamado manual nasce quando alguém
+percebe, às vezes já tarde. → slides 8 e 10.
