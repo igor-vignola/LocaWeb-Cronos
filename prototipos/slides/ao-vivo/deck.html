@@ -1481,120 +1481,90 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .cau .fecho b{color:var(--head);font-weight:700}
 
 /* ───── 15-causas.html ───── */
-/* ═══ slide 15 · causas agrupadas · composição B ══════════════════════════════
-   A composição A resolve o mesmo assunto com a figura de matplotlib herdada do
-   deck da Sprint 3: dois painéis lado a lado, um ordenado por volume e outro
-   por taxa. O conteúdo foi aprovado e a forma não. Dois painéis repetem os
-   nomes das causas e obrigam quem lê a procurar a mesma linha duas vezes, que
-   é justamente onde a comparação se perde.
+/* ═══ slide 15 · a causa mais frequente não é a que mais estoura ══════════════
+   Terceira forma deste slide. A primeira era a figura de dois painéis do deck
+   da Sprint 3; a segunda, uma tabela de doze linhas. O dono do projeto matou
+   as duas: "é foda mostrar isso, bora concentrar a informação de forma limpa
+   e clara, não precisamos de um tabelão, apenas transmitir a mensagem".
 
-   Esta versão é nativa do deck, sem imagem: uma tabela só, doze linhas, e cada
-   linha carrega as duas medidas em barras próprias.
+   A mensagem precisa de DUAS causas, não de doze. Falha de Aplicação domina o
+   volume e quase não estoura; Falha de Storage é meio por cento da base e
+   estoura três vezes mais que a média. As outras dez só provavam que o padrão
+   se repete, e isso o apresentador fala.
 
-   POR QUE ORDENADA POR VOLUME, e não por taxa: a ordem por volume é a ordem em
-   que a operação hoje enxerga o problema. Com ela fixada, as barras de taxa
-   ficam fora de ordem, e essa bagunça é a mensagem inteira do slide, visível
-   sem ler número nenhum. Ordenar por taxa arrumaria as duas colunas ao mesmo
-   tempo e apagaria a divergência.
+   A forma é o cruzamento desenhado: cada causa tem duas colunas, volume e
+   taxa, e as duas trocam de altura de uma causa para a outra. O X que se
+   forma é o argumento, e não precisa de número para ser lido.
 
-   Escalas separadas, porque as unidades são diferentes: a barra de volume vai
-   até 60,3% (o próprio máximo) e a de taxa até 3,0%. Empilhar as duas na mesma
-   escala não teria significado. O fio vertical em 31,3% da escala de taxa é a
-   média da base, 0,94%, e é o que separa quem está acima de quem está abaixo.
+   As duas colunas têm escalas próprias, e isso está dito na tela, porque as
+   unidades são diferentes: participação no volume vai de 0 a 60,3% e taxa de
+   quebra vai de 0 a 2,91%. A régua tracejada da média da base, 0,94%, vale só
+   para a escala da taxa: 0,94 / 2,91 = 32,3% da altura.
 
-   Só duas células ganham cor forte: a barra de volume da Falha de Aplicação e
-   a barra de taxa da Falha de Storage, que são as duas pontas da comparação.
-   O resto fica em cinza e azul claro.
+   Números de data/interim/05_causas.parquet, jan a set de 2025, base elegível:
+     Falha de Aplicação  12.041 incidentes · 60,3% do volume · 0,82% de taxa
+                         P2 0,88% · P3 0,82%
+     Falha de Storage       103 incidentes ·  0,5% do volume · 2,91% de taxa
+                         P2 nenhuma quebra em 34 · P3 4,35%
+     média da base 0,94%
 
-   CORTE DECLARADO, que a composição A omite: entram só as causas com pelo
-   menos 100 incidentes na janela, 12 das 16. Falha de Hardware tem a maior
-   taxa da tabela inteira, 8,24%, mas sobre 85 incidentes; Falha de Redes 3,08%
-   sobre 65, Falha de Monitoração 1,54% sobre 65 e Carta de Risco 1 incidente.
-   Em base desse tamanho uma quebra a mais move a taxa em ponto percentual
-   inteiro, e a ordenação deixa de significar alguma coisa.
-
-   As colunas de P2 e P3 valem para as doze linhas, não só para as destacadas:
-   as duas prioridades entram no indicador com metas próprias e a taxa agregada
-   não descreve nenhuma das duas. Sem retorno do solicitante não teve incidente
-   na prioridade 2 na janela, daí o traço.
-
-   Números de data/interim/05_causas.parquet, gerado por
-   notebooks/05_causas_recorrentes.ipynb. Janela: incidentes elegíveis ao
-   indicador abertos entre 01/01/2025 e 30/09/2025, o mesmo corte da aplicação.
-   São 19.973 elegíveis e 188 violações no total, dos quais 19.745 incidentes e
-   187 violações têm código de fechamento registrado. Média da base 0,94%.
+   O corte de 100 incidentes continua declarado, com Falha de Hardware
+   nominal: ela tem a maior taxa da tabela inteira, 8,24%, sobre 85 casos.
    ══════════════════════════════════════════════════════════════════════════ */
 .cvb .body{padding-top:14px}
-.cvb .tt{font-size:44px;letter-spacing:-1.6px}
+.cvb .tt{font-size:50px;letter-spacing:-1.85px}
 .cvb .tt em{font-style:normal;color:var(--accent)}
-.cvb .cena{flex:1;display:flex;align-items:stretch;margin-top:16px;min-height:0}
+.cvb .cena{flex:1;display:flex;align-items:center;justify-content:center;
+  margin-top:8px;min-height:0}
 
-.cvb .tab{width:100%;background:#fff;border:1px solid var(--line);border-radius:20px;
-  padding:20px 28px 18px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5);
-  display:flex;flex-direction:column;justify-content:space-between}
+/* ── o par de causas, com as escalas entre eles ───────────────────────────── */
+.cvb .duo{display:grid;grid-template-columns:1fr 148px 1fr;align-items:end;
+  gap:0 26px;width:100%;max-width:1330px}
+.cvb .cau{display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:0 34px}
+.cvb .col{display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
+.cvb .vl{font-size:40px;font-weight:900;letter-spacing:-1.7px;line-height:1;
+  font-variant-numeric:tabular-nums;margin-bottom:12px}
+.cvb .vl small{font-size:.42em;letter-spacing:-.3px;margin-left:1px}
+.cvb .br{width:100%;max-width:130px;border-radius:12px 12px 0 0;transform:scaleY(0);
+  transform-origin:bottom}
+.cvb.is-active .br{animation:sobe .8s var(--out) var(--d,0ms) forwards}
+.cvb .rot{font-size:12.5px;color:var(--tx2);margin-top:12px;padding-top:11px;
+  border-top:1px solid #DCE4EF;width:100%;text-align:center}
 
-/* uma grade só para o cabeçalho e para as linhas, senão as colunas dançam */
-.cvb .cab,.cvb .lin{display:grid;
-  grid-template-columns:1fr 82px 224px 56px 452px 60px 74px 74px;
-  align-items:center;gap:0 18px}
-.cvb .cab{margin:0 -12px;padding:0 12px 11px;border-bottom:1px solid #E7EDF6}
-.cvb .cab span{font-size:11px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;
-  color:#5F6B7C}
-.cvb .cab .dir{text-align:right}
-/* a legenda da média mora à direita do fio, senão encosta no rótulo da coluna */
-.cvb .cab .esc{position:relative}
-.cvb .cab .esc i{position:absolute;left:31.3%;bottom:-12px;width:2px;height:9px;
-  background:#94A3B8}
-.cvb .cab .esc b{position:absolute;left:calc(31.3% + 9px);top:0;font-weight:700;
-  color:#5A6779;white-space:nowrap;letter-spacing:1.1px}
+/* a coluna de volume é neutra; a de taxa carrega a cor, porque é a que decide */
+.cvb .col.vol .vl{color:#4A5768} .cvb .col.vol .br{background:#98A6B8}
+.cvb .cau.app .col.tx .vl{color:#15803D} .cvb .cau.app .col.tx .br{background:#3FA96B}
+.cvb .cau.stg .col.tx .vl{color:var(--bad)}  .cvb .cau.stg .col.tx .br{background:#DC2626}
 
-.cvb .lin{margin:0 -12px;padding:10px 12px}
-.cvb .lin + .lin{border-top:1px solid #F1F5FA}
-.cvb .lin .nm{font-size:14.5px;font-weight:500;color:var(--tx);letter-spacing:-.1px}
-.cvb .lin .nm u{display:block;text-decoration:none;font-size:11px;font-weight:700;
-  letter-spacing:1.4px;text-transform:uppercase;margin-bottom:4px}
-.cvb .lin .qt{font-family:var(--mono);font-size:12.5px;color:#5A6779;text-align:right}
-.cvb .lin .vl{font-size:14.5px;font-weight:700;text-align:right;color:#5A6779;
-  font-variant-numeric:tabular-nums;letter-spacing:-.2px}
-.cvb .lin .pr{font-family:var(--mono);font-size:12.5px;color:#5A6779;text-align:right}
+/* o nome da causa, acima do par */
+.cvb .nm{grid-column:1 / -1;margin-bottom:22px;text-align:center}
+.cvb .nm .k{font-size:11.5px;font-weight:700;letter-spacing:1.9px;text-transform:uppercase}
+.cvb .cau.app .nm .k{color:#5B6879} .cvb .cau.stg .nm .k{color:var(--bad)}
+.cvb .nm b{display:block;font-size:29px;font-weight:800;letter-spacing:-.9px;color:var(--head);
+  margin-top:9px}
+.cvb .nm > span.d{display:block;font-size:14px;color:#5A6779;margin-top:8px}
+.cvb .nm > span.d em{font-style:normal;color:var(--head);font-weight:600}
 
-/* trilhos: escalas independentes, o fio da média só na coluna da taxa */
-.cvb .trk{position:relative;height:12px;border-radius:7px;background:#EFF3F8}
-.cvb .trk i.f{display:block;height:100%;border-radius:7px;min-width:2px;
-  background:#AAB8CA;transform:scaleX(0);transform-origin:left}
-.cvb.is-active .trk i.f{animation:corre .6s var(--out) forwards;animation-delay:var(--d,0ms)}
-.cvb .trk.rsk i.f{background:#96B7E8}
-.cvb.is-active .trk.rsk i.f{animation-delay:calc(var(--d,0ms) + 110ms)}
-.cvb .trk.rsk i.f.ac{background:var(--accent)}
-.cvb .trk i.f.nz{min-width:0}
-.cvb .trk .md{position:absolute;left:31.3%;top:-4px;width:2px;height:20px;background:#8C9BAE;
-  border-radius:1px}
+/* o eixo do meio: a régua da média, que vale só para a escala da taxa */
+/* a régua tem de nascer na MESMA linha de base das barras. As colunas terminam
+   no rótulo ("do volume"), que ocupa 40px abaixo da base da barra; por isso o
+   trilho é ancorado a 40px do pé, e não empilhado por flex. */
+.cvb .eixo{align-self:stretch;position:relative}
+.cvb .eixo .fx{position:absolute;left:22px;right:22px;bottom:40px;height:280px;
+  border-left:1px solid #DCE4EF;border-right:1px solid #DCE4EF}
+.cvb .eixo .md{position:absolute;left:-22px;right:-22px;bottom:32.3%;
+  border-top:1px dashed #A9B5C6}
+.cvb .eixo .md b{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);
+  font-size:12.5px;font-weight:600;color:#5A6779;white-space:nowrap}
+.cvb .eixo .lg{position:absolute;left:-8px;right:-8px;bottom:2px;text-align:center;
+  font-size:12.5px;line-height:1.4;color:#68737F}
 
-/* as duas pontas da comparação, e só elas */
-.cvb .lin.pv{background:#F2F5FA}
-.cvb .lin.pr2{background:#FDF0F0}
-.cvb .lin.pv,.cvb .lin.pr2{padding:12px 12px;border-radius:12px}
-.cvb .lin.pv + .lin,.cvb .lin.pr2 + .lin{border-top-color:transparent}
-.cvb .lin.pv .nm,.cvb .lin.pr2 .nm{font-size:15.5px;font-weight:800;color:var(--head)}
-.cvb .lin.pv .nm u{color:#54637A}
-.cvb .lin.pr2 .nm u{color:var(--bad)}
-.cvb .lin.pv .trk:not(.rsk) i.f{background:#4C5C72}
-.cvb .lin.pv .vl,.cvb .lin.pr2 .vl{font-size:17px;font-weight:900;color:var(--head)}
-.cvb .lin.pv .qt,.cvb .lin.pr2 .qt,.cvb .lin.pv .pr,.cvb .lin.pr2 .pr{color:#5A6779;
-  font-weight:600}
-.cvb .lin.pr2 .trk.rsk i.f{background:var(--bad)}
-.cvb .lin.pr2 .vl.q{color:var(--bad)}
-.cvb .lin.pv .vl.v{color:#3B4A5F}
-
-.cvb .nota{display:flex;align-items:flex-start;gap:10px;margin-top:12px;padding-top:11px;
-  border-top:1px solid #EEF2F8;font-size:12.5px;line-height:1.5;color:#5A6779}
-.cvb .nota .ic{width:15px;height:15px;color:#6B7686;margin-top:2px;flex-shrink:0}
-.cvb .nota b{color:var(--tx);font-weight:700}
-
-.cvb .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:15px;
-  border-top:1px solid #DCE4EF;font-size:16px;line-height:1.45;color:var(--tx)}
+.cvb .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:16px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
 .cvb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .cvb .fecho b{color:var(--head);font-weight:700}
+.cvb .fecho .nt{margin-left:auto;padding-left:26px;border-left:1px solid #E4EAF3;
+  font-size:12.5px;line-height:1.45;color:#68737F;max-width:40ch;flex-shrink:0}
 
 /* ───── 16-div-previsao-b.html ───── */
 
@@ -1821,79 +1791,90 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .flb .fecho b{color:var(--head);font-weight:700}
 
 /* ───── 21-desempenho.html ───── */
-/* ═══ slide 21 · o resultado do modelo de risco ═══════════════════════════════
-   Nasceu em 10/09/2026 de um pedido do dono do projeto: as três métricas
-   estavam espremidas numa tira no pé do slide 20, com texto que ele leu como
-   frase de IA, e ele pediu slide próprio. Cada slide do deck vale 30 s a 1 min
-   de fala; esta comparação vale o dela.
+/* ═══ slide 21 · a conta que decidiu o modelo ════════════════════════════════
+   Segunda forma. A primeira era uma tabela de três linhas ao lado de um
+   cartão de texto, e o dono do projeto devolveu: "ficou padrão demais, muito
+   texto, e parece que você não está mais buscando inovar e impressionar".
+   Tinha razão: a tabela dizia em quatro colunas o que uma barra diz sozinha.
 
-   A forma é uma tabela de dois competidores, que é como a decisão foi de fato
-   tomada: as duas linhas de cima empatam, a terceira decide, e a quarta mostra
-   o que acontece quando se força o boosting a enxergar o evento raro.
+   O que decidiu a escolha não foi o empate no ROC nem os quatro pontos de
+   PR-AUC. Foi a contagem: o gradient boosting ajustado para o evento raro
+   prevê 1.007 quebras onde houve 50, e a projeção da meta soma quebras
+   previstas. Um modelo que erra a contagem por vinte vezes não serve, por
+   melhor que ordene.
+
+   Então o slide é uma barra só, em escala linear verdadeira, com as três
+   contagens na mesma régua: o realizado, a logística que cai em cima dele, e
+   o boosting que ocupa a largura inteira. A desproporção é o argumento, e ela
+   está desenhada, não escrita. As métricas de ordenação viram uma tira fina
+   no pé, que é o peso que elas têm nesta decisão.
+
+   Escala: 1.007 = 100% da régua. 50 = 4,97%. 48,1 = 4,78%.
 
    Números de notebooks/04_risco_ola.ipynb e da regra 1 do CLAUDE.md:
-     ROC AUC      0,869 contra 0,868          empate
-     PR-AUC       0,2958 contra 0,2526        vantagem de 17% para a logística
-     referência   0,0096, a taxa da base      0,2958 é 31 vezes isso
-     calibração   prevê 48,1 onde houve 50
-     boosting com scale_pos_weight: 1.007 quebras previstas onde houve 50
-     PR-AUC entre cortes: 0,2702 a 0,3177, então não depende do 01/10/2025
+     ROC AUC   0,869 contra 0,868          empate
+     PR-AUC    0,2958 contra 0,2526        vantagem de 17% para a logística
+     base      0,0096 é a taxa do período, e 0,2958 é 31 vezes ela
+     contagem  48,1 contra 1.007, onde houve 50
    ══════════════════════════════════════════════════════════════════════════ */
 .dsp .body{padding-top:14px}
-.dsp .tt{font-size:50px;letter-spacing:-1.85px}
+.dsp .tt{font-size:52px;letter-spacing:-1.95px}
 .dsp .tt em{font-style:normal;color:var(--accent)}
-.dsp .sub{font-size:17.5px;line-height:1.45;color:var(--tx);margin-top:11px;max-width:96ch}
+.dsp .sub{font-size:17.5px;line-height:1.45;color:var(--tx);margin-top:11px;max-width:92ch}
 .dsp .sub b{color:var(--head);font-weight:700}
-/* stretch: centralizados, os dois cartões deixavam 114px de branco entre o
-   subtítulo e o topo deles. Esticados, ocupam o palco. */
-.dsp .cena{flex:1;display:flex;align-items:stretch;gap:28px;margin-top:18px;min-height:0}
+/* stretch: centralizado, o cartão deixava 116px de branco acima e abaixo */
+.dsp .cena{flex:1;display:flex;align-items:stretch;margin-top:16px;min-height:0}
 
-/* ── a tabela dos dois competidores ───────────────────────────────────────── */
-.dsp .duelo{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:20px;
-  display:flex;flex-direction:column;justify-content:center;padding:8px 30px 24px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5)}
-.dsp .cab,.dsp .lin{display:grid;grid-template-columns:1fr 168px 168px 92px;
-  align-items:center;gap:0 22px}
-.dsp .cab{padding:18px 0 13px;border-bottom:1px solid #E7EDF6}
-.dsp .cab span{font-size:11px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
+/* ── a régua das três contagens ───────────────────────────────────────────── */
+.dsp .regua{width:100%;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px 34px 22px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5)}
+.dsp .regua > .k{font-size:11.5px;font-weight:700;letter-spacing:1.9px;text-transform:uppercase;
   color:var(--tx2)}
-.dsp .cab .m{text-align:right;color:var(--accent)}
-.dsp .cab .x{text-align:right}
-.dsp .lin{padding:19px 0}
-.dsp .lin + .lin{border-top:1px solid #F0F4FA}
-.dsp .lin .nm{font-size:17px;font-weight:700;color:var(--head);letter-spacing:-.2px}
-.dsp .lin .nm small{display:block;font-size:13px;font-weight:400;color:var(--tx2);margin-top:5px}
-.dsp .lin .v{font-size:29px;font-weight:900;letter-spacing:-1.1px;text-align:right;line-height:1;
-  font-variant-numeric:tabular-nums}
-.dsp .lin .v.m{color:var(--accent)} .dsp .lin .v.x{color:#5B6879}
-.dsp .lin .v small{display:block;font-size:12.5px;font-weight:400;color:var(--tx2);margin-top:6px;
-  letter-spacing:0}
-.dsp .lin .jz{font-size:12px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;
-  text-align:right}
-.dsp .lin.emp .jz{color:#8593A6}
-.dsp .lin.gan .jz{color:var(--good)}
-.dsp .lin.per .v.x{color:var(--bad)} .dsp .lin.per .jz{color:var(--bad)}
+.dsp .regua > .k b{color:var(--head);font-weight:700}
 
-/* ── o cartão que explica por que a PR-AUC é a régua ──────────────────────── */
-.dsp .porq{width:392px;flex-shrink:0;background:var(--ink);border-radius:20px;padding:26px 28px;
-  box-shadow:0 30px 66px -38px rgba(10,14,23,.65);display:flex;flex-direction:column}
-.dsp .porq .k{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
-  color:#A6B0BD}
-.dsp .porq .grande{display:flex;align-items:baseline;gap:12px;margin-top:16px}
-.dsp .porq .grande em{font-style:normal;font-size:56px;font-weight:900;color:#fff;
-  letter-spacing:-2.4px;line-height:1;font-variant-numeric:tabular-nums}
-.dsp .porq .grande i{font-style:normal;font-size:15px;line-height:1.35;color:#B7C0CB}
-.dsp .porq p{font-size:15px;line-height:1.5;color:#C4CBD8;margin-top:20px;padding-top:18px;
-  border-top:1px solid rgba(255,255,255,.12)}
-.dsp .porq p + p{margin-top:14px;padding-top:0;border-top:0}
-.dsp .porq p b{color:#fff;font-weight:700}
-.dsp .porq .rod{margin-top:auto;padding-top:18px;font-size:13.5px;line-height:1.45;
-  color:#A6B0BD}
-.dsp .porq .rod b{color:#E8ECF3;font-weight:700}
+/* as três linhas dividem a altura do cartão: com padding fixo elas se
+   amontoavam no meio e sobrava branco em cima e embaixo, dentro do cartão. */
+.dsp .l{flex:1;display:grid;grid-template-columns:250px 1fr;align-content:center;
+  align-items:center;gap:0 24px}
+.dsp .l + .l{border-top:1px solid #F0F4FA}
+.dsp .l:first-of-type{margin-top:10px}
+.dsp .l .nm{font-size:17px;font-weight:700;color:var(--head);letter-spacing:-.2px}
+.dsp .l .nm small{display:block;font-size:12.5px;font-weight:400;color:#5A6779;margin-top:5px}
 
-.dsp .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
-  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
-.dsp .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
-.dsp .fecho b{color:var(--head);font-weight:700}
+/* o trilho é comum às três linhas, e é o que torna a comparação honesta */
+.dsp .tk{position:relative;height:46px;display:flex;align-items:center}
+.dsp .tk i{display:block;height:46px;border-radius:9px;transform:scaleX(0);
+  transform-origin:left}
+.dsp.is-active .tk i{animation:corre .95s var(--out) var(--d,0ms) forwards}
+.dsp .tk b{position:absolute;top:50%;transform:translateY(-50%);font-size:30px;font-weight:900;
+  letter-spacing:-1.2px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dsp .tk b small{font-size:.46em;font-weight:600;letter-spacing:0;margin-left:8px;color:#5A6779}
+
+.dsp .l.real .tk i{background:var(--ink)}
+.dsp .l.real .tk b{color:var(--head)}
+.dsp .l.log .tk i{background:var(--accent)}
+.dsp .l.log .tk b{color:var(--accent)}
+.dsp .l.bst .tk i{background:linear-gradient(90deg,#F87171,#DC2626)}
+.dsp .l.bst .tk b{color:#fff;right:20px;text-shadow:0 1px 8px rgba(120,10,10,.45)}
+
+/* a marca vertical do realizado, que atravessa as três linhas */
+.dsp .marca{position:absolute;left:4.97%;top:-19px;bottom:-19px;width:2px;
+  background:repeating-linear-gradient(180deg,#9AA6B6 0 5px,transparent 5px 10px);
+  opacity:0}
+.dsp.is-active .marca{animation:rv .5s var(--out) 2100ms forwards}
+
+/* ── a tira das métricas de ordenação, que aqui são coadjuvantes ─────────── */
+.dsp .tira{display:grid;grid-template-columns:repeat(3,1fr);gap:0 34px;margin-top:auto;
+  padding-top:18px;border-top:1px solid #DCE4EF}
+.dsp .tira .m{display:flex;align-items:baseline;gap:11px}
+.dsp .tira .m em{font-style:normal;font-size:26px;font-weight:900;letter-spacing:-1px;
+  color:var(--accent);font-variant-numeric:tabular-nums;line-height:1}
+.dsp .tira .m span{font-size:14px;line-height:1.4;color:#5A6779}
+.dsp .tira .m span b{color:var(--head);font-weight:700}
+.dsp .tira .m i{font-style:normal;font-size:11.5px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;border-radius:999px;padding:4px 11px;margin-left:4px;
+  align-self:center;white-space:nowrap}
+.dsp .tira .m i.eq{color:#5A6779;background:#EEF2F8}
+.dsp .tira .m i.up{color:#15803D;background:#E4F5EB}
 
 /* ───── 22-explicabilidade.html ───── */
 /* ═══ slide 22 · explicabilidade ══════════════════════════════════════════════
@@ -2308,30 +2289,37 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 
 /* ───── 27-saude.html ───── */
 /* ═══ slide 27 · a nota de saúde, com um produto aberto ═══════════════════════
-   Terceira forma deste slide. A primeira era um gráfico de haltere; a segunda,
-   um ranking de quinze linhas em duas colunas com um painel escuro de cinco
-   colunas embaixo, mais linha de conta e mais rodapé — sete blocos de
-   informação numa tela só, e o painel escuro sumia na projeção.
+   Quarta forma. A segunda era um ranking de quinze linhas em duas colunas com
+   um painel escuro embaixo — sete blocos de informação numa tela só. A terceira
+   trocou tudo por dois blocos claros, mas cortou o ranking para os cinco
+   últimos e apoiou o resto em prosa: uma linha dizendo onde ficavam os dez de
+   cima, outra explicando o que era posição relativa, e um rodapé de três
+   cláusulas. Texto fazendo o trabalho que a cor faz melhor.
 
-   Esta versão tem DOIS blocos e nada mais:
+   Esta versão tem os mesmos dois blocos e nenhuma linha de apoio:
 
-     esquerda   o ranking, pelo pé: os cinco últimos dos quinze, e uma linha
-                dizendo onde ficam os dez de cima. A barra é a nota e a marca
-                vertical é a mediana do conjunto (48,0) — a nota é relativa,
-                comparar com zero não diria nada.
+     esquerda   os quinze produtos, uma barra cada, ordenados pela nota. A cor
+                é a leitura: verde no topo, âmbar no meio, vermelho no pé. Não
+                há coluna de situação, marca de mediana, cabeçalho de tabela
+                nem nota de rodapé — a lista inteira é um objeto só.
      direita    um produto aberto. É o modal de `webapp/painel/_det_produto.html`:
-                posição, código, nota, os cinco componentes com o valor medido,
-                a barra da posição relativa e o número que entra na média.
+                posição, código, quadrante, nota, as duas prioridades e os cinco
+                componentes com o valor medido, a barra da posição relativa e o
+                número que entra na média.
 
-   Tudo em superfície clara. O painel escuro da versão anterior punha rótulo de
-   10px em cinza sobre preto e, projetado, lia como imagem mal comprimida. Aqui
-   o texto menor é 12,5px e a cor mais apagada em uso é #6B7688 sobre branco.
+   A COR É A MESMA REGRA NOS DOIS LADOS. No modal do produto, a barra de um
+   componente é vermelha acima da posição 66, âmbar acima de 33 e verde abaixo
+   disso. A nota é 100 × (1 − média das cinco posições), então 100 − nota é
+   exatamente essa média: aplicar o mesmo corte à nota dá 2 verdes, 8 âmbares e
+   5 vermelhos, e é o mesmo critério que colore o cartão ao lado. O âmbar sobe
+   um passo de luminosidade em relação ao #B45309 da tela — projetado ao lado
+   do vermelho, o tom da tela fecha em marrom. Azul não
+   entra: neste projeto ele é reservado para saída de modelo, e a nota de saúde
+   é história medida.
 
-   LEALDADE AO PRODUTO. Os rótulos dos cinco componentes são os de `COMPONENTES`
-   em `webapp/painel/servicos.py`. Os valores usam a formatação de `pior_val` da
-   mesma função. As cores das barras são as do modal: posição acima de 66 em
-   vermelho, acima de 33 em âmbar, abaixo disso em verde. A ordem dos cinco é a
-   ordem fixa da constante, não a ordem do pior para o melhor.
+   Tudo em superfície clara. A versão de painel escuro punha rótulo de 10px em
+   cinza sobre preto e, projetada, lia como imagem mal comprimida. Aqui o texto
+   menor é 12,5px e a cor mais apagada em uso é #6B7688 sobre branco.
 
    DURAÇÃO. O lcsi tem mediana de 451,28 h (encerramento automático) e qualquer
    escala em horas com ele dentro achata os outros catorze. Por isso a barra da
@@ -2341,12 +2329,14 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 
    Números de data/app/painel.json, campo `saude`, corte de 01/10/2025, janela
    de 01/01/2025 a 30/09/2025, produtos com 200 ou mais incidentes elegíveis ao
-   indicador. Os quinze somam 18.742 incidentes e 172 violações; a mediana das
-   notas é 48,0 e as notas vão de 21,3 (lvps) a 69,3 (lcho).
+   indicador. Os quinze somam 18.742 incidentes e 172 violações.
 
-   O pé do ranking, conferido no JSON:
-     11 lrel 32,0 · 12 lssl 30,7 · 13 lcsp 26,7 · 14 lrdo 25,3 · 15 lvps 21,3
-     o décimo é lsaa, 42,7, e o primeiro é lcho, 69,3
+   O ranking, conferido no JSON:
+     lcho 69,3 · lgoa 68,0 · lcem 66,7 · lrev 62,7 · lhvp 60,0 · lhco 56,0
+     lemg 49,3 · lcsi 48,0 · lsaa 42,7 · lsin 41,3 · lrel 32,0 · lssl 30,7
+     lcsp 26,7 · lrdo 25,3 · lvps 21,3
+     verde até 100 − nota ≤ 33 (lcho, lgoa); vermelho de 100 − nota > 66
+     (lrel em diante); âmbar no meio.
 
    O produto aberto, campo a campo:
      lvps · posição 15 de 15 · nota 21,3 · problema conhecido e recorrente
@@ -2363,55 +2353,52 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .sdc .tt em{font-style:normal;color:var(--accent)}
 .sdc .sub{font-size:17px;line-height:1.45;color:var(--tx);margin-top:12px;max-width:98ch}
 
-.sdc .cena{flex:1;min-height:0;margin-top:26px;display:grid;
-  grid-template-columns:452px 1fr;gap:58px}
+.sdc .cena{flex:1;min-height:0;margin-top:24px;display:grid;
+  grid-template-columns:470px 1fr;gap:54px}
 
-/* ── o ranking, pelo pé ───────────────────────────────────────────────────── */
+/* ── os quinze, em barras ─────────────────────────────────────────────────── */
 .sdc .lado{display:flex;flex-direction:column;min-width:0}
 .sdc .lh{font-size:11.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
-  color:var(--tx2);padding-bottom:11px;border-bottom:1px solid var(--line)}
-.sdc .rw{display:grid;grid-template-columns:22px 78px 1fr 58px 12px;align-items:center;
-  gap:0 14px;height:56px;padding:0 10px;border-radius:11px}
-.sdc .rw .pn{font-family:var(--mono);font-size:13px;color:var(--tx2);text-align:right}
-.sdc .rw .cd{font-family:var(--mono);font-size:19px;font-weight:700;color:var(--head);
-  letter-spacing:-.4px}
-.sdc .rw .vl{font-size:21px;font-weight:800;text-align:right;letter-spacing:-.6px;
+  color:var(--tx2);margin-bottom:6px}
+.sdc .rw{flex:1;display:grid;grid-template-columns:66px 1fr 50px 12px;align-items:center;
+  gap:0 14px;padding:0 12px;border-radius:10px}
+.sdc .rw .cd{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--head);
+  letter-spacing:-.3px}
+.sdc .rw .vl{font-size:15.5px;font-weight:700;text-align:right;letter-spacing:-.3px;
   color:var(--head);font-variant-numeric:tabular-nums}
-.sdc .rw .cv{width:12px;height:12px;stroke:var(--head);stroke-width:2.6;fill:none;
+.sdc .rw .cv{width:12px;height:12px;stroke:var(--head);stroke-width:2.8;fill:none;
   stroke-linecap:round;stroke-linejoin:round}
-/* a barra é a nota; a marca vertical é a mediana do conjunto, 48,0 */
-.sdc .tk{position:relative;height:9px;border-radius:5px;background:#E3E9F1}
-.sdc .tk i{display:block;height:100%;border-radius:5px;background:#64748B;
-  transform:scaleX(0);transform-origin:left}
+.sdc .tk{height:12px;border-radius:6px;background:#E4E9F1}
+.sdc .tk i{display:block;height:100%;border-radius:6px;transform:scaleX(0);
+  transform-origin:left}
 .sdc.is-active .tk i{animation:corre .55s var(--out) calc(var(--d,0ms) + 180ms) forwards}
-.sdc .tk u{position:absolute;top:-4px;bottom:-4px;width:2px;background:#94A3B8;
-  border-radius:2px;transform:translateX(-50%)}
-/* a linha aberta ao lado: fundo azul-claro e a seta que aponta para o cartão */
-.sdc .rw.on{background:#E6EBF3;box-shadow:inset 0 0 0 1px #D4DDE9}
-.sdc .rw.on .tk{background:#D3DAE4}
-.sdc .rw.on .tk i{background:var(--head)}
-.sdc .lf{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);
-  font-size:13.5px;line-height:1.55;color:var(--tx)}
-.sdc .lf b{color:var(--head);font-weight:700;font-variant-numeric:tabular-nums}
+/* as três faixas de cor do modal do produto, aplicadas a 100 − nota */
+.sdc .g .tk i{background:#059669}
+.sdc .a .tk i{background:#D97706}
+.sdc .r .tk i{background:#DC2626}
+/* o produto aberto ao lado */
+.sdc .rw.on{background:#E9EDF4;box-shadow:inset 0 0 0 1px #D6DEE9}
+.sdc .rw.on .cd{font-size:16.5px;font-weight:800}
+.sdc .rw.on .vl{font-size:18px;font-weight:800}
 
 /* ── o produto aberto: o modal do produto, em tamanho de projeção ─────────── */
 .sdc .ab{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);
-  border-radius:20px;padding:24px 30px 22px;box-shadow:0 24px 56px -40px rgba(15,23,42,.55)}
+  border-radius:22px;padding:26px 32px 24px;box-shadow:0 26px 60px -42px rgba(15,23,42,.55)}
 .sdc .abh{display:flex;align-items:flex-end;justify-content:space-between;gap:30px}
 .sdc .abk{display:block;font-size:11.5px;font-weight:700;letter-spacing:1.7px;
   text-transform:uppercase;color:var(--tx2)}
-.sdc .abh .cd{display:block;font-family:var(--mono);font-size:38px;font-weight:800;
-  color:var(--head);letter-spacing:-1.4px;line-height:1.1;margin-top:6px}
-.sdc .sit{display:inline-block;margin-top:9px;font-size:11px;font-weight:700;
+.sdc .abh .cd{display:block;font-family:var(--mono);font-size:40px;font-weight:800;
+  color:var(--head);letter-spacing:-1.5px;line-height:1.1;margin-top:6px}
+.sdc .sit{display:inline-block;margin-top:10px;font-size:11px;font-weight:700;
   letter-spacing:.9px;text-transform:uppercase;padding:5px 11px;border-radius:8px;
   color:#4C5870;background:#EDF1F7}
 .sdc .abn{text-align:right;flex-shrink:0}
-.sdc .abn .v{display:block;font-size:64px;font-weight:900;color:var(--head);
-  letter-spacing:-3px;line-height:.92;font-variant-numeric:tabular-nums}
-.sdc .abn .k{display:block;font-size:13px;color:var(--tx);margin-top:7px}
+.sdc .abn .v{display:block;font-size:68px;font-weight:900;color:var(--head);
+  letter-spacing:-3.4px;line-height:.9;font-variant-numeric:tabular-nums}
+.sdc .abn .k{display:block;font-size:13px;color:var(--tx);margin-top:8px}
 
 /* as duas prioridades, com o mesmo peso: as duas entram na nota */
-.sdc .pris{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:20px}
+.sdc .pris{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
 .sdc .pri{border-left:2px solid var(--line);padding-left:14px}
 .sdc .pri .k{display:block;font-size:11px;font-weight:700;letter-spacing:1.4px;
   text-transform:uppercase;color:var(--tx2)}
@@ -2419,29 +2406,30 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .sdc .pri .v b{color:var(--head);font-weight:700;font-variant-numeric:tabular-nums}
 
 /* os cinco componentes que produzem a nota */
-.sdc .cph{margin-top:22px;padding-top:15px;border-top:1px solid var(--line);
-  font-size:12px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
-  color:var(--tx2)}
-.sdc .cps{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:4px}
-.sdc .cp{flex:1;display:grid;grid-template-columns:186px 108px 1fr 60px;align-items:center;
+.sdc .cp{display:grid;grid-template-columns:190px 110px 1fr 62px;align-items:center;
   gap:0 20px}
-.sdc .cp + .cp{border-top:1px solid #EFF3F9}
+.sdc .cph{margin-top:24px;padding-top:15px;border-top:1px solid var(--line);
+  font-size:11.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
+  color:var(--tx2)}
+.sdc .cph > span:first-child{grid-column:1/3}
+.sdc .cph > span:last-child{grid-column:3/5;text-align:right;white-space:nowrap}
+.sdc .cps{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:2px}
+.sdc .cps .cp{flex:1}
+.sdc .cps .cp + .cp{border-top:1px solid #EFF3F9}
 .sdc .cp .k{font-size:15.5px;font-weight:600;color:var(--head)}
 .sdc .cp .m{font-size:16px;color:var(--tx);font-variant-numeric:tabular-nums}
-.sdc .cp .tr{position:relative;height:10px;border-radius:5px;background:#E9EEF5}
+.sdc .cp .tr{height:10px;border-radius:5px;background:#E9EEF5}
 .sdc .cp .tr i{display:block;height:100%;border-radius:5px;background:#059669;
   transform:scaleX(0);transform-origin:left}
 .sdc.is-active .cp .tr i{animation:corre .6s var(--out) calc(var(--d,0ms) + 200ms) forwards}
-/* as três faixas de cor do modal do produto: acima de 66, acima de 33, abaixo */
-.sdc .cp.alto .tr i{background:#DC2626}
-.sdc .cp.medio .tr i{background:#B45309}
+.sdc .cp.a .tr i{background:#D97706}
+.sdc .cp.r .tr i{background:#DC2626}
 .sdc .cp .p{font-family:var(--mono);font-size:15.5px;font-weight:700;text-align:right;
   color:var(--head);font-variant-numeric:tabular-nums}
 
-.sdc .abf{margin-top:15px;padding-top:14px;border-top:1px solid var(--line);
-  font-size:12.5px;line-height:1.55;color:var(--tx)}
-.sdc .abf b{display:block;margin-top:7px;font-family:var(--mono);font-size:13px;
-  color:var(--head);font-weight:700;font-variant-numeric:tabular-nums}
+.sdc .abf{margin-top:16px;padding-top:15px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:13px;color:var(--head);font-weight:700;
+  font-variant-numeric:tabular-nums}
 
 /* ───── 28-div-arquitetura-b.html ───── */
 
@@ -2551,12 +2539,12 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .ant.is-active .seta svg{animation:rv .5s var(--out) var(--d,0ms) forwards}
 
 /* o cartão central, onde mora o cálculo */
-.ant .meio{flex:1;min-width:0;display:flex;flex-direction:column;gap:14px}
+.ant .meio{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:14px}
 .ant .nucleo{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:20px;
   padding:24px 30px;box-shadow:0 26px 60px -40px rgba(15,23,42,.45);
   display:flex;flex-direction:column;justify-content:center}
 .ant .lin{display:grid;grid-template-columns:38px 1fr 154px 1fr;align-items:center;gap:0 18px;
-  padding:21px 0}
+  padding:18px 0}
 .ant .lin + .lin{border-top:1px solid #EDF1F7}
 .ant .lin:first-of-type{margin-top:6px}
 .ant .lin .mi{width:34px;height:34px;border-radius:10px;background:#F1F5FB;color:var(--accent);
@@ -3964,168 +3952,62 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   </div>
   <div class="body">
     <span class="eb"><span class="rv" style="--d:240ms">Exigência do desafio &middot; agrupar causas recorrentes</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>A causa mais frequente <em>não é a que mais estoura o prazo</em></span></span></h1>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>A causa mais frequente <em>não é a que mais estoura</em></span></span></h1>
 
     <div class="cena">
-      <div class="tab rv3" style="--d:700ms">
-        <div>
-          <div class="cab">
-            <span>Causa de fechamento</span>
-            <span class="dir">Incidentes</span>
-            <span>Participação no volume</span>
-            <span></span>
-            <span class="esc">Taxa de quebra<i></i><b>Média da base 0,94%</b></span>
-            <span></span>
-            <span class="dir">Taxa P2</span>
-            <span class="dir">Taxa P3</span>
-          </div>
+      <div class="duo">
 
-          <div class="lin pv" style="--d:1000ms">
-            <span class="nm"><u>Maior em volume</u>Falha de Aplicação</span>
-            <span class="qt">12.041</span>
-            <span class="trk"><i class="f" style="width:100%"></i></span>
-            <span class="vl v">60,3%</span>
-            <span class="trk rsk"><i class="f" style="width:27.3%"></i><i class="md"></i></span>
-            <span class="vl">0,82%</span>
-            <span class="pr">0,88%</span>
-            <span class="pr">0,82%</span>
+        <div class="cau app rv3" style="--d:700ms">
+          <div class="nm">
+            <span class="k">A maior em volume</span>
+            <b>Falha de Aplicação</b>
+            <span class="d">12.041 incidentes &middot; <em>0,88%</em> na prioridade 2 e <em>0,82%</em> na 3</span>
           </div>
-
-          <div class="lin" style="--d:1060ms">
-            <span class="nm">Falha de Sistema Operacional</span>
-            <span class="qt">2.197</span>
-            <span class="trk"><i class="f" style="width:18.2%"></i></span>
-            <span class="vl">11,0%</span>
-            <span class="trk rsk"><i class="f" style="width:6.0%"></i><i class="md"></i></span>
-            <span class="vl">0,18%</span>
-            <span class="pr">0,18%</span>
-            <span class="pr">0,18%</span>
+          <div class="col vol">
+            <span class="vl"><span class="ct" data-to="60.3" data-dec="1" data-delay="1180">0,0</span><small>%</small></span>
+            <span class="br" style="height:280px;--d:1050ms"></span>
+            <span class="rot">do volume</span>
           </div>
-
-          <div class="lin" style="--d:1120ms">
-            <span class="nm">Outro</span>
-            <span class="qt">1.596</span>
-            <span class="trk"><i class="f" style="width:13.3%"></i></span>
-            <span class="vl">8,0%</span>
-            <span class="trk rsk"><i class="f ac" style="width:89.7%"></i><i class="md"></i></span>
-            <span class="vl">2,69%</span>
-            <span class="pr">1,81%</span>
-            <span class="pr">2,93%</span>
-          </div>
-
-          <div class="lin" style="--d:1180ms">
-            <span class="nm">Falha causada pelo cliente</span>
-            <span class="qt">950</span>
-            <span class="trk"><i class="f" style="width:8.0%"></i></span>
-            <span class="vl">4,8%</span>
-            <span class="trk rsk"><i class="f" style="width:10.7%"></i><i class="md"></i></span>
-            <span class="vl">0,32%</span>
-            <span class="pr">0,00%</span>
-            <span class="pr">0,49%</span>
-          </div>
-
-          <div class="lin" style="--d:1240ms">
-            <span class="nm">Falha não reproduzida</span>
-            <span class="qt">899</span>
-            <span class="trk"><i class="f" style="width:7.5%"></i></span>
-            <span class="vl">4,5%</span>
-            <span class="trk rsk"><i class="f" style="width:18.7%"></i><i class="md"></i></span>
-            <span class="vl">0,56%</span>
-            <span class="pr">0,00%</span>
-            <span class="pr">0,62%</span>
-          </div>
-
-          <div class="lin" style="--d:1300ms">
-            <span class="nm">Falha de Segurança</span>
-            <span class="qt">367</span>
-            <span class="trk"><i class="f" style="width:3.0%"></i></span>
-            <span class="vl">1,8%</span>
-            <span class="trk rsk"><i class="f" style="width:9.0%"></i><i class="md"></i></span>
-            <span class="vl">0,27%</span>
-            <span class="pr">0,89%</span>
-            <span class="pr">0,00%</span>
-          </div>
-
-          <div class="lin" style="--d:1360ms">
-            <span class="nm">Incidente causado por Change</span>
-            <span class="qt">364</span>
-            <span class="trk"><i class="f" style="width:3.0%"></i></span>
-            <span class="vl">1,8%</span>
-            <span class="trk rsk"><i class="f ac" style="width:45.7%"></i><i class="md"></i></span>
-            <span class="vl">1,37%</span>
-            <span class="pr">1,05%</span>
-            <span class="pr">1,73%</span>
-          </div>
-
-          <div class="lin" style="--d:1420ms">
-            <span class="nm">Falha de Cloud</span>
-            <span class="qt">351</span>
-            <span class="trk"><i class="f" style="width:3.0%"></i></span>
-            <span class="vl">1,8%</span>
-            <span class="trk rsk"><i class="f" style="width:28.3%"></i><i class="md"></i></span>
-            <span class="vl">0,85%</span>
-            <span class="pr">1,56%</span>
-            <span class="pr">0,45%</span>
-          </div>
-
-          <div class="lin" style="--d:1480ms">
-            <span class="nm">Sem retorno do solicitante</span>
-            <span class="qt">329</span>
-            <span class="trk"><i class="f" style="width:2.7%"></i></span>
-            <span class="vl">1,6%</span>
-            <span class="trk rsk"><i class="f ac" style="width:71.0%"></i><i class="md"></i></span>
-            <span class="vl">2,13%</span>
-            <span class="pr">&mdash;</span>
-            <span class="pr">2,13%</span>
-          </div>
-
-          <div class="lin" style="--d:1540ms">
-            <span class="nm">Falha de Banco de Dados</span>
-            <span class="qt">182</span>
-            <span class="trk"><i class="f" style="width:1.5%"></i></span>
-            <span class="vl">0,9%</span>
-            <span class="trk rsk"><i class="f ac" style="width:73.3%"></i><i class="md"></i></span>
-            <span class="vl">2,20%</span>
-            <span class="pr">2,27%</span>
-            <span class="pr">2,13%</span>
-          </div>
-
-          <div class="lin" style="--d:1600ms">
-            <span class="nm">Falso Positivo</span>
-            <span class="qt">150</span>
-            <span class="trk"><i class="f" style="width:1.3%"></i></span>
-            <span class="vl">0,8%</span>
-            <span class="trk rsk"><i class="f nz" style="width:0%"></i><i class="md"></i></span>
-            <span class="vl">0,00%</span>
-            <span class="pr">0,00%</span>
-            <span class="pr">0,00%</span>
-          </div>
-
-          <div class="lin pr2" style="--d:1660ms">
-            <span class="nm"><u>Maior em taxa</u>Falha de Storage</span>
-            <span class="qt">103</span>
-            <span class="trk"><i class="f" style="width:0.8%"></i></span>
-            <span class="vl">0,5%</span>
-            <span class="trk rsk"><i class="f ac" style="width:97.0%"></i><i class="md"></i></span>
-            <span class="vl q">2,91%</span>
-            <span class="pr">0,00%</span>
-            <span class="pr">4,35%</span>
+          <div class="col tx">
+            <span class="vl"><span class="ct" data-to="0.82" data-dec="2" data-delay="1280">0,00</span><small>%</small></span>
+            <span class="br" style="height:79px;--d:1150ms"></span>
+            <span class="rot">estouram o prazo</span>
           </div>
         </div>
 
-        <div class="nota">
-          <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-          <span><b>Corte:</b> entram só as causas com pelo menos 100 incidentes na janela, 12 das 16. Falha de Hardware tem a maior taxa da tabela inteira, 8,24%, mas sobre 85 incidentes, e fica de fora porque nesse volume uma quebra a mais move a taxa em mais de um ponto; pelo mesmo motivo saem Falha de Redes (65 incidentes), Falha de Monitoração (65) e Carta de Risco (1). Sem retorno do solicitante não teve incidente na prioridade 2 na janela.</span>
+        <div class="eixo rv" style="--d:1520ms">
+          <div class="fx"><div class="md"><b>média 0,94%</b></div></div>
+          <div class="lg">cada coluna<br>na sua escala</div>
         </div>
+
+        <div class="cau stg rv3" style="--d:860ms">
+          <div class="nm">
+            <span class="k">A maior em taxa</span>
+            <b>Falha de Storage</b>
+            <span class="d">103 incidentes &middot; <em>nenhuma quebra</em> na prioridade 2 e <em>4,35%</em> na 3</span>
+          </div>
+          <div class="col vol">
+            <span class="vl"><span class="ct" data-to="0.5" data-dec="1" data-delay="1380">0,0</span><small>%</small></span>
+            <span class="br" style="height:9px;--d:1250ms"></span>
+            <span class="rot">do volume</span>
+          </div>
+          <div class="col tx">
+            <span class="vl"><span class="ct" data-to="2.91" data-dec="2" data-delay="1480">0,00</span><small>%</small></span>
+            <span class="br" style="height:280px;--d:1350ms"></span>
+            <span class="rot">estouram o prazo</span>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <div class="fecho rv" style="--d:2400ms">
+    <div class="fecho rv" style="--d:1800ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span>A lista está ordenada por volume, e a coluna da taxa não acompanha. <b>Priorizar por volume é atender o que já está sob controle.</b></span>
+      <span>Seis de cada dez incidentes vêm da causa que menos estoura. <b>Priorizar por volume é atender o que já está sob controle.</b></span>
+      <span class="nt">Doze causas têm 100 incidentes ou mais na janela. Abaixo disso a taxa é instável: Falha de Hardware chega a 8,24% sobre 85 casos.</span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span><span>Janeiro a setembro de 2025 &middot; 19.745 incidentes com código de fechamento &middot; 187 violações</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
 </section>
 
 <section class="slide light cau" data-slide="15" data-var="b" data-quem="ana">
@@ -4556,53 +4438,59 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
     <div class="tag">Seção 04 &middot; escolha do modelo</div>
   </div>
   <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Regressão logística contra gradient boosting</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Por que a <em>logística</em> ficou no lugar do boosting</span></span></h1>
-    <p class="sub rv" style="--d:620ms">As duas ordenam a fila igual. A diferença aparece na métrica que vale para evento raro, e na conta que o painel precisa fechar.</p>
+    <span class="eb"><span class="rv" style="--d:240ms">A escolha do modelo de risco</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Ordenar igual, <em>contar diferente</em></span></span></h1>
+    <p class="sub rv" style="--d:620ms">Os dois separam quem quebra de quem não quebra com a mesma qualidade. Só um acerta <b>quantos</b>, e a projeção da meta soma quebras previstas.</p>
 
     <div class="cena">
-      <div class="duelo rv3" style="--d:800ms">
-        <div class="cab">
-          <span>Medida</span>
-          <span class="m">Regressão logística</span>
-          <span class="x">Gradient boosting</span>
-          <span></span>
+      <div class="regua rv3" style="--d:780ms">
+        <div class="k">Quebras previstas no período &middot; <b>houve 50</b></div>
+
+        <div class="l real">
+          <span class="nm">O que aconteceu<small>violações de OLA apuradas no período de teste</small></span>
+          <div class="tk">
+            <i style="width:4.97%;--d:1000ms"></i>
+            <b style="left:calc(4.97% + 20px)">50</b>
+            <span class="marca"></span>
+          </div>
         </div>
 
-        <div class="lin emp">
-          <span class="nm">Área sob a curva ROC<small>capacidade de separar quem quebra de quem não quebra</small></span>
-          <span class="v m"><span class="ct" data-to="0.869" data-dec="3" data-delay="1100">0,000</span></span>
-          <span class="v x">0,868</span>
-          <span class="jz">empate</span>
+        <div class="l log">
+          <span class="nm">Regressão logística<small>o modelo que ficou</small></span>
+          <div class="tk">
+            <i style="width:4.78%;--d:1180ms"></i>
+            <b style="left:calc(4.78% + 20px)"><span class="ct" data-to="48.1" data-dec="1" data-delay="1380">0,0</span><small>erra por menos de duas</small></b>
+            <span class="marca"></span>
+          </div>
         </div>
 
-        <div class="lin gan">
-          <span class="nm">PR-AUC<small>precisão e cobertura no evento raro, que é a régua deste problema</small></span>
-          <span class="v m"><span class="ct" data-to="0.296" data-dec="3" data-delay="1240">0,000</span></span>
-          <span class="v x">0,253</span>
-          <span class="jz">+17%</span>
+        <div class="l bst">
+          <span class="nm">Gradient boosting<small>com <b style="display:inline;font-size:inherit">scale_pos_weight</b>, ajustado para o evento raro</small></span>
+          <div class="tk">
+            <i style="width:100%;--d:1420ms"></i>
+            <b><span class="ct" data-to="1007" data-delay="1700">0</span></b>
+            <span class="marca"></span>
+          </div>
         </div>
-
-        <div class="lin per">
-          <span class="nm">Quebras previstas no período<small>onde houve 50, com o boosting ajustado para o evento raro</small></span>
-          <span class="v m"><span class="ct" data-to="48.1" data-dec="1" data-delay="1380">0,0</span><small>de 50</small></span>
-          <span class="v x">1.007<small>de 50</small></span>
-          <span class="jz">inviável</span>
-        </div>
-      </div>
-
-      <div class="porq rv3" style="--d:940ms">
-        <div class="k">O que a PR-AUC diz</div>
-        <div class="grande"><em><span class="ct" data-to="31" data-delay="1500">0</span>&times;</em><i>a taxa da base,<br>que é 0,0096</i></div>
-        <p>Uma quebra a cada 103 incidentes. Chutar ao acaso dá <b>0,0096</b> de PR-AUC; o modelo dá <b>0,2958</b>.</p>
-        <p>Entre os cinco cortes testados a PR-AUC fica entre <b>0,2702 e 0,3177</b>, então o resultado não vem da data escolhida.</p>
-        <p class="rod">O boosting com <b>scale_pos_weight</b> prevê mil quebras onde houve cinquenta. Ordena bem e conta mal, e a projeção da meta depende da contagem.</p>
       </div>
     </div>
 
-    <div class="fecho rv" style="--d:1700ms">
-      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
-      <span>Empate na ordenação, vantagem na métrica do raro e a contagem certa. <b>E cada nota sai com o motivo</b>, que é o próximo slide.</span>
+    <div class="tira">
+      <div class="m rv" style="--d:2200ms">
+        <em>0,869</em>
+        <span>de <b>ROC</b>, contra 0,868</span>
+        <i class="eq">empate</i>
+      </div>
+      <div class="m rv" style="--d:2280ms">
+        <em>0,296</em>
+        <span>de <b>PR-AUC</b>, contra 0,253</span>
+        <i class="up">+17%</i>
+      </div>
+      <div class="m rv" style="--d:2360ms">
+        <em>31&times;</em>
+        <span>a taxa da base, que é <b>0,0096</b></span>
+        <i class="eq">evento raro</i>
+      </div>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
@@ -5198,41 +5086,60 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="body">
     <span class="eb"><span class="rv" style="--d:240ms">Diferencial 2 &middot; nota de saúde por produto</span></span>
     <h1 class="tt"><span class="mask" style="--d:340ms"><span>Que produto está pior, <em>e por quê</em></span></span></h1>
-    <p class="sub rv" style="--d:580ms">A nota vai de 0 a 100 e é relativa ao conjunto. Abrir um produto mostra os cinco componentes que a produzem.</p>
+    <p class="sub rv" style="--d:580ms">A nota é relativa ao conjunto, e abrir um produto mostra os cinco componentes que a produzem.</p>
 
     <div class="cena">
       <div class="lado">
-        <span class="lh rv" style="--d:700ms">Ranking &middot; os cinco últimos de 15</span>
-        <div class="rw rv" style="--d:780ms">
-          <span class="pn">11</span><span class="cd">lrel</span>
-          <span class="tk"><i style="width:32%"></i><u style="left:48%"></u></span>
-          <span class="vl">32,0</span>
+        <span class="lh rv" style="--d:680ms">Ranking &middot; nota de 0 a 100</span>
+        <div class="rw g rv" style="--d:740ms">
+          <span class="cd">lcho</span><span class="tk"><i style="width:69.3%"></i></span><span class="vl">69,3</span>
         </div>
-        <div class="rw rv" style="--d:830ms">
-          <span class="pn">12</span><span class="cd">lssl</span>
-          <span class="tk"><i style="width:30.7%"></i><u style="left:48%"></u></span>
-          <span class="vl">30,7</span>
+        <div class="rw g rv" style="--d:768ms">
+          <span class="cd">lgoa</span><span class="tk"><i style="width:68%"></i></span><span class="vl">68,0</span>
         </div>
-        <div class="rw rv" style="--d:880ms">
-          <span class="pn">13</span><span class="cd">lcsp</span>
-          <span class="tk"><i style="width:26.7%"></i><u style="left:48%"></u></span>
-          <span class="vl">26,7</span>
+        <div class="rw a rv" style="--d:796ms">
+          <span class="cd">lcem</span><span class="tk"><i style="width:66.7%"></i></span><span class="vl">66,7</span>
         </div>
-        <div class="rw rv" style="--d:930ms">
-          <span class="pn">14</span><span class="cd">lrdo</span>
-          <span class="tk"><i style="width:25.3%"></i><u style="left:48%"></u></span>
-          <span class="vl">25,3</span>
+        <div class="rw a rv" style="--d:824ms">
+          <span class="cd">lrev</span><span class="tk"><i style="width:62.7%"></i></span><span class="vl">62,7</span>
         </div>
-        <div class="rw on rv" style="--d:980ms">
-          <span class="pn">15</span><span class="cd">lvps</span>
-          <span class="tk"><i style="width:21.3%"></i><u style="left:48%"></u></span>
-          <span class="vl">21,3</span>
+        <div class="rw a rv" style="--d:852ms">
+          <span class="cd">lhvp</span><span class="tk"><i style="width:60%"></i></span><span class="vl">60,0</span>
+        </div>
+        <div class="rw a rv" style="--d:880ms">
+          <span class="cd">lhco</span><span class="tk"><i style="width:56%"></i></span><span class="vl">56,0</span>
+        </div>
+        <div class="rw a rv" style="--d:908ms">
+          <span class="cd">lemg</span><span class="tk"><i style="width:49.3%"></i></span><span class="vl">49,3</span>
+        </div>
+        <div class="rw a rv" style="--d:936ms">
+          <span class="cd">lcsi</span><span class="tk"><i style="width:48%"></i></span><span class="vl">48,0</span>
+        </div>
+        <div class="rw a rv" style="--d:964ms">
+          <span class="cd">lsaa</span><span class="tk"><i style="width:42.7%"></i></span><span class="vl">42,7</span>
+        </div>
+        <div class="rw a rv" style="--d:992ms">
+          <span class="cd">lsin</span><span class="tk"><i style="width:41.3%"></i></span><span class="vl">41,3</span>
+        </div>
+        <div class="rw r rv" style="--d:1020ms">
+          <span class="cd">lrel</span><span class="tk"><i style="width:32%"></i></span><span class="vl">32,0</span>
+        </div>
+        <div class="rw r rv" style="--d:1048ms">
+          <span class="cd">lssl</span><span class="tk"><i style="width:30.7%"></i></span><span class="vl">30,7</span>
+        </div>
+        <div class="rw r rv" style="--d:1076ms">
+          <span class="cd">lcsp</span><span class="tk"><i style="width:26.7%"></i></span><span class="vl">26,7</span>
+        </div>
+        <div class="rw r rv" style="--d:1104ms">
+          <span class="cd">lrdo</span><span class="tk"><i style="width:25.3%"></i></span><span class="vl">25,3</span>
+        </div>
+        <div class="rw r on rv" style="--d:1132ms">
+          <span class="cd">lvps</span><span class="tk"><i style="width:21.3%"></i></span><span class="vl">21,3</span>
           <svg class="cv" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
         </div>
-        <p class="lf rv" style="--d:1080ms">Os dez de cima ficam entre <b>42,7</b> e <b>69,3</b>.<br>A marca na barra é a mediana dos quinze, <b>48,0</b>.</p>
       </div>
 
-      <div class="ab rv3" style="--d:1060ms">
+      <div class="ab rv3" style="--d:900ms">
         <div class="abh">
           <div>
             <span class="abk">Produto &middot; posição 15 de 15</span>
@@ -5240,49 +5147,52 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
             <span class="sit">Problema conhecido e recorrente</span>
           </div>
           <div class="abn">
-            <span class="v"><span class="ct" data-to="21.3" data-dec="1" data-delay="1500">0,0</span></span>
-            <span class="k">Nota de 0 a 100</span>
+            <span class="v"><span class="ct" data-to="21.3" data-dec="1" data-delay="1380">0,0</span></span>
+            <span class="k">Nota</span>
           </div>
         </div>
 
         <div class="pris">
-          <div class="pri rv" style="--d:1440ms">
+          <div class="pri rv" style="--d:1300ms">
             <span class="k">Prioridade 2</span>
             <span class="v"><b>125</b> incidentes &middot; <b>2</b> violações</span>
           </div>
-          <div class="pri rv" style="--d:1440ms">
+          <div class="pri rv" style="--d:1300ms">
             <span class="k">Prioridade 3</span>
             <span class="v"><b>185</b> incidentes &middot; <b>7</b> violações</span>
           </div>
         </div>
 
-        <div class="cph rv" style="--d:1560ms">Os cinco componentes da nota</div>
+        <div class="cp cph rv" style="--d:1420ms">
+          <span>Os cinco componentes da nota</span>
+          <span>Posição entre os 15 &middot; 1 é o pior</span>
+        </div>
         <div class="cps">
-          <div class="cp alto rv" style="--d:1620ms">
+          <div class="cp r rv" style="--d:1480ms">
             <span class="k">Taxa de violação</span>
             <span class="m">2,9%</span>
             <span class="tr"><i style="width:100%"></i></span>
             <span class="p">1,000</span>
           </div>
-          <div class="cp medio rv" style="--d:1680ms">
+          <div class="cp a rv" style="--d:1540ms">
             <span class="k">Problemas inéditos</span>
             <span class="m">42,3%</span>
             <span class="tr"><i style="width:53.3%"></i></span>
             <span class="p">0,533</span>
           </div>
-          <div class="cp alto rv" style="--d:1740ms">
+          <div class="cp r rv" style="--d:1600ms">
             <span class="k">Fechados sem causa</span>
             <span class="m">30,6%</span>
             <span class="tr"><i style="width:100%"></i></span>
             <span class="p">1,000</span>
           </div>
-          <div class="cp medio rv" style="--d:1800ms">
+          <div class="cp a rv" style="--d:1660ms">
             <span class="k">Duração mediana</span>
             <span class="m">1,2 h</span>
             <span class="tr"><i style="width:40%"></i></span>
             <span class="p">0,400</span>
           </div>
-          <div class="cp alto rv" style="--d:1860ms">
+          <div class="cp r rv" style="--d:1720ms">
             <span class="k">Tendência da taxa</span>
             <span class="m">+2,98 pontos</span>
             <span class="tr"><i style="width:100%"></i></span>
@@ -5290,11 +5200,11 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
           </div>
         </div>
 
-        <p class="abf rv" style="--d:2000ms">A barra é a posição relativa entre os quinze, de 0 (o melhor) a 1 (o pior). A nota é a média das cinco, invertida.<b>(1,000 + 0,533 + 1,000 + 0,400 + 1,000) &divide; 5 = 0,787 &nbsp;&middot;&nbsp; 100 &times; (1 &minus; 0,787) = 21,3</b></p>
+        <p class="abf rv" style="--d:1860ms">(1,000 + 0,533 + 1,000 + 0,400 + 1,000) &divide; 5 = 0,787 &nbsp;&middot;&nbsp; 100 &times; (1 &minus; 0,787) = 21,3</p>
       </div>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span><span>Janela de 01/01/2025 a 30/09/2025 &middot; 15 produtos com 200 ou mais incidentes elegíveis ao indicador &middot; 18.742 incidentes, 172 violações</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span><span>Janela de 01/01/2025 a 30/09/2025 &middot; produtos com 200 ou mais incidentes elegíveis ao indicador</span></div>
 </section>
 
 <section class="slide dark dv3 dv2" data-slide="28" data-var="a" data-quem="hygor">

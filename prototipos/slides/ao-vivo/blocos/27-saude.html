@@ -1,29 +1,36 @@
 <style>
 /* ═══ slide 27 · a nota de saúde, com um produto aberto ═══════════════════════
-   Terceira forma deste slide. A primeira era um gráfico de haltere; a segunda,
-   um ranking de quinze linhas em duas colunas com um painel escuro de cinco
-   colunas embaixo, mais linha de conta e mais rodapé — sete blocos de
-   informação numa tela só, e o painel escuro sumia na projeção.
+   Quarta forma. A segunda era um ranking de quinze linhas em duas colunas com
+   um painel escuro embaixo — sete blocos de informação numa tela só. A terceira
+   trocou tudo por dois blocos claros, mas cortou o ranking para os cinco
+   últimos e apoiou o resto em prosa: uma linha dizendo onde ficavam os dez de
+   cima, outra explicando o que era posição relativa, e um rodapé de três
+   cláusulas. Texto fazendo o trabalho que a cor faz melhor.
 
-   Esta versão tem DOIS blocos e nada mais:
+   Esta versão tem os mesmos dois blocos e nenhuma linha de apoio:
 
-     esquerda   o ranking, pelo pé: os cinco últimos dos quinze, e uma linha
-                dizendo onde ficam os dez de cima. A barra é a nota e a marca
-                vertical é a mediana do conjunto (48,0) — a nota é relativa,
-                comparar com zero não diria nada.
+     esquerda   os quinze produtos, uma barra cada, ordenados pela nota. A cor
+                é a leitura: verde no topo, âmbar no meio, vermelho no pé. Não
+                há coluna de situação, marca de mediana, cabeçalho de tabela
+                nem nota de rodapé — a lista inteira é um objeto só.
      direita    um produto aberto. É o modal de `webapp/painel/_det_produto.html`:
-                posição, código, nota, os cinco componentes com o valor medido,
-                a barra da posição relativa e o número que entra na média.
+                posição, código, quadrante, nota, as duas prioridades e os cinco
+                componentes com o valor medido, a barra da posição relativa e o
+                número que entra na média.
 
-   Tudo em superfície clara. O painel escuro da versão anterior punha rótulo de
-   10px em cinza sobre preto e, projetado, lia como imagem mal comprimida. Aqui
-   o texto menor é 12,5px e a cor mais apagada em uso é #6B7688 sobre branco.
+   A COR É A MESMA REGRA NOS DOIS LADOS. No modal do produto, a barra de um
+   componente é vermelha acima da posição 66, âmbar acima de 33 e verde abaixo
+   disso. A nota é 100 × (1 − média das cinco posições), então 100 − nota é
+   exatamente essa média: aplicar o mesmo corte à nota dá 2 verdes, 8 âmbares e
+   5 vermelhos, e é o mesmo critério que colore o cartão ao lado. O âmbar sobe
+   um passo de luminosidade em relação ao #B45309 da tela — projetado ao lado
+   do vermelho, o tom da tela fecha em marrom. Azul não
+   entra: neste projeto ele é reservado para saída de modelo, e a nota de saúde
+   é história medida.
 
-   LEALDADE AO PRODUTO. Os rótulos dos cinco componentes são os de `COMPONENTES`
-   em `webapp/painel/servicos.py`. Os valores usam a formatação de `pior_val` da
-   mesma função. As cores das barras são as do modal: posição acima de 66 em
-   vermelho, acima de 33 em âmbar, abaixo disso em verde. A ordem dos cinco é a
-   ordem fixa da constante, não a ordem do pior para o melhor.
+   Tudo em superfície clara. A versão de painel escuro punha rótulo de 10px em
+   cinza sobre preto e, projetada, lia como imagem mal comprimida. Aqui o texto
+   menor é 12,5px e a cor mais apagada em uso é #6B7688 sobre branco.
 
    DURAÇÃO. O lcsi tem mediana de 451,28 h (encerramento automático) e qualquer
    escala em horas com ele dentro achata os outros catorze. Por isso a barra da
@@ -33,12 +40,14 @@
 
    Números de data/app/painel.json, campo `saude`, corte de 01/10/2025, janela
    de 01/01/2025 a 30/09/2025, produtos com 200 ou mais incidentes elegíveis ao
-   indicador. Os quinze somam 18.742 incidentes e 172 violações; a mediana das
-   notas é 48,0 e as notas vão de 21,3 (lvps) a 69,3 (lcho).
+   indicador. Os quinze somam 18.742 incidentes e 172 violações.
 
-   O pé do ranking, conferido no JSON:
-     11 lrel 32,0 · 12 lssl 30,7 · 13 lcsp 26,7 · 14 lrdo 25,3 · 15 lvps 21,3
-     o décimo é lsaa, 42,7, e o primeiro é lcho, 69,3
+   O ranking, conferido no JSON:
+     lcho 69,3 · lgoa 68,0 · lcem 66,7 · lrev 62,7 · lhvp 60,0 · lhco 56,0
+     lemg 49,3 · lcsi 48,0 · lsaa 42,7 · lsin 41,3 · lrel 32,0 · lssl 30,7
+     lcsp 26,7 · lrdo 25,3 · lvps 21,3
+     verde até 100 − nota ≤ 33 (lcho, lgoa); vermelho de 100 − nota > 66
+     (lrel em diante); âmbar no meio.
 
    O produto aberto, campo a campo:
      lvps · posição 15 de 15 · nota 21,3 · problema conhecido e recorrente
@@ -55,55 +64,52 @@
 .sdc .tt em{font-style:normal;color:var(--accent)}
 .sdc .sub{font-size:17px;line-height:1.45;color:var(--tx);margin-top:12px;max-width:98ch}
 
-.sdc .cena{flex:1;min-height:0;margin-top:26px;display:grid;
-  grid-template-columns:452px 1fr;gap:58px}
+.sdc .cena{flex:1;min-height:0;margin-top:24px;display:grid;
+  grid-template-columns:470px 1fr;gap:54px}
 
-/* ── o ranking, pelo pé ───────────────────────────────────────────────────── */
+/* ── os quinze, em barras ─────────────────────────────────────────────────── */
 .sdc .lado{display:flex;flex-direction:column;min-width:0}
 .sdc .lh{font-size:11.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
-  color:var(--tx2);padding-bottom:11px;border-bottom:1px solid var(--line)}
-.sdc .rw{display:grid;grid-template-columns:22px 78px 1fr 58px 12px;align-items:center;
-  gap:0 14px;height:56px;padding:0 10px;border-radius:11px}
-.sdc .rw .pn{font-family:var(--mono);font-size:13px;color:var(--tx2);text-align:right}
-.sdc .rw .cd{font-family:var(--mono);font-size:19px;font-weight:700;color:var(--head);
-  letter-spacing:-.4px}
-.sdc .rw .vl{font-size:21px;font-weight:800;text-align:right;letter-spacing:-.6px;
+  color:var(--tx2);margin-bottom:6px}
+.sdc .rw{flex:1;display:grid;grid-template-columns:66px 1fr 50px 12px;align-items:center;
+  gap:0 14px;padding:0 12px;border-radius:10px}
+.sdc .rw .cd{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--head);
+  letter-spacing:-.3px}
+.sdc .rw .vl{font-size:15.5px;font-weight:700;text-align:right;letter-spacing:-.3px;
   color:var(--head);font-variant-numeric:tabular-nums}
-.sdc .rw .cv{width:12px;height:12px;stroke:var(--head);stroke-width:2.6;fill:none;
+.sdc .rw .cv{width:12px;height:12px;stroke:var(--head);stroke-width:2.8;fill:none;
   stroke-linecap:round;stroke-linejoin:round}
-/* a barra é a nota; a marca vertical é a mediana do conjunto, 48,0 */
-.sdc .tk{position:relative;height:9px;border-radius:5px;background:#E3E9F1}
-.sdc .tk i{display:block;height:100%;border-radius:5px;background:#64748B;
-  transform:scaleX(0);transform-origin:left}
+.sdc .tk{height:12px;border-radius:6px;background:#E4E9F1}
+.sdc .tk i{display:block;height:100%;border-radius:6px;transform:scaleX(0);
+  transform-origin:left}
 .sdc.is-active .tk i{animation:corre .55s var(--out) calc(var(--d,0ms) + 180ms) forwards}
-.sdc .tk u{position:absolute;top:-4px;bottom:-4px;width:2px;background:#94A3B8;
-  border-radius:2px;transform:translateX(-50%)}
-/* a linha aberta ao lado: fundo azul-claro e a seta que aponta para o cartão */
-.sdc .rw.on{background:#E6EBF3;box-shadow:inset 0 0 0 1px #D4DDE9}
-.sdc .rw.on .tk{background:#D3DAE4}
-.sdc .rw.on .tk i{background:var(--head)}
-.sdc .lf{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);
-  font-size:13.5px;line-height:1.55;color:var(--tx)}
-.sdc .lf b{color:var(--head);font-weight:700;font-variant-numeric:tabular-nums}
+/* as três faixas de cor do modal do produto, aplicadas a 100 − nota */
+.sdc .g .tk i{background:#059669}
+.sdc .a .tk i{background:#D97706}
+.sdc .r .tk i{background:#DC2626}
+/* o produto aberto ao lado */
+.sdc .rw.on{background:#E9EDF4;box-shadow:inset 0 0 0 1px #D6DEE9}
+.sdc .rw.on .cd{font-size:16.5px;font-weight:800}
+.sdc .rw.on .vl{font-size:18px;font-weight:800}
 
 /* ── o produto aberto: o modal do produto, em tamanho de projeção ─────────── */
 .sdc .ab{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);
-  border-radius:20px;padding:24px 30px 22px;box-shadow:0 24px 56px -40px rgba(15,23,42,.55)}
+  border-radius:22px;padding:26px 32px 24px;box-shadow:0 26px 60px -42px rgba(15,23,42,.55)}
 .sdc .abh{display:flex;align-items:flex-end;justify-content:space-between;gap:30px}
 .sdc .abk{display:block;font-size:11.5px;font-weight:700;letter-spacing:1.7px;
   text-transform:uppercase;color:var(--tx2)}
-.sdc .abh .cd{display:block;font-family:var(--mono);font-size:38px;font-weight:800;
-  color:var(--head);letter-spacing:-1.4px;line-height:1.1;margin-top:6px}
-.sdc .sit{display:inline-block;margin-top:9px;font-size:11px;font-weight:700;
+.sdc .abh .cd{display:block;font-family:var(--mono);font-size:40px;font-weight:800;
+  color:var(--head);letter-spacing:-1.5px;line-height:1.1;margin-top:6px}
+.sdc .sit{display:inline-block;margin-top:10px;font-size:11px;font-weight:700;
   letter-spacing:.9px;text-transform:uppercase;padding:5px 11px;border-radius:8px;
   color:#4C5870;background:#EDF1F7}
 .sdc .abn{text-align:right;flex-shrink:0}
-.sdc .abn .v{display:block;font-size:64px;font-weight:900;color:var(--head);
-  letter-spacing:-3px;line-height:.92;font-variant-numeric:tabular-nums}
-.sdc .abn .k{display:block;font-size:13px;color:var(--tx);margin-top:7px}
+.sdc .abn .v{display:block;font-size:68px;font-weight:900;color:var(--head);
+  letter-spacing:-3.4px;line-height:.9;font-variant-numeric:tabular-nums}
+.sdc .abn .k{display:block;font-size:13px;color:var(--tx);margin-top:8px}
 
 /* as duas prioridades, com o mesmo peso: as duas entram na nota */
-.sdc .pris{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:20px}
+.sdc .pris{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
 .sdc .pri{border-left:2px solid var(--line);padding-left:14px}
 .sdc .pri .k{display:block;font-size:11px;font-weight:700;letter-spacing:1.4px;
   text-transform:uppercase;color:var(--tx2)}
@@ -111,29 +117,30 @@
 .sdc .pri .v b{color:var(--head);font-weight:700;font-variant-numeric:tabular-nums}
 
 /* os cinco componentes que produzem a nota */
-.sdc .cph{margin-top:22px;padding-top:15px;border-top:1px solid var(--line);
-  font-size:12px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
-  color:var(--tx2)}
-.sdc .cps{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:4px}
-.sdc .cp{flex:1;display:grid;grid-template-columns:186px 108px 1fr 60px;align-items:center;
+.sdc .cp{display:grid;grid-template-columns:190px 110px 1fr 62px;align-items:center;
   gap:0 20px}
-.sdc .cp + .cp{border-top:1px solid #EFF3F9}
+.sdc .cph{margin-top:24px;padding-top:15px;border-top:1px solid var(--line);
+  font-size:11.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
+  color:var(--tx2)}
+.sdc .cph > span:first-child{grid-column:1/3}
+.sdc .cph > span:last-child{grid-column:3/5;text-align:right;white-space:nowrap}
+.sdc .cps{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:2px}
+.sdc .cps .cp{flex:1}
+.sdc .cps .cp + .cp{border-top:1px solid #EFF3F9}
 .sdc .cp .k{font-size:15.5px;font-weight:600;color:var(--head)}
 .sdc .cp .m{font-size:16px;color:var(--tx);font-variant-numeric:tabular-nums}
-.sdc .cp .tr{position:relative;height:10px;border-radius:5px;background:#E9EEF5}
+.sdc .cp .tr{height:10px;border-radius:5px;background:#E9EEF5}
 .sdc .cp .tr i{display:block;height:100%;border-radius:5px;background:#059669;
   transform:scaleX(0);transform-origin:left}
 .sdc.is-active .cp .tr i{animation:corre .6s var(--out) calc(var(--d,0ms) + 200ms) forwards}
-/* as três faixas de cor do modal do produto: acima de 66, acima de 33, abaixo */
-.sdc .cp.alto .tr i{background:#DC2626}
-.sdc .cp.medio .tr i{background:#B45309}
+.sdc .cp.a .tr i{background:#D97706}
+.sdc .cp.r .tr i{background:#DC2626}
 .sdc .cp .p{font-family:var(--mono);font-size:15.5px;font-weight:700;text-align:right;
   color:var(--head);font-variant-numeric:tabular-nums}
 
-.sdc .abf{margin-top:15px;padding-top:14px;border-top:1px solid var(--line);
-  font-size:12.5px;line-height:1.55;color:var(--tx)}
-.sdc .abf b{display:block;margin-top:7px;font-family:var(--mono);font-size:13px;
-  color:var(--head);font-weight:700;font-variant-numeric:tabular-nums}
+.sdc .abf{margin-top:16px;padding-top:15px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:13px;color:var(--head);font-weight:700;
+  font-variant-numeric:tabular-nums}
 </style>
 
 <section class="slide light sdc" data-slide="27" data-var="a" data-quem="hygor">
@@ -146,41 +153,60 @@
   <div class="body">
     <span class="eb"><span class="rv" style="--d:240ms">Diferencial 2 &middot; nota de saúde por produto</span></span>
     <h1 class="tt"><span class="mask" style="--d:340ms"><span>Que produto está pior, <em>e por quê</em></span></span></h1>
-    <p class="sub rv" style="--d:580ms">A nota vai de 0 a 100 e é relativa ao conjunto. Abrir um produto mostra os cinco componentes que a produzem.</p>
+    <p class="sub rv" style="--d:580ms">A nota é relativa ao conjunto, e abrir um produto mostra os cinco componentes que a produzem.</p>
 
     <div class="cena">
       <div class="lado">
-        <span class="lh rv" style="--d:700ms">Ranking &middot; os cinco últimos de 15</span>
-        <div class="rw rv" style="--d:780ms">
-          <span class="pn">11</span><span class="cd">lrel</span>
-          <span class="tk"><i style="width:32%"></i><u style="left:48%"></u></span>
-          <span class="vl">32,0</span>
+        <span class="lh rv" style="--d:680ms">Ranking &middot; nota de 0 a 100</span>
+        <div class="rw g rv" style="--d:740ms">
+          <span class="cd">lcho</span><span class="tk"><i style="width:69.3%"></i></span><span class="vl">69,3</span>
         </div>
-        <div class="rw rv" style="--d:830ms">
-          <span class="pn">12</span><span class="cd">lssl</span>
-          <span class="tk"><i style="width:30.7%"></i><u style="left:48%"></u></span>
-          <span class="vl">30,7</span>
+        <div class="rw g rv" style="--d:768ms">
+          <span class="cd">lgoa</span><span class="tk"><i style="width:68%"></i></span><span class="vl">68,0</span>
         </div>
-        <div class="rw rv" style="--d:880ms">
-          <span class="pn">13</span><span class="cd">lcsp</span>
-          <span class="tk"><i style="width:26.7%"></i><u style="left:48%"></u></span>
-          <span class="vl">26,7</span>
+        <div class="rw a rv" style="--d:796ms">
+          <span class="cd">lcem</span><span class="tk"><i style="width:66.7%"></i></span><span class="vl">66,7</span>
         </div>
-        <div class="rw rv" style="--d:930ms">
-          <span class="pn">14</span><span class="cd">lrdo</span>
-          <span class="tk"><i style="width:25.3%"></i><u style="left:48%"></u></span>
-          <span class="vl">25,3</span>
+        <div class="rw a rv" style="--d:824ms">
+          <span class="cd">lrev</span><span class="tk"><i style="width:62.7%"></i></span><span class="vl">62,7</span>
         </div>
-        <div class="rw on rv" style="--d:980ms">
-          <span class="pn">15</span><span class="cd">lvps</span>
-          <span class="tk"><i style="width:21.3%"></i><u style="left:48%"></u></span>
-          <span class="vl">21,3</span>
+        <div class="rw a rv" style="--d:852ms">
+          <span class="cd">lhvp</span><span class="tk"><i style="width:60%"></i></span><span class="vl">60,0</span>
+        </div>
+        <div class="rw a rv" style="--d:880ms">
+          <span class="cd">lhco</span><span class="tk"><i style="width:56%"></i></span><span class="vl">56,0</span>
+        </div>
+        <div class="rw a rv" style="--d:908ms">
+          <span class="cd">lemg</span><span class="tk"><i style="width:49.3%"></i></span><span class="vl">49,3</span>
+        </div>
+        <div class="rw a rv" style="--d:936ms">
+          <span class="cd">lcsi</span><span class="tk"><i style="width:48%"></i></span><span class="vl">48,0</span>
+        </div>
+        <div class="rw a rv" style="--d:964ms">
+          <span class="cd">lsaa</span><span class="tk"><i style="width:42.7%"></i></span><span class="vl">42,7</span>
+        </div>
+        <div class="rw a rv" style="--d:992ms">
+          <span class="cd">lsin</span><span class="tk"><i style="width:41.3%"></i></span><span class="vl">41,3</span>
+        </div>
+        <div class="rw r rv" style="--d:1020ms">
+          <span class="cd">lrel</span><span class="tk"><i style="width:32%"></i></span><span class="vl">32,0</span>
+        </div>
+        <div class="rw r rv" style="--d:1048ms">
+          <span class="cd">lssl</span><span class="tk"><i style="width:30.7%"></i></span><span class="vl">30,7</span>
+        </div>
+        <div class="rw r rv" style="--d:1076ms">
+          <span class="cd">lcsp</span><span class="tk"><i style="width:26.7%"></i></span><span class="vl">26,7</span>
+        </div>
+        <div class="rw r rv" style="--d:1104ms">
+          <span class="cd">lrdo</span><span class="tk"><i style="width:25.3%"></i></span><span class="vl">25,3</span>
+        </div>
+        <div class="rw r on rv" style="--d:1132ms">
+          <span class="cd">lvps</span><span class="tk"><i style="width:21.3%"></i></span><span class="vl">21,3</span>
           <svg class="cv" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
         </div>
-        <p class="lf rv" style="--d:1080ms">Os dez de cima ficam entre <b>42,7</b> e <b>69,3</b>.<br>A marca na barra é a mediana dos quinze, <b>48,0</b>.</p>
       </div>
 
-      <div class="ab rv3" style="--d:1060ms">
+      <div class="ab rv3" style="--d:900ms">
         <div class="abh">
           <div>
             <span class="abk">Produto &middot; posição 15 de 15</span>
@@ -188,49 +214,52 @@
             <span class="sit">Problema conhecido e recorrente</span>
           </div>
           <div class="abn">
-            <span class="v"><span class="ct" data-to="21.3" data-dec="1" data-delay="1500">0,0</span></span>
-            <span class="k">Nota de 0 a 100</span>
+            <span class="v"><span class="ct" data-to="21.3" data-dec="1" data-delay="1380">0,0</span></span>
+            <span class="k">Nota</span>
           </div>
         </div>
 
         <div class="pris">
-          <div class="pri rv" style="--d:1440ms">
+          <div class="pri rv" style="--d:1300ms">
             <span class="k">Prioridade 2</span>
             <span class="v"><b>125</b> incidentes &middot; <b>2</b> violações</span>
           </div>
-          <div class="pri rv" style="--d:1440ms">
+          <div class="pri rv" style="--d:1300ms">
             <span class="k">Prioridade 3</span>
             <span class="v"><b>185</b> incidentes &middot; <b>7</b> violações</span>
           </div>
         </div>
 
-        <div class="cph rv" style="--d:1560ms">Os cinco componentes da nota</div>
+        <div class="cp cph rv" style="--d:1420ms">
+          <span>Os cinco componentes da nota</span>
+          <span>Posição entre os 15 &middot; 1 é o pior</span>
+        </div>
         <div class="cps">
-          <div class="cp alto rv" style="--d:1620ms">
+          <div class="cp r rv" style="--d:1480ms">
             <span class="k">Taxa de violação</span>
             <span class="m">2,9%</span>
             <span class="tr"><i style="width:100%"></i></span>
             <span class="p">1,000</span>
           </div>
-          <div class="cp medio rv" style="--d:1680ms">
+          <div class="cp a rv" style="--d:1540ms">
             <span class="k">Problemas inéditos</span>
             <span class="m">42,3%</span>
             <span class="tr"><i style="width:53.3%"></i></span>
             <span class="p">0,533</span>
           </div>
-          <div class="cp alto rv" style="--d:1740ms">
+          <div class="cp r rv" style="--d:1600ms">
             <span class="k">Fechados sem causa</span>
             <span class="m">30,6%</span>
             <span class="tr"><i style="width:100%"></i></span>
             <span class="p">1,000</span>
           </div>
-          <div class="cp medio rv" style="--d:1800ms">
+          <div class="cp a rv" style="--d:1660ms">
             <span class="k">Duração mediana</span>
             <span class="m">1,2 h</span>
             <span class="tr"><i style="width:40%"></i></span>
             <span class="p">0,400</span>
           </div>
-          <div class="cp alto rv" style="--d:1860ms">
+          <div class="cp r rv" style="--d:1720ms">
             <span class="k">Tendência da taxa</span>
             <span class="m">+2,98 pontos</span>
             <span class="tr"><i style="width:100%"></i></span>
@@ -238,9 +267,9 @@
           </div>
         </div>
 
-        <p class="abf rv" style="--d:2000ms">A barra é a posição relativa entre os quinze, de 0 (o melhor) a 1 (o pior). A nota é a média das cinco, invertida.<b>(1,000 + 0,533 + 1,000 + 0,400 + 1,000) &divide; 5 = 0,787 &nbsp;&middot;&nbsp; 100 &times; (1 &minus; 0,787) = 21,3</b></p>
+        <p class="abf rv" style="--d:1860ms">(1,000 + 0,533 + 1,000 + 0,400 + 1,000) &divide; 5 = 0,787 &nbsp;&middot;&nbsp; 100 &times; (1 &minus; 0,787) = 21,3</p>
       </div>
     </div>
   </div>
-  <div class="ft"><span>Janela de 01/01/2025 a 30/09/2025 &middot; 15 produtos com 200 ou mais incidentes elegíveis ao indicador &middot; 18.742 incidentes, 172 violações</span></div>
+  <div class="ft"><span>Janela de 01/01/2025 a 30/09/2025 &middot; produtos com 200 ou mais incidentes elegíveis ao indicador</span></div>
 </section>

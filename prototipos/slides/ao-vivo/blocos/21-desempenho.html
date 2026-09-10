@@ -1,77 +1,88 @@
 <style>
-/* ═══ slide 21 · o resultado do modelo de risco ═══════════════════════════════
-   Nasceu em 10/09/2026 de um pedido do dono do projeto: as três métricas
-   estavam espremidas numa tira no pé do slide 20, com texto que ele leu como
-   frase de IA, e ele pediu slide próprio. Cada slide do deck vale 30 s a 1 min
-   de fala; esta comparação vale o dela.
+/* ═══ slide 21 · a conta que decidiu o modelo ════════════════════════════════
+   Segunda forma. A primeira era uma tabela de três linhas ao lado de um
+   cartão de texto, e o dono do projeto devolveu: "ficou padrão demais, muito
+   texto, e parece que você não está mais buscando inovar e impressionar".
+   Tinha razão: a tabela dizia em quatro colunas o que uma barra diz sozinha.
 
-   A forma é uma tabela de dois competidores, que é como a decisão foi de fato
-   tomada: as duas linhas de cima empatam, a terceira decide, e a quarta mostra
-   o que acontece quando se força o boosting a enxergar o evento raro.
+   O que decidiu a escolha não foi o empate no ROC nem os quatro pontos de
+   PR-AUC. Foi a contagem: o gradient boosting ajustado para o evento raro
+   prevê 1.007 quebras onde houve 50, e a projeção da meta soma quebras
+   previstas. Um modelo que erra a contagem por vinte vezes não serve, por
+   melhor que ordene.
+
+   Então o slide é uma barra só, em escala linear verdadeira, com as três
+   contagens na mesma régua: o realizado, a logística que cai em cima dele, e
+   o boosting que ocupa a largura inteira. A desproporção é o argumento, e ela
+   está desenhada, não escrita. As métricas de ordenação viram uma tira fina
+   no pé, que é o peso que elas têm nesta decisão.
+
+   Escala: 1.007 = 100% da régua. 50 = 4,97%. 48,1 = 4,78%.
 
    Números de notebooks/04_risco_ola.ipynb e da regra 1 do CLAUDE.md:
-     ROC AUC      0,869 contra 0,868          empate
-     PR-AUC       0,2958 contra 0,2526        vantagem de 17% para a logística
-     referência   0,0096, a taxa da base      0,2958 é 31 vezes isso
-     calibração   prevê 48,1 onde houve 50
-     boosting com scale_pos_weight: 1.007 quebras previstas onde houve 50
-     PR-AUC entre cortes: 0,2702 a 0,3177, então não depende do 01/10/2025
+     ROC AUC   0,869 contra 0,868          empate
+     PR-AUC    0,2958 contra 0,2526        vantagem de 17% para a logística
+     base      0,0096 é a taxa do período, e 0,2958 é 31 vezes ela
+     contagem  48,1 contra 1.007, onde houve 50
    ══════════════════════════════════════════════════════════════════════════ */
 .dsp .body{padding-top:14px}
-.dsp .tt{font-size:50px;letter-spacing:-1.85px}
+.dsp .tt{font-size:52px;letter-spacing:-1.95px}
 .dsp .tt em{font-style:normal;color:var(--accent)}
-.dsp .sub{font-size:17.5px;line-height:1.45;color:var(--tx);margin-top:11px;max-width:96ch}
+.dsp .sub{font-size:17.5px;line-height:1.45;color:var(--tx);margin-top:11px;max-width:92ch}
 .dsp .sub b{color:var(--head);font-weight:700}
-/* stretch: centralizados, os dois cartões deixavam 114px de branco entre o
-   subtítulo e o topo deles. Esticados, ocupam o palco. */
-.dsp .cena{flex:1;display:flex;align-items:stretch;gap:28px;margin-top:18px;min-height:0}
+/* stretch: centralizado, o cartão deixava 116px de branco acima e abaixo */
+.dsp .cena{flex:1;display:flex;align-items:stretch;margin-top:16px;min-height:0}
 
-/* ── a tabela dos dois competidores ───────────────────────────────────────── */
-.dsp .duelo{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:20px;
-  display:flex;flex-direction:column;justify-content:center;padding:8px 30px 24px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5)}
-.dsp .cab,.dsp .lin{display:grid;grid-template-columns:1fr 168px 168px 92px;
-  align-items:center;gap:0 22px}
-.dsp .cab{padding:18px 0 13px;border-bottom:1px solid #E7EDF6}
-.dsp .cab span{font-size:11px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
+/* ── a régua das três contagens ───────────────────────────────────────────── */
+.dsp .regua{width:100%;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px 34px 22px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5)}
+.dsp .regua > .k{font-size:11.5px;font-weight:700;letter-spacing:1.9px;text-transform:uppercase;
   color:var(--tx2)}
-.dsp .cab .m{text-align:right;color:var(--accent)}
-.dsp .cab .x{text-align:right}
-.dsp .lin{padding:19px 0}
-.dsp .lin + .lin{border-top:1px solid #F0F4FA}
-.dsp .lin .nm{font-size:17px;font-weight:700;color:var(--head);letter-spacing:-.2px}
-.dsp .lin .nm small{display:block;font-size:13px;font-weight:400;color:var(--tx2);margin-top:5px}
-.dsp .lin .v{font-size:29px;font-weight:900;letter-spacing:-1.1px;text-align:right;line-height:1;
-  font-variant-numeric:tabular-nums}
-.dsp .lin .v.m{color:var(--accent)} .dsp .lin .v.x{color:#5B6879}
-.dsp .lin .v small{display:block;font-size:12.5px;font-weight:400;color:var(--tx2);margin-top:6px;
-  letter-spacing:0}
-.dsp .lin .jz{font-size:12px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;
-  text-align:right}
-.dsp .lin.emp .jz{color:#8593A6}
-.dsp .lin.gan .jz{color:var(--good)}
-.dsp .lin.per .v.x{color:var(--bad)} .dsp .lin.per .jz{color:var(--bad)}
+.dsp .regua > .k b{color:var(--head);font-weight:700}
 
-/* ── o cartão que explica por que a PR-AUC é a régua ──────────────────────── */
-.dsp .porq{width:392px;flex-shrink:0;background:var(--ink);border-radius:20px;padding:26px 28px;
-  box-shadow:0 30px 66px -38px rgba(10,14,23,.65);display:flex;flex-direction:column}
-.dsp .porq .k{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
-  color:#A6B0BD}
-.dsp .porq .grande{display:flex;align-items:baseline;gap:12px;margin-top:16px}
-.dsp .porq .grande em{font-style:normal;font-size:56px;font-weight:900;color:#fff;
-  letter-spacing:-2.4px;line-height:1;font-variant-numeric:tabular-nums}
-.dsp .porq .grande i{font-style:normal;font-size:15px;line-height:1.35;color:#B7C0CB}
-.dsp .porq p{font-size:15px;line-height:1.5;color:#C4CBD8;margin-top:20px;padding-top:18px;
-  border-top:1px solid rgba(255,255,255,.12)}
-.dsp .porq p + p{margin-top:14px;padding-top:0;border-top:0}
-.dsp .porq p b{color:#fff;font-weight:700}
-.dsp .porq .rod{margin-top:auto;padding-top:18px;font-size:13.5px;line-height:1.45;
-  color:#A6B0BD}
-.dsp .porq .rod b{color:#E8ECF3;font-weight:700}
+/* as três linhas dividem a altura do cartão: com padding fixo elas se
+   amontoavam no meio e sobrava branco em cima e embaixo, dentro do cartão. */
+.dsp .l{flex:1;display:grid;grid-template-columns:250px 1fr;align-content:center;
+  align-items:center;gap:0 24px}
+.dsp .l + .l{border-top:1px solid #F0F4FA}
+.dsp .l:first-of-type{margin-top:10px}
+.dsp .l .nm{font-size:17px;font-weight:700;color:var(--head);letter-spacing:-.2px}
+.dsp .l .nm small{display:block;font-size:12.5px;font-weight:400;color:#5A6779;margin-top:5px}
 
-.dsp .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
-  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
-.dsp .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
-.dsp .fecho b{color:var(--head);font-weight:700}
+/* o trilho é comum às três linhas, e é o que torna a comparação honesta */
+.dsp .tk{position:relative;height:46px;display:flex;align-items:center}
+.dsp .tk i{display:block;height:46px;border-radius:9px;transform:scaleX(0);
+  transform-origin:left}
+.dsp.is-active .tk i{animation:corre .95s var(--out) var(--d,0ms) forwards}
+.dsp .tk b{position:absolute;top:50%;transform:translateY(-50%);font-size:30px;font-weight:900;
+  letter-spacing:-1.2px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dsp .tk b small{font-size:.46em;font-weight:600;letter-spacing:0;margin-left:8px;color:#5A6779}
+
+.dsp .l.real .tk i{background:var(--ink)}
+.dsp .l.real .tk b{color:var(--head)}
+.dsp .l.log .tk i{background:var(--accent)}
+.dsp .l.log .tk b{color:var(--accent)}
+.dsp .l.bst .tk i{background:linear-gradient(90deg,#F87171,#DC2626)}
+.dsp .l.bst .tk b{color:#fff;right:20px;text-shadow:0 1px 8px rgba(120,10,10,.45)}
+
+/* a marca vertical do realizado, que atravessa as três linhas */
+.dsp .marca{position:absolute;left:4.97%;top:-19px;bottom:-19px;width:2px;
+  background:repeating-linear-gradient(180deg,#9AA6B6 0 5px,transparent 5px 10px);
+  opacity:0}
+.dsp.is-active .marca{animation:rv .5s var(--out) 2100ms forwards}
+
+/* ── a tira das métricas de ordenação, que aqui são coadjuvantes ─────────── */
+.dsp .tira{display:grid;grid-template-columns:repeat(3,1fr);gap:0 34px;margin-top:auto;
+  padding-top:18px;border-top:1px solid #DCE4EF}
+.dsp .tira .m{display:flex;align-items:baseline;gap:11px}
+.dsp .tira .m em{font-style:normal;font-size:26px;font-weight:900;letter-spacing:-1px;
+  color:var(--accent);font-variant-numeric:tabular-nums;line-height:1}
+.dsp .tira .m span{font-size:14px;line-height:1.4;color:#5A6779}
+.dsp .tira .m span b{color:var(--head);font-weight:700}
+.dsp .tira .m i{font-style:normal;font-size:11.5px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;border-radius:999px;padding:4px 11px;margin-left:4px;
+  align-self:center;white-space:nowrap}
+.dsp .tira .m i.eq{color:#5A6779;background:#EEF2F8}
+.dsp .tira .m i.up{color:#15803D;background:#E4F5EB}
 </style>
 
 <section class="slide light dsp" data-slide="21" data-var="a" data-quem="ana">
@@ -82,53 +93,59 @@
     <div class="tag">Seção 04 &middot; escolha do modelo</div>
   </div>
   <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Regressão logística contra gradient boosting</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Por que a <em>logística</em> ficou no lugar do boosting</span></span></h1>
-    <p class="sub rv" style="--d:620ms">As duas ordenam a fila igual. A diferença aparece na métrica que vale para evento raro, e na conta que o painel precisa fechar.</p>
+    <span class="eb"><span class="rv" style="--d:240ms">A escolha do modelo de risco</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Ordenar igual, <em>contar diferente</em></span></span></h1>
+    <p class="sub rv" style="--d:620ms">Os dois separam quem quebra de quem não quebra com a mesma qualidade. Só um acerta <b>quantos</b>, e a projeção da meta soma quebras previstas.</p>
 
     <div class="cena">
-      <div class="duelo rv3" style="--d:800ms">
-        <div class="cab">
-          <span>Medida</span>
-          <span class="m">Regressão logística</span>
-          <span class="x">Gradient boosting</span>
-          <span></span>
+      <div class="regua rv3" style="--d:780ms">
+        <div class="k">Quebras previstas no período &middot; <b>houve 50</b></div>
+
+        <div class="l real">
+          <span class="nm">O que aconteceu<small>violações de OLA apuradas no período de teste</small></span>
+          <div class="tk">
+            <i style="width:4.97%;--d:1000ms"></i>
+            <b style="left:calc(4.97% + 20px)">50</b>
+            <span class="marca"></span>
+          </div>
         </div>
 
-        <div class="lin emp">
-          <span class="nm">Área sob a curva ROC<small>capacidade de separar quem quebra de quem não quebra</small></span>
-          <span class="v m"><span class="ct" data-to="0.869" data-dec="3" data-delay="1100">0,000</span></span>
-          <span class="v x">0,868</span>
-          <span class="jz">empate</span>
+        <div class="l log">
+          <span class="nm">Regressão logística<small>o modelo que ficou</small></span>
+          <div class="tk">
+            <i style="width:4.78%;--d:1180ms"></i>
+            <b style="left:calc(4.78% + 20px)"><span class="ct" data-to="48.1" data-dec="1" data-delay="1380">0,0</span><small>erra por menos de duas</small></b>
+            <span class="marca"></span>
+          </div>
         </div>
 
-        <div class="lin gan">
-          <span class="nm">PR-AUC<small>precisão e cobertura no evento raro, que é a régua deste problema</small></span>
-          <span class="v m"><span class="ct" data-to="0.296" data-dec="3" data-delay="1240">0,000</span></span>
-          <span class="v x">0,253</span>
-          <span class="jz">+17%</span>
+        <div class="l bst">
+          <span class="nm">Gradient boosting<small>com <b style="display:inline;font-size:inherit">scale_pos_weight</b>, ajustado para o evento raro</small></span>
+          <div class="tk">
+            <i style="width:100%;--d:1420ms"></i>
+            <b><span class="ct" data-to="1007" data-delay="1700">0</span></b>
+            <span class="marca"></span>
+          </div>
         </div>
-
-        <div class="lin per">
-          <span class="nm">Quebras previstas no período<small>onde houve 50, com o boosting ajustado para o evento raro</small></span>
-          <span class="v m"><span class="ct" data-to="48.1" data-dec="1" data-delay="1380">0,0</span><small>de 50</small></span>
-          <span class="v x">1.007<small>de 50</small></span>
-          <span class="jz">inviável</span>
-        </div>
-      </div>
-
-      <div class="porq rv3" style="--d:940ms">
-        <div class="k">O que a PR-AUC diz</div>
-        <div class="grande"><em><span class="ct" data-to="31" data-delay="1500">0</span>&times;</em><i>a taxa da base,<br>que é 0,0096</i></div>
-        <p>Uma quebra a cada 103 incidentes. Chutar ao acaso dá <b>0,0096</b> de PR-AUC; o modelo dá <b>0,2958</b>.</p>
-        <p>Entre os cinco cortes testados a PR-AUC fica entre <b>0,2702 e 0,3177</b>, então o resultado não vem da data escolhida.</p>
-        <p class="rod">O boosting com <b>scale_pos_weight</b> prevê mil quebras onde houve cinquenta. Ordena bem e conta mal, e a projeção da meta depende da contagem.</p>
       </div>
     </div>
 
-    <div class="fecho rv" style="--d:1700ms">
-      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
-      <span>Empate na ordenação, vantagem na métrica do raro e a contagem certa. <b>E cada nota sai com o motivo</b>, que é o próximo slide.</span>
+    <div class="tira">
+      <div class="m rv" style="--d:2200ms">
+        <em>0,869</em>
+        <span>de <b>ROC</b>, contra 0,868</span>
+        <i class="eq">empate</i>
+      </div>
+      <div class="m rv" style="--d:2280ms">
+        <em>0,296</em>
+        <span>de <b>PR-AUC</b>, contra 0,253</span>
+        <i class="up">+17%</i>
+      </div>
+      <div class="m rv" style="--d:2360ms">
+        <em>31&times;</em>
+        <span>a taxa da base, que é <b>0,0096</b></span>
+        <i class="eq">evento raro</i>
+      </div>
     </div>
   </div>
   <div class="ft"></div>
