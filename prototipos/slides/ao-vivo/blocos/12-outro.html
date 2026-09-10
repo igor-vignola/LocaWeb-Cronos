@@ -27,7 +27,7 @@
 .otr .grade{position:relative;display:grid;grid-template-columns:1fr 330px 1fr;
   align-items:end;gap:0 30px}
 
-.otr .col{display:flex;flex-direction:column;align-items:center}
+.otr .col{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
 .otr .col .k{font-size:11.5px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
   color:var(--tx2);margin-bottom:18px}
 .otr .barra{position:relative;width:104px;height:420px;background:#E9EDF4;border-radius:8px;
@@ -38,29 +38,32 @@
 @keyframes sobePedaco{to{transform:scaleY(1)}}
 .otr .col.vol .barra i{background:#8593A6}
 .otr .col.qbr .barra i{background:var(--bad)}
-/* o rótulo fica ao lado do pedaço, fora da coluna, como no deck da Sprint 3 */
- /* o rótulo alinha com o TOPO do pedaço, não com a base da coluna: é assim no
-   d32a, e é o que faz o olho ligar o número ao pedaço colorido. 8% de 420 dá
-   33,6px e 22,9% dá 96,2px. */
+/* o rótulo alinha com o topo do pedaço colorido: 8% de 420 dá 33,6px e 22,9%
+   dá 96,2px, e o texto assenta um pouco acima disso para nao encostar na cunha */
 .otr .col .marca{position:absolute;white-space:nowrap;opacity:0}
-.otr .col.vol .marca{bottom:26px}
-.otr .col.qbr .marca{bottom:88px}
+.otr .col.vol .marca{bottom:46px;right:calc(100% + 22px);text-align:right}
+.otr .col.qbr .marca{bottom:108px;left:calc(100% + 22px)}
 .otr.is-active .col .marca{animation:rv .5s var(--out) var(--d,0ms) forwards}
-.otr .col.vol .marca{right:calc(100% + 20px);text-align:right}
-.otr .col.qbr .marca{left:calc(100% + 20px)}
 .otr .col .marca b{display:block;font-size:44px;font-weight:900;letter-spacing:-1.9px;
   line-height:1;font-variant-numeric:tabular-nums}
 .otr .col.vol .marca b{color:#5B6879}
 .otr .col.qbr .marca b{color:var(--bad)}
 .otr .col .marca span{display:block;font-size:14px;color:var(--tx2);margin-top:7px}
-.otr .col .tot{font-size:13px;color:#A6B0BE;margin-top:14px}
 .otr .col .cx{position:relative;display:flex;justify-content:center}
 
-/* a cunha que liga um pedaço ao outro */
-.otr .cunha{position:absolute;left:0;right:0;bottom:0;height:420px;pointer-events:none}
+/* a cunha liga o topo de um pedaço ao topo do outro e passa POR TRÁS das
+   colunas. Ela é irmã das colunas dentro da grade, e a base da grade é a base
+   das barras: os totais saíram para uma faixa abaixo, senão a cunha ficava
+   ancorada no rodapé do texto e descia 40px do lugar. */
+.otr .cunha{position:absolute;left:0;right:0;bottom:0;height:420px;z-index:1;
+  pointer-events:none}
 .otr .cunha svg{width:100%;height:100%;display:block}
 .otr .cunha path{fill:rgba(220,38,38,.10);opacity:0}
 .otr.is-active .cunha path{animation:rv .7s var(--out) 1700ms forwards}
+
+/* os totais, numa faixa própria alinhada com as colunas */
+.otr .pes{display:grid;grid-template-columns:1fr 330px 1fr;gap:0 30px;margin-top:14px}
+.otr .pes span{text-align:center;font-size:13px;color:#A6B0BE}
 
 /* o meio */
 .otr .meio{text-align:center;padding-bottom:96px}
@@ -99,7 +102,6 @@
               <div class="barra"><i style="height:8%;--d:1000ms"></i></div>
               <div class="marca" style="--d:1300ms"><b>8,0%</b><span>1.596 incidentes</span></div>
             </div>
-            <p class="tot">19.973 incidentes</p>
           </div>
 
           <div class="meio">
@@ -115,7 +117,6 @@
               <div class="barra"><i style="height:22.9%;--d:1160ms"></i></div>
               <div class="marca" style="--d:1420ms"><b>22,9%</b><span>43 quebras</span></div>
             </div>
-            <p class="tot">188 quebras</p>
           </div>
 
           <div class="cunha">
@@ -123,6 +124,9 @@
               <path d="M0,386.4 L1000,323.8 L1000,420 L0,420 Z"/>
             </svg>
           </div>
+        </div>
+        <div class="pes">
+          <span>19.973 incidentes</span><span></span><span>188 quebras</span>
         </div>
       </div>
     </div>
