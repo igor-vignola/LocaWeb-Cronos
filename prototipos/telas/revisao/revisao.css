@@ -1,0 +1,52 @@
+/* ═══ folha das propostas ════════════════════════════════════════════════════
+   O que as versões enxuta e livre precisam além da folha real da aplicação.
+   Tudo aqui é acréscimo: nenhuma regra sobrescreve componente existente sem
+   estar comentada, para a comparação com a tela atual continuar honesta.
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* a fita que sobrou onde havia um cabeçalho de seção inteiro. A legenda e o
+   link continuam, alinhados à direita e na altura da primeira placa. */
+.rv-fita{display:flex;align-items:center;justify-content:flex-end;gap:22px;
+  margin:0 4px 11px;flex-wrap:wrap}
+.rv-fita .leg{margin-left:0}
+
+/* a lista de risco em coluna única, depois que o cartão herói virou a
+   primeira linha dela */
+.en-dp.rv-so-lista{grid-template-columns:minmax(0,1fr)}
+
+/* a primeira linha da lista é o caso do dia: fundo, corpo e o fator dominante
+   que só ela tem. Continua sendo uma linha, e não um cartão à parte. */
+.en-dp-i.rv-topo{background:#FFF8F1;border-left:3px solid #C2410C}
+.en-dp-i.rv-topo .en-dp-iv{font-size:1.24em}
+.en-dp-i.rv-topo .en-dp-ic .id{font-size:1.06em}
+.rv-topo-f{display:block;font-size:11.5px;line-height:1.4;color:#6B5544;margin-top:3px}
+.rv-topo-f b{color:#7C2D12;font-weight:700}
+
+/* a linha da meta: o que já aconteceu, a projeção e o teto da faixa numa
+   frase só, no lugar do par de porcentagens de atingimento. Elas continuam
+   na aba Projeção, que é onde a escada inteira mora. */
+.rv-meta-l{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 20px;
+  margin:14px 0 4px;font-size:14.5px;color:var(--tx2, #5A6779)}
+.rv-meta-l b{font-size:19px;font-weight:800;color:var(--tt, #0C1017);
+  font-variant-numeric:tabular-nums}
+.rv-meta-l .rv-fora b{color:#B45309}
+
+/* o carimbo da versão, para não haver dúvida de qual tela se está vendo */
+.rv-selo{position:fixed;left:14px;bottom:14px;z-index:60;display:inline-flex;
+  align-items:center;gap:8px;padding:7px 14px;border-radius:999px;
+  background:rgba(12,16,23,.9);color:#fff;font-size:11.5px;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;
+  box-shadow:0 8px 24px -12px rgba(0,0,0,.6)}
+.rv-selo i{width:7px;height:7px;border-radius:50%;background:#4ADE80}
+.rv-selo.rv-livre i{background:#F0B767}
+
+/* na proposta livre o cartão dos oito dias perdeu o gráfico de médias que
+   vinha acima dele, e com ele o cabeçalho que separava os dois. Este vira o
+   primeiro do cartão: sem filete em cima e sem o respiro que existia para
+   afastá-lo do gráfico. */
+.pv-c-h.rv-c-h1{margin-top:0;padding-top:0;border-top:0}
+
+/* sem as três barras de comparação, o cartão do maior risco tinha metade da
+   altura vazia: ele esticava para acompanhar a lista de cinco ao lado. Passa
+   a ter a altura do próprio conteúdo. */
+.en-dp-c{align-self:start}

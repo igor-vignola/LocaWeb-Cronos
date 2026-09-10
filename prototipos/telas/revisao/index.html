@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Cronos · revisão das duas primeiras abas</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pg:#0B0E14; --sf:#141922; --sf2:#1B2230; --ln:rgba(255,255,255,.13);
+  --tx:#C8D0DC; --tx2:#8D97A6; --tt:#fff; --ac:#4E8BF5; --ok:#4ADE80; --wn:#F0B767;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--pg);color:var(--tx);font-family:Outfit,system-ui,sans-serif;
+  display:flex;flex-direction:column;overflow:hidden}
+
+/* ── barra ───────────────────────────────────────────────────────────────── */
+.bar{flex-shrink:0;display:flex;align-items:center;gap:26px;flex-wrap:wrap;
+  padding:13px 22px;background:var(--sf);border-bottom:1px solid var(--ln)}
+.mk{display:flex;align-items:baseline;gap:11px}
+.mk b{font-size:16px;font-weight:800;color:var(--tt);letter-spacing:-.3px}
+.mk span{font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--tx2)}
+
+.gr{display:flex;align-items:center;gap:11px}
+.gr > em{font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--tx2)}
+.seg{display:flex;background:var(--sf2);border:1px solid var(--ln);border-radius:10px;padding:3px}
+.seg button{appearance:none;border:0;background:none;cursor:pointer;color:var(--tx2);
+  font:600 13.5px/1 Outfit,sans-serif;padding:8px 15px;border-radius:7px;
+  display:inline-flex;align-items:center;gap:8px;transition:background .14s,color .14s}
+.seg button:hover{color:var(--tx)}
+.seg button[aria-pressed="true"]{background:#fff;color:#0B0E14}
+.seg button i{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.55}
+.seg button[data-v="atual"] i{background:#8D97A6}
+.seg button[data-v="enxuta"] i{background:var(--ok)}
+.seg button[data-v="livre"] i{background:var(--wn)}
+.seg button[aria-pressed="true"] i{opacity:1}
+
+.dir{margin-left:auto;display:flex;align-items:center;gap:14px}
+.mt{display:flex;gap:16px;font-size:12.5px;color:var(--tx2);font-variant-numeric:tabular-nums}
+.mt b{color:var(--tt);font-weight:700}
+.mt s{text-decoration:none;color:#6B7686}
+.bt{appearance:none;cursor:pointer;border:1px solid var(--ln);background:var(--sf2);
+  color:var(--tx);font:600 13px/1 Outfit,sans-serif;padding:9px 15px;border-radius:9px}
+.bt:hover{color:var(--tt);border-color:rgba(255,255,255,.28)}
+.bt[aria-pressed="true"]{background:#fff;color:#0B0E14;border-color:#fff}
+.dic{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--tx2);
+  white-space:nowrap}
+kbd{font:600 10.5px/1 'JetBrains Mono',monospace;background:rgba(255,255,255,.09);
+  border:1px solid var(--ln);border-radius:5px;padding:3px 6px;color:var(--tx2)}
+
+/* ── palco ───────────────────────────────────────────────────────────────── */
+.palco{flex:1;min-height:0;display:flex}
+.tela{flex:1;min-width:0;position:relative;background:#EDF1F7}
+.tela iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+
+/* ── gaveta ──────────────────────────────────────────────────────────────── */
+.gav{width:0;flex-shrink:0;overflow:hidden;background:var(--sf);
+  border-left:1px solid transparent;transition:width .22s cubic-bezier(.23,1,.32,1)}
+body.aberta .gav{width:432px;border-left-color:var(--ln)}
+.gav-i{width:432px;height:100%;overflow-y:auto;padding:24px 26px 40px}
+.gav h2{font-size:19px;font-weight:800;color:var(--tt);letter-spacing:-.35px}
+.gav .res{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+.pil{font-size:12px;font-weight:600;color:var(--tx);background:var(--sf2);
+  border:1px solid var(--ln);border-radius:999px;padding:6px 12px;
+  font-variant-numeric:tabular-nums}
+.pil b{color:var(--tt);font-weight:800}
+.pil s{text-decoration:none;color:var(--tx2)}
+.gav h3{margin-top:26px;font-size:11px;font-weight:800;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--tx2)}
+.gav ol{margin-top:12px;list-style:none;display:flex;flex-direction:column;gap:13px}
+.gav li{display:grid;grid-template-columns:22px 1fr;gap:11px;font-size:13.5px;line-height:1.5}
+.gav li s{text-decoration:none;font:700 11px/1.5 'JetBrains Mono',monospace;color:var(--tx2);
+  padding-top:3px}
+.gav li q{quotes:'“' '”';color:var(--tt);font-weight:500}
+.gav li em{font-style:normal;display:block;color:var(--tx2);margin-top:3px}
+.gav .nada{margin-top:12px;font-size:13.5px;line-height:1.5;color:var(--tx2)}
+.gav .nada b{color:var(--tt)}
+</style>
+</head>
+<body class="aberta" tabindex="-1">
+
+<div class="bar" onmouseenter="window.focus();document.body.focus()">
+  <span class="mk"><b>Cronos</b><span>revisão · duas primeiras abas</span></span>
+
+  <span class="gr"><em>Aba</em>
+    <span class="seg" id="segAba">
+      <button data-a="panorama" aria-pressed="true">Panorama</button>
+      <button data-a="previsao" aria-pressed="false">Previsão</button>
+    </span>
+  </span>
+
+  <span class="gr"><em>Versão</em>
+    <span class="seg" id="segVer">
+      <button data-v="atual"  aria-pressed="true"><i></i>Atual</button>
+      <button data-v="enxuta" aria-pressed="false"><i></i>Enxuta</button>
+      <button data-v="livre"  aria-pressed="false"><i></i>Livre</button>
+    </span>
+  </span>
+
+  <span class="dir">
+    <span class="mt" id="mt"></span>
+    <span class="dic"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> versão &nbsp;<kbd>&larr;</kbd><kbd>&rarr;</kbd> aba</span>
+    <button class="bt" id="btGav" aria-pressed="true">O que mudou</button>
+  </span>
+</div>
+
+<div class="palco">
+  <div class="tela"><iframe id="qd" title="Tela em revisão"></iframe></div>
+  <aside class="gav"><div class="gav-i" id="gav"></div></aside>
+</div>
+
+<script>
+const FONTE = {
+  panorama: {atual:'../../../app/index.html',          enxuta:'panorama-enxuta.html', livre:'panorama-livre.html'},
+  previsao: {atual:'../../../app/previsao/index.html', enxuta:'previsao-enxuta.html', livre:'previsao-livre.html'}
+};
+
+const MEDIDA = {
+  panorama: {atual:[477,11,1743], enxuta:[329,4,1615], livre:[271,2,1581]},
+  previsao: {atual:[372,11,1614], enxuta:[213,3,1415], livre:[176,3,1216]}
+};
+
+const CORTES = {
+  panorama: {
+    enxuta: [
+      ['1','<q>Volume de uma quarta comum nas duas prioridades do KPI.</q>','Explicava a manchete que está 20px acima dela.'],
+      ['2','<q>Incidentes elegíveis ao KPI</q>, na sobrancelha','O selo logo abaixo diz a mesma coisa, e com o número.'],
+      ['3','<q>até o corte</q>, no selo dos 19.973','Vocabulário de pipeline. A sobrancelha já diz que dia é hoje.'],
+      ['4','<q>A curva prevista foi fechada à meia-noite e não se move. A linha escura é o volume já registrado, hora a hora.</q>','22 palavras de método. A legenda ao lado já separa registrado de previsto.'],
+      ['5','<q>49 casos abertos até 15h, somando P2 e P3.</q>','O link à direita diz <q>Ver os 49 casos de hoje</q>.'],
+      ['6','<q>O KPI é uma escada de faixas, e não um teto único: passar de uma faixa não zera o indicador, derruba um degrau.</q>','23 palavras. É a explicação que vocês dão falando.'],
+      ['7','<q>77,4 previstos hoje · Intervalo de 59 a 96</q>, dentro de cada placa','Está na faixa escura, 40px acima, nas duas prioridades.'],
+      ['8','As três barras <q>Este caso / Média da base / Limite de alerta</q>','Diziam 8,1% pela terceira vez no mesmo cartão. A linha <q>8,6× a média da base</q> já é a comparação.'],
+      ['9','A coluna <q>8,0× a média</q> na lista de risco','É a coluna de % dividida pela média da base. Duas escritas do mesmo número.'],
+      ['10','<q>Ativo IC01977 · 0 violações em 2 passagens</q>','Argumenta contra o próprio cartão: é o maior risco do dia num ativo que nunca violou.'],
+      ['11','O selo <q>125% de atingimento projetado</q>','O mesmo número aparece de novo, dois blocos abaixo, em corpo maior.'],
+      ['12','<q>Ainda cabem 22,0 violações antes de cair para 100%.</q>','Casa decimal em contagem de violação, e a régua abaixo já desenha a margem.'],
+      ['13','A legenda da régua da meta','Ficou só a faixa da projeção, que é a única parte dela com número novo.']
+    ],
+    livre: [
+      ['A','A faixa escura e <q>O dia hora a hora</q> viraram um bloco só','Eram duas camadas respondendo <q>quanto entra hoje</q>. Fundidas, some um cabeçalho de seção inteiro.'],
+      ['B','O cartão herói e <q>os outros 5</q> viraram uma lista de seis','Eram a mesma fila: o herói é a primeira posição dela, aberta em tamanho grande. A linha do topo ficou destacada e guardou o fator dominante.'],
+      ['C','<q>Hoje 150% → Projeção de dezembro 125%</q> saiu','No lugar entrou <q>Projeção de dezembro 208 · Faixa de 100% até 263</q>. Aqui a pergunta é se o ano fecha; a escada de atingimento mora na aba Projeção.']
+    ]
+  },
+  previsao: {
+    enxuta: [
+      ['1','<q>Cada dia sai como intervalo, e não como número único: é a largura dele que dimensiona a escala da equipe.</q>','20 palavras. A largura está desenhada em cada barra.'],
+      ['2','<q>Trinta dias medidos e duas semanas previstas. A faixa só existe do lado previsto: o que já aconteceu não tem incerteza.</q>','21 palavras de método.'],
+      ['3','<q>O que o modelo enxerga é dia útil contra fim de semana. O tique em cada barra é a média daquele dia da semana.</q>','24 palavras.'],
+      ['4','<q>Escala do cartão até 76 incidentes por dia.</q> (nos dois cartões)','Nota de escala num gráfico que já traz o valor sob cada barra.'],
+      ['5','<q>A barra é o intervalo previsto. O tique é a média do dia da semana.</q> (nos dois cartões)','Repetia, palavra por palavra, metade do item 3 — três parágrafos acima.'],
+      ['6','<q>Intervalo de 59 a 96 · 40 registrados até as 15h</q>, dentro das placas','É o que a faixa escura diz no topo, sem mudar uma vírgula.'],
+      ['7','<q>Dia cheio não é dia de violação. Esta aba dimensiona a equipe. Quem diz em qual caso olhar é a fila.</q>','Opinião da tela sobre si mesma. O caminho para a Fila já está na navegação.']
+    ],
+    livre: [
+      ['A','O gráfico <q>Média por dia da semana</q> saiu','A média já é o tique dentro de cada barra dos oito dias. O gráfico de sete barras só mostrava de onde o tique veio — é o modelo explicando a si mesmo.'],
+      ['B','A ordem inverteu','Os oito dias vêm primeiro: são eles que dimensionam a equipe. O histórico emendado na previsão desceu, porque prova vem depois da afirmação.'],
+      ['C','Os títulos passaram a nomear a função','<q>O que vem pela frente</q> e <q>Como o modelo chegou nesses números</q>, no lugar de <q>Histórico recente e previsão</q> e <q>Base da previsão: a sazonalidade semanal</q>.']
+    ]
+  }
+};
+
+let aba = 'panorama', ver = 'atual';
+
+function pinta(){
+  document.getElementById('qd').src = FONTE[aba][ver];
+  for (const b of document.querySelectorAll('#segAba button'))
+    b.setAttribute('aria-pressed', String(b.dataset.a === aba));
+  for (const b of document.querySelectorAll('#segVer button'))
+    b.setAttribute('aria-pressed', String(b.dataset.v === ver));
+
+  const [p, f, a] = MEDIDA[aba][ver], base = MEDIDA[aba].atual;
+  const dp = ver === 'atual' ? '' : ` <s>(${p - base[0]})</s>`;
+  const df = ver === 'atual' ? '' : ` <s>(${f - base[1]})</s>`;
+  const da = ver === 'atual' ? '' : ` <s>(${a - base[2]}px)</s>`;
+  document.getElementById('mt').innerHTML =
+    `<span><b>${p}</b> palavras${dp}</span>` +
+    `<span><b>${f}</b> frases longas${df}</span>` +
+    `<span><b>${(a / 950).toFixed(1)}</b> telas${da}</span>`;
+
+  const g = document.getElementById('gav');
+  const nome = aba === 'panorama' ? 'Panorama' : 'Previsão';
+  if (ver === 'atual'){
+    g.innerHTML = `<h2>${nome} · como está hoje</h2>
+      <p class="nada">Esta é a página exportada da aplicação, carregada de <b>app/</b>,
+      sem um byte de diferença. Troque para <b>Enxuta</b> ou <b>Livre</b> para ver o que sai
+      e por quê.</p>
+      <p class="nada" style="margin-top:14px">O resumo das 07h abre uma vez por sessão.
+      <b>Feche-o e ele não volta</b> enquanto você compara; o sino no topo direito da
+      aplicação traz de volta.</p>`;
+    return;
+  }
+  const lista = (arr) => '<ol>' + arr.map(([n, o, p]) =>
+    `<li><s>${n}</s><div>${o}<em>${p}</em></div></li>`).join('') + '</ol>';
+  let h = `<h2>${nome} · ${ver === 'enxuta' ? 'proposta enxuta' : 'proposta livre'}</h2>
+    <div class="res">
+      <span class="pil"><b>${base[0] - p}</b> palavras a menos</span>
+      <span class="pil"><b>${base[1] - f}</b> frases longas a menos</span>
+      <span class="pil"><b>${base[2] - a}px</b> de altura</span>
+    </div>`;
+  if (ver === 'enxuta'){
+    h += `<h3>Só cortes — vira Django trocando marcação</h3>${lista(CORTES[aba].enxuta)}`;
+  } else {
+    h += `<h3>Além de todos os cortes da enxuta</h3>${lista(CORTES[aba].livre)}`;
+  }
+  g.innerHTML = h;
+}
+
+document.getElementById('segAba').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return; aba = b.dataset.a; pinta();
+});
+document.getElementById('segVer').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return; ver = b.dataset.v; pinta();
+});
+document.getElementById('btGav').addEventListener('click', e => {
+  document.body.classList.toggle('aberta');
+  e.currentTarget.setAttribute('aria-pressed', String(document.body.classList.contains('aberta')));
+});
+addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  const vs = ['atual','enxuta','livre'];
+  if (e.key >= '1' && e.key <= '3'){ ver = vs[+e.key - 1]; pinta(); }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowRight'){
+    aba = aba === 'panorama' ? 'previsao' : 'panorama'; pinta();
+  }
+});
+pinta();
+</script>
+</body>
+</html>
