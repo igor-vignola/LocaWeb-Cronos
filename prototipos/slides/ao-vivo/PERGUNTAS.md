@@ -13,19 +13,19 @@ Fonte dos números: `CONTRATO.md` §5 e os scripts `_figuras_*.py` desta pasta.
 Testamos as duas. A área ROC empatou (0,869 contra 0,868). Na métrica que vale
 para evento raro, a PR-AUC, a logística ganhou: 0,296 contra 0,253. E ela está
 calibrada: prevê 48,1 quebras onde houve 50; o XGBoost com balanceamento previu
-1.007. Acurácia não serve porque 99% dos incidentes não quebram. → slide 15, pé.
+1.007. Acurácia não serve porque 99% dos incidentes não quebram. → slide 17, pé.
 
 **2. "A faixa de 80% do Prophet cobre só 60% dos dias no P3. A incerteza não
 está subestimada?"**
 Está mais estreita que o nominal no P3, e dizemos isso no slide. O erro médio
 absoluto é de 11 incidentes por dia num fluxo de 67, 16%. A faixa serve como
 ordem de grandeza para dimensionar o dia, não como intervalo de garantia. No P2
-a cobertura fica entre 86% e 88%. → slide 13, pé.
+a cobertura fica entre 86% e 88%. → slide 14, pé.
 
 **3. (Douglas) "Olhar os 50 primeiros da fila dá quanto trabalho por dia?"**
 A fila é dos incidentes abertos naquele momento, não do ano: em 1º de outubro
 às 15h eram 49 abertos somando as duas prioridades. Os 50 primeiros da avaliação
-correspondem a menos de um dia de fila. → slide 15.
+correspondem a menos de um dia de fila. → slide 17.
 
 ## Sobre o dado
 
@@ -60,16 +60,16 @@ na 3. → slide 10.
 **"De onde vem o 4 e o 11 de erro?"**
 Do backtest deslizante, com re-treino a cada origem e média de D+1 a D+7. É o
 protocolo que reproduz o uso real. No corte único de outubro a dezembro o P3 dá
-20 por dia, inflado pela queda de novembro e dezembro. → slide 12.
+20 por dia, inflado pela queda de novembro e dezembro. → slide 15.
 
 **"De onde sai a projeção anual? É o Prophet?"**
 Não. É a soma do que já aconteceu no ano com o ritmo médio de quebras até a
-data, projetado até dezembro, com faixa pela variação do ritmo. → slide 16.
+data, projetado até dezembro, com faixa pela variação do ritmo. → slide 18.
 
 **"A projeção do P3 errou em agosto, setembro e outubro."**
 Errou para o lado pessimista: apontou estouro e o ano fechou em 196, abaixo de
 200. Para um alarme, avisar sem precisar é melhor que não avisar. Em novembro e
-dezembro acertou a chamada. → slide 16, pé.
+dezembro acertou a chamada. → slide 18, pé.
 
 **"A projeção de dezembro do P3 disse 183 e o ano fechou em 196."**
 Sim, e a chamada estava certa (dentro da meta). O ponto ficou otimista em 13
@@ -81,7 +81,7 @@ incidentes porque novembro e dezembro tiveram menos quebras que a média do ano.
 Para a frase não ser um template: ela lê os números do dia e escreve a abertura
 do resumo em linguagem de operação. Nenhum número passa por ela. Poderia ser um
 template, e escolhemos o texto gerado porque o resumo muda de tom conforme o
-dia (dia normal, dia acima do previsto, quebra ontem). → slide 19, pé.
+dia (dia normal, dia acima do previsto, quebra ontem). → slide 22, pé.
 
 **(Douglas) "A cor do gráfico e a ordem não batem. Por quê?"**
 Porque medem coisas diferentes, e o slide diz isso. A posição é o tamanho do
@@ -89,7 +89,7 @@ problema, que é a nota. A cor é o tipo, e é ela que muda a ação: um produto
 "problema já materializado" recebe casos que ninguém viu antes e precisa de
 procedimento novo; um em "conhecido e recorrente" perde prazo no problema de
 sempre e precisa de capacidade. O lvps tem a pior nota e é do segundo tipo.
-→ slide 20.
+→ slide 23.
 
 **"O que é a nota de saúde?"**
 Cinco medidas por produto, cada uma em posição relativa entre os 15: taxa de
@@ -101,12 +101,12 @@ P2 e P3; a tela mostra as duas separadas.
 O contêiner lê a exportação do ITSM (o mesmo formato do dataset), recalcula a
 base elegível e re-treina os dois modelos por comando. No MVP o relógio está
 parado em 1º de outubro de 2025 porque é a última data com dado, e porque o
-sistema não pode mostrar realizado depois do corte. → slide 21.
+sistema não pode mostrar realizado depois do corte. → slide 24.
 
 **"Por que o relógio parado em 01/10/2025?"**
 Para a demonstração ser honesta: tudo o que a tela mostra existia naquele
 instante. Cobertura, acertos e erros dos modelos ficam nos slides, medidos
-depois, e não na tela. → slide 21.
+depois, e não na tela. → slide 24.
 
 ## Números que ficaram fora do deck e podem ser pedidos
 
@@ -118,9 +118,9 @@ depois, e não na tela. → slide 21.
 
 ## Sobre as escolhas do deck
 
-**"Por que 25 slides para 15 minutos?"**
-Porque três deles são divisórias de oito segundos e um é a demonstração, que
-consome quatro minutos. O tempo médio de fala dos outros vinte e um é de trinta
+**"Por que 26 slides para 15 minutos?"**
+Porque cinco deles são divisórias de oito segundos e um é a demonstração, que
+consome quatro minutos. O tempo médio de fala dos outros vinte é de trinta
 segundos. A regra que seguimos: é melhor ficar dez segundos num slide limpo do
 que um minuto num amontoado.
 
@@ -147,15 +147,22 @@ Não pela acurácia. Na base de avaliação, 50 dos 5.183 incidentes quebraram, 
 a cada 103; nunca sinalizar dá 99,04% e encontra zero. O nosso, sinalizando os
 518 de maior risco, cai para 90,24% de acurácia e encontra 31 das 50. O que
 medimos é quantas quebras aparecem nas primeiras posições da fila, mais a
-PR-AUC e a calibração. → slides 14 e 15.
+PR-AUC e a calibração. → slides 12 e 17.
 
 **"Vocês dizem dois modelos numa tela e quatro coisas na outra. Quantos são?"**
 Dois modelos: Prophet para o volume e regressão logística para o risco. As
 outras duas saídas são cálculos derivados deles: a projeção da meta soma três
 parcelas (o que já aconteceu, o que a fila aberta ainda deve virar e o que
 entra até dezembro) e a nota de saúde é um índice de cinco medidas por produto.
-O slide 18 traz as quatro com a etiqueta de cada uma. → slide 18.
+O slide 20 traz as quatro com a etiqueta de cada uma. → slide 20.
 
-**"De onde saem os 76% do slide 18?"**
+**"De onde saem os 76% do slide 20?"**
 Da mesma base de avaliação da fila: ordenando os 5.183 incidentes pelo risco do
-modelo, os 20% do topo (1.037 posições) contêm 38 das 50 quebras. → slide 18.
+modelo, os 20% do topo (1.037 posições) contêm 38 das 50 quebras. → slide 20.
+
+**"Na prioridade 3 o baseline ganha do Prophet. Por que manter o Prophet?"**
+Por três motivos. A diferença é de 4,5% no erro médio, dentro do ruído do
+protocolo. O Prophet ganha por 15% na prioridade 2, onde a meta estourou.
+E ele devolve faixa e componentes de calendário, que o baseline não devolve e
+que o resumo das 07h e a projeção do ano precisam. O baseline continua no deck
+como piso de comparação. → slide 15.

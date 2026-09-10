@@ -314,37 +314,44 @@ do núcleo: análise exploratória, modelagem e a solução em produção. Desen
 não no `h1`: com `background-clip` no pai o texto do filho herda
 `color:transparent` e o título some.
 
-**7.9 Estrutura final, 25 slides.**
+**7.9 Estrutura final, 26 slides.**
 
-| # | Slide | Quem | Variação B |
+| # | Slide | Quem | Outras versões |
 |---|---|---|---|
-| 1 | Capa | Igor | só a marca, sem equipe nem mentor |
-| 2 | Super Data Bros | Igor | com o bloco que cada um conduz |
-| 3 | Por que Cronos | Igor | a marca em caixa alta e baixa |
+| 1 | Capa | Igor | — |
+| 2 | Super Data Bros | Igor | — |
+| 3 | Cronos, o deus do tempo | Igor | — |
 | 4 | O prazo de cada incidente | Igor | — |
-| 5 | Quantidade de quebras em 2025 | Igor | curva do acumulado com o limite |
+| 5 | Quantidade de quebras em 2025 | Igor | — |
 | 6 | A fila não atende na ordem em que o prazo estoura | Igor | — |
-| 7 | Divisória · Análise exploratória | Igor | painel de prévia da Sprint 3 |
+| 7 | Divisória · Análise Exploratória | Igor | — |
 | 8 | O salto de setembro | Ana | — |
 | 9 | Por que treinamos só em 2025 | Ana | — |
-| 10 | Quem abre, e quando | Ana | cartões flutuantes |
+| 10 | Quem abre, e quando | Ana | B cartões flutuantes, C a A sobre cartões |
 | 11 | O mesmo ativo quebra de novo | Ana | — |
-| 12 | Divisória · Modelagem | Ana | painel com a curva de ganho |
-| 13 | Os próximos sete dias | Ana | — |
-| 14 | Por que a acurácia não serve aqui | Ana | — |
-| 15 | A fila de risco | Ana | com o painel de leitura ao lado |
-| 16 | A meta do ano vai fechar? | Ana | — |
-| 17 | Divisória · A solução | Hygor | painel com as seis abas |
-| 18 | Como o Cronos antecipa o resultado do ano | Hygor | — |
-| 19 | O resumo da manhã | Hygor | — |
-| 20 | Onde agir primeiro | Hygor | — |
-| 21 | Como isso roda | Hygor | arquitetura da planilha ao painel |
-| 22 | O painel operacional · **demonstração** | Hygor | as seis telas em baralho |
-| 23 | O que ficou pronto | Igor | — |
-| 24 | O que ainda não está resolvido | Igor | — |
-| 25 | Veja antes. Aja antes. | Igor | Obrigado, com os créditos |
+| 12 | O alvo é raro | Ana | — |
+| 13 | Divisória · Previsão de Volume | Ana | — |
+| 14 | Os próximos sete dias | Ana | B figura em largura cheia |
+| 15 | O modelo vale a pena? (erro por horizonte) | Ana | — |
+| 16 | Divisória · Risco de OLA | Ana | — |
+| 17 | A fila de risco | Ana | B seca, só a figura |
+| 18 | A meta do ano vai fechar? | Ana | B tubos, C antes e depois |
+| 19 | Divisória · O produto no ar | Hygor | B com desenho de seis molduras |
+| 20 | Como o Cronos antecipa o resultado do ano | Hygor | — |
+| 21 | Divisória · Morning Brief | Hygor | — |
+| 22 | Morning Brief | Hygor | B a folha redesenhada |
+| 23 | Onde agir primeiro | Hygor | B sem figura em matplotlib |
+| 24 | Como isso roda | Hygor | B arquitetura da planilha ao painel |
+| 25 | O painel operacional · **demonstração** | Hygor | B baralho de telas, C a chamada ao vivo |
+| 26 | Obrigado | Igor | — |
 
-Três trocas de voz: 7→8, 16→17 e 22→23.
+Três trocas de voz: 7→8, 18→19 e 25→26.
+
+**7.10 Um assunto por slide, e os modelos separados.** Previsão de volume e
+risco de OLA têm divisória própria e são apresentados um de cada vez, como no
+deck da Sprint 3. A previsão ocupa dois slides: a semana prevista contra o que
+chegou, e o erro por horizonte contra os baselines. Os dois diferenciais também
+se abrem por divisória: o Morning Brief no 21.
 
 **7.11 As variações vêm do deck da Sprint 3.** O dono do projeto trabalha com o
 `.pptx` da Sprint 4 como referência, mas considera acabado o da **Sprint 3**.
@@ -375,7 +382,29 @@ E se o `svg` tem `preserveAspectRatio="none"`, todo `svg` sobreposto a ele
 precisa da mesma declaração, senão o marcador sai do lugar; num `viewBox`
 esticado, círculo vira `ellipse` com dois raios.
 
-**7.10 Denominadores que se cruzam.** Os 25.600 do slide 4 são dos três anos; o
+**7.15 Denominadores que se cruzam.** Os 25.600 do slide 4 são dos três anos; o
 ano de 2025 sozinho tem 25.156, e é dele que fala o slide 5. O slide 4 diz
 "entram no indicador", não "contam para a meta do ano", justamente para os dois
 números não se contradizerem na mesa.
+
+**7.16 A escala do palco sai da caixa, não da janela.** O `fit()` do `_montar.py`
+lê `getBoundingClientRect()` do `#fit` e um `ResizeObserver` observa esse
+elemento. Com `window.innerHeight`, abrir o `deck.html` direto no navegador
+devolvia o slide cortado embaixo até entrar em tela cheia, porque a barra de
+abas e a de favoritos ainda não estavam na conta.
+
+**7.17 Imagem dentro de flex precisa de teto em pixel.** `max-height:100%` numa
+imagem só resolve se o pai tiver altura definida; num item de flex esticado ele
+é ignorado e a figura transborda por cima do título. Ou o cartão recebe
+`align-items:stretch` e a imagem `max-height:100%` com o pai em `height` real,
+ou se escreve o teto em px.
+
+**7.18 Cuidado com o `b` herdado.** Vários blocos definem `.bloco b{font-size:30px}`
+para um número grande e depois usam `<b>` dentro de um parágrafo do mesmo
+bloco. O parágrafo sai com corpo de manchete. Sempre que um bloco tiver um `b`
+grande, o texto corrido precisa do seu próprio `b`.
+
+**7.19 Prefixo de classe é único por bloco.** O `_montar.py` junta o CSS de
+todos os blocos num arquivo só. Dois blocos com o mesmo prefixo se sobrescrevem
+e o slide antigo quebra em silêncio; foi o que aconteceu entre `17-projecao` e
+a sua variação, que passou a usar `.prt`.
