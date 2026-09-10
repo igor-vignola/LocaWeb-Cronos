@@ -14,11 +14,11 @@
         sem ordenação #999999 · prioridade 2 #DC2626
       As cores são as mesmas de `_figuras_fila.py`, linha 90 em diante.
 
-   2. O desempenho do modelo de risco não estava em slide nenhum deste bloco.
-      Ele pediu para encaixar aqui, que é onde a pergunta "o modelo funciona?"
-      está sendo respondida. A tira do pé traz ROC, PR-AUC e calibração, que
-      antes estavam no slide 21 — lá o assunto é explicabilidade, e a métrica
-      ficava fora de lugar.
+   2. ROC, PR-AUC e calibração passaram por aqui e saíram: viraram o slide 21
+      inteiro, em 10/09/2026. Espremidas numa tira de quatro colunas no pé,
+      elas tinham texto demais para o espaço e o dono do projeto leu como
+      frase de IA. Cada slide vale 30 s a 1 min de fala, e a comparação com o
+      gradient boosting vale o dela.
 
    Todos os números recomputados de data/interim/04_fila_pontuada.parquet,
    5.183 incidentes avaliados fora do período de treino, 50 quebras:
@@ -36,10 +36,6 @@
    é o que o `_figuras_fila.py` faz e o que a figura plota, o ativo devolve 0 e
    a melhor das simples passa a ser a do time, com 7.
 
-   Métricas de notebooks/04_risco_ola.ipynb, período de teste:
-     ROC AUC   0,869 contra 0,868 do gradient boosting
-     PR-AUC    0,2958 contra 0,2526 · a taxa da base é 0,0096, ou 31 vezes
-     calibra   prevê 48,1 quebras onde houve 50
    ══════════════════════════════════════════════════════════════════════════ */
 .flb .body{padding-top:14px}
 .flb .tt{font-size:48px;letter-spacing:-1.75px}
@@ -55,10 +51,10 @@
 .flb .topo{background:var(--ink);border-radius:18px;padding:22px 26px;color:#fff;
   box-shadow:0 30px 62px -38px rgba(10,14,23,.6)}
 .flb .topo .k{font-size:11px;font-weight:700;letter-spacing:2.1px;text-transform:uppercase;
-  color:#8B96A8}
+  color:#A6B0BD}
 .flb .topo .v{font-size:64px;font-weight:900;letter-spacing:-2.6px;line-height:.9;
   margin-top:11px;font-variant-numeric:tabular-nums}
-.flb .topo .v em{font-style:normal;font-size:.36em;letter-spacing:-.6px;color:#8B96A8;
+.flb .topo .v em{font-style:normal;font-size:.36em;letter-spacing:-.6px;color:#A6B0BD;
   margin-left:8px}
 
 /* 2 · a mesma fila em cinco ordenações, cada uma na cor da sua linha */
@@ -90,17 +86,10 @@
 .flb .ord.pri s{border-top-style:dotted;border-top-color:#DC2626}
 .flb .ord.pri .tr i{background:#DC2626} .flb .ord.pri b{color:#DC2626}
 
-/* 3 · a tira do desempenho, que veio do slide 21 */
-.flb .metrica{display:grid;grid-template-columns:1.12fr 1.18fr 1fr 1.5fr;gap:0 28px;
-  margin-top:auto;padding-top:16px;border-top:1px solid #DCE4EF}
-.flb .metrica .m b{display:block;font-size:27px;font-weight:900;letter-spacing:-1.1px;
-  color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}
-.flb .metrica .m > span{display:block;font-size:13px;line-height:1.38;color:var(--tx2);
-  margin-top:7px}
-.flb .metrica .m > span em{font-style:normal;color:var(--head);font-weight:700}
-.flb .metrica .nota{font-size:14.5px;line-height:1.45;color:var(--tx);align-self:center;
-  padding-left:30px;border-left:1px solid #E4EAF3}
-.flb .metrica .nota b{color:var(--head);font-weight:700}
+.flb .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.flb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.flb .fecho b{color:var(--head);font-weight:700}
 </style>
 
 <section class="slide light flb" data-slide="20" data-var="a" data-quem="ana">
@@ -156,20 +145,9 @@
       </div>
     </div>
 
-    <div class="metrica">
-      <div class="m rv" style="--d:1720ms">
-        <b><span class="ct" data-to="0.869" data-dec="3" data-delay="1820">0,000</span></b>
-        <span>de <em>área sob a curva ROC</em>, contra 0,868 do gradient boosting</span>
-      </div>
-      <div class="m rv" style="--d:1800ms">
-        <b><span class="ct" data-to="0.296" data-dec="3" data-delay="1900">0,000</span></b>
-        <span>de <em>PR-AUC</em>, contra 0,253 — e 31 vezes a taxa da base, que é 0,0096</span>
-      </div>
-      <div class="m rv" style="--d:1880ms">
-        <b><span class="ct" data-to="48.1" data-dec="1" data-delay="1980">0,0</span> <span style="font-size:.5em;letter-spacing:-.4px">de 50</span></b>
-        <span>quebras <em>previstas</em> no período, ou seja, o modelo fica calibrado</span>
-      </div>
-      <p class="nota rv" style="--d:1960ms"><b>Regra simples</b> é ordenar por um campo só, sem modelo. A melhor delas, a taxa histórica do time, acha 7 no mesmo trecho; <b>por prioridade, que é o método de hoje, nenhuma</b>.</p>
+    <div class="fecho rv" style="--d:1700ms">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+      <span><b>Regra simples</b> é ordenar por um campo só, sem modelo. A melhor delas, a taxa histórica do time, acha 7 no mesmo trecho; <b>por prioridade, que é o método de hoje, nenhuma</b>.</span>
     </div>
   </div>
   <div class="ft"></div>

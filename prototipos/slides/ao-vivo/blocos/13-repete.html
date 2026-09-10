@@ -32,11 +32,11 @@
 /* uma célula por quebra do segundo semestre */
 .rep .quadro{flex:1;min-width:0}
 .rep .malha{display:grid;grid-template-columns:repeat(16,1fr);gap:9px}
-.rep .malha i{display:block;aspect-ratio:1;border-radius:5px;background:#DFE6EF;
+.rep .malha i{display:block;aspect-ratio:1;border-radius:5px;background:#D2DBE7;
   opacity:0;transform:scale(.5)}
 .rep.is-active .malha i{animation:brotaCel .34s var(--spring) var(--d,0ms) forwards}
 @keyframes brotaCel{to{opacity:1;transform:none}}
-.rep .malha i.r{background:#DFE6EF}
+.rep .malha i.r{background:#D2DBE7}
 .rep.is-active .malha i.r{animation:brotaCel .34s var(--spring) var(--d,0ms) forwards,
   acende .34s var(--out) calc(var(--d,0ms) + 1500ms) forwards}
 @keyframes acende{to{background:var(--accent)}}
@@ -45,7 +45,7 @@
 .rep .leg span{display:inline-flex;align-items:center;gap:10px}
 .rep .leg em{display:block;width:14px;height:14px;border-radius:4px;flex-shrink:0}
 .rep .leg .a em{background:var(--accent)}
-.rep .leg .b em{background:#DFE6EF}
+.rep .leg .b em{background:#D2DBE7}
 
 /* o número, à direita */
 .rep .lado{width:378px;flex-shrink:0}

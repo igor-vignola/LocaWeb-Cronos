@@ -1,19 +1,7 @@
-<!-- ───────────────────────────────────────────────────────────────────────────
-     slide 19 · composição B da divisória de risco de OLA
+<!-- 19-div-risco · composição B · o desenho original do deck, folha `.dv3`.
+     Era a composição A até 10/09/2026, quando a da Sprint 2 tomou o lugar. -->
 
-     O desenho vem do deck da Sprint 2 (prototipos/gestao/intro.html), pedido em
-     10/09/2026 como segunda opção para todas as divisórias. A folha de estilo é
-     `.dv2`, no fim de _estilo.css, compartilhada pelas sete.
-
-     O painel da direita é o mesmo da composição A, de propósito: variação troca
-     a forma, nunca a análise.
-
-     Números das pílulas: os três saem do painel da própria composição A —
-     13 quebras nos 50 primeiros da fila do modelo, nenhuma quando a mesma fila
-     é ordenada por prioridade, e a base de 0,97% de violação no período.
-     ─────────────────────────────────────────────────────────────────────── -->
-
-<section class="slide dark dv3 dv2" data-slide="19" data-var="b" data-quem="ana">
+<section class="slide dark dv3" data-slide="19" data-var="b" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -22,26 +10,15 @@
   </div>
   <div class="body">
     <div class="lft">
-      <div class="bl" style="--d:200ms"><b>Seção 04</b> &middot; Risco de OLA</div>
-      <span class="eb"><span class="rv" style="--d:300ms">Onde olhar primeiro</span></span>
+      <span class="eb"><span class="rv" style="--d:220ms">Seção 04 &middot; Risco de OLA</span></span>
       <h1 class="tt">
-        <span class="mask" style="--d:420ms"><span>Risco de</span></span>
-        <span class="mask" style="--d:520ms"><span>estouro de OLA</span></span>
+        <span class="mask" style="--d:340ms"><span>Risco de</span></span>
+        <span class="mask" style="--d:450ms"><span>estouro de <span class="hl">OLA</span></span></span>
       </h1>
-      <p class="lead rv" style="--d:860ms">Qual incidente vai estourar o prazo. O modelo pontua cada um no instante da abertura e devolve a fila em ordem de risco, com o motivo de cada posição.</p>
-      <div class="pilhas">
-        <div class="st" style="--d:1500ms">
-          <span class="lbl">Nos 50 primeiros</span>
-          <span class="val ac"><span class="ct" data-to="13" data-delay="1600">0</span><small>quebras</small></span>
-        </div>
-        <div class="st" style="--d:1580ms">
-          <span class="lbl">Ordenando por prioridade</span>
-          <span class="val">Nenhuma</span>
-        </div>
-        <div class="st" style="--d:1660ms">
-          <span class="lbl">Base do problema</span>
-          <span class="val"><span class="ct" data-to="0.97" data-dec="2" data-delay="1760">0,00</span><small>%</small></span>
-        </div>
+      <p class="lead rv" style="--d:820ms">Qual incidente vai estourar o prazo. O modelo pontua cada um no instante da abertura e devolve a fila em ordem de risco, com o motivo de cada posição.</p>
+      <div class="q rv" style="--d:1900ms">
+        <span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
+        <span>A pergunta desta seção: <b>onde a equipe deve olhar primeiro?</b></span>
       </div>
     </div>
     <div class="pv rv3" style="--d:900ms">
@@ -70,8 +47,5 @@
       </div>
     </div>
   </div>
-  <div class="ft">
-    <span>Seção 04 &middot; Risco de OLA</span>
-    <span class="dir">Nas próximas páginas: <b>a fila de risco e o desempenho do modelo</b> &middot; <b>explicabilidade</b></span>
-  </div>
+  <div class="ft"><span>Regressão logística do scikit-learn 1.6.1 &middot; avaliação fora do período de treino &middot; 5.183 incidentes, 50 violações</span></div>
 </section>

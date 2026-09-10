@@ -22,8 +22,8 @@
 .pj-b .cena{gap:56px}
 /* grade de quatro colunas: em flex com gap os quatro itens não cabiam numa
    linha só e a legenda quebrava no meio de um deles */
-.pj-b .legenda{display:grid;grid-template-columns:auto auto auto 1fr;align-items:center;
-  gap:0 30px;padding-top:22px;border-top:1px solid #DCE4EF;font-size:14px;color:var(--tx2)}
+.pj-b .legenda{display:flex;flex-wrap:wrap;align-items:center;
+  gap:0 30px;padding-top:22px;border-top:1px solid #DCE4EF;font-size:14px;color:var(--tx)}
 .pj-b .legenda .it{display:flex;align-items:center;gap:10px;white-space:nowrap}
 .pj-b .legenda .am{width:24px;height:13px;border-radius:4px;flex-shrink:0}
 .pj-b .legenda .am.ja{background:var(--head)}
@@ -56,7 +56,7 @@
 .pj-c .guia .n{width:24px;height:24px;border-radius:50%;background:#EDF1F7;color:var(--head);
   font-size:12.5px;font-weight:800;display:flex;align-items:center;justify-content:center;
   flex-shrink:0}
-.pj-c .guia p{font-size:14.5px;line-height:1.42;color:var(--tx2)}
+.pj-c .guia p{font-size:14.5px;line-height:1.42;color:var(--tx)}
 .pj-c .guia p b{color:var(--head);font-weight:700}
 
 /* ── D · a meta num cartão à esquerda ────────────────────────────────────── */
@@ -69,17 +69,19 @@
   color:var(--accent)}
 .pj-d .oque h2{font-size:24px;font-weight:800;letter-spacing:-.6px;color:var(--head);
   margin-top:12px;line-height:1.25}
-.pj-d .oque p{font-size:15.5px;line-height:1.5;color:var(--tx2);margin-top:12px}
+.pj-d .oque p{font-size:15.5px;line-height:1.5;color:var(--tx);margin-top:12px}
 .pj-d .lims{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px;
   padding-top:20px;border-top:1px solid #EDF1F7}
 .pj-d .lims div b{display:block;font-size:38px;font-weight:900;letter-spacing:-1.6px;
   color:var(--head);line-height:1;font-variant-numeric:tabular-nums}
-.pj-d .lims div span{display:block;font-size:13px;color:var(--tx2);margin-top:8px}
-.pj-d .oque .fnt{font-size:12.5px;color:#A6B0BE;margin-top:18px}
+/* `>` obrigatório: sem ele a regra casava com o `.ct` que mora DENTRO do <b>,
+   e os números 39 e 263 saíam a 13px em vez dos 38px do próprio <b>. */
+.pj-d .lims div > span{display:block;font-size:13px;color:var(--tx);margin-top:8px}
+.pj-d .oque .fnt{font-size:12.5px;color:var(--tx2);margin-top:18px}
 </style>
 
 <!-- ─────────────── B · a legenda que nomeia cada parte do trilho ─────────── -->
-<section class="slide light prj pj-b" data-slide="25" data-var="b" data-quem="hygor">
+<section class="slide light prj pj-b" data-slide="26" data-var="b" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -131,7 +133,7 @@
 </section>
 
 <!-- ─────────────── C · a leitura em quatro passos ────────────────────────── -->
-<section class="slide light prj pj-c" data-slide="25" data-var="c" data-quem="hygor">
+<section class="slide light prj pj-c" data-slide="26" data-var="c" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -186,7 +188,7 @@
 </section>
 
 <!-- ─────────────── D · a meta explicada num cartão à esquerda ────────────── -->
-<section class="slide light prj pj-d" data-slide="25" data-var="d" data-quem="hygor">
+<section class="slide light prj pj-d" data-slide="26" data-var="d" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>

@@ -1,5 +1,5 @@
 <style>
-/* ═══ slide 28 · como o Cronos antecipa o resultado do ano ════════════════════
+/* ═══ slide 29 · como o Cronos antecipa o resultado do ano ════════════════════
    O slide que o dono do projeto marcou como obrigatório, vindo do deck da
    Sprint 4. É o único lugar do deck onde as quatro saídas aparecem juntas, com
    o que entra de um lado e para onde vai do outro. Abre o bloco do produto:
@@ -14,7 +14,7 @@
    Ajuste de 10/09/2026, a pedido do dono do projeto: a coluna da direita
    dizia só o nome das duas saídas e o slide não contava COMO elas chegam ao
    navegador — Django, contêiner e a fronteira de quem treina não apareciam em
-   lugar nenhum antes do slide 29. Em vez de abrir uma composição B só para
+   lugar nenhum antes do slide 30. Em vez de abrir uma composição B só para
    isso, a coluna virou o próprio contêiner: as duas telas agora estão
    desenhadas DENTRO dele, com o que ele lê no topo e a stack que o serve no
    pé. A fronteira fica visível na forma, não numa frase.
@@ -44,9 +44,10 @@
 
 /* colunas de entrada e saída: cartões leves, sem o peso do cartão central */
 .ant .col{width:236px;flex-shrink:0;display:flex;flex-direction:column;gap:14px}
-.ant .col.esq > .cx{flex:1;display:flex;flex-direction:column;justify-content:center}
-.ant .col .cb{font-size:11.5px;font-weight:700;letter-spacing:2.1px;text-transform:uppercase;
-  color:var(--tx2)}
+/* altura natural: esticados, os dois cartões da entrada ficavam ocos */
+.ant .col.esq{justify-content:center}
+.ant .cb{font-size:11.5px;font-weight:700;letter-spacing:2.1px;text-transform:uppercase;
+  color:var(--tx)}
 .ant .cx{background:#fff;border:1px solid var(--line);border-radius:15px;padding:17px 18px;
   box-shadow:0 12px 30px -26px rgba(15,23,42,.4)}
 .ant .cx .ic{width:30px;height:30px;border-radius:9px;background:var(--accent-l);
@@ -58,16 +59,15 @@
 
 /* a seta entre as colunas anda quando o slide entra */
 .ant .seta{width:26px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
-  color:#B9C4D4}
+  color:#8A99AE}
 .ant .seta svg{width:22px;height:22px;opacity:0;transform:translate3d(-8px,0,0)}
 .ant.is-active .seta svg{animation:rv .5s var(--out) var(--d,0ms) forwards}
 
 /* o cartão central, onde mora o cálculo */
+.ant .meio{flex:1;min-width:0;display:flex;flex-direction:column;gap:14px}
 .ant .nucleo{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:20px;
   padding:24px 30px;box-shadow:0 26px 60px -40px rgba(15,23,42,.45);
   display:flex;flex-direction:column;justify-content:center}
-.ant .nucleo .nh{font-size:11.5px;font-weight:700;letter-spacing:2.1px;text-transform:uppercase;
-  color:var(--accent)}
 .ant .lin{display:grid;grid-template-columns:38px 1fr 154px 1fr;align-items:center;gap:0 18px;
   padding:21px 0}
 .ant .lin + .lin{border-top:1px solid #EDF1F7}
@@ -76,8 +76,8 @@
   display:flex;align-items:center;justify-content:center}
 .ant .lin .mi svg{width:17px;height:17px}
 .ant .lin .nome{font-size:17.5px;font-weight:700;color:var(--head);letter-spacing:-.25px}
-.ant .lin .et{display:inline-block;margin-top:6px;font-family:var(--mono);font-size:11.5px;
-  color:var(--tx2);background:#F4F7FC;border:1px solid var(--line);border-radius:6px;
+.ant .lin .et{display:inline-block;margin-top:6px;font-family:var(--mono);font-size:12.5px;
+  color:var(--tx);background:#F4F7FC;border:1px solid var(--line);border-radius:6px;
   padding:2px 8px;letter-spacing:.1px}
 .ant .lin .v{font-size:32px;font-weight:900;letter-spacing:-1.3px;color:var(--accent);
   text-align:right;font-variant-numeric:tabular-nums;line-height:1;white-space:nowrap}
@@ -96,8 +96,8 @@
   color:#8FB4F5;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ant .cont .ch .ci svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7}
 .ant .cont .ch b{display:block;font-size:17px;font-weight:700;color:#fff;letter-spacing:-.2px}
-.ant .cont .ch span{display:block;font-family:var(--mono);font-size:12px;color:#8FB4F5;margin-top:3px}
-/* o aviso do contêiner: #98A2B3 sobre o preto ficou ilegível na projeção.
+.ant .cont .ch span{display:block;font-family:var(--mono);font-size:12.5px;color:#9CC0FA;margin-top:3px}
+/* o aviso do contêiner: #B7C0CB sobre o preto ficou ilegível na projeção.
    Fundo mais claro e texto quase branco. */
 .ant .cont .cl{margin-top:14px;padding:13px 15px;border-radius:12px;
   background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
@@ -109,8 +109,8 @@
 .ant .cont .cx b{font-size:16.5px;margin-top:11px}
 .ant .cont .cx span{font-size:13.5px}
 .ant .cont .cf{display:flex;flex-wrap:wrap;gap:6px;margin-top:15px;padding-top:14px;
-  border-top:1px solid rgba(255,255,255,.1)}
-.ant .cont .cf i{font-style:normal;font-family:var(--mono);font-size:11.5px;color:#A8C6F8;
+  border-top:1px solid rgba(255,255,255,.18)}
+.ant .cont .cf i{font-style:normal;font-family:var(--mono);font-size:12.5px;color:#BAD3FB;
   background:rgba(59,130,246,.2);border-radius:6px;padding:3px 8px}
 
 .ant .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
@@ -119,7 +119,7 @@
 .ant .fecho b{color:var(--head);font-weight:700}
 </style>
 
-<section class="slide light ant" data-slide="28" data-var="a" data-quem="hygor">
+<section class="slide light ant" data-slide="29" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -146,8 +146,9 @@
 
       <div class="seta" style="--d:1140ms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 12h15M13.4 6.6 19.6 12l-6.2 5.4"/></svg></div>
 
-      <div class="nucleo rv3" style="--d:1180ms">
-        <div class="nh">O que o Cronos calcula</div>
+      <div class="meio">
+        <div class="cb rv" style="--d:1140ms">O que o Cronos calcula</div>
+        <div class="nucleo rv3" style="--d:1180ms">
 
         <div class="lin rv" style="--d:1360ms">
           <div class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3.6 17.4 9 11.4l3.6 3 6.8-8.4"/><path d="M15.4 6h4.6v4.6"/></svg></div>
@@ -175,6 +176,7 @@
           <div><div class="nome">Saúde por produto</div><span class="et">Nota de 0 a 100</span></div>
           <div class="v"><span class="ct" data-to="15" data-delay="1900">0</span></div>
           <p class="d">produtos acompanhados, <b>94% do volume</b> elegível de 2025</p>
+        </div>
         </div>
       </div>
 

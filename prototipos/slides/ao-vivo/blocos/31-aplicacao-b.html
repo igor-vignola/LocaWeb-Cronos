@@ -17,7 +17,7 @@
 .apb .body{padding:20px 64px 40px;justify-content:flex-start}
 .apb .topo{display:flex;align-items:flex-end;justify-content:space-between;gap:40px}
 .apb .tt{font-size:74px;letter-spacing:-3.2px;line-height:1}
-.apb .sub{font-size:19px;line-height:1.5;color:#98A2B3;margin-top:18px;max-width:44ch}
+.apb .sub{font-size:19px;line-height:1.5;color:#B7C0CB;margin-top:18px;max-width:44ch}
 .apb .sub b{color:#E8ECF3;font-weight:700}
 
 /* a pílula do ao vivo, o único elemento que pisca no deck inteiro */
@@ -52,18 +52,21 @@
   0 0 0 1px rgba(96,165,250,.28)}
 
 /* a ordem de clique, embaixo, acendendo uma a uma */
+/* o marcador de quem apresenta ocupa o canto inferior esquerdo do `.ft`, e a
+   fila da ordem passava por cima dele. Recuada, as duas convivem. */
 .apb .ordem{display:flex;align-items:center;gap:0;margin-top:auto;padding-top:20px;
-  border-top:1px solid rgba(255,255,255,.1)}
+  padding-left:196px;
+  border-top:1px solid rgba(255,255,255,.18)}
 .apb .ordem b{font-size:12px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
-  color:#5B647A;margin-right:22px}
-.apb .ordem span{font-size:15px;color:#8B96A8;padding:0 20px;
-  border-left:1px solid rgba(255,255,255,.14);opacity:0;transform:translate3d(0,8px,0)}
-.apb .ordem span em{font-style:normal;font-family:var(--mono);font-size:12px;color:#3B82F6;
+  color:#B7C0CB;margin-right:22px}
+.apb .ordem span{font-size:15px;color:#C4CBD8;padding:0 20px;
+  border-left:1px solid rgba(255,255,255,.24);opacity:0;transform:translate3d(0,8px,0)}
+.apb .ordem span em{font-style:normal;font-family:var(--mono);font-size:12.5px;color:#6BA1F8;
   margin-right:8px}
 .apb.is-active .ordem span{animation:rv .45s var(--out) var(--d,0ms) forwards}
 </style>
 
-<section class="slide dark apb" data-slide="30" data-var="b" data-quem="hygor">
+<section class="slide dark apb" data-slide="31" data-var="b" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>

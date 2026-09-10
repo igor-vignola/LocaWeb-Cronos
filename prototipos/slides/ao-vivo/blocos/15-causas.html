@@ -1,62 +1,121 @@
 <style>
-/* ═══ slide 15 · causas agrupadas ═════════════════════════════════════════════
-   Paga o pedido nominal da página 9 do briefing, "agrupar causas recorrentes".
-   O slide 14 trata de um código só; este agrupa todos os dezesseis.
+/* ═══ slide 15 · causas agrupadas · composição B ══════════════════════════════
+   A composição A resolve o mesmo assunto com a figura de matplotlib herdada do
+   deck da Sprint 3: dois painéis lado a lado, um ordenado por volume e outro
+   por taxa. O conteúdo foi aprovado e a forma não. Dois painéis repetem os
+   nomes das causas e obrigam quem lê a procurar a mesma linha duas vezes, que
+   é justamente onde a comparação se perde.
 
-   Duas versões caíram antes desta. A primeira tinha o nome à direita e a barra
-   espremida; a segunda ordenava tudo por taxa e ficou confusa, porque a
-   comparação que interessa some quando as duas listas estão na mesma ordem.
+   Esta versão é nativa do deck, sem imagem: uma tabela só, doze linhas, e cada
+   linha carrega as duas medidas em barras próprias.
 
-   Esta segue o d30a do deck da Sprint 3, que o dono do projeto mandou olhar: a
-   figura traz os dois painéis lado a lado, **um ordenado por volume e outro
-   por taxa**, e é justamente a diferença entre as duas ordens que é a
-   mensagem. Falha de Aplicação encabeça o da esquerda com 60,3% do volume e
-   nem aparece no topo do da direita, onde a taxa dela é 0,82%.
+   POR QUE ORDENADA POR VOLUME, e não por taxa: a ordem por volume é a ordem em
+   que a operação hoje enxerga o problema. Com ela fixada, as barras de taxa
+   ficam fora de ordem, e essa bagunça é a mensagem inteira do slide, visível
+   sem ler número nenhum. Ordenar por taxa arrumaria as duas colunas ao mesmo
+   tempo e apagaria a divergência.
 
-   Figura de prototipos/slides/mvp/deck/figs/rec_causas.png, copiada para
-   figs/11_causas.png, 1664x643. Números de data/interim/05_causas.parquet,
-   jan a set de 2025, base elegível ao KPI, média de 0,94%.
+   Escalas separadas, porque as unidades são diferentes: a barra de volume vai
+   até 60,3% (o próprio máximo) e a de taxa até 3,0%. Empilhar as duas na mesma
+   escala não teria significado. O fio vertical em 31,3% da escala de taxa é a
+   média da base, 0,94%, e é o que separa quem está acima de quem está abaixo.
 
-   Os dois cartões do pé são as duas pontas da comparação, com as duas
-   prioridades em cada um, como manda a regra 10.
+   Só duas células ganham cor forte: a barra de volume da Falha de Aplicação e
+   a barra de taxa da Falha de Storage, que são as duas pontas da comparação.
+   O resto fica em cinza e azul claro.
+
+   CORTE DECLARADO, que a composição A omite: entram só as causas com pelo
+   menos 100 incidentes na janela, 12 das 16. Falha de Hardware tem a maior
+   taxa da tabela inteira, 8,24%, mas sobre 85 incidentes; Falha de Redes 3,08%
+   sobre 65, Falha de Monitoração 1,54% sobre 65 e Carta de Risco 1 incidente.
+   Em base desse tamanho uma quebra a mais move a taxa em ponto percentual
+   inteiro, e a ordenação deixa de significar alguma coisa.
+
+   As colunas de P2 e P3 valem para as doze linhas, não só para as destacadas:
+   as duas prioridades entram no indicador com metas próprias e a taxa agregada
+   não descreve nenhuma das duas. Sem retorno do solicitante não teve incidente
+   na prioridade 2 na janela, daí o traço.
+
+   Números de data/interim/05_causas.parquet, gerado por
+   notebooks/05_causas_recorrentes.ipynb. Janela: incidentes elegíveis ao
+   indicador abertos entre 01/01/2025 e 30/09/2025, o mesmo corte da aplicação.
+   São 19.973 elegíveis e 188 violações no total, dos quais 19.745 incidentes e
+   187 violações têm código de fechamento registrado. Média da base 0,94%.
    ══════════════════════════════════════════════════════════════════════════ */
-.cau .body{padding-top:14px}
-.cau .tt{font-size:46px;letter-spacing:-1.7px}
-.cau .tt em{font-style:normal;color:var(--accent)}
-/* a figura tem 1664x643: em largura cheia ela passa da faixa e sobe por cima
-   do texto. Presa pela altura do cartão, ela encolhe até caber. */
-.cau .cena{flex:1;display:flex;align-items:stretch;margin-top:14px;min-height:0}
-.cau .quadro{width:100%;display:flex;align-items:center;justify-content:center;
-  padding:14px 20px}
-.cau .fig{display:block;max-width:100%;max-height:100%;width:auto}
+.cvb .body{padding-top:14px}
+.cvb .tt{font-size:44px;letter-spacing:-1.6px}
+.cvb .tt em{font-style:normal;color:var(--accent)}
+.cvb .cena{flex:1;display:flex;align-items:stretch;margin-top:16px;min-height:0}
 
-/* as duas pontas da comparação */
-.cau .pontas{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px}
-.cau .cd{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:0 26px;
-  border-radius:16px;padding:18px 24px}
-.cau .cd.vol{background:#F1F5FB;border:1px solid #DCE4EF}
-.cau .cd.risco{background:#FCECEC;border:1px solid #F6CFCF}
-.cau .cd .k{font-size:11px;font-weight:700;letter-spacing:1.9px;text-transform:uppercase;
-  color:var(--tx2);grid-column:1 / -1}
-.cau .cd .nm{font-size:20px;font-weight:800;letter-spacing:-.4px;color:var(--head);
-  margin-top:8px}
-.cau .cd .nm small{display:block;font-size:12.5px;font-weight:400;color:var(--tx2);
-  margin-top:5px}
-.cau .cd .par{text-align:right;margin-top:8px}
-.cau .cd .par b{display:block;font-size:26px;font-weight:900;letter-spacing:-1px;
-  line-height:1;font-variant-numeric:tabular-nums}
-.cau .cd .par span{display:block;font-size:11px;color:var(--tx2);margin-top:5px;
-  letter-spacing:1.2px;text-transform:uppercase}
-.cau .cd.vol .par.a b{color:#5B6879} .cau .cd.vol .par.b b{color:var(--good)}
-.cau .cd.risco .par.a b{color:#8593A6} .cau .cd.risco .par.b b{color:var(--bad)}
+.cvb .tab{width:100%;background:#fff;border:1px solid var(--line);border-radius:20px;
+  padding:20px 28px 18px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5);
+  display:flex;flex-direction:column;justify-content:space-between}
 
-.cau .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:16px;
+/* uma grade só para o cabeçalho e para as linhas, senão as colunas dançam */
+.cvb .cab,.cvb .lin{display:grid;
+  grid-template-columns:1fr 82px 224px 56px 452px 60px 74px 74px;
+  align-items:center;gap:0 18px}
+.cvb .cab{margin:0 -12px;padding:0 12px 11px;border-bottom:1px solid #E7EDF6}
+.cvb .cab span{font-size:11px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;
+  color:#5F6B7C}
+.cvb .cab .dir{text-align:right}
+/* a legenda da média mora à direita do fio, senão encosta no rótulo da coluna */
+.cvb .cab .esc{position:relative}
+.cvb .cab .esc i{position:absolute;left:31.3%;bottom:-12px;width:2px;height:9px;
+  background:#94A3B8}
+.cvb .cab .esc b{position:absolute;left:calc(31.3% + 9px);top:0;font-weight:700;
+  color:#5A6779;white-space:nowrap;letter-spacing:1.1px}
+
+.cvb .lin{margin:0 -12px;padding:10px 12px}
+.cvb .lin + .lin{border-top:1px solid #F1F5FA}
+.cvb .lin .nm{font-size:14.5px;font-weight:500;color:var(--tx);letter-spacing:-.1px}
+.cvb .lin .nm u{display:block;text-decoration:none;font-size:11px;font-weight:700;
+  letter-spacing:1.4px;text-transform:uppercase;margin-bottom:4px}
+.cvb .lin .qt{font-family:var(--mono);font-size:12.5px;color:#5A6779;text-align:right}
+.cvb .lin .vl{font-size:14.5px;font-weight:700;text-align:right;color:#5A6779;
+  font-variant-numeric:tabular-nums;letter-spacing:-.2px}
+.cvb .lin .pr{font-family:var(--mono);font-size:12.5px;color:#5A6779;text-align:right}
+
+/* trilhos: escalas independentes, o fio da média só na coluna da taxa */
+.cvb .trk{position:relative;height:12px;border-radius:7px;background:#EFF3F8}
+.cvb .trk i.f{display:block;height:100%;border-radius:7px;min-width:2px;
+  background:#AAB8CA;transform:scaleX(0);transform-origin:left}
+.cvb.is-active .trk i.f{animation:corre .6s var(--out) forwards;animation-delay:var(--d,0ms)}
+.cvb .trk.rsk i.f{background:#96B7E8}
+.cvb.is-active .trk.rsk i.f{animation-delay:calc(var(--d,0ms) + 110ms)}
+.cvb .trk.rsk i.f.ac{background:var(--accent)}
+.cvb .trk i.f.nz{min-width:0}
+.cvb .trk .md{position:absolute;left:31.3%;top:-4px;width:2px;height:20px;background:#8C9BAE;
+  border-radius:1px}
+
+/* as duas pontas da comparação, e só elas */
+.cvb .lin.pv{background:#F2F5FA}
+.cvb .lin.pr2{background:#FDF0F0}
+.cvb .lin.pv,.cvb .lin.pr2{padding:12px 12px;border-radius:12px}
+.cvb .lin.pv + .lin,.cvb .lin.pr2 + .lin{border-top-color:transparent}
+.cvb .lin.pv .nm,.cvb .lin.pr2 .nm{font-size:15.5px;font-weight:800;color:var(--head)}
+.cvb .lin.pv .nm u{color:#54637A}
+.cvb .lin.pr2 .nm u{color:var(--bad)}
+.cvb .lin.pv .trk:not(.rsk) i.f{background:#4C5C72}
+.cvb .lin.pv .vl,.cvb .lin.pr2 .vl{font-size:17px;font-weight:900;color:var(--head)}
+.cvb .lin.pv .qt,.cvb .lin.pr2 .qt,.cvb .lin.pv .pr,.cvb .lin.pr2 .pr{color:#5A6779;
+  font-weight:600}
+.cvb .lin.pr2 .trk.rsk i.f{background:var(--bad)}
+.cvb .lin.pr2 .vl.q{color:var(--bad)}
+.cvb .lin.pv .vl.v{color:#3B4A5F}
+
+.cvb .nota{display:flex;align-items:flex-start;gap:10px;margin-top:12px;padding-top:11px;
+  border-top:1px solid #EEF2F8;font-size:12.5px;line-height:1.5;color:#5A6779}
+.cvb .nota .ic{width:15px;height:15px;color:#6B7686;margin-top:2px;flex-shrink:0}
+.cvb .nota b{color:var(--tx);font-weight:700}
+
+.cvb .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:15px;
   border-top:1px solid #DCE4EF;font-size:16px;line-height:1.45;color:var(--tx)}
-.cau .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
-.cau .fecho b{color:var(--head);font-weight:700}
+.cvb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.cvb .fecho b{color:var(--head);font-weight:700}
 </style>
 
-<section class="slide light cau" data-slide="15" data-var="a" data-quem="ana">
+<section class="slide light cvb" data-slide="15" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -65,33 +124,166 @@
   </div>
   <div class="body">
     <span class="eb"><span class="rv" style="--d:240ms">Exigência do desafio &middot; agrupar causas recorrentes</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Volume e <em>taxa de quebra de OLA</em> por causa de fechamento</span></span></h1>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>A causa mais frequente <em>não é a que mais estoura o prazo</em></span></span></h1>
 
     <div class="cena">
-      <div class="quadro cartao rv3" style="--d:760ms">
-        <img class="fig" src="../figs/11_causas.png" alt="Dois paineis lado a lado: a participacao de cada causa de fechamento no volume e a taxa de quebra de OLA de cada uma">
+      <div class="tab rv3" style="--d:700ms">
+        <div>
+          <div class="cab">
+            <span>Causa de fechamento</span>
+            <span class="dir">Incidentes</span>
+            <span>Participação no volume</span>
+            <span></span>
+            <span class="esc">Taxa de quebra<i></i><b>Média da base 0,94%</b></span>
+            <span></span>
+            <span class="dir">Taxa P2</span>
+            <span class="dir">Taxa P3</span>
+          </div>
+
+          <div class="lin pv" style="--d:1000ms">
+            <span class="nm"><u>Maior em volume</u>Falha de Aplicação</span>
+            <span class="qt">12.041</span>
+            <span class="trk"><i class="f" style="width:100%"></i></span>
+            <span class="vl v">60,3%</span>
+            <span class="trk rsk"><i class="f" style="width:27.3%"></i><i class="md"></i></span>
+            <span class="vl">0,82%</span>
+            <span class="pr">0,88%</span>
+            <span class="pr">0,82%</span>
+          </div>
+
+          <div class="lin" style="--d:1060ms">
+            <span class="nm">Falha de Sistema Operacional</span>
+            <span class="qt">2.197</span>
+            <span class="trk"><i class="f" style="width:18.2%"></i></span>
+            <span class="vl">11,0%</span>
+            <span class="trk rsk"><i class="f" style="width:6.0%"></i><i class="md"></i></span>
+            <span class="vl">0,18%</span>
+            <span class="pr">0,18%</span>
+            <span class="pr">0,18%</span>
+          </div>
+
+          <div class="lin" style="--d:1120ms">
+            <span class="nm">Outro</span>
+            <span class="qt">1.596</span>
+            <span class="trk"><i class="f" style="width:13.3%"></i></span>
+            <span class="vl">8,0%</span>
+            <span class="trk rsk"><i class="f ac" style="width:89.7%"></i><i class="md"></i></span>
+            <span class="vl">2,69%</span>
+            <span class="pr">1,81%</span>
+            <span class="pr">2,93%</span>
+          </div>
+
+          <div class="lin" style="--d:1180ms">
+            <span class="nm">Falha causada pelo cliente</span>
+            <span class="qt">950</span>
+            <span class="trk"><i class="f" style="width:8.0%"></i></span>
+            <span class="vl">4,8%</span>
+            <span class="trk rsk"><i class="f" style="width:10.7%"></i><i class="md"></i></span>
+            <span class="vl">0,32%</span>
+            <span class="pr">0,00%</span>
+            <span class="pr">0,49%</span>
+          </div>
+
+          <div class="lin" style="--d:1240ms">
+            <span class="nm">Falha não reproduzida</span>
+            <span class="qt">899</span>
+            <span class="trk"><i class="f" style="width:7.5%"></i></span>
+            <span class="vl">4,5%</span>
+            <span class="trk rsk"><i class="f" style="width:18.7%"></i><i class="md"></i></span>
+            <span class="vl">0,56%</span>
+            <span class="pr">0,00%</span>
+            <span class="pr">0,62%</span>
+          </div>
+
+          <div class="lin" style="--d:1300ms">
+            <span class="nm">Falha de Segurança</span>
+            <span class="qt">367</span>
+            <span class="trk"><i class="f" style="width:3.0%"></i></span>
+            <span class="vl">1,8%</span>
+            <span class="trk rsk"><i class="f" style="width:9.0%"></i><i class="md"></i></span>
+            <span class="vl">0,27%</span>
+            <span class="pr">0,89%</span>
+            <span class="pr">0,00%</span>
+          </div>
+
+          <div class="lin" style="--d:1360ms">
+            <span class="nm">Incidente causado por Change</span>
+            <span class="qt">364</span>
+            <span class="trk"><i class="f" style="width:3.0%"></i></span>
+            <span class="vl">1,8%</span>
+            <span class="trk rsk"><i class="f ac" style="width:45.7%"></i><i class="md"></i></span>
+            <span class="vl">1,37%</span>
+            <span class="pr">1,05%</span>
+            <span class="pr">1,73%</span>
+          </div>
+
+          <div class="lin" style="--d:1420ms">
+            <span class="nm">Falha de Cloud</span>
+            <span class="qt">351</span>
+            <span class="trk"><i class="f" style="width:3.0%"></i></span>
+            <span class="vl">1,8%</span>
+            <span class="trk rsk"><i class="f" style="width:28.3%"></i><i class="md"></i></span>
+            <span class="vl">0,85%</span>
+            <span class="pr">1,56%</span>
+            <span class="pr">0,45%</span>
+          </div>
+
+          <div class="lin" style="--d:1480ms">
+            <span class="nm">Sem retorno do solicitante</span>
+            <span class="qt">329</span>
+            <span class="trk"><i class="f" style="width:2.7%"></i></span>
+            <span class="vl">1,6%</span>
+            <span class="trk rsk"><i class="f ac" style="width:71.0%"></i><i class="md"></i></span>
+            <span class="vl">2,13%</span>
+            <span class="pr">&mdash;</span>
+            <span class="pr">2,13%</span>
+          </div>
+
+          <div class="lin" style="--d:1540ms">
+            <span class="nm">Falha de Banco de Dados</span>
+            <span class="qt">182</span>
+            <span class="trk"><i class="f" style="width:1.5%"></i></span>
+            <span class="vl">0,9%</span>
+            <span class="trk rsk"><i class="f ac" style="width:73.3%"></i><i class="md"></i></span>
+            <span class="vl">2,20%</span>
+            <span class="pr">2,27%</span>
+            <span class="pr">2,13%</span>
+          </div>
+
+          <div class="lin" style="--d:1600ms">
+            <span class="nm">Falso Positivo</span>
+            <span class="qt">150</span>
+            <span class="trk"><i class="f" style="width:1.3%"></i></span>
+            <span class="vl">0,8%</span>
+            <span class="trk rsk"><i class="f nz" style="width:0%"></i><i class="md"></i></span>
+            <span class="vl">0,00%</span>
+            <span class="pr">0,00%</span>
+            <span class="pr">0,00%</span>
+          </div>
+
+          <div class="lin pr2" style="--d:1660ms">
+            <span class="nm"><u>Maior em taxa</u>Falha de Storage</span>
+            <span class="qt">103</span>
+            <span class="trk"><i class="f" style="width:0.8%"></i></span>
+            <span class="vl">0,5%</span>
+            <span class="trk rsk"><i class="f ac" style="width:97.0%"></i><i class="md"></i></span>
+            <span class="vl q">2,91%</span>
+            <span class="pr">0,00%</span>
+            <span class="pr">4,35%</span>
+          </div>
+        </div>
+
+        <div class="nota">
+          <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+          <span><b>Corte:</b> entram só as causas com pelo menos 100 incidentes na janela, 12 das 16. Falha de Hardware tem a maior taxa da tabela inteira, 8,24%, mas sobre 85 incidentes, e fica de fora porque nesse volume uma quebra a mais move a taxa em mais de um ponto; pelo mesmo motivo saem Falha de Redes (65 incidentes), Falha de Monitoração (65) e Carta de Risco (1). Sem retorno do solicitante não teve incidente na prioridade 2 na janela.</span>
+        </div>
       </div>
     </div>
 
-    <div class="pontas">
-      <div class="cd vol rv" style="--d:1200ms">
-        <span class="k">A maior em volume</span>
-        <span class="nm">Falha de Aplicação<small>12.041 incidentes &middot; 0,88% na P2 e 0,82% na P3</small></span>
-        <span class="par a"><b>60,3%</b><span>do volume</span></span>
-        <span class="par b"><b>0,82%</b><span>taxa de quebra</span></span>
-      </div>
-      <div class="cd risco rv" style="--d:1340ms">
-        <span class="k">A maior em risco</span>
-        <span class="nm">Falha de Storage<small>103 incidentes &middot; 4,35% na P3 e nenhuma quebra na P2</small></span>
-        <span class="par a"><b>0,5%</b><span>do volume</span></span>
-        <span class="par b"><b>2,91%</b><span>taxa de quebra</span></span>
-      </div>
-    </div>
-
-    <div class="fecho rv" style="--d:1500ms">
+    <div class="fecho rv" style="--d:2400ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
-      <span>A causa que ocupa <b>seis de cada dez</b> incidentes é a que menos estoura, e a que mais estoura é meio por cento da base. Priorizar por volume é atender o que já está sob controle.</span>
+      <span>A lista está ordenada por volume, e a coluna da taxa não acompanha. <b>Priorizar por volume é atender o que já está sob controle.</b></span>
     </div>
   </div>
-  <div class="ft"></div>
+  <div class="ft"><span>Janeiro a setembro de 2025 &middot; 19.745 incidentes com código de fechamento &middot; 187 violações</span></div>
 </section>

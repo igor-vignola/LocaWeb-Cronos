@@ -1,11 +1,11 @@
 <style>
-/* ═══ slide 21 · explicabilidade ══════════════════════════════════════════════
+/* ═══ slide 22 · explicabilidade ══════════════════════════════════════════════
    Quarto desafio analítico da Locaweb, que a página 9 chama por esse nome e
    faz duas perguntas: quais fatores mais influenciam, e onde estão os maiores
    riscos.
 
    Em 10/09/2026 a tira de ROC, PR-AUC e calibração saiu daqui e foi para o
-   slide 20, a pedido do dono do projeto: lá é onde a curva já responde "o
+   slide 21, a pedido do dono do projeto: lá é onde a comparação responde "o
    modelo funciona?", e aqui o assunto é por que ESTE incidente subiu.
 
    Forma herdada do d27a do deck da Sprint 3, que o dono do projeto mandou
@@ -37,51 +37,51 @@
 .exp .tela{width:400px;flex-shrink:0;background:var(--ink);border-radius:20px;
   padding:22px 24px;box-shadow:0 30px 66px -38px rgba(10,14,23,.65);
   display:flex;flex-direction:column}
-.exp .tela .cab{display:flex;align-items:center;gap:9px;font-size:10.5px;font-weight:700;
-  letter-spacing:1.8px;text-transform:uppercase;color:#7A8494}
+.exp .tela .cab{display:flex;align-items:center;gap:9px;font-size:11px;font-weight:700;
+  letter-spacing:1.8px;text-transform:uppercase;color:#B7C0CB}
 .exp .tela .cab i{width:7px;height:7px;border-radius:50%;background:#4ADE80;
   box-shadow:0 0 9px #4ADE80}
 .exp .tela .id{display:flex;align-items:center;gap:11px;margin-top:14px}
 .exp .tela .id b{font-family:var(--mono);font-size:19px;color:#fff;letter-spacing:-.3px}
-.exp .tela .id span{font-size:10.5px;font-weight:700;letter-spacing:1.4px;
+.exp .tela .id span{font-size:11px;font-weight:700;letter-spacing:1.4px;
   text-transform:uppercase;color:#FCA5A5;background:rgba(220,38,38,.2);
   border:1px solid rgba(220,38,38,.42);border-radius:999px;padding:4px 11px}
 
 .exp .regua{margin-top:16px}
-.exp .regua .tr{height:12px;border-radius:7px;background:rgba(255,255,255,.09);
+.exp .regua .tr{height:12px;border-radius:7px;background:rgba(255,255,255,.18);
   overflow:hidden}
 .exp .regua .tr i{display:block;height:100%;border-radius:7px;
   background:linear-gradient(90deg,#F87171,#DC2626);transform:scaleX(0);
   transform-origin:left}
 .exp.is-active .regua .tr i{animation:corre .8s var(--out) 1200ms forwards}
-.exp .regua .lg{display:flex;justify-content:space-between;margin-top:9px;font-size:12px;
-  color:#7A8494}
+.exp .regua .lg{display:flex;justify-content:space-between;margin-top:9px;font-size:12.5px;
+  color:#B7C0CB}
 .exp .regua .lg b{color:#FCA5A5;font-weight:700}
 
 .exp .hist{margin-top:18px;padding:15px 17px;border-radius:13px;
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
-.exp .hist b{display:block;font-size:10.5px;font-weight:700;letter-spacing:1.6px;
-  text-transform:uppercase;color:#7A8494}
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.17)}
+.exp .hist b{display:block;font-size:11px;font-weight:700;letter-spacing:1.6px;
+  text-transform:uppercase;color:#B7C0CB}
 .exp .hist p{font-size:14.5px;line-height:1.45;color:#C4CBD8;margin-top:8px}
 .exp .hist p em{font-style:normal;color:#fff;font-weight:700}
 
 .exp .sn{display:grid;grid-template-columns:1fr 96px 42px;align-items:center;gap:11px;
   margin-top:11px;opacity:0;transform:translate3d(-8px,0,0)}
 .exp.is-active .sn{animation:rv .45s var(--out) var(--d,0ms) forwards}
-.exp .sn .q{font-size:13px;color:#98A2B3}
-.exp .sn .tr{height:8px;border-radius:5px;background:rgba(255,255,255,.09);overflow:hidden}
+.exp .sn .q{font-size:13px;color:#C7CFDB}
+.exp .sn .tr{height:8px;border-radius:5px;background:rgba(255,255,255,.18);overflow:hidden}
 .exp .sn .tr i{display:block;height:100%;border-radius:5px;background:#3B82F6}
 .exp .sn .p{font-size:12.5px;font-weight:700;color:#E8ECF3;text-align:right;
   font-variant-numeric:tabular-nums}
-.exp .lst{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.09)}
-.exp .lst .k{font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
-  color:#7A8494}
+.exp .lst{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.17)}
+.exp .lst .k{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  color:#B7C0CB}
 /* o rodapé da tela: sem ele sobravam 150px de preto abaixo do último sinal */
-.exp .tela .rod{margin-top:auto;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);
-  font-size:13px;line-height:1.45;color:#98A2B3}
+.exp .tela .rod{margin-top:auto;padding-top:16px;border-top:1px solid rgba(255,255,255,.17);
+  font-size:13px;line-height:1.45;color:#C7CFDB}
 .exp .tela .rod b{color:#E8ECF3;font-weight:700}
 
-/* o fecho: a tira de ROC, PR-AUC e calibração mudou para o slide 20, que é
+/* o fecho: a tira de ROC, PR-AUC e calibração virou o slide 21 inteiro, que é
    onde a pergunta "o modelo funciona?" está sendo respondida. Aqui o assunto
    é por que ESTE incidente subiu, e a métrica ficava fora de lugar. */
 .exp .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
@@ -90,12 +90,12 @@
 .exp .fecho b{color:var(--head);font-weight:700}
 </style>
 
-<section class="slide light exp" data-slide="21" data-var="a" data-quem="ana">
+<section class="slide light exp" data-slide="22" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
     <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Seção 04 &middot; explicabilidade</div>
+    <div class="tag">Seção 04 &middot; explicabilidade do modelo</div>
   </div>
   <div class="body">
     <span class="eb"><span class="rv" style="--d:240ms">Explicabilidade do modelo</span></span>
@@ -111,7 +111,7 @@
         <div class="id"><b>INC8595245</b><span>Risco alto</span></div>
         <div class="regua">
           <div class="tr"><i style="width:63%"></i></div>
-          <div class="lg"><span>média da base <b style="color:#98A2B3">0,97%</b></span><span>risco estimado <b>62,97</b></span></div>
+          <div class="lg"><span>média da base <b style="color:#E8ECF3">0,97%</b></span><span>risco estimado <b>62,97</b></span></div>
         </div>
         <div class="hist">
           <b>O que já aconteceu com casos iguais</b>

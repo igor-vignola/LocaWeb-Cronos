@@ -1,20 +1,34 @@
-<!-- ───────────────────────────────────────────────────────────────────────────
-     slide 24 · composição B da divisória da projeção da meta e da saúde
+<style>
+/* as duas barras da projeção contra a meta, com a marca do limite */
+.dv3 .meta{margin-top:16px;display:flex;flex-direction:column;gap:14px}
+.dv3 .meta .l{display:grid;grid-template-columns:30px 1fr 126px;align-items:center;gap:14px}
+.dv3 .meta .p{font-family:var(--mono);font-size:13px;color:#B7C0CB}
+.dv3 .meta .tr{position:relative;height:20px;border-radius:10px;
+  background:rgba(255,255,255,.16);overflow:visible}
+.dv3 .meta .tr i{display:block;height:100%;border-radius:10px;transform:scaleX(0);
+  transform-origin:left}
+.dv3.is-active .meta .tr i{animation:corre .85s var(--out) var(--d,0ms) forwards}
+.dv3 .meta .l.fora .tr i{background:linear-gradient(90deg,#EF4444,#DC2626)}
+.dv3 .meta .l.dentro .tr i{background:linear-gradient(90deg,#22C55E,#15A05B)}
+.dv3 .meta .tr u{position:absolute;top:-5px;bottom:-5px;width:2px;background:#fff;
+  border-radius:2px;text-decoration:none;opacity:0}
+.dv3.is-active .meta .tr u{animation:rv .4s var(--out) var(--d,0ms) forwards}
+.dv3 .meta .vl{text-align:right}
+.dv3 .meta .vl b{display:block;font-size:19px;font-weight:800;color:#fff;line-height:1;
+  font-variant-numeric:tabular-nums}
+.dv3 .meta .vl span{display:block;font-size:12.5px;color:#B7C0CB;margin-top:5px}
+/* a legenda é IRMÃ da .meta, não filha: o seletor descendente nunca casou, as
+   duas frases saíam coladas numa linha só e transbordavam a borda do cartão.
+   Vale para as duas composições, que compartilham este markup. */
+.dv3 .meta + .nota{display:flex;justify-content:space-between;gap:26px;font-size:12.5px;
+  color:#A6B0BD;margin-top:12px}
+</style>
 
-     O desenho vem do deck da Sprint 2 (prototipos/gestao/intro.html), pedido em
-     10/09/2026 como segunda opção para todas as divisórias. A folha de estilo é
-     `.dv2`, no fim de _estilo.css, compartilhada pelas sete.
+<!-- 24-div-projecao · composição A · o desenho do deck da Sprint 2, folha `.dv2`
+     em _estilo.css. Sem olho e sem pílulas: o dono do projeto tirou os dois
+     em 10/09/2026. O painel da direita é o mesmo da composição B. -->
 
-     O painel da direita é o mesmo da composição A, de propósito: variação troca
-     a forma, nunca a análise.
-
-     Números das pílulas: os três saem do painel da própria composição A — a
-     projeção de 01/10/2025 contra o limite do ano, 43,5 de 39 permitidas na
-     prioridade 2 e 208,0 de 263 na prioridade 3, e as 7 chamadas certas em 10,
-     medidas em cinco datas de corte.
-     ─────────────────────────────────────────────────────────────────────── -->
-
-<section class="slide dark dv3 dv2" data-slide="24" data-var="b" data-quem="hygor">
+<section class="slide dark dv3 dv2" data-slide="25" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -24,26 +38,11 @@
   <div class="body">
     <div class="lft">
       <div class="bl" style="--d:200ms"><b>Seção 06</b> &middot; Os modelos juntos</div>
-      <span class="eb"><span class="rv" style="--d:300ms">Se o ano fecha dentro da meta</span></span>
       <h1 class="tt">
         <span class="mask" style="--d:420ms"><span>Projeção da</span></span>
         <span class="mask" style="--d:520ms"><span>meta e saúde</span></span>
       </h1>
       <p class="lead rv" style="--d:860ms">Os dois modelos se combinam para responder se o ano fecha dentro da meta, e cada produto recebe uma nota que sintetiza a sua condição operacional.</p>
-      <div class="pilhas">
-        <div class="st" style="--d:1500ms">
-          <span class="lbl">Projetado no ano &middot; P2</span>
-          <span class="val"><span class="ct" data-to="43.5" data-dec="1" data-delay="1600">0,0</span><small>de 39</small></span>
-        </div>
-        <div class="st" style="--d:1580ms">
-          <span class="lbl">Projetado no ano &middot; P3</span>
-          <span class="val"><span class="ct" data-to="208.0" data-dec="1" data-delay="1680">0,0</span><small>de 263</small></span>
-        </div>
-        <div class="st" style="--d:1660ms">
-          <span class="lbl">Chamadas certas</span>
-          <span class="val ac"><span class="ct" data-to="7" data-delay="1760">0</span><small>de 10</small></span>
-        </div>
-      </div>
     </div>
     <div class="pv rv3" style="--d:900ms">
       <div class="pvh"><span class="dot"></span>Projeção feita em 01/10/2025</div>

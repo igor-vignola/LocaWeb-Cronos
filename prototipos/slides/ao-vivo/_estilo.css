@@ -55,6 +55,14 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .dark .grid-bg{background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
   linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:48px 48px}
 
+/* grão sobre o escuro. Os degradês grandes do fundo formavam bandas visíveis
+   na projeção e a tela lia como imagem mal comprimida — "print mal tirado",
+   nas palavras do dono do projeto. O ruído de 3% quebra a banda sem clarear
+   o fundo. Mesma técnica do deck da Sprint 2 (prototipos/gestao/_shared.css). */
+.dark .grid-bg::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.03 0'/></filter><rect width='200' height='200' filter='url(%23g)'/></svg>");
+  mix-blend-mode:screen;opacity:.6}
+
 /* topo */
 .hd{position:relative;z-index:3;display:flex;align-items:center;gap:11px;padding:38px 64px 0}
 .hd .bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;
@@ -64,7 +72,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .hd .bn{font-size:18px;font-weight:800;letter-spacing:-.3px}
 .light .hd .bn{color:#000} .dark .hd .bn{color:#fff}
 .hd .bt{font-size:12.5px;font-weight:600;letter-spacing:1.6px;margin-left:3px}
-.light .hd .bt{color:#9AA6B6} .dark .hd .bt{color:#5B647A}
+.light .hd .bt{color:#7C8797} .dark .hd .bt{color:#9CA6B4}
 .hd .tag{margin-left:auto;font-size:12.5px;font-weight:600;padding:7px 15px;border-radius:999px;
   white-space:nowrap}
 .light .hd .tag{background:#fff;border:1px solid var(--line);color:var(--accent);
@@ -75,9 +83,14 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .ft{position:absolute;left:64px;right:64px;bottom:24px;z-index:3;display:flex;
   justify-content:space-between;font-size:11.5px;font-weight:600;letter-spacing:1.3px;
   text-transform:uppercase}
-.light .ft{color:#A6B0BE} .dark .ft{color:rgba(255,255,255,.4)}
+/* o rodapé não é ornamento: em divisória ele carrega "nas próximas páginas"
+   e a base do slide. Nos dois temas ele subiu para o piso de leitura. */
+.light .ft{color:#68737F} .dark .ft{color:#A6B0BD}
 
-.body{position:relative;z-index:2;flex:1;padding:20px 64px 44px;display:flex;flex-direction:column;
+/* 58px no pé, não 44: o marcador de quem apresenta mora no `.ft`, a 24px do
+   fundo, e o `.fecho` de vários slides encostava nele — em dois deles, com o
+   fecho em duas linhas, os dois quase se tocavam. */
+.body{position:relative;z-index:2;flex:1;padding:20px 64px 58px;display:flex;flex-direction:column;
   min-height:0}
 .eb{display:inline-flex;align-items:center;gap:12px;font-size:13px;font-weight:700;letter-spacing:3px;
   text-transform:uppercase}
@@ -125,7 +138,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .big .k{font-size:19px;line-height:1.35;color:var(--tx)}
 .big .k b{display:block;font-size:24px;letter-spacing:-.5px;font-weight:800;color:var(--head);
   margin-bottom:4px}
-.dark .big .k{color:#98A2B3} .dark .big .k b{color:#fff}
+.dark .big .k{color:#B7C0CB} .dark .big .k b{color:#fff}
 
 /* ═══ chrome de navegação: H esconde antes de gravar ═══ */
 #chrome{position:fixed;z-index:70;left:0;right:0;bottom:0;padding:16px 26px;display:flex;
@@ -166,14 +179,14 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .light .apres{color:var(--tx2)}
 .light .apres b{color:var(--head)}
 .light .apres img{box-shadow:0 0 0 1px var(--line),0 2px 6px -2px rgba(15,23,42,.25)}
-.dark .apres{color:#8B96A8}
+.dark .apres{color:#A6B0BD}
 .dark .apres b{color:#fff}
 .dark .apres img{box-shadow:0 0 0 1px rgba(255,255,255,.20),0 2px 6px -2px rgba(0,0,0,.55)}
 
 /* ── divisória escura: o beat de troca para o demo ao vivo ────────────────── */
 .dv .body{justify-content:center;align-items:flex-start}
 .dv .tt{font-size:86px;letter-spacing:-3.4px;line-height:1;max-width:22ch}
-.dv .sub{font-size:23px;line-height:1.5;color:#98A2B3;margin-top:22px;max-width:52ch}
+.dv .sub{font-size:23px;line-height:1.5;color:#B7C0CB;margin-top:22px;max-width:52ch}
 .dv .sub b{color:#E8ECF3;font-weight:700}
 
 /* ── indicador de posição no chrome: slide e variação atual ───────────────── */
@@ -217,7 +230,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
    texto do filho herda color:transparent e o título some da tela */
 .dvs .tt .mask > span{background:linear-gradient(96deg,#fff,#C7E1FE);
   -webkit-background-clip:text;background-clip:text;color:transparent}
-.dvs .lead{font-size:19px;line-height:1.55;color:#98A2B3;max-width:52ch;margin-top:22px}
+.dvs .lead{font-size:19px;line-height:1.55;color:#B7C0CB;max-width:52ch;margin-top:22px}
 .dvs .chip{display:inline-flex;align-items:center;gap:11px;margin-top:30px;font-size:15.5px;
   background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#C4CDDB;
   padding:13px 22px;border-radius:14px}
@@ -228,11 +241,11 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .dvs .cd{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
   border-radius:16px;padding:20px 24px}
 .dvs .cd .ck{font-size:11.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
-  color:#8B96A8}
+  color:#A6B0BD}
 .dvs .cd .cv{font-size:38px;font-weight:900;letter-spacing:-1.6px;color:#fff;margin-top:9px;
   line-height:1;font-variant-numeric:tabular-nums}
 .dvs .cd.bad .cv{color:#F87171}
-.dvs .cd .cs{font-size:14px;line-height:1.4;color:#8B96A8;margin-top:9px}
+.dvs .cd .cs{font-size:14px;line-height:1.4;color:#A6B0BD;margin-top:9px}
 .dvs .cd .cs b{color:#C4CDDB;font-weight:600}
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -254,7 +267,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 /* o gradiente vai no span da máscara: no h1 o filho herda color:transparent */
 .dv3 .tt .mask > span.hl{background:linear-gradient(90deg,#60A5FA,#2563EB);
   -webkit-background-clip:text;background-clip:text;color:transparent}
-.dv3 .lead{font-size:19.5px;line-height:1.55;color:#98A2B3;max-width:520px;margin-top:22px}
+.dv3 .lead{font-size:19.5px;line-height:1.55;color:#B7C0CB;max-width:520px;margin-top:22px}
 .dv3 .q{margin-top:30px;display:inline-flex;align-items:center;gap:13px;
   background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
   border-radius:14px;padding:15px 20px;max-width:520px}
@@ -268,21 +281,21 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
   border:1px solid rgba(255,255,255,.1);box-shadow:0 40px 90px -40px rgba(0,0,0,.7)}
 .dv3 .pvh{font-size:12.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  color:#7A8494;display:flex;align-items:center;gap:9px}
+  color:#A6B0BD;display:flex;align-items:center;gap:9px}
 .dv3 .pvh .dot{width:7px;height:7px;border-radius:50%;background:#4ADE80;
   box-shadow:0 0 10px #4ADE80}
 .dv3.is-active .pvh .dot{animation:pulso 2.4s ease-in-out 1.4s infinite}
 @keyframes pulso{0%,100%{box-shadow:0 0 10px #4ADE80}50%{box-shadow:0 0 18px #4ADE80}}
 .dv3 .pvgrid{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.dv3 .pc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+.dv3 .pc{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.15);
   border-radius:14px;padding:18px}
 .dv3 .pc.wide{grid-column:span 2}
-.dv3 .pc .pl{font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;
-  color:#7A8494}
+.dv3 .pc .pl{font-size:12.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;
+  color:#A6B0BD}
 .dv3 .pc .pn{font-size:32px;font-weight:800;letter-spacing:-1.5px;color:#fff;margin-top:6px;
   line-height:1;font-variant-numeric:tabular-nums}
-.dv3 .pc .pn .u{font-size:15px;color:#8E97A8;font-weight:600;letter-spacing:0;margin-left:4px}
-.dv3 .pc .ps{font-size:12.5px;line-height:1.4;color:#8E97A8;margin-top:5px}
+.dv3 .pc .pn .u{font-size:15px;color:#A6B0BD;font-weight:600;letter-spacing:0;margin-left:4px}
+.dv3 .pc .ps{font-size:12.5px;line-height:1.4;color:#A6B0BD;margin-top:5px}
 .dv3 .pc .ps b{color:#C4CDDB;font-weight:600}
 
 /* sparkline: cada barra sobe da base, uma depois da outra */
@@ -310,7 +323,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
    lado, porque nenhuma métrica do deck aparece só de uma. */
 .dv3 .cob{display:grid;grid-template-columns:26px 1fr 108px;align-items:center;gap:12px;
   margin-top:14px}
-.dv3 .cob span{font-family:var(--mono);font-size:12.5px;color:#7A8494}
+.dv3 .cob span{font-family:var(--mono);font-size:12.5px;color:#A6B0BD}
 .dv3 .cob .tr{position:relative;height:10px;border-radius:6px;
   background:rgba(255,255,255,.09);overflow:hidden}
 /* faixa2: o trecho não começa na esquerda, ele tem piso e teto na mesma
@@ -328,7 +341,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
    ("...até 30/09a P2 tem a mesma forma..."). Com wrap eles empilham quando
    não cabem lado a lado, e continuam legíveis nos dois casos. */
 .dv3 .eixo3{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 20px;
-  font-size:12px;line-height:1.4;color:#7A8494;margin-top:10px}
+  font-size:12.5px;line-height:1.4;color:#A6B0BD;margin-top:10px}
 
 /* ═══ divisória · composição B · o desenho do deck da Sprint 2 ═══════════════
    O dono do projeto pediu, em 10/09/2026, que cada divisória ganhasse uma
@@ -348,7 +361,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
    de especificidade.
    ═══════════════════════════════════════════════════════════════════════════ */
 .dv2 .bl{font-size:13px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;
-  color:rgba(255,255,255,.42);opacity:0;transform:translate3d(0,10px,0)}
+  color:#A6B0BD;opacity:0;transform:translate3d(0,10px,0)}
 .dv2.is-active .bl{animation:rv .5s var(--out) var(--d,0ms) forwards}
 .dv2 .bl b{color:#60A5FA;font-weight:800}
 .dv2 .eb{margin-top:15px}
@@ -366,12 +379,12 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   border-radius:12px;padding:14px 20px;min-width:132px;
   opacity:0;transform:translate3d(0,12px,0)}
 .dv2.is-active .pilhas .st{animation:rv .5s var(--out) var(--d,0ms) forwards}
-.dv2 .pilhas .lbl{display:block;font-size:9.5px;font-weight:700;letter-spacing:.16em;
-  text-transform:uppercase;color:rgba(255,255,255,.45)}
+.dv2 .pilhas .lbl{display:block;font-size:11px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:#A6B0BD}
 .dv2 .pilhas .val{display:block;font-size:26px;font-weight:800;letter-spacing:-.65px;color:#fff;
   margin-top:5px;font-variant-numeric:tabular-nums;line-height:1.1}
 .dv2 .pilhas .val.ac{color:#60A5FA} .dv2 .pilhas .val.ok{color:#34D399}
-.dv2 .pilhas .val small{font-size:14px;color:rgba(255,255,255,.5);font-weight:500;
+.dv2 .pilhas .val small{font-size:14px;color:#A6B0BD;font-weight:500;
   letter-spacing:0;margin-left:3px}
 
 /* o rodapé com filete, como na Sprint 2 */

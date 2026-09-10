@@ -1,59 +1,42 @@
-<!-- ───────────────────────────────────────────────────────────────────────────
-     slide 12 · divisória de padrões e causas
-     Cópia do d29a do deck da Sprint 3. Abre a seção que responde a duas
-     exigências nominais do briefing da Locaweb: agrupar causas recorrentes e
-     identificar padrões de incidentes críticos. Sem ela, os três slides que
-     vêm em seguida ficam soltos no meio da análise exploratória.
-
-     O painel traz a composição das causas, com a conta que faz o ponto da
-     seção: as três maiores respondem por 79% do volume, e nenhuma delas é a
-     que mais estoura.
-
-     Números de data/interim/05_causas.parquet e da base elegível de jan a set
-     de 2025, 19.973 incidentes e 188 violações:
-       Falha de Aplicação 60,3% · Falha de Sistema Operacional 11,0% ·
-       Outro 8,0% · Falha causada pelo cliente 4,8% · Falha não reproduzida 4,5%
-       16 causas no total; as três maiores somam 79,3% do volume
-     ─────────────────────────────────────────────────────────────────────── -->
 <style>
 /* a composição das causas: barras finas numa escala de 0 a 60,3% */
 .dv3 .comp{margin-top:16px;display:flex;flex-direction:column;gap:9px}
 .dv3 .comp .l{display:grid;grid-template-columns:1fr 132px 44px;align-items:center;gap:12px;
   opacity:0;transform:translate3d(-8px,0,0)}
 .dv3.is-active .comp .l{animation:rv .45s var(--out) var(--d,0ms) forwards}
-.dv3 .comp .nm{font-size:13px;color:#8E97A8;text-align:right}
+.dv3 .comp .nm{font-size:13px;color:#B7C0CB;text-align:right}
 .dv3 .comp .tr{height:9px;border-radius:5px;background:rgba(255,255,255,.08);overflow:hidden}
-.dv3 .comp .tr i{display:block;height:100%;border-radius:5px;background:#5B7FB9;
+.dv3 .comp .tr i{display:block;height:100%;border-radius:5px;background:#7098D6;
   transform:scaleX(0);transform-origin:left}
 .dv3.is-active .comp .tr i{animation:corre .55s var(--out) var(--d,0ms) forwards}
 .dv3 .comp .l.top .nm{color:#E8ECF3;font-weight:600}
 .dv3 .comp .l.top .tr i{background:#3B82F6}
-.dv3 .comp .vl{font-size:12.5px;color:#8E97A8;text-align:right;font-variant-numeric:tabular-nums}
+.dv3 .comp .vl{font-size:12.5px;color:#B7C0CB;text-align:right;font-variant-numeric:tabular-nums}
 .dv3 .comp .l.top .vl{color:#E8ECF3;font-weight:700}
 .dv3 .soma{display:flex;justify-content:space-between;gap:20px;margin-top:14px;padding-top:12px;
-  border-top:1px solid rgba(255,255,255,.09);font-size:12px;color:#5B647A}
+  border-top:1px solid rgba(255,255,255,.09);font-size:12.5px;color:#A6B0BD}
 .dv3 .soma b{color:#93C5FD;font-weight:700}
 </style>
 
-<section class="slide dark dv3" data-slide="12" data-var="a" data-quem="ana">
+<!-- 12-div-padroes · composição A · o desenho do deck da Sprint 2, folha `.dv2`
+     em _estilo.css. Sem olho e sem pílulas: o dono do projeto tirou os dois
+     em 10/09/2026. O painel da direita é o mesmo da composição B. -->
+
+<section class="slide dark dv3 dv2" data-slide="12" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
     <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Seção 02 &middot; Padrões</div>
+    <div class="tag">Seção 02 &middot; Causas e explicabilidade</div>
   </div>
   <div class="body">
     <div class="lft">
-      <span class="eb"><span class="rv" style="--d:220ms">Seção 02 &middot; Padrões</span></span>
+      <div class="bl" style="--d:200ms"><b>Seção 02</b> &middot; Causas e explicabilidade</div>
       <h1 class="tt">
-        <span class="mask" style="--d:340ms"><span>Causas e</span></span>
-        <span class="mask" style="--d:450ms"><span>o que <span class="hl">repete</span></span></span>
+        <span class="mask" style="--d:420ms"><span>Causas e</span></span>
+        <span class="mask" style="--d:520ms"><span>explicabilidade</span></span>
       </h1>
-      <p class="lead rv" style="--d:820ms">Quais causas geram os incidentes, quais problemas se repetem, e o que diferencia o incidente que estoura o prazo do que é resolvido em tempo.</p>
-      <div class="q rv" style="--d:1900ms">
-        <span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
-        <span>A pergunta desta seção: <b>o que a operação já conhece?</b></span>
-      </div>
+      <p class="lead rv" style="--d:860ms">Quais causas geram os incidentes, quais problemas se repetem, e o que diferencia o incidente que estoura o prazo do que é resolvido em tempo.</p>
     </div>
     <div class="pv rv3" style="--d:900ms">
       <div class="pvh"><span class="dot"></span>Composição das causas &middot; 19.973 incidentes</div>
@@ -82,5 +65,8 @@
       </div>
     </div>
   </div>
-  <div class="ft"><span>Duas exigências do desafio nesta seção &middot; agrupar causas recorrentes e identificar padrões de incidentes críticos</span></div>
+  <div class="ft">
+    <span>Seção 02 &middot; Causas e explicabilidade</span>
+    <span class="dir">Nas próximas páginas: <b>o mesmo ativo quebra de novo</b> &middot; <b>o código Outro</b> &middot; <b>volume contra taxa por causa</b></span>
+  </div>
 </section>

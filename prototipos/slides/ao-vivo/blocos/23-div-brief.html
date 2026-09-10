@@ -1,5 +1,5 @@
 <style>
-/* ═══ slide 22 · divisória do Morning Brief ═══════════════════════════════════
+/* ═══ slide 23 · divisória do Morning Brief ═══════════════════════════════════
    O dono do projeto pediu divisória para este bloco e o nome em inglês, que é
    como o produto foi batizado desde a Sprint 1. Ela abre o primeiro dos dois
    diferenciais entregues.
@@ -34,12 +34,12 @@
 /* o cabeçalho de cada bloco do resumo */
 .brf .bh{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
 .brf .bh .pl{font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
-  color:#7A8494}
-.brf .bh .dia{font-family:var(--mono);font-size:12px;color:#5F6B7C}
+  color:#B7C0CB}
+.brf .bh .dia{font-family:var(--mono);font-size:12.5px;color:#A6B0BD}
 .brf .top{display:flex;align-items:baseline;gap:12px;margin-top:9px}
 .brf .top .pn{font-size:36px;font-weight:800;letter-spacing:-1.7px;color:#fff;line-height:1;
   font-variant-numeric:tabular-nums}
-.brf .top .ps{font-size:13.5px;line-height:1.4;color:#8E97A8;margin-top:0}
+.brf .top .ps{font-size:13.5px;line-height:1.4;color:#A6B0BD;margin-top:0}
 .brf .top .ps b{color:#4ADE80;font-weight:700}
 
 /* ── os dez últimos dias úteis, em coluna ─────────────────────────────────── */
@@ -49,10 +49,10 @@
 .brf .serie .cl i{display:block;width:100%;border-radius:4px;transform:scaleY(0);
   transform-origin:bottom;background:linear-gradient(180deg,#F87171,#DC2626)}
 .brf.is-active .serie .cl i{animation:sobe .42s var(--out) var(--d,0ms) forwards}
-.brf .serie .d.zero .cl i{background:rgba(255,255,255,.13)}
-.brf .serie .v{font-size:11px;text-align:center;color:#8E97A8;font-variant-numeric:tabular-nums}
-.brf .serie .d.zero .v{color:#4B5563}
-.brf .serie .rt{font-family:var(--mono);font-size:10.5px;text-align:center;color:#5F6B7C}
+.brf .serie .d.zero .cl i{background:rgba(255,255,255,.24)}
+.brf .serie .v{font-size:12.5px;text-align:center;color:#C4CBD8;font-variant-numeric:tabular-nums}
+.brf .serie .d.zero .v{color:#9CA6B4}
+.brf .serie .rt{font-family:var(--mono);font-size:12px;text-align:center;color:#A6B0BD}
 .brf .serie .d.seq .rt{color:#4ADE80}
 
 /* a régua da sequência sem violação, sob as quatro últimas colunas */
@@ -62,15 +62,19 @@
   transform:scaleX(0);transform-origin:right}
 .brf.is-active .regua .rg{animation:corre .5s var(--out) var(--d,0ms) forwards}
 .brf .regua .lb{position:absolute;top:11px;right:0;width:39%;text-align:center;
-  font-size:12px;color:#4ADE80;opacity:0}
+  font-size:12.5px;color:#4ADE80;opacity:0}
 .brf.is-active .regua .lb{animation:rv .45s var(--out) var(--d,0ms) forwards}
 .brf .regua .lb b{font-weight:800}
 
-.brf .nota{font-size:12.5px;line-height:1.45;color:#6B7686;margin-top:14px;padding-top:13px;
-  border-top:1px solid rgba(255,255,255,.07)}
+.brf .nota{font-size:12.5px;line-height:1.45;color:#B7C0CB;margin-top:14px;padding-top:13px;
+  border-top:1px solid rgba(255,255,255,.14)}
 </style>
 
-<section class="slide dark dv3 brf" data-slide="22" data-var="a" data-quem="hygor">
+<!-- 22-div-brief · composição A · o desenho do deck da Sprint 2, folha `.dv2`
+     em _estilo.css. Sem olho e sem pílulas: o dono do projeto tirou os dois
+     em 10/09/2026. O painel da direita é o mesmo da composição B. -->
+
+<section class="slide dark dv3 dv2 brf" data-slide="23" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -79,16 +83,12 @@
   </div>
   <div class="body">
     <div class="lft">
-      <span class="eb"><span class="rv" style="--d:220ms">Seção 05 &middot; O que a operação recebe</span></span>
+      <div class="bl" style="--d:200ms"><b>Seção 05</b> &middot; O que a operação recebe</div>
       <h1 class="tt">
-        <span class="mask" style="--d:340ms"><span>Morning</span></span>
-        <span class="mask" style="--d:450ms"><span class="hl">Brief</span></span>
+        <span class="mask" style="--d:420ms"><span>Morning</span></span>
+        <span class="mask" style="--d:520ms"><span>Brief</span></span>
       </h1>
-      <p class="lead rv" style="--d:800ms">O resumo que abre sozinho às sete da manhã, com o fechamento de ontem e a previsão de hoje nas duas prioridades. Ninguém precisa perguntar.</p>
-      <div class="q rv" style="--d:1800ms">
-        <span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
-        <span>A pergunta desta seção: <b>o que a operação precisa saber antes de começar?</b></span>
-      </div>
+      <p class="lead rv" style="--d:860ms">O resumo que abre sozinho às sete da manhã, com o fechamento de ontem e a previsão de hoje nas duas prioridades. Ninguém precisa perguntar.</p>
     </div>
 
     <div class="pv rv3" style="--d:880ms">
@@ -142,5 +142,8 @@
       </div>
     </div>
   </div>
-  <div class="ft"><span>O primeiro dos dois diferenciais entregues; a nota de saúde por produto vem na seção seguinte</span></div>
+  <div class="ft">
+    <span>Seção 05 &middot; Morning Brief</span>
+    <span class="dir">Na próxima página: <b>o Morning Brief como aparece no sistema</b></span>
+  </div>
 </section>

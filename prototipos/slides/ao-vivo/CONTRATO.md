@@ -314,50 +314,53 @@ do núcleo: análise exploratória, modelagem e a solução em produção. Desen
 não no `h1`: com `background-clip` no pai o texto do filho herda
 `color:transparent` e o título some.
 
-**7.9 Estrutura final, 32 slides.**
+**7.9 Estrutura final, 33 slides.**
 
-Sete seções, cada uma abrindo por divisória, e cada divisória com duas
-composições: a A, que é a `.dv3`, e a B, no desenho do deck da Sprint 2 (`.dv2`). A ordem segue o
-percurso do trabalho: o problema, o que o dado mostrou, os padrões, cada
-modelo por vez, o que a operação recebe, o resultado do ano e a arquitetura.
+Sete seções, cada uma abrindo por divisória. Desde 10/09/2026 a divisória
+principal é a `.dv2`, no desenho do deck da Sprint 2, e a `.dv3` original ficou
+como composição B. A ordem segue o percurso do trabalho: o problema, o que o
+dado mostrou, os padrões, cada modelo por vez, o que a operação recebe, o
+resultado do ano e a arquitetura.
 
 | # | Slide | Quem | Outras versões |
 |---|---|---|---|
-| 1 | Capa | Igor | B a mesma forma, no escuro |
+| 1 | Capa | Igor | B "Aja antes." em azul, C no escuro |
 | 2 | Super Data Bros | Igor | — |
 | 3 | Cronos, o deus do tempo | Igor | — |
 | 4 | O prazo de cada incidente | Igor | — |
 | 5 | Quantidade de quebras em 2025 | Igor | — |
 | 6 | A fila não atende na ordem em que o prazo estoura | Igor | — |
-| 7 | **Seção 01 · Análise Exploratória** | Igor | B desenho da Sprint 2 |
+| 7 | **Seção 01 · Análise Exploratória** | Igor | B desenho antigo |
 | 8 | O salto de setembro | Ana | — |
 | 9 | Por que treinamos só em 2025 | Ana | — |
 | 10 | Quem abre, e quando | Ana | — |
 | 11 | O alvo é raro | Ana | — |
-| 12 | **Seção 02 · Padrões e causas** | Ana | B desenho da Sprint 2 |
+| 12 | **Seção 02 · Causas e explicabilidade** | Ana | B desenho antigo |
 | 13 | O mesmo ativo quebra de novo | Ana | — |
 | 14 | Participação do código de fechamento Outro | Ana | — |
-| 15 | A causa mais frequente não é a que mais estoura | Ana | B tabela nativa, sem figura |
-| 16 | **Seção 03 · Previsão de Volume** | Ana | B desenho da Sprint 2 |
+| 15 | A causa mais frequente não é a que mais estoura | Ana | B a figura de dois painéis |
+| 16 | **Seção 03 · Previsão de Volume** | Ana | B desenho antigo |
 | 17 | Os próximos sete dias | Ana | — |
 | 18 | Comparação do erro com os baselines | Ana | — |
-| 19 | **Seção 04 · Risco de OLA** | Ana | B desenho da Sprint 2 |
-| 20 | A fila de risco, e o desempenho do modelo | Ana | — |
-| 21 | Quais fatores mais influenciam (explicabilidade) | Ana | — |
-| 22 | **Seção 05 · Morning Brief** | Hygor | B desenho da Sprint 2 |
-| 23 | Morning Brief | Hygor | — |
-| 24 | **Seção 06 · Projeção da meta e saúde** | Hygor | B desenho da Sprint 2 |
-| 25 | A meta do ano vai fechar? | Hygor | B legenda, C quatro passos, D a meta em cartão |
-| 26 | O ranking dos quinze, e o motivo da pior nota | Hygor | — |
-| 27 | **Seção 07 · Arquitetura da solução** | Hygor | B desenho da Sprint 2 |
-| 28 | Como o Cronos antecipa o resultado do ano | Hygor | — |
-| 29 | Como isso roda | Hygor | B da planilha ao painel do gestor |
-| 30 | Aplicação web Cronos · **demonstração** | Hygor | B baralho de telas, C a chamada ao vivo |
-| 31 | Obrigado | Igor | B pôster da Sprint 2, com os três cartões |
-| 32 | Abra o Cronos · QR de acesso | Igor | — |
+| 19 | **Seção 04 · Risco de OLA** | Ana | B desenho antigo |
+| 20 | Quebras encontradas por tamanho da fila percorrida | Ana | — |
+| 21 | Por que a logística ficou no lugar do boosting | Ana | — |
+| 22 | Decomposição da pontuação de risco por característica | Ana | — |
+| 23 | **Seção 05 · Morning Brief** | Hygor | B desenho antigo |
+| 24 | Morning Brief | Hygor | — |
+| 25 | **Seção 06 · Projeção da meta e saúde** | Hygor | B desenho antigo |
+| 26 | A meta do ano vai fechar? | Hygor | B legenda, C quatro passos, D a meta em cartão |
+| 27 | Que produto está pior, e por quê | Hygor | — |
+| 28 | **Seção 07 · Arquitetura da solução** | Hygor | B desenho antigo |
+| 29 | Como o Cronos antecipa o resultado do ano | Hygor | — |
+| 30 | Como isso roda | Hygor | B da planilha ao painel do gestor |
+| 31 | Aplicação web Cronos · **demonstração** | Hygor | B baralho de telas, C a chamada ao vivo |
+| 32 | Obrigado | Igor | B pôster da Sprint 2, com os três cartões |
+| 33 | Abra o Cronos · QR de acesso | Igor | — |
 
-Três trocas de voz: 7→8, 21→22 e 30→31. O 32 fica na tela durante as
-perguntas da banca.
+Três trocas de voz: 7→8, 22→23 e 31→32. O 33 fica na tela durante as perguntas
+da banca.
+
 
 O deck não tem slide de síntese, limitações e próximos passos. O bloco 7 do
 template da FIAP pede um, e ele chegou a existir duas vezes; o dono do
@@ -545,3 +548,38 @@ sobre o branco, rótulo de vidro em versalete, a marca em 220px letra por
 letra, a tagline com a primeira metade preta e a segunda cinza, e a linha de
 apoio. Sem créditos, sem régua e sem o fio da série, que a referência não tem
 e que continua na B.
+
+**7.35 O piso de contraste do escuro.** Em 10/09/2026 o dono do projeto
+reclamou três vezes seguidas de tela que "parece print mal tirado" e de texto
+que "quase nem dá para ler". Eram duas causas somadas: os degradês grandes do
+fundo escuro bandavam, e a paleta de cinzas sobre o preto estava baixa demais.
+As duas foram resolvidas e viraram regra:
+  · `.dark .grid-bg::after` sobrepõe um grão de 3% que quebra a banda, mesma
+    técnica de prototipos/gestao/_shared.css;
+  · sobre superfície escura, texto de leitura em `#B7C0CB` ou mais claro,
+    secundário em `#A6B0BD`, e o mais apagado admissível é `#9CA6B4`, só em
+    rótulo de 10-11px. Ficam proibidos `#7A8494`, `#5B647A`, `#5F6B7C`,
+    `#4B5563` e `#6B7686`, que eram os que sumiam na projeção.
+Corpo mínimo: 12,5px para texto de leitura, 11px para rótulo em caixa alta.
+
+**7.36 A divisória principal é a da Sprint 2, sem olho e sem pílulas.** A
+`.dv2` tomou o lugar da `.dv3` nas sete seções. Saíram a linha do olho, que
+repetia o que a linha de bloco já dizia, e as três pílulas de número, que
+competiam com o painel da direita. A `.dv3` ficou como composição B.
+
+**7.37 O desempenho do modelo virou slide.** ROC, PR-AUC e calibração estavam
+numa tira de quatro colunas no pé do slide 20, com texto demais para o espaço.
+Viraram o slide 21 inteiro, na forma de tabela de dois competidores, porque é
+assim que a decisão foi tomada: ROC empata, PR-AUC decide, e o boosting com
+`scale_pos_weight` prevê 1.007 quebras onde houve 50 — ordena bem e conta mal,
+e a projeção da meta depende da contagem.
+
+**7.38 A figura do slide 18 é a única pendência de legibilidade.** A varredura
+de 10/09/2026 fechou todas as composições, menos uma: `figs/09_erro_horizonte.png`
+tem ticks e rótulos de eixo em 9 a 11px depois do redimensionamento para o
+palco. Ela é 2014x728, cabe pela largura e sobra altura no cartão. Não há
+gerador dela no repositório — nem em `prototipos/slides/ao-vivo/*.py`, nem em
+`notebooks/` — e o backtest deslizante que a produziu não deixou parquet em
+`data/interim/`. Corrigir exige rodar o backtest de novo e escrever o gerador.
+Os quatro números que importam (4,2 · 4,9 · 11,8 · 11,3) estão legíveis no
+painel da direita, então o gráfico é evidência de apoio, não a mensagem.

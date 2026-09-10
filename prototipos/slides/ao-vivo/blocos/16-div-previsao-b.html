@@ -1,21 +1,7 @@
-<!-- ───────────────────────────────────────────────────────────────────────────
-     slide 16 · composição B da divisória de previsão de volume
+<!-- 16-div-previsao · composição B · o desenho original do deck, folha `.dv3`.
+     Era a composição A até 10/09/2026, quando a da Sprint 2 tomou o lugar. -->
 
-     O desenho vem do deck da Sprint 2 (prototipos/gestao/intro.html), pedido em
-     10/09/2026 como segunda opção para todas as divisórias. A folha de estilo é
-     `.dv2`, no fim de _estilo.css, compartilhada pelas sete.
-
-     O painel da direita é o mesmo da composição A, de propósito: variação troca
-     a forma, nunca a análise.
-
-     Números das pílulas: os três saem do painel da própria composição A —
-     horizonte de D+1 a D+7 e o erro médio do backtest deslizante, 4,2 por dia
-     na prioridade 2 e 11,8 na prioridade 3. As duas prioridades aparecem com o
-     mesmo peso, e por isso o destaque em azul ficou no horizonte, que não é de
-     nenhuma delas.
-     ─────────────────────────────────────────────────────────────────────── -->
-
-<section class="slide dark dv3 dv2" data-slide="16" data-var="b" data-quem="ana">
+<section class="slide dark dv3" data-slide="16" data-var="b" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -24,26 +10,15 @@
   </div>
   <div class="body">
     <div class="lft">
-      <div class="bl" style="--d:200ms"><b>Seção 03</b> &middot; Previsão de volume</div>
-      <span class="eb"><span class="rv" style="--d:300ms">Quanto o dado permite prever</span></span>
+      <span class="eb"><span class="rv" style="--d:220ms">Seção 03 &middot; Previsão de Volume</span></span>
       <h1 class="tt">
-        <span class="mask" style="--d:420ms"><span>Previsão</span></span>
-        <span class="mask" style="--d:520ms"><span>de Volume</span></span>
+        <span class="mask" style="--d:340ms"><span>Previsão</span></span>
+        <span class="mask" style="--d:450ms"><span class="hl">de Volume</span></span>
       </h1>
-      <p class="lead rv" style="--d:860ms">Quantos incidentes chegam por dia, hoje e na próxima semana. É o número que dimensiona a equipe antes de o dia começar.</p>
-      <div class="pilhas">
-        <div class="st" style="--d:1500ms">
-          <span class="lbl">Horizonte</span>
-          <span class="val ac">D+1 a D+7</span>
-        </div>
-        <div class="st" style="--d:1580ms">
-          <span class="lbl">Erro médio &middot; P2</span>
-          <span class="val"><span class="ct" data-to="4.2" data-dec="1" data-delay="1680">0,0</span><small>por dia</small></span>
-        </div>
-        <div class="st" style="--d:1660ms">
-          <span class="lbl">Erro médio &middot; P3</span>
-          <span class="val"><span class="ct" data-to="11.8" data-dec="1" data-delay="1760">0,0</span><small>por dia</small></span>
-        </div>
+      <p class="lead rv" style="--d:800ms">Quantos incidentes chegam por dia, hoje e na próxima semana. É o número que dimensiona a equipe antes de o dia começar.</p>
+      <div class="q rv" style="--d:1700ms">
+        <span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
+        <span>A pergunta desta seção: <b>quanto o dado permite prever?</b></span>
       </div>
     </div>
     <div class="pv rv3" style="--d:880ms">
@@ -88,8 +63,5 @@
       </div>
     </div>
   </div>
-  <div class="ft">
-    <span>Seção 03 &middot; Previsão de volume</span>
-    <span class="dir">Nas próximas páginas: <b>os próximos sete dias</b> &middot; <b>o erro contra os baselines</b></span>
-  </div>
+  <div class="ft"><span>Treino em 2025 &middot; sazonalidade semanal ligada, anual desligada &middot; feriado nacional como variável</span></div>
 </section>

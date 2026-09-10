@@ -1,21 +1,51 @@
-<!-- ───────────────────────────────────────────────────────────────────────────
-     slide 27 · composição B da divisória de arquitetura
+<style>
+/* O desenho da arquitetura é um fluxograma de verdade: caixas e setas, com os
+   dois recintos que importam — o que treina e grava, e o que só lê e sobe.
+   Antes era uma lista com ícones num trilho, que o dono do projeto apontou
+   como pouco parecida com arquitetura.
 
-     O desenho vem do deck da Sprint 2 (prototipos/gestao/intro.html), pedido em
-     10/09/2026 como segunda opção para todas as divisórias. A folha de estilo é
-     `.dv2`, no fim de _estilo.css, compartilhada pelas sete. As regras do
-     fluxograma já entram no deck pelo arquivo da composição A.
+   É esqueleto de propósito: nomeia as peças e o sentido do fluxo, e deixa o
+   número para os slides que vêm depois. Tudo em SVG inline, desenhando-se por
+   ordem: as caixas sobem, as setas correm e os dois recintos aparecem por
+   último. */
+.dv3 .flx{margin-top:14px}
+.dv3 .flx svg{width:100%;height:auto;display:block;overflow:visible}
+.dv3 .cxa{opacity:0;transform:translate3d(0,8px,0)}
+.dv3.is-active .cxa{animation:rv .5s var(--out) var(--d,0ms) forwards}
+.dv3 .seta2{stroke:#8AAAE0;stroke-width:1.6;fill:none;stroke-dasharray:var(--len);
+  stroke-dashoffset:var(--len)}
+.dv3.is-active .seta2{animation:tracar .4s linear var(--d,0ms) forwards}
+.dv3 .pta{fill:#8AAAE0;opacity:0}
+.dv3.is-active .pta{animation:rv .3s linear var(--d,0ms) forwards}
+.dv3 .recinto{fill:none;stroke-dasharray:5 5;opacity:0}
+.dv3.is-active .recinto{animation:rv .6s var(--out) var(--d,0ms) forwards}
+.dv3 .rot2{opacity:0}
+.dv3.is-active .rot2{animation:rv .5s var(--out) var(--d,0ms) forwards}
+</style>
 
-     O painel da direita é o mesmo da composição A, de propósito: variação troca
-     a forma, nunca a análise.
+<style>
+/* a barra segmentada dos artefatos, só desta divisória */
+.dv3 .carga{margin-top:16px}
+.dv3 .carga .tr{display:flex;gap:3px;height:18px;border-radius:9px;overflow:hidden}
+.dv3 .carga .tr i{display:block;height:100%;transform:scaleX(0);transform-origin:left}
+.dv3.is-active .carga .tr i{animation:corre .7s var(--out) var(--d,0ms) forwards}
+.dv3 .carga .tr i:nth-child(1){background:#2563EB}
+.dv3 .carga .tr i:nth-child(2){background:#3B82F6}
+.dv3 .carga .tr i:nth-child(3){background:#60A5FA}
+.dv3 .carga .lg{display:flex;gap:22px;margin-top:14px;font-size:12.5px;color:#A6B0BD}
+.dv3 .carga .lg span{display:flex;align-items:center;gap:8px;font-family:var(--mono)}
+.dv3 .carga .lg i{width:8px;height:8px;border-radius:50%}
+.dv3 .carga .lg span:nth-child(1) i{background:#2563EB}
+.dv3 .carga .lg span:nth-child(2) i{background:#3B82F6}
+.dv3 .carga .lg span:nth-child(3) i{background:#60A5FA}
+.dv3 .carga .lg b{color:#E8ECF3;font-weight:500}
+</style>
 
-     Números das pílulas: os três saem do próprio fluxograma da composição A —
-     os dois modelos que treinam nos notebooks (Prophet e regressão logística),
-     os 350 kB dos três artefatos que o contêiner lê ao subir, e as seis telas
-     que a operação abre no navegador.
-     ─────────────────────────────────────────────────────────────────────── -->
+<!-- 27-div-arquitetura · composição A · o desenho do deck da Sprint 2, folha `.dv2`
+     em _estilo.css. Sem olho e sem pílulas: o dono do projeto tirou os dois
+     em 10/09/2026. O painel da direita é o mesmo da composição B. -->
 
-<section class="slide dark dv3 dv2" data-slide="27" data-var="b" data-quem="hygor">
+<section class="slide dark dv3 dv2" data-slide="28" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -25,26 +55,11 @@
   <div class="body">
     <div class="lft">
       <div class="bl" style="--d:200ms"><b>Seção 07</b> &middot; Arquitetura</div>
-      <span class="eb"><span class="rv" style="--d:300ms">Se isso roda fora do notebook</span></span>
       <h1 class="tt">
         <span class="mask" style="--d:420ms"><span>Arquitetura</span></span>
         <span class="mask" style="--d:520ms"><span>da solução</span></span>
       </h1>
       <p class="lead rv" style="--d:860ms">Com o quê a solução foi feita e como ela roda. Os notebooks treinam e gravam; o contêiner apenas lê, e sobe onde houver Docker.</p>
-      <div class="pilhas">
-        <div class="st" style="--d:1500ms">
-          <span class="lbl">Modelos treinados</span>
-          <span class="val"><span class="ct" data-to="2" data-delay="1600">0</span></span>
-        </div>
-        <div class="st" style="--d:1580ms">
-          <span class="lbl">Carga do contêiner</span>
-          <span class="val"><span class="ct" data-to="350" data-delay="1680">0</span><small>kB</small></span>
-        </div>
-        <div class="st" style="--d:1660ms">
-          <span class="lbl">Telas no navegador</span>
-          <span class="val ac"><span class="ct" data-to="6" data-delay="1760">0</span></span>
-        </div>
-      </div>
     </div>
     <div class="pv rv3" style="--d:900ms">
       <div class="pvh"><span class="dot"></span>Do arquivo ao navegador</div>
@@ -59,10 +74,10 @@
           <!-- 1 · a planilha que a Locaweb entregou -->
           <g class="cxa" style="--d:1120ms">
             <rect x="150" y="6" width="220" height="42" rx="10" fill="url(#cxgb)"
-              stroke="rgba(255,255,255,.16)"/>
+              stroke="rgba(255,255,255,.3)"/>
             <text x="260" y="26" text-anchor="middle" fill="#E8ECF3" font-size="14"
               font-weight="700" font-family="Outfit, sans-serif">LW-DATASET.xlsx</text>
-            <text x="260" y="41" text-anchor="middle" fill="#7A8494" font-size="11"
+            <text x="260" y="41" text-anchor="middle" fill="#C4CBD8" font-size="12.5"
               font-family="Outfit, sans-serif">122.543 incidentes</text>
           </g>
           <path class="seta2" style="--len:20;--d:1220ms" d="M260,48 L260,64"/>
@@ -71,10 +86,10 @@
           <!-- 2 · a regra de elegibilidade -->
           <g class="cxa" style="--d:1240ms">
             <rect x="130" y="72" width="260" height="42" rx="10" fill="url(#cxgb)"
-              stroke="rgba(255,255,255,.16)"/>
+              stroke="rgba(255,255,255,.3)"/>
             <text x="260" y="92" text-anchor="middle" fill="#E8ECF3" font-size="14"
               font-weight="700" font-family="Outfit, sans-serif">pandas &#183; regra do KPI</text>
-            <text x="260" y="107" text-anchor="middle" fill="#7A8494" font-size="11"
+            <text x="260" y="107" text-anchor="middle" fill="#C4CBD8" font-size="12.5"
               font-family="Outfit, sans-serif">25.600 elegíveis</text>
           </g>
           <path class="seta2" style="--len:20;--d:1340ms" d="M260,114 L260,130"/>
@@ -82,23 +97,23 @@
 
           <!-- recinto 1 · o que treina e grava -->
           <rect class="recinto" style="--d:1420ms" x="18" y="138" width="484" height="98"
-            rx="14" stroke="rgba(255,255,255,.2)"/>
-          <text class="rot2" style="--d:1460ms" x="32" y="156" fill="#7A8494" font-size="10.5"
+            rx="14" stroke="rgba(255,255,255,.34)"/>
+          <text class="rot2" style="--d:1460ms" x="32" y="156" fill="#B7C0CB" font-size="11"
             letter-spacing="1.6" font-family="Outfit, sans-serif">NOTEBOOKS &#183; TREINAM E GRAVAM</text>
           <g class="cxa" style="--d:1500ms">
             <rect x="38" y="166" width="204" height="48" rx="10" fill="url(#cxgb)"
-              stroke="rgba(96,165,250,.34)"/>
+              stroke="rgba(96,165,250,.5)"/>
             <text x="140" y="187" text-anchor="middle" fill="#E8ECF3" font-size="13.5"
               font-weight="700" font-family="Outfit, sans-serif">Prophet</text>
-            <text x="140" y="203" text-anchor="middle" fill="#7A8494" font-size="11"
+            <text x="140" y="203" text-anchor="middle" fill="#C4CBD8" font-size="12.5"
               font-family="Outfit, sans-serif">volume por dia</text>
           </g>
           <g class="cxa" style="--d:1580ms">
             <rect x="278" y="166" width="204" height="48" rx="10" fill="url(#cxgb)"
-              stroke="rgba(96,165,250,.34)"/>
+              stroke="rgba(96,165,250,.5)"/>
             <text x="380" y="187" text-anchor="middle" fill="#E8ECF3" font-size="13.5"
               font-weight="700" font-family="Outfit, sans-serif">Regressão logística</text>
-            <text x="380" y="203" text-anchor="middle" fill="#7A8494" font-size="11"
+            <text x="380" y="203" text-anchor="middle" fill="#C4CBD8" font-size="12.5"
               font-family="Outfit, sans-serif">risco por incidente</text>
           </g>
           <path class="seta2" style="--len:120;--d:1680ms"
@@ -111,7 +126,7 @@
               stroke="rgba(96,165,250,.44)"/>
             <text x="260" y="274" text-anchor="middle" fill="#BFDBFE" font-size="14"
               font-weight="700" font-family="Outfit, sans-serif">Três artefatos &#183; 350 kB</text>
-            <text x="260" y="289" text-anchor="middle" fill="#7A8494" font-size="11"
+            <text x="260" y="289" text-anchor="middle" fill="#C4CBD8" font-size="12.5"
               font-family="Outfit, sans-serif">parquet e json</text>
           </g>
           <path class="seta2" style="--len:20;--d:1880ms" d="M260,296 L260,312"/>
@@ -120,7 +135,7 @@
           <!-- recinto 2 · o que só lê -->
           <rect class="recinto" style="--d:1960ms" x="18" y="320" width="484" height="82"
             rx="14" stroke="rgba(96,165,250,.4)" stroke-dasharray="none"/>
-          <text class="rot2" style="--d:2000ms" x="32" y="338" fill="#8FB4F5" font-size="10.5"
+          <text class="rot2" style="--d:2000ms" x="32" y="338" fill="#9CC0FA" font-size="11"
             letter-spacing="1.6" font-family="Outfit, sans-serif">CONTÊINER DOCKER &#183; SÓ LÊ</text>
           <g class="cxa" style="--d:2040ms">
             <rect x="38" y="346" width="180" height="42" rx="10" fill="#1D4ED8"
@@ -132,7 +147,7 @@
           <polygon class="pta" style="--d:2180ms" points="248,363 248,371 255,367"/>
           <g class="cxa" style="--d:2200ms">
             <rect x="262" y="346" width="220" height="42" rx="10" fill="url(#cxgb)"
-              stroke="rgba(255,255,255,.16)"/>
+              stroke="rgba(255,255,255,.3)"/>
             <text x="372" y="372" text-anchor="middle" fill="#E8ECF3" font-size="13.5"
               font-weight="700" font-family="Outfit, sans-serif">Seis telas no navegador</text>
           </g>
