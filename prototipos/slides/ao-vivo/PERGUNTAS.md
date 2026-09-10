@@ -148,7 +148,7 @@ Não pela acurácia. Na base de avaliação, 50 dos 5.183 incidentes quebraram, 
 a cada 103; nunca sinalizar dá 99,04% e encontra zero. O nosso, sinalizando os
 518 de maior risco, cai para 90,24% de acurácia e encontra 31 das 50. O que
 medimos é quantas quebras aparecem nas primeiras posições da fila, mais a
-PR-AUC e a calibração. → slides 13 e 18.
+PR-AUC e a calibração. → slide 20.
 
 **"Vocês dizem dois modelos numa tela e quatro coisas na outra. Quantos são?"**
 Dois modelos: Prophet para o volume e regressão logística para o risco. As

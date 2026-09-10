@@ -1,0 +1,109 @@
+<style>
+/* ═══ slide 32 · o acesso à aplicação ═══════════════════════════════════════
+   Última página do deck. Ela não é falada: fica no telão enquanto a banca
+   pergunta, para quem quiser abrir a aplicação no próprio celular enquanto
+   ouve a resposta. Por isso o QR é grande, o endereço aparece escrito por
+   extenso ao lado (nem toda câmera lê de longe) e as seis telas ficam
+   listadas no pé, para o avaliador saber o que vai encontrar.
+
+   O desenho vem de prototipos/gestao/demo-light-v3.html, o pôster centrado
+   que a Sprint 2 usou para o mesmo fim.
+   ══════════════════════════════════════════════════════════════════════════ */
+.acs .body{align-items:center;justify-content:center;text-align:center;
+  padding:126px 64px 60px}
+.acs .tt{font-size:92px;letter-spacing:-3.4px;line-height:1.02;margin-top:16px}
+.acs .kick{font-size:17px;line-height:1.5;color:var(--tx);max-width:760px;margin-top:20px}
+.acs .kick b{color:var(--head);font-weight:600}
+
+.acs .meio{display:flex;align-items:center;justify-content:center;gap:44px;margin-top:66px}
+
+/* o QR num quadro branco, com a moldura de gradiente saindo 3px por baixo.
+   A entrada vai no invólucro, e não no quadro: transform cria contexto de
+   empilhamento, e com ele no próprio quadro a pseudo de z-index -1 subia para
+   cima do fundo branco e pintava a moldura inteira de azul. */
+.acs .qrw{flex-shrink:0}
+.acs .qrf{position:relative;padding:22px;background:#fff;border-radius:22px;
+  border:1px solid rgba(255,255,255,.95);
+  box-shadow:inset 0 1px 0 #fff,0 1px 2px rgba(0,30,80,.04),
+    0 32px 80px -18px rgba(0,30,80,.28)}
+.acs .qrf::before{content:"";position:absolute;inset:-3px;border-radius:25px;
+  background:linear-gradient(135deg,#2563EB,#60A5FA,#2563EB);z-index:-1;opacity:.85}
+.acs .qrf img{display:block;width:240px;height:240px;image-rendering:pixelated}
+
+.acs .cart{display:flex;flex-direction:column;gap:14px;width:640px;padding:28px 32px;
+  text-align:left;background:rgba(255,255,255,.85);-webkit-backdrop-filter:blur(20px);
+  backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.95);border-radius:18px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 16px 40px -16px rgba(0,30,80,.18)}
+.acs .cart > .lb{font-size:10px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;
+  color:rgba(15,23,42,.5)}
+/* 23px é o maior corpo em que o endereço inteiro cabe numa linha só dentro do
+   cartão: em 24px ele quebrava em três pedaços */
+.acs .cart > .url{font-family:var(--mono);font-size:23px;font-weight:700;line-height:1.2;
+  letter-spacing:-.5px;color:var(--accent)}
+/* o "ou" com filete dos dois lados, na largura do que sobra */
+.acs .ou{position:relative;padding:6px 0;font-size:11px;font-weight:700;letter-spacing:1.8px;
+  text-transform:uppercase;color:rgba(15,23,42,.4);text-align:center}
+.acs .ou::before,.acs .ou::after{content:"";position:absolute;top:50%;height:1px;
+  width:calc(50% - 26px);background:rgba(15,23,42,.1)}
+.acs .ou::before{left:0}
+.acs .ou::after{right:0}
+.acs .cart > .dz{font-size:13.5px;line-height:1.5;color:rgba(15,23,42,.65)}
+.acs .cart > .dz b{color:var(--head);font-weight:600}
+.acs .rep{display:flex;align-items:baseline;gap:10px;padding-top:14px;
+  border-top:1px solid rgba(15,23,42,.09)}
+.acs .rep > .rl{font-size:10px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;
+  color:rgba(15,23,42,.45);flex-shrink:0}
+.acs .rep > .gh{font-family:var(--mono);font-size:13px;color:rgba(15,23,42,.62);
+  letter-spacing:-.3px}
+
+/* as seis rotas que existem de verdade na aplicação publicada */
+.acs .pil{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:62px}
+.acs .pil > span{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;
+  border-radius:999px;background:rgba(255,255,255,.7);border:1px solid var(--line);
+  font-size:12.5px;font-weight:700;color:var(--head);
+  box-shadow:0 1px 2px rgba(0,30,80,.04)}
+.acs .pil i{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.acs .pil em{font-style:normal;font-family:var(--mono);font-size:11.5px;font-weight:500;
+  color:var(--tx2)}
+</style>
+
+<section class="slide light acs" data-slide="32" data-var="a" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Acesso à aplicação</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:200ms">Aplicação publicada</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Abra o <span class="hl">Cronos</span></span></span></h1>
+    <p class="kick rv" style="--d:700ms">A aplicação continua no ar durante as perguntas, com os mesmos dados da demonstração.</p>
+
+    <div class="meio">
+      <div class="qrw rv3" style="--d:1100ms">
+        <div class="qrf"><img src="../figs/13_qr_app.png" alt="QR code do endereço da aplicação"></div>
+      </div>
+
+      <div class="cart rv" style="--d:1350ms">
+        <span class="lb">Aponte a câmera</span>
+        <span class="url">igor-vignola.github.io/LocaWeb-Cronos</span>
+        <div class="ou">ou</div>
+        <p class="dz">Digite o endereço no navegador. Abre direto no <b>painel operacional</b>, sem cadastro.</p>
+        <div class="rep">
+          <span class="rl">Código</span>
+          <span class="gh">github.com/igor-vignola/LocaWeb-Cronos</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pil">
+      <span class="rv" style="--d:1700ms"><i></i>Painel<em>/</em></span>
+      <span class="rv" style="--d:1755ms"><i></i>Previsão<em>/previsao</em></span>
+      <span class="rv" style="--d:1810ms"><i></i>Projeção<em>/projecao</em></span>
+      <span class="rv" style="--d:1865ms"><i></i>Fila de risco<em>/fila</em></span>
+      <span class="rv" style="--d:1920ms"><i></i>Saúde por produto<em>/saude</em></span>
+      <span class="rv" style="--d:1975ms"><i></i>Causas<em>/causas</em></span>
+    </div>
+  </div>
+  <div class="ft"><span>72 páginas publicadas &middot; base elegível ao indicador: 25.600 incidentes &middot; relógio parado em 01/10/2025, às 15h</span></div>
+</section>

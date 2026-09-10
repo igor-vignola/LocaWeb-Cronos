@@ -40,7 +40,10 @@
 .dv3 .meta .vl b{display:block;font-size:19px;font-weight:800;color:#fff;line-height:1;
   font-variant-numeric:tabular-nums}
 .dv3 .meta .vl span{display:block;font-size:12px;color:#7A8494;margin-top:5px}
-.dv3 .meta .nota{display:flex;justify-content:space-between;gap:26px;font-size:12px;
+/* a legenda é IRMÃ da .meta, não filha: o seletor descendente nunca casou, as
+   duas frases saíam coladas numa linha só e transbordavam a borda do cartão.
+   Vale para as duas composições, que compartilham este markup. */
+.dv3 .meta + .nota{display:flex;justify-content:space-between;gap:26px;font-size:12px;
   color:#5B647A;margin-top:12px}
 </style>
 

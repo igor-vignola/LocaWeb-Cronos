@@ -1,0 +1,87 @@
+<style>
+/* ═══ slide 31 · variação B · agradecimento em cartões ══════════════════════
+   A composição A fecha com a palavra grande à esquerda e os créditos numa
+   faixa de três colunas. Esta B retoma o desenho do slide de agradecimentos
+   da Sprint 2 (prototipos/slides/agradecimentos-slide.html), que era pôster:
+   tudo centralizado, a palavra ocupando o meio da tela e os créditos em três
+   cartões de vidro.
+
+   Vale a pena manter as duas: a A é sóbria e combina com o resto do deck; a
+   B é a que a sala lembra, e este é o quadro que fica no telão durante as
+   perguntas. Quem apresenta escolhe na hora.
+
+   Os borrões azuis são pseudo-elementos, não <div>: eles sangram pela borda
+   do palco de propósito, e qualquer elemento real nessa posição seria
+   acusado de "fora do palco" pelo verificador.
+   ══════════════════════════════════════════════════════════════════════════ */
+.agr::before,.agr::after{content:"";position:absolute;border-radius:50%;
+  filter:blur(90px);pointer-events:none;z-index:1}
+.agr::before{width:620px;height:620px;top:-200px;left:-150px;background:rgba(37,99,235,.34)}
+.agr::after{width:480px;height:480px;bottom:-140px;right:-100px;background:rgba(37,99,235,.50)}
+/* o terceiro borrão pendura no corpo porque as duas pseudo da seção já estão
+   ocupadas; z-index negativo para ficar atrás do texto e não velar a leitura */
+.agr .body::before{content:"";position:absolute;width:360px;height:360px;left:100px;top:390px;
+  border-radius:50%;filter:blur(90px);pointer-events:none;z-index:-1;
+  background:rgba(96,165,250,.18)}
+
+.agr .body{align-items:center;justify-content:center;text-align:center;
+  padding:164px 64px 40px}
+.agr .obg{font-size:200px;font-weight:900;letter-spacing:-10px;line-height:1;color:#fff}
+.agr .lin{font-size:22px;font-weight:500;line-height:1.35;letter-spacing:-.3px;
+  color:rgba(255,255,255,.70);max-width:760px;margin-top:38px}
+.agr .lin b{color:#fff;font-weight:700}
+
+.agr .cds{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;width:100%;
+  max-width:1280px;margin-top:66px;text-align:left}
+.agr .cd{position:relative;padding:30px 28px;border-radius:14px;
+  background:rgba(20,22,30,.55);-webkit-backdrop-filter:blur(28px) saturate(180%);
+  backdrop-filter:blur(28px) saturate(180%);border:1.5px solid rgba(255,255,255,.14);
+  box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 12px 32px -8px rgba(0,0,0,.5),
+    0 6px 18px -4px rgba(37,99,235,.25)}
+/* o filete de luz no topo do vidro: começa e termina antes das quinas */
+.agr .cd::before{content:"";position:absolute;top:0;left:18%;right:18%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent)}
+.agr .cd > .lb{display:block;font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.agr .cd > .nm{display:block;font-size:24px;font-weight:700;letter-spacing:-.5px;
+  line-height:1.1;color:#fff;margin-top:12px}
+.agr .cd > .rl{display:block;font-size:13.5px;font-weight:500;line-height:1.45;
+  color:rgba(255,255,255,.65);margin-top:9px}
+.agr .cd > .ms{display:block;font-size:14px;line-height:1.5;color:rgba(255,255,255,.75);
+  margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12)}
+</style>
+
+<section class="slide dark agr" data-slide="31" data-var="b" data-quem="igor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Finalização e agradecimentos</div>
+  </div>
+  <div class="body">
+    <h1 class="obg"><span class="mask" style="--d:300ms"><span>Obrigado.</span></span></h1>
+    <p class="lin rv" style="--d:900ms">Por confiar no <b>Cronos</b>, compartilhar a operação real e torcer junto até aqui.</p>
+
+    <div class="cds">
+      <div class="cd rv3" style="--d:1400ms">
+        <span class="lb">Empresa parceira</span>
+        <span class="nm">Locaweb</span>
+        <span class="rl">Douglas Gouveia &middot; Gerente Executivo de Operações</span>
+        <span class="ms">Pelo dataset, pela mentoria e pelos insights que viraram diferenciais do produto.</span>
+      </div>
+      <div class="cd rv3" style="--d:1600ms">
+        <span class="lb">Instituição</span>
+        <span class="nm">FIAP</span>
+        <span class="rl">Tecnólogo Data Science &middot; Turma 2TSCOA</span>
+        <span class="ms">Pela estrutura, pelos professores tutores e pelo formato que aproxima a faculdade do mercado.</span>
+      </div>
+      <div class="cd rv3" style="--d:1800ms">
+        <span class="lb">Equipe</span>
+        <span class="nm">Super Data Bros</span>
+        <span class="rl">Ana Beatriz &middot; Hygor Abrantes &middot; Igor Vignola</span>
+        <span class="ms">Pela parceria nas quatro sprints e pelo trabalho dividido sem peso.</span>
+      </div>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

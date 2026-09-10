@@ -314,9 +314,10 @@ do núcleo: análise exploratória, modelagem e a solução em produção. Desen
 não no `h1`: com `background-clip` no pai o texto do filho herda
 `color:transparent` e o título some.
 
-**7.9 Estrutura final, 31 slides.**
+**7.9 Estrutura final, 32 slides.**
 
-Sete seções, cada uma abrindo por divisória no mesmo desenho. A ordem segue o
+Sete seções, cada uma abrindo por divisória, e cada divisória com duas
+composições: a A, que é a `.dv3`, e a B, no desenho do deck da Sprint 2 (`.dv2`). A ordem segue o
 percurso do trabalho: o problema, o que o dado mostrou, os padrões, cada
 modelo por vez, o que a operação recebe, o resultado do ano e a arquitetura.
 
@@ -328,33 +329,35 @@ modelo por vez, o que a operação recebe, o resultado do ano e a arquitetura.
 | 4 | O prazo de cada incidente | Igor | — |
 | 5 | Quantidade de quebras em 2025 | Igor | — |
 | 6 | A fila não atende na ordem em que o prazo estoura | Igor | — |
-| 7 | **Seção 01 · Análise Exploratória** | Igor | — |
+| 7 | **Seção 01 · Análise Exploratória** | Igor | B desenho da Sprint 2 |
 | 8 | O salto de setembro | Ana | — |
 | 9 | Por que treinamos só em 2025 | Ana | — |
 | 10 | Quem abre, e quando | Ana | — |
 | 11 | O alvo é raro | Ana | — |
-| 12 | **Seção 02 · Padrões e causas** | Ana | — |
+| 12 | **Seção 02 · Padrões e causas** | Ana | B desenho da Sprint 2 |
 | 13 | O mesmo ativo quebra de novo | Ana | — |
 | 14 | Participação do código de fechamento Outro | Ana | — |
-| 15 | O que mais aparece não é o que mais estoura | Ana | — |
-| 16 | **Seção 03 · Previsão de Volume** | Ana | — |
+| 15 | A causa mais frequente não é a que mais estoura | Ana | B tabela nativa, sem figura |
+| 16 | **Seção 03 · Previsão de Volume** | Ana | B desenho da Sprint 2 |
 | 17 | Os próximos sete dias | Ana | — |
 | 18 | Comparação do erro com os baselines | Ana | — |
-| 19 | **Seção 04 · Risco de OLA** | Ana | — |
-| 20 | A fila de risco | Ana | — |
+| 19 | **Seção 04 · Risco de OLA** | Ana | B desenho da Sprint 2 |
+| 20 | A fila de risco, e o desempenho do modelo | Ana | — |
 | 21 | Quais fatores mais influenciam (explicabilidade) | Ana | — |
-| 22 | **Seção 05 · Morning Brief** | Hygor | — |
+| 22 | **Seção 05 · Morning Brief** | Hygor | B desenho da Sprint 2 |
 | 23 | Morning Brief | Hygor | — |
-| 24 | **Seção 06 · Projeção da meta e saúde** | Hygor | — |
+| 24 | **Seção 06 · Projeção da meta e saúde** | Hygor | B desenho da Sprint 2 |
 | 25 | A meta do ano vai fechar? | Hygor | B legenda, C quatro passos, D a meta em cartão |
-| 26 | Mesma taxa, notas opostas | Hygor | — |
-| 27 | **Seção 07 · Arquitetura da solução** | Hygor | — |
+| 26 | O ranking dos quinze, e o motivo da pior nota | Hygor | — |
+| 27 | **Seção 07 · Arquitetura da solução** | Hygor | B desenho da Sprint 2 |
 | 28 | Como o Cronos antecipa o resultado do ano | Hygor | — |
 | 29 | Como isso roda | Hygor | B da planilha ao painel do gestor |
 | 30 | Aplicação web Cronos · **demonstração** | Hygor | B baralho de telas, C a chamada ao vivo |
-| 31 | Obrigado | Igor | — |
+| 31 | Obrigado | Igor | B pôster da Sprint 2, com os três cartões |
+| 32 | Abra o Cronos · QR de acesso | Igor | — |
 
-Três trocas de voz: 7→8, 21→22 e 30→31.
+Três trocas de voz: 7→8, 21→22 e 30→31. O 32 fica na tela durante as
+perguntas da banca.
 
 O deck não tem slide de síntese, limitações e próximos passos. O bloco 7 do
 template da FIAP pede um, e ele chegou a existir duas vezes; o dono do
@@ -499,3 +502,29 @@ virou o próprio contêiner, com o que ele lê no topo (350 kB gravados pelos
 notebooks), as duas telas desenhadas dentro dele e a stack no pé (Django 6.1,
 gunicorn 26, whitenoise 6.12, seis rotas). A fronteira entre quem treina e
 quem serve passou a ser visível na forma. O `28-antecipa-b.html` foi removido.
+
+**7.31 A composição B das divisórias é a `.dv2`.** O dono do projeto pediu, em
+10/09/2026, que cada divisória ganhasse uma segunda forma na pegada do deck da
+Sprint 2 (`prototipos/gestao/intro.html`). A folha está no fim de
+`_estilo.css`: linha de bloco com espacejamento largo, título de 96px com o
+gradiente branco→azul no texto inteiro, três pílulas de número no lugar da
+caixa da pergunta, e o rodapé com filete e a chamada das próximas páginas. A
+`<section>` da B carrega `dv3 dv2` e **reaproveita o painel da direita da A
+byte a byte**: variação troca a forma, nunca a análise. Título da B tem no
+máximo duas linhas, porque a fonte é 96px.
+
+**7.32 Dois seletores que nunca casaram, achados ao portar as divisórias.**
+`.dv3 .meta .nota` exigia que a legenda fosse filha de `.meta`, e ela é irmã:
+as duas frases saíam coladas e transbordavam o cartão do slide 24. E
+`.dv3 .eixo3` tinha `space-between` sem `gap` nem `flex-wrap`: no slide 16 os
+dois textos abutavam e liam como uma frase só. Os dois defeitos estavam nas
+composições A desde sempre e só apareceram quando alguém olhou o print de
+perto. Legenda de duas pontas leva `gap` e `flex-wrap`, sempre.
+
+**7.33 O slide 32 promete um endereço que precisa existir.** Ele fica na tela
+durante as perguntas, com QR e link para `igor-vignola.github.io/LocaWeb-Cronos`.
+Em 10/09/2026 esse endereço responde 404: o repositório local está à frente do
+`origin` e o GitHub Pages não foi habilitado em Settings → Pages → branch
+`main`, pasta `/ (root)`. O `app/` exportado, o `index.html` de raiz e o
+`.nojekyll` já estão no repositório. Sem o push e sem o clique, o slide mostra
+um QR que não abre nada — e é o slide que fica mais tempo em tela.

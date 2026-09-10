@@ -1,0 +1,78 @@
+<!-- ───────────────────────────────────────────────────────────────────────────
+     slide 12 · composição B da divisória de padrões e causas
+
+     O desenho vem do deck da Sprint 2 (prototipos/gestao/intro.html), pedido em
+     10/09/2026 como segunda opção para todas as divisórias. A folha de estilo é
+     `.dv2`, no fim de _estilo.css, compartilhada pelas sete.
+
+     O painel da direita é o mesmo da composição A, de propósito: variação troca
+     a forma, nunca a análise.
+
+     Números das pílulas: os três saem do painel da própria composição A —
+     16 códigos de fechamento distintos, 60,3% da Falha de Aplicação e os 79%
+     que as três maiores causas somam no volume.
+     ─────────────────────────────────────────────────────────────────────── -->
+
+<section class="slide dark dv3 dv2" data-slide="12" data-var="b" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Seção 02 &middot; Padrões</div>
+  </div>
+  <div class="body">
+    <div class="lft">
+      <div class="bl" style="--d:200ms"><b>Seção 02</b> &middot; Padrões e causas</div>
+      <span class="eb"><span class="rv" style="--d:300ms">O que a operação já conhece</span></span>
+      <h1 class="tt">
+        <span class="mask" style="--d:420ms"><span>Causas e</span></span>
+        <span class="mask" style="--d:520ms"><span>o que repete</span></span>
+      </h1>
+      <p class="lead rv" style="--d:860ms">Quais causas geram os incidentes, quais problemas se repetem, e o que diferencia o incidente que estoura o prazo do que é resolvido em tempo.</p>
+      <div class="pilhas">
+        <div class="st" style="--d:1500ms">
+          <span class="lbl">Causas catalogadas</span>
+          <span class="val"><span class="ct" data-to="16" data-delay="1600">0</span></span>
+        </div>
+        <div class="st" style="--d:1580ms">
+          <span class="lbl">Maior causa</span>
+          <span class="val"><span class="ct" data-to="60.3" data-dec="1" data-delay="1680">0,0</span><small>%</small></span>
+        </div>
+        <div class="st" style="--d:1660ms">
+          <span class="lbl">As três maiores somam</span>
+          <span class="val ac"><span class="ct" data-to="79" data-delay="1760">0</span><small>%</small></span>
+        </div>
+      </div>
+    </div>
+    <div class="pv rv3" style="--d:900ms">
+      <div class="pvh"><span class="dot"></span>Composição das causas &middot; 19.973 incidentes</div>
+      <div class="pvgrid">
+        <div class="pc rv" style="--d:1160ms">
+          <div class="pl">Causas catalogadas</div>
+          <div class="pn"><span class="ct" data-to="16" data-delay="1260">0</span></div>
+          <div class="ps">códigos de fechamento distintos</div>
+        </div>
+        <div class="pc rv" style="--d:1280ms">
+          <div class="pl">As três maiores somam</div>
+          <div class="pn"><span class="ct" data-to="79" data-delay="1380">0</span><span class="u">%</span></div>
+          <div class="ps">do volume, e nenhuma é a que mais estoura</div>
+        </div>
+        <div class="pc wide rv" style="--d:1400ms">
+          <div class="pl">Participação de cada causa no volume</div>
+          <div class="comp">
+            <div class="l top" style="--d:1520ms"><span class="nm">Falha de Aplicação</span><div class="tr"><i style="width:100%;--d:1560ms"></i></div><span class="vl">60,3%</span></div>
+            <div class="l top" style="--d:1580ms"><span class="nm">Falha de Sistema Operacional</span><div class="tr"><i style="width:18%;--d:1620ms"></i></div><span class="vl">11,0%</span></div>
+            <div class="l top" style="--d:1640ms"><span class="nm">Outro</span><div class="tr"><i style="width:13%;--d:1680ms"></i></div><span class="vl">8,0%</span></div>
+            <div class="l" style="--d:1700ms"><span class="nm">Falha causada pelo cliente</span><div class="tr"><i style="width:8%;--d:1740ms"></i></div><span class="vl">4,8%</span></div>
+            <div class="l" style="--d:1760ms"><span class="nm">Falha não reproduzida</span><div class="tr"><i style="width:7%;--d:1800ms"></i></div><span class="vl">4,5%</span></div>
+          </div>
+          <div class="soma"><span>escala de 0 a 60,3%</span><span>as três maiores somam <b>79%</b> do volume</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft">
+    <span>Seção 02 &middot; Padrões e causas</span>
+    <span class="dir">Nas próximas páginas: <b>o mesmo ativo quebra de novo</b> &middot; <b>o código Outro</b> &middot; <b>volume contra taxa por causa</b></span>
+  </div>
+</section>

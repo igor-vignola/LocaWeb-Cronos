@@ -324,8 +324,11 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   font-variant-numeric:tabular-nums}
 
 /* legenda do gráfico da divisória de previsão */
-.dv3 .eixo3{display:flex;justify-content:space-between;font-size:12px;color:#7A8494;
-  margin-top:10px}
+/* sem gap e sem quebra, os dois textos abutavam e liam como uma frase só
+   ("...até 30/09a P2 tem a mesma forma..."). Com wrap eles empilham quando
+   não cabem lado a lado, e continuam legíveis nos dois casos. */
+.dv3 .eixo3{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 20px;
+  font-size:12px;line-height:1.4;color:#7A8494;margin-top:10px}
 
 /* ═══ divisória · composição B · o desenho do deck da Sprint 2 ═══════════════
    O dono do projeto pediu, em 10/09/2026, que cada divisória ganhasse uma
