@@ -323,7 +323,7 @@ modelo por vez, o que a operação recebe, o resultado do ano e a arquitetura.
 
 | # | Slide | Quem | Outras versões |
 |---|---|---|---|
-| 1 | Capa | Igor | — |
+| 1 | Capa | Igor | B a pegada escura da Sprint 2 |
 | 2 | Super Data Bros | Igor | — |
 | 3 | Cronos, o deus do tempo | Igor | — |
 | 4 | O prazo de cada incidente | Igor | — |
@@ -528,3 +528,12 @@ Em 10/09/2026 esse endereço responde 404: o repositório local está à frente 
 `main`, pasta `/ (root)`. O `app/` exportado, o `index.html` de raiz e o
 `.nojekyll` já estão no repositório. Sem o push e sem o clique, o slide mostra
 um QR que não abre nada — e é o slide que fica mais tempo em tela.
+
+**7.34 A capa tinha pedido de composição B desde 09/09/2026 e ficou sem.** O
+dono do projeto apontou a capa do deck da Sprint 3, pediu a mesma pegada e
+pediu para tirar equipe e mentor, porque o slide 2 é inteiro deles. A forma
+nova foi aplicada, mas **direto na composição A**, e a variação que ele pediu
+nunca existiu — o indicador do rodapé dizia "versão única" e foi assim que ele
+percebeu. A B agora é a capa escura da Sprint 2, para ser escolha de verdade
+ao lado da A, que é clara. Lição: quando o pedido é "mantém o atual e cria uma
+versão B", promover a forma nova para A não cumpre o pedido.
