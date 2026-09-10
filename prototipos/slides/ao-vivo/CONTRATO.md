@@ -314,7 +314,10 @@ do núcleo: análise exploratória, modelagem e a solução em produção. Desen
 não no `h1`: com `background-clip` no pai o texto do filho herda
 `color:transparent` e o título some.
 
-**7.9 Estrutura final, 26 slides.**
+**7.9 Estrutura final, 28 slides.**
+
+As seções seguem as do deck da Sprint 3, que é o acabado, e cada uma abre por
+divisória no mesmo desenho.
 
 | # | Slide | Quem | Outras versões |
 |---|---|---|---|
@@ -324,34 +327,36 @@ não no `h1`: com `background-clip` no pai o texto do filho herda
 | 4 | O prazo de cada incidente | Igor | — |
 | 5 | Quantidade de quebras em 2025 | Igor | — |
 | 6 | A fila não atende na ordem em que o prazo estoura | Igor | — |
-| 7 | Divisória · Análise Exploratória | Igor | — |
+| 7 | **Seção 01 · Análise Exploratória** | Igor | — |
 | 8 | O salto de setembro | Ana | — |
 | 9 | Por que treinamos só em 2025 | Ana | — |
 | 10 | Quem abre, e quando | Ana | B cartões flutuantes, C a A sobre cartões |
 | 11 | O mesmo ativo quebra de novo | Ana | — |
-| 12 | O alvo é raro | Ana | — |
-| 13 | Divisória · Previsão de Volume | Ana | — |
-| 14 | Os próximos sete dias | Ana | B figura em largura cheia |
-| 15 | O modelo vale a pena? (erro por horizonte) | Ana | — |
-| 16 | Divisória · Risco de OLA | Ana | — |
-| 17 | A fila de risco | Ana | B seca, só a figura |
-| 18 | A meta do ano vai fechar? | Ana | B tubos, C antes e depois |
-| 19 | Divisória · O produto no ar | Hygor | B com desenho de seis molduras |
-| 20 | Como o Cronos antecipa o resultado do ano | Hygor | — |
-| 21 | Divisória · Morning Brief | Hygor | — |
-| 22 | Morning Brief | Hygor | B a folha redesenhada |
-| 23 | Onde agir primeiro | Hygor | B sem figura em matplotlib |
-| 24 | Como isso roda | Hygor | B arquitetura da planilha ao painel |
-| 25 | O painel operacional · **demonstração** | Hygor | B baralho de telas, C a chamada ao vivo |
-| 26 | Obrigado | Igor | — |
+| 12 | Quando ninguém sabe nomear a causa | Ana | — |
+| 13 | O alvo é raro | Ana | — |
+| 14 | **Seção 02 · Previsão de Volume** | Ana | — |
+| 15 | Os próximos sete dias | Ana | B figura em largura cheia |
+| 16 | Comparação do erro com os baselines | Ana | — |
+| 17 | **Seção 03 · Risco de OLA** | Ana | — |
+| 18 | A fila de risco | Ana | B seca, só a figura |
+| 19 | **Seção 04 · Projeção da meta e saúde** | Ana | — |
+| 20 | A meta do ano vai fechar? | Ana | B legenda, C quatro passos, D a meta em cartão |
+| 21 | Onde agir primeiro | Hygor | B sem matplotlib, C os dois painéis |
+| 22 | **Seção 05 · A aplicação web do Cronos** | Hygor | B desenho de seis molduras |
+| 23 | Como o Cronos antecipa o resultado do ano | Hygor | — |
+| 24 | **Morning Brief** (divisória) | Hygor | — |
+| 25 | Morning Brief | Hygor | B a folha redesenhada |
+| 26 | Como isso roda | Hygor | B arquitetura da planilha ao painel |
+| 27 | Aplicação web Cronos · **demonstração** | Hygor | B baralho de telas, C a chamada ao vivo |
+| 28 | Obrigado | Igor | — |
 
-Três trocas de voz: 7→8, 18→19 e 25→26.
+Três trocas de voz: 7→8, 20→21 e 27→28.
 
 **7.10 Um assunto por slide, e os modelos separados.** Previsão de volume e
 risco de OLA têm divisória própria e são apresentados um de cada vez, como no
 deck da Sprint 3. A previsão ocupa dois slides: a semana prevista contra o que
-chegou, e o erro por horizonte contra os baselines. Os dois diferenciais também
-se abrem por divisória: o Morning Brief no 21.
+chegou, e o erro por horizonte contra os baselines. A projeção da meta e a
+nota de saúde compartilham a seção 04, porque saem da mesma leitura.
 
 **7.11 As variações vêm do deck da Sprint 3.** O dono do projeto trabalha com o
 `.pptx` da Sprint 4 como referência, mas considera acabado o da **Sprint 3**.
@@ -408,3 +413,14 @@ grande, o texto corrido precisa do seu próprio `b`.
 todos os blocos num arquivo só. Dois blocos com o mesmo prefixo se sobrescrevem
 e o slide antigo quebra em silêncio; foi o que aconteceu entre `17-projecao` e
 a sua variação, que passou a usar `.prt`.
+
+**7.20 Copiar da Sprint 3 é copiar a forma, não o número.** Onde uma divisória
+ou um slide vem de lá, a composição é a mesma e os valores são recalculados na
+base atual. A fila do d20a dizia 15 quebras nos 50 primeiros; a nossa avaliação
+dá 13, e é 13 que vai para a tela. O mesmo vale para o topo da fila, que mudou
+de escore entre as duas rodadas.
+
+**7.21 Nada pode terminar depois de 4,2 segundos.** É o instante em que o
+`_verifica.py` mede a tela. Cascata que passa disso é medida no meio e o
+elemento sai marcado como invisível; e, no palco, quem apresenta já falou. A
+sequência mais longa do deck é a chamada da demonstração, que fecha em 3,35s.
