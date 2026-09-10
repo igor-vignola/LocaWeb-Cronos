@@ -65,9 +65,10 @@
 
 /* o cartão central, onde mora o cálculo */
 .ant .meio{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:14px}
-.ant .nucleo{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:20px;
-  padding:24px 30px;box-shadow:0 26px 60px -40px rgba(15,23,42,.45);
-  display:flex;flex-direction:column;justify-content:center}
+/* altura do conteúdo, e nada mais: com flex:1 o cartão esticava até a altura
+   do palco e abria um vão acima e abaixo das quatro linhas. */
+.ant .nucleo{min-width:0;background:#fff;border:1px solid var(--line);border-radius:20px;
+  padding:16px 30px;box-shadow:0 26px 60px -40px rgba(15,23,42,.45)}
 .ant .lin{display:grid;grid-template-columns:38px 1fr 154px 1fr;align-items:center;gap:0 18px;
   padding:18px 0}
 .ant .lin + .lin{border-top:1px solid #EDF1F7}

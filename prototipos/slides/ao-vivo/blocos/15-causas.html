@@ -36,9 +36,12 @@
   margin-top:8px;min-height:0}
 
 /* ── o par de causas, com as escalas entre eles ───────────────────────────── */
-.cvb .duo{display:grid;grid-template-columns:1fr 148px 1fr;align-items:end;
-  gap:0 26px;width:100%;max-width:1330px}
-.cvb .cau{display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:0 34px}
+/* dois cartões, um por causa. A coluna do meio com a régua da média e o aviso
+   das escalas saiu: o dono do projeto tirou os dois. */
+.cvb .duo{display:grid;grid-template-columns:1fr 1fr;gap:0 30px;width:100%;max-width:1340px}
+.cvb .cau{display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:0 30px;
+  background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px 34px 24px;
+  box-shadow:0 18px 46px -38px rgba(15,23,42,.5)}
 .cvb .col{display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
 .cvb .vl{font-size:40px;font-weight:900;letter-spacing:-1.7px;line-height:1;
   font-variant-numeric:tabular-nums;margin-bottom:12px}
@@ -63,26 +66,11 @@
 .cvb .nm > span.d{display:block;font-size:14px;color:#5A6779;margin-top:8px}
 .cvb .nm > span.d em{font-style:normal;color:var(--head);font-weight:600}
 
-/* o eixo do meio: a régua da média, que vale só para a escala da taxa */
-/* a régua tem de nascer na MESMA linha de base das barras. As colunas terminam
-   no rótulo ("do volume"), que ocupa 40px abaixo da base da barra; por isso o
-   trilho é ancorado a 40px do pé, e não empilhado por flex. */
-.cvb .eixo{align-self:stretch;position:relative}
-.cvb .eixo .fx{position:absolute;left:22px;right:22px;bottom:40px;height:280px;
-  border-left:1px solid #DCE4EF;border-right:1px solid #DCE4EF}
-.cvb .eixo .md{position:absolute;left:-22px;right:-22px;bottom:32.3%;
-  border-top:1px dashed #A9B5C6}
-.cvb .eixo .md b{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);
-  font-size:12.5px;font-weight:600;color:#5A6779;white-space:nowrap}
-.cvb .eixo .lg{position:absolute;left:-8px;right:-8px;bottom:2px;text-align:center;
-  font-size:12.5px;line-height:1.4;color:#68737F}
 
 .cvb .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:16px;
   border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
 .cvb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .cvb .fecho b{color:var(--head);font-weight:700}
-.cvb .fecho .nt{margin-left:auto;padding-left:26px;border-left:1px solid #E4EAF3;
-  font-size:12.5px;line-height:1.45;color:#68737F;max-width:40ch;flex-shrink:0}
 </style>
 
 <section class="slide light cvb" data-slide="15" data-var="a" data-quem="ana">
@@ -117,11 +105,6 @@
           </div>
         </div>
 
-        <div class="eixo rv" style="--d:1520ms">
-          <div class="fx"><div class="md"><b>média 0,94%</b></div></div>
-          <div class="lg">cada coluna<br>na sua escala</div>
-        </div>
-
         <div class="cau stg rv3" style="--d:860ms">
           <div class="nm">
             <span class="k">A maior em taxa</span>
@@ -146,7 +129,6 @@
     <div class="fecho rv" style="--d:1800ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
       <span>Seis de cada dez incidentes vêm da causa que menos estoura. <b>Priorizar por volume é atender o que já está sob controle.</b></span>
-      <span class="nt">Doze causas têm 100 incidentes ou mais na janela. Abaixo disso a taxa é instável: Falha de Hardware chega a 8,24% sobre 85 casos.</span>
     </div>
   </div>
   <div class="ft"></div>

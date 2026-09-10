@@ -117,7 +117,7 @@
 .sdc .pri .v b{color:var(--head);font-weight:700;font-variant-numeric:tabular-nums}
 
 /* os cinco componentes que produzem a nota */
-.sdc .cp{display:grid;grid-template-columns:190px 110px 1fr 62px;align-items:center;
+.sdc .cp{display:grid;grid-template-columns:236px 138px 1fr 66px;align-items:center;
   gap:0 20px}
 .sdc .cph{margin-top:24px;padding-top:15px;border-top:1px solid var(--line);
   font-size:11.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
@@ -127,15 +127,17 @@
 .sdc .cps{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:2px}
 .sdc .cps .cp{flex:1}
 .sdc .cps .cp + .cp{border-top:1px solid #EFF3F9}
-.sdc .cp .k{font-size:15.5px;font-weight:600;color:var(--head)}
-.sdc .cp .m{font-size:16px;color:var(--tx);font-variant-numeric:tabular-nums}
-.sdc .cp .tr{height:10px;border-radius:5px;background:#E9EEF5}
-.sdc .cp .tr i{display:block;height:100%;border-radius:5px;background:#059669;
+/* categorias em destaque: são elas que respondem o "por quê" */
+.sdc .cp .k{font-size:20px;font-weight:700;letter-spacing:-.3px;color:var(--head)}
+.sdc .cp .m{font-size:20px;font-weight:700;color:var(--head);
+  font-variant-numeric:tabular-nums}
+.sdc .cp .tr{height:14px;border-radius:7px;background:#E9EEF5}
+.sdc .cp .tr i{display:block;height:100%;border-radius:7px;background:#059669;
   transform:scaleX(0);transform-origin:left}
 .sdc.is-active .cp .tr i{animation:corre .6s var(--out) calc(var(--d,0ms) + 200ms) forwards}
 .sdc .cp.a .tr i{background:#D97706}
 .sdc .cp.r .tr i{background:#DC2626}
-.sdc .cp .p{font-family:var(--mono);font-size:15.5px;font-weight:700;text-align:right;
+.sdc .cp .p{font-family:var(--mono);font-size:16px;font-weight:700;text-align:right;
   color:var(--head);font-variant-numeric:tabular-nums}
 
 .sdc .abf{margin-top:16px;padding-top:15px;border-top:1px solid var(--line);
@@ -153,32 +155,11 @@
   <div class="body">
     <span class="eb"><span class="rv" style="--d:240ms">Diferencial 2 &middot; nota de saúde por produto</span></span>
     <h1 class="tt"><span class="mask" style="--d:340ms"><span>Que produto está pior, <em>e por quê</em></span></span></h1>
-    <p class="sub rv" style="--d:580ms">A nota é relativa ao conjunto, e abrir um produto mostra os cinco componentes que a produzem.</p>
+    <p class="sub rv" style="--d:580ms">A nota é relativa ao conjunto. Abrir um produto mostra as cinco medidas que a produzem.</p>
 
     <div class="cena">
       <div class="lado">
-        <span class="lh rv" style="--d:680ms">Ranking &middot; nota de 0 a 100</span>
-        <div class="rw g rv" style="--d:740ms">
-          <span class="cd">lcho</span><span class="tk"><i style="width:69.3%"></i></span><span class="vl">69,3</span>
-        </div>
-        <div class="rw g rv" style="--d:768ms">
-          <span class="cd">lgoa</span><span class="tk"><i style="width:68%"></i></span><span class="vl">68,0</span>
-        </div>
-        <div class="rw a rv" style="--d:796ms">
-          <span class="cd">lcem</span><span class="tk"><i style="width:66.7%"></i></span><span class="vl">66,7</span>
-        </div>
-        <div class="rw a rv" style="--d:824ms">
-          <span class="cd">lrev</span><span class="tk"><i style="width:62.7%"></i></span><span class="vl">62,7</span>
-        </div>
-        <div class="rw a rv" style="--d:852ms">
-          <span class="cd">lhvp</span><span class="tk"><i style="width:60%"></i></span><span class="vl">60,0</span>
-        </div>
-        <div class="rw a rv" style="--d:880ms">
-          <span class="cd">lhco</span><span class="tk"><i style="width:56%"></i></span><span class="vl">56,0</span>
-        </div>
-        <div class="rw a rv" style="--d:908ms">
-          <span class="cd">lemg</span><span class="tk"><i style="width:49.3%"></i></span><span class="vl">49,3</span>
-        </div>
+        <span class="lh rv" style="--d:680ms">Os oito piores dos quinze</span>
         <div class="rw a rv" style="--d:936ms">
           <span class="cd">lcsi</span><span class="tk"><i style="width:48%"></i></span><span class="vl">48,0</span>
         </div>
@@ -211,28 +192,11 @@
           <div>
             <span class="abk">Produto &middot; posição 15 de 15</span>
             <span class="cd">lvps</span>
-            <span class="sit">Problema conhecido e recorrente</span>
-          </div>
+                      </div>
           <div class="abn">
             <span class="v"><span class="ct" data-to="21.3" data-dec="1" data-delay="1380">0,0</span></span>
             <span class="k">Nota</span>
           </div>
-        </div>
-
-        <div class="pris">
-          <div class="pri rv" style="--d:1300ms">
-            <span class="k">Prioridade 2</span>
-            <span class="v"><b>125</b> incidentes &middot; <b>2</b> violações</span>
-          </div>
-          <div class="pri rv" style="--d:1300ms">
-            <span class="k">Prioridade 3</span>
-            <span class="v"><b>185</b> incidentes &middot; <b>7</b> violações</span>
-          </div>
-        </div>
-
-        <div class="cp cph rv" style="--d:1420ms">
-          <span>Os cinco componentes da nota</span>
-          <span>Posição entre os 15 &middot; 1 é o pior</span>
         </div>
         <div class="cps">
           <div class="cp r rv" style="--d:1480ms">
@@ -266,8 +230,6 @@
             <span class="p">1,000</span>
           </div>
         </div>
-
-        <p class="abf rv" style="--d:1860ms">(1,000 + 0,533 + 1,000 + 0,400 + 1,000) &divide; 5 = 0,787 &nbsp;&middot;&nbsp; 100 &times; (1 &minus; 0,787) = 21,3</p>
       </div>
     </div>
   </div>

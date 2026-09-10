@@ -1,88 +1,86 @@
 <style>
-/* ═══ slide 21 · a conta que decidiu o modelo ════════════════════════════════
-   Segunda forma. A primeira era uma tabela de três linhas ao lado de um
-   cartão de texto, e o dono do projeto devolveu: "ficou padrão demais, muito
-   texto, e parece que você não está mais buscando inovar e impressionar".
-   Tinha razão: a tabela dizia em quatro colunas o que uma barra diz sozinha.
+/* ═══ slide 21 · por que a logística, e não o boosting ═══════════════════════
+   Terceira forma. A primeira foi tabela mais cartão de texto ("padrão demais,
+   muito texto"); a segunda, uma régua linear de três contagens ("odiei").
+   O que ele pediu: algo centralizado e comparativo, que responda duas
+   perguntas — o resultado é bom, e por que este e não o outro — com apelo
+   visual.
 
-   O que decidiu a escolha não foi o empate no ROC nem os quatro pontos de
-   PR-AUC. Foi a contagem: o gradient boosting ajustado para o evento raro
-   prevê 1.007 quebras onde houve 50, e a projeção da meta soma quebras
-   previstas. Um modelo que erra a contagem por vinte vezes não serve, por
-   melhor que ordene.
+   A forma é um confronto de duas colunas que crescem do centro para fora, com
+   a medida no meio e o veredicto embaixo dela. Cada linha é uma pergunta
+   respondida de relance: as duas barras do ROC têm o mesmo tamanho, a da
+   PR-AUC pende para a logística, e a da contagem estoura para o boosting, em
+   vermelho. Lado esquerdo é sempre o modelo escolhido.
 
-   Então o slide é uma barra só, em escala linear verdadeira, com as três
-   contagens na mesma régua: o realizado, a logística que cai em cima dele, e
-   o boosting que ocupa a largura inteira. A desproporção é o argumento, e ela
-   está desenhada, não escrita. As métricas de ordenação viram uma tira fina
-   no pé, que é o peso que elas têm nesta decisão.
+   Cada linha tem escala própria, normalizada pelo maior dos dois valores, e
+   isso é o que faz o empate do ROC virar empate desenhado.
 
-   Escala: 1.007 = 100% da régua. 50 = 4,97%. 48,1 = 4,78%.
+   A faixa de cima responde "é bom?" sem depender da comparação: a PR-AUC do
+   modelo é 31 vezes a taxa da base, que é o que o acaso entrega.
 
    Números de notebooks/04_risco_ola.ipynb e da regra 1 do CLAUDE.md:
-     ROC AUC   0,869 contra 0,868          empate
-     PR-AUC    0,2958 contra 0,2526        vantagem de 17% para a logística
-     base      0,0096 é a taxa do período, e 0,2958 é 31 vezes ela
-     contagem  48,1 contra 1.007, onde houve 50
+     ROC AUC   0,869 contra 0,868                    empate
+     PR-AUC    0,2958 contra 0,2526                  17% de vantagem
+     base      0,0096, e 0,2958 é 31 vezes ela
+     contagem  48,1 contra 1.007, onde houve 50      20 vezes a mais
    ══════════════════════════════════════════════════════════════════════════ */
-.dsp .body{padding-top:14px}
-.dsp .tt{font-size:52px;letter-spacing:-1.95px}
+.dsp .body{padding-top:14px;align-items:center}
+.dsp .tt{font-size:50px;letter-spacing:-1.85px;text-align:center}
 .dsp .tt em{font-style:normal;color:var(--accent)}
-.dsp .sub{font-size:17.5px;line-height:1.45;color:var(--tx);margin-top:11px;max-width:92ch}
-.dsp .sub b{color:var(--head);font-weight:700}
-/* stretch: centralizado, o cartão deixava 116px de branco acima e abaixo */
-.dsp .cena{flex:1;display:flex;align-items:stretch;margin-top:16px;min-height:0}
+.dsp .eb{align-self:center}
 
-/* ── a régua das três contagens ───────────────────────────────────────────── */
-.dsp .regua{width:100%;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px 34px 22px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5)}
-.dsp .regua > .k{font-size:11.5px;font-weight:700;letter-spacing:1.9px;text-transform:uppercase;
-  color:var(--tx2)}
-.dsp .regua > .k b{color:var(--head);font-weight:700}
+/* ── a faixa que responde "o resultado é bom?" ────────────────────────────── */
+.dsp .bom{display:inline-flex;align-items:center;gap:16px;margin-top:18px;padding:12px 24px;
+  border-radius:999px;background:#EEF4FF;border:1px solid #D6E4FB}
+.dsp .bom em{font-style:normal;font-size:26px;font-weight:900;letter-spacing:-1px;
+  color:var(--accent);line-height:1}
+.dsp .bom > span{font-size:15.5px;line-height:1.4;color:var(--tx)}
+.dsp .bom > span b{color:var(--head);font-weight:700}
 
-/* as três linhas dividem a altura do cartão: com padding fixo elas se
-   amontoavam no meio e sobrava branco em cima e embaixo, dentro do cartão. */
-.dsp .l{flex:1;display:grid;grid-template-columns:250px 1fr;align-content:center;
-  align-items:center;gap:0 24px}
+/* ── o confronto ─────────────────────────────────────────────────────────── */
+.dsp .cena{flex:1;display:flex;align-items:center;width:100%;margin-top:16px;min-height:0}
+.dsp .duelo{width:100%;max-width:1330px;margin:0 auto}
+
+.dsp .cab{display:grid;grid-template-columns:1fr 268px 1fr;align-items:end;gap:0 22px;
+  padding-bottom:16px;border-bottom:1px solid #DCE4EF}
+.dsp .cab .lado{display:flex;flex-direction:column;align-items:flex-start;gap:9px}
+.dsp .cab .lado.e{align-items:flex-end;text-align:right}
+.dsp .cab .lado b{font-size:26px;font-weight:800;letter-spacing:-.7px;line-height:1.1}
+.dsp .cab .lado.e b{color:var(--accent)} .dsp .cab .lado.d b{color:#5B6879}
+.dsp .cab .selo{font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:#fff;background:var(--accent);border-radius:999px;padding:5px 14px}
+.dsp .cab .fora{font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:#68737F;background:#EDF1F7;border-radius:999px;padding:5px 14px}
+
+.dsp .l{display:grid;grid-template-columns:1fr 268px 1fr;align-items:center;gap:0 22px;
+  padding:24px 0}
 .dsp .l + .l{border-top:1px solid #F0F4FA}
-.dsp .l:first-of-type{margin-top:10px}
-.dsp .l .nm{font-size:17px;font-weight:700;color:var(--head);letter-spacing:-.2px}
-.dsp .l .nm small{display:block;font-size:12.5px;font-weight:400;color:#5A6779;margin-top:5px}
 
-/* o trilho é comum às três linhas, e é o que torna a comparação honesta */
-.dsp .tk{position:relative;height:46px;display:flex;align-items:center}
-.dsp .tk i{display:block;height:46px;border-radius:9px;transform:scaleX(0);
-  transform-origin:left}
-.dsp.is-active .tk i{animation:corre .95s var(--out) var(--d,0ms) forwards}
-.dsp .tk b{position:absolute;top:50%;transform:translateY(-50%);font-size:30px;font-weight:900;
-  letter-spacing:-1.2px;font-variant-numeric:tabular-nums;white-space:nowrap}
-.dsp .tk b small{font-size:.46em;font-weight:600;letter-spacing:0;margin-left:8px;color:#5A6779}
+.dsp .barra{display:flex;align-items:center;gap:16px}
+.dsp .barra.e{flex-direction:row-reverse}
+.dsp .barra i{display:block;height:38px;border-radius:9px;transform:scaleX(0)}
+.dsp .barra.e i{transform-origin:right;background:var(--accent)}
+.dsp .barra.d i{transform-origin:left;background:#A9B6C7}
+.dsp.is-active .barra i{animation:corre .85s var(--out) var(--d,0ms) forwards}
+.dsp .barra b{font-size:33px;font-weight:900;letter-spacing:-1.3px;line-height:1;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.dsp .barra.e b{color:var(--accent)} .dsp .barra.d b{color:#5B6879}
+.dsp .l.cnt .barra.d i{background:linear-gradient(90deg,#F87171,#DC2626)}
+.dsp .l.cnt .barra.d b{color:var(--bad)}
 
-.dsp .l.real .tk i{background:var(--ink)}
-.dsp .l.real .tk b{color:var(--head)}
-.dsp .l.log .tk i{background:var(--accent)}
-.dsp .l.log .tk b{color:var(--accent)}
-.dsp .l.bst .tk i{background:linear-gradient(90deg,#F87171,#DC2626)}
-.dsp .l.bst .tk b{color:#fff;right:20px;text-shadow:0 1px 8px rgba(120,10,10,.45)}
+.dsp .med{text-align:center}
+.dsp .med .nm{font-size:17.5px;font-weight:700;color:var(--head);letter-spacing:-.2px}
+.dsp .med .oq{display:block;font-size:13px;line-height:1.4;color:#5A6779;margin-top:6px}
+.dsp .med .jz{display:inline-block;margin-top:11px;font-size:12px;font-weight:700;
+  letter-spacing:1.3px;text-transform:uppercase;border-radius:999px;padding:5px 13px}
+.dsp .med .jz.eq{color:#5A6779;background:#EDF1F7}
+.dsp .med .jz.up{color:#15803D;background:#E4F5EB}
+.dsp .med .jz.bad{color:#B91C1C;background:#FDECEC}
 
-/* a marca vertical do realizado, que atravessa as três linhas */
-.dsp .marca{position:absolute;left:4.97%;top:-19px;bottom:-19px;width:2px;
-  background:repeating-linear-gradient(180deg,#9AA6B6 0 5px,transparent 5px 10px);
-  opacity:0}
-.dsp.is-active .marca{animation:rv .5s var(--out) 2100ms forwards}
-
-/* ── a tira das métricas de ordenação, que aqui são coadjuvantes ─────────── */
-.dsp .tira{display:grid;grid-template-columns:repeat(3,1fr);gap:0 34px;margin-top:auto;
-  padding-top:18px;border-top:1px solid #DCE4EF}
-.dsp .tira .m{display:flex;align-items:baseline;gap:11px}
-.dsp .tira .m em{font-style:normal;font-size:26px;font-weight:900;letter-spacing:-1px;
-  color:var(--accent);font-variant-numeric:tabular-nums;line-height:1}
-.dsp .tira .m span{font-size:14px;line-height:1.4;color:#5A6779}
-.dsp .tira .m span b{color:var(--head);font-weight:700}
-.dsp .tira .m i{font-style:normal;font-size:11.5px;font-weight:700;letter-spacing:1.2px;
-  text-transform:uppercase;border-radius:999px;padding:4px 11px;margin-left:4px;
-  align-self:center;white-space:nowrap}
-.dsp .tira .m i.eq{color:#5A6779;background:#EEF2F8}
-.dsp .tira .m i.up{color:#15803D;background:#E4F5EB}
+.dsp .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:16px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx);width:100%}
+.dsp .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.dsp .fecho b{color:var(--head);font-weight:700}
 </style>
 
 <section class="slide light dsp" data-slide="21" data-var="a" data-quem="ana">
@@ -94,58 +92,55 @@
   </div>
   <div class="body">
     <span class="eb"><span class="rv" style="--d:240ms">A escolha do modelo de risco</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Ordenar igual, <em>contar diferente</em></span></span></h1>
-    <p class="sub rv" style="--d:620ms">Os dois separam quem quebra de quem não quebra com a mesma qualidade. Só um acerta <b>quantos</b>, e a projeção da meta soma quebras previstas.</p>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Por que a <em>logística</em>, e não o boosting</span></span></h1>
+    <div class="bom rv" style="--d:620ms">
+      <em><span class="ct" data-to="31" data-delay="760">0</span>&times;</em>
+      <span>melhor que o acaso: a PR-AUC do modelo é <b>0,296</b> contra <b>0,0096</b> da taxa da base</span>
+    </div>
 
     <div class="cena">
-      <div class="regua rv3" style="--d:780ms">
-        <div class="k">Quebras previstas no período &middot; <b>houve 50</b></div>
-
-        <div class="l real">
-          <span class="nm">O que aconteceu<small>violações de OLA apuradas no período de teste</small></span>
-          <div class="tk">
-            <i style="width:4.97%;--d:1000ms"></i>
-            <b style="left:calc(4.97% + 20px)">50</b>
-            <span class="marca"></span>
-          </div>
+      <div class="duelo">
+        <div class="cab rv" style="--d:880ms">
+          <div class="lado e"><span class="selo">Escolhido</span><b>Regressão logística</b></div>
+          <div></div>
+          <div class="lado d"><span class="fora">Descartado</span><b>Gradient boosting</b></div>
         </div>
 
-        <div class="l log">
-          <span class="nm">Regressão logística<small>o modelo que ficou</small></span>
-          <div class="tk">
-            <i style="width:4.78%;--d:1180ms"></i>
-            <b style="left:calc(4.78% + 20px)"><span class="ct" data-to="48.1" data-dec="1" data-delay="1380">0,0</span><small>erra por menos de duas</small></b>
-            <span class="marca"></span>
+        <div class="l">
+          <div class="barra e"><b>0,869</b><i style="width:100%;--d:1060ms"></i></div>
+          <div class="med">
+            <span class="nm">Área sob a curva ROC</span>
+            <span class="oq">separa quem quebra de quem não quebra</span>
+            <span class="jz eq">empate</span>
           </div>
+          <div class="barra d"><i style="width:99.9%;--d:1060ms"></i><b>0,868</b></div>
         </div>
 
-        <div class="l bst">
-          <span class="nm">Gradient boosting<small>com <b style="display:inline;font-size:inherit">scale_pos_weight</b>, ajustado para o evento raro</small></span>
-          <div class="tk">
-            <i style="width:100%;--d:1420ms"></i>
-            <b><span class="ct" data-to="1007" data-delay="1700">0</span></b>
-            <span class="marca"></span>
+        <div class="l">
+          <div class="barra e"><b>0,296</b><i style="width:100%;--d:1240ms"></i></div>
+          <div class="med">
+            <span class="nm">PR-AUC</span>
+            <span class="oq">a régua do evento raro, que é o caso aqui</span>
+            <span class="jz up">17% à frente</span>
           </div>
+          <div class="barra d"><i style="width:85.5%;--d:1240ms"></i><b>0,253</b></div>
+        </div>
+
+        <div class="l cnt">
+          <div class="barra e"><b>48,1</b><i style="width:4.8%;--d:1420ms"></i></div>
+          <div class="med">
+            <span class="nm">Quebras previstas</span>
+            <span class="oq">onde houve 50, e a projeção da meta soma isto</span>
+            <span class="jz bad">20 vezes a mais</span>
+          </div>
+          <div class="barra d"><i style="width:100%;--d:1420ms"></i><b>1.007</b></div>
         </div>
       </div>
     </div>
 
-    <div class="tira">
-      <div class="m rv" style="--d:2200ms">
-        <em>0,869</em>
-        <span>de <b>ROC</b>, contra 0,868</span>
-        <i class="eq">empate</i>
-      </div>
-      <div class="m rv" style="--d:2280ms">
-        <em>0,296</em>
-        <span>de <b>PR-AUC</b>, contra 0,253</span>
-        <i class="up">+17%</i>
-      </div>
-      <div class="m rv" style="--d:2360ms">
-        <em>31&times;</em>
-        <span>a taxa da base, que é <b>0,0096</b></span>
-        <i class="eq">evento raro</i>
-      </div>
+    <div class="fecho rv" style="--d:1900ms">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+      <span>Ordenar, os dois ordenam. <b>Contar, só um conta</b> — e é a contagem que sustenta a projeção da meta e o resumo das sete.</span>
     </div>
   </div>
   <div class="ft"></div>

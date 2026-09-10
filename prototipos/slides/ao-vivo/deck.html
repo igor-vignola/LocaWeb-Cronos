@@ -1518,9 +1518,12 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   margin-top:8px;min-height:0}
 
 /* ── o par de causas, com as escalas entre eles ───────────────────────────── */
-.cvb .duo{display:grid;grid-template-columns:1fr 148px 1fr;align-items:end;
-  gap:0 26px;width:100%;max-width:1330px}
-.cvb .cau{display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:0 34px}
+/* dois cartões, um por causa. A coluna do meio com a régua da média e o aviso
+   das escalas saiu: o dono do projeto tirou os dois. */
+.cvb .duo{display:grid;grid-template-columns:1fr 1fr;gap:0 30px;width:100%;max-width:1340px}
+.cvb .cau{display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:0 30px;
+  background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px 34px 24px;
+  box-shadow:0 18px 46px -38px rgba(15,23,42,.5)}
 .cvb .col{display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
 .cvb .vl{font-size:40px;font-weight:900;letter-spacing:-1.7px;line-height:1;
   font-variant-numeric:tabular-nums;margin-bottom:12px}
@@ -1545,26 +1548,11 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .cvb .nm > span.d{display:block;font-size:14px;color:#5A6779;margin-top:8px}
 .cvb .nm > span.d em{font-style:normal;color:var(--head);font-weight:600}
 
-/* o eixo do meio: a régua da média, que vale só para a escala da taxa */
-/* a régua tem de nascer na MESMA linha de base das barras. As colunas terminam
-   no rótulo ("do volume"), que ocupa 40px abaixo da base da barra; por isso o
-   trilho é ancorado a 40px do pé, e não empilhado por flex. */
-.cvb .eixo{align-self:stretch;position:relative}
-.cvb .eixo .fx{position:absolute;left:22px;right:22px;bottom:40px;height:280px;
-  border-left:1px solid #DCE4EF;border-right:1px solid #DCE4EF}
-.cvb .eixo .md{position:absolute;left:-22px;right:-22px;bottom:32.3%;
-  border-top:1px dashed #A9B5C6}
-.cvb .eixo .md b{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);
-  font-size:12.5px;font-weight:600;color:#5A6779;white-space:nowrap}
-.cvb .eixo .lg{position:absolute;left:-8px;right:-8px;bottom:2px;text-align:center;
-  font-size:12.5px;line-height:1.4;color:#68737F}
 
 .cvb .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:16px;
   border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
 .cvb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .cvb .fecho b{color:var(--head);font-weight:700}
-.cvb .fecho .nt{margin-left:auto;padding-left:26px;border-left:1px solid #E4EAF3;
-  font-size:12.5px;line-height:1.45;color:#68737F;max-width:40ch;flex-shrink:0}
 
 /* ───── 16-div-previsao-b.html ───── */
 
@@ -1791,90 +1779,88 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .flb .fecho b{color:var(--head);font-weight:700}
 
 /* ───── 21-desempenho.html ───── */
-/* ═══ slide 21 · a conta que decidiu o modelo ════════════════════════════════
-   Segunda forma. A primeira era uma tabela de três linhas ao lado de um
-   cartão de texto, e o dono do projeto devolveu: "ficou padrão demais, muito
-   texto, e parece que você não está mais buscando inovar e impressionar".
-   Tinha razão: a tabela dizia em quatro colunas o que uma barra diz sozinha.
+/* ═══ slide 21 · por que a logística, e não o boosting ═══════════════════════
+   Terceira forma. A primeira foi tabela mais cartão de texto ("padrão demais,
+   muito texto"); a segunda, uma régua linear de três contagens ("odiei").
+   O que ele pediu: algo centralizado e comparativo, que responda duas
+   perguntas — o resultado é bom, e por que este e não o outro — com apelo
+   visual.
 
-   O que decidiu a escolha não foi o empate no ROC nem os quatro pontos de
-   PR-AUC. Foi a contagem: o gradient boosting ajustado para o evento raro
-   prevê 1.007 quebras onde houve 50, e a projeção da meta soma quebras
-   previstas. Um modelo que erra a contagem por vinte vezes não serve, por
-   melhor que ordene.
+   A forma é um confronto de duas colunas que crescem do centro para fora, com
+   a medida no meio e o veredicto embaixo dela. Cada linha é uma pergunta
+   respondida de relance: as duas barras do ROC têm o mesmo tamanho, a da
+   PR-AUC pende para a logística, e a da contagem estoura para o boosting, em
+   vermelho. Lado esquerdo é sempre o modelo escolhido.
 
-   Então o slide é uma barra só, em escala linear verdadeira, com as três
-   contagens na mesma régua: o realizado, a logística que cai em cima dele, e
-   o boosting que ocupa a largura inteira. A desproporção é o argumento, e ela
-   está desenhada, não escrita. As métricas de ordenação viram uma tira fina
-   no pé, que é o peso que elas têm nesta decisão.
+   Cada linha tem escala própria, normalizada pelo maior dos dois valores, e
+   isso é o que faz o empate do ROC virar empate desenhado.
 
-   Escala: 1.007 = 100% da régua. 50 = 4,97%. 48,1 = 4,78%.
+   A faixa de cima responde "é bom?" sem depender da comparação: a PR-AUC do
+   modelo é 31 vezes a taxa da base, que é o que o acaso entrega.
 
    Números de notebooks/04_risco_ola.ipynb e da regra 1 do CLAUDE.md:
-     ROC AUC   0,869 contra 0,868          empate
-     PR-AUC    0,2958 contra 0,2526        vantagem de 17% para a logística
-     base      0,0096 é a taxa do período, e 0,2958 é 31 vezes ela
-     contagem  48,1 contra 1.007, onde houve 50
+     ROC AUC   0,869 contra 0,868                    empate
+     PR-AUC    0,2958 contra 0,2526                  17% de vantagem
+     base      0,0096, e 0,2958 é 31 vezes ela
+     contagem  48,1 contra 1.007, onde houve 50      20 vezes a mais
    ══════════════════════════════════════════════════════════════════════════ */
-.dsp .body{padding-top:14px}
-.dsp .tt{font-size:52px;letter-spacing:-1.95px}
+.dsp .body{padding-top:14px;align-items:center}
+.dsp .tt{font-size:50px;letter-spacing:-1.85px;text-align:center}
 .dsp .tt em{font-style:normal;color:var(--accent)}
-.dsp .sub{font-size:17.5px;line-height:1.45;color:var(--tx);margin-top:11px;max-width:92ch}
-.dsp .sub b{color:var(--head);font-weight:700}
-/* stretch: centralizado, o cartão deixava 116px de branco acima e abaixo */
-.dsp .cena{flex:1;display:flex;align-items:stretch;margin-top:16px;min-height:0}
+.dsp .eb{align-self:center}
 
-/* ── a régua das três contagens ───────────────────────────────────────────── */
-.dsp .regua{width:100%;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px 34px 22px;box-shadow:0 18px 46px -38px rgba(15,23,42,.5)}
-.dsp .regua > .k{font-size:11.5px;font-weight:700;letter-spacing:1.9px;text-transform:uppercase;
-  color:var(--tx2)}
-.dsp .regua > .k b{color:var(--head);font-weight:700}
+/* ── a faixa que responde "o resultado é bom?" ────────────────────────────── */
+.dsp .bom{display:inline-flex;align-items:center;gap:16px;margin-top:18px;padding:12px 24px;
+  border-radius:999px;background:#EEF4FF;border:1px solid #D6E4FB}
+.dsp .bom em{font-style:normal;font-size:26px;font-weight:900;letter-spacing:-1px;
+  color:var(--accent);line-height:1}
+.dsp .bom > span{font-size:15.5px;line-height:1.4;color:var(--tx)}
+.dsp .bom > span b{color:var(--head);font-weight:700}
 
-/* as três linhas dividem a altura do cartão: com padding fixo elas se
-   amontoavam no meio e sobrava branco em cima e embaixo, dentro do cartão. */
-.dsp .l{flex:1;display:grid;grid-template-columns:250px 1fr;align-content:center;
-  align-items:center;gap:0 24px}
+/* ── o confronto ─────────────────────────────────────────────────────────── */
+.dsp .cena{flex:1;display:flex;align-items:center;width:100%;margin-top:16px;min-height:0}
+.dsp .duelo{width:100%;max-width:1330px;margin:0 auto}
+
+.dsp .cab{display:grid;grid-template-columns:1fr 268px 1fr;align-items:end;gap:0 22px;
+  padding-bottom:16px;border-bottom:1px solid #DCE4EF}
+.dsp .cab .lado{display:flex;flex-direction:column;align-items:flex-start;gap:9px}
+.dsp .cab .lado.e{align-items:flex-end;text-align:right}
+.dsp .cab .lado b{font-size:26px;font-weight:800;letter-spacing:-.7px;line-height:1.1}
+.dsp .cab .lado.e b{color:var(--accent)} .dsp .cab .lado.d b{color:#5B6879}
+.dsp .cab .selo{font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:#fff;background:var(--accent);border-radius:999px;padding:5px 14px}
+.dsp .cab .fora{font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:#68737F;background:#EDF1F7;border-radius:999px;padding:5px 14px}
+
+.dsp .l{display:grid;grid-template-columns:1fr 268px 1fr;align-items:center;gap:0 22px;
+  padding:24px 0}
 .dsp .l + .l{border-top:1px solid #F0F4FA}
-.dsp .l:first-of-type{margin-top:10px}
-.dsp .l .nm{font-size:17px;font-weight:700;color:var(--head);letter-spacing:-.2px}
-.dsp .l .nm small{display:block;font-size:12.5px;font-weight:400;color:#5A6779;margin-top:5px}
 
-/* o trilho é comum às três linhas, e é o que torna a comparação honesta */
-.dsp .tk{position:relative;height:46px;display:flex;align-items:center}
-.dsp .tk i{display:block;height:46px;border-radius:9px;transform:scaleX(0);
-  transform-origin:left}
-.dsp.is-active .tk i{animation:corre .95s var(--out) var(--d,0ms) forwards}
-.dsp .tk b{position:absolute;top:50%;transform:translateY(-50%);font-size:30px;font-weight:900;
-  letter-spacing:-1.2px;font-variant-numeric:tabular-nums;white-space:nowrap}
-.dsp .tk b small{font-size:.46em;font-weight:600;letter-spacing:0;margin-left:8px;color:#5A6779}
+.dsp .barra{display:flex;align-items:center;gap:16px}
+.dsp .barra.e{flex-direction:row-reverse}
+.dsp .barra i{display:block;height:38px;border-radius:9px;transform:scaleX(0)}
+.dsp .barra.e i{transform-origin:right;background:var(--accent)}
+.dsp .barra.d i{transform-origin:left;background:#A9B6C7}
+.dsp.is-active .barra i{animation:corre .85s var(--out) var(--d,0ms) forwards}
+.dsp .barra b{font-size:33px;font-weight:900;letter-spacing:-1.3px;line-height:1;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.dsp .barra.e b{color:var(--accent)} .dsp .barra.d b{color:#5B6879}
+.dsp .l.cnt .barra.d i{background:linear-gradient(90deg,#F87171,#DC2626)}
+.dsp .l.cnt .barra.d b{color:var(--bad)}
 
-.dsp .l.real .tk i{background:var(--ink)}
-.dsp .l.real .tk b{color:var(--head)}
-.dsp .l.log .tk i{background:var(--accent)}
-.dsp .l.log .tk b{color:var(--accent)}
-.dsp .l.bst .tk i{background:linear-gradient(90deg,#F87171,#DC2626)}
-.dsp .l.bst .tk b{color:#fff;right:20px;text-shadow:0 1px 8px rgba(120,10,10,.45)}
+.dsp .med{text-align:center}
+.dsp .med .nm{font-size:17.5px;font-weight:700;color:var(--head);letter-spacing:-.2px}
+.dsp .med .oq{display:block;font-size:13px;line-height:1.4;color:#5A6779;margin-top:6px}
+.dsp .med .jz{display:inline-block;margin-top:11px;font-size:12px;font-weight:700;
+  letter-spacing:1.3px;text-transform:uppercase;border-radius:999px;padding:5px 13px}
+.dsp .med .jz.eq{color:#5A6779;background:#EDF1F7}
+.dsp .med .jz.up{color:#15803D;background:#E4F5EB}
+.dsp .med .jz.bad{color:#B91C1C;background:#FDECEC}
 
-/* a marca vertical do realizado, que atravessa as três linhas */
-.dsp .marca{position:absolute;left:4.97%;top:-19px;bottom:-19px;width:2px;
-  background:repeating-linear-gradient(180deg,#9AA6B6 0 5px,transparent 5px 10px);
-  opacity:0}
-.dsp.is-active .marca{animation:rv .5s var(--out) 2100ms forwards}
-
-/* ── a tira das métricas de ordenação, que aqui são coadjuvantes ─────────── */
-.dsp .tira{display:grid;grid-template-columns:repeat(3,1fr);gap:0 34px;margin-top:auto;
-  padding-top:18px;border-top:1px solid #DCE4EF}
-.dsp .tira .m{display:flex;align-items:baseline;gap:11px}
-.dsp .tira .m em{font-style:normal;font-size:26px;font-weight:900;letter-spacing:-1px;
-  color:var(--accent);font-variant-numeric:tabular-nums;line-height:1}
-.dsp .tira .m span{font-size:14px;line-height:1.4;color:#5A6779}
-.dsp .tira .m span b{color:var(--head);font-weight:700}
-.dsp .tira .m i{font-style:normal;font-size:11.5px;font-weight:700;letter-spacing:1.2px;
-  text-transform:uppercase;border-radius:999px;padding:4px 11px;margin-left:4px;
-  align-self:center;white-space:nowrap}
-.dsp .tira .m i.eq{color:#5A6779;background:#EEF2F8}
-.dsp .tira .m i.up{color:#15803D;background:#E4F5EB}
+.dsp .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:16px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx);width:100%}
+.dsp .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.dsp .fecho b{color:var(--head);font-weight:700}
 
 /* ───── 22-explicabilidade.html ───── */
 /* ═══ slide 22 · explicabilidade ══════════════════════════════════════════════
@@ -2406,7 +2392,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .sdc .pri .v b{color:var(--head);font-weight:700;font-variant-numeric:tabular-nums}
 
 /* os cinco componentes que produzem a nota */
-.sdc .cp{display:grid;grid-template-columns:190px 110px 1fr 62px;align-items:center;
+.sdc .cp{display:grid;grid-template-columns:236px 138px 1fr 66px;align-items:center;
   gap:0 20px}
 .sdc .cph{margin-top:24px;padding-top:15px;border-top:1px solid var(--line);
   font-size:11.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
@@ -2416,15 +2402,17 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .sdc .cps{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:2px}
 .sdc .cps .cp{flex:1}
 .sdc .cps .cp + .cp{border-top:1px solid #EFF3F9}
-.sdc .cp .k{font-size:15.5px;font-weight:600;color:var(--head)}
-.sdc .cp .m{font-size:16px;color:var(--tx);font-variant-numeric:tabular-nums}
-.sdc .cp .tr{height:10px;border-radius:5px;background:#E9EEF5}
-.sdc .cp .tr i{display:block;height:100%;border-radius:5px;background:#059669;
+/* categorias em destaque: são elas que respondem o "por quê" */
+.sdc .cp .k{font-size:20px;font-weight:700;letter-spacing:-.3px;color:var(--head)}
+.sdc .cp .m{font-size:20px;font-weight:700;color:var(--head);
+  font-variant-numeric:tabular-nums}
+.sdc .cp .tr{height:14px;border-radius:7px;background:#E9EEF5}
+.sdc .cp .tr i{display:block;height:100%;border-radius:7px;background:#059669;
   transform:scaleX(0);transform-origin:left}
 .sdc.is-active .cp .tr i{animation:corre .6s var(--out) calc(var(--d,0ms) + 200ms) forwards}
 .sdc .cp.a .tr i{background:#D97706}
 .sdc .cp.r .tr i{background:#DC2626}
-.sdc .cp .p{font-family:var(--mono);font-size:15.5px;font-weight:700;text-align:right;
+.sdc .cp .p{font-family:var(--mono);font-size:16px;font-weight:700;text-align:right;
   color:var(--head);font-variant-numeric:tabular-nums}
 
 .sdc .abf{margin-top:16px;padding-top:15px;border-top:1px solid var(--line);
@@ -2540,9 +2528,10 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 
 /* o cartão central, onde mora o cálculo */
 .ant .meio{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:14px}
-.ant .nucleo{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:20px;
-  padding:24px 30px;box-shadow:0 26px 60px -40px rgba(15,23,42,.45);
-  display:flex;flex-direction:column;justify-content:center}
+/* altura do conteúdo, e nada mais: com flex:1 o cartão esticava até a altura
+   do palco e abria um vão acima e abaixo das quatro linhas. */
+.ant .nucleo{min-width:0;background:#fff;border:1px solid var(--line);border-radius:20px;
+  padding:16px 30px;box-shadow:0 26px 60px -40px rgba(15,23,42,.45)}
 .ant .lin{display:grid;grid-template-columns:38px 1fr 154px 1fr;align-items:center;gap:0 18px;
   padding:18px 0}
 .ant .lin + .lin{border-top:1px solid #EDF1F7}
@@ -2920,7 +2909,12 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .apl .body{justify-content:center;padding-bottom:60px}
 .apl .cena{display:flex;align-items:center;gap:56px}
 .apl .txt{flex:1;min-width:0}
-.apl .tt{font-size:78px;letter-spacing:-3.4px;line-height:1;max-width:11ch}
+/* o corpo do título das divisórias, com o mesmo gradiente: o dono do projeto
+   pediu que o slide da demonstração abrisse com o mesmo peso delas. */
+.apl .tt{font-size:96px;font-weight:900;letter-spacing:-4px;line-height:1.05;max-width:11ch;
+  padding-top:.05em}
+.apl .tt .mask > span{background:linear-gradient(135deg,#fff 0%,#93C5FD 62%,#60A5FA 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
 .apl .sub{font-size:20px;line-height:1.5;color:#B7C0CB;margin-top:24px;max-width:36ch}
 .apl .sub b{color:#E8ECF3;font-weight:700}
 
@@ -2941,8 +2935,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .apl.is-active .tela{animation:chegaTela 1.3s var(--out) .7s forwards}
 @keyframes chegaTela{to{opacity:1;transform:rotateY(-11deg) rotateX(4deg) translate3d(0,0,0)}}
 
-/* ───── 32-fecho-b.html ───── */
-/* ═══ slide 32 · variação B · agradecimento em cartões ══════════════════════
+/* ───── 32-fecho.html ───── */
+/* ═══ slide 32 · agradecimento, o pôster da Sprint 2 ══════════════════════
    A composição A fecha com a palavra grande à esquerda e os créditos numa
    faixa de três colunas. Esta B retoma o desenho do slide de agradecimentos
    da Sprint 2 (prototipos/slides/agradecimentos-slide.html), que era pôster:
@@ -2956,6 +2950,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
    Os borrões azuis são pseudo-elementos, não <div>: eles sangram pela borda
    do palco de propósito, e qualquer elemento real nessa posição seria
    acusado de "fora do palco" pelo verificador.
+   Escolhida pelo dono do projeto em 10/09/2026, entre as duas que existiam.
    ══════════════════════════════════════════════════════════════════════════ */
 .agr::before,.agr::after{content:"";position:absolute;border-radius:50%;
   filter:blur(90px);pointer-events:none;z-index:1}
@@ -2992,51 +2987,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   color:rgba(255,255,255,.84);margin-top:9px}
 .agr .cd > .ms{display:block;font-size:14px;line-height:1.5;color:rgba(255,255,255,.9);
   margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12)}
-
-/* ───── 32-fecho.html ───── */
-/* ═══ slide 32 · agradecimento ═══════════════════════════════════
-   O fecho do deck da Sprint 3, que era estático no .pptx e aqui ganha
-   movimento: a palavra sobe por máscara, o traço corre sob ela, os três blocos
-   de crédito entram em sequência e a série de 2025 termina de se desenhar ao
-   fundo. É o último quadro que a banca vê, e ele fica na tela durante as
-   perguntas, então precisa aguentar dois minutos parado.
-
-   A variação A fecha com a marca. Esta fecha com o agradecimento, que é o que
-   o template da FIAP pede no bloco final e o que a Locaweb espera ouvir.
-
-   Nada aqui volta a falar do que foi testado e não se confirmou. Esse assunto
-   tem lugar no banco de perguntas, não na última tela.
-   ══════════════════════════════════════════════════════════════════════════ */
-.fmb .serie{position:absolute;left:0;right:0;bottom:0;height:360px;z-index:1;
-  pointer-events:none}
-.fmb .serie svg{width:100%;height:100%;display:block}
-.fmb .serie path{fill:none;stroke:var(--accent3);stroke-width:2.4;opacity:.12;
-  stroke-dasharray:1000;stroke-dashoffset:1000}
-.fmb.is-active .serie path{animation:cap-traca 3.4s var(--out) .6s forwards}
-
-.fmb .body{justify-content:center;padding:24px 64px 64px}
-.fmb .obg{font-size:150px;font-weight:900;letter-spacing:-6.6px;line-height:.92;color:#fff}
-.fmb .risco{width:0;height:6px;border-radius:6px;margin-top:22px;
-  background:linear-gradient(90deg,#60A5FA,rgba(96,165,250,0))}
-.fmb.is-active .risco{animation:corre2 1.1s var(--out) 900ms forwards}
-@keyframes corre2{to{width:420px}}
-.fmb .txt{font-size:22px;line-height:1.5;color:#B7C0CB;margin-top:34px;max-width:62ch}
-.fmb .txt b{color:#E8ECF3;font-weight:700}
-
-/* o bloco inteiro centraliza e os créditos ficam a uma distância fixa: presos
-   no pé por margin-top:auto abriam 300px de vão no meio da tela */
-.fmb .cred{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:78px;
-  padding-top:28px;border-top:1px solid rgba(255,255,255,.2)}
-.fmb .cd{padding-right:36px}
-.fmb .cd + .cd{padding-left:36px;border-left:1px solid rgba(255,255,255,.18)}
-.fmb .cd b{display:block;font-size:11px;font-weight:700;letter-spacing:2.1px;
-  text-transform:uppercase;color:#B7C0CB}
-.fmb .cd span{display:block;font-size:18px;font-weight:700;color:#fff;margin-top:11px;
-  letter-spacing:-.25px;line-height:1.35}
-.fmb .cd em{display:block;font-style:normal;font-size:14.5px;color:#C4CBD8;margin-top:6px;
-  line-height:1.45}
-.fmb .cd .url{font-family:var(--mono);font-size:14px;color:#8FB4F5;letter-spacing:-.2px;
-  word-break:break-all}
 
 /* ───── 33-acesso.html ───── */
 /* ═══ slide 33 · o acesso à aplicação ═══════════════════════════════════════
@@ -3975,11 +3925,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
           </div>
         </div>
 
-        <div class="eixo rv" style="--d:1520ms">
-          <div class="fx"><div class="md"><b>média 0,94%</b></div></div>
-          <div class="lg">cada coluna<br>na sua escala</div>
-        </div>
-
         <div class="cau stg rv3" style="--d:860ms">
           <div class="nm">
             <span class="k">A maior em taxa</span>
@@ -4004,7 +3949,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
     <div class="fecho rv" style="--d:1800ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
       <span>Seis de cada dez incidentes vêm da causa que menos estoura. <b>Priorizar por volume é atender o que já está sob controle.</b></span>
-      <span class="nt">Doze causas têm 100 incidentes ou mais na janela. Abaixo disso a taxa é instável: Falha de Hardware chega a 8,24% sobre 85 casos.</span>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
@@ -4259,8 +4203,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
           </div>
           <span class="vd">Baseline à frente por 4,5%</span>
         </div>
-
-        <div class="final rv" style="--d:1560ms">O erro não cresce do primeiro ao sétimo dia.</div>
       </div>
     </div>
 
@@ -4439,58 +4381,55 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   </div>
   <div class="body">
     <span class="eb"><span class="rv" style="--d:240ms">A escolha do modelo de risco</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Ordenar igual, <em>contar diferente</em></span></span></h1>
-    <p class="sub rv" style="--d:620ms">Os dois separam quem quebra de quem não quebra com a mesma qualidade. Só um acerta <b>quantos</b>, e a projeção da meta soma quebras previstas.</p>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Por que a <em>logística</em>, e não o boosting</span></span></h1>
+    <div class="bom rv" style="--d:620ms">
+      <em><span class="ct" data-to="31" data-delay="760">0</span>&times;</em>
+      <span>melhor que o acaso: a PR-AUC do modelo é <b>0,296</b> contra <b>0,0096</b> da taxa da base</span>
+    </div>
 
     <div class="cena">
-      <div class="regua rv3" style="--d:780ms">
-        <div class="k">Quebras previstas no período &middot; <b>houve 50</b></div>
-
-        <div class="l real">
-          <span class="nm">O que aconteceu<small>violações de OLA apuradas no período de teste</small></span>
-          <div class="tk">
-            <i style="width:4.97%;--d:1000ms"></i>
-            <b style="left:calc(4.97% + 20px)">50</b>
-            <span class="marca"></span>
-          </div>
+      <div class="duelo">
+        <div class="cab rv" style="--d:880ms">
+          <div class="lado e"><span class="selo">Escolhido</span><b>Regressão logística</b></div>
+          <div></div>
+          <div class="lado d"><span class="fora">Descartado</span><b>Gradient boosting</b></div>
         </div>
 
-        <div class="l log">
-          <span class="nm">Regressão logística<small>o modelo que ficou</small></span>
-          <div class="tk">
-            <i style="width:4.78%;--d:1180ms"></i>
-            <b style="left:calc(4.78% + 20px)"><span class="ct" data-to="48.1" data-dec="1" data-delay="1380">0,0</span><small>erra por menos de duas</small></b>
-            <span class="marca"></span>
+        <div class="l">
+          <div class="barra e"><b>0,869</b><i style="width:100%;--d:1060ms"></i></div>
+          <div class="med">
+            <span class="nm">Área sob a curva ROC</span>
+            <span class="oq">separa quem quebra de quem não quebra</span>
+            <span class="jz eq">empate</span>
           </div>
+          <div class="barra d"><i style="width:99.9%;--d:1060ms"></i><b>0,868</b></div>
         </div>
 
-        <div class="l bst">
-          <span class="nm">Gradient boosting<small>com <b style="display:inline;font-size:inherit">scale_pos_weight</b>, ajustado para o evento raro</small></span>
-          <div class="tk">
-            <i style="width:100%;--d:1420ms"></i>
-            <b><span class="ct" data-to="1007" data-delay="1700">0</span></b>
-            <span class="marca"></span>
+        <div class="l">
+          <div class="barra e"><b>0,296</b><i style="width:100%;--d:1240ms"></i></div>
+          <div class="med">
+            <span class="nm">PR-AUC</span>
+            <span class="oq">a régua do evento raro, que é o caso aqui</span>
+            <span class="jz up">17% à frente</span>
           </div>
+          <div class="barra d"><i style="width:85.5%;--d:1240ms"></i><b>0,253</b></div>
+        </div>
+
+        <div class="l cnt">
+          <div class="barra e"><b>48,1</b><i style="width:4.8%;--d:1420ms"></i></div>
+          <div class="med">
+            <span class="nm">Quebras previstas</span>
+            <span class="oq">onde houve 50, e a projeção da meta soma isto</span>
+            <span class="jz bad">20 vezes a mais</span>
+          </div>
+          <div class="barra d"><i style="width:100%;--d:1420ms"></i><b>1.007</b></div>
         </div>
       </div>
     </div>
 
-    <div class="tira">
-      <div class="m rv" style="--d:2200ms">
-        <em>0,869</em>
-        <span>de <b>ROC</b>, contra 0,868</span>
-        <i class="eq">empate</i>
-      </div>
-      <div class="m rv" style="--d:2280ms">
-        <em>0,296</em>
-        <span>de <b>PR-AUC</b>, contra 0,253</span>
-        <i class="up">+17%</i>
-      </div>
-      <div class="m rv" style="--d:2360ms">
-        <em>31&times;</em>
-        <span>a taxa da base, que é <b>0,0096</b></span>
-        <i class="eq">evento raro</i>
-      </div>
+    <div class="fecho rv" style="--d:1900ms">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
+      <span>Ordenar, os dois ordenam. <b>Contar, só um conta</b> — e é a contagem que sustenta a projeção da meta e o resumo das sete.</span>
     </div>
   </div>
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
@@ -5086,32 +5025,11 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="body">
     <span class="eb"><span class="rv" style="--d:240ms">Diferencial 2 &middot; nota de saúde por produto</span></span>
     <h1 class="tt"><span class="mask" style="--d:340ms"><span>Que produto está pior, <em>e por quê</em></span></span></h1>
-    <p class="sub rv" style="--d:580ms">A nota é relativa ao conjunto, e abrir um produto mostra os cinco componentes que a produzem.</p>
+    <p class="sub rv" style="--d:580ms">A nota é relativa ao conjunto. Abrir um produto mostra as cinco medidas que a produzem.</p>
 
     <div class="cena">
       <div class="lado">
-        <span class="lh rv" style="--d:680ms">Ranking &middot; nota de 0 a 100</span>
-        <div class="rw g rv" style="--d:740ms">
-          <span class="cd">lcho</span><span class="tk"><i style="width:69.3%"></i></span><span class="vl">69,3</span>
-        </div>
-        <div class="rw g rv" style="--d:768ms">
-          <span class="cd">lgoa</span><span class="tk"><i style="width:68%"></i></span><span class="vl">68,0</span>
-        </div>
-        <div class="rw a rv" style="--d:796ms">
-          <span class="cd">lcem</span><span class="tk"><i style="width:66.7%"></i></span><span class="vl">66,7</span>
-        </div>
-        <div class="rw a rv" style="--d:824ms">
-          <span class="cd">lrev</span><span class="tk"><i style="width:62.7%"></i></span><span class="vl">62,7</span>
-        </div>
-        <div class="rw a rv" style="--d:852ms">
-          <span class="cd">lhvp</span><span class="tk"><i style="width:60%"></i></span><span class="vl">60,0</span>
-        </div>
-        <div class="rw a rv" style="--d:880ms">
-          <span class="cd">lhco</span><span class="tk"><i style="width:56%"></i></span><span class="vl">56,0</span>
-        </div>
-        <div class="rw a rv" style="--d:908ms">
-          <span class="cd">lemg</span><span class="tk"><i style="width:49.3%"></i></span><span class="vl">49,3</span>
-        </div>
+        <span class="lh rv" style="--d:680ms">Os oito piores dos quinze</span>
         <div class="rw a rv" style="--d:936ms">
           <span class="cd">lcsi</span><span class="tk"><i style="width:48%"></i></span><span class="vl">48,0</span>
         </div>
@@ -5144,28 +5062,11 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
           <div>
             <span class="abk">Produto &middot; posição 15 de 15</span>
             <span class="cd">lvps</span>
-            <span class="sit">Problema conhecido e recorrente</span>
-          </div>
+                      </div>
           <div class="abn">
             <span class="v"><span class="ct" data-to="21.3" data-dec="1" data-delay="1380">0,0</span></span>
             <span class="k">Nota</span>
           </div>
-        </div>
-
-        <div class="pris">
-          <div class="pri rv" style="--d:1300ms">
-            <span class="k">Prioridade 2</span>
-            <span class="v"><b>125</b> incidentes &middot; <b>2</b> violações</span>
-          </div>
-          <div class="pri rv" style="--d:1300ms">
-            <span class="k">Prioridade 3</span>
-            <span class="v"><b>185</b> incidentes &middot; <b>7</b> violações</span>
-          </div>
-        </div>
-
-        <div class="cp cph rv" style="--d:1420ms">
-          <span>Os cinco componentes da nota</span>
-          <span>Posição entre os 15 &middot; 1 é o pior</span>
         </div>
         <div class="cps">
           <div class="cp r rv" style="--d:1480ms">
@@ -5199,8 +5100,6 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
             <span class="p">1,000</span>
           </div>
         </div>
-
-        <p class="abf rv" style="--d:1860ms">(1,000 + 0,533 + 1,000 + 0,400 + 1,000) &divide; 5 = 0,787 &nbsp;&middot;&nbsp; 100 &times; (1 &minus; 0,787) = 21,3</p>
       </div>
     </div>
   </div>
@@ -5795,42 +5694,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide dark fmb" data-slide="32" data-var="a" data-quem="igor">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="serie"><svg viewBox="0 0 1600 360" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1000" d="M 0 318 L 13.4 258 L 26.9 232 L 40.3 157 L 53.8 139 L 67.2 135 L 80.7 117 L 94.1 117 L 107.6 123 L 121 105 L 134.5 55 L 147.9 78 L 161.3 110 L 174.8 112 L 188.2 110 L 201.7 123 L 215.1 129 L 228.6 107 L 242 101 L 255.5 113 L 268.9 146 L 282.4 199 L 295.8 205 L 309.2 136 L 322.7 124 L 336.1 123 L 349.6 125 L 363 120 L 376.5 115 L 389.9 139 L 403.4 144 L 416.8 113 L 430.3 105 L 443.7 141 L 457.1 165 L 470.6 180 L 484 205 L 497.5 202 L 510.9 186 L 524.4 132 L 537.8 152 L 551.3 172 L 564.7 163 L 578.2 152 L 591.6 135 L 605 133 L 618.5 128 L 631.9 120 L 645.4 120 L 658.8 117 L 672.3 121 L 685.7 150 L 699.2 132 L 712.6 112 L 726.1 133 L 739.5 139 L 752.9 154 L 766.4 180 L 779.8 142 L 793.3 143 L 806.7 161 L 820.2 165 L 833.6 169 L 847.1 159 L 860.5 154 L 873.9 157 L 887.4 161 L 900.8 161 L 914.3 156 L 927.7 142 L 941.2 134 L 954.6 128 L 968.1 140 L 981.5 135 L 995 114 L 1008.4 110 L 1021.8 122 L 1035.3 125 L 1048.7 128 L 1062.2 137 L 1075.6 159 L 1089.1 172 L 1102.5 170 L 1116 159 L 1129.4 139 L 1142.9 113 L 1156.3 110 L 1169.7 72 L 1183.2 77 L 1196.6 130 L 1210.1 129 L 1223.5 142 L 1237 140 L 1250.4 147 L 1263.9 159 L 1277.3 159 L 1290.8 156 L 1304.2 157 L 1317.6 162 L 1331.1 175 L 1344.5 170 L 1358 162 L 1371.4 180 L 1384.9 182 L 1398.3 176 L 1411.8 195 L 1425.2 222 L 1438.7 212 L 1452.1 179 L 1465.5 166 L 1479 169 L 1492.4 191 L 1505.9 190 L 1519.3 198 L 1532.8 194 L 1546.2 193 L 1559.7 178 L 1573.1 204 L 1586.6 246 L 1600 292"/></svg></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
-    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
-    <div class="tag">Finalização e agradecimentos</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:220ms">Veja antes. Aja antes.</span></span>
-    <h1 class="obg"><span class="mask" style="--d:360ms"><span>Obrigado.</span></span></h1>
-    <div class="risco"></div>
-    <p class="txt rv" style="--d:1000ms">Por confiar no Cronos, abrir a operação real e <b>apontar o que valia a pena testar</b>.</p>
-
-    <div class="cred">
-      <div class="cd rv" style="--d:1500ms">
-        <b>Empresa parceira</b>
-        <span>Locaweb</span>
-        <em>Douglas Gouveia &middot; Gerente Executivo de Operações</em>
-      </div>
-      <div class="cd rv" style="--d:1640ms">
-        <b>Instituição</b>
-        <span>FIAP &middot; Turma 2TSCOA</span>
-        <em>Ana Beatriz Costa de Oliveira &middot; Hygor Abrantes &middot; Igor Vignola</em>
-      </div>
-      <div class="cd rv" style="--d:1780ms">
-        <b>Repositório</b>
-        <span class="url">github.com/igor-vignola/LocaWeb-Cronos</span>
-        <em>os notebooks executados, os scripts e a aplicação Django</em>
-      </div>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
-</section>
-
-<section class="slide dark agr" data-slide="32" data-var="b" data-quem="igor">
+<section class="slide dark agr" data-slide="32" data-var="a" data-quem="igor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
