@@ -1,0 +1,92 @@
+<style>
+/* ═══ slide 25 · variação C · a chamada para a demonstração ═══════════════════
+   O dono do projeto pediu tensão neste ponto: o slide tem de anunciar que a
+   apresentação vai sair do slide e entrar na ferramenta.
+
+   Por isso este é o único slide preto do deck, sem cabeçalho de marca e sem
+   rodapé de conteúdo. A tela escurece, a palavra entra grande, o ponto vermelho
+   pulsa e as seis paradas da demonstração se acendem numa trilha. Enquanto
+   isso acontece, o Hygor troca para o navegador.
+
+   O relógio parado aparece aqui de novo, e de propósito: é a última coisa que
+   a banca lê antes de ver dado na tela, e desarma qualquer pergunta sobre o
+   sistema estar mostrando futuro.
+
+   Sem imagem e sem número novo. O slide não é informação, é um beat.
+   ══════════════════════════════════════════════════════════════════════════ */
+.dmo{background:#05070C}
+.dmo .mesh{background:radial-gradient(900px 620px at 50% 8%,rgba(220,38,38,.16),transparent 60%),
+  radial-gradient(1100px 700px at 50% 120%,rgba(37,99,235,.2),transparent 60%)}
+.dmo .grid-bg{background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:64px 64px}
+.dmo .body{padding:0 64px 60px;align-items:center;justify-content:center;text-align:center}
+
+.dmo .vivo{display:inline-flex;align-items:center;gap:13px;font-family:var(--mono);
+  font-size:14px;font-weight:500;letter-spacing:4.4px;text-transform:uppercase;color:#FCA5A5;
+  border:1px solid rgba(220,38,38,.5);border-radius:999px;padding:12px 26px;opacity:0}
+.dmo .vivo i{width:10px;height:10px;border-radius:50%;background:#EF4444}
+.dmo.is-active .vivo{animation:rv .7s var(--out) 300ms forwards}
+.dmo.is-active .vivo i{animation:pulsaVivo 1.5s ease-in-out 1s infinite}
+@keyframes pulsaVivo{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(239,68,68,.6)}
+  60%{opacity:.4;box-shadow:0 0 0 11px rgba(239,68,68,0)}}
+
+.dmo .grande{font-size:132px;font-weight:900;letter-spacing:-6px;line-height:.94;color:#fff;
+  margin-top:36px}
+.dmo .grande em{font-style:normal;
+  background:linear-gradient(96deg,#60A5FA,#2563EB);-webkit-background-clip:text;
+  background-clip:text;color:transparent}
+.dmo .sub{font-size:22px;line-height:1.5;color:#8B96A8;margin-top:28px;max-width:58ch}
+.dmo .sub b{color:#E8ECF3;font-weight:700}
+
+/* a trilha das seis paradas */
+.dmo .trilha{display:flex;align-items:center;gap:0;margin-top:56px}
+.dmo .trilha .pt{display:flex;flex-direction:column;align-items:center;gap:12px;
+  opacity:0;transform:translate3d(0,10px,0)}
+.dmo.is-active .trilha .pt{animation:rv .5s var(--out) var(--d,0ms) forwards}
+.dmo .trilha .pt i{width:13px;height:13px;border-radius:50%;background:#1E293B;
+  border:2px solid #3B82F6}
+.dmo .trilha .pt span{font-size:14px;color:#8B96A8;white-space:nowrap}
+.dmo .trilha .pt:first-child i{background:#3B82F6}
+.dmo .trilha .fio{width:86px;height:2px;background:rgba(59,130,246,.34);margin:0 4px 26px;
+  transform:scaleX(0);transform-origin:left}
+.dmo.is-active .trilha .fio{animation:corre .4s var(--out) var(--d,0ms) forwards}
+
+.dmo .relogio{display:inline-flex;align-items:center;gap:11px;margin-top:54px;
+  font-family:var(--mono);font-size:14px;color:#5B647A;opacity:0}
+.dmo .relogio svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.6}
+.dmo.is-active .relogio{animation:rv .6s var(--out) 2600ms forwards}
+</style>
+
+<section class="slide dark dmo" data-slide="25" data-var="c" data-quem="hygor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="body">
+    <span class="vivo"><i></i>Ao vivo</span>
+
+    <h1 class="grande">
+      <span class="mask" style="--d:600ms"><span>Agora é a</span></span>
+      <span class="mask" style="--d:740ms"><span><em>ferramenta</em></span></span>
+    </h1>
+
+    <p class="sub rv" style="--d:1200ms">Saímos do slide. O que vem a seguir é o Cronos rodando, com <b>dado real da Locaweb</b> e nada preparado para esta apresentação.</p>
+
+    <div class="trilha">
+      <span class="pt" style="--d:1500ms"><i></i><span>Panorama</span></span>
+      <span class="fio" style="--d:1560ms"></span>
+      <span class="pt" style="--d:1620ms"><i></i><span>Morning Brief</span></span>
+      <span class="fio" style="--d:1680ms"></span>
+      <span class="pt" style="--d:1740ms"><i></i><span>Previsão</span></span>
+      <span class="fio" style="--d:1800ms"></span>
+      <span class="pt" style="--d:1860ms"><i></i><span>Fila de risco</span></span>
+      <span class="fio" style="--d:1920ms"></span>
+      <span class="pt" style="--d:1980ms"><i></i><span>Saúde</span></span>
+      <span class="fio" style="--d:2040ms"></span>
+      <span class="pt" style="--d:2100ms"><i></i><span>Projeção do ano</span></span>
+    </div>
+
+    <span class="relogio">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 6.8V12l3.4 2"/></svg>
+      relógio do sistema parado em 01/10/2025 &middot; 15h
+    </span>
+  </div>
+  <div class="ft"></div>
+</section>

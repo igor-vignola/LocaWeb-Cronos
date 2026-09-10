@@ -1,0 +1,141 @@
+<style>
+/* ═══ slide 19 · variação B · divisória da solução, com desenho ═══════════════
+   O dono do projeto achou a composição anterior pesada e o título comprido, e
+   pediu um desenho mais bonito no lugar do painel de cartões.
+
+   Aqui o lado direito é um desenho e não um painel de dados: seis molduras em
+   perspectiva, a da frente com a silhueta do painel, tudo em traço sobre o
+   escuro. Nenhum número, porque os números vêm nos slides seguintes e a
+   demonstração mostra as telas de verdade. A divisória só precisa dizer
+   "agora é produto".
+
+   Tudo em SVG inline: as molduras entram uma a uma, de trás para a frente, e a
+   linha do gráfico dentro da moldura da frente se desenha por último.
+   ══════════════════════════════════════════════════════════════════════════ */
+.dsb .body{padding:26px 64px 44px;flex-direction:row;gap:60px;align-items:center}
+.dsb .lft{flex:1;min-width:0;display:flex;flex-direction:column}
+.dsb .tt{font-size:82px;font-weight:900;letter-spacing:-3.4px;line-height:.98;color:#fff;
+  margin-top:18px}
+.dsb .tt .mask > span.hl{background:linear-gradient(90deg,#60A5FA,#2563EB);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.dsb .lead{font-size:19.5px;line-height:1.55;color:#98A2B3;max-width:480px;margin-top:24px}
+.dsb .q{margin-top:32px;display:inline-flex;align-items:center;gap:13px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;padding:15px 20px;max-width:480px}
+.dsb .q .ci{width:34px;height:34px;border-radius:9px;background:rgba(59,130,246,.18);
+  color:#93C5FD;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.dsb .q .ci svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7}
+.dsb .q span{font-size:16px;line-height:1.45;color:#C4CBD8}
+.dsb .q b{color:#fff;font-weight:700}
+
+/* o desenho */
+.dsb .arte{width:620px;flex-shrink:0}
+.dsb .arte svg{width:100%;height:auto;display:block;overflow:visible}
+.dsb .mold{opacity:0;transform:translate3d(0,26px,0)}
+.dsb.is-active .mold{animation:rv .7s var(--out) var(--d,0ms) forwards}
+.dsb .tracado{fill:none;stroke-dasharray:var(--len);stroke-dashoffset:var(--len)}
+.dsb.is-active .tracado{animation:tracar 1.2s var(--out) var(--d,0ms) forwards}
+.dsb .brilho{opacity:0}
+.dsb.is-active .brilho{animation:rv .6s var(--out) var(--d,0ms) forwards}
+</style>
+
+<section class="slide dark dsb" data-slide="19" data-var="b" data-quem="hygor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Seção 04 &middot; O produto</div>
+  </div>
+  <div class="body">
+    <div class="lft">
+      <span class="eb"><span class="rv" style="--d:220ms">Seção 04</span></span>
+      <h1 class="tt">
+        <span class="mask" style="--d:340ms"><span>Seis telas</span></span>
+        <span class="mask" style="--d:450ms"><span class="hl">num contêiner</span></span>
+      </h1>
+      <p class="lead rv" style="--d:820ms">Os dois modelos entregues como produto, com o relógio parado em 1º de outubro de 2025 às 15h. Tudo o que a tela mostra existia naquele instante.</p>
+      <div class="q rv" style="--d:2000ms">
+        <span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
+        <span>A pergunta desta seção: <b>isso cabe na rotina de quem opera?</b></span>
+      </div>
+    </div>
+
+    <div class="arte">
+      <svg viewBox="0 0 620 420" aria-hidden="true">
+        <defs>
+          <linearGradient id="vidro" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#1B2434"/><stop offset="1" stop-color="#111826"/>
+          </linearGradient>
+        </defs>
+
+        <!-- as molduras de trás, uma por tela, entrando de trás para a frente -->
+        <g class="mold" style="--d:1000ms">
+          <rect x="150" y="20" width="440" height="248" rx="14" fill="url(#vidro)"
+            stroke="rgba(255,255,255,.10)"/>
+        </g>
+        <g class="mold" style="--d:1120ms">
+          <rect x="112" y="52" width="440" height="248" rx="14" fill="url(#vidro)"
+            stroke="rgba(255,255,255,.12)"/>
+        </g>
+        <g class="mold" style="--d:1240ms">
+          <rect x="74" y="84" width="440" height="248" rx="14" fill="url(#vidro)"
+            stroke="rgba(255,255,255,.14)"/>
+        </g>
+
+        <!-- a moldura da frente, com a silhueta do painel -->
+        <g class="mold" style="--d:1380ms">
+          <rect x="18" y="120" width="470" height="272" rx="16" fill="#0E1622"
+            stroke="rgba(96,165,250,.4)"/>
+          <line x1="18" y1="156" x2="488" y2="156" stroke="rgba(255,255,255,.12)"/>
+          <circle cx="38" cy="138" r="4" fill="#3B82F6"/>
+          <rect x="52" y="133" width="62" height="10" rx="5" fill="rgba(255,255,255,.16)"/>
+          <rect x="126" y="133" width="44" height="10" rx="5" fill="rgba(255,255,255,.08)"/>
+          <rect x="182" y="133" width="52" height="10" rx="5" fill="rgba(255,255,255,.08)"/>
+          <rect x="246" y="133" width="40" height="10" rx="5" fill="rgba(255,255,255,.08)"/>
+
+          <!-- dois cartões e um gráfico, só a silhueta -->
+          <rect x="40" y="178" width="128" height="70" rx="10" fill="rgba(255,255,255,.05)"
+            stroke="rgba(255,255,255,.09)"/>
+          <rect x="54" y="196" width="46" height="8" rx="4" fill="rgba(255,255,255,.14)"/>
+          <rect x="54" y="212" width="72" height="18" rx="5" fill="rgba(96,165,250,.55)"/>
+
+          <rect x="182" y="178" width="128" height="70" rx="10" fill="rgba(255,255,255,.05)"
+            stroke="rgba(255,255,255,.09)"/>
+          <rect x="196" y="196" width="46" height="8" rx="4" fill="rgba(255,255,255,.14)"/>
+          <rect x="196" y="212" width="58" height="18" rx="5" fill="rgba(255,255,255,.22)"/>
+
+          <rect x="324" y="178" width="140" height="70" rx="10" fill="rgba(255,255,255,.05)"
+            stroke="rgba(255,255,255,.09)"/>
+          <rect x="338" y="196" width="40" height="8" rx="4" fill="rgba(255,255,255,.14)"/>
+        </g>
+
+        <!-- a linha do gráfico, que se desenha por último -->
+        <path class="tracado" style="--len:190;--d:1900ms" stroke="#60A5FA" stroke-width="2.4"
+          stroke-linecap="round" stroke-linejoin="round"
+          d="M338 236 L360 224 L382 230 L404 210 L426 218 L448 202"/>
+
+        <!-- a fila do painel, três linhas -->
+        <g class="brilho" style="--d:2100ms">
+          <rect x="40" y="268" width="424" height="12" rx="6" fill="rgba(255,255,255,.07)"/>
+          <rect x="40" y="268" width="118" height="12" rx="6" fill="rgba(239,68,68,.6)"/>
+          <rect x="40" y="292" width="424" height="12" rx="6" fill="rgba(255,255,255,.07)"/>
+          <rect x="40" y="292" width="86" height="12" rx="6" fill="rgba(217,119,6,.6)"/>
+          <rect x="40" y="316" width="424" height="12" rx="6" fill="rgba(255,255,255,.07)"/>
+          <rect x="40" y="316" width="54" height="12" rx="6" fill="rgba(96,165,250,.5)"/>
+        </g>
+
+        <!-- o selo do relógio parado -->
+        <g class="brilho" style="--d:2320ms">
+          <rect x="330" y="352" width="158" height="30" rx="15" fill="rgba(59,130,246,.16)"
+            stroke="rgba(96,165,250,.34)"/>
+          <circle cx="352" cy="367" r="7" fill="none" stroke="#93C5FD" stroke-width="1.6"/>
+          <path d="M352 363v4l2.6 1.6" fill="none" stroke="#93C5FD" stroke-width="1.6"
+            stroke-linecap="round"/>
+          <text x="368" y="372" fill="#93C5FD" font-size="14" font-family="Outfit, sans-serif"
+            font-weight="600">01/10 &#183; 15h</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="ft"><span>Django 6.1 &middot; Plotly 6.0 &middot; imagem python:3.13-slim, sem serviço proprietário de nuvem</span></div>
+</section>

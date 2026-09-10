@@ -1,5 +1,5 @@
 <style>
-/* ═══ slide 20 · variação B · o resumo como ele chega ═════════════════════════
+/* ═══ slide 22 · variação B · o resumo como ele chega ═════════════════════════
    A composição anterior redesenhava o resumo em HTML e ligava cada linha à sua
    procedência por fios. Ficou uma folha de anotações: muita marcação e pouca
    coisa acontecendo. O dono do projeto reprovou.
@@ -11,12 +11,15 @@
    O relógio é o único desenho e ele existe por um motivo: o resumo não é uma
    consulta, é um horário. O ponteiro anda até as sete quando o slide entra.
 
-   Print em sprints/sprint-3/prints/07-modal-briefing.png, 3200x2000, corte de
-   01/10/2025 às 07h. Os números que aparecem nele saem de data/app/painel.json.
+   A imagem é o recorte do modal em figs/10_morning_brief.png, tirado do print
+   sprints/sprint-3/prints/07-modal-briefing.png com uma margem que deixa ver o
+   painel desfocado atrás. O print inteiro, com a página escura em volta,
+   virava uma mancha ilegível deste tamanho. Corte de 01/10/2025 às 07h; os
+   números saem de data/app/painel.json.
    ══════════════════════════════════════════════════════════════════════════ */
 .brb .body{padding-top:14px}
 .brb .tt{font-size:52px;letter-spacing:-1.9px}
-.brb .cena{flex:1;display:flex;align-items:center;gap:44px;margin-top:16px;min-height:0}
+.brb .cena{flex:1;display:flex;align-items:stretch;gap:44px;margin-top:16px;min-height:0}
 
 .brb .lado{width:392px;flex-shrink:0}
 
@@ -42,11 +45,15 @@
 .brb .it span em{font-style:normal;color:var(--head);font-weight:700}
 
 /* a tela, em perspectiva */
-.brb .palco{flex:1;min-width:0;perspective:2000px;perspective-origin:70% 50%}
-.brb .tela{width:100%;border-radius:14px;overflow:hidden;border:1px solid #DCE4EF;
+/* o teto em px e não em %: max-height percentual só resolve contra altura
+   definida do pai, e aqui o pai é um item de flex esticado. Com 578px a
+   imagem de 1440x1276 cai em 652 de largura e sobra respiro dos dois lados. */
+.brb .palco{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;
+  perspective:2000px;perspective-origin:70% 50%}
+.brb .tela{border-radius:14px;overflow:hidden;border:1px solid #DCE4EF;
   box-shadow:0 50px 100px -44px rgba(15,23,42,.55);background:#fff;
   opacity:0;transform:rotateY(9deg) rotateX(3deg) translate3d(-46px,0,-110px)}
-.brb .tela img{display:block;width:100%}
+.brb .tela img{display:block;height:578px;width:auto;max-width:100%}
 .brb.is-active .tela{animation:chega 1.2s var(--out) 900ms forwards}
 @keyframes chega{to{opacity:1;transform:rotateY(3deg) rotateX(1deg) translate3d(0,0,0)}}
 
@@ -56,7 +63,7 @@
 .brb .fecho b{color:var(--head);font-weight:700}
 </style>
 
-<section class="slide light brb" data-slide="20" data-var="b" data-quem="hygor">
+<section class="slide light brb" data-slide="22" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -64,8 +71,8 @@
     <div class="tag">Tal como aparece no sistema</div>
   </div>
   <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Diferencial 1</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>O resumo da manhã</span></span></h1>
+    <span class="eb"><span class="rv" style="--d:240ms">O resumo que abre às sete</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Morning Brief</span></span></h1>
 
     <div class="cena">
       <div class="lado">
@@ -98,7 +105,7 @@
       </div>
 
       <div class="palco">
-        <div class="tela"><img src="../../../../sprints/sprint-3/prints/07-modal-briefing.png" alt="Modal do resumo da manhã no painel operacional do Cronos"></div>
+        <div class="tela"><img src="../figs/10_morning_brief.png" alt="Modal do resumo da manhã no painel operacional do Cronos"></div>
       </div>
     </div>
 

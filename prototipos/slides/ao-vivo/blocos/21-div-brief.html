@@ -1,0 +1,63 @@
+<!-- ───────────────────────────────────────────────────────────────────────────
+     slide 21 · divisória do Morning Brief
+     O dono do projeto pediu divisória para este bloco e o nome em inglês, que é
+     como o produto foi batizado desde a Sprint 1. Ela abre os dois diferenciais
+     prometidos: o brief das 07h e a nota de saúde por produto.
+
+     Mesmo desenho das outras divisórias, `.dv3` em _estilo.css. O painel traz
+     o que o brief carrega, com os números do corte de 01/10/2025 às 07h, de
+     data/app/painel.json: 84 registrados e 0 violações no dia anterior, quatro
+     dias úteis seguidos sem violação, e as faixas previstas para o dia.
+     ─────────────────────────────────────────────────────────────────────── -->
+<section class="slide dark dv3" data-slide="21" data-var="a" data-quem="hygor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Diferencial 1 de 2</div>
+  </div>
+  <div class="body">
+    <div class="lft">
+      <span class="eb"><span class="rv" style="--d:220ms">Diferencial 1 de 2</span></span>
+      <h1 class="tt">
+        <span class="mask" style="--d:340ms"><span>Morning</span></span>
+        <span class="mask" style="--d:450ms"><span class="hl">Brief</span></span>
+      </h1>
+      <p class="lead rv" style="--d:800ms">O resumo que abre sozinho às sete da manhã, com o fechamento de ontem e a previsão de hoje nas duas prioridades. Ninguém precisa perguntar.</p>
+      <div class="q rv" style="--d:1800ms">
+        <span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
+        <span>A pergunta desta seção: <b>o que a operação precisa saber antes de começar?</b></span>
+      </div>
+    </div>
+    <div class="pv rv3" style="--d:880ms">
+      <div class="pvh"><span class="dot"></span>01/10/2025 &middot; 07h00</div>
+      <div class="pvgrid">
+        <div class="pc rv" style="--d:1140ms">
+          <div class="pl">Ontem</div>
+          <div class="pn"><span class="ct" data-to="84" data-delay="1240">0</span></div>
+          <div class="ps">registrados, <b>nenhum</b> violou o prazo</div>
+        </div>
+        <div class="pc rv" style="--d:1260ms">
+          <div class="pl">Sem violação</div>
+          <div class="pn"><span class="ct" data-to="4" data-delay="1360">0</span><span class="u">dias úteis</span></div>
+          <div class="ps">seguidos, até o corte</div>
+        </div>
+        <div class="pc wide rv" style="--d:1400ms">
+          <div class="pl">Previsto para hoje</div>
+          <div class="cob">
+            <span>P2</span>
+            <div class="tr"><i style="width:38%;--d:1540ms"></i></div>
+            <b>9 a 22</b>
+          </div>
+          <div class="cob">
+            <span>P3</span>
+            <div class="tr"><i style="width:88%;--d:1640ms"></i></div>
+            <b>59 a 96</b>
+          </div>
+          <div class="ps" style="margin-top:12px">a faixa de 80% do Prophet, por prioridade, escrita em linguagem de operação</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>O segundo diferencial vem em seguida: a nota de saúde por produto, de 0 a 100</span></div>
+</section>

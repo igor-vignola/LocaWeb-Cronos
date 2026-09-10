@@ -1,13 +1,16 @@
 <style>
-/* ═══ slide 16 · variação B · a fila com o painel de leitura ══════════════════
+/* ═══ slide 17 · variação B · a fila com o painel de leitura ══════════════════
    A forma do deck da Sprint 3, que o dono do projeto marcou pedindo mais
    clareza: a curva à esquerda e, à direita, três cartões que dizem em números
    o que a curva mostra em traço. Quem não lê gráfico sai com o mesmo recado.
 
-   O painel tem três degraus, do mais direto ao mais completo:
+   O painel tem dois degraus:
      1. o número que se fala em voz alta: 13 quebras nas 50 primeiras posições
      2. a mesma fila em três ordenações, em barra, para comparar de relance
-     3. o ganho em cada tamanho de fila, para quem quiser a tabela
+
+   A tabela de ganho por tamanho de fila existia aqui e saiu: quatro linhas de
+   número ao lado de um gráfico que mostra a mesma coisa era peso sem leitura
+   nova. Os valores continuam em PERGUNTAS.md, para quem cobrar.
 
    Todos os números recomputados de data/interim/04_fila_pontuada.parquet,
    5.183 incidentes avaliados fora do período de treino, 50 quebras:
@@ -28,27 +31,28 @@
 .flb .quadro{flex:1;min-width:0;display:flex;align-items:center;padding:16px 20px}
 .flb .fig{display:block;width:100%}
 
-.flb .rail{width:390px;flex-shrink:0;display:flex;flex-direction:column;gap:16px}
+.flb .rail{width:372px;flex-shrink:0;display:flex;flex-direction:column;gap:20px;
+  justify-content:center}
 
 /* 1 · o número que se fala */
 .flb .topo{background:var(--ink);border-radius:18px;padding:24px 26px;color:#fff;
   box-shadow:0 30px 62px -38px rgba(10,14,23,.6)}
 .flb .topo .k{font-size:11px;font-weight:700;letter-spacing:2.1px;text-transform:uppercase;
   color:#8B96A8}
-.flb .topo .v{font-size:62px;font-weight:900;letter-spacing:-2.8px;line-height:.9;
+.flb .topo .v{font-size:70px;font-weight:900;letter-spacing:-2.8px;line-height:.9;
   margin-top:12px;font-variant-numeric:tabular-nums}
 .flb .topo .v em{font-style:normal;font-size:.36em;letter-spacing:-.6px;color:#8B96A8;
   margin-left:8px}
 
 /* 2 · a mesma fila em três ordenações */
-.flb .cx{flex:1;min-height:0;background:#fff;border:1px solid var(--line);border-radius:18px;
+.flb .cx{background:#fff;border:1px solid var(--line);border-radius:18px;
   padding:20px 24px;box-shadow:0 16px 40px -34px rgba(15,23,42,.45);
   display:flex;flex-direction:column;justify-content:center}
 .flb .cx .k{font-size:11px;font-weight:700;letter-spacing:2.1px;text-transform:uppercase;
   color:var(--tx2)}
-.flb .ord{display:grid;grid-template-columns:132px 1fr 26px;align-items:center;gap:11px;
-  margin-top:14px}
-.flb .ord + .ord{margin-top:11px}
+.flb .ord{display:grid;grid-template-columns:132px 1fr 30px;align-items:center;gap:12px;
+  margin-top:16px}
+.flb .ord + .ord{margin-top:13px}
 .flb .ord span{font-size:14.5px;color:var(--tx)}
 .flb .ord .tr{height:11px;border-radius:6px;background:#EDF1F7;overflow:hidden}
 .flb .ord .tr i{display:block;height:100%;border-radius:6px;transform:scaleX(0);
@@ -78,7 +82,7 @@
 .flb .fecho b{color:var(--head);font-weight:700}
 </style>
 
-<section class="slide light flb" data-slide="16" data-var="a" data-quem="ana">
+<section class="slide light flb" data-slide="17" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -119,22 +123,12 @@
           </div>
         </div>
 
-        <div class="cx rv3" style="--d:1160ms">
-          <div class="k">Ganho em cada tamanho de fila</div>
-          <table class="tab">
-            <tr><th>Percorrendo</th><th>Modelo</th><th>Melhor regra</th><th>Ganho</th></tr>
-            <tr><td>50 incidentes</td><td class="m">13</td><td>9</td><td class="g">+44%</td></tr>
-            <tr><td>100 incidentes</td><td class="m">16</td><td>11</td><td class="g">+45%</td></tr>
-            <tr><td>400 incidentes</td><td class="m">27</td><td>18</td><td class="g">+50%</td></tr>
-            <tr><td>1.000 incidentes</td><td class="m">38</td><td>32</td><td class="g">+19%</td></tr>
-          </table>
-        </div>
       </div>
     </div>
 
     <div class="fecho rv" style="--d:1700ms">
       <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
-      <span>A regra simples da tabela é sempre a <b>melhor</b> das quatro naquele ponto. A fila é uma só e cobre as duas prioridades; ordenar por prioridade, que é o método de hoje, não acha nenhuma nas 50 primeiras.</span>
+      <span>A fila é uma só e cobre as duas prioridades. <b>Ordenar por prioridade, que é o método de hoje, não acha nenhuma nas 50 primeiras.</b></span>
     </div>
   </div>
   <div class="ft"></div>

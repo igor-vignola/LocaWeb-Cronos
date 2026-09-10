@@ -1,5 +1,5 @@
 <style>
-/* ═══ slide 22 · como isso roda ══════════════════════════════════════════════
+/* ═══ slide 24 · como isso roda ══════════════════════════════════════════════
    A stack, e ela precisa fazer dois argumentos que a banca vai testar: tudo
    roda dentro de um contêiner só, sem serviço proprietário de nuvem; e a Claude
    API é uma lasca no topo, não o produto.
@@ -19,7 +19,7 @@
 .stk .body{padding-top:14px}
 .stk .tt{font-size:52px;letter-spacing:-1.9px}
 
-.stk .cena{flex:1;display:flex;align-items:center;justify-content:center;gap:64px;
+.stk .cena{flex:1;display:flex;align-items:center;justify-content:center;gap:132px;
   margin-top:8px;min-height:0}
 
 /* o contorno, que se desenha */
@@ -59,7 +59,7 @@
 
 /* os provedores, fora de tudo e sem ligação com o contorno */
 /* desce para não parecer que a marca da Claude é o cabeçalho desta coluna */
-.stk .nuvens{display:flex;flex-direction:column;gap:14px;width:280px;margin-top:120px}
+.stk .nuvens{display:flex;flex-direction:column;gap:14px;width:306px;margin-top:96px}
 .stk .nuvens .t{font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
   color:var(--tx2);margin-bottom:6px}
 .stk .nuvens b{font-size:30px;font-weight:800;letter-spacing:-1px;color:#B4BFCE;
@@ -67,6 +67,40 @@
 .stk .nuvens b.aqui{color:var(--head)}
 .stk .nuvens p{font-size:14.5px;line-height:1.45;color:var(--tx2);margin-top:8px;
   max-width:26ch}
+/* os artefatos: o contêiner não treina nada, só lê estes três arquivos */
+.stk .arte{margin-top:26px;padding-top:20px;border-top:1px solid #DCE4EF}
+.stk .arte .k{font-size:11.5px;font-weight:700;letter-spacing:1.9px;text-transform:uppercase;
+  color:var(--tx2)}
+.stk .arte i{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:14px;
+  font-family:var(--mono);font-size:13px;font-style:normal;color:var(--tx2);margin-top:10px;
+  opacity:0;transform:translate3d(-8px,0,0)}
+.stk .arte i b{color:var(--head);font-weight:500;font-size:13px;letter-spacing:0;
+  font-family:var(--mono)}
+.stk.is-active .arte i:nth-of-type(1){animation:rv .45s var(--out) 2000ms forwards}
+.stk.is-active .arte i:nth-of-type(2){animation:rv .45s var(--out) 2120ms forwards}
+.stk.is-active .arte i:nth-of-type(3){animation:rv .45s var(--out) 2240ms forwards}
+.stk .arte .tot{font-size:13.5px;line-height:1.45;color:var(--tx2);margin-top:14px;
+  max-width:26ch}
+/* o b de .nuvens tem 30px e vazava para dentro do bloco dos artefatos */
+.stk .arte .tot b{color:var(--head);font-weight:700;font-size:13.5px;
+  letter-spacing:0;line-height:inherit}
+
+/* a linha de comando, que se escreve sozinha: é o argumento do slide dito em
+   uma frase, e é o movimento que faltava depois das camadas assentarem */
+.stk .cmd{display:flex;align-items:center;gap:14px;margin-top:22px;padding:14px 20px;
+  border-radius:12px;background:var(--ink);width:max-content;max-width:100%;
+  box-shadow:0 22px 48px -32px rgba(10,14,23,.6);opacity:0}
+.stk.is-active .cmd{animation:rv .5s var(--out) 2500ms forwards}
+.stk .cmd .pr{font-family:var(--mono);font-size:15px;color:#4ADE80}
+.stk .cmd code{font-family:var(--mono);font-size:15px;color:#E8ECF3;white-space:nowrap;
+  overflow:hidden;display:inline-block;width:0}
+.stk.is-active .cmd code{animation:digita 1.3s steps(38,end) 2700ms forwards}
+@keyframes digita{to{width:38ch}}
+.stk .cmd .cur{width:9px;height:18px;background:#4ADE80;opacity:0}
+/* termina aceso: sem o forwards o cursor volta ao estado base, que e
+   opacity 0, e o verificador acusa elemento invisivel */
+.stk.is-active .cmd .cur{animation:pisca2 .9s step-end 2700ms 5 forwards}
+@keyframes pisca2{0%{opacity:1}50%{opacity:0}100%{opacity:1}}
 
 .stk .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;
   padding-top:20px;border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;
@@ -75,7 +109,7 @@
 .stk .fecho b{color:var(--head);font-weight:700}
 </style>
 
-<section class="slide light stk" data-slide="22" data-var="a" data-quem="hygor">
+<section class="slide light stk" data-slide="24" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -117,10 +151,21 @@
         <div class="t">Onde roda</div>
         <b class="aqui">Locaweb</b>
         <p>Feito para a infraestrutura da Locaweb, que é uma nuvem. Não amarramos a solução a serviço proprietário de terceiro: o que ela precisa é de Docker, e isso a casa já tem.</p>
+        <div class="arte">
+          <div class="k">O que o contêiner lê ao subir</div>
+          <i><span>painel.json</span><b>85 kB</b></i>
+          <i><span>dias.json</span><b>24 kB</b></i>
+          <i><span>fila.parquet</span><b>241 kB</b></i>
+          <p class="tot">350 kB de artefato gravado pelos notebooks. <b>Nenhum modelo treina aqui dentro.</b></p>
+        </div>
       </div>
     </div>
 
-    <div class="fecho rv" style="--d:2500ms">
+    <div class="cmd">
+      <span class="pr">$</span><code>docker run -p 8000:8000 cronos:1.0</code><span class="cur"></span>
+    </div>
+
+    <div class="fecho rv" style="--d:2900ms">
       <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
       <span><b>A Claude API não toca em número nenhum.</b> Ela recebe a saída dos modelos e escreve a frase de abertura do resumo; tudo o mais é calculado dentro do contêiner.</span>
     </div>

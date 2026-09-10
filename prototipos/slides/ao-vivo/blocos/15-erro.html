@@ -1,0 +1,93 @@
+<style>
+/* ═══ slide 15 · o erro do modelo por horizonte ═══════════════════════════════
+   O segundo slide da previsão de volume, que o dono do projeto pediu: um slide
+   só não dava conta, e o deck da Sprint 3 já tinha este pronto (d15n).
+
+   O anterior mostra a previsão de uma semana contra o que chegou. Este mostra
+   se o modelo vale a pena: o erro do Prophet contra o melhor baseline, em cada
+   horizonte de D+1 a D+7, no mesmo protocolo de reajuste.
+
+   A resposta é honesta e é por isso que o slide existe: na prioridade 2 o
+   Prophet ganha por 15%; na prioridade 3 o baseline fica 4,5% à frente. Dizer
+   isso antes que a banca pergunte vale mais do que esconder. E o achado que
+   sustenta o horizonte de sete dias está no pé: o erro não cresce do primeiro
+   ao sétimo dia.
+
+   Figura de prototipos/slides/mvp/deck/figs/08_comparacao_final_r5.png, gerada
+   pelo notebook de previsão da Sprint 3 e copiada para figs/09_erro_horizonte.
+   MAE médio no rolling backtest: Prophet 4,2 e melhor baseline 4,9 na P2;
+   Prophet 11,8 e melhor baseline 11,3 na P3.
+   ══════════════════════════════════════════════════════════════════════════ */
+.err .body{padding-top:14px}
+.err .tt{font-size:50px;letter-spacing:-1.8px}
+.err .cena{flex:1;display:flex;align-items:center;gap:34px;margin-top:16px;min-height:0}
+.err .quadro{flex:1;min-width:0;padding:16px 20px}
+.err .fig{display:block;width:100%}
+
+.err .rail{width:352px;flex-shrink:0;display:flex;flex-direction:column;gap:16px}
+.err .cx{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 24px;
+  box-shadow:0 18px 44px -36px rgba(15,23,42,.5)}
+.err .cx .k{font-size:11.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--tx2)}
+.err .cx .par{display:flex;align-items:flex-end;gap:26px;margin-top:14px}
+.err .cx .par div{flex:1}
+.err .cx .par b{display:block;font-size:34px;font-weight:900;letter-spacing:-1.4px;
+  line-height:.94;font-variant-numeric:tabular-nums}
+.err .cx .par span{display:block;font-size:13px;color:var(--tx2);margin-top:7px}
+.err .cx .mo b{color:var(--accent)}
+.err .cx .bl b{color:#9AA6B6}
+.err .cx .vd{margin-top:16px;padding-top:14px;border-top:1px solid #EDF1F7;font-size:14.5px;
+  font-weight:700}
+.err .cx.ganha .vd{color:var(--good)}
+.err .cx.perde .vd{color:var(--warn)}
+
+.err .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:18px;
+  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx)}
+.err .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.err .fecho b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light err" data-slide="15" data-var="a" data-quem="ana">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div><span class="bt">BANCA FINAL &middot; 15/09/2026</span>
+    <div class="tag">Backtest deslizante &middot; D+1 a D+7</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Prophet contra os baselines</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>O modelo vale a pena?</span></span></h1>
+
+    <div class="cena">
+      <div class="quadro cartao rv3" style="--d:620ms">
+        <img class="fig" src="../figs/09_erro_horizonte.png" alt="Erro medio do Prophet comparado com os baselines em cada horizonte, de D+1 a D+7, nas duas prioridades">
+      </div>
+
+      <div class="rail">
+        <div class="cx ganha rv3" style="--d:880ms">
+          <div class="k">Prioridade 2 &middot; erro médio por dia</div>
+          <div class="par">
+            <div class="mo"><b><span class="ct" data-to="4.2" data-dec="1" data-delay="1040">0,0</span></b><span>Prophet</span></div>
+            <div class="bl"><b>4,9</b><span>melhor baseline</span></div>
+          </div>
+          <p class="vd">O modelo ganha por 15%</p>
+        </div>
+
+        <div class="cx perde rv3" style="--d:1040ms">
+          <div class="k">Prioridade 3 &middot; erro médio por dia</div>
+          <div class="par">
+            <div class="mo"><b><span class="ct" data-to="11.8" data-dec="1" data-delay="1200">0,0</span></b><span>Prophet</span></div>
+            <div class="bl"><b>11,3</b><span>melhor baseline</span></div>
+          </div>
+          <p class="vd">O baseline fica 4,5% à frente</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:1500ms">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v4.8"/><path d="M12 16.2h.01"/></svg>
+      <span><b>O erro não cresce do primeiro ao sétimo dia</b>, e é isso que sustenta prever a semana inteira. Onde o baseline empata, ele entra como piso de comparação, não como substituto.</span>
+    </div>
+  </div>
+  <div class="ft"></div>
+</section>

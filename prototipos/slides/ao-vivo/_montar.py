@@ -205,11 +205,22 @@ RODAPE = """
   var escolha={};                             /* variação escolhida por slide */
   ordem.forEach(function(n){ escolha[n]=0; });
 
+  /* a escala sai da caixa que de fato existe, não de window.innerHeight: ao
+     abrir o arquivo direto no navegador a barra de favoritos e a de abas ainda
+     não tinham entrado na conta e o slide saía cortado embaixo até entrar em
+     tela cheia. O ResizeObserver cobre todo o resto: zoom, devtools, F11. */
+  var caixa=document.getElementById("fit");
   function fit(){
-    stage.style.transform="scale("+Math.min(window.innerWidth/1600,
-      window.innerHeight/900)+")";
+    var r=caixa.getBoundingClientRect();
+    if(!r.width||!r.height) return;
+    stage.style.transform="scale("+Math.min(r.width/1600,r.height/900)+")";
   }
-  window.addEventListener("resize",fit); fit();
+  if(window.ResizeObserver) new ResizeObserver(fit).observe(caixa);
+  window.addEventListener("resize",fit);
+  window.addEventListener("load",fit);
+  window.addEventListener("orientationchange",fit);
+  document.addEventListener("fullscreenchange",fit);
+  fit();
 
   /* pt-BR: ponto como separador de milhar, senão 21561 aparece cru na tela */
   function fmt(n){ return n.toLocaleString("pt-BR"); }
@@ -244,13 +255,17 @@ RODAPE = """
        pílula azul com as bolinhas quando tem, cinza apagado quando é único. */
     var h="slide "+n+" de "+ordem[ordem.length-1];
     if(qtd>1){
-      h+=' <b class="vr">variação '+letra+' de '+qtd+'</b><span class="vp">';
+      h+=' <b class="vr"><u>&uarr;&darr;</u>'+qtd+' versões &middot; vendo a '+letra
+        +'</b><span class="vp">';
       for(var k=0;k<qtd;k++) h+="<i"+(k===escolha[n]?' class="on"':"")+"></i>";
       h+="</span>";
     } else {
-      h+=' <span class="vu">variação única</span>';
+      h+=' <span class="vu">versão única</span>';
     }
     pos.innerHTML=h;
+    /* a pílula pisca uma vez ao chegar num slide que tem outra versão */
+    if(qtd>1){ pos.classList.remove("bate"); void pos.offsetWidth;
+      pos.classList.add("bate"); }
   }
   function replay(){
     var a=atual();

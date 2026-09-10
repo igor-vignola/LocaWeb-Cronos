@@ -101,7 +101,19 @@ def main() -> int:
     d["dia"] = pd.to_datetime(d["dia"])
     d = d[(d.tipo == "previsto") & (d.dia >= INICIO) & (d.dia <= FIM)]
 
-    fig, eixos = plt.subplots(1, 2, figsize=(13.0, 5.0))
+    # duas proporcoes do mesmo desenho: a quadrada, que divide o slide com o
+    # texto ao lado, e a larga, para a composicao em que a figura ocupa a
+    # largura inteira e o texto vira uma linha embaixo.
+    for nome, tamanho, espaco in (("08_previsao_7dias", (13.0, 5.0), 0.22),
+                                  ("08_previsao_7dias_largo", (16.4, 4.4), 0.16)):
+        total = desenha(d, nome, tamanho, espaco)
+    return relatorio(d, total)
+
+
+def desenha(d, nome, tamanho, espaco) -> int:
+    from PIL import Image
+
+    fig, eixos = plt.subplots(1, 2, figsize=tamanho)
     total = 0
     for ax, (pri, topo) in zip(eixos, (("P2", 28), ("P3", 110))):
         s = d[d.prioridade == pri].sort_values("dia").reset_index(drop=True)
@@ -117,14 +129,18 @@ def main() -> int:
     ]
     fig.legend(handles=alcas, loc="lower center", ncol=4,
                bbox_to_anchor=(0.5, -0.1), columnspacing=2.2)
-    fig.subplots_adjust(wspace=0.22)
+    fig.subplots_adjust(wspace=espaco)
 
-    destino = FIGS / "08_previsao_7dias.png"
+    destino = FIGS / f"{nome}.png"
     fig.savefig(destino, dpi=200, bbox_inches="tight", facecolor="white")
     plt.close(fig)
 
     w, h = Image.open(destino).size
-    print(f"  {destino.name:26s} {w}x{h}px")
+    print(f"  {destino.name:30s} {w}x{h}px")
+    return total
+
+
+def relatorio(d, total) -> int:
     print(f"\n{total} de {len(d)} dias caíram dentro da faixa")
     fora = d[(d.real < d.baixo) | (d.real > d.alto)]
     for _, r in fora.iterrows():

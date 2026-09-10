@@ -10,10 +10,12 @@
 
    Herda todo o resto de `.sin`, no bloco 10-sinais.html. Nenhum número muda.
    ══════════════════════════════════════════════════════════════════════════ */
-.sn-c .cena{gap:30px;align-items:stretch}
-.sn-c .bl{padding:34px 38px;background:#fff;border:1px solid var(--line);
+/* altura do conteúdo, não da linha: esticados, os cartões abriam um quarto
+   de vão morto embaixo e o bloco parecia cortado */
+.sn-c .cena{gap:30px;align-items:center}
+.sn-c .bl{padding:38px 40px;background:#fff;border:1px solid var(--line);
   border-radius:24px;box-shadow:0 34px 74px -46px rgba(15,23,42,.55);will-change:transform}
-.sn-c .bl:first-child,.sn-c .bl:last-child{padding:34px 38px}
+.sn-c .bl:first-child,.sn-c .bl:last-child{padding:38px 40px}
 .sn-c .bl + .bl{border-left:1px solid var(--line)}
 .sn-c .bl.flut{opacity:0;transform:perspective(1600px) rotateX(8deg) translate3d(0,26px,0)}
 .sn-c.is-active .bl.flut:nth-of-type(1){animation:rv3 .8s var(--out) 620ms forwards,
@@ -26,8 +28,8 @@
   .sn-c.is-active .bl.flut:nth-of-type(2){animation:rv3 .8s var(--out) 620ms forwards}
 }
 /* dentro do cartão o conteúdo aperta um pouco: os 46px da A abriam demais */
-.sn-c .lin{margin-top:34px}
-.sn-c .mult{margin-top:34px}
+.sn-c .lin{margin-top:32px}
+.sn-c .mult{margin-top:32px}
 </style>
 
 <section class="slide light sin sn-c" data-slide="10" data-var="c" data-quem="ana">
