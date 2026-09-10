@@ -95,6 +95,8 @@ body.aberta .gav{width:432px;border-left-color:var(--ln)}
       <button data-a="previsao" aria-pressed="false">Previsão</button>
       <button data-a="projecao" aria-pressed="false">Projeção</button>
       <button data-a="fila"     aria-pressed="false">Fila</button>
+      <button data-a="saude"    aria-pressed="false">Saúde</button>
+      <button data-a="causas"   aria-pressed="false">Causas</button>
     </span>
   </span>
 
@@ -123,10 +125,13 @@ const FONTE = {
   panorama: {atual:'../../../app/index.html',          enxuta:'panorama-enxuta.html', livre:'panorama-livre.html'},
   previsao: {atual:'../../../app/previsao/index.html', enxuta:'previsao-enxuta.html'},
   projecao: {atual:'../../../app/projecao/index.html', enxuta:'projecao-enxuta.html', livre:'projecao-livre.html'},
-  fila:     {atual:'../../../app/fila/index.html',     enxuta:'fila-enxuta.html',     livre:'fila-livre.html'}
+  fila:     {atual:'../../../app/fila/index.html',     enxuta:'fila-enxuta.html',     livre:'fila-livre.html'},
+  saude:    {atual:'../../../app/saude/index.html',    enxuta:'saude-enxuta.html',    livre:'saude-livre.html'},
+  causas:   {atual:'../../../app/causas/index.html',   enxuta:'causas-enxuta.html',   livre:'causas-livre.html'}
 };
 
-const NOME = {panorama:'Panorama', previsao:'Previsão', projecao:'Projeção', fila:'Fila'};
+const NOME = {panorama:'Panorama', previsao:'Previsão', projecao:'Projeção', fila:'Fila',
+              saude:'Saúde', causas:'Causas'};
 
 // o que ele escolheu, em 10/09/2026
 const ESCOLHA = {panorama:'livre', previsao:'enxuta', projecao:'enxuta', fila:'enxuta'};
@@ -135,7 +140,9 @@ const MEDIDA = {
   panorama: {atual:[477,11,1743], enxuta:[329,4,1615], livre:[270,3,1561]},
   previsao: {atual:[372,11,1614], enxuta:[213,3,1415]},
   projecao: {atual:[228, 4, 950], enxuta:[185,3, 950], livre:[159,3, 950]},
-  fila:     {atual:[1182,3,3840], enxuta:[893,1,3776], livre:[333,2,1534]}
+  fila:     {atual:[1182,3,3840], enxuta:[893,1,3776], livre:[333,2,1534]},
+  saude:    {atual:[560,10,1646], enxuta:[448,4,1441], livre:[356,3,1441]},
+  causas:   {atual:[546,10,2151], enxuta:[420,7,2046], livre:[341,7,1850]}
 };
 
 const CORTES = {
@@ -195,6 +202,31 @@ const CORTES = {
     livre: [
       ['A','Os dois cartões de maior risco saíram','Eram as linhas 1 e 13 da tabela, abertas em tamanho grande, com o mesmo 8,1% escrito três vezes em cada um. A tabela já começa pelo maior risco.'],
       ['B','Os 34 casos de rotina se recolhem','De 49 casos, 34 estão entre 0,0% e 1,0% de risco — uma violação a cada mil — e ocupavam duas telas e meia dizendo que não há o que fazer. Ficam atrás de uma linha que abre, e o filtro <q>Rotina</q> continua no topo. A tela passou de <b>4,0</b> para <b>1,6</b> telas.']
+    ]
+  },
+  saude: {
+    enxuta: [
+      ['1','<q>Nota de 0 a 100, relativa ao conjunto: 100 é o melhor dos 15 em todos os cinco componentes, e não ausência de problemas.</q>','Vinte e três palavras explicando a escala antes de mostrar um número.'],
+      ['2','<q>Do melhor ao pior. Selecione um produto para ver o peso de cada componente na nota.</q>','A ordem está nos próprios números, e o clique se descobre.'],
+      ['3','<q>P2 e P3 somados na nota · Colunas separadas ao lado</q>','Nota de rodapé sobre duas colunas que já se chamam P3 e P2.'],
+      ['4','<q>Com a equipe que atende</q>, sob o cabeçalho PRODUTO','A segunda linha de cada célula já mostra a equipe e a fatia dela.'],
+      ['5','O glossário das quatro situações','Quarenta e sete palavras no pé da tela definindo <q>Estável</q>, <q>Recorrente</q>, <q>Risco latente</q> e <q>Já materializado</q>. As etiquetas ficam; a definição é o que se fala.']
+    ],
+    livre: [
+      ['A','As duas colunas de volume por prioridade saíram','<q>241 · 3 violaram</q> e <q>190 · 0 violaram</q> são contexto da base, não da nota: a nota é posição relativa em cinco componentes e o volume não entra nela. Eram 60 números que ninguém compara linha a linha, e o painel do produto traz os dois ao abrir a linha.'],
+      ['B','O que <b>não</b> saiu, de propósito','<q>451,3h · o pior dos 15 · Encerramento automático infla a mediana</q>, na linha do lcsi. É a única frase da tela que impede uma leitura errada de um número real. Se quiser, some também.']
+    ]
+  },
+  causas: {
+    enxuta: [
+      ['1','<q>Duas decisões de mês: onde melhorar o diagnóstico, e quais problemas vale automatizar.</q>','É o índice dos dois blocos que vêm logo abaixo.'],
+      ['2','<q>Ordenados pela taxa, e não pelo volume: é assim que aparece a categoria pequena que viola muito. Campo preenchido no encerramento — não prevê o caso de hoje.</q>','Vinte e sete palavras de método.'],
+      ['3','<q>Descrição normalizada: códigos de ativo e números substituídos por marcador, para reunir o mesmo problema em ativos diferentes.</q>','Dezoito palavras de método no segundo bloco.'],
+      ['4','A coluna <q>8,8× a média</q>, ao lado de cada taxa','É a própria taxa dividida por 0,94%. Dezesseis linhas com o mesmo número escrito duas vezes.'],
+      ['5','Três frases de fecho apertadas','<q>Sendo 8,0% do volume — ou seja, 2,9× a taxa média da base</q> virou <q>8,0% do volume, com 2,9× a taxa média da base</q>; e as duas conclusões perderam o rodeio antes delas, mas continuam inteiras.']
+    ],
+    livre: [
+      ['A','P3 e P2 viraram uma coluna só','Cada uma trazia a taxa e o número de casos, em duas linhas por célula: 64 números na tabela. As duas taxas continuam lado a lado, com o mesmo peso — <q>4,35% · 9,68%</q> — e a tabela perdeu uma coluna inteira de largura.']
     ]
   }
 };

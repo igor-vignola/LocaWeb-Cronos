@@ -10,6 +10,8 @@ abra a gaveta da direita para ver o que saiu e por quê. Teclas `1` `2` `3`
 trocam a versão e `←` `→` trocam a aba, enquanto o foco não estiver dentro da
 tela.
 
+As seis abas estão revisadas.
+
 ## As três versões
 
 | versão | o que é |
@@ -18,7 +20,7 @@ tela.
 | **Enxuta** | só cortes e fusões. Nenhum dado novo e nenhum componente novo: vira Django trocando marcação. |
 | **Livre** | a tela repensada em torno da pergunta que ela responde. Muda a ordem dos blocos, funde seções e aposenta o que é interno do modelo. |
 
-O seletor marca com **✓** a versão que ele escolheu em cada aba:
+O seletor marca com **✓** a versão escolhida:
 
 | aba | escolhida |
 |---|---|
@@ -26,6 +28,8 @@ O seletor marca com **✓** a versão que ele escolheu em cada aba:
 | Previsão | enxuta *(a livre foi dispensada)* |
 | Projeção | enxuta |
 | Fila | enxuta |
+| Saúde | a decidir |
+| Causas | a decidir |
 
 ## A regra de corte
 
@@ -51,11 +55,17 @@ que é dado, rótulo e unidade.
 | Fila | atual | 1182 | 3 | 3840px · 4,0 telas |
 | | **enxuta** | **893** | **1** | **3776px** |
 | | livre | 333 | 2 | 1534px · 1,6 telas |
+| Saúde | atual | 560 | 10 | 1646px · 1,7 telas |
+| | enxuta | 448 | 4 | 1441px |
+| | livre | 356 | 3 | 1441px |
+| Causas | atual | 546 | 10 | 2151px · 2,3 telas |
+| | enxuta | 420 | 7 | 2046px |
+| | livre | 341 | 7 | 1850px · 1,9 telas |
 
-As frases que sobraram são todas leitura de dado, não método: *"No ritmo atual
-o dia fecha em 58, abaixo do intervalo previsto de 59 a 96"*, *"Projeção entre
-191 e 225, com 208 no centro"*, *"Intervalo de 59 a 96 · 40 registrados até as
-15h"*.
+As frases que sobraram são todas leitura de dado ou conclusão, não método:
+*"No ritmo atual o dia fecha em 58, abaixo do intervalo previsto de 59 a 96"*,
+*"8,0% do volume, com 2,9× a taxa média da base"*, *"Volume alto e risco
+abaixo da média: é o perfil de quem se automatiza"*.
 
 ## Os cortes de estrutura, por aba
 
@@ -69,18 +79,36 @@ sai, porque os três estão desenhados na régua logo abaixo; a decomposição s
 para o topo e fecha a conta: *145 + 5,3 de risco na fila + 57,7 do volume que
 ainda entra = 208 projetadas até dezembro*.
 
-**Fila enxuta** — além dos cortes de texto, a linha da tabela parou de repetir
-o que o painel do incidente mostra ao clicar: saiu a coluna **Ativo** inteira
-(em 34 das 49 linhas ela dizia "0 em N passagens", ou seja, o ativo nunca
-violou) e o fator dominante virou uma linha em vez de duas. Os dois cartões
-do topo perderam a régua rotulada — "Média da base 0,94%" já está dito acima e
-"Limite de alerta 10%" é a ponta da barra — e ganharam respiro entre si.
-De 1.182 para 893 palavras.
+**Fila enxuta** — a linha da tabela parou de repetir o que o painel do
+incidente mostra ao clicar: saiu a coluna **Ativo** inteira (em 34 das 49
+linhas ela dizia "0 em N passagens", ou seja, o ativo nunca violou) e o fator
+dominante virou uma linha em vez de duas. Os dois cartões do topo perderam a
+régua rotulada e ganharam respiro entre si.
 
 **Fila livre** — sobre a enxuta: os dois cartões de maior risco saem (eram as
-linhas 1 e 13 da tabela, em corpo grande); os 34 casos da faixa de rotina,
-entre 0,0% e 1,0% de risco, recolhem-se atrás de uma linha que abre. A tela
-cai de 4,0 para 1,6 telas e continua com os 15 casos que pedem decisão.
+linhas 1 e 13 da tabela, em corpo grande); os 34 casos da faixa de rotina se
+recolhem atrás de uma linha que abre. De 4,0 para 1,6 telas.
+
+**Saúde enxuta** — sai o glossário das quatro situações, 47 palavras no pé da
+tela definindo *Estável*, *Recorrente*, *Risco latente* e *Já materializado*.
+As etiquetas ficam.
+
+**Saúde livre** — saem as duas colunas de volume por prioridade. "241 · 3
+violaram" e "190 · 0 violaram" são contexto da base, não da nota: a nota é
+posição relativa em cinco componentes e o volume não entra nela. Eram 60
+números que ninguém compara linha a linha.
+
+**Causas livre** — P3 e P2 viram uma coluna só. Cada uma trazia a taxa e o
+número de casos em duas linhas por célula, 64 números na tabela. As duas taxas
+continuam lado a lado, com o mesmo peso — *4,35% · 9,68%* — e a tabela perdeu
+uma coluna inteira de largura.
+
+## Uma coisa que deixei de propósito
+
+Na Saúde, a linha do `lcsi` diz *"451,3h · o pior dos 15 · Encerramento
+automático infla a mediana"*. É explicação, e pela regra sairia — mas é a
+única frase da tela que impede uma leitura errada de um número real. Está
+anotada na gaveta; se quiser, some.
 
 ## Os arquivos
 
@@ -88,11 +116,15 @@ cai de 4,0 para 1,6 telas e continua com os 15 casos que pedem decisão.
 index.html            a casca da comparação
 panorama-enxuta.html  ┐
 panorama-livre.html   │
-previsao-enxuta.html  │ geradas por _construir.py a partir de app/,
-projecao-enxuta.html  │ por cirurgia no DOM — herdam a folha real
-projecao-livre.html   │
+previsao-enxuta.html  │
+projecao-enxuta.html  │ geradas por _construir.py a partir de app/,
+projecao-livre.html   │ por cirurgia no DOM — herdam a folha real
 fila-enxuta.html      │
-fila-livre.html       ┘
+fila-livre.html       │
+saude-enxuta.html     │
+saude-livre.html      │
+causas-enxuta.html    │
+causas-livre.html     ┘
 revisao.css           só o que as propostas precisam além da folha da aplicação
 _construir.py         o transformador, com o motivo de cada corte comentado
 _png/                 as capturas de cada versão, inteiras e na dobra
@@ -104,7 +136,7 @@ Para regerar depois de mexer em `app/`:
 .venv/Scripts/python.exe prototipos/telas/revisao/_construir.py
 ```
 
-## Três coisas que valem saber
+## Duas coisas que valem saber
 
 **O resumo das 07h** abre uma vez por sessão e é parte da aba Panorama.
 Feche-o uma vez e ele não volta enquanto você compara; o sino no topo direito
@@ -114,6 +146,3 @@ da aplicação traz de volta.
 campo: o que elas fazem é tirar, fundir e reordenar o que a aplicação já
 publica. A `enxuta` cabe no template atual; a `livre` muda estrutura, mas
 continua sem depender de dado que não exista.
-
-**Faltam Saúde e Causas.** As quatro primeiras abas estão revisadas; as duas
-últimas seguem o mesmo tratamento quando ele mandar.

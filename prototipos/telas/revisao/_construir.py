@@ -485,9 +485,145 @@ def fila_livre() -> None:
     salva(s, "fila-livre.html")
 
 
+# ═══ SAÚDE ═════════════════════════════════════════════════════════════════
+def _saude_base() -> BeautifulSoup:
+    s = carrega("saude/index.html"); reancora(s, "saude/index.html")
+
+    # "Nota de 0 a 100, relativa ao conjunto: 100 é o melhor dos 15 em todos os
+    # cinco componentes, e não ausência de problemas." Vinte e três palavras
+    # explicando a escala antes de mostrar um número.
+    limpa(s, ".sa-h p")
+
+    # "Do melhor ao pior. Selecione um produto para ver o peso de cada
+    # componente na nota." A ordem está nos números e o clique se descobre.
+    limpa(s, ".sa-tb-h p")
+
+    # "P2 e P3 somados na nota · Colunas separadas ao lado" é nota de rodapé
+    # sobre duas colunas que já se chamam P3 e P2.
+    limpa(s, ".sa-tb-e")
+
+    # "Com a equipe que atende", sob o cabeçalho PRODUTO: a segunda linha de
+    # cada célula já mostra a equipe e a fatia dela.
+    for c in s.select(".sa-t-h em, thead em, th em"):
+        if "equipe que atende" in c.get_text():
+            c.decompose()
+
+    # o glossário das quatro situações, com 47 palavras no pé da tela. As
+    # etiquetas ficam; a definição de cada uma é o que se fala.
+    limpa(s, ".sa-lg")
+    return s
+
+
+def saude_enxuta() -> None:
+    s = _saude_base()
+    folha(s, livre=False)
+    salva(s, "saude-enxuta.html")
+
+
+def saude_livre() -> None:
+    """Sete colunas para responder \"que produto está pior\"."""
+    s = _saude_base()
+
+    # as duas colunas de volume por prioridade — "241 / 3 violaram" e
+    # "190 / 0 violaram" — são contexto da base, não da nota: a nota é
+    # posição relativa em cinco componentes, e o volume não entra nela. São
+    # 60 números que ninguém compara linha a linha, e o painel do produto
+    # traz os dois quando se abre a linha.
+    for cab in s.select(".sa-tb thead tr"):
+        cols = cab.find_all(["th", "td"], recursive=False)
+        for c in cols[-2:]:
+            c.decompose()
+    for l in s.select(".sa-tb tbody tr"):
+        for c in l.select("td.sa-t-n"):
+            c.decompose()
+
+    folha(s, livre=True)
+    salva(s, "saude-livre.html")
+
+
+# ═══ CAUSAS ════════════════════════════════════════════════════════════════
+def _causas_base() -> BeautifulSoup:
+    s = carrega("causas/index.html"); reancora(s, "causas/index.html")
+
+    # "Duas decisões de mês: onde melhorar o diagnóstico, e quais problemas
+    # vale automatizar." É o índice dos dois blocos que vêm logo abaixo.
+    limpa(s, ".ca-h p")
+
+    # "Ordenados pela taxa, e não pelo volume..." e "Descrição normalizada:
+    # códigos de ativo e números substituídos por marcador...". Vinte e sete
+    # e dezoito palavras de método, uma em cada bloco.
+    limpa(s, ".ca-c-h p")
+
+    # "8,8× a média" ao lado de cada taxa: é a própria taxa dividida por
+    # 0,94%. Dezesseis linhas com o mesmo número escrito duas vezes.
+    limpa(s, ".ca-t .ca-t-b u")
+
+    # três frases de fecho que misturavam o dado com o comentário sobre ele.
+    # O número fica, a conclusão fica, e o rodeio no meio sai.
+    APERTOS = [
+        ("Sendo 8,0% do volume — ou seja, 2,9× a taxa média da base.",
+         "8,0% do volume, com 2,9× a taxa média da base."),
+        ("Pode ser causa difícil ou caso que se estendeu sem achar a raiz — o dado "
+         "não separa as duas.",
+         "O dado não separa causa difícil de caso arrastado. "),
+        ("Volume alto, risco abaixo da média e resposta padronizada.",
+         "Volume alto e risco abaixo da média: "),
+        ("É o perfil que se procura ao escolher o que automatizar.",
+         "é o perfil de quem se automatiza."),
+        ("Ambas pedem melhorar o diagnóstico.", "Os dois pedem melhorar o diagnóstico."),
+    ]
+    for n in s.find_all(string=True):
+        bruto = " ".join(str(n).split())
+        for a, b in APERTOS:
+            if a in bruto:
+                n.replace_with(str(n).replace(a, b) if a in str(n) else bruto.replace(a, b))
+                break
+    return s
+
+
+def causas_enxuta() -> None:
+    s = _causas_base()
+    folha(s, livre=False)
+    salva(s, "causas-enxuta.html")
+
+
+def causas_livre() -> None:
+    """As duas prioridades ocupavam quatro colunas para dizer duas taxas."""
+    s = _causas_base()
+
+    # P3 e P2 traziam, cada um, a taxa e o número de casos, em duas linhas
+    # por célula: 64 números na tabela inteira. As duas taxas continuam lado
+    # a lado, com o mesmo peso, numa coluna só — o que a regra 10 pede é que
+    # nenhuma prioridade apareça sozinha, e nenhuma aparece.
+    for tr in s.select(".ca-t tr"):
+        cels = tr.find_all(["th", "td"], recursive=False)
+        if len(cels) < 2:
+            continue
+        p3, p2 = cels[-2], cels[-1]
+        if tr.find("th"):
+            p3.string = "P3 · P2"
+            p2.decompose()
+            continue
+        def taxa(c):
+            b = c.find(["b", "strong"])
+            if b:
+                return b.get_text(strip=True)
+            return (c.get_text(" ", strip=True).split("\n")[0].split(" ")[0]) or "—"
+        nova = BeautifulSoup(
+            f'<td class="ca-t-pri"><b>{taxa(p3)}</b><i>·</i><b>{taxa(p2)}</b></td>',
+            "html.parser")
+        p3.replace_with(nova)
+        p2.decompose()
+
+    folha(s, livre=True)
+    salva(s, "causas-livre.html")
+
+
 if __name__ == "__main__":
     print("gerando as versões:")
     panorama_enxuta(); panorama_livre()
     projecao_enxuta(); projecao_livre()
     fila_enxuta(); fila_livre()
+    saude_enxuta(); saude_livre()
+    causas_enxuta(); causas_livre()
     previsao_enxuta()

@@ -84,3 +84,9 @@
 .fl-l-m b{font-weight:600;color:var(--tt,#0C1017);white-space:nowrap;overflow:hidden;
   text-overflow:ellipsis}
 .fl-l-m em{font-style:normal;font-size:12.5px;color:var(--tx2,#6B7688);flex-shrink:0}
+
+/* ── Causas ─────────────────────────────────────────────────────────────── */
+/* as duas prioridades numa coluna só, com o mesmo peso e um ponto entre elas */
+.ca-t-pri{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ca-t-pri b{font-weight:600}
+.ca-t-pri i{font-style:normal;margin:0 8px;color:var(--tx3,#9AA4B2)}
