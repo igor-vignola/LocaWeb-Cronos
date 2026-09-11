@@ -92,7 +92,10 @@ incidentes porque novembro e dezembro tiveram menos quebras que a média do ano.
 
 **"O 263 do P3 é a meta? Porque a operação fechou em 196 e vocês chamam de
 'dentro'. Dentro de quê?"**
-O KPI não é um teto único, é uma **escada de faixas** da Locaweb, e o 263 é o
+Duas coisas, e a primeira é a que confunde. **A meta é invertida**: não é um
+número para alcançar, é um teto para não passar — quanto menos quebra, maior a
+nota do ano. E o KPI não é um teto único, é uma **escada de faixas** da
+Locaweb, com o 263 sendo o
 teto do degrau de 100%. No P3: até 200 violações o ano fecha em 150%, de 201 a
 230 em 125%, de 231 a 263 em 100%, de 264 a 290 em 75%, de 291 a 320 em 50%, e
 acima disso zero. No P2 a escada é 30, 35, **39**, 45, 53. Em 2025 o P2 fechou
