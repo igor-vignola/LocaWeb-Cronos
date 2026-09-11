@@ -16,8 +16,8 @@ propriedade da previsão, e o que já aconteceu não tem intervalo.
     <span class="esc {{ pri|lower }}">{{ pri }}</span>
     <div>
       <b>{{ ac.previsto|num:1 }}</b> previstos hoje
-      <em>Intervalo de {{ hb|num:0 }} a {{ ha|num:0 }} · {{ ac.ate_agora }} registrados até
-        as {{ ac.hora_agora }}h</em>
+      {% comment %}A linha do intervalo saiu: ela é palavra por palavra o que a faixa
+      escura diz no topo da aba.{% endcomment %}
     </div>
   </div>
 

@@ -1222,6 +1222,21 @@ a.pn-bh-c:active { transform: scale(.98); }
 .en-bl-t p b { font-weight: 700; color: var(--tx); font-variant-numeric: tabular-nums; }
 .en-bl-h .pn-lk { margin-left: 0; flex-shrink: 0; }
 
+/* ── a fita, no lugar de um cabecalho de secao ──────────────────────────────
+   O bloco do dia perdeu o cabecalho em 10/09/2026: a faixa escura logo acima ja anuncia "quanto
+   entra hoje", com o numero previsto nas duas prioridades, e o grafico e a mesma pergunta hora a
+   hora. Titulo, icone e linha de metodo eram uma terceira camada entre as duas. Sobra a legenda
+   e o link, alinhados a direita, na altura da primeira placa. */
+.en-fita {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 22px;
+  margin: 0 4px 11px;
+  flex-wrap: wrap;
+}
+.en-fita .leg { margin-left: 0; }
+
 /* ── o dia hora a hora ────────────────────────────────────────────────────
    Vidro mais fechado que o resto: o campo de linhas do fundo atravessa a placa e passa por
    dentro das barras. Nos cartoes de texto isso e profundidade; atras de um grafico e ruido em
@@ -1466,12 +1481,34 @@ a.pn-bh-c:active { transform: scale(.98); }
   color: var(--tx3);
   font-variant-numeric: tabular-nums;
 }
+/* ── a projecao contra o teto da faixa ──────────────────────────────────────
+   Uma linha, dois numeros: onde dezembro fecha e ate onde vale 100%. Substituiu em 10/09/2026 o
+   par de porcentagens de atingimento ("Hoje 150% -> Projecao de dezembro 125%"), que obrigava a
+   traduzir duas vezes para chegar na unica pergunta do bloco. Atingimento e a linguagem da aba
+   Projecao, onde a escada esta desenhada e cada degrau tem nome.
+   Ambar so quando a projecao passa do teto — e a unica leitura que muda a conduta. */
+.en-meta-l {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin: 14px 0 4px;
+  font-size: 14.5px;
+  color: var(--tx2);
+}
+.en-meta-l b {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--hd);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.en-meta-l .fora b { color: var(--wn); }
+
 /* ── de onde está para onde vai ─────────────────────────────────────────────
-   Substituiu uma frase com cinco números e três faixas dentro: "Hoje o ano está em 150%, na
-   faixa de 0 a 200. A projeção fecha em 208, na faixa de 125%, com margem de 22,0 violações até
-   cair para 100%." A comparação que decide — 150% hoje contra 125% projetado — estava distribuída
-   entre a primeira e a segunda oração, e o leitor tinha de remontá-la de cabeça enquanto lia.
-   Aqui ela é geometria: dois estados, uma seta, e a cor só no segundo, que é o que muda. */
+   SEM USO desde 10/09/2026, quando o par de atingimentos saiu do Panorama (ver .en-meta-l).
+   Fica registrado porque a decisao pode voltar: substituiu uma frase com cinco números e três
+   faixas dentro, e a comparação que decide — 150% hoje contra 125% projetado — estava
+   distribuída entre duas orações, com o leitor remontando-a de cabeça enquanto lia. */
 .en-meta-c {
   display: flex;
   align-items: center;
@@ -1558,7 +1595,12 @@ a.pn-bh-c:active { transform: scale(.98); }
    O maior caso do dia ganha cartao proprio, e dentro dele tres barras na mesma escala: o caso,
    a media da base e o corte critico. Barra longa ao lado de barra que e quase um ponto responde
    "e muito" antes de qualquer numero ser lido. */
-.en-dp { display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1fr); gap: var(--gap); }
+/* Uma coluna desde 10/09/2026. Eram duas — o maior caso num cartao de corpo grande e "os outros
+   5" ao lado — e as duas eram a mesma fila lida duas vezes. O cartao saiu; o fator dominante,
+   unica coisa que ele tinha de propria, desceu para a primeira linha da lista. */
+.en-dp { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap); }
+/* SEM USO desde 10/09/2026: o cartao do maior risco e as tres barras de comparacao dentro dele.
+   Fica registrado ate a banca, caso a decisao volte. */
 .en-dp-c {
   --tf: var(--tx2);
   padding: 20px 22px 18px;
@@ -1642,7 +1684,9 @@ a.pn-bh-c:active { transform: scale(.98); }
 .en-dp-i {
   --tf: var(--tx2);
   display: grid;
-  grid-template-columns: 58px 68px minmax(0, 1fr) auto 22px;
+  /* quatro colunas desde 10/09/2026: saiu a de "8,0x a media", que era a porcentagem da
+     primeira dividida pela media da base — o mesmo dado codificado duas vezes, lado a lado */
+  grid-template-columns: 58px 68px minmax(0, 1fr) 22px;
   align-items: center;
   gap: 14px;
   width: 100%;
@@ -1713,7 +1757,7 @@ a.pn-bh-c:active { transform: scale(.98); }
 
   /* o cartao do maior caso desce e a coluna dos demais vem embaixo dele */
   .en-dp { grid-template-columns: 1fr; }
-  .en-dp-i { grid-template-columns: 58px 1fr auto; gap: 8px 12px; }
+  .en-dp-i { grid-template-columns: 58px minmax(0, 1fr) 22px; gap: 8px 12px; }
   .en-dp-i .en-fl-b { grid-column: 2 / -1; }
   .en-dp-l { grid-template-columns: 84px minmax(0, 1fr) 48px; gap: 10px; }
 }
@@ -1837,10 +1881,13 @@ a.pn-bh-c:active { transform: scale(.98); }
 /* ── o resumo: uma prioridade cada, mesmo tamanho ──────────────────────────
    Na fila de hoje o topo e integralmente P3 e o maior P2 fica em decimo terceiro. Sem este
    bloco, quem le so a primeira tela nunca ve um P2 — e as duas entram no KPI. */
-.fl-rs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); }
+/* gap proprio, e nao o --gap de blocos que nao dividem a mesma leitura: aqui sao as duas
+   prioridades lado a lado, e coladas elas liam como um cartao so */
+.fl-rs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; }
 .fl-rc {
   --tf: var(--tx2);
-  padding: 18px 20px 16px;
+  /* 14 embaixo, e nao 16: a regua rotulada saiu em 10/09/2026 e o cartao fecha na barra */
+  padding: 18px 20px 14px;
   background: var(--g);
 }
 .fl-rc.ok { --tf: var(--ok); }
@@ -1871,7 +1918,7 @@ a.pn-bh-c:active { transform: scale(.98); }
 
 /* a regua vai de zero ao corte critico, com a media da base marcada nela. Sem a marca, um
    numero de um digito parece pequeno para quem nao carrega a media de 0,94% na cabeca. */
-.fl-rg { margin: 12px 0 14px; }
+.fl-rg { margin: 12px 0; }
 .fl-rg-t {
   position: relative;
   display: block;
@@ -2017,7 +2064,11 @@ a.pn-bh-c:active { transform: scale(.98); }
 .fl-tb { padding: 0; background: var(--g); overflow: hidden; }
 .fl-tb-h, .fl-l {
   display: grid;
-  grid-template-columns: 58px 172px minmax(210px, 1fr) minmax(180px, .9fr) minmax(150px, .8fr) 24px;
+  /* Cinco colunas viraram quatro em 10/09/2026: a do ativo saiu, porque em 34 das 49 linhas
+     ela dizia "0 em N passagens" e o painel do incidente traz o historico inteiro ao abrir.
+     Largura FIXA, e nao max-content: o cabecalho e as linhas sao grids SEPARADOS, entao com
+     conteudo diferente cada um resolvia a propria largura e os rotulos saiam do eixo. */
+  grid-template-columns: 58px 168px 240px minmax(220px, 1fr) 24px;
   align-items: center;
   gap: 18px;
 }
@@ -2097,9 +2148,16 @@ a.pn-bh-c:active { transform: scale(.98); }
 .fl-l-c { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; font-size: 13px; }
 .fl-l-c .id { color: var(--hd); font-weight: 600; }
 .fl-l-c em { flex: 1 0 100%; font-style: normal; font-size: 11.5px; color: var(--tx3); }
-.fl-l-m, .fl-l-a { min-width: 0; font-size: 12.5px; color: var(--tx2); }
-.fl-l-m b, .fl-l-a b { display: block; font-size: 12.5px; font-weight: 600; color: var(--hd); }
-.fl-l-m em, .fl-l-a em { display: block; margin-top: 2px; font-style: normal; font-size: 11.5px; color: var(--tx3); }
+/* o fator dominante numa linha, e nao em duas: empilhados, nome e peso davam duas linhas de
+   texto em cada uma das 49 posicoes da lista */
+.fl-l-m { display: flex; align-items: baseline; gap: 8px; min-width: 0; font-size: 12.5px; color: var(--tx2); }
+.fl-l-m b { font-size: 12.5px; font-weight: 600; color: var(--hd);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fl-l-m em { font-style: normal; font-size: 11.5px; color: var(--tx3); flex-shrink: 0; }
+/* .fl-l-a — SEM USO desde 10/09/2026, junto com a coluna do ativo */
+.fl-l-a { min-width: 0; font-size: 12.5px; color: var(--tx2); }
+.fl-l-a b { display: block; font-size: 12.5px; font-weight: 600; color: var(--hd); }
+.fl-l-a em { display: block; margin-top: 2px; font-style: normal; font-size: 11.5px; color: var(--tx3); }
 
 .fl-tb-f {
   padding: 14px 20px;
@@ -3024,6 +3082,15 @@ a.pn-bh-c:active { transform: scale(.98); }
 
 /* ── a tabela de codigos ──────────────────────────────────────────────────── */
 .ca-t { width: 100%; border-collapse: collapse; font-size: 13px; }
+/* ── P3 e P2 numa coluna so ─────────────────────────────────────────────────
+   Cada prioridade trazia a taxa e o numero de casos em duas linhas por celula: 64 numeros na
+   tabela. As duas taxas continuam lado a lado e com o mesmo peso — a regra 10 exige que
+   nenhuma apareca sozinha, e nenhuma aparece — e a tabela perdeu uma coluna de largura. */
+.ca-t-pri { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--tx); }
+.ca-t-pri b { font-weight: 600; }
+.ca-t-pri i { font-style: normal; margin: 0 8px; color: var(--tx3); }
+.ca-t th.ca-t-pri { text-align: right; }
+
 .ca-t th {
   padding: 0 12px 10px;
   text-align: left;

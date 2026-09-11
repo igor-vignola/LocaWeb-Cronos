@@ -37,8 +37,8 @@ Histórico do que foi corrigido aqui:
     escada parecia invertida — "50%" ao lado de "291 a 320" vira "usei metade do limite". Não
     é: é a nota do ano, e ela cai conforme as violações sobem.{% endcomment %}
     <h1>Onde o ano fecha</h1>
-    <p>As violações de OLA já acumuladas em cada prioridade, e a nota em que dezembro deve
-      terminar.</p>
+    {% comment %}A linha de apoio saiu: era o título "Onde o ano fecha" escrito de
+    novo, em 16 palavras.{% endcomment %}
   </header>
 
   <div class="pj-g">
@@ -73,7 +73,8 @@ Histórico do que foi corrigido aqui:
           <div class="pj-n-c {% if o.regua.estoura %}fora{% else %}dentro{% endif %}">
             <span class="pj-n-k">{% icone 'tendencia' 14 %}Projetadas</span>
             <b>{{ o.projecao|num:0 }}</b>
-            <em>Entre {{ o.baixo|num:0 }} e {{ o.alto|num:0 }} até dezembro</em>
+            {% comment %}"Entre X e Y até dezembro" saiu: é a mesma faixa desenhada
+            na régua, três linhas abaixo.{% endcomment %}
           </div>
         </div>
 
@@ -91,11 +92,9 @@ Histórico do que foi corrigido aqui:
               style="left:{{ o.regua.alvo_x }}%"><i></i><u>100% até {{ o.regua.alvo }}</u></span>
           </div>
 
-          <div class="pj-rg-l">
-            <span><i class="c-ja"></i>Já aconteceram</span>
-            <span><i class="c-fx"></i>Intervalo da projeção</span>
-            <span><i class="c-pr"></i>Projeção central</span>
-          </div>
+      {% comment %}A legenda "Já aconteceram · Intervalo da projeção ·
+      Projeção central" saiu: a régua já traz a faixa escrita em cima
+      dela e o teto marcado.{% endcomment %}
         </div>
 
         {% comment %}A decomposição é o conteúdo próprio desta aba — é ela que impede ler a

@@ -32,9 +32,8 @@ A cor sai do veredito: verde quando o intervalo fecha o ano dentro do teto, âmb
     <u style="left:{{ o.meta_x }}%"><em>100% até {{ o.meta|num:0 }}</em></u>
   </div>
 
-  <div class="en-cb-l">
-    <span><i class="ja"></i><b>{{ o.ja|num:0 }}</b> já aconteceram</span>
-    <span><i class="en-iv"></i>Projeção entre <b>{{ o.baixo|num:0 }}</b> e
-      <b>{{ o.alto|num:0 }}</b>, com <b>{{ o.projecao|num:0 }}</b> no centro</span>
-  </div>
+  {% comment %}A legenda saiu em 10/09/2026. "145 já aconteceram" é o número grande do cartão,
+  logo acima; "Projeção entre 191 e 225, com 208 no centro" é a faixa desenhada na própria
+  régua, com as duas pontas escritas nela. Era a régua traduzida em palavra, embaixo da
+  régua.{% endcomment %}
 </div>

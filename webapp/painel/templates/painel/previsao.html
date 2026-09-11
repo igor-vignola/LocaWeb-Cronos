@@ -40,8 +40,7 @@ prevista com a mesma estrutura no mesmo parquet, que nunca era publicada.
     <div class="pv-h-t">
       <span class="pv-ey">{% icone 'alvo' 14 %}Previsão de volume · Prophet</span>
       <h1>Quanto entra nos próximos dias</h1>
-      <p>Cada dia sai como intervalo, e não como número único: é a largura dele que dimensiona
-        a escala da equipe.</p>
+      {% comment %}Linha de método removida em 10/09/2026: ela explicava o próprio gráfico, e a explicação é falada.{% endcomment %}
     </div>
 
     {% comment %}As duas prioridades no placar, com o mesmo peso, e o terceiro campo diz de onde
@@ -79,8 +78,7 @@ prevista com a mesma estrutura no mesmo parquet, que nunca era publicada.
       <span class="chp t-ac">{% icone 'previsao' 18 %}</span>
       <div>
         <h2>Histórico recente e previsão</h2>
-        <p>Trinta dias medidos e duas semanas previstas. A faixa só existe do lado previsto:
-          o que já aconteceu não tem incerteza.</p>
+        {% comment %}Linha de método removida em 10/09/2026: ela explicava o próprio gráfico, e a explicação é falada.{% endcomment %}
       </div>
       <span class="leg">
         <span><i class="l-r"></i>Registrados</span>
@@ -102,8 +100,7 @@ prevista com a mesma estrutura no mesmo parquet, que nunca era publicada.
       <span class="chp t-ok">{% icone 'balanca' 18 %}</span>
       <div>
         <h2>Base da previsão: a sazonalidade semanal</h2>
-        <p>O que o modelo enxerga é dia útil contra fim de semana. O tique em cada barra é a
-          média daquele dia da semana.</p>
+        {% comment %}Linha de método removida em 10/09/2026: ela explicava o próprio gráfico, e a explicação é falada.{% endcomment %}
       </div>
     </div>
 
@@ -117,11 +114,8 @@ prevista com a mesma estrutura no mesmo parquet, que nunca era publicada.
   inteiro nos notebooks e no deck — mas quem está no plantão às 15h não lê coeficiente, e o mesmo
   fato dito em português muda a decisão do mesmo jeito. É a regra das duas plateias: o sistema é
   a ferramenta, os slides são a avaliação do modelo.{% endcomment %}
-  <aside class="pn-fa pv-fa">
-    {% icone 'balanca' 16 %}
-    <p><b>Dia cheio não é dia de violação.</b> Esta aba dimensiona a equipe. Quem diz em qual
-      caso olhar é a fila.</p>
-    <a class="pn-lk" href="{% url 'fila' %}">Ver a fila de hoje{% icone 'seta' 14 %}</a>
-  </aside>
+  {% comment %}O rodapé "Dia cheio não é dia de violação. Esta aba dimensiona a equipe.
+  Quem diz em qual caso olhar é a fila." saiu em 10/09/2026: era opinião da tela sobre si
+  mesma, e o caminho para a Fila já está na navegação do topo.{% endcomment %}
 </div>
 {% endblock %}

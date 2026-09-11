@@ -77,13 +77,9 @@ KPI com metas próprias.
               <i style="width:{{ r.barra }}%"></i>
               <u style="left:{{ resumo_fila.media_x }}%"></u>
             </span>
-            <div class="fl-rg-l">
-              {% comment %}"Corte crítico" era vocabulário nosso: aparecia quatro vezes na
-              interface e não era definido em nenhuma. É o limiar acima do qual o caso entra na
-              faixa crítica — dito assim, não precisa de glossário.{% endcomment %}
-              <span>Média da base {{ resumo_fila.media|num:2 }}%</span>
-              <span>Limite de alerta {{ resumo_fila.corte }}%</span>
-            </div>
+            {% comment %}A régua rotulada saiu em 10/09/2026. "Média da base 0,94%" já
+            está dito na linha "8,6× a média da base", logo acima, e "Limite de alerta 10%"
+            é a ponta da própria barra.{% endcomment %}
           </div>
 
           <button class="fl-rc-b" data-mod="incidente" data-k="{{ r.incidente }}">
@@ -158,10 +154,14 @@ KPI com metas próprias.
       escore — só existia no ponteiro, porque `tr` não recebe foco de teclado.{% endcomment %}
       <div class="fl-tb-h">
         <span>Posição</span>
-        <span>Risco de violação<em>Escala até o limite de alerta, {{ resumo_fila.corte }}%</em></span>
+        {% comment %}"Escala até o limite de alerta, 10%" saiu: as quatro faixas estão
+        nomeadas nos filtros, com os intervalos, um bloco acima.{% endcomment %}
+        <span>Risco de violação</span>
         <span>Caso</span>
         <span>Fator dominante</span>
-        <span>Ativo</span>
+        {% comment %}A coluna "Ativo" saiu em 10/09/2026. Em 34 das 49 linhas ela dizia
+        "0 em N passagens", ou seja, o ativo nunca violou, e o painel do incidente traz o
+        histórico completo do ativo ao abrir a linha.{% endcomment %}
         <span></span>
       </div>
 
@@ -190,15 +190,10 @@ KPI com metas próprias.
             <em>{{ r.produto|capfirst }} · {{ r.equipe }} · {{ r.hora }}h</em>
           </span>
 
-          <span class="fl-l-m">{% if r.sinais %}<b>{{ r.sinais.0.sinal|capfirst }}</b>
-            <em>{{ r.sinais.0.peso|num:0 }}% do peso</em>{% else %}<em>—</em>{% endif %}</span>
+          {% comment %}Nome e peso na mesma linha: empilhados, davam duas linhas de
+          texto em cada uma das 49 posições.{% endcomment %}
+          <span class="fl-l-m">{% if r.sinais %}<b>{{ r.sinais.0.sinal|capfirst }}</b><em>{{ r.sinais.0.peso|num:0 }}% do peso</em>{% else %}<em>—</em>{% endif %}</span>
 
-          <span class="fl-l-a"><b class="id">{{ r.ativo|default:'—' }}</b>
-            {% if r.ativo_passagens %}<em>{{ r.ativo_violacoes }} em
-              {{ r.ativo_passagens|mil }} passagens</em>
-            {% comment %}"Sem histórico" pesava igual a "0 em 2 passagens", e são coisas
-            opostas: um é ausência de informação, o outro é informação boa.{% endcomment %}
-            {% else %}<em>Primeira passagem</em>{% endif %}</span>
 
           <span class="pn-i-s">{% icone 'seta' 15 %}</span>
         </button>
@@ -206,8 +201,10 @@ KPI com metas próprias.
 
       <p class="fl-tb-f" id="fl-fim" tabindex="-1">{{ total|mil }} caso{{ total|pluralize }}
         {% if pri or faixa_sel or q %}no filtro atual, de {{ n_ate_agora|mil }}{% endif %}
-        · Corte às {{ hora_corte }}h de hoje. O desfecho do OLA não é conhecido enquanto o caso
-        está em aberto, então a fila mostra risco, e não violação.</p>
+        {% comment %}"O desfecho do OLA não é conhecido enquanto o caso está em aberto,
+        então a fila mostra risco, e não violação" saiu: é metodologia no pé da tela. Fica a
+        contagem e o corte, que são fato.{% endcomment %}
+        · corte às {{ hora_corte }}h de hoje.</p>
     </section>
   {% else %}
     <div class="pn-v">

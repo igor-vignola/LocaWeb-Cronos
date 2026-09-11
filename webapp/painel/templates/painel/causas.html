@@ -44,16 +44,20 @@ O QUE MUDOU:
     ressalva é obrigatória e continua na tela: desceu para junto da tabela que ela qualifica,
     onde o leitor está olhando o dado sobre o qual ela fala.{% endcomment %}
     <h1>O que compensa prevenir</h1>
-    <p>Duas decisões de mês: onde melhorar o diagnóstico, e quais problemas vale
-      automatizar.</p>
+    {% comment %}"Duas decisões de mês: onde melhorar o diagnóstico, e quais problemas vale
+    automatizar" saiu em 10/09/2026: era o índice dos dois blocos que vêm logo abaixo, e cada um
+    deles já se apresenta pelo próprio título.{% endcomment %}
   </header>
 
   <section class="pn-v ca-c">
     <div class="ca-c-h">
       <div>
         <h2>Códigos de fechamento, por taxa de violação</h2>
-        <p>Ordenados pela taxa, e não pelo volume: é assim que aparece a categoria pequena que
-          viola muito. <b>Campo preenchido no encerramento</b> — não prevê o caso de hoje.</p>
+        {% comment %}"Ordenados pela taxa, e não pelo volume: é assim que aparece a categoria
+        pequena que viola muito" saiu em 10/09/2026 — a ordem está nos próprios números da coluna.
+        A ressalva de causalidade ficou: ela não explica o gráfico, ela limita o uso do dado, e
+        sem ela a tabela parece prever o caso de hoje.{% endcomment %}
+        <p><b>Campo preenchido no encerramento</b> — não prevê o caso de hoje.</p>
       </div>
     </div>
 
@@ -65,8 +69,11 @@ O QUE MUDOU:
             <th class="ca-t-n">Incidentes</th>
             <th class="ca-t-n">Violações</th>
             <th class="ca-t-b">Taxa de violação</th>
-            <th class="ca-t-n"><span class="esc p3">P3</span></th>
-            <th class="ca-t-n"><span class="esc p2">P2</span></th>
+            {% comment %}P3 e P2 ocupavam duas colunas para dizer duas taxas, cada uma com o
+            número de casos numa segunda linha da célula: 64 números na tabela. Viraram uma
+            coluna só em 10/09/2026, lado a lado e com o mesmo peso — o que a regra 10 exige é
+            que nenhuma prioridade apareça sozinha, e nenhuma aparece.{% endcomment %}
+            <th class="ca-t-n">P3 · P2</th>
           </tr>
         </thead>
         <tbody>
@@ -85,16 +92,16 @@ O QUE MUDOU:
                 <td class="ca-t-b">
                   <span class="ca-bar"><i style="width:{% widthratio c|item:'taxa de quebra %' 9 100 %}%"></i></span>
                   <b>{{ c|item:'taxa de quebra %'|num:2 }}%</b>
-                  <u>{{ c|item:'vezes a média'|num:1 }}× a média</u>
+                  {% comment %}"8,8× a média" saiu em 10/09/2026: é a taxa ao lado dividida pelos
+                  0,94% da base, escrita de novo em dezesseis linhas. A comparação continua
+                  desenhada na barra, que tem a média da base como régua.{% endcomment %}
                 </td>
 
                 {% comment %}Sem caso da prioridade naquele código, a taxa não existe — e o
-                filtro `num` sobre None imprimia "nan%". Traço, e o número de casos ao lado
-                explica por quê.{% endcomment %}
-                <td class="ca-t-n">{% if c|item:'incidentes P3' %}{{ c|item:'taxa P3 %'|num:2 }}%
-                  {% else %}—{% endif %}<em>{{ c|item:'incidentes P3'|mil }} casos</em></td>
-                <td class="ca-t-n">{% if c|item:'incidentes P2' %}{{ c|item:'taxa P2 %'|num:2 }}%
-                  {% else %}—{% endif %}<em>{{ c|item:'incidentes P2'|mil }} casos</em></td>
+                filtro `num` sobre None imprimia "nan%". Fica o traço. O número de casos por
+                prioridade saiu junto com a segunda coluna: a coluna "Incidentes", à esquerda,
+                já diz quantos eventos sustentam a linha.{% endcomment %}
+                <td class="ca-t-pri"><b>{% if c|item:'incidentes P3' %}{{ c|item:'taxa P3 %'|num:2 }}%{% else %}—{% endif %}</b><i>·</i><b>{% if c|item:'incidentes P2' %}{{ c|item:'taxa P2 %'|num:2 }}%{% else %}—{% endif %}</b></td>
               </tr>
             {% endwith %}
           {% endfor %}
@@ -112,12 +119,15 @@ O QUE MUDOU:
       <div class="ca-vd-n">
         <b>{{ outro|item:'% das quebras'|num }}<u>%</u></b>
         <span>das violações fecham <b>sem causa identificada</b>
-          <em>Sendo {{ outro|item:'% da base'|num }}% do volume — ou seja,
+          <em>{{ outro|item:'% da base'|num }}% do volume, com
             {{ outro|item:'vezes a média'|num:1 }}× a taxa média da base.</em></span>
       </div>
-      <p class="ca-vd-r">{% icone 'balanca' 14 %}<span>Pode ser causa difícil ou caso que se
-        estendeu sem achar a raiz — o dado não separa as duas.
-        <b>Ambas pedem melhorar o diagnóstico.</b></span></p>
+      {% comment %}"Sendo X% do volume — ou seja, Y× a taxa média" e "Pode ser causa difícil ou
+      caso que se estendeu sem achar a raiz" foram apertados em 10/09/2026: o rodeio saiu, o
+      número e a conclusão ficaram. "Ambas" virou "Os dois" porque o antecedente dela era a
+      oração que saiu.{% endcomment %}
+      <p class="ca-vd-r">{% icone 'balanca' 14 %}<span>O dado não separa causa difícil de caso
+        arrastado. <b>Os dois pedem melhorar o diagnóstico.</b></span></p>
     </div>
   </section>
 
@@ -125,8 +135,11 @@ O QUE MUDOU:
     <div class="ca-c-h">
       <div>
         <h2>Problemas mais recorrentes</h2>
-        <p>Descrição normalizada: códigos de ativo e números substituídos por marcador, para
-          reunir o mesmo problema em ativos diferentes.</p>
+        {% comment %}A frase de método encolheu em 10/09/2026. Ela não pode sair inteira: os
+        marcadores aparecem no texto da lista e sem legenda o leitor lê "&lt;ativo&gt;" como
+        defeito do dado.{% endcomment %}
+        <p>Marcadores <b>&lt;ativo&gt;</b> e <b>&lt;n&gt;</b> reúnem o mesmo problema em ativos
+          diferentes.</p>
       </div>
     </div>
 
@@ -153,8 +166,11 @@ O QUE MUDOU:
           <em>E eles violam {{ rec_pc_quebra|num:2 }}%, contra
             {{ base.media_violacao|num:2 }}% da média da base.</em></span>
       </div>
-      <p class="ca-vd-r">{% icone 'alvo' 14 %}<span>Volume alto, risco abaixo da média e resposta
-        padronizada. <b>É o perfil que se procura ao escolher o que automatizar.</b></span></p>
+      {% comment %}Mesma poda: "resposta padronizada" era afirmação que a tela não sustenta com
+      dado, e "É o perfil que se procura ao escolher o que automatizar" dizia em onze palavras o
+      que cabe em cinco.{% endcomment %}
+      <p class="ca-vd-r">{% icone 'alvo' 14 %}<span>Volume alto e risco abaixo da média:
+        <b>é o perfil de quem se automatiza.</b></span></p>
     </div>
   </section>
 </div>

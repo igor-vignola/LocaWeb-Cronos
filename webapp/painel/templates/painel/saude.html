@@ -40,8 +40,10 @@ inverter a leitura de produtos cujo problema está no P2.
     número. A construção continua explicada — no modal do produto, onde ela é a resposta a uma
     pergunta que o leitor acabou de fazer ao clicar. Aqui fica só o que a nota É.{% endcomment %}
     <h1>Que produto está pior</h1>
-    <p>Nota de 0 a 100, <b>relativa ao conjunto</b>: 100 é o melhor dos
-      {{ total }} em todos os cinco componentes, e não ausência de problemas.</p>
+    {% comment %}A linha "Nota de 0 a 100, relativa ao conjunto: 100 é o melhor dos 15
+    em todos os cinco componentes, e não ausência de problemas" saiu em 10/09/2026. Eram 23
+    palavras explicando a escala antes de a tela mostrar um número, e a régua de cada linha
+    já traz a mediana marcada.{% endcomment %}
 
     <div class="sa-h-n">
       <div>
@@ -62,11 +64,13 @@ inverter a leitura de produtos cujo problema está no P2.
   <section class="pn-v sa-tb">
     <div class="sa-tb-h">
       <div>
+        {% comment %}"Do melhor ao pior. Selecione um produto para ver o peso de cada
+        componente na nota" saiu: a ordem está nos próprios números e o clique se
+        descobre.{% endcomment %}
         <h2>Ranking</h2>
-        <p>Do melhor ao pior. Selecione um produto para ver o peso de cada componente na
-          nota.</p>
       </div>
-      <span class="sa-tb-e">P2 e P3 somados na nota · Colunas separadas ao lado</span>
+      {% comment %}"P2 e P3 somados na nota · Colunas separadas ao lado" saiu: as duas
+      colunas se chamam P3 e P2, e a nota não se soma a nada.{% endcomment %}
     </div>
 
     <div class="tbw">
@@ -74,7 +78,7 @@ inverter a leitura de produtos cujo problema está no P2.
         <thead>
           <tr>
             <th>#</th>
-            <th>Produto<em>Com a equipe que atende</em></th>
+            <th>Produto</th>
             <th>Nota</th>
             <th>Situação</th>
             <th class="sa-t-x">Componente que mais penaliza</th>
@@ -153,18 +157,12 @@ inverter a leitura de produtos cujo problema está no P2.
     Os dois eixos são taxa de violação e proporção de problemas inéditos, cada um comparado à
     mediana do conjunto. Os quatro cruzamentos são os quatro estados — por isso as definições
     cabem em uma linha.{% endcomment %}
-    <div class="sa-lg">
-      <span class="sa-lg-t">O que cada situação quer dizer</span>
-      <div><span class="tag ok">Estável</span>
-        <em>Viola menos que a mediana e repete problemas já conhecidos.</em></div>
-      <div><span class="tag nt">Recorrente</span>
-        <em>Viola acima da mediana, com problemas que já apareceram antes.</em></div>
-      <div><span class="tag wn">Risco latente</span>
-        <em>Concentra problema inédito e ainda viola pouco: a exposição existe e não
-          apareceu no OLA.</em></div>
-      <div><span class="tag no">Já materializado</span>
-        <em>Concentra problema inédito <b>e</b> já viola acima da mediana.</em></div>
-    </div>
+    {% comment %}O glossário das quatro situações saiu em 10/09/2026. Eram 47 palavras
+    no pé da tela definindo Estável, Recorrente, Risco latente e Já materializado. As
+    etiquetas continuam em cada linha; a definição de cada uma é o que se fala.
+
+    Se voltar: o eixo é problema inédito contra violação acima da mediana, e os quatro
+    cruzamentos são os quatro estados.{% endcomment %}
   </section>
 </div>
 {% endblock %}

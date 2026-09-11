@@ -28,8 +28,42 @@ O seletor marca com **✓** a versão escolhida:
 | Previsão | enxuta *(a livre foi dispensada)* |
 | Projeção | enxuta |
 | Fila | enxuta |
-| Saúde | a decidir |
-| Causas | a decidir |
+| Saúde | enxuta |
+| Causas | livre |
+
+## Aplicado
+
+As seis escolhas entraram nos templates Django em **10/09/2026**, foram
+reexportadas para `app/` e publicadas. A aplicação no ar **é** a proposta: esta
+pasta vira registro do antes e do porquê, e as capturas em `_png/` são a única
+cópia do estado anterior.
+
+Cada corte deixou no template um `{% comment %}` dizendo o que saiu e por quê,
+para ninguém reintroduzir a linha por não saber que ela já foi discutida.
+
+Três coisas saíram diferentes da proposta, e por motivo:
+
+**Duas linhas da Causas ficaram.** A regra manda cortar o que explica o próprio
+gráfico, mas estas duas impedem leitura errada de dado real — o mesmo critério
+que já tinha preservado a linha do `lcsi` na Saúde:
+
+- *"Campo preenchido no encerramento — não prevê o caso de hoje"*, sobre a
+  tabela de códigos. Sem ela a tabela parece prever, e o campo só existe depois
+  que o incidente fecha.
+- *"Marcadores `<ativo>` e `<n>` reúnem o mesmo problema em ativos diferentes"*,
+  sobre a lista de recorrentes. Os marcadores aparecem no texto das linhas, e
+  sem legenda leem como defeito do dado.
+
+Ambas encolheram: 27 e 18 palavras viraram 9 e 10.
+
+**A prioridade entrou em cada linha da fila do Panorama.** Na proposta a lista
+não trazia P2 nem P3 em lugar nenhum — o selo existia só no cartão herói, que
+saiu. Como os seis primeiros são todos P3 neste dia, uma lista sem rótulo ensina
+que o P2 não é pontuado. O rótulo do bloco passou a dizer o escopo (*"Casos
+abertos em P2 e P3"*) e cada linha traz a prioridade do caso. É a regra 10.
+
+**A Previsão ganhou 3px.** `77,4previstos hoje` — o `letter-spacing` negativo do
+número comia o espaço antes do rótulo. Defeito antigo, corrigido de passagem.
 
 ## A regra de corte
 

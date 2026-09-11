@@ -13,9 +13,10 @@ Nada de id fixo aqui dentro. O dia.js varre `.en-g[data-pts]` e liga cada placa 
 com id único a segunda placa herdaria os elementos da primeira e as duas leriam o mesmo dado.
 {% endcomment %}
 <div class="pn-v en-g" data-pts="{{ pts }}">
+  {% comment %}"Intervalo de 59 a 96" saiu da placa em 10/09/2026: é palavra por palavra o que a
+  faixa escura diz quarenta pixels acima, na mesma prioridade.{% endcomment %}
   <div class="en-g-k"><span class="esc {{ pri|lower }}">{{ pri }}</span>
-    <b>{{ ac.previsto|num:1 }}</b> previstos hoje<em>Intervalo de {{ ac.baixo|num:0 }} a
-      {{ ac.alto|num:0 }}</em></div>
+    <b>{{ ac.previsto|num:1 }}</b> previstos hoje</div>
 
   <div class="en-g-p" tabindex="0" role="group"
     aria-label="Gráfico do dia hora a hora em {{ pri }}. Use as setas para ler cada hora.">

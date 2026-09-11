@@ -49,22 +49,27 @@ informa — para quem viu o brief reconhecer a tela que abre atrás dele.{% endc
   <div class="en-h-t">
     <div class="en-h-l">
       <div>
+        {% comment %}"· Incidentes elegíveis ao KPI" saiu da sobrancelha em 10/09/2026: o selo
+        logo abaixo repete "elegíveis ao KPI" e ainda traz o número.{% endcomment %}
         <span class="en-ey"><span class="pn-bh-sol">{% icone 'sol' 15 %}</span>
-          {{ hoje.dia_semana }}, {{ hoje.extenso }} · {{ ac.hora_agora }}h ·
-          Incidentes elegíveis ao KPI</span>
+          {{ hoje.dia_semana }}, {{ hoje.extenso }} · {{ ac.hora_agora }}h</span>
 
         <h1 class="en-t">{{ titulo }}</h1>
-        <p class="en-s">{{ sub }}</p>
+        {% comment %}A linha de apoio saiu: a manchete dizia "Dia dentro do normal" e ela
+        respondia "Volume de uma quarta comum nas duas prioridades do KPI" — a mesma frase, com
+        os números que estão à direita. Continua no resumo das 07h, que é onde ela abre a
+        leitura em vez de repeti-la.{% endcomment %}
       </div>
 
       {% comment %}O selo "carga de 30/09 · 23h59" saiu. A sobrancelha já diz que dia é hoje, o
       rodapé já diz o corte, e a hora da carga é detalhe de pipeline: não muda decisão
       nenhuma.{% endcomment %}
       <div class="en-chips">
-        {% comment %}"até o corte", não "em 2025": o número é len(kpi[dia < CORTE]), ou seja tudo
-        que abriu antes de 01/10. Escrever "em 2025" incluiria três meses que a conta não
-        tem.{% endcomment %}
-        <span class="pn-bh-c"><b>{{ base.elegiveis|mil }}</b> elegíveis ao KPI até o corte</span>
+        {% comment %}O número é len(kpi[dia < CORTE]), tudo que abriu antes de 01/10 — nunca
+        escrever "em 2025" aqui, incluiria três meses que a conta não tem. O sufixo "até o
+        corte" saiu em 10/09/2026: a sobrancelha, dois centímetros acima, já diz o dia e a
+        hora em que a tela está parada.{% endcomment %}
+        <span class="pn-bh-c"><b>{{ base.elegiveis|mil }}</b> elegíveis ao KPI</span>
         {% comment %}Não é link: os pontos de atenção moram em abas diferentes (o ano em Projeção,
         a nota em Saúde), e um link só levaria para o lugar errado na metade dos casos. Eles
         aparecem nomeados mais abaixo, cada um com o seu caminho.{% endcomment %}
@@ -129,13 +134,12 @@ só, calculada sobre a base inteira, e este comentário afirmava que ela era do 
 P2 chega mais cedo: às 06h ele já acumulou 23% do dia contra 11% do P3.
 {% endcomment %}
 <section class="en-bl pn-en" style="animation-delay:.05s">
-  <div class="en-bl-h">
-    <span class="chp t-ac">{% icone 'previsao' 18 %}</span>
-    <div class="en-bl-t">
-      <h2>O dia hora a hora</h2>
-      <p>A curva prevista foi fechada à meia-noite e não se move. A linha escura é o volume
-        já registrado, hora a hora.</p>
-    </div>
+  {% comment %}Em 10/09/2026 a faixa escura e o gráfico do dia viraram um bloco só. Eram duas
+  camadas dizendo "quanto entra hoje" — a faixa com o número previsto, o gráfico com a chegada
+  hora a hora — separadas por um cabeçalho de seção inteiro: ícone, título "O dia hora a hora" e
+  a linha de método sobre a curva ter sido fechada à meia-noite. O cabeçalho saiu; sobrou a
+  fita com a legenda e o link, que são as duas coisas dele que não se repetiam.{% endcomment %}
+  <div class="en-fita">
     <span class="leg en-g-leg">
       <span><i class="l-r"></i>Registrados</span>
       <span><i class="l-p"></i>Previsão do modelo</span>
@@ -179,8 +183,10 @@ que não é alarme — o estouro projetado é de 4%, com a faixa cobrindo a meta
       faixa vale uma porcentagem", "o modelo projeta em qual delas" — o próprio cartão agora
       mostra, com o 150% de hoje e o 125% projetado lado a lado.{% endcomment %}
       <h2>A meta de violações do ano</h2>
-      <p>O KPI é uma escada de faixas, e não um teto único: passar de uma faixa não zera o
-        indicador, derruba um degrau.</p>
+      {% comment %}A regra da escada saiu do Panorama em 10/09/2026. Aqui a pergunta é "o ano
+      fecha?", e quem responde é a projeção contra o teto da faixa, que a linha nova diz com os
+      dois números. A escada inteira — o que cada degrau vale, em qual deles o modelo projeta —
+      mora na aba Projeção, e o link para ela está ao lado.{% endcomment %}
     </div>
     <a class="pn-lk" href="{% url 'projecao' %}">Abrir a projeção{% icone 'seta' 14 %}</a>
   </div>
@@ -199,35 +205,38 @@ que não é alarme — o estouro projetado é de 4%, com a faixa cobrindo a meta
         <div class="pn-p-h">
           <span class="esc {{ g.pri|lower }}">{{ g.pri }}</span>
           <span class="pn-p-r">Violações de OLA no ano</span>
-          <span class="pn-p-e {{ g.ola.tom }}">{{ g.ola.at.pc }}% de atingimento projetado</span>
+          {% comment %}O selo do atingimento projetado saiu em 10/09/2026: o mesmo número
+          aparecia de novo, quinze linhas abaixo, no lado direito da comparação hoje →
+          dezembro.{% endcomment %}
         </div>
 
         {% comment %}O número grande é o que JÁ aconteceu, e não a projeção: fato ocupa o lugar
         de destaque, e a projeção vem na frase abaixo, onde cabe dizer que é aposta.{% endcomment %}
         <div class="en-meta">
           <b>{{ g.ola.ja|num:0 }}</b>
-          <span>já aconteceram<em>Faixa de 100%: até {{ g.ola.at.teto_100 }}</em></span>
+          {% comment %}"Faixa de 100%: até 263" saiu daqui em 10/09/2026 — passou a ser a
+          segunda metade da linha logo abaixo, ao lado da projeção que ela qualifica.
+          {% endcomment %}
+          <span>já aconteceram</span>
         </div>
 
         {% comment %}A margem é a leitura que decide: não é "estourou ou não", é quantas quebras
         ainda cabem antes de escorregar um degrau. No P2 são 1,5 — é o número mais apertado do
         KPI inteiro, e a tela anterior o exibia como folga, em verde.{% endcomment %}
-        {% comment %}Era uma frase só, com cinco números e três faixas dentro dela — o leitor
-        tinha de montar de cabeça a comparação entre "onde está" e "onde vai parar" enquanto
-        lia. Agora são os dois estados lado a lado, cada um com o seu atingimento, e a margem
-        embaixo como a única linha de texto. É a mesma informação em três leituras curtas.
+        {% comment %}O par de porcentagens de atingimento — "Hoje 150% → Projeção de dezembro
+        125%" — saiu em 10/09/2026. Atingimento é a linguagem da aba Projeção, onde a escada
+        está desenhada e cada degrau tem nome; no Panorama ele obrigava o leitor a traduzir
+        duas vezes para chegar na única pergunta do bloco, que é se o ano fecha dentro da
+        faixa. A linha nova responde direto, nos números da própria régua abaixo.
+
+        "Ainda cabem 22,0 violações antes de cair para 125%" saiu junto: casa decimal em
+        contagem de violação, e a margem é a distância entre os dois números da linha.
         {% endcomment %}
-        <div class="en-meta-c">
-          <div><em>Hoje</em><b>{{ g.ola.at_ja.pc }}%</b>
-            <span>de atingimento</span></div>
-          <span class="en-meta-s">{% icone 'seta' 15 %}</span>
-          <div class="{{ g.ola.tom }}"><em>Projeção de dezembro</em><b>{{ g.ola.at.pc }}%</b>
-            <span>com {{ g.ola.projecao|num:0 }} violações</span></div>
-        </div>
-        {% if g.ola.at.margem is not None %}
-          <p class="en-meta-t">Ainda cabem <b>{{ g.ola.at.margem|num:1 }}</b> violações antes de
-            cair para {{ g.ola.at.proximo_pc }}%.</p>
-        {% endif %}
+        <p class="en-meta-l">
+          <span{% if not g.ola.folga %} class="fora"{% endif %}>Projeção de dezembro
+            <b>{{ g.ola.projecao|num:0 }}</b></span>
+          <span>Faixa de 100% até <b>{{ g.ola.at.teto_100 }}</b></span>
+        </p>
 
         {% include 'painel/_regua_ano.html' with o=g.ola %}
       </section>
