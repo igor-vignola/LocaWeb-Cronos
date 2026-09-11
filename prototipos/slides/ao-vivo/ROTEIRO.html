@@ -680,51 +680,6 @@ const FALAS = {
 },
 
 21: {
-  titulo: "Por que a logística, e não o boosting",
-  precisa: "Três métricas, e o que cada uma mede.",
-  nota: "<b>O que cada régua mede</b><br>· <b>Área sob a curva ROC</b> — a chance de o modelo dar nota maior a um caso que quebrou do que a um que não quebrou. 0,5 é moeda.<br>· <b>PR-AUC</b> — o mesmo, mas contando só entre os que o modelo apontou. É a que vale no evento raro: a base tem 0,0096 de referência, então 0,296 é 31× o acaso.<br>· <b>Calibração</b> — se o modelo diz 5%, cinco em cem quebram de fato. É o que permite somar a fila e projetar o ano.",
-  versoes: [
-    {
-      fala: [
-        "E por que regressão logística, e não gradient boosting? A gente testou os dois e comparou em três coisas.",
-        "A primeira é a área sob a curva ROC, que mede a chance de o modelo dar nota maior para um caso que quebrou do que para um que não quebrou. Deu empate: <em>0,869 contra 0,868</em>.",
-        "A segunda é a PR-AUC, que é a régua certa quando o evento é raro, porque ela conta acerto só entre os casos que o modelo apontou. Aí a logística ficou <em>17% à frente</em>, 0,296 contra 0,253.",
-        "E a terceira é a contagem: onde houve 50 quebras, a logística previu 48,1 e o boosting previu 1.007. Ordenar, os dois ordenam. Contar, só um conta, e é a contagem que sustenta a projeção da meta."
-      ],
-      chaves: [
-        "<b>ROC AUC</b>: empate · 0,869 contra 0,868",
-        "<b>PR-AUC</b>: a régua do evento raro · <b>17% à frente</b>, 0,296 contra 0,253",
-        "<b>contagem</b>: onde houve 50, previu <b>48,1</b> contra <b>1.007</b>",
-        "os dois ordenam; <b>só um conta</b>"
-      ]
-    },
-    {
-      fala: [
-        "Testamos os dois. Na área sob a curva ROC deu empate, 0,869 contra 0,868. Na PR-AUC, que é a régua do evento raro, a logística ficou 17% à frente. E onde houve 50 quebras ela previu <em>48,1</em>, contra 1.007 do boosting. Os dois ordenam; só um conta certo."
-      ],
-      chaves: [
-        "ROC: empate · PR-AUC: <b>17% à frente</b>",
-        "onde houve 50: <b>48,1</b> contra <b>1.007</b>"
-      ]
-    },
-    {
-      fala: [
-        "E por que regressão logística, e não gradient boosting? A gente testou os dois e comparou em três coisas.",
-        "A primeira é a área sob a curva ROC, que mede a chance de o modelo dar nota maior para um caso que quebrou do que para um que não quebrou. Meio é moeda jogada; deu <em>0,869 contra 0,868</em>, ou seja, empate.",
-        "A segunda é a PR-AUC, que é a régua certa quando o evento é raro, porque ela conta acerto só entre os casos que o modelo apontou. A referência aqui é a própria taxa da base, 0,0096, então 0,296 é 31 vezes melhor que o acaso. E a logística ficou <em>17% à frente</em> do boosting, 0,296 contra 0,253.",
-        "E a terceira é a calibração, que é a contagem. Onde houve 50 quebras, a logística previu 48,1 e o boosting previu 1.007, vinte vezes mais. Ordenar, os dois ordenam. Contar, só um conta, e é a contagem que sustenta a projeção da meta e o resumo das sete da manhã."
-      ],
-      chaves: [
-        "<b>ROC AUC</b>: empate · 0,869 contra 0,868 (0,5 é moeda)",
-        "<b>PR-AUC</b>: régua do evento raro · <b>31× o acaso</b> · 17% à frente",
-        "<b>calibração</b>: onde houve 50, previu <b>48,1</b> contra <b>1.007</b>",
-        "os dois ordenam; <b>só um conta</b>, e a contagem sustenta a projeção"
-      ]
-    }
-  ]
-},
-
-22: {
   titulo: "Por que este incidente está no topo",
   precisa: "A nota vem com o motivo, incidente a incidente.",
   versoes: [
@@ -769,7 +724,7 @@ const FALAS = {
   ]
 },
 
-23: {
+22: {
   titulo: "Divisória · Morning Brief",
   precisa: "Anunciar o primeiro diferencial.",
   versoes: [
@@ -800,7 +755,7 @@ const FALAS = {
   ]
 },
 
-24: {
+23: {
   titulo: "Morning Brief",
   precisa: "Chega sozinho, traz ontem e hoje, e leva para a tela de origem.",
   versoes: [
@@ -845,7 +800,7 @@ const FALAS = {
   ]
 },
 
-25: {
+24: {
   titulo: "Divisória · Projeção da meta e saúde",
   precisa: "Anunciar os dois modelos trabalhando juntos.",
   versoes: [
@@ -876,7 +831,7 @@ const FALAS = {
   ]
 },
 
-26: {
+25: {
   titulo: "A meta do ano vai fechar?",
   precisa: "A regra da meta, e as duas chamadas certas três meses antes.",
   versoes: [
@@ -919,7 +874,7 @@ const FALAS = {
   ]
 },
 
-27: {
+26: {
   titulo: "Que produto está pior, e por quê",
   precisa: "A nota de saúde, e a decomposição dela.",
   versoes: [
@@ -961,7 +916,7 @@ const FALAS = {
   ]
 },
 
-28: {
+27: {
   titulo: "Divisória · Arquitetura",
   precisa: "Anunciar a seção técnica.",
   versoes: [
@@ -992,7 +947,7 @@ const FALAS = {
   ]
 },
 
-29: {
+28: {
   titulo: "Como o Cronos antecipa o resultado do ano",
   precisa: "Entrada, os quatro cálculos e a saída, numa tela só.",
   versoes: [
@@ -1033,7 +988,7 @@ const FALAS = {
   ]
 },
 
-30: {
+29: {
   titulo: "Como isso roda",
   precisa: "A stack, e a promessa de portabilidade.",
   versoes: [
@@ -1074,7 +1029,7 @@ const FALAS = {
   ]
 },
 
-31: {
+30: {
   titulo: "Aplicação web Cronos · a demonstração",
   precisa: "Abrir a demo e dizer que o relógio está parado.",
   nota: "É aqui que a apresentação sai do slide. A partir deste ponto a fala corre <b>por cima da tela</b>, e o tempo dela não está somado no relógio do roteiro.",
@@ -1114,7 +1069,7 @@ const FALAS = {
   ]
 },
 
-32: {
+31: {
   titulo: "Obrigado",
   precisa: "Agradecer e abrir para perguntas.",
   versoes: [
@@ -1150,7 +1105,7 @@ const FALAS = {
   ]
 },
 
-33: {
+32: {
   titulo: "Abra o Cronos",
   precisa: "Deixar o acesso na tela durante as perguntas.",
   nota: "Este slide fica na tela enquanto as perguntas rolam. A fala é de dez segundos; o resto do tempo ele trabalha sozinho.",
@@ -1203,7 +1158,7 @@ const FALAS = {
    aberta em file:// não pode se reescrever sozinha.
    ══════════════════════════════════════════════════════════════════════════ */
 (function(){
-  const TOTAL = 33;
+  const TOTAL = 32;
   /* ritmo de fala apresentando, em português: 145 palavras por minuto. Serve
      para somar o deck inteiro, não para cronometrar um slide. */
   const PPM = 145;
@@ -1391,7 +1346,7 @@ const FALAS = {
   }
 
   /* ── a trilha ───────────────────────────────────────────────────────────── */
-  const DIVISORIAS = [7, 12, 16, 19, 23, 25, 28];
+  const DIVISORIAS = [7, 12, 16, 19, 22, 24, 27];
   for (let n = 1; n <= TOTAL; n++){
     if (DIVISORIAS.includes(n)){
       const fio = document.createElement("span");

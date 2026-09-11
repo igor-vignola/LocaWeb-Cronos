@@ -1630,94 +1630,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .flb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .flb .fecho b{color:var(--head);font-weight:700}
 
-/* ───── 21-desempenho.html ───── */
-/* ═══ slide 21 · por que a logística, e não o boosting ═══════════════════════
-   Terceira forma. A primeira foi tabela mais cartão de texto ("padrão demais,
-   muito texto"); a segunda, uma régua linear de três contagens ("odiei").
-   O que ele pediu: algo centralizado e comparativo, que responda duas
-   perguntas — o resultado é bom, e por que este e não o outro — com apelo
-   visual.
-
-   A forma é um confronto de duas colunas que crescem do centro para fora, com
-   a medida no meio e o veredicto embaixo dela. Cada linha é uma pergunta
-   respondida de relance: as duas barras do ROC têm o mesmo tamanho, a da
-   PR-AUC pende para a logística, e a da contagem estoura para o boosting, em
-   vermelho. Lado esquerdo é sempre o modelo escolhido.
-
-   Cada linha tem escala própria, normalizada pelo maior dos dois valores, e
-   isso é o que faz o empate do ROC virar empate desenhado.
-
-   A faixa de cima responde "é bom?" sem depender da comparação: a PR-AUC do
-   modelo é 31 vezes a taxa da base, que é o que o acaso entrega.
-
-   Números de notebooks/04_risco_ola.ipynb e da regra 1 do CLAUDE.md:
-     ROC AUC   0,869 contra 0,868                    empate
-     PR-AUC    0,2958 contra 0,2526                  17% de vantagem
-     base      0,0096, e 0,2958 é 31 vezes ela
-     contagem  48,1 contra 1.007, onde houve 50      20 vezes a mais
-   ══════════════════════════════════════════════════════════════════════════ */
-.dsp .body{padding-top:14px;align-items:center}
-.dsp .tt{font-size:50px;letter-spacing:-1.85px;text-align:center}
-.dsp .tt em{font-style:normal;color:var(--accent)}
-.dsp .eb{align-self:center}
-
-/* ── a faixa que responde "o resultado é bom?" ────────────────────────────── */
-.dsp .bom{display:inline-flex;align-items:center;gap:16px;margin-top:18px;padding:12px 24px;
-  border-radius:999px;background:#EEF4FF;border:1px solid #D6E4FB}
-.dsp .bom em{font-style:normal;font-size:26px;font-weight:900;letter-spacing:-1px;
-  color:var(--accent);line-height:1}
-.dsp .bom > span{font-size:15.5px;line-height:1.4;color:var(--tx)}
-.dsp .bom > span b{color:var(--head);font-weight:700}
-
-/* ── o confronto: as duas barras uma embaixo da outra ────────────────────
-   Primeiro elas cresciam do centro para fora, uma para cada lado. O dono do
-   projeto pediu empilhadas, e ele tem razão: com a mesma origem e a mesma
-   direção, comparar comprimento é imediato, e o empate do ROC vira duas
-   barras que terminam no mesmo lugar. Cada grupo tem escala própria,
-   normalizada pelo maior dos dois valores. */
-.dsp .cena{flex:1;display:flex;align-items:center;width:100%;margin-top:14px;min-height:0}
-.dsp .duelo{width:100%;max-width:1340px;margin:0 auto;display:flex;flex-direction:column;
-  gap:22px}
-
-.dsp .gr{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 26px 20px;
-  box-shadow:0 14px 38px -34px rgba(15,23,42,.45)}
-.dsp .gh{display:flex;align-items:baseline;gap:14px;padding-bottom:14px;
-  border-bottom:1px solid #F0F4FA}
-.dsp .gh .nm{font-size:19px;font-weight:800;letter-spacing:-.35px;color:var(--head)}
-.dsp .gh .oq{font-size:14px;color:#5A6779}
-.dsp .gh .jz{margin-left:auto;font-size:12px;font-weight:700;letter-spacing:1.3px;
-  text-transform:uppercase;border-radius:999px;padding:5px 13px;white-space:nowrap}
-.dsp .gh .jz.eq{color:#5A6779;background:#EDF1F7}
-.dsp .gh .jz.up{color:#15803D;background:#E4F5EB}
-.dsp .gh .jz.bad{color:#B91C1C;background:#FDECEC}
-
-.dsp .b{display:grid;grid-template-columns:214px 1fr 104px;align-items:center;gap:0 20px;
-  margin-top:13px}
-.dsp .b .qm{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:600;
-  color:var(--head)}
-.dsp .b .qm i{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.dsp .b .tk{height:30px;border-radius:8px;background:#EDF1F7;overflow:hidden}
-.dsp .b .tk s{display:block;height:100%;border-radius:8px;text-decoration:none;
-  transform:scaleX(0);transform-origin:left}
-.dsp.is-active .b .tk s{animation:corre .85s var(--out) var(--d,0ms) forwards}
-.dsp .b .vl{font-size:26px;font-weight:900;letter-spacing:-1px;text-align:right;line-height:1;
-  font-variant-numeric:tabular-nums}
-
-.dsp .b.log .qm i{background:var(--accent)} .dsp .b.log .tk s{background:var(--accent)}
-.dsp .b.log .vl{color:var(--accent)}
-.dsp .b.bst .qm i{background:#A9B6C7} .dsp .b.bst .tk s{background:#A9B6C7}
-.dsp .b.bst .vl{color:#5B6879}
-.dsp .gr.cnt .b.bst .qm i{background:#DC2626}
-.dsp .gr.cnt .b.bst .tk s{background:linear-gradient(90deg,#F87171,#DC2626)}
-.dsp .gr.cnt .b.bst .vl{color:var(--bad)}
-
-.dsp .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:auto;padding-top:16px;
-  border-top:1px solid #DCE4EF;font-size:16.5px;line-height:1.45;color:var(--tx);width:100%}
-.dsp .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
-.dsp .fecho b{color:var(--head);font-weight:700}
-
-/* ───── 22-explicabilidade.html ───── */
-/* ═══ slide 22 · explicabilidade ══════════════════════════════════════════════
+/* ───── 21-explicabilidade.html ───── */
+/* ═══ slide 21 · explicabilidade ══════════════════════════════════════════════
    Quarto desafio analítico da Locaweb, que a página 9 chama por esse nome e
    faz duas perguntas: quais fatores mais influenciam, e onde estão os maiores
    riscos.
@@ -1807,8 +1721,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .exp .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .exp .fecho b{color:var(--head);font-weight:700}
 
-/* ───── 23-div-brief.html ───── */
-/* ═══ slide 23 · divisória do Morning Brief ═══════════════════════════════════
+/* ───── 22-div-brief.html ───── */
+/* ═══ slide 22 · divisória do Morning Brief ═══════════════════════════════════
    O dono do projeto pediu divisória para este bloco e o nome em inglês, que é
    como o produto foi batizado desde a Sprint 1. Ela abre o primeiro dos dois
    diferenciais entregues.
@@ -1878,7 +1792,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .brf .nota{font-size:12.5px;line-height:1.45;color:#B7C0CB;margin-top:14px;padding-top:13px;
   border-top:1px solid rgba(255,255,255,.14)}
 
-/* ───── 24-brief.html ───── */
+/* ───── 23-brief.html ───── */
 /* ═══ slide 23 · variação B · o resumo como ele chega ═════════════════════════
    A composição anterior redesenhava o resumo em HTML e ligava cada linha à sua
    procedência por fios. Ficou uma folha de anotações: muita marcação e pouca
@@ -1942,7 +1856,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .brb .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .brb .fecho b{color:var(--head);font-weight:700}
 
-/* ───── 25-div-projecao.html ───── */
+/* ───── 24-div-projecao.html ───── */
 /* as duas barras da projeção contra a meta, com a marca do limite */
 .dv3 .meta{margin-top:16px;display:flex;flex-direction:column;gap:14px}
 .dv3 .meta .l{display:grid;grid-template-columns:30px 1fr 126px;align-items:center;gap:14px}
@@ -1967,8 +1881,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .dv3 .meta + .nota{display:flex;justify-content:space-between;gap:26px;font-size:12.5px;
   color:#A6B0BD;margin-top:12px}
 
-/* ───── 26-projecao.html ───── */
-/* ═══ slide 26 · a meta do ano vai fechar? ════════════════════════════════════
+/* ───── 25-projecao.html ───── */
+/* ═══ slide 25 · a meta do ano vai fechar? ════════════════════════════════════
    Quatro composições foram ao ensaio; ficou a D, escolhida em 10/09/2026. Ela
    é a única que enuncia a REGRA antes de mostrar o resultado: o cartão da
    esquerda diz o que é a meta e quais são os dois números, e só então os dois
@@ -2046,8 +1960,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .pj-d .lims div > span{display:block;font-size:13px;color:var(--tx);margin-top:8px}
 .pj-d .oque .fnt{font-size:12.5px;color:var(--tx2);margin-top:18px}
 
-/* ───── 27-saude.html ───── */
-/* ═══ slide 27 · a nota de saúde, com um produto aberto ═══════════════════════
+/* ───── 26-saude.html ───── */
+/* ═══ slide 26 · a nota de saúde, com um produto aberto ═══════════════════════
    Quarta forma. A segunda era um ranking de quinze linhas em duas colunas com
    um painel escuro embaixo — sete blocos de informação numa tela só. A terceira
    trocou tudo por dois blocos claros, mas cortou o ranking para os cinco
@@ -2207,7 +2121,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .sdc .abf .r{font-size:15px;color:var(--head);font-weight:700}
 .sdc .abf .r b{font-size:19px;margin-left:6px}
 
-/* ───── 28-div-arquitetura.html ───── */
+/* ───── 27-div-arquitetura.html ───── */
 /* O desenho da arquitetura é um fluxograma de verdade: caixas e setas, com os
    dois recintos que importam — o que treina e grava, e o que só lê e sobe.
    Antes era uma lista com ícones num trilho, que o dono do projeto apontou
@@ -2246,8 +2160,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .dv3 .carga .lg span:nth-child(3) i{background:#60A5FA}
 .dv3 .carga .lg b{color:#E8ECF3;font-weight:500}
 
-/* ───── 29-antecipa.html ───── */
-/* ═══ slide 29 · como o Cronos antecipa o resultado do ano ════════════════════
+/* ───── 28-antecipa.html ───── */
+/* ═══ slide 28 · como o Cronos antecipa o resultado do ano ════════════════════
    O slide que o dono do projeto marcou como obrigatório, vindo do deck da
    Sprint 4. É o único lugar do deck onde as quatro saídas aparecem juntas, com
    o que entra de um lado e para onde vai do outro. Abre o bloco do produto:
@@ -2367,8 +2281,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .ant .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .ant .fecho b{color:var(--head);font-weight:700}
 
-/* ───── 30-stack.html ───── */
-/* ═══ slide 30 · como isso roda ══════════════════════════════════════════════
+/* ───── 29-stack.html ───── */
+/* ═══ slide 29 · como isso roda ══════════════════════════════════════════════
    A stack, e ela precisa fazer dois argumentos que a banca vai testar: tudo
    roda dentro de um contêiner só, sem serviço proprietário de nuvem; e o texto
    do resumo é montado por regra, não por modelo de linguagem.
@@ -2471,7 +2385,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .stk .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .stk .fecho b{color:var(--head);font-weight:700}
 
-/* ───── 31-aplicacao.html ───── */
+/* ───── 30-aplicacao.html ───── */
 /* ═══ slide 30 · o painel operacional ════════════════════════════════════════
    Este slide tem função operacional, não decorativa: é o beat de troca para a
    demonstração ao vivo. Enquanto ele está na tela, o Hygor assume a fala e
@@ -2515,8 +2429,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .apl.is-active .tela{animation:chegaTela 1.3s var(--out) .7s forwards}
 @keyframes chegaTela{to{opacity:1;transform:rotateY(-11deg) rotateX(4deg) translate3d(0,0,0)}}
 
-/* ───── 32-fecho.html ───── */
-/* ═══ slide 32 · agradecimento, o pôster da Sprint 2 ══════════════════════
+/* ───── 31-fecho.html ───── */
+/* ═══ slide 31 · agradecimento, o pôster da Sprint 2 ══════════════════════
    A composição A fecha com a palavra grande à esquerda e os créditos numa
    faixa de três colunas. Esta B retoma o desenho do slide de agradecimentos
    da Sprint 2 (prototipos/slides/agradecimentos-slide.html), que era pôster:
@@ -2568,8 +2482,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .agr .cd > .ms{display:block;font-size:14px;line-height:1.5;color:rgba(255,255,255,.9);
   margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12)}
 
-/* ───── 33-acesso.html ───── */
-/* ═══ slide 33 · o acesso à aplicação ═══════════════════════════════════════
+/* ───── 32-acesso.html ───── */
+/* ═══ slide 32 · o acesso à aplicação ═══════════════════════════════════════
    Última página do deck. Ela não é falada: fica no telão enquanto a banca
    pergunta, para quem quiser abrir a aplicação no próprio celular enquanto
    ouve a resposta. Por isso o QR é grande, o endereço aparece escrito por
@@ -3618,90 +3532,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
 </section>
 
-<section class="slide light dsp" data-slide="21" data-var="a" data-quem="ana">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
-    <div class="bn">Cronos</div>
-    <div class="tag">Seção 04 &middot; escolha do modelo</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">A escolha do modelo de risco</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Por que a <em>logística</em>, e não o boosting</span></span></h1>
-    <div class="bom rv" style="--d:620ms">
-      <em><span class="ct" data-to="31" data-delay="760">0</span>&times;</em>
-      <span>melhor que o acaso: a PR-AUC do modelo é <b>0,296</b> contra <b>0,0096</b> da taxa da base</span>
-    </div>
-
-    <div class="cena">
-      <div class="duelo">
-
-        <div class="gr rv3" style="--d:900ms">
-          <div class="gh">
-            <span class="nm">Área sob a curva ROC</span>
-            <span class="oq">separa quem quebra de quem não quebra</span>
-            <span class="jz eq">empate</span>
-          </div>
-          <div class="b log">
-            <span class="qm"><i></i>Regressão logística</span>
-            <span class="tk"><s style="width:100%;--d:1080ms"></s></span>
-            <span class="vl">0,869</span>
-          </div>
-          <div class="b bst">
-            <span class="qm"><i></i>Gradient boosting</span>
-            <span class="tk"><s style="width:99.9%;--d:1140ms"></s></span>
-            <span class="vl">0,868</span>
-          </div>
-        </div>
-
-        <div class="gr rv3" style="--d:1020ms">
-          <div class="gh">
-            <span class="nm">PR-AUC</span>
-            <span class="oq">a régua do evento raro, que é o caso aqui</span>
-            <span class="jz up">17% à frente</span>
-          </div>
-          <div class="b log">
-            <span class="qm"><i></i>Regressão logística</span>
-            <span class="tk"><s style="width:100%;--d:1260ms"></s></span>
-            <span class="vl">0,296</span>
-          </div>
-          <div class="b bst">
-            <span class="qm"><i></i>Gradient boosting</span>
-            <span class="tk"><s style="width:85.5%;--d:1320ms"></s></span>
-            <span class="vl">0,253</span>
-          </div>
-        </div>
-
-        <div class="gr cnt rv3" style="--d:1140ms">
-          <div class="gh">
-            <span class="nm">Quebras previstas</span>
-            <span class="oq">onde houve 50, e a projeção da meta soma isto</span>
-            <span class="jz bad">20 vezes a mais</span>
-          </div>
-          <div class="b log">
-            <span class="qm"><i></i>Regressão logística</span>
-            <span class="tk"><s style="width:4.8%;--d:1440ms"></s></span>
-            <span class="vl">48,1</span>
-          </div>
-          <div class="b bst">
-            <span class="qm"><i></i>Gradient boosting</span>
-            <span class="tk"><s style="width:100%;--d:1500ms"></s></span>
-            <span class="vl">1.007</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="fecho rv" style="--d:1900ms">
-      <svg class="ic" viewBox="0 0 24 24"><path d="M20.4 6.6 9.6 17.4l-6-6"/></svg>
-      <span>Ordenar, os dois ordenam. <b>Contar, só um conta</b> — e é a contagem que sustenta a projeção da meta e o resumo das sete.</span>
-    </div>
-  </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
-</section>
-
-<section class="slide light exp" data-slide="22" data-var="a" data-quem="ana">
+<section class="slide light exp" data-slide="21" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -3748,7 +3579,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
 </section>
 
-<section class="slide dark dv3 dv2 brf" data-slide="23" data-var="a" data-quem="hygor">
+<section class="slide dark dv3 dv2 brf" data-slide="22" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -3819,7 +3650,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide light brb" data-slide="24" data-var="a" data-quem="hygor">
+<section class="slide light brb" data-slide="23" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -3873,7 +3704,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide dark dv3 dv2" data-slide="25" data-var="a" data-quem="hygor">
+<section class="slide dark dv3 dv2" data-slide="24" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -3924,7 +3755,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide light prj pj-d" data-slide="26" data-var="a" data-quem="hygor">
+<section class="slide light prj pj-d" data-slide="25" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -3985,7 +3816,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide light sdc" data-slide="27" data-var="a" data-quem="hygor">
+<section class="slide light sdc" data-slide="26" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -4084,7 +3915,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span><span>Janela de 01/01/2025 a 30/09/2025 &middot; produtos com 200 ou mais incidentes elegíveis ao indicador</span></div>
 </section>
 
-<section class="slide dark dv3 dv2" data-slide="28" data-var="a" data-quem="hygor">
+<section class="slide dark dv3 dv2" data-slide="27" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -4197,7 +4028,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide light ant" data-slide="29" data-var="a" data-quem="hygor">
+<section class="slide light ant" data-slide="28" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -4289,7 +4120,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide light stk" data-slide="30" data-var="a" data-quem="hygor">
+<section class="slide light stk" data-slide="29" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -4349,7 +4180,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide dark apl" data-slide="31" data-var="a" data-quem="hygor">
+<section class="slide dark apl" data-slide="30" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -4375,7 +4206,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide dark agr" data-slide="32" data-var="a" data-quem="igor">
+<section class="slide dark agr" data-slide="31" data-var="a" data-quem="igor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -4410,7 +4241,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
 </section>
 
-<section class="slide light acs" data-slide="33" data-var="a" data-quem="igor">
+<section class="slide light acs" data-slide="32" data-var="a" data-quem="igor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>

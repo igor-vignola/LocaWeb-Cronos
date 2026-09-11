@@ -490,6 +490,15 @@ colunas: elas encolheram para 26px, subiram na linha do grid e ficaram
 desalinhadas das outras seis, sem erro nenhum. Modificador de estado tem
 nome próprio (`seq`), e o nome do bloco fica só no bloco.
 
+**7.40 A comparação de modelos saiu do deck em 11/09/2026.** Era um slide
+inteiro com três réguas — ROC AUC, PR-AUC e contagem prevista — e custava 53
+segundos só para explicar o que cada uma mede. É slide de defesa, não de
+narrativa: ninguém precisa dele para entender o produto, e quem pergunta
+recebe a resposta inteira do `PERGUNTAS.md`. A afirmação sobrevive no pé do
+slide da explicabilidade, que diz que a logística empata na ordenação, ganha no
+evento raro e devolve o porquê de cada nota. Com a saída, 22 a 33 viraram 21 a
+32, e o deck fecha em 32 slides.
+
 **7.29 O slide 26 mudou de mensagem, não de forma.** Ele era dois painéis de
 oito barras cinzas, um por nota e outro por taxa, e o dono do projeto devolveu
 com "qual a mensagem desse slide?". Não havia uma: a divergência entre os dois

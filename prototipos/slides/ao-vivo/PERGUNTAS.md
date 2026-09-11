@@ -6,6 +6,7 @@ resposta em uma ou duas frases, o número que a sustenta e onde ele está. Quem
 apresenta deve saber estas de cor; as demais são reserva.
 
 Fonte dos números: `CONTRATO.md` §5 e os scripts `_figuras_*.py` desta pasta.
+Os ponteiros `→ slide N` valem para o deck de **32 slides** de 11/09/2026.
 
 ## As que derrubam
 
@@ -13,7 +14,11 @@ Fonte dos números: `CONTRATO.md` §5 e os scripts `_figuras_*.py` desta pasta.
 Testamos as duas. A área ROC empatou (0,869 contra 0,868). Na métrica que vale
 para evento raro, a PR-AUC, a logística ganhou: 0,296 contra 0,253. E ela está
 calibrada: prevê 48,1 quebras onde houve 50; o XGBoost com balanceamento previu
-1.007. Acurácia não serve porque 99% dos incidentes não quebram. → slide 20, pé.
+1.007. Acurácia não serve porque 99% dos incidentes não quebram.
+→ **Esta comparação saiu do deck em 11/09/2026**, por custar 53 segundos de
+explicação de métrica. Os números vivem aqui. A afirmação curta está no pé do
+slide 21: a logística empata na ordenação, ganha no evento raro e diz o porquê
+de cada nota. A armadilha da acurácia está no pé do slide 11.
 
 **2. "A faixa de 80% do Prophet cobre só 60% dos dias no P3. A incerteza não
 está subestimada?"**
@@ -74,12 +79,12 @@ protocolo que reproduz o uso real. No corte único de outubro a dezembro o P3 d�
 
 **"De onde sai a projeção anual? É o Prophet?"**
 Não. É a soma do que já aconteceu no ano com o ritmo médio de quebras até a
-data, projetado até dezembro, com faixa pela variação do ritmo. → slide 23.
+data, projetado até dezembro, com faixa pela variação do ritmo. → slide 25.
 
 **"A projeção do P3 errou em agosto, setembro e outubro."**
 Errou para o lado pessimista: apontou estouro e o ano fechou em 196, abaixo de
 200. Para um alarme, avisar sem precisar é melhor que não avisar. Em novembro e
-dezembro acertou a chamada. → slide 23, pé.
+dezembro acertou a chamada. → slide 25, pé.
 
 **"A projeção de dezembro do P3 disse 183 e o ano fechou em 196."**
 Sim, e a chamada estava certa (dentro da meta). O ponto ficou otimista em 13
@@ -88,10 +93,12 @@ incidentes porque novembro e dezembro tiveram menos quebras que a média do ano.
 ## Sobre o produto
 
 **"Para que a Claude API, se ela só escreve uma frase?"**
-Para a frase não ser um template: ela lê os números do dia e escreve a abertura
-do resumo em linguagem de operação. Nenhum número passa por ela. Poderia ser um
-template, e escolhemos o texto gerado porque o resumo muda de tom conforme o
-dia (dia normal, dia acima do previsto, quebra ontem). → slide 26, pé.
+Hoje ela **não está no ar**: o texto de abertura do resumo é montado por regra a
+partir da saída dos modelos, dentro do próprio contêiner, e nenhum número passa
+por modelo de linguagem. A ideia declarada desde a Sprint 1 é gerar essa frase
+com a Claude API, para o resumo mudar de tom conforme o dia — dia normal, dia
+acima do previsto, quebra ontem — em vez de escolher entre três textos fixos. É
+próximo passo, não entrega, e o slide da stack diz isso. → slide 23, pé.
 
 **(Douglas) "A cor do gráfico e a ordem não batem. Por quê?"**
 Porque medem coisas diferentes, e o slide diz isso. A posição é o tamanho do
@@ -116,7 +123,7 @@ sistema não pode mostrar realizado depois do corte. → slide 29.
 **"Por que o relógio parado em 01/10/2025?"**
 Para a demonstração ser honesta: tudo o que a tela mostra existia naquele
 instante. Cobertura, acertos e erros dos modelos ficam nos slides, medidos
-depois, e não na tela. → slide 29.
+depois, e não na tela. → slide 30.
 
 ## Números que ficaram fora do deck e podem ser pedidos
 
@@ -158,7 +165,7 @@ Não pela acurácia. Na base de avaliação, 50 dos 5.183 incidentes quebraram, 
 a cada 103; nunca sinalizar dá 99,04% e encontra zero. O nosso, sinalizando os
 518 de maior risco, cai para 90,24% de acurácia e encontra 31 das 50. O que
 medimos é quantas quebras aparecem nas primeiras posições da fila, mais a
-PR-AUC e a calibração. → slide 20.
+PR-AUC e a calibração, que não têm mais slide próprio. → slide 20.
 
 **"Vocês dizem dois modelos numa tela e quatro coisas na outra. Quantos são?"**
 Dois modelos: Prophet para o volume e regressão logística para o risco. As
