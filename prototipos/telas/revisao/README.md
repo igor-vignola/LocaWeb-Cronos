@@ -164,11 +164,9 @@ _construir.py         o transformador, com o motivo de cada corte comentado
 _png/                 as capturas de cada versão, inteiras e na dobra
 ```
 
-Para regerar depois de mexer em `app/`:
-
-```
-.venv/Scripts/python.exe prototipos/telas/revisao/_construir.py
-```
+`_construir.py` **não deve mais ser rodado**: ele deriva as propostas de
+`app/`, e `app/` agora já é a proposta — regerar produziria a nova tela
+comparada contra ela mesma. O script fica pelo registro do que cada corte fez.
 
 ## Duas coisas que valem saber
 
