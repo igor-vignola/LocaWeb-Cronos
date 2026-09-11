@@ -524,45 +524,49 @@ const FALAS = {
 
 11: {
   titulo: "O alvo é raro",
-  precisa: "Quão raro é o evento, e por que acurácia não serve de régua.",
+  precisa: "O desbalanceamento entre as classes, e por que acurácia engana.",
+  nota: "O termo é <b>desbalanceamento de classes</b> — é como a banca vai chamar. A classe que quase não aparece é a <b>minoritária</b>, e o fenômeno é <b>evento raro</b>. “Desproporção” se entende, mas não é o nome técnico.",
   versoes: [
     {
       fala: [
-        "E aqui está o alvo que o modelo tem que acertar. Em três anos foram <em>248 violações</em> de OLA em 25.600 incidentes, ou seja, uma a cada 103. É o que esses quadradinhos mostram: cada um vale 64 incidentes, e os vermelhos são as violações.",
-        "E é justamente isso que torna o problema difícil. Um modelo que responde “não quebra” para todos acerta 99% das vezes e não encontra nenhuma. Por isso acurácia não serve de régua aqui."
+        "Um problema que a gente identificou logo no começo é o <em>desbalanceamento</em> entre as duas classes. Dos 25.600 incidentes que entram no indicador, só 248 estouraram o prazo, ou seja, menos de 1%. Então o modelo tem que aprender o padrão de quebra com menos de um por cento dos dados.",
+        "E daí vem um detalhe que confunde bastante: se a gente usasse acurácia para avaliar o modelo, um modelo que chutasse “não vai estourar” para todos os incidentes teria <em>99% de acurácia</em>, sem ter encontrado uma quebra sequer. Por isso acurácia não é a régua aqui."
       ],
       chaves: [
-        "<b>248 violações</b> em 25.600 incidentes",
-        "uma a cada <b>103</b>",
-        "responder “não quebra” para todos <b>acerta 99%</b> e acha nenhuma",
+        "<b>desbalanceamento</b> entre as duas classes",
+        "<b>248</b> em 25.600 · <b>menos de 1%</b>",
+        "o padrão tem que sair de <b>menos de 1% dos dados</b>",
+        "chutar “não vai estourar” em tudo dá <b>99% de acurácia</b> e <b>zero quebra</b>",
         "por isso <b>acurácia não é a régua</b>"
       ]
     },
     {
       fala: [
-        "O alvo é raro: <em>248 violações</em> em 25.600 incidentes, uma a cada 103. Um modelo que responde “não quebra” para todos acerta 99% das vezes e não acha nenhuma, então acurácia não serve de régua aqui."
+        "Dos 25.600 incidentes, só 248 estouraram o prazo: menos de 1%. O modelo tem que achar o padrão de quebra com menos de um por cento dos dados. E é por isso que acurácia não serve aqui: um modelo que chutasse “não vai estourar” para todos teria <em>99% de acurácia</em> sem achar uma quebra sequer."
       ],
       chaves: [
-        "<b>248</b> em 25.600 · uma a cada <b>103</b>",
-        "acertar 99% e <b>achar nenhuma</b>: acurácia não é a régua"
+        "<b>248</b> em 25.600 · <b>menos de 1%</b>",
+        "padrão de quebra em <b>menos de 1% dos dados</b>",
+        "chutar tudo “não estoura” = <b>99% de acurácia</b>, zero quebra"
       ]
     },
     {
       fala: [
-        "E aqui está o alvo que o modelo tem que acertar. Em três anos foram <em>248 violações</em> de OLA em 25.600 incidentes, ou seja, uma a cada 103. É o que esses quadradinhos mostram: cada um vale 64 incidentes, e os vermelhos são as violações.",
-        "Dessas 248, <em>206 estão na prioridade 3</em> e 42 na 2, que é o desequilíbrio que a gente mostrou dois slides atrás.",
-        "E é justamente essa raridade que torna o problema difícil. Um modelo que responde “não quebra” para todos os 25.600 acerta 99% das vezes e não encontra nenhuma violação. Por isso acurácia não serve de régua aqui, e a gente vai medir o modelo de outro jeito mais para frente."
+        "Um problema que a gente identificou logo no começo é o <em>desbalanceamento</em> entre as duas classes. Dos 25.600 incidentes que entram no indicador, só 248 estouraram o prazo em três anos, ou seja, menos de 1%. É o que esses quadradinhos mostram: cada um vale 64 incidentes, e os vermelhos são as violações. Dessas 248, 206 estão na prioridade 3 e 42 na 2.",
+        "Então o modelo tem que aprender o padrão de quebra com menos de um por cento dos dados, e é isso que torna o problema difícil.",
+        "E daí vem um detalhe que confunde bastante: se a gente usasse acurácia para avaliar o modelo, um modelo que chutasse “não vai estourar” para todos os 25.600 teria <em>99% de acurácia</em>, sem ter encontrado uma quebra sequer. Por isso acurácia não é a régua aqui, e mais para frente a gente mostra com que métricas o modelo foi medido de verdade."
       ],
       chaves: [
-        "<b>248 violações</b> em 25.600 incidentes, uma a cada <b>103</b>",
+        "<b>desbalanceamento</b> entre as duas classes",
+        "<b>248</b> em 25.600, em três anos · <b>menos de 1%</b>",
         "<b>206 na P3</b> e 42 na P2",
-        "responder “não quebra” para todos <b>acerta 99%</b> e acha nenhuma",
+        "o padrão tem que sair de <b>menos de 1% dos dados</b>",
+        "chutar “não vai estourar” em tudo dá <b>99% de acurácia</b> e <b>zero quebra</b>",
         "<b>acurácia não é a régua</b> · a medida certa vem depois"
       ]
     }
   ]
 },
-
 12: {
   titulo: "Divisória · Causas e explicabilidade",
   precisa: "Anunciar a seção. Divisória é pausa.",
