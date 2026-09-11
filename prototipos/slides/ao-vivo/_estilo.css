@@ -165,21 +165,25 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* ── marcador de quem apresenta ──────────────────────────────────────────────
-   Retrato redondo de 22px mais o primeiro nome, no canto inferior esquerdo, na
-   primeira vaga do rodapé. Diz de quem é a vez sem competir com o conteúdo, e
-   de quebra responde a "divisão de trabalho não comprovável", que o dossiê
-   lista como fraqueza.
+   Retrato redondo de 30px mais o primeiro nome, no canto inferior DIREITO. Diz
+   de quem é a vez sem competir com o conteúdo, e de quebra responde a "divisão
+   de trabalho não comprovável", que o dossiê lista como fraqueza.
+
+   Foi para a direita porque a vaga da esquerda é da procedência do dado, que
+   aparece em quinze slides — com os dois do mesmo lado, o rodapé virava duas
+   informações disputando a mesma linha. O `order` empurra o marcador para o
+   fim do rodapé mesmo sendo o primeiro filho, que é onde o _montar.py injeta.
+
+   Sem anel colorido: as fotos já diferenciam as três pessoas, e um anel de cor
+   no canto de todo slide competiria com o azul, que aqui é cor de dado.
 
    NÃO escreva este bloco à mão no slide: declare data-quem="igor|ana|hygor"
    na <section> e o _montar.py injeta o marcador na primeira vaga do rodapé. */
 .apres{display:inline-flex;align-items:center;gap:9px;text-transform:none;
-  letter-spacing:0;font-size:13px;font-weight:500}
-.apres img{width:22px;height:22px;border-radius:50%;object-fit:cover;flex-shrink:0}
-.apres b{font-weight:700}
-.light .apres{color:var(--tx2)}
+  letter-spacing:-.1px;font-size:14.5px;font-weight:700;order:9;margin-left:auto}
+.apres img{width:30px;height:30px;border-radius:50%;object-fit:cover;flex-shrink:0}
 .light .apres b{color:var(--head)}
 .light .apres img{box-shadow:0 0 0 1px var(--line),0 2px 6px -2px rgba(15,23,42,.25)}
-.dark .apres{color:#A6B0BD}
 .dark .apres b{color:#fff}
 .dark .apres img{box-shadow:0 0 0 1px rgba(255,255,255,.20),0 2px 6px -2px rgba(0,0,0,.55)}
 

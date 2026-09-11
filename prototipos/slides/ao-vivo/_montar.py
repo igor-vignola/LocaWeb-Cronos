@@ -63,10 +63,7 @@ def reancora(texto: str) -> str:
 
 def marcador(quem: str) -> str:
     nome, foto = EQUIPE[quem]
-    return (
-        f'<span class="apres"><img src="{foto}" alt="">'
-        f"<b>{nome}</b> apresenta</span>"
-    )
+    return f'<span class="apres"><img src="{foto}" alt=""><b>{nome}</b></span>'
 
 
 def injeta_marcador(secao: str, quem: str) -> str:

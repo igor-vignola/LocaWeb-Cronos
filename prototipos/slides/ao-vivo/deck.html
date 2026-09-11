@@ -177,21 +177,25 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* ── marcador de quem apresenta ──────────────────────────────────────────────
-   Retrato redondo de 22px mais o primeiro nome, no canto inferior esquerdo, na
-   primeira vaga do rodapé. Diz de quem é a vez sem competir com o conteúdo, e
-   de quebra responde a "divisão de trabalho não comprovável", que o dossiê
-   lista como fraqueza.
+   Retrato redondo de 30px mais o primeiro nome, no canto inferior DIREITO. Diz
+   de quem é a vez sem competir com o conteúdo, e de quebra responde a "divisão
+   de trabalho não comprovável", que o dossiê lista como fraqueza.
+
+   Foi para a direita porque a vaga da esquerda é da procedência do dado, que
+   aparece em quinze slides — com os dois do mesmo lado, o rodapé virava duas
+   informações disputando a mesma linha. O `order` empurra o marcador para o
+   fim do rodapé mesmo sendo o primeiro filho, que é onde o _montar.py injeta.
+
+   Sem anel colorido: as fotos já diferenciam as três pessoas, e um anel de cor
+   no canto de todo slide competiria com o azul, que aqui é cor de dado.
 
    NÃO escreva este bloco à mão no slide: declare data-quem="igor|ana|hygor"
    na <section> e o _montar.py injeta o marcador na primeira vaga do rodapé. */
 .apres{display:inline-flex;align-items:center;gap:9px;text-transform:none;
-  letter-spacing:0;font-size:13px;font-weight:500}
-.apres img{width:22px;height:22px;border-radius:50%;object-fit:cover;flex-shrink:0}
-.apres b{font-weight:700}
-.light .apres{color:var(--tx2)}
+  letter-spacing:-.1px;font-size:14.5px;font-weight:700;order:9;margin-left:auto}
+.apres img{width:30px;height:30px;border-radius:50%;object-fit:cover;flex-shrink:0}
 .light .apres b{color:var(--head)}
 .light .apres img{box-shadow:0 0 0 1px var(--line),0 2px 6px -2px rgba(15,23,42,.25)}
-.dark .apres{color:#A6B0BD}
 .dark .apres b{color:#fff}
 .dark .apres img{box-shadow:0 0 0 1px rgba(255,255,255,.20),0 2px 6px -2px rgba(0,0,0,.55)}
 
@@ -2662,7 +2666,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <div class="tag2 rv" style="--d:1040ms"><b>Veja antes.</b> Aja antes.</div>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b></span></div>
 </section>
 
 <section class="slide light eqp eq-a" data-slide="2" data-var="a" data-quem="igor">
@@ -2712,10 +2716,10 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       </div>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b></span></div>
 </section>
 
-<section class="slide dark crn cr-a cr-b" data-slide="3" data-var="a" data-quem="hygor">
+<section class="slide dark crn cr-a cr-b" data-slide="3" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -2751,7 +2755,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       </div>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b></span></div>
 </section>
 
 <section class="slide light med" data-slide="4" data-var="a" data-quem="ana">
@@ -2804,7 +2808,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span>Resolveu dentro do prazo, tudo certo. <b>Passou, é uma quebra</b>. É a soma das quebras de <b>um ano</b> que define a nota da operação, e em 2025 foram 25.156 incidentes elegíveis.</span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b></span></div>
 </section>
 
 <section class="slide light qbd" data-slide="5" data-var="a" data-quem="ana">
@@ -2843,7 +2847,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span>Em outubro a prioridade 2 estava em <b>35</b>, dentro do limite. Um único mês somou seis, e <b>o resultado só apareceu na apuração de dezembro</b>.</span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b></span></div>
 </section>
 
 <section class="slide light anx" data-slide="6" data-var="a" data-quem="ana">
@@ -2914,7 +2918,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span>Prioridade diz <b>quanto o cliente sente</b>, não quanto o prazo aperta. Ordenar por ela deixa em segundo lugar o grupo que responde por <b>206 das 248 quebras</b>.</span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b></span></div>
 </section>
 
 <section class="slide dark dv3 dv2" data-slide="7" data-var="a" data-quem="igor">
@@ -2961,7 +2965,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       </div>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b></span></div>
 </section>
 
 <section class="slide light slt sl-b" data-slide="8" data-var="a" data-quem="igor">
@@ -2998,7 +3002,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span>O que cresceu foi o <b>volume de monitoramento automático</b>. A operação não piorou, e a série que entra no KPI atravessou o salto sem se mexer.</span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b></span></div>
 </section>
 
 <section class="slide light rec rc-a" data-slide="9" data-var="a" data-quem="igor">
@@ -3047,7 +3051,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span>A série elegível ao KPI <b>praticamente só existe em 2025</b>.</span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b></span></div>
 </section>
 
 <section class="slide light sin" data-slide="10" data-var="a" data-quem="hygor">
@@ -3110,10 +3114,10 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span>Medimos as duas prioridades em cada corte. Quem abre e quando chega <b>viram variáveis do modelo de risco</b>, junto com o produto, o item de configuração e a categoria.</span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b></span></div>
 </section>
 
-<section class="slide light alv" data-slide="11" data-var="a" data-quem="igor">
+<section class="slide light alv" data-slide="11" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -3168,10 +3172,10 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span>Responder <b>&ldquo;não quebra&rdquo;</b> para todos os 25.600 acerta 99,03% das vezes e não encontra nenhuma. Por isso acurácia não é a régua deste problema.</span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b></span></div>
 </section>
 
-<section class="slide dark dv3 dv2" data-slide="12" data-var="a" data-quem="ana">
+<section class="slide dark dv3 dv2" data-slide="12" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -3203,7 +3207,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       </div>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b></span></div>
 </section>
 
 <section class="slide light rep" data-slide="13" data-var="a" data-quem="ana">
@@ -3249,7 +3253,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span>Na prioridade 3 são <b>105 de 196</b>, mais da metade. Na 2 são 11 de 42, um quarto: <b>o padrão vale nas duas, e é bem mais forte na 3</b>. Daqui sai uma das dez variáveis do modelo.</span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b></span></div>
 </section>
 
 <section class="slide light otr" data-slide="14" data-var="a" data-quem="ana">
@@ -3306,10 +3310,10 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span>O campo só existe no fechamento e não separa causa de consequência, então <b>fica fora do modelo</b> e vale como apontamento de processo.</span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b></span></div>
 </section>
 
-<section class="slide light cvb" data-slide="15" data-var="a" data-quem="hygor">
+<section class="slide light cvb" data-slide="15" data-var="a" data-quem="ana">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -3367,7 +3371,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span>Seis de cada dez incidentes vêm da causa que menos estoura. <b>Priorizar por volume é atender o que já está sob controle.</b></span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b></span></div>
 </section>
 
 <section class="slide dark dv3 dv2" data-slide="16" data-var="a" data-quem="igor">
@@ -3428,7 +3432,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       </div>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b></span></div>
 </section>
 
 <section class="slide light pvb" data-slide="17" data-var="a" data-quem="igor">
@@ -3461,7 +3465,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span>Cada caixa é a faixa que o modelo deu para aquele dia, feita em 1º de outubro. <b>O único ponto fora ficou 1 incidente acima do teto.</b></span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b></span></div>
 </section>
 
 <section class="slide light err" data-slide="18" data-var="a" data-quem="igor">
@@ -3519,7 +3523,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span>Mantemos o Prophet porque ele ganha onde a meta estourou e <b>devolve faixa e calendário</b>, que o baseline não devolve e o resumo das 07h precisa.</span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b></span></div>
 </section>
 
 <section class="slide dark dv3 dv2" data-slide="19" data-var="a" data-quem="igor">
@@ -3564,7 +3568,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       </div>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b></span></div>
 </section>
 
 <section class="slide light flb" data-slide="20" data-var="a" data-quem="igor">
@@ -3625,7 +3629,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span>Mesmos 50 casos, mesmo dia. O que muda é a ordem, e <b>a ordem de hoje é a que acha menos</b>.</span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b></span></div>
 </section>
 
 <section class="slide light exp" data-slide="21" data-var="a" data-quem="igor">
@@ -3672,7 +3676,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span>A regressão logística empata na ordenação, ganha no evento raro e <b>diz o porquê de cada nota</b>.</span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b></span></div>
 </section>
 
 <section class="slide dark dv3 dv2 brf" data-slide="22" data-var="a" data-quem="hygor">
@@ -3743,7 +3747,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       </div>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b></span></div>
 </section>
 
 <section class="slide light brb" data-slide="23" data-var="a" data-quem="hygor">
@@ -3797,7 +3801,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span>Cada linha tem um botão que leva à tela de onde ela veio. <b>O resumo é o começo do caminho</b>, não um relatório para arquivar.</span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b></span></div>
 </section>
 
 <section class="slide dark dv3 dv2" data-slide="24" data-var="a" data-quem="hygor">
@@ -3848,7 +3852,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       </div>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b></span></div>
 </section>
 
 <section class="slide light kpi esc2" data-slide="25" data-var="a" data-quem="hygor">
@@ -3893,9 +3897,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 
     </div></div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b></span>
     <span>Escada oficial da Locaweb &middot; uma por prioridade</span>
-    <span class="dir">Em 2025 a prioridade 2 fechou em <b>42</b>, três acima do teto de 39; a prioridade 3 fechou em <b>196</b>, no degrau mais alto</span>
   </div>
 </section>
 
@@ -3957,7 +3960,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span>As duas chamadas certas, <b>três meses antes da apuração</b>: 42 na prioridade 2 e 196 na 3.</span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b></span></div>
 </section>
 
 <section class="slide light sdc" data-slide="27" data-var="a" data-quem="hygor">
@@ -4056,7 +4059,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       </div>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span><span>Janela de 01/01/2025 a 30/09/2025 &middot; produtos com 200 ou mais incidentes elegíveis ao indicador</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b></span><span>01/01 a 30/09/2025 &middot; produtos com 200 ou mais elegíveis</span></div>
 </section>
 
 <section class="slide dark dv3 dv2" data-slide="28" data-var="a" data-quem="ana">
@@ -4169,7 +4172,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       </div>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b></span></div>
 </section>
 
 <section class="slide light ant" data-slide="29" data-var="a" data-quem="ana">
@@ -4261,7 +4264,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span>Os quatro cálculos rodam sobre a mesma base, e o contêiner <b>sobe onde houver Docker</b>, sem serviço proprietário de nuvem.</span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b></span></div>
 </section>
 
 <section class="slide light stk" data-slide="30" data-var="a" data-quem="ana">
@@ -4321,7 +4324,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span><b>Tudo é calculado dentro do contêiner.</b> O texto do resumo é montado por regra a partir da saída dos modelos; gerar essa frase com modelo de linguagem é o próximo passo declarado, e não está no ar.</span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/ana-beatriz.png" alt=""><b>Ana</b></span></div>
 </section>
 
 <section class="slide dark apl" data-slide="31" data-var="a" data-quem="igor">
@@ -4347,7 +4350,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       </div>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b></span></div>
 </section>
 
 <section class="slide dark agr" data-slide="32" data-var="a" data-quem="igor">
@@ -4382,7 +4385,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       </div>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b></span></div>
 </section>
 
 <section class="slide light acs" data-slide="33" data-var="a" data-quem="igor">
@@ -4423,7 +4426,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
       <span class="rv" style="--d:1975ms"><i></i>Causas<em>/causas</em></span>
     </div>
   </div>
-  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span><span>72 páginas publicadas &middot; base elegível ao indicador: 25.600 incidentes &middot; relógio parado em 01/10/2025, às 15h</span></div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b></span><span>Base elegível: 25.600 incidentes &middot; relógio parado em 01/10/2025, às 15h</span></div>
 </section>
 </div></div>
 
