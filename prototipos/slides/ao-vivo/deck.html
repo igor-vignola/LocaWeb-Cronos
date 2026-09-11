@@ -1881,8 +1881,104 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .dv3 .meta + .nota{display:flex;justify-content:space-between;gap:26px;font-size:12.5px;
   color:#A6B0BD;margin-top:12px}
 
-/* ───── 25-projecao.html ───── */
-/* ═══ slide 25 · a meta do ano vai fechar? ════════════════════════════════════
+/* ───── 25-medida.html ───── */
+/* ═══ slide 25 · como é medida a meta do ano ══════════════════════════════════
+   Entrou em 11/09/2026, depois de o dono do projeto tropeçar TRÊS vezes lendo o
+   slide seguinte. Sempre nos mesmos pontos, e nenhum deles é de dado:
+
+     1. "meta" em português puxa para um número a ALCANÇAR, e aqui é um teto
+        para NÃO PASSAR;
+     2. a porcentagem parece o quanto se passou do limite, quando ela é a NOTA
+        que a operação tira — e sobe quando a quebra cai;
+     3. o 39 é o teto do degrau e o 42 é onde o ano parou. Dois números
+        próximos, papéis diferentes.
+
+   Por isso a regra vem antes da resposta: este slide diz COMO se mede, e o
+   próximo diz SE o ano fecha. Sem ele, o "38 a 49 contra limite 39" do slide
+   seguinte depende de o leitor já saber o que é o limite.
+
+   Três formas foram desenhadas e testadas. Ficou a tabela, que é a regra
+   escrita como ela se lê. As descartadas: uma escada de barras descendo e uma
+   régua proporcional com alfinete — as duas pediam leitura visual ANTES de
+   entregar a regra, que é justamente o que ainda não estava dado.
+
+   A seta da esquerda já saiu e voltou. Saiu porque o rótulo estava escrito de
+   pé e não se lia; voltou com o texto deitado nas duas pontas. A classe dela é
+   `rumo` e não `dir`, porque `.dir` é o lado direito do rodapé em _estilo.css.
+
+   Números de painel/servicos.py, dicionário ESCADA. Conferidos em 11/09/2026:
+     P2  até 30 → 150% · 31 a 35 → 125% · 36 a 39 → 100% · 40 a 45 → 75%
+         46 a 53 → 50% · 54+ → 0%        fechou em 42, nota 75%
+     P3  até 200 → 150% · 201 a 230 → 125% · 231 a 263 → 100% · 264 a 290 → 75%
+         291 a 320 → 50% · 321+ → 0%     fechou em 196, nota 150%
+   ══════════════════════════════════════════════════════════════════════════ */
+/* ═══ comum ═══════════════════════════════════════════════════════════════ */
+.kpi .body{padding-top:14px}
+.kpi .tt{font-size:52px;letter-spacing:-1.9px}
+.kpi .tt em{font-style:normal;color:var(--accent)}
+.kpi .sub{font-size:17.5px;line-height:1.45;color:var(--tx);margin-top:11px;max-width:92ch}
+.kpi .sub b{color:var(--head);font-weight:700}
+.kpi .cena{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+
+/* ═══ C · a tabela ════════════════════════════════════════════════════════
+   A linha tingida voltou. A versão do filete lateral com cabeçalho em caixa
+   alta e pílula de resumo centralizada embaixo tinha o desenho que qualquer
+   gerador faz: o dono do projeto reconheceu na hora. O que estava errado na
+   primeira não era a tinta, era a direção escrita de pé numa coluna de seta,
+   que não se lia — e essa subiu para a linha de apoio, onde o olho já está.
+
+   Fora também a coluna da flecha entre a faixa e a nota. Ela não dizia nada
+   que os dois lados da linha já não dissessem.
+
+   O fundo é o degrau; a cor forte é a nota. As duas linhas que decidem a
+   leitura ganham contorno: a do combinado e a de onde o ano parou. */
+.esc2 .cena{display:flex;flex-direction:column;justify-content:center;margin-top:22px}
+.esc2 .par{display:grid;grid-template-columns:146px 1fr 1fr;gap:0 44px}
+
+/* ── a seta da direção ────────────────────────────────────────────────────
+   Ela já existiu aqui e saiu porque o rótulo estava escrito DE PÉ e não se
+   lia. Volta com o texto deitado nas duas pontas e a linha no meio, que é o
+   único jeito de uma seta vertical carregar palavra. O degradê da linha é o
+   mesmo verde-vermelho das faixas ao lado: a seta é a tabela resumida.
+   O padding do topo alinha a seta com a PRIMEIRA LINHA, e não com o nome da
+   prioridade — a direção é das faixas, não do cabeçalho.
+   A classe é `rumo` e não `dir`: `.dir` já é o lado direito do rodapé em
+   _estilo.css, e o nome repetido herdava caixa alta e letra pequena. */
+.esc2 .rumo{display:grid;grid-template-rows:auto 1fr auto;justify-items:center;gap:12px;
+  padding-top:53px;text-align:center}
+.esc2 .rumo .t{font-size:13.5px;line-height:1.35;color:var(--tx2)}
+.esc2 .rumo .t b{display:block;color:var(--head);font-weight:700;font-size:14.5px}
+.esc2 .rumo i{position:relative;width:3px;border-radius:2px;margin-bottom:11px;
+  background:linear-gradient(#16A34A,#B91C1C)}
+.esc2 .rumo i::after{content:"";position:absolute;left:50%;bottom:-11px;transform:translateX(-50%);
+  border-left:7px solid transparent;border-right:7px solid transparent;
+  border-top:11px solid #B91C1C}
+
+.esc2 .cab{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+.esc2 .cab b{font-size:21px;font-weight:800;letter-spacing:-.4px;color:var(--head)}
+.esc2 .cab span{font-size:13.5px;color:var(--tx2)}
+
+.esc2 .lin{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:0 14px;
+  padding:14px 20px;border-radius:13px;background:var(--bg);
+  opacity:0;transform:translate3d(-10px,0,0)}
+.esc2.is-active .lin{animation:rv .42s var(--out) var(--d,0ms) forwards}
+.esc2 .lin + .lin{margin-top:6px}
+.esc2 .lin q{quotes:none;font-size:17.5px;color:var(--tx);font-variant-numeric:tabular-nums}
+.esc2 .lin em{font-style:normal;font-size:24px;font-weight:800;letter-spacing:-.6px;
+  min-width:74px;text-align:right;color:var(--c);font-variant-numeric:tabular-nums}
+.esc2 .lin .tag{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  padding:5px 11px;border-radius:999px;white-space:nowrap;color:#fff;background:var(--c)}
+
+.esc2 .c150{--bg:#E6F5ED;--c:#15803D} .esc2 .c125{--bg:#EFFAF3;--c:#16A34A}
+.esc2 .c100{--bg:#E9EEF6;--c:#0F172A} .esc2 .c75{--bg:#FCF1E1;--c:#B45309}
+.esc2 .c50{--bg:#FCEADF;--c:#C2410C}  .esc2 .c0{--bg:#FCE9E9;--c:#B91C1C}
+
+/* as duas linhas que decidem a leitura: o combinado e onde o ano parou */
+.esc2 .lin.marc{box-shadow:inset 0 0 0 2px var(--c)}
+.esc2 .lin.marc q{font-weight:700;color:var(--head)}
+
+/* ───── 26-projecao.html ───── */
+/* ═══ slide 26 · a meta do ano vai fechar? ════════════════════════════════════
    Quatro composições foram ao ensaio; ficou a D, escolhida em 10/09/2026. Ela
    é a única que enuncia a REGRA antes de mostrar o resultado: o cartão da
    esquerda diz o que é a meta e quais são os dois números, e só então os dois
@@ -1960,8 +2056,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .pj-d .lims div > span{display:block;font-size:13px;color:var(--tx);margin-top:8px}
 .pj-d .oque .fnt{font-size:12.5px;color:var(--tx2);margin-top:18px}
 
-/* ───── 26-saude.html ───── */
-/* ═══ slide 26 · a nota de saúde, com um produto aberto ═══════════════════════
+/* ───── 27-saude.html ───── */
+/* ═══ slide 27 · a nota de saúde, com um produto aberto ═══════════════════════
    Quarta forma. A segunda era um ranking de quinze linhas em duas colunas com
    um painel escuro embaixo — sete blocos de informação numa tela só. A terceira
    trocou tudo por dois blocos claros, mas cortou o ranking para os cinco
@@ -2121,7 +2217,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .sdc .abf .r{font-size:15px;color:var(--head);font-weight:700}
 .sdc .abf .r b{font-size:19px;margin-left:6px}
 
-/* ───── 27-div-arquitetura.html ───── */
+/* ───── 28-div-arquitetura.html ───── */
 /* O desenho da arquitetura é um fluxograma de verdade: caixas e setas, com os
    dois recintos que importam — o que treina e grava, e o que só lê e sobe.
    Antes era uma lista com ícones num trilho, que o dono do projeto apontou
@@ -2160,8 +2256,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .dv3 .carga .lg span:nth-child(3) i{background:#60A5FA}
 .dv3 .carga .lg b{color:#E8ECF3;font-weight:500}
 
-/* ───── 28-antecipa.html ───── */
-/* ═══ slide 28 · como o Cronos antecipa o resultado do ano ════════════════════
+/* ───── 29-antecipa.html ───── */
+/* ═══ slide 29 · como o Cronos antecipa o resultado do ano ════════════════════
    O slide que o dono do projeto marcou como obrigatório, vindo do deck da
    Sprint 4. É o único lugar do deck onde as quatro saídas aparecem juntas, com
    o que entra de um lado e para onde vai do outro. Abre o bloco do produto:
@@ -2281,8 +2377,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .ant .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .ant .fecho b{color:var(--head);font-weight:700}
 
-/* ───── 29-stack.html ───── */
-/* ═══ slide 29 · como isso roda ══════════════════════════════════════════════
+/* ───── 30-stack.html ───── */
+/* ═══ slide 30 · como isso roda ══════════════════════════════════════════════
    A stack, e ela precisa fazer dois argumentos que a banca vai testar: tudo
    roda dentro de um contêiner só, sem serviço proprietário de nuvem; e o texto
    do resumo é montado por regra, não por modelo de linguagem.
@@ -2385,8 +2481,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .stk .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
 .stk .fecho b{color:var(--head);font-weight:700}
 
-/* ───── 30-aplicacao.html ───── */
-/* ═══ slide 30 · o painel operacional ════════════════════════════════════════
+/* ───── 31-aplicacao.html ───── */
+/* ═══ slide 31 · o painel operacional ════════════════════════════════════════
    Este slide tem função operacional, não decorativa: é o beat de troca para a
    demonstração ao vivo. Enquanto ele está na tela, o Hygor assume a fala e
    compartilha o navegador. Sem ele, essa troca acontece no silêncio.
@@ -2429,8 +2525,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .apl.is-active .tela{animation:chegaTela 1.3s var(--out) .7s forwards}
 @keyframes chegaTela{to{opacity:1;transform:rotateY(-11deg) rotateX(4deg) translate3d(0,0,0)}}
 
-/* ───── 31-fecho.html ───── */
-/* ═══ slide 31 · agradecimento, o pôster da Sprint 2 ══════════════════════
+/* ───── 32-fecho.html ───── */
+/* ═══ slide 32 · agradecimento, o pôster da Sprint 2 ══════════════════════
    A composição A fecha com a palavra grande à esquerda e os créditos numa
    faixa de três colunas. Esta B retoma o desenho do slide de agradecimentos
    da Sprint 2 (prototipos/slides/agradecimentos-slide.html), que era pôster:
@@ -2482,8 +2578,8 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
 .agr .cd > .ms{display:block;font-size:14px;line-height:1.5;color:rgba(255,255,255,.9);
   margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12)}
 
-/* ───── 32-acesso.html ───── */
-/* ═══ slide 32 · o acesso à aplicação ═══════════════════════════════════════
+/* ───── 33-acesso.html ───── */
+/* ═══ slide 33 · o acesso à aplicação ═══════════════════════════════════════
    Última página do deck. Ela não é falada: fica no telão enquanto a banca
    pergunta, para quem quiser abrir a aplicação no próprio celular enquanto
    ouve a resposta. Por isso o QR é grande, o endereço aparece escrito por
@@ -3755,7 +3851,55 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide light prj pj-d" data-slide="25" data-var="a" data-quem="hygor">
+<section class="slide light kpi esc2" data-slide="25" data-var="a" data-quem="hygor">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
+    <div class="bn">Cronos</div>
+    <div class="tag">Escada oficial da Locaweb</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">O indicador de OLA</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Como é medida a <em>meta do ano</em></span></span></h1>
+    <p class="sub rv" style="--d:560ms">Cada faixa de quebras vale uma nota. <b>A meta é um teto, e não um número para alcançar.</b></p>
+
+    <div class="cena"><div class="par">
+
+      <div class="rumo rv" style="--d:660ms">
+        <span class="t">menos quebras<b>nota maior</b></span>
+        <i></i>
+        <span class="t">mais quebras<b>nota menor</b></span>
+      </div>
+
+      <div class="col">
+        <div class="cab rv" style="--d:700ms"><b>Prioridade 2</b><span>prazo de 4 horas</span></div>
+          <div class="lin c150" style="--d:800ms"><q>até 30 quebras</q><span></span><em>150%</em></div>
+          <div class="lin c125" style="--d:855ms"><q>31 a 35</q><span></span><em>125%</em></div>
+          <div class="lin c100 marc" style="--d:910ms"><q>36 a 39</q><b class="tag">o combinado</b><em>100%</em></div>
+          <div class="lin c75 marc" style="--d:965ms"><q>40 a 45</q><b class="tag">2025 fechou em 42</b><em>75%</em></div>
+          <div class="lin c50" style="--d:1020ms"><q>46 a 53</q><span></span><em>50%</em></div>
+          <div class="lin c0" style="--d:1075ms"><q>54 ou mais</q><span></span><em>0%</em></div>
+      </div>
+
+      <div class="col">
+        <div class="cab rv" style="--d:1100ms"><b>Prioridade 3</b><span>prazo de 12 horas</span></div>
+          <div class="lin c150 marc" style="--d:1180ms"><q>até 200 quebras</q><b class="tag">2025 fechou em 196</b><em>150%</em></div>
+          <div class="lin c125" style="--d:1235ms"><q>201 a 230</q><span></span><em>125%</em></div>
+          <div class="lin c100 marc" style="--d:1290ms"><q>231 a 263</q><b class="tag">o combinado</b><em>100%</em></div>
+          <div class="lin c75" style="--d:1345ms"><q>264 a 290</q><span></span><em>75%</em></div>
+          <div class="lin c50" style="--d:1400ms"><q>291 a 320</q><span></span><em>50%</em></div>
+          <div class="lin c0" style="--d:1455ms"><q>321 ou mais</q><span></span><em>0%</em></div>
+      </div>
+
+    </div></div>
+  </div>
+  <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span>
+    <span>Escada oficial da Locaweb &middot; uma por prioridade</span>
+    <span class="dir">Em 2025 a prioridade 2 fechou em <b>42</b>, três acima do teto de 39; a prioridade 3 fechou em <b>196</b>, no degrau mais alto</span>
+  </div>
+</section>
+
+<section class="slide light prj pj-d" data-slide="26" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -3816,7 +3960,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide light sdc" data-slide="26" data-var="a" data-quem="hygor">
+<section class="slide light sdc" data-slide="27" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -3915,7 +4059,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span><span>Janela de 01/01/2025 a 30/09/2025 &middot; produtos com 200 ou mais incidentes elegíveis ao indicador</span></div>
 </section>
 
-<section class="slide dark dv3 dv2" data-slide="27" data-var="a" data-quem="hygor">
+<section class="slide dark dv3 dv2" data-slide="28" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -4028,7 +4172,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide light ant" data-slide="28" data-var="a" data-quem="hygor">
+<section class="slide light ant" data-slide="29" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -4120,7 +4264,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide light stk" data-slide="29" data-var="a" data-quem="hygor">
+<section class="slide light stk" data-slide="30" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
@@ -4180,7 +4324,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide dark apl" data-slide="30" data-var="a" data-quem="hygor">
+<section class="slide dark apl" data-slide="31" data-var="a" data-quem="hygor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -4206,7 +4350,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/hygor.png" alt=""><b>Hygor</b> apresenta</span></div>
 </section>
 
-<section class="slide dark agr" data-slide="31" data-var="a" data-quem="igor">
+<section class="slide dark agr" data-slide="32" data-var="a" data-quem="igor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
@@ -4241,7 +4385,7 @@ body{background:#1B1F26;font-family:var(--font);-webkit-font-smoothing:antialias
   <div class="ft"><span class="apres"><img src="../../../brand/equipe/igor.png" alt=""><b>Igor</b> apresenta</span></div>
 </section>
 
-<section class="slide light acs" data-slide="32" data-var="a" data-quem="igor">
+<section class="slide light acs" data-slide="33" data-var="a" data-quem="igor">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>

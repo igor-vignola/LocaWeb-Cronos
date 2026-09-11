@@ -45,7 +45,7 @@ VAO_LIMITE = 70
 # entraram em 10/09/2026, quando o rodapé delas saiu: um divisor é uma pausa, e
 # medir vão no pé de uma pausa é medir a pausa. Junto vieram os que ficaram
 # esparsos ao perder texto no mesmo dia (5, 13, 26, 27).
-SEM_AVISO_DE_VAO = (1, 2, 3, 5, 6, 7, 11, 12, 13, 15, 16, 19, 21, 22, 24, 25, 26, 27)
+SEM_AVISO_DE_VAO = (1, 2, 3, 5, 6, 7, 11, 12, 13, 15, 16, 19, 21, 22, 24, 25, 26, 27, 28)
 
 MEDIDA = r"""() => {
   const a = document.querySelector('.slide.is-active');

@@ -6,7 +6,7 @@ resposta em uma ou duas frases, o número que a sustenta e onde ele está. Quem
 apresenta deve saber estas de cor; as demais são reserva.
 
 Fonte dos números: `CONTRATO.md` §5 e os scripts `_figuras_*.py` desta pasta.
-Os ponteiros `→ slide N` valem para o deck de **32 slides** de 11/09/2026.
+Os ponteiros `→ slide N` valem para o deck de **33 slides** de 11/09/2026.
 
 ## As que derrubam
 
@@ -79,12 +79,12 @@ protocolo que reproduz o uso real. No corte único de outubro a dezembro o P3 d�
 
 **"De onde sai a projeção anual? É o Prophet?"**
 Não. É a soma do que já aconteceu no ano com o ritmo médio de quebras até a
-data, projetado até dezembro, com faixa pela variação do ritmo. → slide 25.
+data, projetado até dezembro, com faixa pela variação do ritmo. → slide 26.
 
 **"A projeção do P3 errou em agosto, setembro e outubro."**
 Errou para o lado pessimista: apontou estouro e o ano fechou em 196, abaixo de
 200. Para um alarme, avisar sem precisar é melhor que não avisar. Em novembro e
-dezembro acertou a chamada. → slide 25, pé.
+dezembro acertou a chamada. → slide 26, pé.
 
 **"A projeção de dezembro do P3 disse 183 e o ano fechou em 196."**
 Sim, e a chamada estava certa (dentro da meta). O ponto ficou otimista em 13
@@ -107,7 +107,7 @@ P2 a escada é 30, 35, **39**, 45, 53. Em 2025 o P2 fechou em 42, que dá nota
 outubro dava 43,5 no P2 e 208 no P3, ou seja, nota 75% e nota 125%: os dois
 vereditos batiam. O
 deck usa "42 de 39 permitidas" em vez da porcentagem porque a porcentagem não
-se lê de relance. → slide 25.
+se lê de relance, e o slide 25 mostra a escada inteira. → slides 25 e 26.
 
 ## Sobre o produto
 
@@ -125,7 +125,7 @@ problema, que é a nota. A cor é o tipo, e é ela que muda a ação: um produto
 "problema já materializado" recebe casos que ninguém viu antes e precisa de
 procedimento novo; um em "conhecido e recorrente" perde prazo no problema de
 sempre e precisa de capacidade. O lvps tem a pior nota e é do segundo tipo.
-→ slide 26.
+→ slide 27.
 
 **"O que é a nota de saúde?"**
 Cinco medidas por produto, cada uma em posição relativa entre os 15: taxa de
@@ -137,12 +137,12 @@ P2 e P3; a tela mostra as duas separadas.
 O contêiner lê a exportação do ITSM (o mesmo formato do dataset), recalcula a
 base elegível e re-treina os dois modelos por comando. No MVP o relógio está
 parado em 1º de outubro de 2025 porque é a última data com dado, e porque o
-sistema não pode mostrar realizado depois do corte. → slide 29.
+sistema não pode mostrar realizado depois do corte. → slide 30.
 
 **"Por que o relógio parado em 01/10/2025?"**
 Para a demonstração ser honesta: tudo o que a tela mostra existia naquele
 instante. Cobertura, acertos e erros dos modelos ficam nos slides, medidos
-depois, e não na tela. → slide 30.
+depois, e não na tela. → slide 31.
 
 ## Números que ficaram fora do deck e podem ser pedidos
 
@@ -191,11 +191,11 @@ Dois modelos: Prophet para o volume e regressão logística para o risco. As
 outras duas saídas são cálculos derivados deles: a projeção da meta soma três
 parcelas (o que já aconteceu, o que a fila aberta ainda deve virar e o que
 entra até dezembro) e a nota de saúde é um índice de cinco medidas por produto.
-O slide 28 traz as quatro com a etiqueta de cada uma. → slide 28.
+O slide 28 traz as quatro com a etiqueta de cada uma. → slide 29.
 
 **"De onde saem os 76% do slide 28?"**
 Da mesma base de avaliação da fila: ordenando os 5.183 incidentes pelo risco do
-modelo, os 20% do topo (1.037 posições) contêm 38 das 50 quebras. → slide 28.
+modelo, os 20% do topo (1.037 posições) contêm 38 das 50 quebras. → slide 29.
 
 **"Na prioridade 3 o baseline ganha do Prophet. Por que manter o Prophet?"**
 Por três motivos. A diferença é de 4,5% no erro médio, dentro do ruído do
@@ -236,4 +236,4 @@ que o arquivo está gravado, que é a ordem do próprio modelo, a regra sobe par
 Não. O texto de abertura do resumo é montado por regra a partir da saída dos
 modelos, dentro do próprio contêiner, e nenhum número passa por modelo de
 linguagem. Gerar essa frase com um é próximo passo declarado desde a Sprint 4,
-e por isso ela aparece fora do contorno no slide 29. → slides 23 e 29.
+e por isso ela aparece fora do contorno no slide 29. → slides 23 e 30.
