@@ -53,7 +53,26 @@ body{margin:0;background:#0B0F16;display:grid;place-items:center;min-height:100v
    O fundo é o degrau; a cor forte é a nota. As duas linhas que decidem a
    leitura ganham contorno: a do combinado e a de onde o ano parou. */
 .esc2 .cena{display:flex;flex-direction:column;justify-content:center;margin-top:22px}
-.esc2 .par{display:grid;grid-template-columns:1fr 1fr;gap:0 56px}
+.esc2 .par{display:grid;grid-template-columns:146px 1fr 1fr;gap:0 44px}
+
+/* ── a seta da direção ────────────────────────────────────────────────────
+   Ela já existiu aqui e saiu porque o rótulo estava escrito DE PÉ e não se
+   lia. Volta com o texto deitado nas duas pontas e a linha no meio, que é o
+   único jeito de uma seta vertical carregar palavra. O degradê da linha é o
+   mesmo verde-vermelho das faixas ao lado: a seta é a tabela resumida.
+   O padding do topo alinha a seta com a PRIMEIRA LINHA, e não com o nome da
+   prioridade — a direção é das faixas, não do cabeçalho.
+   A classe é `rumo` e não `dir`: `.dir` já é o lado direito do rodapé em
+   _estilo.css, e o nome repetido herdava caixa alta e letra pequena. */
+.esc2 .rumo{display:grid;grid-template-rows:auto 1fr auto;justify-items:center;gap:12px;
+  padding-top:53px;text-align:center}
+.esc2 .rumo .t{font-size:13.5px;line-height:1.35;color:var(--tx2)}
+.esc2 .rumo .t b{display:block;color:var(--head);font-weight:700;font-size:14.5px}
+.esc2 .rumo i{position:relative;width:3px;border-radius:2px;margin-bottom:11px;
+  background:linear-gradient(#16A34A,#B91C1C)}
+.esc2 .rumo i::after{content:"";position:absolute;left:50%;bottom:-11px;transform:translateX(-50%);
+  border-left:7px solid transparent;border-right:7px solid transparent;
+  border-top:11px solid #B91C1C}
 
 .esc2 .cab{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
 .esc2 .cab b{font-size:21px;font-weight:800;letter-spacing:-.4px;color:var(--head)}
@@ -94,9 +113,15 @@ body{margin:0;background:#0B0F16;display:grid;place-items:center;min-height:100v
   <div class="body">
     <span class="eb"><span class="rv" style="--d:240ms">O indicador de OLA</span></span>
     <h1 class="tt"><span class="mask" style="--d:340ms"><span>A escada da nota do ano</span></span></h1>
-    <p class="sub rv" style="--d:560ms"><b>Quanto mais quebras no ano, menor a nota.</b> A meta é um teto, e não um número para alcançar.</p>
+    <p class="sub rv" style="--d:560ms">Cada faixa de quebras vale uma nota. <b>A meta é um teto, e não um número para alcançar.</b></p>
 
     <div class="cena"><div class="par">
+
+      <div class="rumo rv" style="--d:660ms">
+        <span class="t">menos quebras<b>nota maior</b></span>
+        <i></i>
+        <span class="t">mais quebras<b>nota menor</b></span>
+      </div>
 
       <div class="col">
         <div class="cab rv" style="--d:700ms"><b>Prioridade 2</b><span>prazo de 4 horas</span></div>
