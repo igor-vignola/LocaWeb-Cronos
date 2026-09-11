@@ -89,6 +89,11 @@ sprints/*/slides/png/
 # Conferência visual dos protótipos: PNG e página de revisão, ambos derivados do HTML ao
 # lado e regerados por scripts/renderiza_slides.py. Mesma razão do png/ do deck.
 prototipos/**/_png/
+
+# PDFs para mandar à equipe e os JPEG que os alimentam: 28 MB derivados do
+# deck.html e do ROTEIRO.html, regerados por prototipos/slides/ao-vivo/_pdf.py.
+# Mesma razão do _png/ acima.
+prototipos/**/_pdf/
 prototipos/**/_r5/
 prototipos/**/_r5antes/
 prototipos/**/_rev/
