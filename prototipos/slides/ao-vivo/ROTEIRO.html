@@ -554,44 +554,46 @@ const FALAS = {
   }]
 },
 13: {
-  titulo: "O mesmo ativo quebra de novo",
-  precisa: "Metade das quebras cai em item de configuração que já tinha quebrado.",
-  nota: "“Ativo” é a coluna <b>Item de configuração</b> da planilha oficial — a sétima das dezenove, com valores como <code>IC00055</code>, 4.665 distintos na base elegível. Não confundir com <b>Produto</b>, que é outra coluna (<code>lvps</code>, <code>lsin</code>, 45 distintos): um produto tem centenas de itens de configuração. Se a banca perguntar, o nome da coluna é esse.",
+  titulo: "O mesmo item de configuração quebra de novo",
+  precisa: "Quase metade das quebras cai em item que já tinha quebrado. E dizer o que é o item.",
+  nota: "<b>Item de configuração</b> é o nome da coluna na planilha oficial — a sétima das dezenove, valores como <code>IC00055</code>, 4.665 distintos. Não é <b>Produto</b>, que é outra coluna (<code>lvps</code>, <code>lsin</code>, 45 distintos): um produto tem centenas de itens.<br><br><b>Se perguntarem se tem vazamento:</b> a conta olha só para trás. Para cada quebra a gente pergunta se houve OUTRA quebra do mesmo item ANTES dela, então a primeira de cada item nunca conta. Medindo só o segundo semestre, com o primeiro de histórico, dá 53 de 107, 50% — o mesmo número de 2025 inteiro.",
   versoes: [
     {
       fala: [
         "O primeiro padrão que apareceu é que a coisa se repete no mesmo lugar. E o que se repete é o <em>Item de configuração</em>, que é a coluna da base que diz qual máquina ou serviço o chamado aponta.",
-        "Das 107 quebras do segundo semestre, <em>53</em> aconteceram num item de configuração que já tinha quebrado antes. Metade.",
-        "Na prioridade 3 são 49 de 87. Na 2 são só 20 quebras no semestre inteiro, dado de menos para confirmar o mesmo padrão. E é daqui que sai uma das dez variáveis que o modelo usa: o histórico do próprio item de configuração."
+        "Em 2025 foram <em>238 quebras</em> de prazo, e <em>116</em> delas aconteceram num item que já tinha quebrado antes, no mesmo ano. Quase metade.",
+        "Na prioridade 3 são 105 de 196, mais da metade. Na 2 são 11 de 42, um quarto. E é daqui que sai uma das dez variáveis que o modelo usa: o histórico do próprio item."
       ],
       chaves: [
         "o que se repete é o <b>Item de configuração</b> (a máquina ou o serviço)",
-        "<b>53 de 107</b> quebras do semestre foram em item que <b>já tinha quebrado</b>",
-        "P3: 49 de 87 · P2: 20 quebras no semestre, <b>dado de menos</b>",
+        "<b>116 de 238</b> quebras de 2025 em item que <b>já tinha quebrado antes</b>",
+        "P3: <b>105 de 196</b> · P2: 11 de 42",
         "daqui sai uma das <b>dez variáveis</b> do modelo"
       ]
     },
     {
       fala: [
-        "Das 107 quebras do segundo semestre, <em>53</em> foram num <em>Item de configuração</em> que já tinha quebrado antes. Metade. E é daqui que sai uma das dez variáveis do modelo: o histórico do próprio item."
+        "Em 2025 foram <em>238 quebras</em> de prazo, e <em>116</em> delas aconteceram num <em>Item de configuração</em> que já tinha quebrado antes. Quase metade. E é daqui que sai uma das dez variáveis do modelo: o histórico do próprio item."
       ],
       chaves: [
-        "<b>53 de 107</b> em item que já tinha quebrado",
+        "<b>116 de 238</b> em item que já tinha quebrado",
         "<b>Item de configuração</b>, não produto",
         "vira <b>variável do modelo</b>"
       ]
     },
     {
       fala: [
-        "O primeiro padrão que apareceu é que a coisa se repete no mesmo lugar. E o que se repete é o <em>Item de configuração</em>, que é a coluna da base que diz qual máquina, domínio ou serviço o chamado aponta. São 4.665 deles, e não confundir com produto, que é outra coluna: um produto tem centenas de itens de configuração.",
-        "Das 107 quebras do segundo semestre, <em>53</em> aconteceram num item de configuração que já tinha quebrado antes. Metade.",
-        "Esse efeito é da prioridade 3, onde são 49 de 87. Na prioridade 2 são 4 de 20, e vinte quebras no semestre inteiro é dado de menos para afirmar o mesmo. A gente prefere dizer isso do que fingir que o padrão vale nas duas.",
-        "De qualquer forma, é daqui que sai uma das dez variáveis que o modelo usa: quantas vezes aquele item já passou, e quantas vezes já estourou."
+        "O primeiro padrão que apareceu é que a coisa se repete no mesmo lugar. E o que se repete é o <em>Item de configuração</em>, que é a coluna da base que diz qual máquina, domínio ou serviço o chamado aponta. São 4.665 deles, e não confundir com produto, que é outra coluna: um produto tem centenas de itens.",
+        "Em 2025 foram <em>238 quebras</em> de prazo, e <em>116</em> delas aconteceram num item que já tinha quebrado antes. A conta olha só para trás: para cada quebra a gente pergunta se houve outra do mesmo item antes dela, então a primeira quebra de cada item nunca conta.",
+        "E essas 116 caíram em apenas <em>25 itens</em>, de 4.633 que existem na base. Na prioridade 3 são 105 de 196, mais da metade; na 2 são 11 de 42, um quarto.",
+        "É daqui que sai uma das dez variáveis que o modelo usa: quantas vezes aquele item já passou, e quantas vezes já estourou."
       ],
       chaves: [
         "<b>Item de configuração</b> · <b>4.665</b> deles · ≠ produto",
-        "<b>53 de 107</b> quebras foram em item que já tinha quebrado",
-        "P3: <b>49 de 87</b> · P2: 4 de 20, <b>dado de menos para afirmar</b>",
+        "<b>116 de 238</b> quebras de 2025 em item que já tinha quebrado",
+        "a conta <b>olha só para trás</b>: a primeira de cada item nunca conta",
+        "as 116 caíram em só <b>25 itens</b>, de 4.633",
+        "P3: <b>105 de 196</b> · P2: 11 de 42",
         "vira variável: <b>quantas passagens e quantas quebras</b> do item"
       ]
     }

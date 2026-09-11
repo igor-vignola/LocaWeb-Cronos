@@ -55,6 +55,16 @@ Na prioridade 2 o efeito some: 0,75% no fim de semana contra 0,83% no dia útil.
 Está escrito no slide. O de quem abre vale nas duas, com 3,0 vezes na 2 e 3,1
 na 3. → slide 10.
 
+**"Metade das quebras em item que já quebrou: isso não é vazamento? Como vocês
+definem 'já tinha quebrado'?"**
+A conta olha só para trás. Para cada uma das 238 quebras de 2025, a pergunta é
+se houve **outra quebra do mesmo item antes dela** — então a primeira quebra de
+cada item nunca conta, e nenhuma célula usa o próprio futuro. Dá 116 de 238,
+49%, caindo em 25 itens de configuração. Por prioridade: P3 105 de 196 e P2 11
+de 42. Medido de outro jeito, usando o primeiro semestre como histórico e o
+segundo como teste, dá 53 de 107, 50% — o mesmo número, então o recorte não
+escolhe o resultado. → slide 13.
+
 ## Sobre os modelos
 
 **"De onde vem o 4 e o 11 de erro?"**
