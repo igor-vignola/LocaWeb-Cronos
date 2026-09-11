@@ -17,6 +17,12 @@
 
    As falas moram no objeto FALAS, no fim do arquivo. Acrescentar slide é
    acrescentar entrada — o resto se monta sozinho.
+
+   A FALA É EDITÁVEL AQUI DENTRO. Clicar no texto e digitar já vale: o que muda
+   fica no localStorage do navegador e sobrevive a fechar a aba. O botão
+   "Copiar alterações" leva só os slides mexidos para a área de transferência,
+   num bloco pronto para colar no chat — o arquivo em file:// não pode se
+   reescrever sozinho, e é essa a volta.
    ───────────────────────────────────────────────────────────────────────── */
 :root{
   --pg:#F4F6FA; --cd:#FFFFFF; --tt:#0B0F16; --tx:#3D4757; --tx2:#67717F;
@@ -162,6 +168,55 @@ main{
 }
 #lupa.on{display:grid}
 #lupa img{max-width:100%;max-height:100%;border-radius:8px}
+
+/* ── o texto é editável na própria página ────────────────────────────────── */
+/* o campo só se anuncia quando o ponteiro chega nele: em repouso o roteiro
+   continua sendo um roteiro, e não um formulário */
+.fala[contenteditable],.chaves[contenteditable]{
+  padding:11px 13px;margin:-11px -13px;border-radius:11px;outline:0;
+  transition:background .12s ease-out}
+.fala[contenteditable]:hover,.chaves[contenteditable]:hover{background:#F6F9FE}
+.fala[contenteditable]:focus,.chaves[contenteditable]:focus{
+  background:#F4F8FF;box-shadow:inset 0 0 0 1px #C7DBFF}
+.tit[contenteditable],.sub[contenteditable]{outline:0;border-radius:7px}
+.tit[contenteditable]:focus,.sub[contenteditable]:focus{
+  background:#F4F8FF;box-shadow:0 0 0 5px #F4F8FF}
+
+.bt{border:1px solid var(--ln);background:var(--cd);border-radius:9px;padding:7px 13px;
+  font:inherit;font-size:12.5px;font-weight:600;color:var(--tx);cursor:pointer;white-space:nowrap}
+.bt:hover:not(:disabled){border-color:var(--ac);color:var(--ac)}
+.bt:disabled{opacity:.4;cursor:default}
+.bt.pri:not(:disabled){background:var(--ac);border-color:var(--ac);color:#fff}
+.bt.pri:not(:disabled):hover{background:#1D4FD8;color:#fff}
+.bt.ic{padding:7px 10px;color:var(--tx2)}
+
+/* o slide que tem edição pendente ganha um fio âmbar na trilha */
+.trilha button.edit{box-shadow:inset 0 -3px 0 #E8A33D}
+
+.selo{display:inline-flex;align-items:center;gap:9px;font-size:10.5px;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;color:#B45309;background:#FEF3E2;
+  border-radius:999px;padding:4px 11px}
+.selo button{border:0;background:0;padding:0;font:inherit;font-size:11px;font-weight:700;
+  letter-spacing:0;text-transform:none;color:#B45309;text-decoration:underline;cursor:pointer}
+.selo[hidden]{display:none!important}
+
+#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:70;
+  background:var(--tt);color:#fff;padding:11px 21px;border-radius:999px;
+  font-size:13.5px;font-weight:600;box-shadow:0 14px 34px -18px rgba(0,0,0,.7)}
+#toast[hidden]{display:none}
+
+#saida{position:fixed;inset:0;z-index:80;background:rgba(11,15,22,.55);display:grid;
+  place-items:center;padding:40px}
+#saida[hidden]{display:none}
+#saida > div{width:min(880px,100%);max-height:100%;display:flex;flex-direction:column;gap:13px;
+  background:var(--cd);border-radius:16px;padding:22px 22px 20px;
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.6)}
+#saida h2{margin:0;font-size:16px;font-weight:800;color:var(--tt)}
+#saida p{margin:0;font-size:13px;color:var(--tx2)}
+#saida textarea{flex:1;min-height:320px;resize:none;font-family:var(--mono);font-size:12.5px;
+  line-height:1.62;border:1px solid var(--ln);border-radius:10px;padding:14px;color:var(--tx);
+  background:var(--pg)}
+#saida .fim{display:flex;justify-content:flex-end}
 </style>
 </head>
 <body>
@@ -187,6 +242,12 @@ main{
   </div>
 
   <span class="relogio" id="relogio">—</span>
+
+  <div class="grp">
+    <button class="bt pri" id="btCopia" disabled>Copiar alterações</button>
+    <button class="bt ic" id="btVer" title="Ver o texto antes de copiar">Ver</button>
+    <button class="bt ic" id="btZera" title="Apagar todas as alterações">Zerar</button>
+  </div>
 </header>
 
 <nav class="trilha" id="trilha"></nav>
@@ -208,9 +269,12 @@ main{
       <div id="corpo"></div>
     </div>
     <div class="pe">
+      <span class="selo" id="selo" hidden>editado
+        <button id="btDesfaz">desfazer este slide</button></span>
       <span><kbd>&larr;</kbd><kbd>&rarr;</kbd> slide</span>
       <span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> tamanho da fala</span>
       <span><kbd>T</kbd> troca fala / chaves</span>
+      <span>clique no texto para editar</span>
       <span class="seta">
         <button id="btAnt" aria-label="Slide anterior">&larr;</button>
         <button id="btProx" aria-label="Próximo slide">&rarr;</button>
@@ -220,6 +284,17 @@ main{
 </main>
 
 <div id="lupa"><img src="" alt=""></div>
+
+<div id="toast" hidden></div>
+
+<div id="saida" hidden>
+  <div>
+    <h2>As falas alteradas</h2>
+    <p>Seleciona tudo e copia. É esse bloco que volta para o chat.</p>
+    <textarea id="saidaTx" spellcheck="false" readonly></textarea>
+    <div class="fim"><button class="bt" id="btFechaSaida">Fechar</button></div>
+  </div>
+</div>
 
 <script>
 /* ═══ AS FALAS ═══════════════════════════════════════════════════════════════
@@ -700,44 +775,146 @@ const FALAS = {
 
 };
 
-/* ═══ o resto se monta sozinho ══════════════════════════════════════════════ */
+/* ═══ o resto se monta sozinho ══════════════════════════════════════════════
+   A FALA É EDITÁVEL NA PRÓPRIA PÁGINA. Clicar no texto e digitar já vale: o que
+   muda fica guardado no navegador (localStorage) e sobrevive a fechar a aba.
+
+   O caminho de volta é o botão "Copiar alterações": ele copia, de uma vez, só
+   os slides que mudaram, num bloco que basta colar no chat. O arquivo aqui não
+   se reescreve sozinho — uma página aberta em file:// não grava em disco — e é
+   por isso que o botão existe.
+   ══════════════════════════════════════════════════════════════════════════ */
 (function(){
   const TOTAL = 33;
   /* ritmo de fala apresentando, em português: 145 palavras por minuto. Serve
      para somar o deck inteiro, não para cronometrar um slide. */
   const PPM = 145;
+  const CHAVE_LS = "cronos-roteiro-v1";
 
-  const foto = document.getElementById("foto");
-  const numero = document.getElementById("numero");
-  const tempo = document.getElementById("tempo");
-  const titulo = document.getElementById("titulo");
-  const subtitulo = document.getElementById("subtitulo");
-  const corpo = document.getElementById("corpo");
-  const trilha = document.getElementById("trilha");
-  const relogio = document.getElementById("relogio");
-  const lupa = document.getElementById("lupa");
+  const $ = id => document.getElementById(id);
+  const foto = $("foto"), numero = $("numero"), tempo = $("tempo");
+  const titulo = $("titulo"), subtitulo = $("subtitulo"), corpo = $("corpo");
+  const trilha = $("trilha"), relogio = $("relogio"), lupa = $("lupa");
+  const btCopia = $("btCopia"), selo = $("selo"), toast = $("toast");
+  const saida = $("saida"), saidaTx = $("saidaTx");
 
   let slide = 1, versao = 0, modo = "fala";
 
+  /* ── as edições ───────────────────────────────────────────────────────────
+     edits[slide][versao] = {fala:[], chaves:[]}   só o que difere do original
+     edits[slide].cab     = {titulo, precisa}                                */
+  let edits = {};
+  try { edits = JSON.parse(localStorage.getItem(CHAVE_LS) || "{}"); } catch(e) { edits = {}; }
+
   const dois = n => String(n).padStart(2, "0");
-  const semTag = s => s.replace(/<[^>]+>/g, "");
+  const semTag = s => String(s).replace(/<[^>]+>/g, "");
   const palavras = s => semTag(s).trim().split(/\s+/).filter(Boolean).length;
+  const igual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+
+  /* o texto colado de fora traz <span style>, <div>, &nbsp; e o que mais o
+     navegador inventar. Sobra o que o roteiro usa: negrito, itálico, marca. */
+  const PERMITIDAS = new Set(["B", "STRONG", "EM", "I", "U"]);
+  function limpa(html){
+    const d = document.createElement("div");
+    d.innerHTML = html;
+    d.querySelectorAll("*").forEach(el => {
+      if (el.tagName === "BR") { el.replaceWith(" "); return; }
+      if (!PERMITIDAS.has(el.tagName)) { el.replaceWith(...el.childNodes); return; }
+      [...el.attributes].forEach(a => el.removeAttribute(a.name));
+    });
+    return d.innerHTML.replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+  }
+
+  function entrada(n){
+    const e = FALAS[n];
+    if (!e) return null;
+    const g = edits[n] || {};
+    const v = e.versoes.map((orig, i) => Object.assign({}, orig, (g[i] || {})));
+    return { titulo: (g.cab && g.cab.titulo) || e.titulo,
+             precisa: (g.cab && g.cab.precisa) || e.precisa,
+             nota: e.nota, versoes: v };
+  }
+
+  const mexido = n => !!(edits[n] && Object.keys(edits[n]).length);
+  const quantosMexidos = () => Object.keys(edits).filter(n => mexido(n)).length;
 
   function segundos(n, v){
-    const e = FALAS[n];
-    if(!e) return 0;
-    return Math.round(e.versoes[v].fala.reduce((s,p) => s + palavras(p), 0) / PPM * 60);
+    const e = entrada(n);
+    if (!e) return 0;
+    return Math.round(e.versoes[v].fala.reduce((s, p) => s + palavras(p), 0) / PPM * 60);
   }
-  function mmss(s){
-    const m = Math.floor(s/60);
-    return m ? `${m}min ${dois(s%60)}s` : `${s}s`;
+  const mmss = s => { const m = Math.floor(s / 60);
+    return m ? `${m}min ${dois(s % 60)}s` : `${s}s`; };
+
+  /* ── guarda o que está na tela antes de a tela ser trocada ───────────────── */
+  function guarda(){
+    const e = FALAS[slide];
+    if (!e) return;
+    const alvo = corpo.querySelector("[data-edit]");
+    if (!alvo) return;
+
+    let lido;
+    if (alvo.dataset.edit === "fala"){
+      lido = [...alvo.children]
+        .map(el => limpa(el.innerHTML))
+        .filter(s => s && s !== "<br>");
+    } else {
+      lido = [...alvo.querySelectorAll("li")]
+        .map(el => limpa(el.innerHTML))
+        .filter(Boolean);
+    }
+    if (!lido.length) return;                    /* apagou tudo: ignora */
+
+    const campo = alvo.dataset.edit;
+    const orig = e.versoes[versao][campo];
+    const atual = (edits[slide] && edits[slide][versao] && edits[slide][versao][campo]) || orig;
+    if (igual(lido, atual)) return;
+
+    if (igual(lido, orig)){                      /* voltou ao original */
+      if (edits[slide] && edits[slide][versao]) delete edits[slide][versao][campo];
+    } else {
+      edits[slide] = edits[slide] || {};
+      edits[slide][versao] = edits[slide][versao] || {};
+      edits[slide][versao][campo] = lido;
+    }
+    podaVazios(slide);
+    persiste();
   }
 
-  /* ── a trilha ──────────────────────────────────────────────────────────── */
-  /* os divisores de seção ganham um fio antes: a trilha vira o mapa do deck */
-  const DIVISORIAS = [7,12,16,19,23,25,28];
-  for(let n = 1; n <= TOTAL; n++){
-    if(DIVISORIAS.includes(n)){
+  function guardaCabeca(){
+    const e = FALAS[slide];
+    if (!e) return;
+    const t = limpa(titulo.innerHTML), s = limpa(subtitulo.innerHTML)
+      .replace(/^Precisa entregar:\s*/i, "");
+    const cab = {};
+    if (t && t !== e.titulo) cab.titulo = t;
+    if (s && s !== e.precisa) cab.precisa = s;
+    edits[slide] = edits[slide] || {};
+    if (Object.keys(cab).length) edits[slide].cab = cab;
+    else delete edits[slide].cab;
+    podaVazios(slide);
+    persiste();
+  }
+
+  function podaVazios(n){
+    const g = edits[n]; if (!g) return;
+    Object.keys(g).forEach(k => {
+      if (g[k] && typeof g[k] === "object" && !Object.keys(g[k]).length) delete g[k];
+    });
+    if (!Object.keys(g).length) delete edits[n];
+  }
+
+  function persiste(){
+    try { localStorage.setItem(CHAVE_LS, JSON.stringify(edits)); } catch(e){}
+    marcaTrilha();
+    contaTotal();
+    atualizaSelo();
+  }
+
+  /* ── a trilha ───────────────────────────────────────────────────────────── */
+  const DIVISORIAS = [7, 12, 16, 19, 23, 25, 28];
+  for (let n = 1; n <= TOTAL; n++){
+    if (DIVISORIAS.includes(n)){
       const fio = document.createElement("span");
       fio.className = "corte";
       trilha.appendChild(fio);
@@ -745,91 +922,207 @@ const FALAS = {
     const b = document.createElement("button");
     b.textContent = dois(n);
     b.dataset.n = n;
-    if(FALAS[n]) b.classList.add("tem");
-    b.addEventListener("click", () => { slide = n; pinta(); });
+    if (FALAS[n]) b.classList.add("tem");
+    b.addEventListener("click", () => { guarda(); guardaCabeca(); slide = n; pinta(); });
     trilha.appendChild(b);
   }
+  function marcaTrilha(){
+    for (const b of trilha.querySelectorAll("button")){
+      const n = +b.dataset.n;
+      b.classList.toggle("aqui", n === slide);
+      b.classList.toggle("edit", mexido(n));
+    }
+  }
 
+  /* ── pinta ──────────────────────────────────────────────────────────────── */
   function pinta(){
     foto.src = `_png/roteiro/${dois(slide)}.png`;
     foto.alt = `Slide ${slide}`;
     lupa.querySelector("img").src = foto.src;
-
-    const e = FALAS[slide];
     numero.textContent = `slide ${dois(slide)} de ${TOTAL}`;
+    marcaTrilha();
 
-    for(const b of trilha.querySelectorAll("button"))
-      b.classList.toggle("aqui", +b.dataset.n === slide);
-
-    if(!e){
+    const e = entrada(slide);
+    if (!e){
       titulo.textContent = "Fala ainda não escrita";
+      titulo.contentEditable = subtitulo.contentEditable = "false";
       subtitulo.textContent = "";
       tempo.textContent = "";
       corpo.innerHTML = `<div class="vazio"><b>Este slide está sem roteiro.</b>
-        Os dois primeiros existem para escolher o jeito de falar. Escolhido o jeito,
-        o resto do deck entra aqui no mesmo formato.</div>`;
+        Assim que ele for escrito, aparece aqui e passa a ser editável como os outros.</div>`;
+      atualizaSelo();
       return;
     }
 
     titulo.textContent = e.titulo;
     subtitulo.innerHTML = `Precisa entregar: ${e.precisa}`;
+    titulo.contentEditable = subtitulo.contentEditable = "true";
     tempo.textContent = `≈ ${mmss(segundos(slide, versao))} de fala`;
 
     const v = e.versoes[versao];
     corpo.innerHTML = modo === "fala"
-      ? `<div class="fala">${v.fala.map(p => `<p>${p}</p>`).join("")}</div>`
-      : `<ul class="chaves">${v.chaves.map(c => `<li><span>${c}</span></li>`).join("")}</ul>`;
+      ? `<div class="fala" data-edit="fala" contenteditable="true">${
+          v.fala.map(p => `<p>${p}</p>`).join("")}</div>`
+      : `<ul class="chaves" data-edit="chaves" contenteditable="true">${
+          v.chaves.map(c => `<li><span>${c}</span></li>`).join("")}</ul>`;
 
-    if(e.nota) corpo.insertAdjacentHTML("beforeend", `<div class="nota">${e.nota}</div>`);
+    if (e.nota) corpo.insertAdjacentHTML("beforeend", `<div class="nota">${e.nota}</div>`);
+    atualizaSelo();
+  }
+
+  function atualizaSelo(){
+    const tem = mexido(slide);
+    selo.hidden = !tem;
+    const q = quantosMexidos();
+    btCopia.disabled = !q;
+    btCopia.textContent = q ? `Copiar alterações (${q})` : "Copiar alterações";
   }
 
   function contaTotal(){
     const escritos = Object.keys(FALAS).length;
-    const s = Object.keys(FALAS).reduce((t,n) => t + segundos(+n, versao), 0);
+    const s = Object.keys(FALAS).reduce((t, n) => t + segundos(+n, versao), 0);
     relogio.innerHTML = `<b>${escritos}</b> de ${TOTAL} escritos · <b>${mmss(s)}</b> somados`;
   }
 
-  /* ── controles ─────────────────────────────────────────────────────────── */
-  document.getElementById("segVer").addEventListener("click", ev => {
-    const b = ev.target.closest("button"); if(!b) return;
+  /* o texto digitado só vale depois de sair do campo, mas o localStorage não
+     pode esperar por isso: fechar a aba no meio de uma frase não perde nada */
+  let bate;
+  corpo.addEventListener("input", () => {
+    clearTimeout(bate);
+    bate = setTimeout(() => { guarda(); tempo.textContent =
+      `≈ ${mmss(segundos(slide, versao))} de fala`; }, 700);
+  });
+  titulo.addEventListener("input", () => { clearTimeout(bate);
+    bate = setTimeout(guardaCabeca, 700); });
+  subtitulo.addEventListener("input", () => { clearTimeout(bate);
+    bate = setTimeout(guardaCabeca, 700); });
+  window.addEventListener("beforeunload", () => { guarda(); guardaCabeca(); });
+
+  /* ── o pacote que volta para o chat ─────────────────────────────────────── */
+  function pacote(){
+    const mudados = Object.keys(edits).filter(n => mexido(n)).map(Number).sort((a,b) => a-b);
+    const NOME = ["Principal", "Curta", "Com detalhe"];
+    const linhas = [
+      "ROTEIRO DO CRONOS · falas alteradas",
+      `gerado em ${new Date().toLocaleString("pt-BR")} · ${mudados.length} slide(s)`,
+      ""
+    ];
+    mudados.forEach(n => {
+      const e = entrada(n), g = edits[n];
+      linhas.push(`━━━ SLIDE ${dois(n)} · ${e.titulo} ━━━`);
+      if (g.cab){
+        if (g.cab.titulo) linhas.push(`[título] ${g.cab.titulo}`);
+        if (g.cab.precisa) linhas.push(`[precisa entregar] ${g.cab.precisa}`);
+      }
+      [0,1,2].forEach(i => {
+        const c = g[i];
+        if (!c) return;
+        if (c.fala){
+          linhas.push(`\n· ${NOME[i]} · FALA`);
+          c.fala.forEach(p => linhas.push(p));
+        }
+        if (c.chaves){
+          linhas.push(`\n· ${NOME[i]} · CHAVES`);
+          c.chaves.forEach(k => linhas.push("- " + k));
+        }
+      });
+      linhas.push("");
+    });
+    return linhas.join("\n");
+  }
+
+  function avisa(txt){
+    toast.textContent = txt;
+    toast.hidden = false;
+    clearTimeout(avisa.t);
+    avisa.t = setTimeout(() => { toast.hidden = true; }, 2600);
+  }
+
+  btCopia.addEventListener("click", async () => {
+    guarda(); guardaCabeca();
+    if (!quantosMexidos()) return;
+    const txt = pacote();
+    let foi = false;
+    try { await navigator.clipboard.writeText(txt); foi = true; } catch(e){}
+    if (!foi){
+      const ta = document.createElement("textarea");
+      ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { foi = document.execCommand("copy"); } catch(e){}
+      ta.remove();
+    }
+    if (foi) avisa(`${quantosMexidos()} slide(s) copiado(s). É só colar no chat.`);
+    else { saidaTx.value = txt; saida.hidden = false; saidaTx.select(); }
+  });
+
+  $("btVer").addEventListener("click", () => {
+    guarda(); guardaCabeca();
+    saidaTx.value = quantosMexidos() ? pacote() : "Nada alterado ainda.";
+    saida.hidden = false; saidaTx.select();
+  });
+  $("btFechaSaida").addEventListener("click", () => { saida.hidden = true; });
+
+  $("btDesfaz").addEventListener("click", () => {
+    if (!confirm(`Desfazer as alterações do slide ${dois(slide)}?`)) return;
+    delete edits[slide];
+    persiste(); pinta();
+  });
+  $("btZera").addEventListener("click", () => {
+    const q = quantosMexidos();
+    if (!q) return;
+    if (!confirm(`Apagar as alterações de ${q} slide(s)? Não tem volta.`)) return;
+    edits = {};
+    persiste(); pinta();
+  });
+
+  /* ── controles ──────────────────────────────────────────────────────────── */
+  $("segVer").addEventListener("click", ev => {
+    const b = ev.target.closest("button"); if (!b) return;
+    guarda(); guardaCabeca();
     versao = +b.dataset.v;
-    for(const o of ev.currentTarget.children)
-      o.setAttribute("aria-pressed", o === b);
+    for (const o of ev.currentTarget.children) o.setAttribute("aria-pressed", o === b);
     pinta(); contaTotal();
   });
-
-  document.getElementById("segModo").addEventListener("click", ev => {
-    const b = ev.target.closest("button"); if(!b) return;
+  $("segModo").addEventListener("click", ev => {
+    const b = ev.target.closest("button"); if (!b) return;
+    guarda();
     modo = b.dataset.m;
-    for(const o of ev.currentTarget.children)
-      o.setAttribute("aria-pressed", o === b);
+    for (const o of ev.currentTarget.children) o.setAttribute("aria-pressed", o === b);
     pinta();
   });
-
   function trocaModo(){
+    guarda();
     modo = modo === "fala" ? "chaves" : "fala";
-    for(const o of document.getElementById("segModo").children)
-      o.setAttribute("aria-pressed", o.dataset.m === modo);
+    for (const o of $("segModo").children) o.setAttribute("aria-pressed", o.dataset.m === modo);
     pinta();
   }
-  function vai(d){ slide = Math.min(TOTAL, Math.max(1, slide + d)); pinta(); }
-
-  document.getElementById("btAnt").addEventListener("click", () => vai(-1));
-  document.getElementById("btProx").addEventListener("click", () => vai(1));
-
-  document.getElementById("btLupa").addEventListener("click", () => lupa.classList.add("on"));
+  function vai(d){
+    guarda(); guardaCabeca();
+    slide = Math.min(TOTAL, Math.max(1, slide + d));
+    pinta();
+  }
+  $("btAnt").addEventListener("click", () => vai(-1));
+  $("btProx").addEventListener("click", () => vai(1));
+  $("btLupa").addEventListener("click", () => lupa.classList.add("on"));
   lupa.addEventListener("click", () => lupa.classList.remove("on"));
 
+  /* com o texto editável, as setas e os números são do cursor, não do roteiro */
+  const digitando = () => {
+    const a = document.activeElement;
+    return a && (a.isContentEditable || a.tagName === "TEXTAREA" || a.tagName === "INPUT");
+  };
   window.addEventListener("keydown", ev => {
+    if (ev.key === "Escape"){ lupa.classList.remove("on"); saida.hidden = true;
+      if (digitando()) document.activeElement.blur(); return; }
+    if (digitando()) return;
     const k = ev.key.toLowerCase();
-    if(ev.key === "ArrowRight"){ ev.preventDefault(); vai(1); }
-    else if(ev.key === "ArrowLeft"){ ev.preventDefault(); vai(-1); }
-    else if(k === "t"){ trocaModo(); }
-    else if(k === "escape"){ lupa.classList.remove("on"); }
-    else if(k >= "1" && k <= "3"){
+    if (ev.key === "ArrowRight"){ ev.preventDefault(); vai(1); }
+    else if (ev.key === "ArrowLeft"){ ev.preventDefault(); vai(-1); }
+    else if (k === "t"){ trocaModo(); }
+    else if (k >= "1" && k <= "3"){
+      guarda(); guardaCabeca();
       versao = +k - 1;
-      for(const o of document.getElementById("segVer").children)
-        o.setAttribute("aria-pressed", +o.dataset.v === versao);
+      for (const o of $("segVer").children) o.setAttribute("aria-pressed", +o.dataset.v === versao);
       pinta(); contaTotal();
     }
   });
