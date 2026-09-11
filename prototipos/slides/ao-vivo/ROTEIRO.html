@@ -347,6 +347,8 @@ main{
    `fala` são os parágrafos. `chaves` são as âncoras para lembrar em pé, e cada
    uma é o que ele olharia de relance — nunca a frase inteira.
    ══════════════════════════════════════════════════════════════════════════ */
+const SELO = "2026-09-11T11:00";
+
 const FALAS = {
 
 /* ── fechados em 11/09/2026 ──────────────────────────────────────────────── */
@@ -555,329 +557,633 @@ const FALAS = {
 },
 13: {
   titulo: "O mesmo item de configuração quebra de novo",
-  precisa: "Quase metade das quebras cai em item que já tinha quebrado. E dizer o que é o item.",
-  nota: "<b>Item de configuração</b> é o nome da coluna na planilha oficial — a sétima das dezenove, valores como <code>IC00055</code>, 4.665 distintos. Não é <b>Produto</b>, que é outra coluna (<code>lvps</code>, <code>lsin</code>, 45 distintos): um produto tem centenas de itens.<br><br><b>Se perguntarem se tem vazamento:</b> a conta olha só para trás. Para cada quebra a gente pergunta se houve OUTRA quebra do mesmo item ANTES dela, então a primeira de cada item nunca conta. Medindo só o segundo semestre, com o primeiro de histórico, dá 53 de 107, 50% — o mesmo número de 2025 inteiro.",
-  versoes: [
-    {
-      fala: [
-        "O primeiro padrão que apareceu é que a coisa se repete no mesmo lugar. E o que se repete é o <em>Item de configuração</em>, que é a coluna da base que diz qual máquina ou serviço o chamado aponta.",
-        "Em 2025 foram <em>238 quebras</em> de prazo, e <em>116</em> delas aconteceram num item que já tinha quebrado antes, no mesmo ano. Quase metade.",
-        "Na prioridade 3 são 105 de 196, mais da metade. Na 2 são 11 de 42, um quarto. E é daqui que sai uma das dez variáveis que o modelo usa: o histórico do próprio item."
-      ],
-      chaves: [
-        "o que se repete é o <b>Item de configuração</b> (a máquina ou o serviço)",
-        "<b>116 de 238</b> quebras de 2025 em item que <b>já tinha quebrado antes</b>",
-        "P3: <b>105 de 196</b> · P2: 11 de 42",
-        "daqui sai uma das <b>dez variáveis</b> do modelo"
-      ]
-    },
-    {
-      fala: [
-        "Em 2025 foram <em>238 quebras</em> de prazo, e <em>116</em> delas aconteceram num <em>Item de configuração</em> que já tinha quebrado antes. Quase metade. E é daqui que sai uma das dez variáveis do modelo: o histórico do próprio item."
-      ],
-      chaves: [
-        "<b>116 de 238</b> em item que já tinha quebrado",
-        "<b>Item de configuração</b>, não produto",
-        "vira <b>variável do modelo</b>"
-      ]
-    },
-    {
-      fala: [
-        "O primeiro padrão que apareceu é que a coisa se repete no mesmo lugar. E o que se repete é o <em>Item de configuração</em>, que é a coluna da base que diz qual máquina, domínio ou serviço o chamado aponta. São 4.665 deles, e não confundir com produto, que é outra coluna: um produto tem centenas de itens.",
-        "Em 2025 foram <em>238 quebras</em> de prazo, e <em>116</em> delas aconteceram num item que já tinha quebrado antes. A conta olha só para trás: para cada quebra a gente pergunta se houve outra do mesmo item antes dela, então a primeira quebra de cada item nunca conta.",
-        "E essas 116 caíram em apenas <em>25 itens</em>, de 4.633 que existem na base. Na prioridade 3 são 105 de 196, mais da metade; na 2 são 11 de 42, um quarto.",
-        "É daqui que sai uma das dez variáveis que o modelo usa: quantas vezes aquele item já passou, e quantas vezes já estourou."
-      ],
-      chaves: [
-        "<b>Item de configuração</b> · <b>4.665</b> deles · ≠ produto",
-        "<b>116 de 238</b> quebras de 2025 em item que já tinha quebrado",
-        "a conta <b>olha só para trás</b>: a primeira de cada item nunca conta",
-        "as 116 caíram em só <b>25 itens</b>, de 4.633",
-        "P3: <b>105 de 196</b> · P2: 11 de 42",
-        "vira variável: <b>quantas passagens e quantas quebras</b> do item"
-      ]
-    }
-  ]
+  precisa: "Quase metade das quebras cai em item que já tinha quebrado.",
+  tamanho: "Curta",
+  nota: "<b>Item de configuração</b> é o nome da coluna na planilha oficial — a sétima das dezenove, valores como <code>IC00055</code>, 4.665 distintos. Não é <b>Produto</b>, que é outra coluna (<code>lvps</code>, <code>lsin</code>, 45 distintos).<br><br><b>Se perguntarem se tem vazamento:</b> a conta olha só para trás. Para cada quebra a gente pergunta se houve OUTRA quebra do mesmo item ANTES dela, então a primeira de cada item nunca conta. Medindo só o segundo semestre, com o primeiro de histórico, dá 53 de 107, 50% — o mesmo número.",
+  versoes: [{
+    fala: [
+      "Em 2025 foram <em>238 quebras</em> de prazo, e <em>116</em> delas aconteceram em <em>Itens de configuração que já</em> tinham quebrado antes. Quase metade. É possível identificar uma recorrência de quebra nos mesmos itens."
+    ],
+    chaves: [
+      "<b>116 de 238</b> em item que já tinha quebrado",
+      "<b>Item de configuração</b>, não produto",
+      "vira <b>variável do modelo</b>"
+    ]
+  }]
 },
+
 14: {
   titulo: "O código “Outro”",
-  precisa: "Um achado de processo, não de modelo: fechar sem causa identificada.",
-  versoes: [
-    {
-      fala: [
-        "Tem um achado aqui que não é de modelo, é de processo. Existe um código de fechamento chamado <em>Outro</em>, que na prática quer dizer que o caso fechou sem causa identificada.",
-        "Ele é 8% do volume, mas responde por <em>22,9% das violações</em>. A taxa de quebra dentro dele é de 2,69%, contra 0,94% da média da base.",
-        "Esse campo só é preenchido no fechamento, então ele não entra no modelo. Mas vale o apontamento: quase um quarto das violações fecha sem ninguém saber por quê."
-      ],
-      chaves: [
-        "<b>Outro</b> = fechou <b>sem causa identificada</b>",
-        "<b>8%</b> do volume, <b>22,9%</b> das violações",
-        "taxa de <b>2,69%</b> contra 0,94% da base",
-        "não entra no modelo (só existe no fechamento), <b>vale como apontamento</b>"
-      ]
-    },
-    {
-      fala: [
-        "Um achado de processo: o código <em>Outro</em>, que é fechar sem causa identificada, é 8% do volume e <em>22,9% das violações</em>. Ele não entra no modelo porque só existe no fechamento, mas vale o apontamento."
-      ],
-      chaves: [
-        "<b>Outro</b> = sem causa identificada",
-        "<b>8%</b> do volume · <b>22,9%</b> das violações",
-        "fora do modelo, <b>vale como apontamento</b>"
-      ]
-    },
-    {
-      fala: [
-        "Tem um achado aqui que não é de modelo, é de processo. Existe um código de fechamento chamado <em>Outro</em>, que na prática quer dizer que o caso fechou sem causa identificada.",
-        "Ele é 8% do volume, 1.596 incidentes, mas responde por <em>22,9% das violações</em>, que são 43 quebras. A taxa dentro dele é de 2,69%, quase três vezes a média da base, que é 0,94%.",
-        "Só que esse campo é preenchido no fechamento, quando o caso já acabou, então ele não pode entrar num modelo que precisa decidir na abertura. Fica de fora, e vale como apontamento de processo: quase um quarto das violações fecha sem ninguém saber por quê."
-      ],
-      chaves: [
-        "<b>Outro</b> = fechou <b>sem causa identificada</b>",
-        "<b>8%</b> do volume (1.596) · <b>22,9%</b> das violações (43)",
-        "taxa <b>2,69%</b> contra 0,94% da base",
-        "preenchido no fechamento → <b>não serve para decidir na abertura</b>",
-        "apontamento: <b>um quarto das violações fecha sem causa</b>"
-      ]
-    }
-  ]
+  precisa: "Um achado de processo: fechar sem causa identificada.",
+  tamanho: "Curta",
+  nota: "<b>Atenção ao número.</b> Os <b>22,9%</b> são a fatia das VIOLAÇÕES que caem no código “Outro” (43 de 188), e não a taxa de violação dentro dele. A taxa dentro do “Outro” é <b>2,69%</b>, contra 0,94% da média da base. Dizer “a taxa de violação é de quase 23%” seria errado por um fator de nove, e é o tipo de coisa que a banca pega na hora.",
+  versoes: [{
+    fala: [
+      "Outra descoberta que fizemos é que os incidentes que fecham com o código de fechamento “Outro” são 8% do volume, mas respondem por <em>quase 23% das violações</em>. Isso não entra no modelo, porque é um dado preenchido somente no fechamento do incidente."
+    ],
+    chaves: [
+      "<b>Outro</b> = sem causa identificada",
+      "<b>8%</b> do volume · <b>22,9%</b> das violações",
+      "taxa dentro dele: <b>2,69%</b> contra 0,94% da base",
+      "fora do modelo, <b>vale como apontamento</b>"
+    ]
+  }]
 },
 
 15: {
   titulo: "A causa mais frequente não é a que mais estoura",
-  precisa: "Volume e risco não coincidem, e priorizar por volume é atender o que já está sob controle.",
-  versoes: [
-    {
-      fala: [
-        "E aqui está por que agrupar as causas importa. A causa mais frequente é <em>Falha de Aplicação</em>, que sozinha é 60% do volume, mas dentro dela só 0,82% dos casos estouram o prazo.",
-        "Já <em>Falha de Storage</em> é meio por cento do volume e estoura 2,91%, mais de três vezes mais. Ou seja, seis de cada dez incidentes vêm da causa que menos estoura, e quem prioriza por volume está atendendo o que já está sob controle."
-      ],
-      chaves: [
-        "<b>Falha de Aplicação</b>: 60% do volume, estoura <b>0,82%</b>",
-        "<b>Falha de Storage</b>: 0,5% do volume, estoura <b>2,91%</b>",
-        "seis de cada dez vêm da causa que <b>menos estoura</b>",
-        "priorizar por volume = <b>atender o que já está sob controle</b>"
-      ]
-    },
-    {
-      fala: [
-        "A causa mais frequente, <em>Falha de Aplicação</em>, é 60% do volume e estoura 0,82%. <em>Falha de Storage</em> é meio por cento do volume e estoura 2,91%. Priorizar por volume é atender o que já está sob controle."
-      ],
-      chaves: [
-        "Aplicação: <b>60%</b> do volume, <b>0,82%</b> estoura",
-        "Storage: <b>0,5%</b> do volume, <b>2,91%</b> estoura",
-        "volume ≠ risco"
-      ]
-    },
-    {
-      fala: [
-        "E aqui está por que agrupar as causas importa. A causa mais frequente é <em>Falha de Aplicação</em>, que sozinha é 60% do volume, doze mil incidentes, mas dentro dela só 0,82% estouram o prazo na prioridade 3, e 0,88% na 2.",
-        "Já <em>Falha de Storage</em> são 103 incidentes, meio por cento do volume, e ali 2,91% estouram. Nenhuma quebra na prioridade 2 e 4,35% na 3.",
-        "Ou seja, seis de cada dez incidentes vêm da causa que menos estoura. Quem prioriza por volume está atendendo o que já está sob controle, e é esse tipo de inversão que o modelo de risco existe para corrigir."
-      ],
-      chaves: [
-        "<b>Falha de Aplicação</b>: 12.041 casos, 60% do volume, estoura <b>0,82%</b>",
-        "<b>Falha de Storage</b>: 103 casos, 0,5% do volume, estoura <b>2,91%</b>",
-        "seis de cada dez vêm da causa que <b>menos estoura</b>",
-        "<i>→ é essa inversão que o modelo de risco corrige</i>"
-      ]
-    }
-  ]
+  precisa: "Volume e risco não coincidem.",
+  tamanho: "Curta",
+  versoes: [{
+    fala: [
+      "A causa mais frequente é a <em>Falha de Aplicação</em>, ela representa 60% do volume e estoura 0,82%. Já a <em>Falha de Storage</em> é meio por cento do volume e estoura 2,91%."
+    ],
+    chaves: [
+      "Aplicação: <b>60%</b> do volume, <b>0,82%</b> estoura",
+      "Storage: <b>0,5%</b> do volume, <b>2,91%</b> estoura",
+      "volume ≠ risco"
+    ]
+  }]
 },
 
 16: {
   titulo: "Divisória · Previsão de volume",
   precisa: "Anunciar a primeira entrega de modelo.",
-  versoes: [
-    {
-      fala: [
-        "Agora a primeira das duas entregas de modelo: quantos incidentes chegam por dia. É esse número que dimensiona a equipe antes de o dia começar. A gente usou o Prophet, prevendo a prioridade 2 e a 3 separadas, de um dia até uma semana à frente."
-      ],
-      chaves: [
-        "primeira entrega: <b>quantos chegam por dia</b>",
-        "é o que <b>dimensiona a equipe</b>",
-        "<b>Prophet</b> · P2 e P3 separadas · <b>D+1 a D+7</b>"
-      ]
-    },
-    {
-      fala: [
-        "A primeira entrega de modelo: quantos incidentes chegam por dia, que é o número que dimensiona a equipe."
-      ],
-      chaves: ["<b>quantos chegam por dia</b> · dimensiona a equipe"]
-    },
-    {
-      fala: [
-        "Agora a primeira das duas entregas de modelo: quantos incidentes chegam por dia. É esse número que dimensiona a equipe antes de o dia começar.",
-        "A gente usou o Prophet, na versão 1.3.0, prevendo a prioridade 2 e a 3 separadas, de um dia até uma semana à frente. O erro médio ficou em 4,2 incidentes por dia na prioridade 2 e 11,8 na 3, e os dois próximos slides mostram como a gente chegou nesses números."
-      ],
-      chaves: [
-        "primeira entrega: <b>quantos chegam por dia</b>",
-        "<b>Prophet 1.3.0</b> · P2 e P3 separadas · D+1 a D+7",
-        "erro médio: <b>4,2</b> no P2 e <b>11,8</b> no P3"
-      ]
-    }
-  ]
+  tamanho: "Curta",
+  versoes: [{
+    fala: [
+      "Partindo para a previsão de volume de incidentes, nós optamos por utilizar o Prophet."
+    ],
+    chaves: ["<b>quantos chegam por dia</b> · dimensiona a equipe"]
+  }]
 },
 
 17: {
   titulo: "Os próximos sete dias",
   precisa: "A previsão contra o que de fato chegou.",
-  versoes: [
-    {
-      fala: [
-        "E este é o teste. Em 1º de outubro o modelo deu uma faixa para cada dia da semana seguinte, nas duas prioridades, e depois a gente comparou com o que de fato chegou.",
-        "Dos quatorze dias, <em>treze caíram dentro da faixa</em>. O único que ficou fora foi uma quinta na prioridade 2, e ficou um incidente acima do teto."
-      ],
-      chaves: [
-        "faixa por dia, feita em <b>1º de outubro</b>, nas duas prioridades",
-        "<b>13 dos 14 dias</b> caíram dentro",
-        "o único fora: <b>um incidente acima do teto</b>"
-      ]
-    },
-    {
-      fala: [
-        "O modelo deu uma faixa por dia para a semana seguinte, nas duas prioridades. Dos quatorze dias, <em>treze caíram dentro</em>. O único fora ficou um incidente acima do teto."
-      ],
-      chaves: [
-        "<b>13 dos 14 dias</b> dentro da faixa",
-        "o único fora: <b>1 incidente</b> acima"
-      ]
-    },
-    {
-      fala: [
-        "E este é o teste. Em 1º de outubro o modelo deu uma faixa para cada dia da semana seguinte, nas duas prioridades. Cada caixa dessas é a faixa daquele dia, a linha azul é a previsão central, e a bolinha preta é o que de fato chegou.",
-        "Dos quatorze dias, <em>treze caíram dentro da faixa</em>. O único que ficou fora foi a quinta na prioridade 2, e ficou um incidente acima do teto, que é o ponto vermelho ali.",
-        "Vale dizer que a faixa é de 80%, então errar um em quatorze está dentro do que se espera dela."
-      ],
-      chaves: [
-        "faixa por dia, feita em <b>1º de outubro</b>",
-        "caixa = faixa · linha = previsão · bolinha = <b>o que chegou</b>",
-        "<b>13 dos 14</b> dentro · o fora ficou <b>1 incidente</b> acima",
-        "a faixa é de <b>80%</b>: errar um em quatorze é o esperado"
-      ]
-    }
-  ]
+  tamanho: "Curta",
+  nota: "O nome da “abertura” é <b>intervalo de previsão</b> — e não intervalo de confiança, que é outra coisa, sobre o parâmetro estimado. O do Prophet aqui está em <b>80%</b>: espera-se que 8 em cada 10 dias caiam dentro. Deu 13 de 14, e o único fora ficou 1 incidente acima do teto.",
+  versoes: [{
+    fala: [
+      "Como resultado, o modelo deu uma faixa por dia para a semana seguinte, nas duas prioridades, com um valor central e um <em>intervalo de previsão de 80%</em>. Dos quatorze dias, <em>treze caíram dentro</em> da previsão do modelo."
+    ],
+    chaves: [
+      "faixa por dia, com <b>intervalo de previsão de 80%</b>",
+      "<b>13 dos 14 dias</b> dentro da faixa",
+      "o único fora: <b>1 incidente</b> acima"
+    ]
+  }]
 },
 
 18: {
   titulo: "O erro contra os baselines",
-  precisa: "O que é cada baseline, quem ganha onde, e por que o Prophet fica.",
-  nota: "Aqui é onde o dono do projeto pediu para <b>dizer como cada baseline foi construído</b>. Os dois nomes estão no cartão do slide e na legenda da figura, e a fala principal explica os dois em uma frase cada.",
-  versoes: [
-    {
-      fala: [
-        "E aqui vem a parte honesta. A gente comparou o Prophet com dois baselines bem simples. O primeiro é a <em>média dos últimos sete dias</em>. O segundo repete o mesmo dia da semana anterior: a previsão para a próxima terça é o que chegou na terça passada.",
-        "Na prioridade 2 o Prophet ganha, com erro médio de 4,2 contra 4,9. Na prioridade 3 ele perde por pouco, 11,8 contra 11,3.",
-        "A gente manteve o Prophet porque ele ganha justamente onde a meta estourou, e porque ele devolve faixa e calendário, que o baseline não devolve e o resumo das sete da manhã precisa."
-      ],
-      chaves: [
-        "<b>média-7</b>: a previsão é a média dos últimos sete dias",
-        "<b>sazonal-7</b>: repete o mesmo dia da semana anterior",
-        "P2: Prophet <b>4,2</b> contra 4,9 · <b>ganha</b>",
-        "P3: Prophet 11,8 contra <b>11,3</b> · <b>perde por pouco</b>",
-        "fica porque ganha <b>onde a meta estourou</b> e devolve <b>faixa e calendário</b>"
-      ]
-    },
-    {
-      fala: [
-        "Comparamos com dois baselines simples: a <em>média dos últimos sete dias</em>, e repetir o <em>mesmo dia da semana anterior</em>. No P2 o Prophet ganha, 4,2 contra 4,9. No P3 ele perde por pouco, 11,8 contra 11,3. Mantivemos porque ele devolve faixa e calendário, que o baseline não devolve."
-      ],
-      chaves: [
-        "<b>média-7</b> e <b>sazonal-7</b> (mesmo dia da semana anterior)",
-        "P2: <b>4,2</b> contra 4,9 · P3: 11,8 contra <b>11,3</b>",
-        "fica pela <b>faixa e pelo calendário</b>"
-      ]
-    },
-    {
-      fala: [
-        "E aqui vem a parte honesta. A gente comparou o Prophet com dois baselines bem simples. O primeiro é a <em>média dos últimos sete dias</em>, que é o que qualquer planilha faria. O segundo repete o mesmo dia da semana anterior: a previsão para a próxima terça é o que chegou na terça passada — é simples, mas captura a sazonalidade semanal, que é o padrão mais forte desta base.",
-        "Na prioridade 2 o Prophet ganha, com erro médio de 4,2 incidentes por dia contra 4,9, uns 15% melhor. Na prioridade 3 ele perde por pouco, 11,8 contra 11,3, uns 4,5%.",
-        "A gente preferiu mostrar isso a esconder. Mantivemos o Prophet por dois motivos: ele ganha justamente na prioridade que estourou a meta, e ele devolve faixa e componente de calendário, que o baseline não devolve e que o resumo das sete da manhã e a projeção do ano precisam."
-      ],
-      chaves: [
-        "<b>média-7</b>: a média dos últimos sete dias",
-        "<b>sazonal-7</b>: repete o mesmo dia da semana anterior",
-        "P2: <b>4,2</b> contra 4,9 (<b>15% melhor</b>)",
-        "P3: 11,8 contra <b>11,3</b> (4,5% pior)",
-        "fica porque ganha <b>onde a meta estourou</b> e devolve <b>faixa e calendário</b>"
-      ]
-    }
-  ]
+  precisa: "O que é cada baseline, e quem ganha onde.",
+  tamanho: "Curta",
+  versoes: [{
+    fala: [
+      "Nós comparamos com dois baselines simples: chutar a <em>média dos últimos sete dias</em>, e chutar o valor do <em>mesmo dia da semana anterior</em>. No P2 o Prophet ganhou com um Erro Médio Absoluto 15% menor. Já no P3 ele basicamente empatou com o baseline sazonal."
+    ],
+    chaves: [
+      "<b>média-7</b> e <b>sazonal-7</b> (mesmo dia da semana anterior)",
+      "P2: <b>4,2</b> contra 4,9 · P3: 11,8 contra <b>11,3</b>",
+      "fica pela <b>faixa e pelo calendário</b>"
+    ]
+  }]
 },
 
 19: {
   titulo: "Divisória · Risco de OLA",
   precisa: "Anunciar o coração do produto.",
-  versoes: [
-    {
-      fala: [
-        "E agora o coração do produto: qual incidente vai estourar. O modelo pontua cada caso no instante em que ele abre e devolve a fila em ordem de risco."
-      ],
-      chaves: [
-        "<b>qual incidente vai estourar</b>",
-        "pontua <b>na abertura</b> e devolve a fila <b>em ordem de risco</b>"
-      ]
-    },
-    {
-      fala: ["Agora o coração do produto: qual incidente vai estourar."],
-      chaves: ["<b>qual incidente vai estourar</b>"]
-    },
-    {
-      fala: [
-        "E agora o coração do produto: qual incidente vai estourar. O modelo pontua cada caso no instante em que ele abre, com o que existe naquele momento, e devolve a fila em ordem de risco.",
-        "Aí do lado já está o resultado que a gente vai abrir: nos cinquenta primeiros da fila do modelo estão treze das cinquenta quebras do período. Ordenando por prioridade, nenhuma."
-      ],
-      chaves: [
-        "<b>qual incidente vai estourar</b>",
-        "pontua <b>na abertura</b>, com o que existe naquele momento",
-        "<b>13 de 50</b> nos cinquenta primeiros · por prioridade, <b>nenhuma</b>"
-      ]
-    }
-  ]
+  tamanho: "Curta",
+  versoes: [{
+    fala: [
+      "Partindo para o Risco de Estouro de OLA, ou seja, ultrapassar o tempo máximo de resolução de cada incidente."
+    ],
+    chaves: ["<b>qual incidente vai estourar</b>"]
+  }]
 },
 
 20: {
   titulo: "Quebras encontradas por tamanho da fila",
   precisa: "O ganho contra as regras simples: mesma fila, ordem diferente.",
+  tamanho: "Curta",
+  nota: "Trocado “o desempenho foi significante” por “o resultado foi bom”. <b>Significante</b> puxa para significância estatística, e a gente não tem teste pareado para sustentar isso — o próprio dossiê registra essa lacuna. Se a banca perguntar por significância, a resposta honesta é que não foi medida.",
+  versoes: [{
+    fala: [
+      "Nós optamos por utilizar Regressão Logística nesse modelo, e o resultado foi bom. Se pegássemos a fila de incidentes e ordenássemos pelo risco que o modelo classificou, nos 50 primeiros da fila o modelo encontra <em>13 das 50 quebras</em>. Já a ordenação por prioridade não encontra nenhuma quebra."
+    ],
+    chaves: [
+      "nos 50 primeiros: <b>13 de 50</b> contra <b>nenhuma</b> por prioridade",
+      "o que muda é <b>a ordem</b>"
+    ]
+  }]
+},
+
+21: {
+  titulo: "Por que a logística, e não o boosting",
+  precisa: "Três métricas, e o que cada uma mede.",
+  nota: "<b>O que cada régua mede</b><br>· <b>Área sob a curva ROC</b> — a chance de o modelo dar nota maior a um caso que quebrou do que a um que não quebrou. 0,5 é moeda.<br>· <b>PR-AUC</b> — o mesmo, mas contando só entre os que o modelo apontou. É a que vale no evento raro: a base tem 0,0096 de referência, então 0,296 é 31× o acaso.<br>· <b>Calibração</b> — se o modelo diz 5%, cinco em cem quebram de fato. É o que permite somar a fila e projetar o ano.",
   versoes: [
     {
       fala: [
-        "E esse é o resultado que mais importa. O gráfico mostra quantas quebras você encontra conforme vai percorrendo a fila.",
-        "Olhando só os cinquenta primeiros casos, a fila do modelo entrega <em>treze das cinquenta quebras</em> do período. Ordenando pela taxa histórica do time, sete. Ordenando por prioridade, que é o método de hoje, nenhuma.",
-        "São os mesmos cinquenta casos e o mesmo dia. O que muda é a ordem, e a ordem de hoje é a que acha menos."
+        "E por que regressão logística, e não gradient boosting? A gente testou os dois e comparou em três coisas.",
+        "A primeira é a área sob a curva ROC, que mede a chance de o modelo dar nota maior para um caso que quebrou do que para um que não quebrou. Deu empate: <em>0,869 contra 0,868</em>.",
+        "A segunda é a PR-AUC, que é a régua certa quando o evento é raro, porque ela conta acerto só entre os casos que o modelo apontou. Aí a logística ficou <em>17% à frente</em>, 0,296 contra 0,253.",
+        "E a terceira é a contagem: onde houve 50 quebras, a logística previu 48,1 e o boosting previu 1.007. Ordenar, os dois ordenam. Contar, só um conta, e é a contagem que sustenta a projeção da meta."
       ],
       chaves: [
-        "quantas quebras você acha <b>conforme percorre a fila</b>",
-        "nos 50 primeiros: modelo <b>13 de 50</b>",
-        "taxa do time: 7 · ativo crônico: 0 · <b>prioridade: nenhuma</b>",
-        "mesmos casos, mesmo dia: <b>o que muda é a ordem</b>"
+        "<b>ROC AUC</b>: empate · 0,869 contra 0,868",
+        "<b>PR-AUC</b>: a régua do evento raro · <b>17% à frente</b>, 0,296 contra 0,253",
+        "<b>contagem</b>: onde houve 50, previu <b>48,1</b> contra <b>1.007</b>",
+        "os dois ordenam; <b>só um conta</b>"
       ]
     },
     {
       fala: [
-        "Olhando só os cinquenta primeiros da fila, o modelo encontra <em>treze das cinquenta quebras</em>. Ordenando por prioridade, que é o método de hoje, nenhuma. Mesmos casos, mesmo dia: o que muda é a ordem."
+        "Testamos os dois. Na área sob a curva ROC deu empate, 0,869 contra 0,868. Na PR-AUC, que é a régua do evento raro, a logística ficou 17% à frente. E onde houve 50 quebras ela previu <em>48,1</em>, contra 1.007 do boosting. Os dois ordenam; só um conta certo."
       ],
       chaves: [
-        "nos 50 primeiros: <b>13 de 50</b> contra <b>nenhuma</b> por prioridade",
-        "o que muda é <b>a ordem</b>"
+        "ROC: empate · PR-AUC: <b>17% à frente</b>",
+        "onde houve 50: <b>48,1</b> contra <b>1.007</b>"
       ]
     },
     {
       fala: [
-        "E esse é o resultado que mais importa. O gráfico mostra quantas quebras você encontra conforme vai percorrendo a fila, e cada curva é uma forma diferente de ordenar os mesmos casos.",
-        "Olhando só os cinquenta primeiros, a fila do modelo entrega <em>treze das cinquenta quebras</em> do período. A melhor regra simples, que é ordenar pela taxa histórica do time, entrega sete. Ordenar por ativo crônico, nenhuma. Sem ordenação nenhuma, meia quebra. E ordenar por prioridade, que é o método de hoje, também nenhuma.",
-        "São os mesmos cinquenta casos e o mesmo dia. O que muda é a ordem, e a ordem de hoje é a que acha menos."
+        "E por que regressão logística, e não gradient boosting? A gente testou os dois e comparou em três coisas.",
+        "A primeira é a área sob a curva ROC, que mede a chance de o modelo dar nota maior para um caso que quebrou do que para um que não quebrou. Meio é moeda jogada; deu <em>0,869 contra 0,868</em>, ou seja, empate.",
+        "A segunda é a PR-AUC, que é a régua certa quando o evento é raro, porque ela conta acerto só entre os casos que o modelo apontou. A referência aqui é a própria taxa da base, 0,0096, então 0,296 é 31 vezes melhor que o acaso. E a logística ficou <em>17% à frente</em> do boosting, 0,296 contra 0,253.",
+        "E a terceira é a calibração, que é a contagem. Onde houve 50 quebras, a logística previu 48,1 e o boosting previu 1.007, vinte vezes mais. Ordenar, os dois ordenam. Contar, só um conta, e é a contagem que sustenta a projeção da meta e o resumo das sete da manhã."
       ],
       chaves: [
-        "cada curva é <b>uma forma de ordenar os mesmos casos</b>",
-        "nos 50 primeiros: modelo <b>13</b> · taxa do time <b>7</b> · ativo crônico <b>0</b>",
-        "sem ordenação: <b>0,5</b> · por prioridade: <b>nenhuma</b>",
-        "mesmos casos, mesmo dia: <b>o que muda é a ordem</b>"
+        "<b>ROC AUC</b>: empate · 0,869 contra 0,868 (0,5 é moeda)",
+        "<b>PR-AUC</b>: régua do evento raro · <b>31× o acaso</b> · 17% à frente",
+        "<b>calibração</b>: onde houve 50, previu <b>48,1</b> contra <b>1.007</b>",
+        "os dois ordenam; <b>só um conta</b>, e a contagem sustenta a projeção"
+      ]
+    }
+  ]
+},
+
+22: {
+  titulo: "Por que este incidente está no topo",
+  precisa: "A nota vem com o motivo, incidente a incidente.",
+  versoes: [
+    {
+      fala: [
+        "E essa é a parte que a logística entrega de graça: o porquê de cada nota.",
+        "Esse incidente está no topo da fila com risco estimado de <em>62,97</em>, contra uma média de 0,97% na base. E dá para abrir e ver de onde veio: 45% do peso é a categoria, 27% é o produto, 10% é ser sábado, e o resto se divide entre subcategoria, item de configuração e a hora de abertura.",
+        "Somando, dá cem por cento. Nada fica escondido, e isso existe para qualquer incidente da fila."
+      ],
+      chaves: [
+        "risco <b>62,97</b> contra <b>0,97%</b> de média da base",
+        "<b>45%</b> categoria · <b>27%</b> produto · <b>10%</b> sábado",
+        "as parcelas <b>somam cem por cento</b>",
+        "existe para <b>qualquer incidente</b> da fila"
+      ]
+    },
+    {
+      fala: [
+        "A logística entrega o porquê de cada nota. Esse incidente está no topo com risco de <em>62,97</em>, e dá para abrir e ver de onde veio: 45% é a categoria, 27% o produto, 10% ser sábado. Somando, dá cem por cento."
+      ],
+      chaves: [
+        "risco <b>62,97</b>",
+        "<b>45%</b> categoria · <b>27%</b> produto · <b>10%</b> sábado",
+        "as parcelas <b>somam cem</b>"
+      ]
+    },
+    {
+      fala: [
+        "E essa é a parte que a logística entrega de graça: o porquê de cada nota. Num modelo de árvore a gente teria que colar uma explicação por cima; aqui a explicação é o próprio modelo.",
+        "Esse incidente está no topo da fila com risco estimado de <em>62,97</em>, contra uma média de 0,97% na base. Abrindo, dá para ver de onde veio: 45% do peso é a categoria, 27% é o produto, 10% é ser sábado, e o resto se divide entre subcategoria, item de configuração e a hora de abertura.",
+        "Do lado tem também o histórico do item: dos 63 incidentes dele no período, 21 estouraram o prazo.",
+        "As parcelas somam cem por cento, nada fica escondido, e essa decomposição existe para cada um dos 5.183 incidentes da fila."
+      ],
+      chaves: [
+        "a explicação <b>é o próprio modelo</b>, não é colada por cima",
+        "risco <b>62,97</b> contra <b>0,97%</b> de média",
+        "<b>45%</b> categoria · <b>27%</b> produto · <b>10%</b> sábado",
+        "histórico do item: <b>21 de 63</b> estouraram",
+        "existe para os <b>5.183</b> incidentes da fila"
+      ]
+    }
+  ]
+},
+
+23: {
+  titulo: "Divisória · Morning Brief",
+  precisa: "Anunciar o primeiro diferencial.",
+  versoes: [
+    {
+      fala: [
+        "Agora o que a operação recebe de fato. O primeiro dos dois diferenciais é o <em>Morning Brief</em>: o resumo que abre sozinho às sete da manhã, com o fechamento de ontem e a previsão de hoje."
+      ],
+      chaves: [
+        "primeiro diferencial: <b>Morning Brief</b>",
+        "abre <b>sozinho às sete</b> · ontem e hoje"
+      ]
+    },
+    {
+      fala: ["O primeiro diferencial: o resumo que abre sozinho às sete da manhã."],
+      chaves: ["<b>Morning Brief</b> · abre sozinho às sete"]
+    },
+    {
+      fala: [
+        "Agora o que a operação recebe de fato, e são dois diferenciais. O primeiro é o <em>Morning Brief</em>: o resumo que abre sozinho às sete da manhã, com o fechamento de ontem e a previsão de hoje nas duas prioridades. Ninguém precisa perguntar nada.",
+        "O segundo, a nota de saúde por produto, vem na seção seguinte."
+      ],
+      chaves: [
+        "primeiro diferencial: <b>Morning Brief</b>",
+        "abre <b>sozinho às sete</b> · ontem e hoje, nas duas prioridades",
+        "<i>→ o segundo diferencial vem depois: a nota de saúde</i>"
+      ]
+    }
+  ]
+},
+
+24: {
+  titulo: "Morning Brief",
+  precisa: "Chega sozinho, traz ontem e hoje, e leva para a tela de origem.",
+  versoes: [
+    {
+      fala: [
+        "Ele chega às sete da manhã, sozinho. Ninguém abre e ninguém pergunta: quando o dia começa, o resumo já está na tela.",
+        "Ele traz o que fechou ontem e a faixa prevista para hoje, nas duas prioridades. E todo número ali sai dos modelos e da base: o texto de abertura é montado por regra sobre eles, nada é estimado na hora.",
+        "E cada linha tem um botão que leva para a tela de onde o número veio. É o começo do caminho, não um relatório para arquivar."
+      ],
+      chaves: [
+        "chega às <b>sete</b>, sozinho",
+        "<b>ontem e hoje</b>, nas duas prioridades",
+        "todo número sai dos <b>modelos e da base</b>",
+        "cada linha <b>leva para a tela</b> de onde veio"
+      ]
+    },
+    {
+      fala: [
+        "O resumo chega às sete, sozinho, com o que fechou ontem e a faixa prevista para hoje nas duas prioridades. E cada linha leva para a tela de onde o número veio."
+      ],
+      chaves: [
+        "chega às <b>sete</b>, sozinho",
+        "ontem e hoje, nas duas prioridades",
+        "cada linha <b>leva para a tela</b>"
+      ]
+    },
+    {
+      fala: [
+        "Ele chega às sete da manhã, sozinho. Ninguém abre e ninguém pergunta: quando o dia começa, o resumo já está na tela. É esse o ponto do diferencial, o sistema empurra, não espera consulta.",
+        "Ele traz o que fechou ontem e a faixa prevista para hoje, nas duas prioridades. Nesse dia, por exemplo: 84 registrados ontem, nenhum violou o prazo, quatro dias úteis seguidos sem violação; e para hoje, de 9 a 22 no P2 e de 59 a 96 no P3.",
+        "Todo número ali sai dos modelos e da base. O texto de abertura é montado por regra sobre eles, nada é estimado na hora, e gerar essa frase com modelo de linguagem é o próximo passo declarado, não algo que já está no ar.",
+        "E cada linha tem um botão que leva para a tela de onde o número veio. É o começo do caminho, não um relatório para arquivar."
+      ],
+      chaves: [
+        "chega às <b>sete</b>, sozinho · o sistema <b>empurra</b>",
+        "ontem: <b>84 registrados, nenhum violou</b> · 4 dias úteis sem violação",
+        "hoje: <b>9 a 22</b> no P2 · <b>59 a 96</b> no P3",
+        "todo número sai dos modelos e da base · <b>nada estimado na hora</b>",
+        "cada linha <b>leva para a tela</b> de onde veio"
+      ]
+    }
+  ]
+},
+
+25: {
+  titulo: "Divisória · Projeção da meta e saúde",
+  precisa: "Anunciar os dois modelos trabalhando juntos.",
+  versoes: [
+    {
+      fala: [
+        "Agora os dois modelos trabalhando juntos. Eles respondem se o ano fecha na meta, e cada produto ganha uma nota de saúde."
+      ],
+      chaves: [
+        "os dois modelos <b>juntos</b>",
+        "<b>o ano fecha na meta?</b> · e a nota de cada produto"
+      ]
+    },
+    {
+      fala: ["Os dois modelos juntos: o ano fecha na meta? E a nota de cada produto."],
+      chaves: ["<b>o ano fecha na meta?</b> · a nota de cada produto"]
+    },
+    {
+      fala: [
+        "Agora os dois modelos trabalhando juntos. Eles respondem se o ano fecha na meta, e cada produto ganha uma nota de saúde.",
+        "A projeção foi testada em cinco datas de corte, e acertou o veredito em sete das dez chamadas, sempre com três meses de antecedência."
+      ],
+      chaves: [
+        "os dois modelos <b>juntos</b>",
+        "<b>o ano fecha na meta?</b> · e a nota de cada produto",
+        "testada em <b>cinco datas de corte</b> · <b>7 de 10</b> chamadas certas"
+      ]
+    }
+  ]
+},
+
+26: {
+  titulo: "A meta do ano vai fechar?",
+  precisa: "A regra da meta, e as duas chamadas certas três meses antes.",
+  versoes: [
+    {
+      fala: [
+        "Essa foi a pergunta que o Douglas fez: a meta do ano vai fechar?",
+        "A meta é quantas violações de OLA a operação pode ter no ano, uma por prioridade, definida pela Locaweb: <em>39</em> na prioridade 2 e <em>263</em> na 3.",
+        "Em 1º de outubro o Cronos projetou a prioridade 2 fechando entre 38 e 49, ou seja, passando do limite; e a prioridade 3 entre 191 e 225, dentro. As duas chamadas estavam certas, três meses antes da apuração: o ano fechou em 42 e em 196."
+      ],
+      chaves: [
+        "a meta: <b>39</b> na P2 · <b>263</b> na P3, definidas pela Locaweb",
+        "projeção de outubro: P2 <b>38 a 49</b> (passa) · P3 <b>191 a 225</b> (dentro)",
+        "<b>as duas certas, três meses antes</b>: fechou 42 e 196"
+      ]
+    },
+    {
+      fala: [
+        "A meta é quantas violações a operação pode ter no ano: 39 na P2 e 263 na P3. Em outubro o Cronos projetou a P2 passando do limite e a P3 dentro. As duas certas, três meses antes da apuração: fechou em <em>42</em> e em <em>196</em>."
+      ],
+      chaves: [
+        "meta: <b>39</b> na P2 · <b>263</b> na P3",
+        "<b>as duas certas, três meses antes</b>: 42 e 196"
+      ]
+    },
+    {
+      fala: [
+        "Essa foi a pergunta que o Douglas fez na mentoria: a meta do ano vai fechar?",
+        "A meta é quantas violações de OLA a operação pode ter no ano, uma por prioridade, definida pela Locaweb: <em>39</em> na prioridade 2, que tem prazo de quatro horas, e <em>263</em> na 3, que tem doze. Passar do número derruba o indicador do ano.",
+        "Em 1º de outubro, com 33 violações acumuladas no P2 e 145 no P3, o Cronos projetou: a prioridade 2 fechando entre 38 e 49, ou seja, passando do limite de 39; e a prioridade 3 entre 191 e 225, bem dentro dos 263.",
+        "As duas chamadas estavam certas, três meses antes da apuração. O ano fechou em <em>42</em> na prioridade 2, acima do limite, e em <em>196</em> na 3, dentro."
+      ],
+      chaves: [
+        "pergunta do mentor: <b>a meta vai fechar?</b>",
+        "meta: <b>39</b> na P2 (prazo 4 h) · <b>263</b> na P3 (prazo 12 h)",
+        "em outubro: 33 e 145 acumuladas",
+        "projeção: P2 <b>38 a 49</b> (passa) · P3 <b>191 a 225</b> (dentro)",
+        "<b>as duas certas, três meses antes</b>: fechou 42 e 196"
+      ]
+    }
+  ]
+},
+
+27: {
+  titulo: "Que produto está pior, e por quê",
+  precisa: "A nota de saúde, e a decomposição dela.",
+  versoes: [
+    {
+      fala: [
+        "O segundo diferencial é a nota de saúde por produto. São quinze produtos com mais de duzentos incidentes, e cada um recebe uma nota de 0 a 100. A nota é relativa ao conjunto: 100 é o melhor dos quinze em todos os componentes, e não ausência de problema.",
+        "Abrindo um produto, dá para ver de onde a nota veio. O <em>lvps</em> é o último, com 21,3, e está na pior posição do conjunto em três dos cinco componentes: taxa de violação, fechados sem causa e tendência da taxa. A média das cinco posições é 0,787, e cem menos isso dá a nota."
+      ],
+      chaves: [
+        "segundo diferencial: <b>nota de saúde por produto</b>",
+        "15 produtos · nota de <b>0 a 100</b>, <b>relativa ao conjunto</b>",
+        "<b>lvps</b>: último, 21,3 · pior em <b>3 dos 5</b> componentes",
+        "média das cinco posições <b>0,787</b> → nota <b>21,3</b>"
+      ]
+    },
+    {
+      fala: [
+        "Cada produto recebe uma nota de 0 a 100, relativa ao conjunto. O <em>lvps</em> é o último, com 21,3, e está na pior posição em três dos cinco componentes. A média das cinco posições vira a nota."
+      ],
+      chaves: [
+        "nota de <b>0 a 100</b>, relativa ao conjunto",
+        "<b>lvps</b>: 21,3 · pior em 3 dos 5 componentes"
+      ]
+    },
+    {
+      fala: [
+        "O segundo diferencial é a nota de saúde por produto. São quinze produtos com mais de duzentos incidentes elegíveis, e cada um recebe uma nota de 0 a 100. A nota é relativa ao conjunto: 100 é o melhor dos quinze em todos os componentes, e não ausência de problema.",
+        "São cinco componentes: taxa de violação, quantos problemas são inéditos, quantos fecham sem causa, a duração mediana e a tendência da taxa. Cada um vira uma posição de 0 a 1 dentro do conjunto.",
+        "O <em>lvps</em> é o último, com 21,3. Ele está na pior posição em três dos cinco: taxa de violação, fechados sem causa e tendência. A média das cinco posições dá 0,787, e cem menos isso dá os 21,3. Não tem caixa-preta: a nota é a conta que está na tela."
+      ],
+      chaves: [
+        "segundo diferencial: <b>nota de saúde por produto</b>",
+        "15 produtos · nota <b>0 a 100</b>, relativa ao conjunto",
+        "cinco componentes: violação · inéditos · sem causa · duração · tendência",
+        "<b>lvps</b> 21,3 · pior em três deles",
+        "média <b>0,787</b> → <b>100 − 78,7 = 21,3</b>"
+      ]
+    }
+  ]
+},
+
+28: {
+  titulo: "Divisória · Arquitetura",
+  precisa: "Anunciar a seção técnica.",
+  versoes: [
+    {
+      fala: [
+        "Agora, com o quê isso foi feito e como roda. Os notebooks treinam e gravam; o contêiner só lê, e sobe onde houver Docker."
+      ],
+      chaves: [
+        "<b>com o quê foi feito</b> e como roda",
+        "notebooks treinam e gravam · o contêiner <b>só lê</b>"
+      ]
+    },
+    {
+      fala: ["Agora, como isso foi feito e como roda."],
+      chaves: ["<b>como foi feito</b> e como roda"]
+    },
+    {
+      fala: [
+        "Agora, com o quê isso foi feito e como roda. A separação é essa: os notebooks treinam os modelos e gravam o resultado em arquivo; o contêiner só lê esses arquivos e serve as telas.",
+        "Isso quer dizer que nada treina em produção, e que a aplicação sobe em qualquer lugar que tenha Docker."
+      ],
+      chaves: [
+        "notebooks <b>treinam e gravam</b> · contêiner <b>só lê</b>",
+        "<b>nada treina em produção</b>",
+        "sobe onde houver <b>Docker</b>"
+      ]
+    }
+  ]
+},
+
+29: {
+  titulo: "Como o Cronos antecipa o resultado do ano",
+  precisa: "Entrada, os quatro cálculos e a saída, numa tela só.",
+  versoes: [
+    {
+      fala: [
+        "Esse slide junta tudo. Na entrada são duas coisas: o histórico, 25.600 incidentes elegíveis dos 122.543 que vieram do sistema deles, e a fila aberta, que são os casos sem desfecho no instante em que a tela abre.",
+        "No meio, quatro cálculos: a previsão de volume com Prophet, o risco por incidente com regressão logística, a projeção da meta somando três parcelas, e a nota de saúde por produto.",
+        "E na saída, um contêiner só, que entrega o painel operacional e o resumo das sete."
+      ],
+      chaves: [
+        "entrada: <b>histórico</b> (25.600 de 122.543) e <b>fila aberta</b>",
+        "quatro cálculos: volume · risco · projeção · saúde",
+        "saída: <b>um contêiner</b> com o painel e o resumo das sete"
+      ]
+    },
+    {
+      fala: [
+        "Entrada: o histórico e a fila aberta. Quatro cálculos: previsão de volume, risco por incidente, projeção da meta e nota de saúde. Saída: um contêiner, com o painel e o resumo das sete."
+      ],
+      chaves: [
+        "entrada → <b>quatro cálculos</b> → um contêiner",
+        "volume · risco · projeção · saúde"
+      ]
+    },
+    {
+      fala: [
+        "Esse slide junta tudo. Na entrada são duas coisas: o histórico, 25.600 incidentes elegíveis dos 122.543 que vieram do sistema deles, e a fila aberta, que são os casos sem desfecho no instante em que a tela abre. Desses, 5.183 foram pontuados fora do período de treino, e é sobre eles que a gente mediu o modelo.",
+        "No meio, quatro cálculos: a previsão de volume com Prophet, com erro de 4,2 e 11,8 por dia; o risco por incidente com regressão logística, que concentra 76% das quebras nos 20% de maior risco; a projeção da meta somando três parcelas, que acertou com três meses de antecedência; e a nota de saúde, acompanhando quinze produtos.",
+        "E na saída, um contêiner só, que sobe lendo 350 kB gravados pelos notebooks e entrega o painel operacional e o resumo das sete. Nenhum modelo treina lá dentro, e ele sobe onde houver Docker, sem serviço proprietário de nuvem."
+      ],
+      chaves: [
+        "entrada: <b>25.600 de 122.543</b> · fila aberta, <b>5.183 fora do treino</b>",
+        "volume <b>4,2 e 11,8</b> · risco <b>76% nos 20%</b> de maior risco",
+        "projeção <b>3 meses</b> de antecedência · saúde em <b>15 produtos</b>",
+        "saída: um contêiner lendo <b>350 kB</b> · <b>nada treina lá dentro</b>"
+      ]
+    }
+  ]
+},
+
+30: {
+  titulo: "Como isso roda",
+  precisa: "A stack, e a promessa de portabilidade.",
+  versoes: [
+    {
+      fala: [
+        "A stack é Python com pandas e scikit-learn para tratar a base, Prophet e regressão logística para os modelos, e Django para as telas. Tudo numa imagem Docker só.",
+        "O contêiner não treina nada: ele sobe lendo <em>350 kB</em> de artefato que os notebooks gravaram, em três arquivos. E roda onde houver Docker, sem depender de serviço proprietário de nuvem, o que foi uma exigência nossa desde o começo, porque a Locaweb é uma nuvem."
+      ],
+      chaves: [
+        "Python · pandas · scikit-learn · Prophet · regressão logística · Django",
+        "tudo numa <b>imagem Docker</b> só",
+        "sobe lendo <b>350 kB</b> em três arquivos · <b>não treina nada</b>",
+        "<b>sem serviço proprietário de nuvem</b>: a Locaweb é uma nuvem"
+      ]
+    },
+    {
+      fala: [
+        "Python com pandas e scikit-learn, Prophet e regressão logística, Django nas telas, tudo numa imagem Docker. O contêiner não treina nada: sobe lendo <em>350 kB</em> gravados pelos notebooks, e roda onde houver Docker."
+      ],
+      chaves: [
+        "tudo numa <b>imagem Docker</b>",
+        "sobe lendo <b>350 kB</b> · não treina nada"
+      ]
+    },
+    {
+      fala: [
+        "A stack é Python com pandas e scikit-learn para tratar a base, Prophet e regressão logística para os modelos, e Django para as seis telas e o resumo. Tudo numa imagem Docker só, e sobe com um <em>docker run</em>.",
+        "O contêiner não treina nada: ele lê 350 kB de artefato que os notebooks gravaram, em três arquivos. Essa separação é de propósito, porque treinar em produção é onde as coisas quebram sem ninguém ver.",
+        "E ele roda onde houver Docker, sem depender de serviço proprietário de nuvem. Foi uma exigência nossa desde a arquitetura, porque a Locaweb é uma nuvem: amarrar a solução à nuvem de um concorrente não faria sentido nenhum."
+      ],
+      chaves: [
+        "Python · pandas · scikit-learn · Prophet · logística · Django",
+        "uma <b>imagem Docker</b>, sobe com <code>docker run</code>",
+        "lê <b>350 kB</b> em três arquivos · <b>não treina em produção</b>",
+        "<b>sem serviço proprietário</b>: a Locaweb é uma nuvem"
+      ]
+    }
+  ]
+},
+
+31: {
+  titulo: "Aplicação web Cronos · a demonstração",
+  precisa: "Abrir a demo e dizer que o relógio está parado.",
+  nota: "É aqui que a apresentação sai do slide. A partir deste ponto a fala corre <b>por cima da tela</b>, e o tempo dela não está somado no relógio do roteiro.",
+  versoes: [
+    {
+      fala: [
+        "E agora a demonstração. São seis telas, e o relógio do sistema está parado em <em>1º de outubro de 2025, às 15h</em>. Então tudo o que aparece ali é o que um líder da Locaweb teria na tela naquele instante, sem nenhum dado do futuro.",
+        "Vou passar pelo Panorama, pela Fila de risco e pela Projeção, que são as três que respondem as perguntas que a gente levantou até aqui."
+      ],
+      chaves: [
+        "<b>seis telas</b> · relógio parado em <b>01/10/2025, 15h</b>",
+        "só o que existiria <b>naquele instante</b>, sem dado do futuro",
+        "caminho: <b>Panorama → Fila → Projeção</b>"
+      ]
+    },
+    {
+      fala: [
+        "Agora a demonstração. Seis telas, com o relógio parado em <em>1º de outubro de 2025 às 15h</em>: só o que existiria naquele instante."
+      ],
+      chaves: [
+        "seis telas · relógio em <b>01/10/2025, 15h</b>",
+        "só o que existiria naquele instante"
+      ]
+    },
+    {
+      fala: [
+        "E agora a demonstração. São seis telas, e o relógio do sistema está parado em <em>1º de outubro de 2025, às 15h</em>. Isso é de propósito: tudo o que aparece ali é o que um líder da Locaweb teria na tela naquele instante, sem nenhum dado posterior ao corte. O sistema não enxerga o futuro.",
+        "Vou passar pelo Panorama, que é o que abre o dia; pela Fila de risco, que é o coração do produto; e pela Projeção, que responde a pergunta do ano. As outras três, Previsão, Saúde e Causas, ficam abertas para quem quiser olhar depois."
+      ],
+      chaves: [
+        "<b>seis telas</b> · relógio parado em <b>01/10/2025, 15h</b>",
+        "<b>o sistema não enxerga o futuro</b>: nada depois do corte",
+        "caminho: <b>Panorama → Fila → Projeção</b>",
+        "Previsão, Saúde e Causas ficam para depois"
+      ]
+    }
+  ]
+},
+
+32: {
+  titulo: "Obrigado",
+  precisa: "Agradecer e abrir para perguntas.",
+  versoes: [
+    {
+      fala: [
+        "E é isso. Obrigado à Locaweb, pelo dataset, pela mentoria e pelos insights que viraram diferenciais do produto; à FIAP, pela estrutura e pelos professores; e ao grupo, pelo trabalho dividido nas quatro sprints.",
+        "Ficamos à disposição para as perguntas."
+      ],
+      chaves: [
+        "obrigado: <b>Locaweb</b> (dataset, mentoria, insights)",
+        "<b>FIAP</b> (estrutura e professores) · <b>o grupo</b> (quatro sprints)",
+        "<i>→ à disposição para as perguntas</i>"
+      ]
+    },
+    {
+      fala: [
+        "É isso. Obrigado à Locaweb, à FIAP e ao grupo. Ficamos à disposição para as perguntas."
+      ],
+      chaves: ["obrigado · <i>à disposição para as perguntas</i>"]
+    },
+    {
+      fala: [
+        "E é isso. Obrigado à Locaweb, pelo dataset, pela mentoria do Douglas e pelos insights que viraram diferenciais do produto; à FIAP, pela estrutura, pelos professores tutores e pelo formato que aproxima a faculdade do mercado; e ao grupo, pela parceria nas quatro sprints e pelo trabalho dividido sem peso.",
+        "Ficamos à disposição para as perguntas."
+      ],
+      chaves: [
+        "<b>Locaweb</b>: dataset, mentoria do Douglas, insights",
+        "<b>FIAP</b>: estrutura, tutores, formato",
+        "<b>o grupo</b>: quatro sprints, trabalho dividido",
+        "<i>→ à disposição para as perguntas</i>"
+      ]
+    }
+  ]
+},
+
+33: {
+  titulo: "Abra o Cronos",
+  precisa: "Deixar o acesso na tela durante as perguntas.",
+  nota: "Este slide fica na tela enquanto as perguntas rolam. A fala é de dez segundos; o resto do tempo ele trabalha sozinho.",
+  versoes: [
+    {
+      fala: [
+        "E a aplicação continua no ar durante as perguntas. Esse QR code leva direto para ela, com os mesmos dados da demonstração, e o endereço está escrito aí do lado. O código também está público no GitHub."
+      ],
+      chaves: [
+        "a aplicação <b>fica no ar</b> durante as perguntas",
+        "<b>QR</b> e endereço · mesmos dados da demonstração",
+        "código <b>público no GitHub</b>"
+      ]
+    },
+    {
+      fala: [
+        "A aplicação fica no ar durante as perguntas. O QR leva para ela, com os mesmos dados da demonstração."
+      ],
+      chaves: ["a aplicação <b>fica no ar</b> · o QR leva para ela"]
+    },
+    {
+      fala: [
+        "E a aplicação continua no ar durante as perguntas. Esse QR code leva direto para ela, sem cadastro, com os mesmos dados da demonstração, e o endereço está escrito aí do lado.",
+        "São 72 páginas geradas pela própria aplicação Django, e o código está público no GitHub. Quem quiser rodar o contêiner na própria máquina, também dá."
+      ],
+      chaves: [
+        "<b>fica no ar</b> durante as perguntas · sem cadastro",
+        "<b>72 páginas</b> geradas pela própria aplicação Django",
+        "código <b>público no GitHub</b> · dá para rodar o contêiner"
       ]
     }
   ]
 }
-
 };
 
 /* ═══ o resto se monta sozinho ══════════════════════════════════════════════
@@ -915,10 +1221,10 @@ const FALAS = {
 
   /* edits[n][v] = {fala:[], chaves:[]} · edits[n].cab = {titulo, precisa}
      escolha[n] = 0 | 1 | 2                                                   */
-  let edits = {}, escolha = {};
+  let edits = {}, escolha = {}, guardadoSelo = "";
   try {
     const g = JSON.parse(localStorage.getItem(CHAVE_LS) || "{}");
-    edits = g.edits || {}; escolha = g.escolha || {};
+    edits = g.edits || {}; escolha = g.escolha || {}; guardadoSelo = g.selo || "";
     /* o formato antigo guardava só as edições, na raiz */
     if (!g.edits && !g.escolha && Object.keys(g).length) edits = g;
   } catch(e){}
@@ -929,9 +1235,23 @@ const FALAS = {
 
   /* O QUE JÁ VOLTOU DO CHAT SAI DAQUI SOZINHO. Sem isso, um slide aplicado no
      arquivo continuaria marcado como alterado para sempre, e a lista do botão
-     de copiar só cresceria. Roda uma vez, na carga. */
+     de copiar só cresceria. Roda uma vez, na carga.
+
+     Duas limpezas, e a segunda existe porque a primeira não bastava: comparar
+     texto por texto só apaga a cópia local quando ela é IDÊNTICA à do arquivo,
+     e um acento corrigido na aplicação já fazia o slide voltar a aparecer como
+     "alterado" para sempre. Então o arquivo carrega um SELO: se ele mudou desde
+     a última visita, a cópia local de todo slide JÁ FECHADO é descartada — ela
+     veio deste navegador, foi aplicada aqui, e o arquivo é a versão boa. O que
+     está pendente não é tocado. */
   (function limpaAplicado(){
     let mudou = false;
+    if (guardadoSelo !== SELO){
+      Object.keys(edits).forEach(n => {
+        if (FALAS[n] && FALAS[n].versoes.length === 1){ delete edits[n]; mudou = true; }
+      });
+      mudou = true;
+    }
     Object.keys(escolha).forEach(n => {
       if (!FALAS[n] || FALAS[n].versoes.length === 1){ delete escolha[n]; mudou = true; }
     });
@@ -956,7 +1276,7 @@ const FALAS = {
       if (!Object.keys(g).length) delete edits[n];
     });
     if (mudou){
-      try { localStorage.setItem(CHAVE_LS, JSON.stringify({edits, escolha})); } catch(e){}
+      try { localStorage.setItem(CHAVE_LS, JSON.stringify({edits, escolha, selo: SELO})); } catch(e){}
     }
   })();
 
@@ -1066,7 +1386,7 @@ const FALAS = {
   }
 
   function persiste(){
-    try { localStorage.setItem(CHAVE_LS, JSON.stringify({edits, escolha})); } catch(e){}
+    try { localStorage.setItem(CHAVE_LS, JSON.stringify({edits, escolha, selo: SELO})); } catch(e){}
     pintaTrilha(); contaTotal();
   }
 
