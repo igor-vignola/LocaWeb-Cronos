@@ -252,9 +252,12 @@ main{
 /* ── quem apresenta ──────────────────────────────────────────────────────── */
 /* A divisão já existia no deck, no `data-quem` de cada bloco, e tinha sido
    herdada sem ninguém decidir. Aqui ela se escolhe clicando na cara. */
-.quem{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:2px}
+.quem{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:0 0 20px;
+  padding:10px 13px;border-radius:11px;background:#FFF8EC;border:1px solid #F2DFBE}
+.quem.ok{background:#EEF9F3;border-color:#C8E9D7}
 .quem .k{font-size:10.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;
-  color:var(--tx3);margin-right:3px}
+  color:#B45309;margin-right:3px}
+.quem.ok .k{color:#0E7C5A}
 .quem button[data-q]{display:inline-flex;align-items:center;gap:8px;padding:5px 13px 5px 5px;
   border:1px solid var(--ln);background:var(--cd);border-radius:999px;cursor:pointer;
   font:inherit;font-size:13px;font-weight:600;color:var(--tx2);transition:.13s}
@@ -321,8 +324,6 @@ main{
       <span id="tempo"></span>
       <button class="lupa" id="btLupa">Ampliar o slide</button>
     </div>
-
-    <div class="quem" id="quem"></div>
   </div>
 
   <div class="lado-fala">
@@ -330,6 +331,7 @@ main{
       <h1 class="tit" id="titulo">—</h1>
       <p class="sub" id="subtitulo"></p>
       <div class="esc" id="barraEsc" hidden></div>
+      <div class="quem" id="quem"></div>
       <div id="corpo"></div>
     </div>
     <div class="pe">
@@ -380,7 +382,7 @@ main{
    `fala` são os parágrafos. `chaves` são as âncoras para lembrar em pé, e cada
    uma é o que ele olharia de relance — nunca a frase inteira.
    ══════════════════════════════════════════════════════════════════════════ */
-const SELO = "2026-09-11T15:32";
+const SELO = "2026-09-11T15:36";
 
 const FALAS = {
 
@@ -388,7 +390,6 @@ const FALAS = {
 
 1: {
   titulo: "Capa",
-  quem: "igor",
   precisa: "Dizer quem somos e o que o Cronos faz, numa frase só.",
   tamanho: "Principal",
   versoes: [{
@@ -406,7 +407,6 @@ const FALAS = {
 
 2: {
   titulo: "Quem apresenta",
-  quem: "igor",
   precisa: "Cada um diz o próprio nome, entra o mentor, e a fala emenda no slide do nome.",
   tamanho: "Principal",
   nota: "A ponte para o slide 3 é a última frase. Ela existe porque terminar no mentor deixava a fala sem saída — e “bora lá” fica estranho. Quem fecha o slide é quem vai puxar o próximo.",
@@ -429,7 +429,6 @@ const FALAS = {
 
 3: {
   titulo: "O significado",
-  quem: "igor",
   precisa: "De onde veio o nome, e por que ele descreve o problema.",
   tamanho: "Curta",
   versoes: [{
@@ -445,7 +444,6 @@ const FALAS = {
 
 4: {
   titulo: "O prazo de cada incidente",
-  quem: "igor",
   precisa: "O funil da base e a regra do filtro. O prazo em si é assunto do slide 5.",
   tamanho: "Principal",
   versoes: [{
@@ -464,7 +462,6 @@ const FALAS = {
 
 5: {
   titulo: "O indicador de 2025",
-  quem: "igor",
   precisa: "O prazo de cada prioridade, e quem estourou o limite do ano.",
   tamanho: "Curta",
   versoes: [{
@@ -484,7 +481,6 @@ const FALAS = {
 
 6: {
   titulo: "Por que é difícil ver chegando",
-  quem: "igor",
   precisa: "A fila é atendida por prioridade, e o prazo estoura na ordem contrária.",
   tamanho: "Curta",
   versoes: [{
@@ -501,7 +497,6 @@ const FALAS = {
 
 7: {
   titulo: "Divisória · Análise exploratória",
-  quem: "igor",
   precisa: "Anunciar a seção em uma respiração. Divisória é pausa, não conteúdo.",
   tamanho: "Curta",
   versoes: [{
@@ -517,7 +512,6 @@ const FALAS = {
 
 8: {
   titulo: "O salto de setembro",
-  quem: "ana",
   precisa: "O volume multiplicou, mas a série que conta para a meta não se mexeu.",
   tamanho: "Curta",
   versoes: [{
@@ -534,7 +528,6 @@ const FALAS = {
 
 9: {
   titulo: "A decisão de recorte",
-  quem: "ana",
   precisa: "Por que o treino é só 2025, e o que aconteceria se não fosse.",
   tamanho: "Curta",
   versoes: [{
@@ -550,7 +543,6 @@ const FALAS = {
 
 10: {
   titulo: "Quem abre, e quando",
-  quem: "ana",
   precisa: "Os dois cortes que separam quem estoura de quem não estoura.",
   tamanho: "Curta",
   versoes: [{
@@ -569,7 +561,6 @@ const FALAS = {
 
 11: {
   titulo: "O alvo é raro",
-  quem: "ana",
   precisa: "O desbalanceamento entre as classes, e por que acurácia engana.",
   tamanho: "Principal",
   nota: "O termo é <b>desbalanceamento de classes</b> — é como a banca vai chamar. A classe que quase não aparece é a <b>minoritária</b>, e o fenômeno é <b>evento raro</b>.<br><br>A fala fecha em “99% de acurácia”. O resto da frase está escrito no pé do slide: <i>“…e não encontra nenhuma. Por isso acurácia não é a régua deste problema.”</i> Se der vontade de completar em voz alta, está na última palavra-chave.",
@@ -590,7 +581,6 @@ const FALAS = {
 
 12: {
   titulo: "Divisória · Causas e explicabilidade",
-  quem: "ana",
   precisa: "Anunciar a seção. Divisória é pausa.",
   tamanho: "Curta",
   versoes: [{
@@ -602,7 +592,6 @@ const FALAS = {
 },
 13: {
   titulo: "O mesmo item de configuração quebra de novo",
-  quem: "ana",
   precisa: "Quase metade das quebras cai em item que já tinha quebrado.",
   tamanho: "Curta",
   nota: "<b>Item de configuração</b> é o nome da coluna na planilha oficial — a sétima das dezenove, valores como <code>IC00055</code>, 4.665 distintos. Não é <b>Produto</b>, que é outra coluna (<code>lvps</code>, <code>lsin</code>, 45 distintos).<br><br><b>Se perguntarem se tem vazamento:</b> a conta olha só para trás. Para cada quebra a gente pergunta se houve OUTRA quebra do mesmo item ANTES dela, então a primeira de cada item nunca conta. Medindo só o segundo semestre, com o primeiro de histórico, dá 53 de 107, 50% — o mesmo número.",
@@ -620,7 +609,6 @@ const FALAS = {
 
 14: {
   titulo: "O código “Outro”",
-  quem: "ana",
   precisa: "Um achado de processo: fechar sem causa identificada.",
   tamanho: "Curta",
   nota: "<b>Atenção ao número.</b> Os <b>22,9%</b> são a fatia das VIOLAÇÕES que caem no código “Outro” (43 de 188), e não a taxa de violação dentro dele. A taxa dentro do “Outro” é <b>2,69%</b>, contra 0,94% da média da base. Dizer “a taxa de violação é de quase 23%” seria errado por um fator de nove, e é o tipo de coisa que a banca pega na hora.",
@@ -639,7 +627,6 @@ const FALAS = {
 
 15: {
   titulo: "A causa mais frequente não é a que mais estoura",
-  quem: "ana",
   precisa: "Volume e risco não coincidem.",
   tamanho: "Curta",
   versoes: [{
@@ -656,7 +643,6 @@ const FALAS = {
 
 16: {
   titulo: "Divisória · Previsão de volume",
-  quem: "ana",
   precisa: "Anunciar a primeira entrega de modelo.",
   tamanho: "Curta",
   versoes: [{
@@ -669,7 +655,6 @@ const FALAS = {
 
 17: {
   titulo: "Os próximos sete dias",
-  quem: "ana",
   precisa: "A previsão contra o que de fato chegou.",
   tamanho: "Curta",
   nota: "O nome da “abertura” é <b>intervalo de previsão</b> — e não intervalo de confiança, que é outra coisa, sobre o parâmetro estimado. O do Prophet aqui está em <b>80%</b>: espera-se que 8 em cada 10 dias caiam dentro. Deu 13 de 14, e o único fora ficou 1 incidente acima do teto.",
@@ -687,7 +672,6 @@ const FALAS = {
 
 18: {
   titulo: "O erro contra os baselines",
-  quem: "ana",
   precisa: "O que é cada baseline, e quem ganha onde.",
   tamanho: "Curta",
   versoes: [{
@@ -704,7 +688,6 @@ const FALAS = {
 
 19: {
   titulo: "Divisória · Risco de OLA",
-  quem: "ana",
   precisa: "Anunciar o coração do produto.",
   tamanho: "Curta",
   versoes: [{
@@ -717,7 +700,6 @@ const FALAS = {
 
 20: {
   titulo: "Quebras encontradas por tamanho da fila",
-  quem: "ana",
   precisa: "O ganho contra as regras simples: mesma fila, ordem diferente.",
   tamanho: "Curta",
   nota: "Trocado “o desempenho foi significante” por “o resultado foi bom”. <b>Significante</b> puxa para significância estatística, e a gente não tem teste pareado para sustentar isso — o próprio dossiê registra essa lacuna. Se a banca perguntar por significância, a resposta honesta é que não foi medida.",
@@ -734,7 +716,6 @@ const FALAS = {
 
 21: {
   titulo: "Por que este incidente está no topo",
-  quem: "ana",
   precisa: "A nota vem com o motivo, incidente a incidente.",
   tamanho: "Curta",
   nota: "<b>Confirmado:</b> a categoria 31 tem <b>2,07% de taxa de quebra contra 0,97% da base</b> — 2,1× a média. São 2.226 incidentes e 46 quebras, e é a quinta maior taxa entre as 39 categorias com cem ou mais casos. Conferido em 11/09/2026 sobre <code>incidentes_kpi.parquet</code>.",
@@ -753,7 +734,6 @@ const FALAS = {
 
 22: {
   titulo: "Divisória · Morning Brief",
-  quem: "hygor",
   precisa: "Anunciar o primeiro diferencial.",
   tamanho: "Curta",
   versoes: [{
@@ -764,7 +744,6 @@ const FALAS = {
 
 23: {
   titulo: "Morning Brief",
-  quem: "hygor",
   precisa: "Chega sozinho, traz ontem e hoje.",
   tamanho: "Curta",
   versoes: [{
@@ -781,7 +760,6 @@ const FALAS = {
 
 24: {
   titulo: "Divisória · Projeção da meta e saúde",
-  quem: "hygor",
   precisa: "Anunciar os dois modelos trabalhando juntos.",
   tamanho: "Principal",
   versoes: [{
@@ -797,7 +775,6 @@ const FALAS = {
 
 25: {
   titulo: "Como é medida a meta do ano",
-  quem: "hygor",
   precisa: "A regra da meta, antes de a resposta vir no slide seguinte.",
   tamanho: "Curta",
   nota: "Este slide existe porque a meta confunde de <b>duas</b> formas, e as duas precisam ser ditas antes do número:<br><br>1 · ela é <b>invertida</b> — não é um número para alcançar, é um teto para não passar;<br>2 · a porcentagem é a <b>nota que a operação tira</b>, e não o quanto se passou do limite. Ela <b>sobe</b> quando a quebra <b>cai</b>.<br><br>E cuidado para não trocar os dois números da prioridade 2: <b>39 é o teto</b> do degrau do combinado, <b>42 é onde o ano fechou</b>. Três de diferença.",
@@ -817,7 +794,6 @@ const FALAS = {
 
 26: {
   titulo: "A meta do ano vai fechar?",
-  quem: "hygor",
   precisa: "As duas chamadas certas, três meses antes. A regra já veio no 25.",
   tamanho: "Curta",
   nota: "A regra da meta já foi dada no slide anterior, então esta fala vai direto ao resultado. Se o 25 sair do deck, este slide precisa reabsorver a explicação da escada.<br><br>Onde 2025 parou: <b>P2 em 42 → nota 75%</b> e <b>P3 em 196 → nota 150%</b>, a melhor faixa. A projeção de outubro dava 43,5 e 208, ou seja, nota 75% e 125%: os dois vereditos batiam.",
@@ -835,7 +811,6 @@ const FALAS = {
 },
 27: {
   titulo: "Que produto está pior, e por quê",
-  quem: "hygor",
   precisa: "A nota de saúde, e que ela é relativa ao conjunto.",
   tamanho: "Curta",
   nota: "A conta, se pedirem: cada um dos cinco componentes vira a <b>posição</b> do produto dentro dos quinze, de 0 a 1, e a nota é <b>100 × (1 − média das cinco posições)</b>. No <code>lvps</code>: 1,000 + 0,533 + 1,000 + 0,400 + 1,000 dividido por cinco dá 0,787, e cem menos isso dá <b>21,3</b>.",
@@ -854,7 +829,6 @@ const FALAS = {
 
 28: {
   titulo: "Divisória · Arquitetura",
-  quem: "hygor",
   precisa: "Anunciar a seção técnica.",
   tamanho: "Principal",
   versoes: [{
@@ -868,7 +842,6 @@ const FALAS = {
 
 29: {
   titulo: "Como o Cronos antecipa o resultado do ano",
-  quem: "hygor",
   precisa: "Entrada, os quatro cálculos e a saída, numa tela só.",
   tamanho: "Principal",
   versoes: [{
@@ -887,7 +860,6 @@ const FALAS = {
 
 30: {
   titulo: "Como isso roda",
-  quem: "hygor",
   precisa: "A stack, e a promessa de portabilidade.",
   tamanho: "Principal",
   versoes: [{
@@ -905,7 +877,6 @@ const FALAS = {
 
 31: {
   titulo: "Aplicação web Cronos · a demonstração",
-  quem: "hygor",
   precisa: "Abrir a demo.",
   tamanho: "Curta",
   nota: "É aqui que a apresentação sai do slide. A partir deste ponto a fala corre <b>por cima da tela</b>, e o tempo dela não está somado no relógio do roteiro.",
@@ -920,7 +891,6 @@ const FALAS = {
 
 32: {
   titulo: "Obrigado",
-  quem: "igor",
   precisa: "Agradecer e abrir para perguntas.",
   tamanho: "Curta",
   versoes: [{
@@ -933,7 +903,6 @@ const FALAS = {
 
 33: {
   titulo: "Abra o Cronos",
-  quem: "igor",
   precisa: "Deixar o acesso na tela durante as perguntas.",
   tamanho: "Principal",
   nota: "Este slide fica na tela enquanto as perguntas rolam. A fala é de dez segundos; o resto do tempo ele trabalha sozinho.",
@@ -1084,8 +1053,10 @@ const FALAS = {
     hygor: {nome: "Hygor", foto: "../../../brand/equipe/hygor.png"},
     igor:  {nome: "Igor",  foto: "../../../brand/equipe/igor.png"}
   };
-  /* o dono que vale: o escolhido aqui, ou o que o bloco do deck já traz */
-  const donoDe = n => quem[n] || (FALAS[n] && FALAS[n].quem) || "igor";
+  /* O dono que vale: o escolhido aqui, ou o que o bloco do deck trouxer. Hoje
+     nenhum bloco traz, de propósito — a divisão está sendo decidida do zero,
+     e um padrão herdado faria parecer decidido o que não foi. */
+  const donoDe = n => quem[n] || (FALAS[n] && FALAS[n].quem) || null;
 
   const escrito  = n => !!FALAS[n];
   /* FECHADO é o slide que já voltou do chat reduzido a uma fala só. Ele não é
@@ -1098,6 +1069,7 @@ const FALAS = {
   const aRelatar = () => Object.keys(FALAS).map(Number)
       .filter(n => escolha[n] !== undefined || mexido(n)).sort((a,b) => a-b);
   const quemMudou = () => Object.keys(quem).some(n => FALAS[n] && FALAS[n].quem !== quem[n]);
+  const temDono = () => Object.keys(FALAS).map(Number).some(n => donoDe(n));
 
   /* O TOTAL conta cada slide definido no tamanho que ele escolheu, e cada
      pendente na Principal, que é o tamanho em que ele foi escrito. O seletor
@@ -1188,10 +1160,13 @@ const FALAS = {
       if (escrito(n)) b.classList.add("tem");
       if (definido(n)) b.classList.add("def");
       else if (mexido(n)) b.classList.add("edit");
-      if (escrito(n)) b.classList.add("q-" + donoDe(n));
+      if (escrito(n) && donoDe(n)) b.classList.add("q-" + donoDe(n));
       if (n === slide) b.classList.add("aqui");
+      /* donoDe pode ser nulo: a divisão começa vazia, e ler .nome de undefined
+         derrubava a página inteira na primeira pintura */
+      const dono = donoDe(n);
       b.title = !escrito(n) ? "fala ainda não escrita"
-        : `${EQUIPE[donoDe(n)].nome} · ` + (definido(n)
+        : (dono ? EQUIPE[dono].nome : "sem dono") + " · " + (definido(n)
             ? "definido" + (escolha[n] !== undefined ? " · " + NOME[escolha[n]] : "")
             : "pendente");
     }
@@ -1249,17 +1224,17 @@ const FALAS = {
     const cx = $("quem");
     if (!FALAS[slide]){ cx.innerHTML = ""; return; }
     const d = donoDe(slide);
-    cx.innerHTML = '<span class="k">Quem apresenta</span>'
+    cx.className = "quem" + (d ? " ok" : "");
+    cx.innerHTML = `<span class="k">${d ? "Apresenta" : "Quem apresenta?"}</span>`
       + Object.keys(EQUIPE).map(k =>
           `<button data-q="${k}" class="${k === d ? "on" : ""} q-${k}">`
           + `<img src="${EQUIPE[k].foto}" alt=""><b>${EQUIPE[k].nome}</b></button>`).join("")
-      + (quem[slide] ? '<button class="lk" data-q="solta">voltar ao do deck</button>' : "");
+      + (d ? '<button class="lk" data-q="solta">tirar</button>' : "");
   }
 
   $("quem").addEventListener("click", ev => {
     const b = ev.target.closest("[data-q]"); if (!b) return;
-    if (b.dataset.q === "solta") delete quem[slide];
-    else if (b.dataset.q === FALAS[slide].quem) delete quem[slide];
+    if (b.dataset.q === "solta" || b.dataset.q === donoDe(slide)) delete quem[slide];
     else quem[slide] = b.dataset.q;
     persiste(); pintaQuem();
   });
@@ -1308,19 +1283,25 @@ const FALAS = {
     const fecs = Object.keys(FALAS).map(Number).filter(fechado).length;
     const pend = escritos - defs;
     const porQuem = {};
-    Object.keys(FALAS).forEach(n => { const d = donoDe(+n); porQuem[d] = (porQuem[d] || 0) + 1; });
+    let semDono = 0;
+    Object.keys(FALAS).forEach(n => {
+      const d = donoDe(+n);
+      if (d) porQuem[d] = (porQuem[d] || 0) + 1; else semDono++;
+    });
     estado.innerHTML = `<b>${defs}</b> definidos · <b class="${pend ? "pd" : ""}">${pend}</b> pendentes`
       + `<span class="sep">`
       + Object.keys(EQUIPE).map(k =>
           `<i class="pt q-${k}"></i>${EQUIPE[k].nome} <b>${porQuem[k] || 0}</b>`).join(" · ")
+      + (semDono ? ` · <b class="pd">${semDono}</b> sem dono` : "")
       + `</span>`;
     /* o total usa o tamanho ESCOLHIDO onde já houve escolha: é o tempo do deck
        como ele está configurado, e não de uma leitura hipotética */
     const s = Object.keys(FALAS).reduce((t, n) => t + segundos(+n, versaoDe(+n)), 0);
     relogio.innerHTML = `≈ <b>${mmss(s)}</b> de fala`;
+    rotuloPular();
     relogio.title = "Os definidos contam no tamanho escolhido; os pendentes, na Principal.";
     const q = aRelatar().length;
-    const mais = quemMudou() ? 1 : 0;
+    const mais = temDono() ? 1 : 0;
     btCopia.disabled = !q && !mais;
     btCopia.textContent = (q + mais) ? `Copiar o que mudou (${q + mais})` : "Copiar o que mudou";
   }
@@ -1372,13 +1353,13 @@ const FALAS = {
       }
       L.push("");
     });
-    if (quemMudou()){
+    if (temDono()){
       L.push("━━━ QUEM APRESENTA ━━━", "");
       /* em corridas, e não slide a slide: o que importa é onde a voz troca */
       let ini = 1, atual = donoDe(1);
       const fecha = (a, b, d) => L.push(
         (a === b ? `slide ${dois(a)}` : `slides ${dois(a)} a ${dois(b)}`)
-        + `  ·  ${EQUIPE[d].nome}`);
+        + "  ·  " + (d ? EQUIPE[d].nome : "SEM DONO"));
       for (let n = 2; n <= TOTAL; n++){
         const d = donoDe(n);
         if (d !== atual){ fecha(ini, n - 1, atual); ini = n; atual = d; }
@@ -1397,7 +1378,7 @@ const FALAS = {
 
   btCopia.addEventListener("click", async () => {
     sai();
-    if (!aRelatar().length && !quemMudou()) return;
+    if (!aRelatar().length && !temDono()) return;
     const txt = pacote();
     let foi = false;
     try { await navigator.clipboard.writeText(txt); foi = true; } catch(e){}
@@ -1414,23 +1395,36 @@ const FALAS = {
 
   $("btVer").addEventListener("click", () => {
     sai();
-    saidaTx.value = (aRelatar().length || quemMudou()) ? pacote()
+    saidaTx.value = (aRelatar().length || temDono()) ? pacote()
       : "Nada definido, editado nem reatribuído ainda.";
     saida.hidden = false; saidaTx.select();
   });
   $("btFechaSaida").addEventListener("click", () => { saida.hidden = true; });
 
   $("btZera").addEventListener("click", () => {
-    const q = aRelatar().length + (quemMudou() ? 1 : 0); if (!q) return;
+    const q = aRelatar().length + (temDono() ? 1 : 0); if (!q) return;
     if (!confirm("Apagar as escolhas, as edições e a divisão de quem apresenta? Não tem volta.")) return;
     edits = {}; escolha = {}; quem = {}; persiste(); pinta();
   });
 
+  /* o botão persegue o que ainda falta: primeiro a fala, depois o dono */
+  const semDono = n => escrito(n) && !donoDe(n);
+  function rotuloPular(){
+    const falta = Object.keys(FALAS).map(Number).some(pendente) ? "pendente"
+      : Object.keys(FALAS).map(Number).some(semDono) ? "sem dono" : null;
+    const b = $("btPend");
+    b.textContent = falta ? "Próximo " + falta : "Tudo resolvido";
+    b.disabled = !falta;
+    return falta;
+  }
   $("btPend").addEventListener("click", () => {
     sai();
+    const falta = rotuloPular();
+    if (!falta) return;
+    const crit = falta === "pendente" ? pendente : semDono;
     const todos = Object.keys(FALAS).map(Number).sort((a,b) => a-b);
-    const prox = todos.find(n => n > slide && pendente(n)) || todos.find(pendente);
-    if (prox === undefined) return avisa("Nenhum slide pendente.");
+    const prox = todos.find(n => n > slide && crit(n)) || todos.find(crit);
+    if (prox === undefined) return avisa("Nada a resolver.");
     slide = prox; pinta();
   });
 
