@@ -101,7 +101,7 @@ assert erro < 1e-9, 'a decomposição não reproduz o escore do modelo'
 
 # nome legivel de cada coluna e a qual campo ela pertence
 nomes = list(pre.get_feature_names_out())
-CURTO = {'Grupo designado': 'equipe', 'Aberto por': 'origem', 'Item de configuração': 'ativo',
+CURTO = {'Grupo designado': 'equipe', 'Aberto por': 'origem', 'Item de configuração': 'item de configuração',
          'Prioridade': 'prioridade', 'Produto': 'produto', 'Categoria': 'categoria',
          'Subcategoria': 'subcategoria', 'hora': 'hora do dia',
          'dia_semana': 'dia da semana', 'is_feriado': 'feriado'}

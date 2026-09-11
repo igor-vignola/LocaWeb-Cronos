@@ -9,7 +9,10 @@ Cinco ordenações, todas recomputadas de data/interim/04_fila_pontuada.parquet:
 
     modelo de risco      pela pontuação da regressão logística
     time                 pela taxa histórica de quebra do time
-    ativo crônico        pelo número de quebras que o ativo já teve
+    item crônico         pelo número de quebras que aquele item de configuração
+                         já teve. "Item de configuração" é o nome da coluna na
+                         base oficial; "ativo" era vocabulário nosso e saiu em
+                         11/09/2026, para o slide e a figura falarem igual
     prioridade           P2 antes de P3, que é o que a operação faz hoje
     sem ordenação        a diagonal, o que se acha pegando incidente ao acaso
 
@@ -89,7 +92,7 @@ def main() -> int:
     linhas = [
         ("modelo", "Fila do modelo", ["risco"], COR["modelo"], "-", 3.4, 0),
         ("time", "Regra: time", ["taxa_time"], "#16A34A", (0, (6, 3)), 2.1, 0),
-        ("ativo", "Regra: ativo crônico", ["ativo_violacoes"], "#D97706",
+        ("ativo", "Regra: item crônico", ["ativo_violacoes"], "#D97706",
          (0, (6, 3)), 2.1, 0),
         ("acaso", "Sem ordenação", None, "#999999", (0, (1, 3)), 1.8, 8),
         ("prioridade", "Regra: prioridade 2", ["ordem_pri"], "#DC2626",

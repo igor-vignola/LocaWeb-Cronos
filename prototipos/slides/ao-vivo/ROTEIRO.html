@@ -525,122 +525,74 @@ const FALAS = {
 11: {
   titulo: "O alvo é raro",
   precisa: "O desbalanceamento entre as classes, e por que acurácia engana.",
-  nota: "O termo é <b>desbalanceamento de classes</b> — é como a banca vai chamar. A classe que quase não aparece é a <b>minoritária</b>, e o fenômeno é <b>evento raro</b>. “Desproporção” se entende, mas não é o nome técnico.",
-  versoes: [
-    {
-      fala: [
-        "Um problema que a gente identificou logo no começo é o <em>desbalanceamento</em> entre as duas classes. Dos 25.600 incidentes que entram no indicador, só 248 estouraram o prazo, ou seja, menos de 1%. Então o modelo tem que aprender o padrão de quebra com menos de um por cento dos dados.",
-        "E daí vem um detalhe que confunde bastante: se a gente usasse acurácia para avaliar o modelo, um modelo que chutasse “não vai estourar” para todos os incidentes teria <em>99% de acurácia</em>, sem ter encontrado uma quebra sequer. Por isso acurácia não é a régua aqui."
-      ],
-      chaves: [
-        "<b>desbalanceamento</b> entre as duas classes",
-        "<b>248</b> em 25.600 · <b>menos de 1%</b>",
-        "o padrão tem que sair de <b>menos de 1% dos dados</b>",
-        "chutar “não vai estourar” em tudo dá <b>99% de acurácia</b> e <b>zero quebra</b>",
-        "por isso <b>acurácia não é a régua</b>"
-      ]
-    },
-    {
-      fala: [
-        "Dos 25.600 incidentes, só 248 estouraram o prazo: menos de 1%. O modelo tem que achar o padrão de quebra com menos de um por cento dos dados. E é por isso que acurácia não serve aqui: um modelo que chutasse “não vai estourar” para todos teria <em>99% de acurácia</em> sem achar uma quebra sequer."
-      ],
-      chaves: [
-        "<b>248</b> em 25.600 · <b>menos de 1%</b>",
-        "padrão de quebra em <b>menos de 1% dos dados</b>",
-        "chutar tudo “não estoura” = <b>99% de acurácia</b>, zero quebra"
-      ]
-    },
-    {
-      fala: [
-        "Um problema que a gente identificou logo no começo é o <em>desbalanceamento</em> entre as duas classes. Dos 25.600 incidentes que entram no indicador, só 248 estouraram o prazo em três anos, ou seja, menos de 1%. É o que esses quadradinhos mostram: cada um vale 64 incidentes, e os vermelhos são as violações. Dessas 248, 206 estão na prioridade 3 e 42 na 2.",
-        "Então o modelo tem que aprender o padrão de quebra com menos de um por cento dos dados, e é isso que torna o problema difícil.",
-        "E daí vem um detalhe que confunde bastante: se a gente usasse acurácia para avaliar o modelo, um modelo que chutasse “não vai estourar” para todos os 25.600 teria <em>99% de acurácia</em>, sem ter encontrado uma quebra sequer. Por isso acurácia não é a régua aqui, e mais para frente a gente mostra com que métricas o modelo foi medido de verdade."
-      ],
-      chaves: [
-        "<b>desbalanceamento</b> entre as duas classes",
-        "<b>248</b> em 25.600, em três anos · <b>menos de 1%</b>",
-        "<b>206 na P3</b> e 42 na P2",
-        "o padrão tem que sair de <b>menos de 1% dos dados</b>",
-        "chutar “não vai estourar” em tudo dá <b>99% de acurácia</b> e <b>zero quebra</b>",
-        "<b>acurácia não é a régua</b> · a medida certa vem depois"
-      ]
-    }
-  ]
+  tamanho: "Principal",
+  nota: "O termo é <b>desbalanceamento de classes</b> — é como a banca vai chamar. A classe que quase não aparece é a <b>minoritária</b>, e o fenômeno é <b>evento raro</b>.<br><br>A fala fecha em “99% de acurácia”. O resto da frase está escrito no pé do slide: <i>“…e não encontra nenhuma. Por isso acurácia não é a régua deste problema.”</i> Se der vontade de completar em voz alta, está na última palavra-chave.",
+  versoes: [{
+    fala: [
+      "Um problema que a gente identificou logo no começo é o <em>desbalanceamento</em> entre as duas classes. Dos 25.600 incidentes que entram no indicador, só 248 estouraram o prazo, ou seja, menos de 1%. Então o modelo tem que aprender o padrão de quebra com menos de um por cento dos dados.",
+      "E aí tem um problema: se a gente usasse acurácia para avaliar o modelo, um modelo que chutasse “não vai estourar” para todos os incidentes teria <em>99% de acurácia</em>."
+    ],
+    chaves: [
+      "<b>desbalanceamento</b> entre as duas classes",
+      "<b>248</b> em 25.600 · <b>menos de 1%</b>",
+      "o padrão tem que sair de <b>menos de 1% dos dados</b>",
+      "chutar “não vai estourar” em tudo dá <b>99% de acurácia</b> e <b>zero quebra</b>",
+      "por isso <b>acurácia não é a régua</b>"
+    ]
+  }]
 },
+
 12: {
   titulo: "Divisória · Causas e explicabilidade",
   precisa: "Anunciar a seção. Divisória é pausa.",
-  versoes: [
-    {
-      fala: [
-        "Agora, a segunda parte: que causas se repetem, e o que separa o incidente que estoura do que fecha em tempo. São dezesseis códigos de fechamento, e a distribuição deles está aí do lado."
-      ],
-      chaves: [
-        "que causas <b>se repetem</b>",
-        "o que separa <b>quem estoura de quem fecha em tempo</b>",
-        "<b>16 códigos</b> de fechamento"
-      ]
-    },
-    {
-      fala: [
-        "Agora, as causas: o que se repete e o que separa quem estoura de quem fecha em tempo."
-      ],
-      chaves: ["as <b>causas</b> e o que separa quem estoura"]
-    },
-    {
-      fala: [
-        "Agora, a segunda parte: que causas se repetem, e o que separa o incidente que estoura do que fecha em tempo. São dezesseis códigos de fechamento, e a distribuição deles está aí do lado.",
-        "E já adianto o achado desta seção: a causa que aparece mais não é a que mais estoura o prazo."
-      ],
-      chaves: [
-        "que causas <b>se repetem</b>",
-        "<b>16 códigos</b> de fechamento",
-        "<i>→ a mais frequente não é a que mais estoura</i>"
-      ]
-    }
-  ]
+  tamanho: "Curta",
+  versoes: [{
+    fala: [
+      "Partimos para a seção causas e explicabilidade, onde a gente tentou encontrar padrões nos dados que pudessem ajudar a treinar os modelos."
+    ],
+    chaves: ["as <b>causas</b> e o que separa quem estoura"]
+  }]
 },
-
 13: {
   titulo: "O mesmo ativo quebra de novo",
-  precisa: "Metade das quebras cai em ativo que já tinha quebrado. E dizer o que é “ativo”.",
+  precisa: "Metade das quebras cai em item de configuração que já tinha quebrado.",
   nota: "“Ativo” é a coluna <b>Item de configuração</b> da planilha oficial — a sétima das dezenove, com valores como <code>IC00055</code>, 4.665 distintos na base elegível. Não confundir com <b>Produto</b>, que é outra coluna (<code>lvps</code>, <code>lsin</code>, 45 distintos): um produto tem centenas de itens de configuração. Se a banca perguntar, o nome da coluna é esse.",
   versoes: [
     {
       fala: [
-        "O primeiro padrão que apareceu é que a coisa se repete no mesmo lugar. E quando eu falo ativo, é a coluna <em>Item de configuração</em> da base, que é a máquina ou o serviço que o chamado aponta.",
-        "Das 107 quebras do segundo semestre, <em>53</em> aconteceram num ativo que já tinha quebrado antes. Metade.",
-        "Na prioridade 3 são 49 de 87. Na 2 são só 20 quebras no semestre inteiro, dado de menos para confirmar o mesmo padrão. E é daqui que sai uma das dez variáveis que o modelo usa: o histórico do próprio ativo."
+        "O primeiro padrão que apareceu é que a coisa se repete no mesmo lugar. E o que se repete é o <em>Item de configuração</em>, que é a coluna da base que diz qual máquina ou serviço o chamado aponta.",
+        "Das 107 quebras do segundo semestre, <em>53</em> aconteceram num item de configuração que já tinha quebrado antes. Metade.",
+        "Na prioridade 3 são 49 de 87. Na 2 são só 20 quebras no semestre inteiro, dado de menos para confirmar o mesmo padrão. E é daqui que sai uma das dez variáveis que o modelo usa: o histórico do próprio item de configuração."
       ],
       chaves: [
-        "ativo = coluna <b>Item de configuração</b> (a máquina ou o serviço)",
-        "<b>53 de 107</b> quebras do semestre foram em ativo que <b>já tinha quebrado</b>",
+        "o que se repete é o <b>Item de configuração</b> (a máquina ou o serviço)",
+        "<b>53 de 107</b> quebras do semestre foram em item que <b>já tinha quebrado</b>",
         "P3: 49 de 87 · P2: 20 quebras no semestre, <b>dado de menos</b>",
         "daqui sai uma das <b>dez variáveis</b> do modelo"
       ]
     },
     {
       fala: [
-        "Das 107 quebras do segundo semestre, <em>53</em> foram num ativo que já tinha quebrado antes. Metade. Ativo aqui é a coluna <em>Item de configuração</em> da base, e é daqui que sai uma das dez variáveis do modelo: o histórico do próprio ativo."
+        "Das 107 quebras do segundo semestre, <em>53</em> foram num <em>Item de configuração</em> que já tinha quebrado antes. Metade. E é daqui que sai uma das dez variáveis do modelo: o histórico do próprio item."
       ],
       chaves: [
-        "<b>53 de 107</b> em ativo que já tinha quebrado",
-        "ativo = <b>Item de configuração</b>",
+        "<b>53 de 107</b> em item que já tinha quebrado",
+        "<b>Item de configuração</b>, não produto",
         "vira <b>variável do modelo</b>"
       ]
     },
     {
       fala: [
-        "O primeiro padrão que apareceu é que a coisa se repete no mesmo lugar. E quando eu falo ativo, é a coluna <em>Item de configuração</em> da base, que é a máquina, o domínio ou o serviço que o chamado aponta. São 4.665 deles, e não confundir com produto, que é outra coluna: um produto tem centenas de itens de configuração.",
-        "Das 107 quebras do segundo semestre, <em>53</em> aconteceram num ativo que já tinha quebrado antes. Metade.",
+        "O primeiro padrão que apareceu é que a coisa se repete no mesmo lugar. E o que se repete é o <em>Item de configuração</em>, que é a coluna da base que diz qual máquina, domínio ou serviço o chamado aponta. São 4.665 deles, e não confundir com produto, que é outra coluna: um produto tem centenas de itens de configuração.",
+        "Das 107 quebras do segundo semestre, <em>53</em> aconteceram num item de configuração que já tinha quebrado antes. Metade.",
         "Esse efeito é da prioridade 3, onde são 49 de 87. Na prioridade 2 são 4 de 20, e vinte quebras no semestre inteiro é dado de menos para afirmar o mesmo. A gente prefere dizer isso do que fingir que o padrão vale nas duas.",
-        "De qualquer forma, é daqui que sai uma das dez variáveis que o modelo usa: quantas vezes aquele ativo já passou, e quantas vezes já estourou."
+        "De qualquer forma, é daqui que sai uma das dez variáveis que o modelo usa: quantas vezes aquele item já passou, e quantas vezes já estourou."
       ],
       chaves: [
-        "ativo = coluna <b>Item de configuração</b> · <b>4.665</b> deles · ≠ produto",
-        "<b>53 de 107</b> quebras foram em ativo que já tinha quebrado",
+        "<b>Item de configuração</b> · <b>4.665</b> deles · ≠ produto",
+        "<b>53 de 107</b> quebras foram em item que já tinha quebrado",
         "P3: <b>49 de 87</b> · P2: 4 de 20, <b>dado de menos para afirmar</b>",
-        "vira variável: <b>quantas passagens e quantas quebras</b> do ativo"
+        "vira variável: <b>quantas passagens e quantas quebras</b> do item"
       ]
     }
   ]

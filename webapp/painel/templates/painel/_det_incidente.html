@@ -5,7 +5,7 @@ peso × (valor − média do treino), e a soma reconstrói o escore.
 <span class="md-k">Incidente · {{ c.posicao }}º de {{ c.de }} na fila de hoje</span>
 <h3 class="id">{{ c.incidente }}</h3>
 <p class="sub">{{ c.produto }} · {{ c.categoria }} · Equipe {{ c.equipe }}
-  {% if c.ativo %}· Ativo <span class="id">{{ c.ativo }}</span>{% endif %}
+  {% if c.ativo %}· Item de configuração <span class="id">{{ c.ativo }}</span>{% endif %}
   · Aberto em {{ c.dm }} às {{ c.hora }}h</p>
 
 <div class="md-g">
@@ -34,7 +34,7 @@ peso × (valor − média do treino), e a soma reconstrói o escore.
   contribuições pequenas demais para listar: a soma de todas reconstrói o escore exato.</p>
 
 {% if hist %}
-  <div class="md-h">Histórico do ativo {{ c.ativo }}</div>
+  <div class="md-h">Histórico do item {{ c.ativo }}</div>
   <svg class="mh" viewBox="0 0 {{ hist.w }} {{ hist.h }}">
     {% for b in hist.barras %}
       <rect class="mh-p" x="{{ b.x }}" y="{{ b.yp }}" width="{{ b.w }}" height="{{ b.hp }}" rx="3"/>
