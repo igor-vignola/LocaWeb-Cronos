@@ -11,23 +11,16 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    ROTEIRO DA BANCA — slide de um lado, fala do outro.
 
-   Não decide quem apresenta o quê: o marcador de dono sai da foto de propósito.
-   O que ele decide é COMO se fala, e por isso cada slide tem três versões de
-   fala para o dono do projeto escolher a que soa como ele.
+   Página de CONSULTA. Não se decide nada aqui: as falas estão fechadas no
+   objeto FALAS e a divisão de quem apresenta veio junto, no campo `quem` de
+   cada entrada, que é o mesmo valor do `data-quem` do bloco no deck.
 
-   As falas moram no objeto FALAS, no fim do arquivo. Acrescentar slide é
-   acrescentar entrada — o resto se monta sozinho.
-
-   A FALA É EDITÁVEL AQUI DENTRO. Clicar no texto e digitar já vale: o que muda
-   fica no localStorage do navegador e sobrevive a fechar a aba. O botão
-   "Copiar alterações" leva só os slides mexidos para a área de transferência,
-   num bloco pronto para colar no chat — o arquivo em file:// não pode se
-   reescrever sozinho, e é essa a volta.
+   Acrescentar slide é acrescentar entrada — o resto se monta sozinho.
    ───────────────────────────────────────────────────────────────────────── */
 :root{
   --pg:#F4F6FA; --cd:#FFFFFF; --tt:#0B0F16; --tx:#3D4757; --tx2:#67717F;
   --tx3:#9AA3B0; --ln:#E4E8EF; --ac:#2563EB; --ac-bg:#EEF3FF;
-  --ok:#0E7C5A; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
@@ -40,24 +33,24 @@ body{
 
 /* ── barra de cima ───────────────────────────────────────────────────────── */
 header{
-  flex-shrink:0;display:flex;align-items:center;gap:22px;flex-wrap:wrap;
+  flex-shrink:0;display:flex;align-items:center;gap:20px;flex-wrap:wrap;
   padding:13px 26px;background:var(--cd);border-bottom:1px solid var(--ln);
 }
 .marca{display:flex;align-items:baseline;gap:9px;margin-right:auto}
 .marca b{font-size:16px;font-weight:800;letter-spacing:-.3px;color:var(--tt)}
-.marca span{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--tx3)}
+.marca span{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--tx3)}
 
-.grp{display:flex;align-items:center;gap:8px}
-.grp > i{font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.11em;
-  text-transform:uppercase;color:var(--tx3)}
 .seg{display:flex;background:var(--pg);border:1px solid var(--ln);border-radius:9px;padding:3px}
 .seg button{
   border:0;background:0;cursor:pointer;font:inherit;font-size:13px;font-weight:600;
   color:var(--tx2);padding:5px 13px;border-radius:6px;transition:.14s;white-space:nowrap;
+  display:inline-flex;align-items:center;gap:7px;
 }
-.seg button:hover:not(:disabled){color:var(--tt)}
-.seg button:disabled{opacity:.32;cursor:default}
+.seg button:hover{color:var(--tt)}
 .seg button[aria-pressed="true"]{background:var(--tt);color:#fff}
+.seg button i{width:8px;height:8px;border-radius:50%;background:var(--qc);flex-shrink:0}
+.seg button[aria-pressed="true"] i{box-shadow:0 0 0 1.5px rgba(255,255,255,.5)}
 
 .relogio{
   font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--tx2);
@@ -74,21 +67,31 @@ header{
 .trilha button{
   flex-shrink:0;width:30px;height:26px;border:1px solid var(--ln);background:var(--cd);
   border-radius:6px;cursor:pointer;font-family:var(--mono);font-size:11px;font-weight:500;
-  color:var(--tx3);transition:.12s;
+  color:var(--tx3);transition:.12s;position:relative;
 }
-.trilha button:hover{border-color:var(--tx3);color:var(--tx)}
-.trilha button.tem{color:var(--tt);border-color:#C9D2E0}
-.trilha button.aqui{background:var(--tt);border-color:var(--tt);color:#fff}
+.trilha button:hover{border-color:var(--tx3)}
 .trilha .corte{flex-shrink:0;width:1px;background:var(--ln);margin:0 6px}
+/* o dono TINGE o botão inteiro, e não um fio de 3px: área grande separa matiz
+   parecido, fio fino não */
+.trilha button[class*="q-"]{
+  background:color-mix(in srgb, var(--qc) 13%, #fff);
+  border-color:color-mix(in srgb, var(--qc) 34%, #fff);
+  color:color-mix(in srgb, var(--qc) 78%, #0B0F16)}
+.trilha button[class*="q-"]::before{
+  content:"";position:absolute;left:5px;right:5px;top:2px;height:3px;border-radius:2px;
+  background:var(--qc)}
+.trilha button.aqui{background:var(--tt);border-color:var(--tt);color:#fff}
+.trilha button.aqui::before{background:rgba(255,255,255,.55)}
+/* com filtro ligado, quem está fora some do caminho sem sumir da página */
+.trilha button.fora{opacity:.26}
 
 /* ── palco ───────────────────────────────────────────────────────────────── */
 main{
-  flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(380px,.85fr);
+  flex:1;min-height:0;display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(380px,.85fr);
   gap:26px;padding:24px 26px;overflow:hidden;
 }
-@media (max-width:1180px){
-  main{grid-template-columns:1fr;overflow:auto}
-}
+@media (max-width:1180px){ main{grid-template-columns:1fr;overflow:auto} }
 
 .lado-slide{display:flex;flex-direction:column;gap:14px;min-width:0}
 .moldura{
@@ -96,7 +99,8 @@ main{
   box-shadow:0 1px 2px rgba(11,15,22,.04),0 20px 44px -30px rgba(11,15,22,.35);
 }
 .moldura img{display:block;width:100%;height:auto}
-.abaixo{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--tx2)}
+.abaixo{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:12.5px;
+  color:var(--tx2)}
 .abaixo .num{font-family:var(--mono);font-weight:700;color:var(--tt)}
 .abaixo .lupa{
   margin-left:auto;border:1px solid var(--ln);background:var(--cd);border-radius:7px;
@@ -110,13 +114,20 @@ main{
    trinta segundos virava uma caixa branca vazia de mil pixels */
 .papel{
   flex:0 1 auto;min-height:0;overflow:auto;background:var(--cd);border:1px solid var(--ln);
-  border-radius:14px;padding:26px 28px 30px;
-  box-shadow:0 1px 2px rgba(11,15,22,.04);
+  border-radius:14px;padding:24px 28px 30px;box-shadow:0 1px 2px rgba(11,15,22,.04);
 }
+.cab{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px}
 .tit{margin:0 0 3px;font-size:22px;font-weight:800;letter-spacing:-.4px;color:var(--tt);
   text-wrap:balance}
-.sub{margin:0 0 20px;font-size:13px;color:var(--tx3)}
-.sub b{color:var(--ac);font-weight:600}
+.sub{margin:0;font-size:13px;color:var(--tx3)}
+
+/* de quem é a vez: rótulo, não escolha */
+.dono{display:inline-flex;align-items:center;gap:8px;flex-shrink:0;white-space:nowrap;
+  padding:5px 13px 5px 5px;border-radius:999px;
+  background:color-mix(in srgb, var(--qc) 12%, #fff);
+  border:1px solid color-mix(in srgb, var(--qc) 30%, #fff);
+  font-size:13px;font-weight:700;color:color-mix(in srgb, var(--qc) 76%, #0B0F16)}
+.dono img{width:26px;height:26px;border-radius:50%;object-fit:cover}
 
 .fala p{margin:0 0 15px;font-size:17px;line-height:1.72;color:var(--tt)}
 .fala p:last-child{margin-bottom:0}
@@ -125,14 +136,12 @@ main{
 
 .chaves{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
 .chaves li{
-  display:flex;gap:13px;align-items:flex-start;font-size:16.5px;line-height:1.5;color:var(--tt);
-  padding-bottom:11px;border-bottom:1px dashed var(--ln);
+  display:flex;gap:13px;align-items:flex-start;font-size:16.5px;line-height:1.5;
+  color:var(--tt);padding-bottom:11px;border-bottom:1px dashed var(--ln);
 }
 .chaves li:last-child{border-bottom:0;padding-bottom:0}
-.chaves li::before{
-  content:"";flex-shrink:0;width:7px;height:7px;margin-top:9px;border-radius:50%;
-  background:var(--ac);
-}
+.chaves li::before{content:"";flex-shrink:0;width:7px;height:7px;margin-top:9px;
+  border-radius:50%;background:var(--ac)}
 .chaves b{font-weight:700}
 .chaves i{font-style:normal;color:var(--tx2);font-size:15px}
 
@@ -144,26 +153,20 @@ main{
 .nota code{font-family:var(--mono);font-size:12.5px;background:rgba(37,99,235,.1);
   padding:1px 5px;border-radius:4px}
 
-.vazio{padding:40px 0;text-align:center;color:var(--tx3);font-size:14.5px;line-height:1.7}
-.vazio b{display:block;color:var(--tx2);font-weight:600;margin-bottom:5px}
-
 .pe{
   flex-shrink:0;display:flex;align-items:center;gap:13px;padding-top:13px;
   font-size:11.5px;color:var(--tx3);flex-wrap:wrap;
 }
-@media (max-width:1500px){ .pe .dica{display:none} }
 .pe kbd{
   font-family:var(--mono);font-size:11px;background:var(--cd);border:1px solid var(--ln);
   border-bottom-width:2px;border-radius:5px;padding:1px 6px;color:var(--tx2);
 }
 .pe .seta{margin-left:auto;display:flex;gap:7px}
-/* só as setas são quadradas: o botão do próximo pendente mora aqui também e
-   estava sendo espremido em 34px, com o texto por cima das setas */
-.pe .seta button:not(.bt){
+.pe .seta button{
   border:1px solid var(--ln);background:var(--cd);border-radius:8px;width:34px;height:30px;
   cursor:pointer;font-size:15px;color:var(--tx2);
 }
-.pe .seta button:not(.bt):hover{color:var(--tt);border-color:var(--tx3)}
+.pe .seta button:hover{color:var(--tt);border-color:var(--tx3)}
 
 /* ── lupa: o slide em tela cheia ─────────────────────────────────────────── */
 #lupa{
@@ -173,122 +176,9 @@ main{
 #lupa.on{display:grid}
 #lupa img{max-width:100%;max-height:100%;border-radius:8px}
 
-/* ── o texto é editável na própria página ────────────────────────────────── */
-/* o campo só se anuncia quando o ponteiro chega nele: em repouso o roteiro
-   continua sendo um roteiro, e não um formulário */
-.fala[contenteditable],.chaves[contenteditable]{
-  padding:11px 13px;margin:-11px -13px;border-radius:11px;outline:0;
-  transition:background .12s ease-out}
-.fala[contenteditable]:hover,.chaves[contenteditable]:hover{background:#F6F9FE}
-.fala[contenteditable]:focus,.chaves[contenteditable]:focus{
-  background:#F4F8FF;box-shadow:inset 0 0 0 1px #C7DBFF}
-.tit[contenteditable],.sub[contenteditable]{outline:0;border-radius:7px}
-.tit[contenteditable]:focus,.sub[contenteditable]:focus{
-  background:#F4F8FF;box-shadow:0 0 0 5px #F4F8FF}
-
-.bt{border:1px solid var(--ln);background:var(--cd);border-radius:9px;padding:7px 13px;
-  font:inherit;font-size:12.5px;font-weight:600;color:var(--tx);cursor:pointer;white-space:nowrap}
-.bt:hover:not(:disabled){border-color:var(--ac);color:var(--ac)}
-.bt:disabled{opacity:.4;cursor:default}
-.bt.pri:not(:disabled){background:var(--ac);border-color:var(--ac);color:#fff}
-.bt.pri:not(:disabled):hover{background:#1D4FD8;color:#fff}
-.bt.ic{padding:7px 10px;color:var(--tx2)}
-
-/* o slide que tem edição pendente ganha um fio âmbar na trilha */
-.trilha button.edit{box-shadow:inset 0 -3px 0 #E8A33D}
-
-.selo{display:inline-flex;align-items:center;gap:9px;font-size:10.5px;font-weight:700;
-  letter-spacing:.09em;text-transform:uppercase;color:#B45309;background:#FEF3E2;
-  border-radius:999px;padding:4px 11px}
-.selo button{border:0;background:0;padding:0;font:inherit;font-size:11px;font-weight:700;
-  letter-spacing:0;text-transform:none;color:#B45309;text-decoration:underline;cursor:pointer}
-.selo[hidden]{display:none!important}
-
-#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:70;
-  background:var(--tt);color:#fff;padding:11px 21px;border-radius:999px;
-  font-size:13.5px;font-weight:600;box-shadow:0 14px 34px -18px rgba(0,0,0,.7)}
-#toast[hidden]{display:none}
-
-#saida{position:fixed;inset:0;z-index:80;background:rgba(11,15,22,.55);display:grid;
-  place-items:center;padding:40px}
-#saida[hidden]{display:none}
-#saida > div{width:min(880px,100%);max-height:100%;display:flex;flex-direction:column;gap:13px;
-  background:var(--cd);border-radius:16px;padding:22px 22px 20px;
-  box-shadow:0 30px 70px -30px rgba(0,0,0,.6)}
-#saida h2{margin:0;font-size:16px;font-weight:800;color:var(--tt)}
-#saida p{margin:0;font-size:13px;color:var(--tx2)}
-#saida textarea{flex:1;min-height:320px;resize:none;font-family:var(--mono);font-size:12.5px;
-  line-height:1.62;border:1px solid var(--ln);border-radius:10px;padding:14px;color:var(--tx);
-  background:var(--pg)}
-#saida .fim{display:flex;justify-content:flex-end}
-
-/* o placar mora no cabeçalho: posto na linha da trilha, ele comia a largura e
-   os cinco últimos slides ficavam fora da vista */
-.placar{flex-shrink:0;font-size:12.5px;color:var(--tx2);white-space:nowrap}
-.placar b{color:var(--tt);font-weight:700;font-family:var(--mono)}
-.placar b.pd{color:#B45309}
-.placar .sep{margin-left:9px;color:var(--tx3);font-size:11.5px}
-
-/* estados do slide na trilha: pendente é contorno, definido é fio verde */
-.trilha button.def{box-shadow:inset 0 -3px 0 #12A56E;color:var(--tt);border-color:#BFE5D4}
-.trilha button.def.aqui{box-shadow:inset 0 -3px 0 #4ADE80}
-.trilha button.edit{box-shadow:inset 0 -3px 0 #E8A33D}
-
-/* ── a barra da escolha ──────────────────────────────────────────────────── */
-.esc{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 20px;
-  padding:10px 13px;border-radius:11px;background:#FFF8EC;border:1px solid #F2DFBE}
-.esc.ok{background:#EEF9F3;border-color:#C8E9D7}
-.esc[hidden]{display:none!important}
-.esc .est{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
-  color:#B45309}
-.esc.ok .est{color:#0E7C5A}
-.esc .acao{margin-left:auto;display:flex;align-items:center;gap:12px}
-.esc .ja{font-size:12.5px;color:#0E7C5A;font-weight:600}
-.esc .lk{border:0;background:0;padding:0;font:inherit;font-size:12px;color:var(--tx2);
-  text-decoration:underline;cursor:pointer}
-.esc .lk:hover{color:var(--tt)}
-.bt.mini{padding:6px 12px;font-size:12.5px}
-
-/* ── quem apresenta ──────────────────────────────────────────────────────── */
-/* A divisão já existia no deck, no `data-quem` de cada bloco, e tinha sido
-   herdada sem ninguém decidir. Aqui ela se escolhe clicando na cara. */
-.quem{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:0 0 20px;
-  padding:10px 13px;border-radius:11px;background:#FFF8EC;border:1px solid #F2DFBE}
-.quem.ok{background:#EEF9F3;border-color:#C8E9D7}
-.quem .k{font-size:10.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;
-  color:#B45309;margin-right:3px}
-.quem.ok .k{color:#0E7C5A}
-.quem button[data-q]{display:inline-flex;align-items:center;gap:8px;padding:5px 13px 5px 5px;
-  border:1px solid var(--ln);background:var(--cd);border-radius:999px;cursor:pointer;
-  font:inherit;font-size:13px;font-weight:600;color:var(--tx2);transition:.13s}
-.quem button[data-q] img{width:26px;height:26px;border-radius:50%;object-fit:cover;
-  filter:grayscale(1);opacity:.55;transition:.13s}
-.quem button[data-q]:hover{border-color:var(--tx3);color:var(--tt)}
-.quem button[data-q]:hover img{filter:none;opacity:.85}
-.quem button[data-q].on{color:#fff;border-color:transparent;background:var(--qc)}
-.quem button[data-q].on img{filter:none;opacity:1;box-shadow:0 0 0 2px rgba(255,255,255,.7)}
-.quem .lk{border:0;background:0;padding:0 0 0 6px;font:inherit;font-size:12px;color:var(--tx3);
-  text-decoration:underline;cursor:pointer}
-.quem .lk:hover{color:var(--tt)}
-
-/* A cor de cada voz. Longe do verde do definido e do âmbar do editado, e com os
-   três matizes bem separados: roxo e azul, que era o par anterior, não se
-   distinguiam num fio de três pixels. */
-.q-ana{--qc:#DB2777} .q-hygor{--qc:#0891B2} .q-igor{--qc:#7C3AED}
-
-/* na trilha o dono TINGE o botão inteiro, e não um fio de 3px: área grande
-   separa matiz parecido, fio fino não. O de baixo continua sendo o estado. */
-.trilha button.q-ana,.trilha button.q-hygor,.trilha button.q-igor{
-  position:relative;background:color-mix(in srgb, var(--qc) 13%, #fff);
-  border-color:color-mix(in srgb, var(--qc) 34%, #fff);
-  color:color-mix(in srgb, var(--qc) 78%, #0B0F16)}
-.trilha button.q-ana::before,.trilha button.q-hygor::before,.trilha button.q-igor::before{
-  content:"";position:absolute;left:5px;right:5px;top:2px;height:3px;border-radius:2px;
-  background:var(--qc)}
-.trilha button.aqui{background:var(--tt);border-color:var(--tt);color:#fff}
-
-.placar .pt{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--qc);
-  margin-right:5px;vertical-align:baseline}
+/* A cor de cada voz, na trilha e no rótulo do dono. O amarelo tem um segundo
+   tom para quando o fundo é a própria cor e o texto fica branco. */
+.q-igor{--qc:#DC2626} .q-hygor{--qc:#2563EB} .q-ana{--qc:#CA8A04}
 </style>
 </head>
 <body>
@@ -296,29 +186,19 @@ main{
 <header>
   <div class="marca"><b>Cronos</b><span>Roteiro da banca</span></div>
 
-  <div class="grp">
-    <div class="seg" id="segVer">
-      <button data-v="0" aria-pressed="true">Principal</button>
-      <button data-v="1" aria-pressed="false">Curta</button>
-      <button data-v="2" aria-pressed="false">Com detalhe</button>
-    </div>
+  <div class="seg" id="segModo">
+    <button data-m="fala" aria-pressed="true">Fala completa</button>
+    <button data-m="chaves" aria-pressed="false">Palavras-chave</button>
   </div>
 
-  <div class="grp">
-    <div class="seg" id="segModo">
-      <button data-m="fala" aria-pressed="true">Fala completa</button>
-      <button data-m="chaves" aria-pressed="false">Palavras-chave</button>
-    </div>
+  <div class="seg" id="segQuem">
+    <button data-q="" aria-pressed="true">Todos</button>
+    <button data-q="igor" class="q-igor" aria-pressed="false"><i></i>Igor</button>
+    <button data-q="ana" class="q-ana" aria-pressed="false"><i></i>Ana</button>
+    <button data-q="hygor" class="q-hygor" aria-pressed="false"><i></i>Hygor</button>
   </div>
 
-  <span class="placar" id="estado">—</span>
-  <span class="placar" id="relogio">—</span>
-
-  <div class="grp">
-    <button class="bt pri" id="btCopia" disabled>Copiar o que mudou</button>
-    <button class="bt ic" id="btVer" title="Ver o bloco antes de copiar">Ver</button>
-    <button class="bt ic" id="btZera" title="Apagar escolhas e edições">Zerar</button>
-  </div>
+  <span class="relogio" id="relogio">—</span>
 </header>
 
 <nav class="trilha" id="trilha"></nav>
@@ -335,19 +215,19 @@ main{
 
   <div class="lado-fala">
     <div class="papel">
-      <h1 class="tit" id="titulo">—</h1>
-      <p class="sub" id="subtitulo"></p>
-      <div class="esc" id="barraEsc" hidden></div>
-      <div class="quem" id="quem"></div>
+      <div class="cab">
+        <div>
+          <h1 class="tit" id="titulo">—</h1>
+          <p class="sub" id="subtitulo"></p>
+        </div>
+        <span class="dono" id="dono"></span>
+      </div>
       <div id="corpo"></div>
     </div>
     <div class="pe">
       <span><kbd>&larr;</kbd><kbd>&rarr;</kbd> slide</span>
-      <span><kbd>T</kbd> fala / chaves</span>
-      <span><kbd>E</kbd> escolher</span>
-      <span class="dica">texto editável</span>
+      <span><kbd>T</kbd> fala / palavras-chave</span>
       <span class="seta">
-        <button class="bt ic" id="btPend" title="Ir ao próximo slide sem escolha">Próximo pendente</button>
         <button id="btAnt" aria-label="Slide anterior">&larr;</button>
         <button id="btProx" aria-label="Próximo slide">&rarr;</button>
       </span>
@@ -357,39 +237,15 @@ main{
 
 <div id="lupa"><img src="" alt=""></div>
 
-<div id="toast" hidden></div>
-
-<div id="saida" hidden>
-  <div>
-    <h2>As falas alteradas</h2>
-    <p>Seleciona tudo e copia. É esse bloco que volta para o chat.</p>
-    <textarea id="saidaTx" spellcheck="false" readonly></textarea>
-    <div class="fim"><button class="bt" id="btFechaSaida">Fechar</button></div>
-  </div>
-</div>
-
 <script>
-/* ═══ AS FALAS ═══════════════════════════════════════════════════════════════
-   Uma entrada por slide, com título, o que aquele slide precisa entregar, e as
-   versões de fala.
 
-   SLIDE FECHADO tem UMA versão e o campo `tamanho`, que registra qual dos três
-   sobrou. Foi assim que o dono do projeto decidiu em 11/09/2026: no fim tem de
-   sobrar uma fala por slide, senão vira escolha na hora de apresentar.
-
-   SLIDE EM ABERTO tem três, na ordem:
-     0 · PRINCIPAL    a fala que vai ao ar.
-     1 · CURTA        a mesma coisa em menos palavras, para quando o relógio apertar.
-     2 · COM DETALHE  a mesma coisa com o contexto extra que a banca pode querer.
-
-   As três são a MESMA voz: o dono do projeto gravou como fala de verdade, e o
-   roteiro segue aquilo. Frase que corre, ligada por "e" e por "que", não frase
-   curta cortada.
-
-   `fala` são os parágrafos. `chaves` são as âncoras para lembrar em pé, e cada
-   uma é o que ele olharia de relance — nunca a frase inteira.
+/* ═══════════════════════════════════════════════════════════════════════════
+   AS FALAS
+   Uma entrada por slide. `quem` é o mesmo valor do data-quem do bloco no deck.
+   `fala` são os parágrafos; `chaves` são as âncoras para lembrar em pé, e cada
+   uma é o que se olha de relance — nunca a frase inteira. `nota` é material de
+   apoio para pergunta da banca, e não entra na fala.
    ══════════════════════════════════════════════════════════════════════════ */
-const SELO = "2026-09-11T16:32";
 
 const FALAS = {
 
@@ -438,7 +294,7 @@ const FALAS = {
 
 3: {
   titulo: "O significado",
-  quem: "hygor",
+  quem: "ana",
   precisa: "De onde veio o nome, e por que ele descreve o problema.",
   tamanho: "Curta",
   versoes: [{
@@ -578,7 +434,7 @@ const FALAS = {
 
 11: {
   titulo: "O alvo é raro",
-  quem: "igor",
+  quem: "hygor",
   precisa: "O desbalanceamento entre as classes, e por que acurácia engana.",
   tamanho: "Principal",
   nota: "O termo é <b>desbalanceamento de classes</b> — é como a banca vai chamar. A classe que quase não aparece é a <b>minoritária</b>, e o fenômeno é <b>evento raro</b>.<br><br>A fala fecha em “99% de acurácia”. O resto da frase está escrito no pé do slide: <i>“…e não encontra nenhuma. Por isso acurácia não é a régua deste problema.”</i> Se der vontade de completar em voz alta, está na última palavra-chave.",
@@ -599,7 +455,7 @@ const FALAS = {
 
 12: {
   titulo: "Divisória · Causas e explicabilidade",
-  quem: "ana",
+  quem: "hygor",
   precisa: "Anunciar a seção. Divisória é pausa.",
   tamanho: "Curta",
   versoes: [{
@@ -648,7 +504,7 @@ const FALAS = {
 
 15: {
   titulo: "A causa mais frequente não é a que mais estoura",
-  quem: "hygor",
+  quem: "ana",
   precisa: "Volume e risco não coincidem.",
   tamanho: "Curta",
   versoes: [{
@@ -959,576 +815,153 @@ const FALAS = {
 }
 };
 
-/* ═══ o resto se monta sozinho ══════════════════════════════════════════════
-   DOIS ESTADOS POR SLIDE, e só dois:
 
-     PENDENTE  a fala existe nos três tamanhos e ainda não foi escolhida.
-     DEFINIDO  um tamanho foi escolhido. É esse que vale, e no fim do caminho
-               ele é o único que sobra no arquivo.
-
-   Definir não tranca nada: o texto continua editável depois, e o slide não
-   volta a ser pendente por isso. Pendente é "ainda não decidi", não "ainda não
-   mexi".
-
-   A EDIÇÃO ACONTECE NA PÁGINA. Clicar no texto e digitar já vale; o que muda
-   fica no localStorage e sobrevive a fechar a aba. A volta é o botão de copiar,
-   que leva de uma vez a escolha e o texto de cada slide resolvido — uma página
-   aberta em file:// não pode se reescrever sozinha.
-   ══════════════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════════
+   O MOTOR
+   Nada é guardado: a página abre igual toda vez. O que existia de estado —
+   edição, escolha de versão, escolha de dono, selo — saiu junto com a fase de
+   decisão. O que sobra é navegação.
+   ═══════════════════════════════════════════════════════════════════════════ */
 (function(){
+  "use strict";
+
   const TOTAL = 33;
-  /* ritmo de fala apresentando, em português: 145 palavras por minuto. Serve
-     para somar o deck inteiro, não para cronometrar um slide. */
-  const PPM = 145;
-  const CHAVE_LS = "cronos-roteiro-v2";
-  const NOME = ["Principal", "Curta", "Com detalhe"];
+  const DIVISORIAS = [7, 12, 16, 19, 22, 24, 28];   // onde a trilha ganha um corte
+  const PPM = 145;                                  // palavras por minuto, o ritmo dele
+  const EQUIPE = {
+    igor:  {nome: "Igor",  foto: "../../../brand/equipe/igor.png"},
+    ana:   {nome: "Ana",   foto: "../../../brand/equipe/ana-beatriz.png"},
+    hygor: {nome: "Hygor", foto: "../../../brand/equipe/hygor.png"}
+  };
+
+  let slide = 1, modo = "fala", filtro = "";
 
   const $ = id => document.getElementById(id);
-  const foto = $("foto"), numero = $("numero"), tempo = $("tempo");
-  const titulo = $("titulo"), subtitulo = $("subtitulo"), corpo = $("corpo");
-  const trilha = $("trilha"), relogio = $("relogio"), estado = $("estado");
-  const lupa = $("lupa"), btCopia = $("btCopia"), toast = $("toast");
-  const saida = $("saida"), saidaTx = $("saidaTx"), barra = $("barraEsc");
-
-  let slide = 1, versao = 0, padrao = 0, modo = "fala", espiando = false;
-
-  /* edits[n][v] = {fala:[], chaves:[]} · edits[n].cab = {titulo, precisa}
-     escolha[n] = 0 | 1 | 2                                                   */
-  let edits = {}, escolha = {}, quem = {}, guardadoSelo = "";
-  try {
-    const g = JSON.parse(localStorage.getItem(CHAVE_LS) || "{}");
-    edits = g.edits || {}; escolha = g.escolha || {}; quem = g.quem || {};
-    guardadoSelo = g.selo || "";
-    /* o formato antigo guardava só as edições, na raiz */
-    if (!g.edits && !g.escolha && Object.keys(g).length) edits = g;
-  } catch(e){}
-  try {
-    const velho = JSON.parse(localStorage.getItem("cronos-roteiro-v1") || "null");
-    if (velho && !Object.keys(edits).length) edits = velho;
-  } catch(e){}
-
-  /* O QUE JÁ VOLTOU DO CHAT SAI DAQUI SOZINHO. Sem isso, um slide aplicado no
-     arquivo continuaria marcado como alterado para sempre, e a lista do botão
-     de copiar só cresceria. Roda uma vez, na carga.
-
-     Duas limpezas, e a segunda existe porque a primeira não bastava: comparar
-     texto por texto só apaga a cópia local quando ela é IDÊNTICA à do arquivo,
-     e um acento corrigido na aplicação já fazia o slide voltar a aparecer como
-     "alterado" para sempre. Então o arquivo carrega um SELO: se ele mudou desde
-     a última visita, a cópia local de todo slide JÁ FECHADO é descartada — ela
-     veio deste navegador, foi aplicada aqui, e o arquivo é a versão boa. O que
-     está pendente não é tocado. */
-  (function limpaAplicado(){
-    let mudou = false;
-    if (guardadoSelo !== SELO){
-      Object.keys(edits).forEach(n => {
-        if (FALAS[n] && FALAS[n].versoes.length === 1){ delete edits[n]; mudou = true; }
-      });
-      Object.keys(quem).forEach(n => {
-        if (!FALAS[n] || FALAS[n].quem === quem[n]){ delete quem[n]; mudou = true; }
-      });
-      mudou = true;
-    }
-    Object.keys(escolha).forEach(n => {
-      if (!FALAS[n] || FALAS[n].versoes.length === 1){ delete escolha[n]; mudou = true; }
-    });
-    Object.keys(edits).forEach(n => {
-      const e = FALAS[n];
-      if (!e){ delete edits[n]; mudou = true; return; }
-      const g = edits[n];
-      if (g.cab){
-        if (g.cab.titulo === e.titulo) { delete g.cab.titulo; mudou = true; }
-        if (g.cab.precisa === e.precisa) { delete g.cab.precisa; mudou = true; }
-        if (!Object.keys(g.cab).length) delete g.cab;
-      }
-      [0,1,2].forEach(i => {
-        if (!g[i] || !e.versoes[i]) { if (g[i] && !e.versoes[i]) { delete g[i]; mudou = true; } return; }
-        ["fala","chaves"].forEach(campo => {
-          if (g[i][campo] && JSON.stringify(g[i][campo]) === JSON.stringify(e.versoes[i][campo])){
-            delete g[i][campo]; mudou = true;
-          }
-        });
-        if (!Object.keys(g[i]).length) delete g[i];
-      });
-      if (!Object.keys(g).length) delete edits[n];
-    });
-    if (mudou){
-      try { localStorage.setItem(CHAVE_LS, JSON.stringify({edits, escolha, quem, selo: SELO})); } catch(e){}
-    }
-  })();
-
   const dois = n => String(n).padStart(2, "0");
-  const semTag = s => String(s).replace(/<[^>]+>/g, "");
-  const palavras = s => semTag(s).trim().split(/\s+/).filter(Boolean).length;
-  const igual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-
-  /* o texto colado de fora traz <span style>, <div>, &nbsp; e o que mais o
-     navegador inventar. Sobra o que o roteiro usa: negrito, itálico, marca. */
-  const PERMITIDAS = new Set(["B", "STRONG", "EM", "I", "U"]);
-  function limpa(html){
-    const d = document.createElement("div");
-    d.innerHTML = html;
-    d.querySelectorAll("*").forEach(el => {
-      if (el.tagName === "BR"){ el.replaceWith(" "); return; }
-      if (!PERMITIDAS.has(el.tagName)){ el.replaceWith(...el.childNodes); return; }
-      [...el.attributes].forEach(a => el.removeAttribute(a.name));
-    });
-    return d.innerHTML.replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
-  }
-
-  function entrada(n){
+  const semTag = s => s.replace(/<[^>]+>/g, " ");
+  const palavras = n => {
     const e = FALAS[n];
-    if (!e) return null;
-    const g = edits[n] || {};
-    return {
-      titulo: (g.cab && g.cab.titulo) || e.titulo,
-      precisa: (g.cab && g.cab.precisa) || e.precisa,
-      nota: e.nota,
-      versoes: e.versoes.map((orig, i) => Object.assign({}, orig, g[i] || {}))
-    };
-  }
-
-  const EQUIPE = {
-    ana:   {nome: "Ana",   foto: "../../../brand/equipe/ana-beatriz.png"},
-    hygor: {nome: "Hygor", foto: "../../../brand/equipe/hygor.png"},
-    igor:  {nome: "Igor",  foto: "../../../brand/equipe/igor.png"}
+    return e ? semTag(e.versoes[0].fala.join(" ")).trim().split(/\s+/).length : 0;
   };
-  /* O dono que vale: o escolhido aqui, ou o que o bloco do deck trouxer. Hoje
-     nenhum bloco traz, de propósito — a divisão está sendo decidida do zero,
-     e um padrão herdado faria parecer decidido o que não foi. */
-  const donoDe = n => quem[n] || (FALAS[n] && FALAS[n].quem) || null;
+  const seg = n => Math.round(palavras(n) / PPM * 60);
+  const relogio = s => {
+    const m = Math.floor(s / 60), r = s % 60;
+    return m ? `${m}min${dois(r)}` : `${r}s`;
+  };
+  const donoDe = n => (FALAS[n] && FALAS[n].quem) || null;
+  const visivel = n => !filtro || donoDe(n) === filtro;
 
-  const escrito  = n => !!FALAS[n];
-  /* FECHADO é o slide que já voltou do chat reduzido a uma fala só. Ele não é
-     escolha do navegador: é o arquivo. Por isso não aparece no que há para
-     copiar — já está aplicado. */
-  const fechado  = n => !!FALAS[n] && FALAS[n].versoes.length === 1;
-  const definido = n => fechado(n) || escolha[n] !== undefined;
-  const mexido   = n => !!(edits[n] && Object.keys(edits[n]).length);
-  const pendente = n => escrito(n) && !definido(n);
-  const aRelatar = () => Object.keys(FALAS).map(Number)
-      .filter(n => escolha[n] !== undefined || mexido(n)).sort((a,b) => a-b);
-  const quemMudou = () => Object.keys(quem).some(n => FALAS[n] && FALAS[n].quem !== quem[n]);
-  /* o que há para relatar é a escolha FEITA AQUI, e não a que o arquivo já
-     traz: com os donos gravados nos blocos, `some(donoDe)` era sempre
-     verdadeiro e o botão vivia oferecendo copiar o que ninguém mudou */
-  const temDono = () => Object.keys(quem).length > 0;
-
-  /* O TOTAL conta cada slide definido no tamanho que ele escolheu, e cada
-     pendente na Principal, que é o tamanho em que ele foi escrito. O seletor
-     do cabeçalho não entra nessa conta: ele é lupa, não decisão — deixá-lo
-     mexer no total fazia o deck encolher três minutos só porque alguém
-     espiou a versão curta de um slide. */
-  const versaoDe = n => fechado(n) ? 0 : (escolha[n] !== undefined ? escolha[n] : 0);
-
-  function segundos(n, v){
-    const e = entrada(n);
-    if (!e) return 0;
-    return Math.round(e.versoes[v].fala.reduce((s, p) => s + palavras(p), 0) / PPM * 60);
-  }
-  const mmss = s => { const m = Math.floor(s / 60);
-    return m ? `${m}min ${dois(s % 60)}s` : `${s}s`; };
-
-  /* ── guarda o que está na tela antes de a tela ser trocada ───────────────── */
-  function guarda(){
-    const e = FALAS[slide];
-    if (!e) return;
-    const alvo = corpo.querySelector("[data-edit]");
-    if (!alvo) return;
-    const campo = alvo.dataset.edit;
-    const lido = campo === "fala"
-      ? [...alvo.children].map(el => limpa(el.innerHTML)).filter(s => s && s !== "<br>")
-      : [...alvo.querySelectorAll("li")].map(el => limpa(el.innerHTML)).filter(Boolean);
-    if (!lido.length) return;                       /* apagou tudo: ignora */
-
-    const v = +alvo.dataset.v;
-    const orig = e.versoes[v][campo];
-    const atual = (edits[slide] && edits[slide][v] && edits[slide][v][campo]) || orig;
-    if (igual(lido, atual)) return;
-
-    if (igual(lido, orig)){
-      if (edits[slide] && edits[slide][v]) delete edits[slide][v][campo];
-    } else {
-      edits[slide] = edits[slide] || {};
-      edits[slide][v] = edits[slide][v] || {};
-      edits[slide][v][campo] = lido;
+  /* ── a trilha ──────────────────────────────────────────────────────────── */
+  function trilha(){
+    const t = $("trilha");
+    t.innerHTML = "";
+    for (let n = 1; n <= TOTAL; n++){
+      if (DIVISORIAS.includes(n)){
+        const c = document.createElement("span");
+        c.className = "corte";
+        t.appendChild(c);
+      }
+      const d = donoDe(n);
+      const b = document.createElement("button");
+      b.textContent = dois(n);
+      b.className = (d ? "q-" + d : "") + (n === slide ? " aqui" : "")
+                  + (visivel(n) ? "" : " fora");
+      b.title = `Slide ${dois(n)} · ${FALAS[n] ? FALAS[n].titulo : "sem fala"}`
+              + (d ? ` · ${EQUIPE[d].nome}` : "");
+      b.onclick = () => { slide = n; pinta(); };
+      t.appendChild(b);
     }
-    poda(slide); persiste();
+    const aqui = t.querySelector(".aqui");
+    if (aqui) aqui.scrollIntoView({block: "nearest", inline: "center"});
   }
 
-  function guardaCabeca(){
-    const e = FALAS[slide];
-    if (!e) return;
-    const t = limpa(titulo.innerHTML);
-    const s = limpa(subtitulo.innerHTML).replace(/^Precisa entregar:\s*/i, "");
-    const cab = {};
-    if (t && t !== e.titulo) cab.titulo = t;
-    if (s && s !== e.precisa) cab.precisa = s;
-    edits[slide] = edits[slide] || {};
-    if (Object.keys(cab).length) edits[slide].cab = cab; else delete edits[slide].cab;
-    poda(slide); persiste();
-  }
-
-  function poda(n){
-    const g = edits[n]; if (!g) return;
-    Object.keys(g).forEach(k => {
-      if (g[k] && typeof g[k] === "object" && !Object.keys(g[k]).length) delete g[k];
-    });
-    if (!Object.keys(g).length) delete edits[n];
-  }
-
-  function persiste(){
-    try { localStorage.setItem(CHAVE_LS, JSON.stringify({edits, escolha, quem, selo: SELO})); } catch(e){}
-    pintaTrilha(); contaTotal();
-  }
-
-  /* ── a trilha ───────────────────────────────────────────────────────────── */
-  const DIVISORIAS = [7, 12, 16, 19, 22, 24, 28];
-  for (let n = 1; n <= TOTAL; n++){
-    if (DIVISORIAS.includes(n)){
-      const fio = document.createElement("span");
-      fio.className = "corte";
-      trilha.appendChild(fio);
-    }
-    const b = document.createElement("button");
-    b.textContent = dois(n);
-    b.dataset.n = n;
-    b.addEventListener("click", () => { sai(); slide = n; pinta(); });
-    trilha.appendChild(b);
-  }
-  function pintaTrilha(){
-    for (const b of trilha.querySelectorAll("button")){
-      const n = +b.dataset.n;
-      b.className = "";
-      if (escrito(n)) b.classList.add("tem");
-      if (definido(n)) b.classList.add("def");
-      else if (mexido(n)) b.classList.add("edit");
-      if (escrito(n) && donoDe(n)) b.classList.add("q-" + donoDe(n));
-      if (n === slide) b.classList.add("aqui");
-      /* donoDe pode ser nulo: a divisão começa vazia, e ler .nome de undefined
-         derrubava a página inteira na primeira pintura */
-      const dono = donoDe(n);
-      b.title = !escrito(n) ? "fala ainda não escrita"
-        : (dono ? EQUIPE[dono].nome : "sem dono") + " · " + (definido(n)
-            ? "definido" + (escolha[n] !== undefined ? " · " + NOME[escolha[n]] : "")
-            : "pendente");
-    }
-  }
-
-  /* ── pinta ──────────────────────────────────────────────────────────────── */
+  /* ── o cartão ──────────────────────────────────────────────────────────── */
   function pinta(){
-    foto.src = `_png/roteiro/${dois(slide)}.png`;
-    foto.alt = `Slide ${slide}`;
-    lupa.querySelector("img").src = foto.src;
-    numero.textContent = `slide ${dois(slide)} de ${TOTAL}`;
-
-    /* chegando num slide, o que aparece é o tamanho dele, ou o padrão */
-    if (!espiando) versao = fechado(slide) ? 0
-      : (escolha[slide] !== undefined ? escolha[slide] : padrao);
-    espiando = false;
-    /* espiar um tamanho que aquele slide não tem mais deixaria a tela em branco */
-    if (FALAS[slide] && versao >= FALAS[slide].versoes.length) versao = 0;
-    sincronizaSeletor();
-    pintaTrilha();
-
-    const e = entrada(slide);
-    if (!e){
-      titulo.textContent = "Fala ainda não escrita";
-      subtitulo.textContent = "";
-      titulo.contentEditable = subtitulo.contentEditable = "false";
-      tempo.textContent = "";
-      barra.hidden = true;
-      corpo.innerHTML = `<div class="vazio"><b>Este slide está sem roteiro.</b>
-        Assim que a fala existir, ele entra aqui e passa a ser editável e escolhível
-        como os outros.</div>`;
-      return;
-    }
-
-    titulo.textContent = e.titulo;
-    subtitulo.innerHTML = `Precisa entregar: ${e.precisa}`;
-    titulo.contentEditable = subtitulo.contentEditable = "true";
-    tempo.textContent = `≈ ${mmss(segundos(slide, versao))} de fala`;
-
-    pintaBarra();
-    pintaQuem();
-
-    const v = e.versoes[versao];
-    corpo.innerHTML = modo === "fala"
-      ? `<div class="fala" data-edit="fala" data-v="${versao}" contenteditable="true">${
-          v.fala.map(p => `<p>${p}</p>`).join("")}</div>`
-      : `<ul class="chaves" data-edit="chaves" data-v="${versao}" contenteditable="true">${
-          v.chaves.map(c => `<li><span>${c}</span></li>`).join("")}</ul>`;
-    if (e.nota) corpo.insertAdjacentHTML("beforeend", `<div class="nota">${e.nota}</div>`);
-  }
-
-  /* a barra da escolha, no alto do cartão da fala */
-  /* as três caras, e quem está com o slide */
-  function pintaQuem(){
-    const cx = $("quem");
-    if (!FALAS[slide]){ cx.innerHTML = ""; return; }
+    const e = FALAS[slide];
     const d = donoDe(slide);
-    cx.className = "quem" + (d ? " ok" : "");
-    cx.innerHTML = `<span class="k">${d ? "Apresenta" : "Quem apresenta?"}</span>`
-      + Object.keys(EQUIPE).map(k =>
-          `<button data-q="${k}" class="${k === d ? "on" : ""} q-${k}">`
-          + `<img src="${EQUIPE[k].foto}" alt=""><b>${EQUIPE[k].nome}</b></button>`).join("")
-      + (d ? '<button class="lk" data-q="solta">tirar</button>' : "");
+
+    $("foto").src = `_png/roteiro/${dois(slide)}.png`;
+    $("foto").alt = e ? e.titulo : `Slide ${slide}`;
+    $("lupa").querySelector("img").src = $("foto").src;
+    $("numero").textContent = `Slide ${dois(slide)} de ${TOTAL}`;
+    $("tempo").textContent = e ? `~${relogio(seg(slide))} de fala` : "";
+
+    $("titulo").textContent = e ? e.titulo : `Slide ${slide}`;
+    $("subtitulo").textContent = e && e.precisa ? e.precisa : "";
+
+    const dn = $("dono");
+    dn.className = "dono" + (d ? " q-" + d : "");
+    dn.innerHTML = d
+      ? `<img src="${EQUIPE[d].foto}" alt=""><b>${EQUIPE[d].nome}</b>`
+      : "";
+    dn.hidden = !d;
+
+    const v = e && e.versoes[0];
+    $("corpo").innerHTML = !v ? "" : (
+      (modo === "fala"
+        ? `<div class="fala">${v.fala.map(p => `<p>${p}</p>`).join("")}</div>`
+        : `<ul class="chaves">${v.chaves.map(c => `<li>${c}</li>`).join("")}</ul>`)
+      + (e.nota ? `<div class="nota">${e.nota}</div>` : "")
+    );
+
+    document.querySelectorAll("#segModo button").forEach(b =>
+      b.setAttribute("aria-pressed", String(b.dataset.m === modo)));
+    document.querySelectorAll("#segQuem button").forEach(b =>
+      b.setAttribute("aria-pressed", String(b.dataset.q === filtro)));
+
+    trilha();
+    conta();
   }
 
-  $("quem").addEventListener("click", ev => {
-    const b = ev.target.closest("[data-q]"); if (!b) return;
-    if (b.dataset.q === "solta" || b.dataset.q === donoDe(slide)) delete quem[slide];
-    else quem[slide] = b.dataset.q;
-    persiste(); pintaQuem();
-  });
-
-  function pintaBarra(){
-    barra.hidden = false;
-    const fec = fechado(slide), esc = escolha[slide];
-    barra.className = "esc" + (fec || esc !== undefined ? " ok" : "");
-    const rotulo = fec ? "Fechado · " + (FALAS[slide].tamanho || "única")
-      : esc !== undefined ? "Definido · " + NOME[esc] : "Pendente";
-    const eu = esc !== undefined && esc === versao;
-    barra.innerHTML =
-      `<span class="est">${rotulo}</span><span class="acao">`
-      + (fec ? `<span class="ja">Só esta fala ficou no arquivo</span>`
-         : eu ? `<span class="ja">Este é o escolhido</span>
-                 <button class="lk" data-ac="solta">soltar a escolha</button>`
-              : `<button class="bt mini" data-ac="usa">Usar a ${NOME[versao]} neste slide</button>`)
-      + (mexido(slide) ? `<button class="lk" data-ac="desfaz">desfazer as edições</button>` : "")
-      + `</span>`;
+  /* ── o relógio do cabeçalho: o total, ou o da pessoa filtrada ──────────── */
+  function conta(){
+    const ns = [];
+    for (let n = 1; n <= TOTAL; n++) if (FALAS[n] && visivel(n)) ns.push(n);
+    const s = ns.reduce((a, n) => a + seg(n), 0);
+    const r = $("relogio");
+    r.innerHTML = filtro
+      ? `${EQUIPE[filtro].nome}: <b>${ns.length}</b> slides · <b>${relogio(s)}</b>`
+      : `<b>${ns.length}</b> slides · <b>${relogio(s)}</b> de fala`;
+    r.title = "A demonstração ao vivo, no slide 31, corre por fora desta conta.";
   }
 
-  barra.addEventListener("click", ev => {
-    const b = ev.target.closest("[data-ac]"); if (!b) return;
-    const ac = b.dataset.ac;
-    if (ac === "usa"){ guarda(); guardaCabeca(); escolha[slide] = versao; persiste(); pinta(); }
-    else if (ac === "solta"){ delete escolha[slide]; persiste(); pinta(); }
-    else if (ac === "desfaz"){
-      if (!confirm(`Desfazer as edições de texto do slide ${dois(slide)}?`)) return;
-      delete edits[slide]; persiste(); pinta();
+  /* ── andar ─────────────────────────────────────────────────────────────── */
+  function anda(passo){
+    let n = slide;
+    for (let i = 0; i < TOTAL; i++){
+      n += passo;
+      if (n < 1) n = TOTAL; else if (n > TOTAL) n = 1;
+      if (visivel(n)) break;      // com filtro ligado, pula quem não é da vez
     }
-  });
-
-  function sincronizaSeletor(){
-    const nv = FALAS[slide] ? FALAS[slide].versoes.length : 3;
-    for (const o of $("segVer").children){
-      const v = +o.dataset.v;
-      o.setAttribute("aria-pressed", v === versao);
-      o.disabled = v >= nv;
-      o.title = v >= nv ? "este slide já ficou com uma fala só" : "";
-    }
+    slide = n; pinta();
   }
 
-  function contaTotal(){
-    const escritos = Object.keys(FALAS).length;
-    const defs = Object.keys(FALAS).map(Number).filter(definido).length;
-    const fecs = Object.keys(FALAS).map(Number).filter(fechado).length;
-    const pend = escritos - defs;
-    const porQuem = {};
-    let semDono = 0;
-    Object.keys(FALAS).forEach(n => {
-      const d = donoDe(+n);
-      if (d) porQuem[d] = (porQuem[d] || 0) + 1; else semDono++;
-    });
-    estado.innerHTML = `<b>${defs}</b> definidos · <b class="${pend ? "pd" : ""}">${pend}</b> pendentes`
-      + `<span class="sep">`
-      + Object.keys(EQUIPE).map(k =>
-          `<i class="pt q-${k}"></i>${EQUIPE[k].nome} <b>${porQuem[k] || 0}</b>`).join(" · ")
-      + (semDono ? ` · <b class="pd">${semDono}</b> sem dono` : "")
-      + `</span>`;
-    /* o total usa o tamanho ESCOLHIDO onde já houve escolha: é o tempo do deck
-       como ele está configurado, e não de uma leitura hipotética */
-    const s = Object.keys(FALAS).reduce((t, n) => t + segundos(+n, versaoDe(+n)), 0);
-    relogio.innerHTML = `≈ <b>${mmss(s)}</b> de fala`;
-    rotuloPular();
-    relogio.title = "Os definidos contam no tamanho escolhido; os pendentes, na Principal.";
-    const q = aRelatar().length;
-    const mais = temDono() ? 1 : 0;
-    btCopia.disabled = !q && !mais;
-    btCopia.textContent = (q + mais) ? `Copiar o que mudou (${q + mais})` : "Copiar o que mudou";
-  }
-
-  /* ── digitação ──────────────────────────────────────────────────────────── */
-  const sai = () => { guarda(); guardaCabeca(); };
-  let bate;
-  const adia = fn => { clearTimeout(bate); bate = setTimeout(fn, 700); };
-  corpo.addEventListener("input", () => adia(() => {
-    guarda(); pintaBarra();
-    tempo.textContent = `≈ ${mmss(segundos(slide, versao))} de fala`;
-  }));
-  titulo.addEventListener("input", () => adia(guardaCabeca));
-  subtitulo.addEventListener("input", () => adia(guardaCabeca));
-  window.addEventListener("beforeunload", sai);
-
-  /* ── o pacote que volta para o chat ─────────────────────────────────────── */
-  function pacote(){
-    const ns = aRelatar();
-    const defs = ns.filter(n => escolha[n] !== undefined).length;
-    const L = ["ROTEIRO DO CRONOS · o que mudou",
-               `${new Date().toLocaleString("pt-BR")} · ${defs} definido(s), `
-               + `${ns.length - defs} com edição pendente`, ""];
-    ns.forEach(n => {
-      const e = entrada(n), g = edits[n] || {};
-      L.push(`━━━ SLIDE ${dois(n)} · ${e.titulo} ━━━`);
-      if (g.cab){
-        if (g.cab.titulo) L.push(`[título] ${g.cab.titulo}`);
-        if (g.cab.precisa) L.push(`[precisa entregar] ${g.cab.precisa}`);
-      }
-      if (escolha[n] !== undefined){
-        const v = escolha[n];
-        L.push(`ESCOLHIDO: ${NOME[v]}  (as outras duas podem sair do arquivo)`, "", "FALA");
-        e.versoes[v].fala.forEach(p => L.push(p));
-        L.push("", "CHAVES");
-        e.versoes[v].chaves.forEach(k => L.push("- " + k));
-      } else if (fechado(n)){
-        L.push("JÁ FECHADO, e o texto mudou:", "", "FALA");
-        e.versoes[0].fala.forEach(p => L.push(p));
-        L.push("", "CHAVES");
-        e.versoes[0].chaves.forEach(k => L.push("- " + k));
-      } else {
-        L.push("PENDENTE: ainda sem tamanho escolhido. Editado:");
-        [0,1,2].forEach(i => {
-          const c = g[i]; if (!c) return;
-          if (c.fala){ L.push("", `· ${NOME[i]} · FALA`); c.fala.forEach(p => L.push(p)); }
-          if (c.chaves){ L.push("", `· ${NOME[i]} · CHAVES`); c.chaves.forEach(k => L.push("- " + k)); }
-        });
-      }
-      L.push("");
-    });
-    if (temDono()){
-      L.push("━━━ QUEM APRESENTA ━━━", "");
-      /* em corridas, e não slide a slide: o que importa é onde a voz troca */
-      let ini = 1, atual = donoDe(1);
-      const fecha = (a, b, d) => L.push(
-        (a === b ? `slide ${dois(a)}` : `slides ${dois(a)} a ${dois(b)}`)
-        + "  ·  " + (d ? EQUIPE[d].nome : "SEM DONO"));
-      for (let n = 2; n <= TOTAL; n++){
-        const d = donoDe(n);
-        if (d !== atual){ fecha(ini, n - 1, atual); ini = n; atual = d; }
-      }
-      fecha(ini, TOTAL, atual);
-      L.push("");
-    }
-    return L.join("\n");
-  }
-
-  function avisa(txt){
-    toast.textContent = txt; toast.hidden = false;
-    clearTimeout(avisa.t);
-    avisa.t = setTimeout(() => { toast.hidden = true; }, 2800);
-  }
-
-  btCopia.addEventListener("click", async () => {
-    sai();
-    if (!aRelatar().length && !temDono()) return;
-    const txt = pacote();
-    let foi = false;
-    try { await navigator.clipboard.writeText(txt); foi = true; } catch(e){}
-    if (!foi){
-      const ta = document.createElement("textarea");
-      ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
-      document.body.appendChild(ta); ta.select();
-      try { foi = document.execCommand("copy"); } catch(e){}
-      ta.remove();
-    }
-    if (foi) avisa(`${aRelatar().length} slide(s) copiado(s). É só colar no chat.`);
-    else { saidaTx.value = txt; saida.hidden = false; saidaTx.select(); }
-  });
-
-  $("btVer").addEventListener("click", () => {
-    sai();
-    saidaTx.value = (aRelatar().length || temDono()) ? pacote()
-      : "Nada definido, editado nem reatribuído ainda.";
-    saida.hidden = false; saidaTx.select();
-  });
-  $("btFechaSaida").addEventListener("click", () => { saida.hidden = true; });
-
-  $("btZera").addEventListener("click", () => {
-    const q = aRelatar().length + (temDono() ? 1 : 0); if (!q) return;
-    if (!confirm("Apagar as escolhas, as edições e a divisão de quem apresenta? Não tem volta.")) return;
-    edits = {}; escolha = {}; quem = {}; persiste(); pinta();
-  });
-
-  /* o botão persegue o que ainda falta: primeiro a fala, depois o dono */
-  const semDono = n => escrito(n) && !donoDe(n);
-  function rotuloPular(){
-    const falta = Object.keys(FALAS).map(Number).some(pendente) ? "pendente"
-      : Object.keys(FALAS).map(Number).some(semDono) ? "sem dono" : null;
-    const b = $("btPend");
-    b.textContent = falta ? "Próximo " + falta : "Tudo resolvido";
-    b.disabled = !falta;
-    return falta;
-  }
-  $("btPend").addEventListener("click", () => {
-    sai();
-    const falta = rotuloPular();
-    if (!falta) return;
-    const crit = falta === "pendente" ? pendente : semDono;
-    const todos = Object.keys(FALAS).map(Number).sort((a,b) => a-b);
-    const prox = todos.find(n => n > slide && crit(n)) || todos.find(crit);
-    if (prox === undefined) return avisa("Nada a resolver.");
-    slide = prox; pinta();
-  });
-
-  /* ── controles ──────────────────────────────────────────────────────────── */
-  $("segVer").addEventListener("click", ev => {
+  $("segModo").onclick = ev => {
     const b = ev.target.closest("button"); if (!b) return;
-    sai();
-    versao = +b.dataset.v;
-    /* num slide já definido o seletor só espia outro tamanho; num slide
-       pendente ele também vira o padrão dos próximos */
-    if (!definido(slide)) padrao = versao;
-    espiando = true;
-    pinta(); contaTotal();
-  });
-  $("segModo").addEventListener("click", ev => {
-    const b = ev.target.closest("button"); if (!b) return;
-    guarda(); modo = b.dataset.m;
-    for (const o of ev.currentTarget.children) o.setAttribute("aria-pressed", o === b);
-    pinta();
-  });
-  function trocaModo(){
-    guarda();
-    modo = modo === "fala" ? "chaves" : "fala";
-    for (const o of $("segModo").children) o.setAttribute("aria-pressed", o.dataset.m === modo);
-    pinta();
-  }
-  function vai(d){ sai(); slide = Math.min(TOTAL, Math.max(1, slide + d)); pinta(); }
-  $("btAnt").addEventListener("click", () => vai(-1));
-  $("btProx").addEventListener("click", () => vai(1));
-  $("btLupa").addEventListener("click", () => lupa.classList.add("on"));
-  lupa.addEventListener("click", () => lupa.classList.remove("on"));
-
-  /* com o texto editável, as setas e os números são do cursor, não do roteiro */
-  const digitando = () => {
-    const a = document.activeElement;
-    return a && (a.isContentEditable || a.tagName === "TEXTAREA" || a.tagName === "INPUT");
+    modo = b.dataset.m; pinta();
   };
-  window.addEventListener("keydown", ev => {
-    if (ev.key === "Escape"){
-      lupa.classList.remove("on"); saida.hidden = true;
-      if (digitando()) document.activeElement.blur();
-      return;
-    }
-    if (digitando()) return;
-    const k = ev.key.toLowerCase();
-    if (ev.key === "ArrowRight"){ ev.preventDefault(); vai(1); }
-    else if (ev.key === "ArrowLeft"){ ev.preventDefault(); vai(-1); }
-    else if (k === "t"){ trocaModo(); }
-    else if (k === "e" && FALAS[slide] && !fechado(slide)){
-      sai(); escolha[slide] = versao; persiste(); pinta();
-    }
-    else if (k >= "1" && k <= "3"){
-      sai(); versao = +k - 1;
-      if (!definido(slide)) padrao = versao;
-      espiando = true;
-      pinta(); contaTotal();
+  $("segQuem").onclick = ev => {
+    const b = ev.target.closest("button"); if (!b) return;
+    filtro = b.dataset.q;
+    if (filtro && !visivel(slide)) anda(1); else pinta();
+  };
+  $("btAnt").onclick = () => anda(-1);
+  $("btProx").onclick = () => anda(1);
+  $("btLupa").onclick = () => $("lupa").classList.add("on");
+  $("lupa").onclick = () => $("lupa").classList.remove("on");
+
+  document.addEventListener("keydown", ev => {
+    if (ev.key === "Escape") return $("lupa").classList.remove("on");
+    if (ev.key === "ArrowLeft")  { ev.preventDefault(); anda(-1); }
+    if (ev.key === "ArrowRight") { ev.preventDefault(); anda(1); }
+    if (ev.key === "t" || ev.key === "T"){
+      modo = modo === "fala" ? "chaves" : "fala"; pinta();
     }
   });
 
-  pinta(); contaTotal();
+  pinta();
 })();
+
 </script>
 </body>
 </html>
