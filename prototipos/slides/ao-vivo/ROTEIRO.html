@@ -170,11 +170,11 @@ main{
   <div class="marca"><b>Cronos</b><span>Roteiro da banca</span></div>
 
   <div class="grp">
-    <i>Jeito de falar</i>
+    <i>Tamanho da fala</i>
     <div class="seg" id="segVer">
-      <button data-v="0" aria-pressed="true">A · Seca</button>
-      <button data-v="1" aria-pressed="false">B · Conversada</button>
-      <button data-v="2" aria-pressed="false">C · Com gancho</button>
+      <button data-v="0" aria-pressed="true">Principal</button>
+      <button data-v="1" aria-pressed="false">Curta</button>
+      <button data-v="2" aria-pressed="false">Com detalhe</button>
     </div>
   </div>
 
@@ -209,7 +209,7 @@ main{
     </div>
     <div class="pe">
       <span><kbd>&larr;</kbd><kbd>&rarr;</kbd> slide</span>
-      <span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> jeito de falar</span>
+      <span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> tamanho da fala</span>
       <span><kbd>T</kbd> troca fala / chaves</span>
       <span class="seta">
         <button id="btAnt" aria-label="Slide anterior">&larr;</button>
@@ -226,9 +226,13 @@ main{
    Uma entrada por slide. Cada entrada tem título, um subtítulo curto que diz o
    que aquele slide precisa entregar, e três versões de fala:
 
-     0 · SECA        o mínimo que responde o slide. Frase curta, sem contexto.
-     1 · CONVERSADA  explica o porquê, no tom de quem conta para alguém.
-     2 · COM GANCHO  abre com tensão ou pergunta e fecha empurrando o próximo.
+     0 · PRINCIPAL    a fala que vai ao ar.
+     1 · CURTA        a mesma coisa em menos palavras, para quando o relógio apertar.
+     2 · COM DETALHE  a mesma coisa com o contexto extra que a banca pode querer.
+
+   As três são a MESMA voz: o dono do projeto gravou como fala, em 11/09/2026, e
+   o roteiro segue aquilo. Frase que corre, ligada por "e" e por "que", não frase
+   curta cortada — a primeira tentativa errou justamente aí.
 
    `fala` são os parágrafos. `chaves` são as âncoras para lembrar em pé, e cada
    uma é o que ele olharia de relance — nunca a frase inteira.
@@ -258,45 +262,39 @@ const FALAS = {
 
 1: {
   titulo: "Capa",
-  precisa: "Dizer o nome, o que o produto faz numa frase, e abrir.",
+  precisa: "Dizer quem somos e o que o Cronos faz, numa frase só.",
   versoes: [
     {
       fala: [
-        "Boa noite. A gente é o Super Data Bros, e esse aqui é o <em>Cronos</em>.",
-        "O Cronos lê o histórico de incidentes da Locaweb e avisa antes do prazo estourar.",
-        "É esse o resumo. Nos próximos minutos a gente mostra o dado que sustenta isso e o sistema rodando."
+        "Boa noite, pessoal. Nós somos do grupo <em>Super Data Bros</em> e vamos apresentar o Cronos, uma aplicação que tem como objetivo ler o histórico de incidentes da Locaweb e mostrar quais deles têm mais risco de estourar o prazo, antes que isso aconteça. E além disso, dar uma previsão do volume de incidentes que deve chegar nos próximos dias."
       ],
       chaves: [
         "Boa noite · <b>Super Data Bros</b> · Cronos",
-        "lê o histórico e <b>avisa antes de estourar</b>",
-        "nos próximos minutos: <i>o dado e o sistema</i>"
+        "lê o <b>histórico de incidentes</b> da Locaweb",
+        "mostra quem tem <b>mais risco de estourar</b>, antes",
+        "e além disso, <b>prevê o volume</b> dos próximos dias"
       ]
     },
     {
       fala: [
-        "Boa noite, pessoal. A gente é o Super Data Bros e o projeto chama <em>Cronos</em>.",
-        "O nome vem do tempo, e é disso que ele trata. Hoje a operação da Locaweb descobre que um chamado furou o prazo depois que ele já furou. O Cronos olha o histórico e aponta o chamado antes.",
-        "Daí o <em>veja antes, aja antes</em>. A ideia toda cabe nessas quatro palavras."
+        "Boa noite, pessoal. Nós somos do grupo <em>Super Data Bros</em> e vamos apresentar o Cronos, uma aplicação que lê o histórico de incidentes da Locaweb e mostra quais deles têm mais risco de estourar o prazo, antes que estourem."
       ],
       chaves: [
         "Boa noite · <b>Super Data Bros</b> · Cronos",
-        "o nome vem do <b>tempo</b>",
-        "hoje: descobre <i>depois</i> que furou",
-        "Cronos: aponta <b>antes</b>",
-        "<i>veja antes, aja antes</i>"
+        "lê o histórico e mostra <b>quem vai estourar</b>, antes"
       ]
     },
     {
       fala: [
-        "Boa noite. Começo com uma pergunta: <em>quantos chamados vão furar o prazo amanhã?</em>",
-        "Hoje ninguém consegue responder isso. Dá pra contar no fim do mês, e é só.",
-        "A gente é o Super Data Bros, e o Cronos existe pra responder essa pergunta antes de o dia acabar."
+        "Boa noite, pessoal. Nós somos do grupo <em>Super Data Bros</em> e vamos apresentar o Cronos, uma aplicação que tem como objetivo ler o histórico de incidentes da Locaweb e mostrar quais deles têm mais risco de estourar o prazo, antes que isso aconteça. E além disso, dar uma previsão do volume de incidentes que deve chegar nos próximos dias.",
+        "É daí que vem a frase que está aí embaixo, <em>veja antes, aja antes</em>, que é o que a gente tentou entregar do começo ao fim do projeto."
       ],
       chaves: [
-        "Boa noite",
-        "<b>quantos furam o prazo amanhã?</b>",
-        "hoje: só dá pra contar <i>no fim do mês</i>",
-        "Super Data Bros · o Cronos responde <b>antes</b>"
+        "Boa noite · <b>Super Data Bros</b> · Cronos",
+        "lê o <b>histórico de incidentes</b> da Locaweb",
+        "mostra quem tem <b>mais risco de estourar</b>, antes",
+        "e além disso, <b>prevê o volume</b> dos próximos dias",
+        "daí a frase: <i>veja antes, aja antes</i>"
       ]
     }
   ]
@@ -304,44 +302,140 @@ const FALAS = {
 
 2: {
   titulo: "Quem apresenta",
-  precisa: "Três nomes, a turma e o mentor. Sem alongar.",
+  precisa: "Cada um diz o próprio nome, entra o mentor, e a fala emenda no slide do nome.",
+  nota: "A ponte para o slide 3 é a última frase: <b>“antes de entrar no problema, deixa eu explicar rapidinho de onde veio o nome”</b>. Ela existe porque terminar no mentor deixava a fala sem saída — e “bora lá” fica estranho. Quem fecha o slide é quem vai puxar o próximo.",
   versoes: [
     {
       fala: [
-        "Somos três: Ana Beatriz, Hygor e eu, Igor. Turma 2TSCOA.",
-        "Nosso mentor na Locaweb foi o <em>Douglas Gouveia</em>, gerente executivo de operações. Foi ele que abriu a operação pra gente e apontou o que valia testar."
+        "Eu me chamo <em>Ana Beatriz</em>.",
+        "Eu sou o <em>Hygor Abrantes</em>.",
+        "E eu sou o <em>Igor Vignola</em>. Nós três somos da turma 2TSCOA.",
+        "O mentor responsável pelo projeto foi o <em>Douglas Gouveia</em>, gerente executivo de operações da Locaweb, que acompanhou a gente do começo ao fim.",
+        "Bom, e antes de entrar no problema, deixa eu explicar rapidinho de onde veio o nome."
       ],
       chaves: [
-        "<b>Ana Beatriz · Hygor · Igor</b>",
+        "<b>Ana Beatriz</b> · <b>Hygor Abrantes</b> · <b>Igor Vignola</b>",
         "turma 2TSCOA",
         "mentor: <b>Douglas Gouveia</b>, gerente executivo de operações",
-        "abriu a operação e <i>apontou o que testar</i>"
+        "acompanhou do começo ao fim",
+        "<i>→ antes do problema, de onde veio o nome</i>"
       ]
     },
     {
       fala: [
-        "Rapidinho, quem tá aqui: Ana Beatriz, Hygor e eu, Igor. Turma 2TSCOA, Data Science.",
-        "E o <em>Douglas Gouveia</em>, gerente de operações da Locaweb, foi o nosso mentor. Ele abriu a operação real pra gente e falou onde valia a pena olhar. Boa parte do que a gente vai mostrar saiu dessas conversas."
+        "Eu me chamo <em>Ana Beatriz</em>.",
+        "Eu sou o <em>Hygor Abrantes</em>.",
+        "E eu sou o <em>Igor Vignola</em>. Nós três somos da turma 2TSCOA.",
+        "E o nosso mentor na Locaweb foi o <em>Douglas Gouveia</em>, gerente executivo de operações.",
+        "Antes de entrar no problema, uma palavra sobre o nome."
       ],
       chaves: [
-        "quem tá aqui: <b>Ana Beatriz · Hygor · Igor</b>",
-        "2TSCOA · Data Science",
-        "<b>Douglas Gouveia</b> — mentor, gerente de operações",
-        "abriu a operação real, disse <i>onde olhar</i>",
-        "boa parte do que vem saiu daí"
+        "<b>Ana Beatriz</b> · <b>Hygor Abrantes</b> · <b>Igor Vignola</b>",
+        "turma 2TSCOA",
+        "mentor: <b>Douglas Gouveia</b>",
+        "<i>→ uma palavra sobre o nome</i>"
       ]
     },
     {
       fala: [
-        "Três pessoas: Ana, Hygor e eu.",
-        "E o <em>Douglas</em>, da Locaweb, que abriu a operação e apontou onde olhar. Sem isso a gente estaria adivinhando.",
-        "Vamos ao problema."
+        "Eu me chamo <em>Ana Beatriz</em>.",
+        "Eu sou o <em>Hygor Abrantes</em>.",
+        "E eu sou o <em>Igor Vignola</em>. Nós três somos da turma 2TSCOA, do tecnólogo em Data Science.",
+        "O mentor responsável pelo projeto foi o <em>Douglas Gouveia</em>, gerente executivo de operações da Locaweb. Ele abriu a operação real pra gente, contou como o time trabalha no dia a dia e apontou o que valia a pena testar. Boa parte do que vocês vão ver saiu dessas conversas.",
+        "Bom, e antes de entrar no problema, deixa eu explicar rapidinho de onde veio o nome."
       ],
       chaves: [
-        "<b>Ana · Hygor · Igor</b>",
-        "<b>Douglas</b> abriu a operação e apontou onde olhar",
-        "<i>sem isso, a gente estaria adivinhando</i>",
-        "→ vamos ao problema"
+        "<b>Ana Beatriz</b> · <b>Hygor Abrantes</b> · <b>Igor Vignola</b>",
+        "turma 2TSCOA · Data Science",
+        "mentor: <b>Douglas Gouveia</b>, gerente executivo de operações",
+        "abriu a operação real e apontou <b>o que valia testar</b>",
+        "boa parte do que vem saiu daí",
+        "<i>→ antes do problema, de onde veio o nome</i>"
+      ]
+    }
+  ]
+},
+
+3: {
+  titulo: "O significado",
+  precisa: "De onde veio o nome, e por que ele descreve o problema.",
+  versoes: [
+    {
+      fala: [
+        "A ideia do nome surgiu de uma pesquisa que a gente fez no começo do projeto: <em>Cronos</em>, em grego, é o deus do tempo. E tempo é exatamente o que está em jogo aqui, porque todo incidente que a Locaweb abre tem um prazo correndo desde o primeiro minuto. O Cronos existe justamente para enxergar esse prazo antes de ele estourar."
+      ],
+      chaves: [
+        "o nome veio de uma <b>pesquisa</b> no começo do projeto",
+        "<b>Cronos</b>, em grego, é o <b>deus do tempo</b>",
+        "todo incidente tem um <b>prazo correndo</b> desde o primeiro minuto",
+        "o Cronos vê o prazo <b>antes de estourar</b>"
+      ]
+    },
+    {
+      fala: [
+        "O nome veio de uma pesquisa que a gente fez no começo: <em>Cronos</em>, em grego, é o deus do tempo. E é disso que o trabalho trata, porque todo incidente tem um prazo correndo desde a hora que abre."
+      ],
+      chaves: [
+        "<b>Cronos</b>, em grego, é o <b>deus do tempo</b>",
+        "todo incidente tem um <b>prazo correndo</b>"
+      ]
+    },
+    {
+      fala: [
+        "A ideia do nome surgiu de uma pesquisa que a gente fez no começo do projeto: <em>Cronos</em>, em grego, é o deus do tempo. E tempo é exatamente o que está em jogo aqui, porque todo incidente que a Locaweb abre tem um prazo correndo desde o primeiro minuto.",
+        "O Cronos existe justamente para enxergar esse prazo antes de ele estourar, e não depois. Por isso a frase que a gente usa é <em>veja antes, aja antes</em>.",
+        "E para vocês entenderem por que isso importa, o próximo slide mostra como a Locaweb mede esse prazo."
+      ],
+      chaves: [
+        "o nome veio de uma <b>pesquisa</b> no começo do projeto",
+        "<b>Cronos</b>, em grego, é o <b>deus do tempo</b>",
+        "todo incidente tem um <b>prazo correndo</b> desde o primeiro minuto",
+        "ver <b>antes</b> de estourar, e não depois: <i>veja antes, aja antes</i>",
+        "<i>→ como a Locaweb mede esse prazo</i>"
+      ]
+    }
+  ]
+},
+
+4: {
+  titulo: "O prazo de cada incidente",
+  precisa: "O funil da base, o prazo de cada prioridade, e o que é uma quebra.",
+  versoes: [
+    {
+      fala: [
+        "Aqui está o que a Locaweb mede. A base que a gente recebeu tem <em>122.543 incidentes</em> de três anos, mas nem todos contam para o indicador. Depois do filtro oficial sobram <em>25.600</em>, mais ou menos 21% do total.",
+        "Cada um desses tem um prazo para ser resolvido, que muda conforme a prioridade: quatro horas na prioridade 2 e doze horas na prioridade 3. Se resolveu dentro do prazo, tudo certo. Se passou, conta como uma quebra. E é a soma das quebras do ano que define a nota da operação."
+      ],
+      chaves: [
+        "<b>122.543</b> incidentes em três anos",
+        "só <b>25.600</b> contam para o indicador, uns <b>21%</b>",
+        "prazo: <b>4 h</b> na prioridade 2, <b>12 h</b> na prioridade 3",
+        "passou do prazo = <b>quebra</b>",
+        "a <b>soma das quebras do ano</b> define a nota da operação"
+      ]
+    },
+    {
+      fala: [
+        "Aqui é o que a Locaweb mede. Dos <em>122.543</em> incidentes de três anos, <em>25.600</em> entram no indicador. Cada um tem um prazo conforme a prioridade: quatro horas na prioridade 2 e doze na prioridade 3. Passou do prazo, é uma quebra, e é a soma das quebras do ano que define a nota da operação."
+      ],
+      chaves: [
+        "<b>122.543</b> → <b>25.600</b> no indicador",
+        "<b>4 h</b> na prioridade 2, <b>12 h</b> na prioridade 3",
+        "passou = <b>quebra</b> · a soma do ano é a nota"
+      ]
+    },
+    {
+      fala: [
+        "Aqui está o que a Locaweb mede. A base que a gente recebeu tem <em>122.543 incidentes</em> de três anos, mas nem todos contam para o indicador. O filtro é um campo oficial do sistema deles, que a gente confirmou com a Locaweb antes de usar, porque errar esse recorte mudaria tudo o que vem depois. Com ele sobram <em>25.600</em> incidentes, mais ou menos 21% do total.",
+        "Cada um desses tem um prazo para ser resolvido, que muda conforme a prioridade: quatro horas na prioridade 2 e doze horas na prioridade 3. Se resolveu dentro do prazo, tudo certo. Se passou, conta como uma quebra. E é a soma das quebras de um ano inteiro que define a nota da operação."
+      ],
+      chaves: [
+        "<b>122.543</b> incidentes em três anos",
+        "o filtro é um <b>campo oficial</b> do sistema, confirmado com a Locaweb",
+        "sobram <b>25.600</b>, uns <b>21%</b>",
+        "prazo: <b>4 h</b> na prioridade 2, <b>12 h</b> na prioridade 3",
+        "passou do prazo = <b>quebra</b>",
+        "a <b>soma das quebras do ano</b> define a nota da operação"
       ]
     }
   ]
