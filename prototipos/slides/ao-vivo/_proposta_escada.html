@@ -8,44 +8,29 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="_estilo.css">
 <style>
-/* ═══ PROPOSTA · a escada do indicador ════════════════════════════════════════
-   Slide avulso, fora do deck, para o dono do projeto escolher. Três formas da
-   MESMA explicação. Existe porque ele tropeçou duas vezes lendo o slide da
-   meta, e as duas vezes no mesmo lugar:
+/* ═══ PROPOSTA · a escada do indicador ═══════════════════════════════════════
+   Slide avulso, fora do deck, para o dono do projeto decidir se entra. Existe
+   porque ele tropeçou três vezes lendo o slide da meta, sempre no mesmo lugar:
 
      1. "meta" em português puxa para um número a ALCANÇAR, e aqui é um teto
         para NÃO PASSAR;
      2. a porcentagem parece o quanto se passou do limite, quando ela é a NOTA
-        que a operação tira — e sobe quando a quebra cai.
+        que a operação tira — e sobe quando a quebra cai;
+     3. o 39 é o teto do degrau, e o 42 é onde o ano parou. Dois números
+        próximos, papéis diferentes.
 
-   A · A ESCADA. Degraus que descem da esquerda para a direita. A forma diz a
-       inversão antes de qualquer número ser lido. Largura IGUAL de propósito:
-       as faixas são desiguais, e o eixo proporcional daria um primeiro degrau
-       gigante, sugerindo que ele é mais fácil de alcançar. Aqui se compara
-       nota com nota.
-
-   B · A RÉGUA. Uma faixa por prioridade, agora com largura PROPORCIONAL ao
-       número de quebras, e um alfinete em onde 2025 parou. É a única das três
-       que responde "e faltou quanto?" — o P2 precisava de três quebras a menos
-       para voltar ao combinado, e o P3 tinha quatro de folga.
-
-   C · A TABELA. A regra escrita como ela é lida: "se o ano fechar com tantas
-       quebras, a nota é tanto". Zero interpretação. A seta à esquerda carrega
-       a inversão sozinha.
+   Três formas foram testadas em 11/09/2026 e esta foi a escolhida: a regra
+   escrita como ela se lê, faixa de quebras à esquerda e nota à direita. As
+   outras duas eram uma escada de barras descendo e uma régua proporcional com
+   alfinete; as duas pediam leitura visual antes de entregar a regra, que é
+   justamente o que ainda não estava dado.
 
    Fonte: painel/servicos.py, dicionário ESCADA. Conferido em 11/09/2026.
    ══════════════════════════════════════════════════════════════════════════ */
 body{margin:0;background:#0B0F16;display:grid;place-items:center;min-height:100vh;
   font-family:Outfit,system-ui,sans-serif}
 #palco{width:1600px;height:900px;position:relative;box-shadow:0 40px 90px -40px #000}
-#palco .slide{position:absolute;inset:0;display:none}
-#palco .slide.on{display:flex}
-
-#troca{position:fixed;left:50%;top:18px;transform:translateX(-50%);z-index:20;display:flex;
-  gap:6px;background:rgba(255,255,255,.08);padding:6px;border-radius:12px}
-#troca button{border:0;background:0;color:#9AA6B8;font:inherit;font-size:13px;font-weight:600;
-  padding:7px 16px;border-radius:8px;cursor:pointer}
-#troca button.on{background:#fff;color:#0B0F16}
+#palco .slide{position:absolute;inset:0}
 
 /* ═══ comum ═══════════════════════════════════════════════════════════════ */
 .kpi .body{padding-top:14px}
@@ -55,307 +40,93 @@ body{margin:0;background:#0B0F16;display:grid;place-items:center;min-height:100v
 .kpi .sub b{color:var(--head);font-weight:700}
 .kpi .cena{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
 
-/* ═══ A · a escada ════════════════════════════════════════════════════════ */
-.esa .cena{gap:26px;margin-top:10px}
-.esa .pri{display:grid;grid-template-columns:172px 1fr;align-items:end;gap:0 26px}
-.esa .cab{padding-bottom:34px}
-.esa .cab b{display:block;font-size:20px;font-weight:800;letter-spacing:-.4px;color:var(--head)}
-.esa .cab span{display:block;margin-top:5px;font-size:13px;line-height:1.4;color:var(--tx2)}
-.esa .esc{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;align-items:end}
-.esa .dg{display:flex;flex-direction:column;align-items:stretch;min-width:0}
-.esa .dg em{font-style:normal;font-size:21px;font-weight:800;letter-spacing:-.5px;
-  text-align:center;margin-bottom:8px;color:var(--tx2);font-variant-numeric:tabular-nums}
-.esa .dg i{display:block;height:var(--h);border-radius:9px 9px 0 0;background:#D8DFEA;
-  transform:scaleY(0);transform-origin:bottom}
-.esa.is-active .dg i{animation:sobe .5s var(--out) var(--d,0ms) forwards}
-.esa .dg s{text-decoration:none;display:block;margin-top:10px;padding-top:9px;
-  border-top:1px solid var(--line);font-size:13.5px;text-align:center;color:var(--tx2);
-  font-variant-numeric:tabular-nums}
-.esa .dg.ok em{color:#15803D} .esa .dg.ok i{background:#16A34A}
-.esa .dg.alvo em{color:var(--head)} .esa .dg.alvo i{background:var(--head)}
-.esa .dg.wn em{color:#B45309} .esa .dg.wn i{background:#D97706}
-.esa .dg.w2 em{color:#C2410C} .esa .dg.w2 i{background:#EA580C}
-.esa .dg.no em{color:#B91C1C} .esa .dg.no i{background:#DC2626}
-.esa .dg .pin{display:block;margin:0 auto 9px;width:fit-content;font-size:12px;font-weight:800;
-  letter-spacing:.5px;text-transform:uppercase;color:#fff;padding:5px 12px;border-radius:999px;
-  white-space:nowrap;opacity:0}
-.esa.is-active .dg .pin{animation:rv .45s var(--out) 1900ms forwards}
-.esa .dg.ok .pin{background:#15803D} .esa .dg.wn .pin{background:#B45309}
-.esa .dg:not(.aqui) .pin{display:none}
-.esa .dg.aqui i{box-shadow:0 0 0 3px #fff,0 0 0 6px currentColor}
-.esa .dg.ok.aqui i{color:#15803D} .esa .dg.wn.aqui i{color:#B45309}
-.esa .eixo{display:grid;grid-template-columns:172px 1fr;gap:0 26px;margin-top:2px}
-.esa .eixo .lin{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;
-  border-radius:11px;background:#EEF2F8;font-size:14px;color:var(--tx)}
-.esa .eixo b{color:var(--head);font-weight:700}
+/* ═══ C · a tabela ════════════════════════════════════════════════════════
+   A linha tingida voltou. A versão do filete lateral com cabeçalho em caixa
+   alta e pílula de resumo centralizada embaixo tinha o desenho que qualquer
+   gerador faz: o dono do projeto reconheceu na hora. O que estava errado na
+   primeira não era a tinta, era a direção escrita de pé numa coluna de seta,
+   que não se lia — e essa subiu para a linha de apoio, onde o olho já está.
 
-/* ═══ B · a régua ═════════════════════════════════════════════════════════ */
-.esb .cena{gap:46px;margin-top:22px}
-.esb .pri{display:grid;grid-template-columns:196px 1fr;align-items:center;gap:0 30px}
-.esb .cab b{display:block;font-size:21px;font-weight:800;letter-spacing:-.4px;color:var(--head)}
-.esb .cab span{display:block;margin-top:6px;font-size:13.5px;line-height:1.45;color:var(--tx2)}
-.esb .cab u{text-decoration:none;font-weight:700;color:var(--head)}
-.esb .pista{position:relative;padding-top:62px;padding-bottom:34px}
-.esb .fx{position:relative;display:flex;height:52px;border-radius:12px;overflow:hidden;
-  transform:scaleX(0);transform-origin:left}
-.esb.is-active .fx{animation:corre .65s var(--out) var(--d,0ms) forwards}
-.esb .fx span{display:flex;align-items:center;justify-content:center;font-size:16px;
-  font-weight:800;color:#fff;font-variant-numeric:tabular-nums;
-  border-right:2px solid rgba(255,255,255,.55)}
-.esb .fx span:last-child{border-right:0}
-.esb .c150{background:#16A34A} .esb .c125{background:#4ADE80;color:#14532D}
-.esb .c100{background:#0F172A} .esb .c75{background:#D97706}
-.esb .c50{background:#EA580C} .esb .c0{background:#DC2626}
-/* os números do eixo ficam NA divisa, e não centrados na faixa */
-.esb .marca{position:absolute;bottom:0;transform:translateX(-50%);font-size:13px;
-  color:var(--tx2);font-variant-numeric:tabular-nums;white-space:nowrap}
-.esb .marca::before{content:"";position:absolute;left:50%;bottom:19px;width:1px;height:11px;
-  background:#B9C3D1}
-/* o alfinete de onde o ano parou */
-.esb .alf{position:absolute;top:0;transform:translateX(-50%);text-align:center;opacity:0}
-.esb.is-active .alf{animation:rv .5s var(--out) 1700ms forwards}
-.esb .alf b{display:block;font-size:15px;font-weight:800;color:#fff;background:var(--head);
-  padding:7px 14px;border-radius:10px;white-space:nowrap}
-.esb .alf i{display:block;width:3px;height:16px;margin:0 auto;background:var(--head)}
-.esb .fecho{display:grid;grid-template-columns:196px 1fr;gap:0 30px;margin-top:6px}
-.esb .fecho .lin{display:flex;gap:34px;padding:12px 16px;border-radius:12px;background:#EEF2F8;
-  font-size:15px;color:var(--tx)}
-.esb .fecho b{color:var(--head);font-weight:700}
+   Fora também a coluna da flecha entre a faixa e a nota. Ela não dizia nada
+   que os dois lados da linha já não dissessem.
 
-/* ═══ C · a tabela ════════════════════════════════════════════════════════ */
-/* a grade vive numa caixa da altura do conteúdo, e não da cena: sem isso a seta
-   da esquerda esticava até o pé do slide, muito depois de a tabela acabar */
-/* `flex-direction:row` explícito: a regra comum da cena é `column`, e nela o
-   `flex:1` da grade crescia na ALTURA em vez de na largura — a seta esticava
-   até o pé do slide e as colunas encolhiam para o tamanho do texto */
-.esc2 .cena{display:flex;flex-direction:row;align-items:center;margin-top:18px}
-.esc2 .grade{flex:1;display:grid;grid-template-columns:112px 1fr 1fr;gap:0 34px;
-  align-items:stretch}
-.esc2 .seta{display:flex;flex-direction:column;align-items:center;padding-top:52px}
-.esc2 .seta u{text-decoration:none;writing-mode:vertical-rl;font-size:14.5px;font-weight:700;
-  color:var(--tx2);letter-spacing:.4px;margin-bottom:10px}
-.esc2 .seta i{flex:1;width:3px;background:linear-gradient(#C3CDDB,#0F172A);border-radius:2px}
-.esc2 .seta s{text-decoration:none;font-size:22px;color:var(--head);line-height:1;margin-top:-2px}
-.esc2 .col > b{display:block;font-size:20px;font-weight:800;letter-spacing:-.4px;
-  color:var(--head)}
-.esc2 .col > span{display:block;margin:5px 0 16px;font-size:13.5px;color:var(--tx2)}
-.esc2 .lin{display:grid;grid-template-columns:1fr 26px 92px;align-items:center;gap:12px;
-  padding:11px 14px;border-radius:11px;opacity:0;transform:translate3d(-10px,0,0)}
+   O fundo é o degrau; a cor forte é a nota. As duas linhas que decidem a
+   leitura ganham contorno: a do combinado e a de onde o ano parou. */
+.esc2 .cena{display:flex;flex-direction:column;justify-content:center;margin-top:22px}
+.esc2 .par{display:grid;grid-template-columns:1fr 1fr;gap:0 56px}
+
+.esc2 .cab{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+.esc2 .cab b{font-size:21px;font-weight:800;letter-spacing:-.4px;color:var(--head)}
+.esc2 .cab span{font-size:13.5px;color:var(--tx2)}
+
+.esc2 .lin{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:0 14px;
+  padding:14px 20px;border-radius:13px;background:var(--bg);
+  opacity:0;transform:translate3d(-10px,0,0)}
 .esc2.is-active .lin{animation:rv .42s var(--out) var(--d,0ms) forwards}
-.esc2 .lin + .lin{margin-top:7px}
-.esc2 .lin q{quotes:none;font-size:16.5px;color:var(--tx);font-variant-numeric:tabular-nums}
-.esc2 .lin .ar{font-size:16px;color:var(--tx3);text-align:center}
-.esc2 .lin em{font-style:normal;font-size:19px;font-weight:800;text-align:right;
-  font-variant-numeric:tabular-nums}
-.esc2 .lin.ok{background:#EAF7EF} .esc2 .lin.ok em{color:#15803D}
-.esc2 .lin.alvo{background:#EEF2F8} .esc2 .lin.alvo em{color:var(--head)}
-.esc2 .lin.alvo q{color:var(--head);font-weight:600}
-.esc2 .lin.wn{background:#FDF3E4} .esc2 .lin.wn em{color:#B45309}
-.esc2 .lin.w2{background:#FDEDE3} .esc2 .lin.w2 em{color:#C2410C}
-.esc2 .lin.no{background:#FDECEC} .esc2 .lin.no em{color:#B91C1C}
-.esc2 .lin.aqui{box-shadow:inset 0 0 0 2px currentColor}
-.esc2 .lin.aqui.ok{color:#15803D} .esc2 .lin.aqui.wn{color:#B45309}
-.esc2 .lin .selo{grid-column:1/-1;margin-top:6px;font-size:12px;font-weight:800;
-  letter-spacing:.5px;text-transform:uppercase}
-.esc2 .lin:not(.aqui) .selo{display:none}
+.esc2 .lin + .lin{margin-top:6px}
+.esc2 .lin q{quotes:none;font-size:17.5px;color:var(--tx);font-variant-numeric:tabular-nums}
+.esc2 .lin em{font-style:normal;font-size:24px;font-weight:800;letter-spacing:-.6px;
+  min-width:74px;text-align:right;color:var(--c);font-variant-numeric:tabular-nums}
+.esc2 .lin .tag{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  padding:5px 11px;border-radius:999px;white-space:nowrap;color:#fff;background:var(--c)}
+
+.esc2 .c150{--bg:#E6F5ED;--c:#15803D} .esc2 .c125{--bg:#EFFAF3;--c:#16A34A}
+.esc2 .c100{--bg:#E9EEF6;--c:#0F172A} .esc2 .c75{--bg:#FCF1E1;--c:#B45309}
+.esc2 .c50{--bg:#FCEADF;--c:#C2410C}  .esc2 .c0{--bg:#FCE9E9;--c:#B91C1C}
+
+/* as duas linhas que decidem a leitura: o combinado e onde o ano parou */
+.esc2 .lin.marc{box-shadow:inset 0 0 0 2px var(--c)}
+.esc2 .lin.marc q{font-weight:700;color:var(--head)}
 </style>
 </head>
 <body>
 
-<div id="troca">
-  <button class="on" data-v="0">A · escada</button>
-  <button data-v="1">B · régua</button>
-  <button data-v="2">C · tabela</button>
-</div>
-
 <div id="palco">
 
-<!-- ═══ A · a escada ═══════════════════════════════════════════════════════ -->
-<section class="slide light kpi esa on is-active">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
-    <div class="bn">Cronos</div>
-    <div class="tag">Indicador de OLA &middot; escada oficial da Locaweb</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Como a nota do ano é calculada</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Menos quebras, <em>nota maior</em></span></span></h1>
-    <p class="sub rv" style="--d:560ms">A meta não é um número para alcançar, é um teto para não passar. <b>Cada faixa de quebras vale uma nota</b>, e passar de um teto derruba um degrau.</p>
-    <div class="cena">
-      <div class="pri">
-        <div class="cab"><b>Prioridade 2</b><span>prazo de 4 horas<br>teto do 100%: 39</span></div>
-        <div class="esc">
-          <div class="dg ok"   style="--d:760ms"><em>150%</em><i style="--h:170px"></i><s>até 30</s></div>
-          <div class="dg ok"   style="--d:820ms"><em>125%</em><i style="--h:142px"></i><s>31 a 35</s></div>
-          <div class="dg alvo" style="--d:880ms"><em>100%</em><i style="--h:113px"></i><s>36 a 39</s></div>
-          <div class="dg wn aqui" style="--d:940ms"><span class="pin">2025 fechou em 42</span><em>75%</em><i style="--h:85px"></i><s>40 a 45</s></div>
-          <div class="dg w2"   style="--d:1000ms"><em>50%</em><i style="--h:57px"></i><s>46 a 53</s></div>
-          <div class="dg no"   style="--d:1060ms"><em>0%</em><i style="--h:10px"></i><s>54 ou mais</s></div>
-        </div>
-      </div>
-      <div class="pri">
-        <div class="cab"><b>Prioridade 3</b><span>prazo de 12 horas<br>teto do 100%: 263</span></div>
-        <div class="esc">
-          <div class="dg ok aqui" style="--d:1140ms"><span class="pin">2025 fechou em 196</span><em>150%</em><i style="--h:170px"></i><s>até 200</s></div>
-          <div class="dg ok"   style="--d:1200ms"><em>125%</em><i style="--h:142px"></i><s>201 a 230</s></div>
-          <div class="dg alvo" style="--d:1260ms"><em>100%</em><i style="--h:113px"></i><s>231 a 263</s></div>
-          <div class="dg wn"   style="--d:1320ms"><em>75%</em><i style="--h:85px"></i><s>264 a 290</s></div>
-          <div class="dg w2"   style="--d:1380ms"><em>50%</em><i style="--h:57px"></i><s>291 a 320</s></div>
-          <div class="dg no"   style="--d:1440ms"><em>0%</em><i style="--h:10px"></i><s>321 ou mais</s></div>
-        </div>
-      </div>
-      <div class="eixo rv" style="--d:1700ms">
-        <span></span>
-        <span class="lin"><b>&larr; menos quebras no ano</b>
-          <span>a escada desce para a direita</span>
-          <b>mais quebras no ano &rarr;</b></span>
-      </div>
-    </div>
-  </div>
-  <div class="ft">
-    <span>Escada oficial da Locaweb &middot; uma por prioridade</span>
-    <span class="dir">Em 2025 a prioridade 2 caiu <b>dois degraus</b> e a prioridade 3 ficou no <b>degrau mais alto</b></span>
-  </div>
-</section>
-
-<!-- ═══ B · a régua ════════════════════════════════════════════════════════ -->
-<section class="slide light kpi esb">
-  <div class="mesh"></div><div class="grid-bg"></div>
-  <div class="hd">
-    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
-    <div class="bn">Cronos</div>
-    <div class="tag">Indicador de OLA &middot; escada oficial da Locaweb</div>
-  </div>
-  <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Como a nota do ano é calculada</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Quanto mais à direita, <em>pior a nota</em></span></span></h1>
-    <p class="sub rv" style="--d:560ms">A régua é o número de quebras no ano, e cada trecho dela vale uma nota. <b>O alfinete é onde 2025 parou.</b></p>
-    <div class="cena">
-
-      <div class="pri">
-        <div class="cab"><b>Prioridade 2</b>
-          <span>prazo de 4 horas<br>fechou em <u>42 quebras</u>, com nota <u>75%</u></span></div>
-        <div class="pista">
-          <div class="alf" style="left:70%"><b>2025 · 42 quebras</b><i></i></div>
-          <div class="fx" style="--d:820ms">
-            <span class="c150" style="width:50%">150%</span>
-            <span class="c125" style="width:8.3%">125%</span>
-            <span class="c100" style="width:6.7%">100%</span>
-            <span class="c75"  style="width:10%">75%</span>
-            <span class="c50"  style="width:13.3%">50%</span>
-            <span class="c0"   style="width:11.7%">0%</span>
-          </div>
-          <span class="marca" style="left:50%">30</span>
-          <span class="marca" style="left:58.3%">35</span>
-          <span class="marca" style="left:65%">39</span>
-          <span class="marca" style="left:75%">45</span>
-          <span class="marca" style="left:88.3%">53</span>
-        </div>
-      </div>
-
-      <div class="pri">
-        <div class="cab"><b>Prioridade 3</b>
-          <span>prazo de 12 horas<br>fechou em <u>196 quebras</u>, com nota <u>150%</u></span></div>
-        <div class="pista">
-          <div class="alf" style="left:57.6%"><b>2025 · 196 quebras</b><i></i></div>
-          <div class="fx" style="--d:1000ms">
-            <span class="c150" style="width:58.8%">150%</span>
-            <span class="c125" style="width:8.8%">125%</span>
-            <span class="c100" style="width:9.7%">100%</span>
-            <span class="c75"  style="width:7.9%">75%</span>
-            <span class="c50"  style="width:8.8%">50%</span>
-            <span class="c0"   style="width:6%">0%</span>
-          </div>
-          <span class="marca" style="left:58.8%">200</span>
-          <span class="marca" style="left:67.6%">230</span>
-          <span class="marca" style="left:77.3%">263</span>
-          <span class="marca" style="left:85.3%">290</span>
-          <span class="marca" style="left:94.1%">320</span>
-        </div>
-      </div>
-
-      <div class="fecho rv" style="--d:2100ms">
-        <span></span>
-        <span class="lin">
-          <span>A prioridade 2 precisava de <b>três quebras a menos</b> para voltar ao combinado.</span>
-          <span>A prioridade 3 tinha <b>quatro de folga</b> antes de cair um degrau.</span>
-        </span>
-      </div>
-
-    </div>
-  </div>
-  <div class="ft">
-    <span>Escada oficial da Locaweb &middot; uma por prioridade</span>
-    <span class="dir">A régua vai de zero até o fim da última faixa &middot; <b>quebras no ano</b></span>
-  </div>
-</section>
-
 <!-- ═══ C · a tabela ═══════════════════════════════════════════════════════ -->
-<section class="slide light kpi esc2">
+<section class="slide light kpi esc2 is-active">
   <div class="mesh"></div><div class="grid-bg"></div>
   <div class="hd">
     <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
     <div class="bn">Cronos</div>
-    <div class="tag">Indicador de OLA &middot; escada oficial da Locaweb</div>
+    <div class="tag">Escada oficial da Locaweb</div>
   </div>
   <div class="body">
-    <span class="eb"><span class="rv" style="--d:240ms">Como a nota do ano é calculada</span></span>
-    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Se o ano fechar com tantas quebras, <em>a nota é tanto</em></span></span></h1>
-    <p class="sub rv" style="--d:560ms">É a regra inteira, escrita como ela se lê. <b>A meta não é um número para alcançar, é um teto para não passar.</b></p>
-    <div class="cena"><div class="grade">
+    <span class="eb"><span class="rv" style="--d:240ms">O indicador de OLA</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>A escada da nota do ano</span></span></h1>
+    <p class="sub rv" style="--d:560ms"><b>Quanto mais quebras no ano, menor a nota.</b> A meta é um teto, e não um número para alcançar.</p>
 
-      <div class="seta rv" style="--d:700ms">
-        <u>quanto mais quebras</u><i></i><s>&darr;</s>
+    <div class="cena"><div class="par">
+
+      <div class="col">
+        <div class="cab rv" style="--d:700ms"><b>Prioridade 2</b><span>prazo de 4 horas</span></div>
+          <div class="lin c150" style="--d:800ms"><q>até 30 quebras</q><span></span><em>150%</em></div>
+          <div class="lin c125" style="--d:855ms"><q>31 a 35</q><span></span><em>125%</em></div>
+          <div class="lin c100 marc" style="--d:910ms"><q>36 a 39</q><b class="tag">o combinado</b><em>100%</em></div>
+          <div class="lin c75 marc" style="--d:965ms"><q>40 a 45</q><b class="tag">2025 fechou em 42</b><em>75%</em></div>
+          <div class="lin c50" style="--d:1020ms"><q>46 a 53</q><span></span><em>50%</em></div>
+          <div class="lin c0" style="--d:1075ms"><q>54 ou mais</q><span></span><em>0%</em></div>
       </div>
 
       <div class="col">
-        <b>Prioridade 2</b><span>prazo de 4 horas</span>
-        <div class="lin ok"   style="--d:820ms"><q>até 30 quebras</q><span class="ar">&rarr;</span><em>150%</em></div>
-        <div class="lin ok"   style="--d:880ms"><q>31 a 35</q><span class="ar">&rarr;</span><em>125%</em></div>
-        <div class="lin alvo" style="--d:940ms"><q>36 a 39</q><span class="ar">&rarr;</span><em>100%</em></div>
-        <div class="lin wn aqui" style="--d:1000ms"><q>40 a 45</q><span class="ar">&rarr;</span><em>75%</em><span class="selo">2025 fechou em 42</span></div>
-        <div class="lin w2"   style="--d:1060ms"><q>46 a 53</q><span class="ar">&rarr;</span><em>50%</em></div>
-        <div class="lin no"   style="--d:1120ms"><q>54 ou mais</q><span class="ar">&rarr;</span><em>0%</em></div>
-      </div>
-
-      <div class="col">
-        <b>Prioridade 3</b><span>prazo de 12 horas</span>
-        <div class="lin ok aqui" style="--d:1220ms"><q>até 200 quebras</q><span class="ar">&rarr;</span><em>150%</em><span class="selo">2025 fechou em 196</span></div>
-        <div class="lin ok"   style="--d:1280ms"><q>201 a 230</q><span class="ar">&rarr;</span><em>125%</em></div>
-        <div class="lin alvo" style="--d:1340ms"><q>231 a 263</q><span class="ar">&rarr;</span><em>100%</em></div>
-        <div class="lin wn"   style="--d:1400ms"><q>264 a 290</q><span class="ar">&rarr;</span><em>75%</em></div>
-        <div class="lin w2"   style="--d:1460ms"><q>291 a 320</q><span class="ar">&rarr;</span><em>50%</em></div>
-        <div class="lin no"   style="--d:1520ms"><q>321 ou mais</q><span class="ar">&rarr;</span><em>0%</em></div>
+        <div class="cab rv" style="--d:1100ms"><b>Prioridade 3</b><span>prazo de 12 horas</span></div>
+          <div class="lin c150 marc" style="--d:1180ms"><q>até 200 quebras</q><b class="tag">2025 fechou em 196</b><em>150%</em></div>
+          <div class="lin c125" style="--d:1235ms"><q>201 a 230</q><span></span><em>125%</em></div>
+          <div class="lin c100 marc" style="--d:1290ms"><q>231 a 263</q><b class="tag">o combinado</b><em>100%</em></div>
+          <div class="lin c75" style="--d:1345ms"><q>264 a 290</q><span></span><em>75%</em></div>
+          <div class="lin c50" style="--d:1400ms"><q>291 a 320</q><span></span><em>50%</em></div>
+          <div class="lin c0" style="--d:1455ms"><q>321 ou mais</q><span></span><em>0%</em></div>
       </div>
 
     </div></div>
   </div>
   <div class="ft">
     <span>Escada oficial da Locaweb &middot; uma por prioridade</span>
-    <span class="dir">A nota <b>cai</b> conforme a quebra <b>sobe</b> &middot; o combinado é o degrau de 100%</span>
+    <span class="dir">Em 2025 a prioridade 2 fechou em <b>42</b>, três acima do teto de 39; a prioridade 3 fechou em <b>196</b>, no degrau mais alto</span>
   </div>
 </section>
 
 </div>
 
-<script>
-(function(){
-  var todas = [].slice.call(document.querySelectorAll('#palco .slide'));
-  var botoes = [].slice.call(document.querySelectorAll('#troca button'));
-  function mostra(i){
-    todas.forEach(function(s, k){
-      s.classList.toggle('on', k === i);
-      s.classList.remove('is-active');
-      if (k === i) { void s.offsetWidth; s.classList.add('is-active'); }
-    });
-    botoes.forEach(function(b, k){ b.classList.toggle('on', k === i); });
-  }
-  botoes.forEach(function(b){ b.addEventListener('click', function(){ mostra(+b.dataset.v); }); });
-  window.addEventListener('keydown', function(e){
-    if (e.key >= '1' && e.key <= '3') mostra(+e.key - 1);
-  });
-})();
-</script>
 </body>
 </html>
