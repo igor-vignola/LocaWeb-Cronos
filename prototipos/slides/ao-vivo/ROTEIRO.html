@@ -55,7 +55,8 @@ header{
   border:0;background:0;cursor:pointer;font:inherit;font-size:13px;font-weight:600;
   color:var(--tx2);padding:5px 13px;border-radius:6px;transition:.14s;white-space:nowrap;
 }
-.seg button:hover{color:var(--tt)}
+.seg button:hover:not(:disabled){color:var(--tt)}
+.seg button:disabled{opacity:.32;cursor:default}
 .seg button[aria-pressed="true"]{background:var(--tt);color:#fff}
 
 .relogio{
@@ -327,476 +328,588 @@ main{
 
 <script>
 /* ═══ AS FALAS ═══════════════════════════════════════════════════════════════
-   Uma entrada por slide. Cada entrada tem título, um subtítulo curto que diz o
-   que aquele slide precisa entregar, e três versões de fala:
+   Uma entrada por slide, com título, o que aquele slide precisa entregar, e as
+   versões de fala.
 
+   SLIDE FECHADO tem UMA versão e o campo `tamanho`, que registra qual dos três
+   sobrou. Foi assim que o dono do projeto decidiu em 11/09/2026: no fim tem de
+   sobrar uma fala por slide, senão vira escolha na hora de apresentar.
+
+   SLIDE EM ABERTO tem três, na ordem:
      0 · PRINCIPAL    a fala que vai ao ar.
      1 · CURTA        a mesma coisa em menos palavras, para quando o relógio apertar.
      2 · COM DETALHE  a mesma coisa com o contexto extra que a banca pode querer.
 
-   As três são a MESMA voz: o dono do projeto gravou como fala, em 11/09/2026, e
-   o roteiro segue aquilo. Frase que corre, ligada por "e" e por "que", não frase
-   curta cortada — a primeira tentativa errou justamente aí.
+   As três são a MESMA voz: o dono do projeto gravou como fala de verdade, e o
+   roteiro segue aquilo. Frase que corre, ligada por "e" e por "que", não frase
+   curta cortada.
 
    `fala` são os parágrafos. `chaves` são as âncoras para lembrar em pé, e cada
    uma é o que ele olharia de relance — nunca a frase inteira.
    ══════════════════════════════════════════════════════════════════════════ */
-/* ── ENCOMENDAS PARA QUANDO O RESTO FOR ESCRITO ─────────────────────────────
-   Pedidos do dono do projeto em 10/09/2026, que a FALA tem de cobrir porque o
-   slide de propósito não cobre:
-
-   slide 18 · dizer como cada baseline foi construído, em uma frase cada:
-     · baseline média-7   → a previsão de amanhã é a média dos últimos 7 dias.
-                            É o melhor baseline no P2 (4,9 contra 4,2 do Prophet).
-     · baseline sazonal-7 → a previsão de amanhã é o que aconteceu no mesmo dia
-                            da semana anterior. É o melhor no P3 (11,3 contra
-                            11,8 do Prophet), ou seja, ali ele ganha da gente.
-     Os dois nomes estão no cartão do slide e na legenda da figura.
-
-   slide 21 · resumir o que cada uma das três métricas mede:
-     · ROC AUC  → chance de o modelo dar nota maior para um caso que violou do
-                  que para um que não violou. 0,5 é moeda; 0,869 é o nosso.
-     · PR-AUC   → o mesmo, mas contando só os acertos entre os apontados. É a
-                  que vale quando o evento é raro: 1% da base viola.
-     · Calibração → se o modelo diz 5%, cinco em cem violam de fato. É o que
-                  permite somar as notas da fila e projetar o ano.
-   ─────────────────────────────────────────────────────────────────────────── */
-
 const FALAS = {
+
+/* ── fechados em 11/09/2026 ──────────────────────────────────────────────── */
 
 1: {
   titulo: "Capa",
   precisa: "Dizer quem somos e o que o Cronos faz, numa frase só.",
-  versoes: [
-    {
-      fala: [
-        "Boa noite, pessoal. Nós somos do grupo <em>Super Data Bros</em> e vamos apresentar o Cronos, uma aplicação que tem como objetivo ler o histórico de incidentes da Locaweb e mostrar quais deles têm mais risco de estourar o prazo, antes que isso aconteça. E além disso, dar uma previsão do volume de incidentes que deve chegar nos próximos dias."
-      ],
-      chaves: [
-        "Boa noite · <b>Super Data Bros</b> · Cronos",
-        "lê o <b>histórico de incidentes</b> da Locaweb",
-        "mostra quem tem <b>mais risco de estourar</b>, antes",
-        "e além disso, <b>prevê o volume</b> dos próximos dias"
-      ]
-    },
-    {
-      fala: [
-        "Boa noite, pessoal. Nós somos do grupo <em>Super Data Bros</em> e vamos apresentar o Cronos, uma aplicação que lê o histórico de incidentes da Locaweb e mostra quais deles têm mais risco de estourar o prazo, antes que estourem."
-      ],
-      chaves: [
-        "Boa noite · <b>Super Data Bros</b> · Cronos",
-        "lê o histórico e mostra <b>quem vai estourar</b>, antes"
-      ]
-    },
-    {
-      fala: [
-        "Boa noite, pessoal. Nós somos do grupo <em>Super Data Bros</em> e vamos apresentar o Cronos, uma aplicação que tem como objetivo ler o histórico de incidentes da Locaweb e mostrar quais deles têm mais risco de estourar o prazo, antes que isso aconteça. E além disso, dar uma previsão do volume de incidentes que deve chegar nos próximos dias.",
-        "É daí que vem a frase que está aí embaixo, <em>veja antes, aja antes</em>, que é o que a gente tentou entregar do começo ao fim do projeto."
-      ],
-      chaves: [
-        "Boa noite · <b>Super Data Bros</b> · Cronos",
-        "lê o <b>histórico de incidentes</b> da Locaweb",
-        "mostra quem tem <b>mais risco de estourar</b>, antes",
-        "e além disso, <b>prevê o volume</b> dos próximos dias",
-        "daí a frase: <i>veja antes, aja antes</i>"
-      ]
-    }
-  ]
+  tamanho: "Principal",
+  versoes: [{
+    fala: [
+      "Boa noite, pessoal. Nós somos do grupo <em>Super Data Bros</em> e vamos apresentar o Cronos, uma aplicação que tem como objetivo ler o histórico de incidentes da Locaweb e mostrar quais deles têm mais risco de estourar o prazo, antes que isso aconteça. E além disso, dar uma previsão do volume de incidentes que deve chegar nos próximos dias."
+    ],
+    chaves: [
+      "Boa noite · <b>Super Data Bros</b> · Cronos",
+      "lê o <b>histórico de incidentes</b> da Locaweb",
+      "mostra quem tem <b>mais risco de estourar</b>, antes",
+      "e além disso, <b>prevê o volume</b> dos próximos dias"
+    ]
+  }]
 },
 
 2: {
   titulo: "Quem apresenta",
   precisa: "Cada um diz o próprio nome, entra o mentor, e a fala emenda no slide do nome.",
-  nota: "A ponte para o slide 3 é a última frase: <b>“antes de entrar no problema, deixa eu explicar rapidinho de onde veio o nome”</b>. Ela existe porque terminar no mentor deixava a fala sem saída — e “bora lá” fica estranho. Quem fecha o slide é quem vai puxar o próximo.",
-  versoes: [
-    {
-      fala: [
-        "Eu me chamo <em>Ana Beatriz</em>.",
-        "Eu sou o <em>Hygor Abrantes</em>.",
-        "E eu sou o <em>Igor Vignola</em>. Nós três somos da turma 2TSCOA.",
-        "E o <em>Douglas Gouveia</em>, da Locaweb, foi quem ajudou a gente na orientação do projeto e nas regras do indicador.",
-        "Bom, e antes de entrar no problema, deixa eu explicar rapidinho de onde veio o nome."
-      ],
-      chaves: [
-        "<b>Ana Beatriz</b> · <b>Hygor Abrantes</b> · <b>Igor Vignola</b>",
-        "turma 2TSCOA",
-        "orientação do projeto e das regras: <b>Douglas Gouveia</b>, da Locaweb",
-        "acompanhou do começo ao fim",
-        "<i>→ antes do problema, de onde veio o nome</i>"
-      ]
-    },
-    {
-      fala: [
-        "Eu me chamo <em>Ana Beatriz</em>.",
-        "Eu sou o <em>Hygor Abrantes</em>.",
-        "E eu sou o <em>Igor Vignola</em>. Nós três somos da turma 2TSCOA.",
-        "E o <em>Douglas Gouveia</em>, da Locaweb, ajudou a gente na orientação do projeto.",
-        "Antes de entrar no problema, uma palavra sobre o nome."
-      ],
-      chaves: [
-        "<b>Ana Beatriz</b> · <b>Hygor Abrantes</b> · <b>Igor Vignola</b>",
-        "turma 2TSCOA",
-        "orientação: <b>Douglas Gouveia</b>, da Locaweb",
-        "<i>→ uma palavra sobre o nome</i>"
-      ]
-    },
-    {
-      fala: [
-        "Eu me chamo <em>Ana Beatriz</em>.",
-        "Eu sou o <em>Hygor Abrantes</em>.",
-        "E eu sou o <em>Igor Vignola</em>. Nós três somos da turma 2TSCOA, do tecnólogo em Data Science.",
-        "E o <em>Douglas Gouveia</em>, da Locaweb, foi quem ajudou a gente na orientação do projeto e nas regras do indicador. Foi com ele que a gente entendeu como o time trabalha no dia a dia e o que valia a pena testar, e boa parte do que vocês vão ver saiu dessas conversas.",
-        "Bom, e antes de entrar no problema, deixa eu explicar rapidinho de onde veio o nome."
-      ],
-      chaves: [
-        "<b>Ana Beatriz</b> · <b>Hygor Abrantes</b> · <b>Igor Vignola</b>",
-        "turma 2TSCOA · Data Science",
-        "orientação do projeto e das regras: <b>Douglas Gouveia</b>, da Locaweb",
-        "entendemos com ele como o time trabalha e <b>o que valia testar</b>",
-        "boa parte do que vem saiu daí",
-        "<i>→ antes do problema, de onde veio o nome</i>"
-      ]
-    }
-  ]
+  tamanho: "Principal",
+  nota: "A ponte para o slide 3 é a última frase. Ela existe porque terminar no mentor deixava a fala sem saída — e “bora lá” fica estranho. Quem fecha o slide é quem vai puxar o próximo.",
+  versoes: [{
+    fala: [
+      "Eu me chamo <em>Ana Beatriz</em>.",
+      "Eu me chamo <em>Hygor Abrantes</em>.",
+      "E me chamo <em>Igor Vignola</em>. Nós somos da turma 2TSCOA.",
+      "E o <em>Douglas</em>, da Locaweb, foi quem deu as orientações do projeto.",
+      "Bom, antes de entrar no problema, nós vamos explicar rapidinho de onde veio o nome."
+    ],
+    chaves: [
+      "<b>Ana Beatriz</b> · <b>Hygor Abrantes</b> · <b>Igor Vignola</b>",
+      "turma 2TSCOA",
+      "orientações do projeto: <b>Douglas</b>, da Locaweb",
+      "<i>→ antes do problema, de onde veio o nome</i>"
+    ]
+  }]
 },
 
 3: {
   titulo: "O significado",
   precisa: "De onde veio o nome, e por que ele descreve o problema.",
-  versoes: [
-    {
-      fala: [
-        "A ideia do nome surgiu de uma pesquisa que a gente fez no começo do projeto: <em>Cronos</em>, em grego, é o deus do tempo. E tempo é exatamente o que está em jogo aqui, porque todo incidente que a Locaweb abre tem um prazo correndo desde o primeiro minuto. O Cronos existe justamente para enxergar esse prazo antes de ele estourar."
-      ],
-      chaves: [
-        "o nome veio de uma <b>pesquisa</b> no começo do projeto",
-        "<b>Cronos</b>, em grego, é o <b>deus do tempo</b>",
-        "todo incidente tem um <b>prazo correndo</b> desde o primeiro minuto",
-        "o Cronos vê o prazo <b>antes de estourar</b>"
-      ]
-    },
-    {
-      fala: [
-        "O nome veio de uma pesquisa que a gente fez no começo: <em>Cronos</em>, em grego, é o deus do tempo. E é disso que o trabalho trata, porque todo incidente tem um prazo correndo desde a hora que abre."
-      ],
-      chaves: [
-        "<b>Cronos</b>, em grego, é o <b>deus do tempo</b>",
-        "todo incidente tem um <b>prazo correndo</b>"
-      ]
-    },
-    {
-      fala: [
-        "A ideia do nome surgiu de uma pesquisa que a gente fez no começo do projeto: <em>Cronos</em>, em grego, é o deus do tempo. E tempo é exatamente o que está em jogo aqui, porque todo incidente que a Locaweb abre tem um prazo correndo desde o primeiro minuto.",
-        "O Cronos existe justamente para enxergar esse prazo antes de ele estourar, e não depois. Por isso a frase que a gente usa é <em>veja antes, aja antes</em>.",
-        "E para vocês entenderem por que isso importa, o próximo slide mostra como a Locaweb mede esse prazo."
-      ],
-      chaves: [
-        "o nome veio de uma <b>pesquisa</b> no começo do projeto",
-        "<b>Cronos</b>, em grego, é o <b>deus do tempo</b>",
-        "todo incidente tem um <b>prazo correndo</b> desde o primeiro minuto",
-        "ver <b>antes</b> de estourar, e não depois: <i>veja antes, aja antes</i>",
-        "<i>→ como a Locaweb mede esse prazo</i>"
-      ]
-    }
-  ]
+  tamanho: "Curta",
+  versoes: [{
+    fala: [
+      "O nome veio de uma pesquisa que a gente fez no começo: <em>Cronos</em>, em grego, é o deus do tempo. E é principalmente disso que o trabalho trata, porque todo incidente tem um prazo a ser cumprido desde a hora que abre."
+    ],
+    chaves: [
+      "<b>Cronos</b>, em grego, é o <b>deus do tempo</b>",
+      "todo incidente tem um <b>prazo correndo</b>"
+    ]
+  }]
 },
 
 4: {
   titulo: "O prazo de cada incidente",
-  precisa: "O funil da base, o prazo de cada prioridade, e o que é uma quebra.",
-  versoes: [
-    {
-      fala: [
-        "Aqui está o que a Locaweb mede. A base que a gente recebeu tem <em>122.543 incidentes</em> de três anos, mas nem todos contam para o indicador. Depois do filtro oficial sobram <em>25.600</em>, mais ou menos 21% do total.",
-        "Cada um desses tem um prazo para ser resolvido, que muda conforme a prioridade: quatro horas na prioridade 2 e doze horas na prioridade 3. Se resolveu dentro do prazo, tudo certo. Se passou, conta como uma quebra. E é a soma das quebras do ano que define a nota da operação."
-      ],
-      chaves: [
-        "<b>122.543</b> incidentes em três anos",
-        "só <b>25.600</b> contam para o indicador, uns <b>21%</b>",
-        "prazo: <b>4 h</b> na prioridade 2, <b>12 h</b> na prioridade 3",
-        "passou do prazo = <b>quebra</b>",
-        "a <b>soma das quebras do ano</b> define a nota da operação"
-      ]
-    },
-    {
-      fala: [
-        "Aqui é o que a Locaweb mede. Dos <em>122.543</em> incidentes de três anos, <em>25.600</em> entram no indicador. Cada um tem um prazo conforme a prioridade: quatro horas na prioridade 2 e doze na prioridade 3. Passou do prazo, é uma quebra, e é a soma das quebras do ano que define a nota da operação."
-      ],
-      chaves: [
-        "<b>122.543</b> → <b>25.600</b> no indicador",
-        "<b>4 h</b> na prioridade 2, <b>12 h</b> na prioridade 3",
-        "passou = <b>quebra</b> · a soma do ano é a nota"
-      ]
-    },
-    {
-      fala: [
-        "Aqui está o que a Locaweb mede. A base que a gente recebeu tem <em>122.543 incidentes</em> de três anos, mas nem todos contam para o indicador. O filtro é um campo oficial do sistema deles, que a gente confirmou com a Locaweb antes de usar, porque errar esse recorte mudaria tudo o que vem depois. Com ele sobram <em>25.600</em> incidentes, mais ou menos 21% do total.",
-        "Cada um desses tem um prazo para ser resolvido, que muda conforme a prioridade: quatro horas na prioridade 2 e doze horas na prioridade 3. Se resolveu dentro do prazo, tudo certo. Se passou, conta como uma quebra. E é a soma das quebras de um ano inteiro que define a nota da operação."
-      ],
-      chaves: [
-        "<b>122.543</b> incidentes em três anos",
-        "o filtro é um <b>campo oficial</b> do sistema, confirmado com a Locaweb",
-        "sobram <b>25.600</b>, uns <b>21%</b>",
-        "prazo: <b>4 h</b> na prioridade 2, <b>12 h</b> na prioridade 3",
-        "passou do prazo = <b>quebra</b>",
-        "a <b>soma das quebras do ano</b> define a nota da operação"
-      ]
-    }
-  ]
+  precisa: "O funil da base e a regra do filtro. O prazo em si é assunto do slide 5.",
+  tamanho: "Principal",
+  versoes: [{
+    fala: [
+      "A base que a gente recebeu tem <em>122.543 incidentes</em> que ocorreram durante três anos, mas nem todos contam para o indicador. Depois de filtrar pelos incidentes que entram para o KPI, sobram apenas <em>25.600</em>, mais ou menos 21% do total.",
+      "Esse filtro é um campo que o próprio sistema da Locaweb preenche, e ele junta três regras: o incidente precisa ser de prioridade 1, 2 ou 3, não pode ser filho de outro chamado, e precisa ter tido intervenção da equipe."
+    ],
+    chaves: [
+      "<b>122.543</b> incidentes em três anos",
+      "só <b>25.600</b> contam para o indicador, uns <b>21%</b>",
+      "o filtro é <b>campo do próprio sistema</b>",
+      "junta três regras: <b>prioridade 1, 2 ou 3</b> · <b>sem incidente pai</b> · <b>com intervenção</b>"
+    ]
+  }]
 },
 
 5: {
   titulo: "O indicador de 2025",
-  precisa: "O prazo virando número: quem estourou o limite do ano e quem não.",
-  versoes: [
-    {
-      fala: [
-        "E é aqui que esse prazo vira número. Em 2025 a prioridade 2 podia ter no máximo <em>39</em> quebras no ano e fechou com <em>42</em>, ou seja, estourou. Já a prioridade 3 podia ter 263 e fechou com 196, bem dentro.",
-        "E o detalhe que mais chama atenção é que em outubro a prioridade 2 ainda estava em 35, dentro do limite. Um único mês somou seis quebras, e ninguém viu isso chegando, porque o resultado só aparece na apuração de dezembro."
-      ],
-      chaves: [
-        "o prazo <b>vira número</b>",
-        "prioridade 2: podia <b>39</b>, fechou <b>42</b> · estourou",
-        "prioridade 3: podia 263, fechou 196 · dentro",
-        "em outubro a 2 estava em <b>35</b>, dentro",
-        "um mês somou seis, e <b>só apareceu em dezembro</b>"
-      ]
-    },
-    {
-      fala: [
-        "Em 2025 a prioridade 2 podia ter no máximo <em>39</em> quebras e fechou com <em>42</em>, estourou. A prioridade 3 podia ter 263 e fechou com 196, dentro. E em outubro a 2 ainda estava em 35: um mês só somou seis, e o resultado só apareceu na apuração de dezembro."
-      ],
-      chaves: [
-        "prioridade 2: <b>42</b> de <b>39</b> · estourou",
-        "prioridade 3: 196 de 263 · dentro",
-        "outubro em 35 → <b>só apareceu em dezembro</b>"
-      ]
-    },
-    {
-      fala: [
-        "E é aqui que esse prazo vira número. Cada prioridade tem um limite de quebras por ano, que é definido pela Locaweb, e em 2025 a prioridade 2 podia ter no máximo <em>39</em>. Fechou com <em>42</em>, ou seja, estourou. Já a prioridade 3 podia ter 263 e fechou com 196, bem dentro do limite.",
-        "E o que mais chama atenção é que em outubro a prioridade 2 ainda estava em 35, dentro. Um único mês somou seis quebras, e ninguém viu isso chegando, porque o resultado só aparece na apuração de dezembro. Quando aparece, o ano já acabou.",
-        "É esse buraco que o Cronos tenta fechar."
-      ],
-      chaves: [
-        "cada prioridade tem um <b>limite de quebras por ano</b>, definido pela Locaweb",
-        "prioridade 2: podia <b>39</b>, fechou <b>42</b> · estourou",
-        "prioridade 3: podia 263, fechou 196 · dentro",
-        "em outubro a 2 estava em <b>35</b>, dentro do limite",
-        "um mês somou seis, e <b>só apareceu em dezembro</b>",
-        "<i>→ é esse buraco que o Cronos fecha</i>"
-      ]
-    }
-  ]
+  precisa: "O prazo de cada prioridade, e quem estourou o limite do ano.",
+  tamanho: "Curta",
+  versoes: [{
+    fala: [
+      "Cada incidente tem um prazo para ser resolvido, que muda conforme a prioridade: quatro horas na prioridade 2 e doze horas na prioridade 3. Passou do prazo, conta como uma quebra.",
+      "Em 2025 a prioridade 2 podia ter no máximo <em>39</em> quebras e fechou com <em>42</em>, estourou. A prioridade 3 podia ter 263 e fechou com 196, dentro. E em outubro a P2 ainda estava em 35: um mês só somou seis. Se tivesse como ordenar pelos incidentes com maior risco primeiro, o estouro da meta para P2 provavelmente não existiria."
+    ],
+    chaves: [
+      "prazo: <b>4 h</b> na prioridade 2, <b>12 h</b> na prioridade 3 · passou = <b>quebra</b>",
+      "prioridade 2: <b>42</b> de <b>39</b> · estourou",
+      "prioridade 3: 196 de 263 · dentro",
+      "outubro em 35, e <b>um mês só somou seis</b>",
+      "ordenando por risco, <i>o estouro provavelmente não existiria</i>"
+    ]
+  }]
 },
 
 6: {
   titulo: "Por que é difícil ver chegando",
   precisa: "A fila é atendida por prioridade, e o prazo estoura na ordem contrária.",
-  versoes: [
-    {
-      fala: [
-        "E por que é difícil ver isso chegando? Porque a fila é atendida na ordem da prioridade: primeiro a 2, que é a mais alta, e depois a 3. Só que o prazo estoura na ordem contrária.",
-        "A prioridade 3 tem taxa de quebra de <em>1,01%</em> contra 0,81% da 2, e como ela é quase quatro vezes maior em volume, é ela que responde por <em>206 das 248 quebras</em> do período.",
-        "Ou seja, a prioridade diz o quanto o cliente sente, e não o quanto o prazo aperta. Quem ordena por prioridade deixa em segundo lugar justamente o grupo que mais estoura."
-      ],
-      chaves: [
-        "a fila atende por prioridade: <b>P2 primeiro, P3 depois</b>",
-        "o prazo estoura na <b>ordem contrária</b>",
-        "P3 <b>1,01%</b> contra 0,81% da P2, e quase 4× o volume",
-        "P3 responde por <b>206 das 248 quebras</b>",
-        "prioridade diz <b>o quanto o cliente sente</b>, não o quanto o prazo aperta"
-      ]
-    },
-    {
-      fala: [
-        "A fila é atendida pela prioridade: primeiro a 2, depois a 3. Só que o prazo estoura na ordem contrária. A prioridade 3 tem taxa maior e responde por <em>206 das 248 quebras</em>. Prioridade diz o quanto o cliente sente, e não o quanto o prazo aperta."
-      ],
-      chaves: [
-        "atende P2 → P3 · estoura na <b>ordem contrária</b>",
-        "P3 responde por <b>206 das 248 quebras</b>",
-        "prioridade ≠ risco de estourar"
-      ]
-    },
-    {
-      fala: [
-        "E por que é difícil ver isso chegando? Porque a fila é atendida na ordem da prioridade: primeiro a 2, que é a mais alta e tem 5.159 incidentes, e depois a 3, que tem 20.441. Só que o prazo estoura na ordem contrária.",
-        "A prioridade 3 tem taxa de quebra de <em>1,01%</em> contra 0,81% da 2, e como ela é quase quatro vezes maior em volume, é ela que responde por <em>206 das 248 quebras</em> do período.",
-        "Ou seja, a prioridade diz o quanto o cliente sente, e não o quanto o prazo aperta. Quem ordena por prioridade deixa em segundo lugar justamente o grupo que mais estoura. E é por isso que a gente precisava de um critério que olhasse caso a caso, e não a etiqueta do caso."
-      ],
-      chaves: [
-        "P2: 5.159 incidentes, atendida primeiro",
-        "P3: 20.441 incidentes, atendida depois",
-        "taxa: P3 <b>1,01%</b> · P2 0,81%",
-        "P3 responde por <b>206 das 248 quebras</b>",
-        "prioridade diz <b>o quanto o cliente sente</b>",
-        "<i>→ precisa de critério caso a caso</i>"
-      ]
-    }
-  ]
+  tamanho: "Curta",
+  versoes: [{
+    fala: [
+      "A fila de incidentes é atendida por ordem de prioridade: primeiro a P2, depois a P3. Só que o prazo estoura na ordem contrária. A prioridade 3 tem uma taxa de quebra relativamente maior e responde por <em>206 das 248 quebras</em>."
+    ],
+    chaves: [
+      "atende P2 → P3 · estoura na <b>ordem contrária</b>",
+      "P3 responde por <b>206 das 248 quebras</b>",
+      "prioridade ≠ risco de estourar"
+    ]
+  }]
 },
 
 7: {
   titulo: "Divisória · Análise exploratória",
   precisa: "Anunciar a seção em uma respiração. Divisória é pausa, não conteúdo.",
-  versoes: [
-    {
-      fala: [
-        "Então, antes de construir qualquer modelo, a gente passou um tempo só olhando o dado. São <em>122.543 incidentes</em>, com 19 campos cada um, e a ideia dessa parte era entender o que ali dentro dá para prever de verdade."
-      ],
-      chaves: [
-        "antes do modelo, <b>olhar o dado</b>",
-        "<b>122.543</b> incidentes · 19 campos cada",
-        "entender <b>o que dá para prever</b>"
-      ]
-    },
-    {
-      fala: [
-        "Antes de qualquer modelo, a gente olhou o dado: <em>122.543 incidentes</em>, 19 campos cada um."
-      ],
-      chaves: ["antes do modelo, <b>olhar o dado</b>", "<b>122.543</b> incidentes · 19 campos"]
-    },
-    {
-      fala: [
-        "Então, antes de construir qualquer modelo, a gente passou um tempo só olhando o dado. São <em>122.543 incidentes</em>, com 19 campos cada um, e três anos de histórico.",
-        "A ideia dessa parte era entender o que ali dentro dá para prever de verdade, e o primeiro achado já aparece nesse gráfico pequeno aí do lado: o volume salta a partir de setembro."
-      ],
-      chaves: [
-        "antes do modelo, <b>olhar o dado</b>",
-        "<b>122.543</b> incidentes · 19 campos · três anos",
-        "entender <b>o que dá para prever</b>",
-        "<i>→ o volume salta em setembro</i>"
-      ]
-    }
-  ]
+  tamanho: "Curta",
+  versoes: [{
+    fala: [
+      "Antes de partir para qualquer modelo, a gente fez uma análise exploratória para entender melhor os dados."
+    ],
+    chaves: [
+      "antes do modelo, <b>olhar o dado</b>",
+      "<b>122.543</b> incidentes · 19 campos"
+    ]
+  }]
 },
 
 8: {
   titulo: "O salto de setembro",
   precisa: "O volume multiplicou, mas a série que conta para a meta não se mexeu.",
-  versoes: [
-    {
-      fala: [
-        "E esse foi o primeiro susto. De agosto para setembro o volume registrado multiplicou por <em>5,4</em>, de 3.996 para 21.561 incidentes no mês. Se a gente tivesse jogado isso direto num modelo, ele leria como uma explosão de problemas na operação.",
-        "Só que não foi. O que cresceu foi o monitoramento automático, que passou a abrir chamado sozinho. A série que conta para a meta atravessou o salto sem se mexer: saímos de <em>2.330 para 2.324</em>, praticamente o mesmo número."
-      ],
-      chaves: [
-        "de agosto para setembro: volume <b>×5,4</b>, de 3.996 para 21.561",
-        "um modelo leria isso como <b>explosão de problemas</b>",
-        "mas quem cresceu foi o <b>monitoramento automático</b>",
-        "a série do KPI: <b>2.330 → 2.324</b>, praticamente igual"
-      ]
-    },
-    {
-      fala: [
-        "De agosto para setembro o volume multiplicou por <em>5,4</em>. Mas não foi a operação que piorou, foi o monitoramento automático que expandiu. A série que conta para a meta passou de <em>2.330 para 2.324</em>, praticamente igual."
-      ],
-      chaves: [
-        "volume <b>×5,4</b> de agosto para setembro",
-        "quem cresceu foi o <b>monitoramento automático</b>",
-        "série do KPI: <b>2.330 → 2.324</b>"
-      ]
-    },
-    {
-      fala: [
-        "E esse foi o primeiro susto. De agosto para setembro o volume registrado multiplicou por <em>5,4</em>, de 3.996 para 21.561 incidentes no mês. Se a gente tivesse jogado isso direto num modelo, ele leria como uma explosão de problemas na operação.",
-        "Só que não foi. O que cresceu foi o monitoramento automático, que passou a abrir chamado sozinho, e a maior parte desses chamados nem entra na conta do indicador.",
-        "A prova está na linha azul: a série que conta para a meta atravessou o salto sem se mexer, de <em>2.330 para 2.324</em>. É uma queda de 0,26%, ou seja, praticamente o mesmo número. A operação não piorou; mudou foi o que passou a ser registrado."
-      ],
-      chaves: [
-        "de agosto para setembro: volume <b>×5,4</b>, de 3.996 para 21.561",
-        "um modelo leria isso como <b>explosão de problemas</b>",
-        "quem cresceu foi o <b>monitoramento automático</b>",
-        "a série do KPI: <b>2.330 → 2.324</b>, −0,26%",
-        "<b>mudou o que se registra</b>, não a operação"
-      ]
-    }
-  ]
+  tamanho: "Curta",
+  versoes: [{
+    fala: [
+      "De agosto para setembro o volume multiplicou por <em>5,4</em>. Mas não foi a operação que piorou, foi a implementação de um monitoramento automático que expandiu. A série que conta para a meta, e que é usada para treinar os modelos, passou de <em>2.330 para 2.324</em>, praticamente ficou igual."
+    ],
+    chaves: [
+      "volume <b>×5,4</b> de agosto para setembro",
+      "quem cresceu foi o <b>monitoramento automático</b>",
+      "série do KPI: <b>2.330 → 2.324</b>"
+    ]
+  }]
 },
 
 9: {
   titulo: "A decisão de recorte",
   precisa: "Por que o treino é só 2025, e o que aconteceria se não fosse.",
-  versoes: [
-    {
-      fala: [
-        "E essa descoberta levou a uma decisão de recorte. Dos incidentes que entram no indicador, <em>98,3%</em> estão em 2025: são 25.156, contra 357 em 2024 e 87 em 2023.",
-        "Se a gente treinasse com os três anos, o modelo leria essa subida como uma tendência de alta, quando na verdade ela é só a adoção do registro. Então a decisão foi treinar apenas em 2025, e desligar a sazonalidade anual, porque não existe um ano anterior comparável."
-      ],
-      chaves: [
-        "<b>98,3%</b> dos elegíveis estão em <b>2025</b>",
-        "25.156 em 2025 · 357 em 2024 · 87 em 2023",
-        "com os três anos, o modelo leria <b>adoção como tendência de alta</b>",
-        "decisão: <b>treinar só em 2025</b>, sazonalidade anual desligada"
-      ]
-    },
-    {
-      fala: [
-        "<em>98,3%</em> dos incidentes elegíveis estão em 2025. Usar os três anos faria o modelo ler adoção de registro como tendência de alta, então a gente treinou só em 2025, com a sazonalidade anual desligada."
-      ],
-      chaves: [
-        "<b>98,3%</b> dos elegíveis estão em 2025",
-        "treinar só em <b>2025</b>, sazonalidade anual desligada"
-      ]
-    },
-    {
-      fala: [
-        "E essa descoberta levou a uma decisão de recorte. Dos incidentes que entram no indicador, <em>98,3%</em> estão em 2025: são 25.156, contra 357 em 2024 e 87 em 2023. Na prática, a série elegível ao KPI só existe em 2025.",
-        "Se a gente treinasse com os três anos, o modelo leria essa subida como uma tendência de alta, quando na verdade ela é só a adoção do registro, e toda previsão sairia inflada.",
-        "Então a decisão foi treinar apenas em 2025, e desligar a sazonalidade anual, porque não existe um ano anterior comparável para o modelo aprender. A sazonalidade semanal continua ligada, e é ela que carrega o padrão de verdade."
-      ],
-      chaves: [
-        "<b>98,3%</b> dos elegíveis estão em <b>2025</b>",
-        "25.156 em 2025 · 357 em 2024 · 87 em 2023",
-        "com três anos: <b>adoção lida como tendência de alta</b>",
-        "decisão: treinar só em 2025",
-        "<b>sazonalidade anual desligada</b>, semanal ligada"
-      ]
-    }
-  ]
+  tamanho: "Curta",
+  versoes: [{
+    fala: [
+      "<em>98,3%</em> dos incidentes elegíveis estão em 2025. Se a gente usasse os três anos para treinar os modelos, isso faria com que o modelo interpretasse isso como uma tendência de alta, então a gente optou por treinar só com os dados de 2025."
+    ],
+    chaves: [
+      "<b>98,3%</b> dos elegíveis estão em 2025",
+      "treinar só em <b>2025</b>, sazonalidade anual desligada"
+    ]
+  }]
 },
 
 10: {
   titulo: "Quem abre, e quando",
   precisa: "Os dois cortes que separam quem estoura de quem não estoura.",
+  tamanho: "Curta",
+  versoes: [{
+    fala: [
+      "Um padrão que conseguimos identificar é que quando o incidente é aberto por uma pessoa, o risco de quebra é quase 3 vezes maior. E nos finais de semana o risco é mais que 2 vezes maior, quando comparado com um dia útil."
+    ],
+    chaves: [
+      "<b>quem abre</b>: pessoa 1,24% · monitoramento 0,46% → <b>2,7×</b>",
+      "<b>quando chega</b>: fim de semana 1,88% · dia útil 0,85% → <b>2,2×</b>",
+      "viraram <b>variáveis do modelo</b>"
+    ]
+  }]
+},
+
+/* ── em aberto ───────────────────────────────────────────────────────────── */
+
+11: {
+  titulo: "O alvo é raro",
+  precisa: "Quão raro é o evento, e por que acurácia não serve de régua.",
   versoes: [
     {
       fala: [
-        "E aí a gente começou a procurar o que separa o incidente que estoura do que não estoura. Duas coisas apareceram logo.",
-        "A primeira é quem abre o chamado. Quando quem abre é uma pessoa, a taxa de quebra é <em>1,24%</em>; quando é o monitoramento automático, é <em>0,46%</em>. Ou seja, 2,7 vezes mais risco quando tem gente do outro lado.",
-        "A segunda é quando ele chega. No fim de semana a taxa é <em>1,88%</em> contra 0,85% do dia útil, 2,2 vezes mais risco, e olha que o fim de semana tem só um terço do volume. Essas duas viraram variáveis do modelo."
+        "E aqui está o alvo que o modelo tem que acertar. Em três anos foram <em>248 violações</em> de OLA em 25.600 incidentes, ou seja, uma a cada 103. É o que esses quadradinhos mostram: cada um vale 64 incidentes, e os vermelhos são as violações.",
+        "E é justamente isso que torna o problema difícil. Um modelo que responde “não quebra” para todos acerta 99% das vezes e não encontra nenhuma. Por isso acurácia não serve de régua aqui."
       ],
       chaves: [
-        "o que separa quem estoura de quem não estoura",
-        "<b>quem abre</b>: pessoa <b>1,24%</b> · monitoramento 0,46% → <b>2,7×</b>",
-        "<b>quando chega</b>: fim de semana <b>1,88%</b> · dia útil 0,85% → <b>2,2×</b>",
-        "e o fim de semana tem <b>um terço do volume</b>",
-        "as duas viraram <b>variáveis do modelo</b>"
+        "<b>248 violações</b> em 25.600 incidentes",
+        "uma a cada <b>103</b>",
+        "responder “não quebra” para todos <b>acerta 99%</b> e acha nenhuma",
+        "por isso <b>acurácia não é a régua</b>"
       ]
     },
     {
       fala: [
-        "Duas coisas separam quem estoura de quem não estoura. Quem abre: pessoa dá <em>1,24%</em> de quebra contra 0,46% do monitoramento, 2,7 vezes mais. E quando chega: fim de semana dá <em>1,88%</em> contra 0,85% do dia útil, com um terço do volume. As duas viraram variáveis do modelo."
+        "O alvo é raro: <em>248 violações</em> em 25.600 incidentes, uma a cada 103. Um modelo que responde “não quebra” para todos acerta 99% das vezes e não acha nenhuma, então acurácia não serve de régua aqui."
       ],
       chaves: [
-        "<b>quem abre</b>: pessoa 1,24% · monitoramento 0,46% → <b>2,7×</b>",
-        "<b>quando chega</b>: fim de semana 1,88% · dia útil 0,85% → <b>2,2×</b>",
-        "viraram <b>variáveis do modelo</b>"
+        "<b>248</b> em 25.600 · uma a cada <b>103</b>",
+        "acertar 99% e <b>achar nenhuma</b>: acurácia não é a régua"
       ]
     },
     {
       fala: [
-        "E aí a gente começou a procurar o que separa o incidente que estoura do que não estoura. Duas coisas apareceram logo, e a gente mediu as duas nas duas prioridades.",
-        "A primeira é quem abre o chamado. Quando quem abre é uma pessoa, a taxa de quebra é <em>1,24%</em>; quando é o monitoramento automático, é <em>0,46%</em>. Ou seja, 2,7 vezes mais risco quando tem gente do outro lado, o que faz sentido: o monitoramento abre muita coisa repetida e simples.",
-        "A segunda é quando ele chega. No fim de semana a taxa é <em>1,88%</em> contra 0,85% do dia útil, 2,2 vezes mais risco, e olha que o fim de semana tem só um terço do volume: são 24 incidentes por dia contra 67.",
-        "Essas duas viraram variáveis do modelo de risco, junto com o produto, o ativo e a categoria."
+        "E aqui está o alvo que o modelo tem que acertar. Em três anos foram <em>248 violações</em> de OLA em 25.600 incidentes, ou seja, uma a cada 103. É o que esses quadradinhos mostram: cada um vale 64 incidentes, e os vermelhos são as violações.",
+        "Dessas 248, <em>206 estão na prioridade 3</em> e 42 na 2, que é o desequilíbrio que a gente mostrou dois slides atrás.",
+        "E é justamente essa raridade que torna o problema difícil. Um modelo que responde “não quebra” para todos os 25.600 acerta 99% das vezes e não encontra nenhuma violação. Por isso acurácia não serve de régua aqui, e a gente vai medir o modelo de outro jeito mais para frente."
       ],
       chaves: [
-        "medimos os dois cortes nas <b>duas prioridades</b>",
-        "<b>quem abre</b>: pessoa <b>1,24%</b> · monitoramento 0,46% → <b>2,7×</b>",
-        "<b>quando chega</b>: fim de semana <b>1,88%</b> · dia útil 0,85% → <b>2,2×</b>",
-        "fim de semana: 24 por dia contra 67",
-        "viraram variáveis, junto com <b>produto, ativo e categoria</b>"
+        "<b>248 violações</b> em 25.600 incidentes, uma a cada <b>103</b>",
+        "<b>206 na P3</b> e 42 na P2",
+        "responder “não quebra” para todos <b>acerta 99%</b> e acha nenhuma",
+        "<b>acurácia não é a régua</b> · a medida certa vem depois"
+      ]
+    }
+  ]
+},
+
+12: {
+  titulo: "Divisória · Causas e explicabilidade",
+  precisa: "Anunciar a seção. Divisória é pausa.",
+  versoes: [
+    {
+      fala: [
+        "Agora, a segunda parte: que causas se repetem, e o que separa o incidente que estoura do que fecha em tempo. São dezesseis códigos de fechamento, e a distribuição deles está aí do lado."
+      ],
+      chaves: [
+        "que causas <b>se repetem</b>",
+        "o que separa <b>quem estoura de quem fecha em tempo</b>",
+        "<b>16 códigos</b> de fechamento"
+      ]
+    },
+    {
+      fala: [
+        "Agora, as causas: o que se repete e o que separa quem estoura de quem fecha em tempo."
+      ],
+      chaves: ["as <b>causas</b> e o que separa quem estoura"]
+    },
+    {
+      fala: [
+        "Agora, a segunda parte: que causas se repetem, e o que separa o incidente que estoura do que fecha em tempo. São dezesseis códigos de fechamento, e a distribuição deles está aí do lado.",
+        "E já adianto o achado desta seção: a causa que aparece mais não é a que mais estoura o prazo."
+      ],
+      chaves: [
+        "que causas <b>se repetem</b>",
+        "<b>16 códigos</b> de fechamento",
+        "<i>→ a mais frequente não é a que mais estoura</i>"
+      ]
+    }
+  ]
+},
+
+13: {
+  titulo: "O mesmo ativo quebra de novo",
+  precisa: "Metade das quebras cai em ativo que já tinha quebrado.",
+  versoes: [
+    {
+      fala: [
+        "O primeiro padrão que apareceu é que a coisa se repete no mesmo lugar. Das 107 quebras do segundo semestre, <em>53</em> aconteceram num ativo que já tinha quebrado antes. Metade.",
+        "Na prioridade 3 são 49 de 87. Na 2 são só 20 quebras no semestre inteiro, dado de menos para confirmar o mesmo padrão. E é daqui que sai uma das dez variáveis que o modelo usa: o histórico do próprio ativo."
+      ],
+      chaves: [
+        "<b>53 de 107</b> quebras do semestre foram em ativo que <b>já tinha quebrado</b>",
+        "P3: 49 de 87 · P2: 20 quebras no semestre, <b>dado de menos</b>",
+        "daqui sai uma das <b>dez variáveis</b> do modelo"
+      ]
+    },
+    {
+      fala: [
+        "Das 107 quebras do segundo semestre, <em>53</em> foram num ativo que já tinha quebrado antes. Metade. E é daqui que sai uma das dez variáveis do modelo: o histórico do próprio ativo."
+      ],
+      chaves: [
+        "<b>53 de 107</b> em ativo que já tinha quebrado",
+        "vira <b>variável do modelo</b>"
+      ]
+    },
+    {
+      fala: [
+        "O primeiro padrão que apareceu é que a coisa se repete no mesmo lugar. Das 107 quebras do segundo semestre, <em>53</em> aconteceram num ativo que já tinha quebrado antes. Metade.",
+        "Esse efeito é da prioridade 3, onde são 49 de 87. Na prioridade 2 são 4 de 20, e vinte quebras no semestre inteiro é dado de menos para afirmar o mesmo — a gente prefere dizer isso do que fingir que o padrão vale nas duas.",
+        "De qualquer forma, é daqui que sai uma das dez variáveis que o modelo usa: quantas vezes aquele ativo já passou, e quantas vezes já estourou."
+      ],
+      chaves: [
+        "<b>53 de 107</b> quebras foram em ativo que já tinha quebrado",
+        "P3: <b>49 de 87</b> · P2: 4 de 20, <b>dado de menos para afirmar</b>",
+        "vira variável: <b>quantas passagens e quantas quebras</b> do ativo"
+      ]
+    }
+  ]
+},
+
+14: {
+  titulo: "O código “Outro”",
+  precisa: "Um achado de processo, não de modelo: fechar sem causa identificada.",
+  versoes: [
+    {
+      fala: [
+        "Tem um achado aqui que não é de modelo, é de processo. Existe um código de fechamento chamado <em>Outro</em>, que na prática quer dizer que o caso fechou sem causa identificada.",
+        "Ele é 8% do volume, mas responde por <em>22,9% das violações</em>. A taxa de quebra dentro dele é de 2,69%, contra 0,94% da média da base.",
+        "Esse campo só é preenchido no fechamento, então ele não entra no modelo. Mas vale o apontamento: quase um quarto das violações fecha sem ninguém saber por quê."
+      ],
+      chaves: [
+        "<b>Outro</b> = fechou <b>sem causa identificada</b>",
+        "<b>8%</b> do volume, <b>22,9%</b> das violações",
+        "taxa de <b>2,69%</b> contra 0,94% da base",
+        "não entra no modelo (só existe no fechamento), <b>vale como apontamento</b>"
+      ]
+    },
+    {
+      fala: [
+        "Um achado de processo: o código <em>Outro</em>, que é fechar sem causa identificada, é 8% do volume e <em>22,9% das violações</em>. Ele não entra no modelo porque só existe no fechamento, mas vale o apontamento."
+      ],
+      chaves: [
+        "<b>Outro</b> = sem causa identificada",
+        "<b>8%</b> do volume · <b>22,9%</b> das violações",
+        "fora do modelo, <b>vale como apontamento</b>"
+      ]
+    },
+    {
+      fala: [
+        "Tem um achado aqui que não é de modelo, é de processo. Existe um código de fechamento chamado <em>Outro</em>, que na prática quer dizer que o caso fechou sem causa identificada.",
+        "Ele é 8% do volume, 1.596 incidentes, mas responde por <em>22,9% das violações</em>, que são 43 quebras. A taxa dentro dele é de 2,69%, quase três vezes a média da base, que é 0,94%.",
+        "Só que esse campo é preenchido no fechamento, quando o caso já acabou, então ele não pode entrar num modelo que precisa decidir na abertura. Fica de fora, e vale como apontamento de processo: quase um quarto das violações fecha sem ninguém saber por quê."
+      ],
+      chaves: [
+        "<b>Outro</b> = fechou <b>sem causa identificada</b>",
+        "<b>8%</b> do volume (1.596) · <b>22,9%</b> das violações (43)",
+        "taxa <b>2,69%</b> contra 0,94% da base",
+        "preenchido no fechamento → <b>não serve para decidir na abertura</b>",
+        "apontamento: <b>um quarto das violações fecha sem causa</b>"
+      ]
+    }
+  ]
+},
+
+15: {
+  titulo: "A causa mais frequente não é a que mais estoura",
+  precisa: "Volume e risco não coincidem, e priorizar por volume é atender o que já está sob controle.",
+  versoes: [
+    {
+      fala: [
+        "E aqui está por que agrupar as causas importa. A causa mais frequente é <em>Falha de Aplicação</em>, que sozinha é 60% do volume, mas dentro dela só 0,82% dos casos estouram o prazo.",
+        "Já <em>Falha de Storage</em> é meio por cento do volume e estoura 2,91%, mais de três vezes mais. Ou seja, seis de cada dez incidentes vêm da causa que menos estoura, e quem prioriza por volume está atendendo o que já está sob controle."
+      ],
+      chaves: [
+        "<b>Falha de Aplicação</b>: 60% do volume, estoura <b>0,82%</b>",
+        "<b>Falha de Storage</b>: 0,5% do volume, estoura <b>2,91%</b>",
+        "seis de cada dez vêm da causa que <b>menos estoura</b>",
+        "priorizar por volume = <b>atender o que já está sob controle</b>"
+      ]
+    },
+    {
+      fala: [
+        "A causa mais frequente, <em>Falha de Aplicação</em>, é 60% do volume e estoura 0,82%. <em>Falha de Storage</em> é meio por cento do volume e estoura 2,91%. Priorizar por volume é atender o que já está sob controle."
+      ],
+      chaves: [
+        "Aplicação: <b>60%</b> do volume, <b>0,82%</b> estoura",
+        "Storage: <b>0,5%</b> do volume, <b>2,91%</b> estoura",
+        "volume ≠ risco"
+      ]
+    },
+    {
+      fala: [
+        "E aqui está por que agrupar as causas importa. A causa mais frequente é <em>Falha de Aplicação</em>, que sozinha é 60% do volume, doze mil incidentes, mas dentro dela só 0,82% estouram o prazo na prioridade 3, e 0,88% na 2.",
+        "Já <em>Falha de Storage</em> são 103 incidentes, meio por cento do volume, e ali 2,91% estouram. Nenhuma quebra na prioridade 2 e 4,35% na 3.",
+        "Ou seja, seis de cada dez incidentes vêm da causa que menos estoura. Quem prioriza por volume está atendendo o que já está sob controle, e é esse tipo de inversão que o modelo de risco existe para corrigir."
+      ],
+      chaves: [
+        "<b>Falha de Aplicação</b>: 12.041 casos, 60% do volume, estoura <b>0,82%</b>",
+        "<b>Falha de Storage</b>: 103 casos, 0,5% do volume, estoura <b>2,91%</b>",
+        "seis de cada dez vêm da causa que <b>menos estoura</b>",
+        "<i>→ é essa inversão que o modelo de risco corrige</i>"
+      ]
+    }
+  ]
+},
+
+16: {
+  titulo: "Divisória · Previsão de volume",
+  precisa: "Anunciar a primeira entrega de modelo.",
+  versoes: [
+    {
+      fala: [
+        "Agora a primeira das duas entregas de modelo: quantos incidentes chegam por dia. É esse número que dimensiona a equipe antes de o dia começar. A gente usou o Prophet, prevendo a prioridade 2 e a 3 separadas, de um dia até uma semana à frente."
+      ],
+      chaves: [
+        "primeira entrega: <b>quantos chegam por dia</b>",
+        "é o que <b>dimensiona a equipe</b>",
+        "<b>Prophet</b> · P2 e P3 separadas · <b>D+1 a D+7</b>"
+      ]
+    },
+    {
+      fala: [
+        "A primeira entrega de modelo: quantos incidentes chegam por dia, que é o número que dimensiona a equipe."
+      ],
+      chaves: ["<b>quantos chegam por dia</b> · dimensiona a equipe"]
+    },
+    {
+      fala: [
+        "Agora a primeira das duas entregas de modelo: quantos incidentes chegam por dia. É esse número que dimensiona a equipe antes de o dia começar.",
+        "A gente usou o Prophet, na versão 1.3.0, prevendo a prioridade 2 e a 3 separadas, de um dia até uma semana à frente. O erro médio ficou em 4,2 incidentes por dia na prioridade 2 e 11,8 na 3, e os dois próximos slides mostram como a gente chegou nesses números."
+      ],
+      chaves: [
+        "primeira entrega: <b>quantos chegam por dia</b>",
+        "<b>Prophet 1.3.0</b> · P2 e P3 separadas · D+1 a D+7",
+        "erro médio: <b>4,2</b> no P2 e <b>11,8</b> no P3"
+      ]
+    }
+  ]
+},
+
+17: {
+  titulo: "Os próximos sete dias",
+  precisa: "A previsão contra o que de fato chegou.",
+  versoes: [
+    {
+      fala: [
+        "E este é o teste. Em 1º de outubro o modelo deu uma faixa para cada dia da semana seguinte, nas duas prioridades, e depois a gente comparou com o que de fato chegou.",
+        "Dos quatorze dias, <em>treze caíram dentro da faixa</em>. O único que ficou fora foi uma quinta na prioridade 2, e ficou um incidente acima do teto."
+      ],
+      chaves: [
+        "faixa por dia, feita em <b>1º de outubro</b>, nas duas prioridades",
+        "<b>13 dos 14 dias</b> caíram dentro",
+        "o único fora: <b>um incidente acima do teto</b>"
+      ]
+    },
+    {
+      fala: [
+        "O modelo deu uma faixa por dia para a semana seguinte, nas duas prioridades. Dos quatorze dias, <em>treze caíram dentro</em>. O único fora ficou um incidente acima do teto."
+      ],
+      chaves: [
+        "<b>13 dos 14 dias</b> dentro da faixa",
+        "o único fora: <b>1 incidente</b> acima"
+      ]
+    },
+    {
+      fala: [
+        "E este é o teste. Em 1º de outubro o modelo deu uma faixa para cada dia da semana seguinte, nas duas prioridades. Cada caixa dessas é a faixa daquele dia, a linha azul é a previsão central, e a bolinha preta é o que de fato chegou.",
+        "Dos quatorze dias, <em>treze caíram dentro da faixa</em>. O único que ficou fora foi a quinta na prioridade 2, e ficou um incidente acima do teto, que é o ponto vermelho ali.",
+        "Vale dizer que a faixa é de 80%, então errar um em quatorze está dentro do que se espera dela."
+      ],
+      chaves: [
+        "faixa por dia, feita em <b>1º de outubro</b>",
+        "caixa = faixa · linha = previsão · bolinha = <b>o que chegou</b>",
+        "<b>13 dos 14</b> dentro · o fora ficou <b>1 incidente</b> acima",
+        "a faixa é de <b>80%</b>: errar um em quatorze é o esperado"
+      ]
+    }
+  ]
+},
+
+18: {
+  titulo: "O erro contra os baselines",
+  precisa: "O que é cada baseline, quem ganha onde, e por que o Prophet fica.",
+  nota: "Aqui é onde o dono do projeto pediu para <b>dizer como cada baseline foi construído</b>. Os dois nomes estão no cartão do slide e na legenda da figura, e a fala principal explica os dois em uma frase cada.",
+  versoes: [
+    {
+      fala: [
+        "E aqui vem a parte honesta. A gente comparou o Prophet com dois baselines bem simples. O primeiro é a <em>média dos últimos sete dias</em>. O segundo repete o mesmo dia da semana anterior: a previsão para a próxima terça é o que chegou na terça passada.",
+        "Na prioridade 2 o Prophet ganha, com erro médio de 4,2 contra 4,9. Na prioridade 3 ele perde por pouco, 11,8 contra 11,3.",
+        "A gente manteve o Prophet porque ele ganha justamente onde a meta estourou, e porque ele devolve faixa e calendário, que o baseline não devolve e o resumo das sete da manhã precisa."
+      ],
+      chaves: [
+        "<b>média-7</b>: a previsão é a média dos últimos sete dias",
+        "<b>sazonal-7</b>: repete o mesmo dia da semana anterior",
+        "P2: Prophet <b>4,2</b> contra 4,9 · <b>ganha</b>",
+        "P3: Prophet 11,8 contra <b>11,3</b> · <b>perde por pouco</b>",
+        "fica porque ganha <b>onde a meta estourou</b> e devolve <b>faixa e calendário</b>"
+      ]
+    },
+    {
+      fala: [
+        "Comparamos com dois baselines simples: a <em>média dos últimos sete dias</em>, e repetir o <em>mesmo dia da semana anterior</em>. No P2 o Prophet ganha, 4,2 contra 4,9. No P3 ele perde por pouco, 11,8 contra 11,3. Mantivemos porque ele devolve faixa e calendário, que o baseline não devolve."
+      ],
+      chaves: [
+        "<b>média-7</b> e <b>sazonal-7</b> (mesmo dia da semana anterior)",
+        "P2: <b>4,2</b> contra 4,9 · P3: 11,8 contra <b>11,3</b>",
+        "fica pela <b>faixa e pelo calendário</b>"
+      ]
+    },
+    {
+      fala: [
+        "E aqui vem a parte honesta. A gente comparou o Prophet com dois baselines bem simples. O primeiro é a <em>média dos últimos sete dias</em>, que é o que qualquer planilha faria. O segundo repete o mesmo dia da semana anterior: a previsão para a próxima terça é o que chegou na terça passada — é simples, mas captura a sazonalidade semanal, que é o padrão mais forte desta base.",
+        "Na prioridade 2 o Prophet ganha, com erro médio de 4,2 incidentes por dia contra 4,9, uns 15% melhor. Na prioridade 3 ele perde por pouco, 11,8 contra 11,3, uns 4,5%.",
+        "A gente preferiu mostrar isso a esconder. Mantivemos o Prophet por dois motivos: ele ganha justamente na prioridade que estourou a meta, e ele devolve faixa e componente de calendário, que o baseline não devolve e que o resumo das sete da manhã e a projeção do ano precisam."
+      ],
+      chaves: [
+        "<b>média-7</b>: a média dos últimos sete dias",
+        "<b>sazonal-7</b>: repete o mesmo dia da semana anterior",
+        "P2: <b>4,2</b> contra 4,9 (<b>15% melhor</b>)",
+        "P3: 11,8 contra <b>11,3</b> (4,5% pior)",
+        "fica porque ganha <b>onde a meta estourou</b> e devolve <b>faixa e calendário</b>"
+      ]
+    }
+  ]
+},
+
+19: {
+  titulo: "Divisória · Risco de OLA",
+  precisa: "Anunciar o coração do produto.",
+  versoes: [
+    {
+      fala: [
+        "E agora o coração do produto: qual incidente vai estourar. O modelo pontua cada caso no instante em que ele abre e devolve a fila em ordem de risco."
+      ],
+      chaves: [
+        "<b>qual incidente vai estourar</b>",
+        "pontua <b>na abertura</b> e devolve a fila <b>em ordem de risco</b>"
+      ]
+    },
+    {
+      fala: ["Agora o coração do produto: qual incidente vai estourar."],
+      chaves: ["<b>qual incidente vai estourar</b>"]
+    },
+    {
+      fala: [
+        "E agora o coração do produto: qual incidente vai estourar. O modelo pontua cada caso no instante em que ele abre, com o que existe naquele momento, e devolve a fila em ordem de risco.",
+        "Aí do lado já está o resultado que a gente vai abrir: nos cinquenta primeiros da fila do modelo estão treze das cinquenta quebras do período. Ordenando por prioridade, nenhuma."
+      ],
+      chaves: [
+        "<b>qual incidente vai estourar</b>",
+        "pontua <b>na abertura</b>, com o que existe naquele momento",
+        "<b>13 de 50</b> nos cinquenta primeiros · por prioridade, <b>nenhuma</b>"
+      ]
+    }
+  ]
+},
+
+20: {
+  titulo: "Quebras encontradas por tamanho da fila",
+  precisa: "O ganho contra as regras simples: mesma fila, ordem diferente.",
+  versoes: [
+    {
+      fala: [
+        "E esse é o resultado que mais importa. O gráfico mostra quantas quebras você encontra conforme vai percorrendo a fila.",
+        "Olhando só os cinquenta primeiros casos, a fila do modelo entrega <em>treze das cinquenta quebras</em> do período. Ordenando pela taxa histórica do time, sete. Ordenando por prioridade, que é o método de hoje, nenhuma.",
+        "São os mesmos cinquenta casos e o mesmo dia. O que muda é a ordem, e a ordem de hoje é a que acha menos."
+      ],
+      chaves: [
+        "quantas quebras você acha <b>conforme percorre a fila</b>",
+        "nos 50 primeiros: modelo <b>13 de 50</b>",
+        "taxa do time: 7 · ativo crônico: 0 · <b>prioridade: nenhuma</b>",
+        "mesmos casos, mesmo dia: <b>o que muda é a ordem</b>"
+      ]
+    },
+    {
+      fala: [
+        "Olhando só os cinquenta primeiros da fila, o modelo encontra <em>treze das cinquenta quebras</em>. Ordenando por prioridade, que é o método de hoje, nenhuma. Mesmos casos, mesmo dia: o que muda é a ordem."
+      ],
+      chaves: [
+        "nos 50 primeiros: <b>13 de 50</b> contra <b>nenhuma</b> por prioridade",
+        "o que muda é <b>a ordem</b>"
+      ]
+    },
+    {
+      fala: [
+        "E esse é o resultado que mais importa. O gráfico mostra quantas quebras você encontra conforme vai percorrendo a fila, e cada curva é uma forma diferente de ordenar os mesmos casos.",
+        "Olhando só os cinquenta primeiros, a fila do modelo entrega <em>treze das cinquenta quebras</em> do período. A melhor regra simples, que é ordenar pela taxa histórica do time, entrega sete. Ordenar por ativo crônico, nenhuma. Sem ordenação nenhuma, meia quebra. E ordenar por prioridade, que é o método de hoje, também nenhuma.",
+        "São os mesmos cinquenta casos e o mesmo dia. O que muda é a ordem, e a ordem de hoje é a que acha menos."
+      ],
+      chaves: [
+        "cada curva é <b>uma forma de ordenar os mesmos casos</b>",
+        "nos 50 primeiros: modelo <b>13</b> · taxa do time <b>7</b> · ativo crônico <b>0</b>",
+        "sem ordenação: <b>0,5</b> · por prioridade: <b>nenhuma</b>",
+        "mesmos casos, mesmo dia: <b>o que muda é a ordem</b>"
       ]
     }
   ]
@@ -851,6 +964,39 @@ const FALAS = {
     if (velho && !Object.keys(edits).length) edits = velho;
   } catch(e){}
 
+  /* O QUE JÁ VOLTOU DO CHAT SAI DAQUI SOZINHO. Sem isso, um slide aplicado no
+     arquivo continuaria marcado como alterado para sempre, e a lista do botão
+     de copiar só cresceria. Roda uma vez, na carga. */
+  (function limpaAplicado(){
+    let mudou = false;
+    Object.keys(escolha).forEach(n => {
+      if (!FALAS[n] || FALAS[n].versoes.length === 1){ delete escolha[n]; mudou = true; }
+    });
+    Object.keys(edits).forEach(n => {
+      const e = FALAS[n];
+      if (!e){ delete edits[n]; mudou = true; return; }
+      const g = edits[n];
+      if (g.cab){
+        if (g.cab.titulo === e.titulo) { delete g.cab.titulo; mudou = true; }
+        if (g.cab.precisa === e.precisa) { delete g.cab.precisa; mudou = true; }
+        if (!Object.keys(g.cab).length) delete g.cab;
+      }
+      [0,1,2].forEach(i => {
+        if (!g[i] || !e.versoes[i]) { if (g[i] && !e.versoes[i]) { delete g[i]; mudou = true; } return; }
+        ["fala","chaves"].forEach(campo => {
+          if (g[i][campo] && JSON.stringify(g[i][campo]) === JSON.stringify(e.versoes[i][campo])){
+            delete g[i][campo]; mudou = true;
+          }
+        });
+        if (!Object.keys(g[i]).length) delete g[i];
+      });
+      if (!Object.keys(g).length) delete edits[n];
+    });
+    if (mudou){
+      try { localStorage.setItem(CHAVE_LS, JSON.stringify({edits, escolha})); } catch(e){}
+    }
+  })();
+
   const dois = n => String(n).padStart(2, "0");
   const semTag = s => String(s).replace(/<[^>]+>/g, "");
   const palavras = s => semTag(s).trim().split(/\s+/).filter(Boolean).length;
@@ -883,18 +1029,22 @@ const FALAS = {
   }
 
   const escrito  = n => !!FALAS[n];
-  const definido = n => escolha[n] !== undefined;
+  /* FECHADO é o slide que já voltou do chat reduzido a uma fala só. Ele não é
+     escolha do navegador: é o arquivo. Por isso não aparece no que há para
+     copiar — já está aplicado. */
+  const fechado  = n => !!FALAS[n] && FALAS[n].versoes.length === 1;
+  const definido = n => fechado(n) || escolha[n] !== undefined;
   const mexido   = n => !!(edits[n] && Object.keys(edits[n]).length);
   const pendente = n => escrito(n) && !definido(n);
   const aRelatar = () => Object.keys(FALAS).map(Number)
-      .filter(n => definido(n) || mexido(n)).sort((a,b) => a-b);
+      .filter(n => escolha[n] !== undefined || mexido(n)).sort((a,b) => a-b);
 
   /* O TOTAL conta cada slide definido no tamanho que ele escolheu, e cada
      pendente na Principal, que é o tamanho em que ele foi escrito. O seletor
      do cabeçalho não entra nessa conta: ele é lupa, não decisão — deixá-lo
      mexer no total fazia o deck encolher três minutos só porque alguém
      espiou a versão curta de um slide. */
-  const versaoDe = n => definido(n) ? escolha[n] : 0;
+  const versaoDe = n => fechado(n) ? 0 : (escolha[n] !== undefined ? escolha[n] : 0);
 
   function segundos(n, v){
     const e = entrada(n);
@@ -992,8 +1142,11 @@ const FALAS = {
     numero.textContent = `slide ${dois(slide)} de ${TOTAL}`;
 
     /* chegando num slide, o que aparece é o tamanho dele, ou o padrão */
-    if (!espiando) versao = definido(slide) ? escolha[slide] : padrao;
+    if (!espiando) versao = fechado(slide) ? 0
+      : (escolha[slide] !== undefined ? escolha[slide] : padrao);
     espiando = false;
+    /* espiar um tamanho que aquele slide não tem mais deixaria a tela em branco */
+    if (FALAS[slide] && versao >= FALAS[slide].versoes.length) versao = 0;
     sincronizaSeletor();
     pintaTrilha();
 
@@ -1029,15 +1182,17 @@ const FALAS = {
   /* a barra da escolha, no alto do cartão da fala */
   function pintaBarra(){
     barra.hidden = false;
-    const def = definido(slide);
-    barra.className = "esc" + (def ? " ok" : "");
-    const eu = def && escolha[slide] === versao;
+    const fec = fechado(slide), esc = escolha[slide];
+    barra.className = "esc" + (fec || esc !== undefined ? " ok" : "");
+    const rotulo = fec ? "Fechado · " + (FALAS[slide].tamanho || "única")
+      : esc !== undefined ? "Definido · " + NOME[esc] : "Pendente";
+    const eu = esc !== undefined && esc === versao;
     barra.innerHTML =
-      `<span class="est">${def ? "Definido · " + NOME[escolha[slide]] : "Pendente"}</span>`
-      + `<span class="acao">`
-      + (eu ? `<span class="ja">Este é o escolhido</span>
-               <button class="lk" data-ac="solta">soltar a escolha</button>`
-            : `<button class="bt mini" data-ac="usa">Usar a ${NOME[versao]} neste slide</button>`)
+      `<span class="est">${rotulo}</span><span class="acao">`
+      + (fec ? `<span class="ja">Só esta fala ficou no arquivo</span>`
+         : eu ? `<span class="ja">Este é o escolhido</span>
+                 <button class="lk" data-ac="solta">soltar a escolha</button>`
+              : `<button class="bt mini" data-ac="usa">Usar a ${NOME[versao]} neste slide</button>`)
       + (mexido(slide) ? `<button class="lk" data-ac="desfaz">desfazer as edições</button>` : "")
       + `</span>`;
   }
@@ -1054,16 +1209,22 @@ const FALAS = {
   });
 
   function sincronizaSeletor(){
-    for (const o of $("segVer").children)
-      o.setAttribute("aria-pressed", +o.dataset.v === versao);
+    const nv = FALAS[slide] ? FALAS[slide].versoes.length : 3;
+    for (const o of $("segVer").children){
+      const v = +o.dataset.v;
+      o.setAttribute("aria-pressed", v === versao);
+      o.disabled = v >= nv;
+      o.title = v >= nv ? "este slide já ficou com uma fala só" : "";
+    }
   }
 
   function contaTotal(){
     const escritos = Object.keys(FALAS).length;
     const defs = Object.keys(FALAS).map(Number).filter(definido).length;
+    const fecs = Object.keys(FALAS).map(Number).filter(fechado).length;
     const pend = escritos - defs;
     estado.innerHTML = `<b>${defs}</b> definidos · <b class="${pend ? "pd" : ""}">${pend}</b> pendentes`
-      + `<span class="sep">de ${escritos} escritos</span>`;
+      + `<span class="sep">${fecs} já no arquivo · ${escritos} escritos</span>`;
     /* o total usa o tamanho ESCOLHIDO onde já houve escolha: é o tempo do deck
        como ele está configurado, e não de uma leitura hipotética */
     const s = Object.keys(FALAS).reduce((t, n) => t + segundos(+n, versaoDe(+n)), 0);
@@ -1089,7 +1250,7 @@ const FALAS = {
   /* ── o pacote que volta para o chat ─────────────────────────────────────── */
   function pacote(){
     const ns = aRelatar();
-    const defs = ns.filter(definido).length;
+    const defs = ns.filter(n => escolha[n] !== undefined).length;
     const L = ["ROTEIRO DO CRONOS · o que mudou",
                `${new Date().toLocaleString("pt-BR")} · ${defs} definido(s), `
                + `${ns.length - defs} com edição pendente`, ""];
@@ -1100,12 +1261,17 @@ const FALAS = {
         if (g.cab.titulo) L.push(`[título] ${g.cab.titulo}`);
         if (g.cab.precisa) L.push(`[precisa entregar] ${g.cab.precisa}`);
       }
-      if (definido(n)){
+      if (escolha[n] !== undefined){
         const v = escolha[n];
         L.push(`ESCOLHIDO: ${NOME[v]}  (as outras duas podem sair do arquivo)`, "", "FALA");
         e.versoes[v].fala.forEach(p => L.push(p));
         L.push("", "CHAVES");
         e.versoes[v].chaves.forEach(k => L.push("- " + k));
+      } else if (fechado(n)){
+        L.push("JÁ FECHADO, e o texto mudou:", "", "FALA");
+        e.versoes[0].fala.forEach(p => L.push(p));
+        L.push("", "CHAVES");
+        e.versoes[0].chaves.forEach(k => L.push("- " + k));
       } else {
         L.push("PENDENTE: ainda sem tamanho escolhido. Editado:");
         [0,1,2].forEach(i => {
@@ -1208,7 +1374,9 @@ const FALAS = {
     if (ev.key === "ArrowRight"){ ev.preventDefault(); vai(1); }
     else if (ev.key === "ArrowLeft"){ ev.preventDefault(); vai(-1); }
     else if (k === "t"){ trocaModo(); }
-    else if (k === "e" && FALAS[slide]){ sai(); escolha[slide] = versao; persiste(); pinta(); }
+    else if (k === "e" && FALAS[slide] && !fechado(slide)){
+      sai(); escolha[slide] = versao; persiste(); pinta();
+    }
     else if (k >= "1" && k <= "3"){
       sai(); versao = +k - 1;
       if (!definido(slide)) padrao = versao;
