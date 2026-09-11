@@ -603,14 +603,17 @@ const FALAS = {
 
 13: {
   titulo: "O mesmo ativo quebra de novo",
-  precisa: "Metade das quebras cai em ativo que já tinha quebrado.",
+  precisa: "Metade das quebras cai em ativo que já tinha quebrado. E dizer o que é “ativo”.",
+  nota: "“Ativo” é a coluna <b>Item de configuração</b> da planilha oficial — a sétima das dezenove, com valores como <code>IC00055</code>, 4.665 distintos na base elegível. Não confundir com <b>Produto</b>, que é outra coluna (<code>lvps</code>, <code>lsin</code>, 45 distintos): um produto tem centenas de itens de configuração. Se a banca perguntar, o nome da coluna é esse.",
   versoes: [
     {
       fala: [
-        "O primeiro padrão que apareceu é que a coisa se repete no mesmo lugar. Das 107 quebras do segundo semestre, <em>53</em> aconteceram num ativo que já tinha quebrado antes. Metade.",
+        "O primeiro padrão que apareceu é que a coisa se repete no mesmo lugar. E quando eu falo ativo, é a coluna <em>Item de configuração</em> da base, que é a máquina ou o serviço que o chamado aponta.",
+        "Das 107 quebras do segundo semestre, <em>53</em> aconteceram num ativo que já tinha quebrado antes. Metade.",
         "Na prioridade 3 são 49 de 87. Na 2 são só 20 quebras no semestre inteiro, dado de menos para confirmar o mesmo padrão. E é daqui que sai uma das dez variáveis que o modelo usa: o histórico do próprio ativo."
       ],
       chaves: [
+        "ativo = coluna <b>Item de configuração</b> (a máquina ou o serviço)",
         "<b>53 de 107</b> quebras do semestre foram em ativo que <b>já tinha quebrado</b>",
         "P3: 49 de 87 · P2: 20 quebras no semestre, <b>dado de menos</b>",
         "daqui sai uma das <b>dez variáveis</b> do modelo"
@@ -618,20 +621,23 @@ const FALAS = {
     },
     {
       fala: [
-        "Das 107 quebras do segundo semestre, <em>53</em> foram num ativo que já tinha quebrado antes. Metade. E é daqui que sai uma das dez variáveis do modelo: o histórico do próprio ativo."
+        "Das 107 quebras do segundo semestre, <em>53</em> foram num ativo que já tinha quebrado antes. Metade. Ativo aqui é a coluna <em>Item de configuração</em> da base, e é daqui que sai uma das dez variáveis do modelo: o histórico do próprio ativo."
       ],
       chaves: [
         "<b>53 de 107</b> em ativo que já tinha quebrado",
+        "ativo = <b>Item de configuração</b>",
         "vira <b>variável do modelo</b>"
       ]
     },
     {
       fala: [
-        "O primeiro padrão que apareceu é que a coisa se repete no mesmo lugar. Das 107 quebras do segundo semestre, <em>53</em> aconteceram num ativo que já tinha quebrado antes. Metade.",
-        "Esse efeito é da prioridade 3, onde são 49 de 87. Na prioridade 2 são 4 de 20, e vinte quebras no semestre inteiro é dado de menos para afirmar o mesmo — a gente prefere dizer isso do que fingir que o padrão vale nas duas.",
+        "O primeiro padrão que apareceu é que a coisa se repete no mesmo lugar. E quando eu falo ativo, é a coluna <em>Item de configuração</em> da base, que é a máquina, o domínio ou o serviço que o chamado aponta. São 4.665 deles, e não confundir com produto, que é outra coluna: um produto tem centenas de itens de configuração.",
+        "Das 107 quebras do segundo semestre, <em>53</em> aconteceram num ativo que já tinha quebrado antes. Metade.",
+        "Esse efeito é da prioridade 3, onde são 49 de 87. Na prioridade 2 são 4 de 20, e vinte quebras no semestre inteiro é dado de menos para afirmar o mesmo. A gente prefere dizer isso do que fingir que o padrão vale nas duas.",
         "De qualquer forma, é daqui que sai uma das dez variáveis que o modelo usa: quantas vezes aquele ativo já passou, e quantas vezes já estourou."
       ],
       chaves: [
+        "ativo = coluna <b>Item de configuração</b> · <b>4.665</b> deles · ≠ produto",
         "<b>53 de 107</b> quebras foram em ativo que já tinha quebrado",
         "P3: <b>49 de 87</b> · P2: 4 de 20, <b>dado de menos para afirmar</b>",
         "vira variável: <b>quantas passagens e quantas quebras</b> do ativo"
@@ -639,7 +645,6 @@ const FALAS = {
     }
   ]
 },
-
 14: {
   titulo: "O código “Outro”",
   precisa: "Um achado de processo, não de modelo: fechar sem causa identificada.",
