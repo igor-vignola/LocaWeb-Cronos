@@ -834,7 +834,7 @@ const FALAS = {
 25: {
   titulo: "A meta do ano vai fechar?",
   precisa: "A regra da meta, e as duas chamadas certas três meses antes.",
-  nota: "<b>“Meta” aqui é invertida:</b> não é um número para alcançar, é um teto para não passar. Quanto menos quebra, maior a nota do ano. É a primeira coisa a dizer, porque a palavra puxa para o sentido contrário.<br><br><b>E o 39 e o 263 são o teto do degrau de 100%, não um limite absoluto.</b> O KPI é uma escada: quanto menos violação, maior a nota do ano.<br><br><b>P2</b> · até 30 → 150% · 31 a 35 → 125% · <b>36 a 39 → 100%</b> · 40 a 45 → 75% · 46 a 53 → 50% · acima → 0%<br><b>P3</b> · até 200 → 150% · 201 a 230 → 125% · <b>231 a 263 → 100%</b> · 264 a 290 → 75% · 291 a 320 → 50% · acima → 0%<br><br>Onde 2025 parou: <b>P2 em 42 → 75%</b> (perdeu um degrau) e <b>P3 em 196 → 150%</b> (a melhor faixa). A projeção de outubro dava 43,5 no P2, que é 75%, e 208 no P3, que é 125%. Os dois vereditos batiam.<br><br>O deck não mostra essas porcentagens de propósito: “42 de 39 permitidas” se lê, “75% de atingimento” não.",
+  nota: "<b>“Meta” aqui é invertida:</b> não é um número para alcançar, é um teto para não passar. Quanto menos quebra, maior a nota do ano. É a primeira coisa a dizer, porque a palavra puxa para o sentido contrário.<br><br><b>E o 39 e o 263 são o teto do degrau que vale 100%, não um limite absoluto.</b><br><br><b>A porcentagem é a NOTA que a operação tira, e não quanto passou do limite.</b> Ela SOBE quando as quebras CAEM: 150% é o melhor resultado, 100% é bater o combinado, 75% é ficar abaixo. Passar do teto não sobe a porcentagem, derruba ela.<br><br><b>P2</b> · até 30 → nota 150% · 31 a 35 → nota 125% · <b>36 a 39 → nota 100%</b> · 40 a 45 → nota 75% · 46 a 53 → nota 50% · acima → nota 0%<br><b>P3</b> · até 200 → nota 150% · 201 a 230 → nota 125% · <b>231 a 263 → nota 100%</b> · 264 a 290 → nota 75% · 291 a 320 → nota 50% · acima → nota 0%<br><br>Onde 2025 parou: <b>P2 em 42 → nota 75%</b> (ficou abaixo do combinado) e <b>P3 em 196 → nota 150%</b> (a melhor faixa que existe). A projeção de outubro dava 43,5 no P2 e 208 no P3, ou seja, nota 75% e nota 125%: os dois vereditos batiam.<br><br>O deck não mostra essas porcentagens de propósito: “42 de 39 permitidas” se lê de relance, “75% de atingimento” não — e ainda se lê ao contrário.",
   versoes: [
     {
       fala: [
@@ -862,14 +862,15 @@ const FALAS = {
     {
       fala: [
         "Essa foi a pergunta que o Douglas fez na mentoria: a meta do ano vai fechar?",
-        "E é uma <em>meta invertida</em>: não é um número para alcançar, é um teto para não passar. Também não é um teto único, é uma escada de faixas definida pela Locaweb. Na prioridade 3, por exemplo: até 200 violações o indicador do ano fecha em 150%, até 230 em 125%, até 263 em 100%, e daí para cima ele vai caindo. Os dois números do cartão, <em>39</em> e <em>263</em>, são o limite de cada prioridade para fechar em 100%.",
+        "E é uma <em>meta invertida</em>: não é um número para alcançar, é um teto para não passar. Também não é um teto único, é uma escada de faixas definida pela Locaweb. Na prioridade 3, por exemplo: fechando o ano com até 200 violações a operação tira nota 150% no indicador; até 230, nota 125%; até 263, nota 100%; e daí para cima a nota vai caindo. Os dois números do cartão, <em>39</em> e <em>263</em>, são o limite de cada prioridade para fechar em 100%.",
         "Em 1º de outubro, com 33 violações acumuladas no P2 e 145 no P3, o Cronos projetou a prioridade 2 fechando entre 38 e 49, passando do limite dela; e a prioridade 3 entre 191 e 225, dentro.",
         "As duas chamadas estavam certas, três meses antes da apuração. O ano fechou em <em>42</em> na prioridade 2, acima do limite dela, e em <em>196</em> na 3, bem abaixo dos 263."
       ],
       chaves: [
         "pergunta do mentor: <b>a meta vai fechar?</b>",
         "<b>meta invertida</b>: teto, não alvo · quanto menos, melhor",
-        "é uma <b>escada</b>: P3 até 200 → 150% · até 230 → 125% · até <b>263</b> → 100%",
+        "escada da <b>nota</b>: P3 até 200 → 150% · até 230 → 125% · até <b>263</b> → 100%",
+        "a nota <b>sobe quando a quebra cai</b>",
         "39 e 263 = limite para <b>fechar em 100%</b>",
         "em outubro: 33 e 145 acumuladas",
         "projeção: P2 <b>38 a 49</b> (passa) · P3 <b>191 a 225</b> (dentro)",

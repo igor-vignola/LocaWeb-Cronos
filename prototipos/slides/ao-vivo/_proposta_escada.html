@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Proposta · a escada do indicador</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_estilo.css">
+<style>
+/* ═══ PROPOSTA · a escada do indicador ════════════════════════════════════════
+   Slide avulso, feito em 11/09/2026 para o dono do projeto decidir se entra no
+   deck. Existe porque ele tropeçou duas vezes no mesmo ponto lendo o slide da
+   meta, e o tropeço é de leitura, não de dado:
+
+     1. "meta" em português puxa para um número a ALCANÇAR, e aqui é um teto
+        para NÃO PASSAR;
+     2. a porcentagem parece o quanto se passou do limite, quando ela é a NOTA
+        que a operação tira — e sobe quando a quebra cai.
+
+   A resposta visual é literal: a escada DESCE da esquerda para a direita. Mais
+   quebras à direita, nota menor. A forma diz a inversão antes de qualquer
+   número ser lido, que é o que nenhuma frase conseguiu fazer.
+
+   Degraus de largura IGUAL, e não proporcional à faixa. As faixas são desiguais
+   (0 a 30, 31 a 35, 36 a 39…) e o eixo proporcional daria um primeiro degrau
+   gigante, sugerindo que ele é "mais fácil". O que se compara aqui é nota com
+   nota, não intervalo com intervalo.
+
+   Fonte: painel/servicos.py, dicionário ESCADA. Conferido em 11/09/2026.
+   ══════════════════════════════════════════════════════════════════════════ */
+body{margin:0;background:#0B0F16;display:grid;place-items:center;min-height:100vh}
+#palco{width:1600px;height:900px;position:relative;box-shadow:0 40px 90px -40px #000}
+#palco .slide{position:absolute;inset:0}
+
+.kpi .body{padding-top:14px}
+.kpi .tt{font-size:52px;letter-spacing:-1.9px}
+.kpi .tt em{font-style:normal;color:var(--accent)}
+.kpi .sub{font-size:17.5px;line-height:1.45;color:var(--tx);margin-top:11px;max-width:92ch}
+.kpi .sub b{color:var(--head);font-weight:700}
+
+.kpi .cena{flex:1;display:flex;flex-direction:column;justify-content:center;gap:26px;
+  margin-top:10px;min-height:0}
+
+/* ── uma prioridade ───────────────────────────────────────────────────────── */
+.kpi .pri{display:grid;grid-template-columns:172px 1fr;align-items:end;gap:0 26px}
+.kpi .cab{padding-bottom:34px}
+.kpi .cab b{display:block;font-size:20px;font-weight:800;letter-spacing:-.4px;color:var(--head)}
+.kpi .cab span{display:block;margin-top:5px;font-size:13px;line-height:1.4;color:var(--tx2)}
+
+/* a escada: seis degraus de largura igual, altura proporcional à nota */
+.kpi .esc{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;align-items:end}
+.kpi .dg{display:flex;flex-direction:column;align-items:stretch;min-width:0}
+.kpi .dg em{font-style:normal;font-size:21px;font-weight:800;letter-spacing:-.5px;
+  text-align:center;margin-bottom:8px;color:var(--tx2);font-variant-numeric:tabular-nums}
+.kpi .dg i{display:block;height:var(--h);border-radius:9px 9px 0 0;background:#D8DFEA;
+  transform:scaleY(0);transform-origin:bottom}
+.kpi.is-active .dg i{animation:sobe .5s var(--out) var(--d,0ms) forwards}
+.kpi .dg s{text-decoration:none;display:block;margin-top:10px;padding-top:9px;
+  border-top:1px solid var(--line);font-size:13.5px;text-align:center;color:var(--tx2);
+  font-variant-numeric:tabular-nums}
+
+/* a cor é o veredito, e ela vira no degrau do combinado */
+.kpi .dg.ok em{color:#15803D} .kpi .dg.ok i{background:#16A34A}
+.kpi .dg.alvo em{color:var(--head)} .kpi .dg.alvo i{background:var(--head)}
+.kpi .dg.wn em{color:#B45309} .kpi .dg.wn i{background:#D97706}
+.kpi .dg.w2 em{color:#C2410C} .kpi .dg.w2 i{background:#EA580C}
+.kpi .dg.no em{color:#B91C1C} .kpi .dg.no i{background:#DC2626}
+
+/* onde 2025 parou */
+.kpi .dg .pin{display:block;margin:0 auto 9px;width:fit-content;font-size:12px;
+  font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#fff;
+  padding:5px 12px;border-radius:999px;white-space:nowrap;opacity:0}
+.kpi.is-active .dg .pin{animation:rv .45s var(--out) 1900ms forwards}
+.kpi .dg.ok .pin{background:#15803D}
+.kpi .dg.wn .pin{background:#B45309}
+.kpi .dg:not(.aqui) .pin{display:none}
+/* o degrau onde o ano parou fica com o contorno, para achar de longe */
+.kpi .dg.aqui i{box-shadow:0 0 0 3px #fff,0 0 0 6px currentColor}
+.kpi .dg.ok.aqui i{color:#15803D} .kpi .dg.wn.aqui i{color:#B45309}
+
+/* o sentido do eixo, dito uma vez para as duas escadas */
+.kpi .eixo{display:grid;grid-template-columns:172px 1fr;gap:0 26px;margin-top:2px}
+.kpi .eixo .lin{display:flex;align-items:center;justify-content:space-between;
+  padding:9px 14px;border-radius:11px;background:#EEF2F8;font-size:14px;color:var(--tx)}
+.kpi .eixo b{color:var(--head);font-weight:700}
+</style>
+</head>
+<body>
+<div id="palco">
+
+<section class="slide light kpi is-active">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
+    <div class="bn">Cronos</div>
+    <div class="tag">Indicador de OLA &middot; escada oficial da Locaweb</div>
+  </div>
+
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">Como a nota do ano é calculada</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Menos quebras, <em>nota maior</em></span></span></h1>
+    <p class="sub rv" style="--d:560ms">A meta não é um número para alcançar, é um teto para não passar. <b>Cada faixa de quebras vale uma nota</b>, e passar de um teto derruba um degrau.</p>
+
+    <div class="cena">
+
+      <div class="pri">
+        <div class="cab"><b>Prioridade 2</b><span>prazo de 4 horas<br>teto do 100%: 39</span></div>
+        <div class="esc">
+          <div class="dg ok"   style="--d:760ms"><em>150%</em><i style="--h:170px"></i><s>até 30</s></div>
+          <div class="dg ok" style="--d:820ms"><em>125%</em><i style="--h:142px"></i><s>31 a 35</s></div>
+          <div class="dg alvo" style="--d:880ms"><em>100%</em><i style="--h:113px"></i><s>36 a 39</s></div>
+          <div class="dg wn aqui" style="--d:940ms"><span class="pin">2025 fechou em 42</span><em>75%</em><i style="--h:85px"></i><s>40 a 45</s></div>
+          <div class="dg w2"   style="--d:1000ms"><em>50%</em><i style="--h:57px"></i><s>46 a 53</s></div>
+          <div class="dg no"   style="--d:1060ms"><em>0%</em><i style="--h:10px"></i><s>54 ou mais</s></div>
+        </div>
+      </div>
+
+      <div class="pri">
+        <div class="cab"><b>Prioridade 3</b><span>prazo de 12 horas<br>teto do 100%: 263</span></div>
+        <div class="esc">
+          <div class="dg ok aqui" style="--d:1140ms"><span class="pin">2025 fechou em 196</span><em>150%</em><i style="--h:170px"></i><s>até 200</s></div>
+          <div class="dg ok"   style="--d:1200ms"><em>125%</em><i style="--h:142px"></i><s>201 a 230</s></div>
+          <div class="dg alvo" style="--d:1260ms"><em>100%</em><i style="--h:113px"></i><s>231 a 263</s></div>
+          <div class="dg wn"   style="--d:1320ms"><em>75%</em><i style="--h:85px"></i><s>264 a 290</s></div>
+          <div class="dg w2"   style="--d:1380ms"><em>50%</em><i style="--h:57px"></i><s>291 a 320</s></div>
+          <div class="dg no"   style="--d:1440ms"><em>0%</em><i style="--h:10px"></i><s>321 ou mais</s></div>
+        </div>
+      </div>
+
+      <div class="eixo rv" style="--d:1700ms">
+        <span></span>
+        <span class="lin"><b>&larr; menos quebras no ano</b>
+          <span>a escada desce para a direita</span>
+          <b>mais quebras no ano &rarr;</b></span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="ft">
+    <span>Escada oficial da Locaweb &middot; uma por prioridade</span>
+    <span class="dir">Em 2025 a prioridade 2 caiu <b>dois degraus</b> e a prioridade 3 ficou no <b>degrau mais alto</b></span>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

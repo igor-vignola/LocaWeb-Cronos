@@ -96,11 +96,16 @@ Duas coisas, e a primeira é a que confunde. **A meta é invertida**: não é um
 número para alcançar, é um teto para não passar — quanto menos quebra, maior a
 nota do ano. E o KPI não é um teto único, é uma **escada de faixas** da
 Locaweb, com o 263 sendo o
-teto do degrau de 100%. No P3: até 200 violações o ano fecha em 150%, de 201 a
-230 em 125%, de 231 a 263 em 100%, de 264 a 290 em 75%, de 291 a 320 em 50%, e
-acima disso zero. No P2 a escada é 30, 35, **39**, 45, 53. Em 2025 o P2 fechou
-em 42, que é 75%, e o P3 em 196, que é a melhor faixa, 150%. A projeção de
-outubro dava 43,5 no P2 (75%) e 208 no P3 (125%): os dois vereditos batiam. O
+teto do degrau que vale 100%.
+
+E atenção ao sentido da porcentagem: ela é a **nota que a operação tira**, e não
+quanto se passou do limite. Ela **sobe quando a quebra cai**. No P3: fechando o
+ano com até 200 violações a nota é 150%, de 201 a 230 é 125%, de 231 a 263 é
+100%, de 264 a 290 cai para 75%, de 291 a 320 para 50%, e acima disso zero. No
+P2 a escada é 30, 35, **39**, 45, 53. Em 2025 o P2 fechou em 42, que dá nota
+75%, e o P3 em 196, que é a melhor faixa que existe, nota 150%. A projeção de
+outubro dava 43,5 no P2 e 208 no P3, ou seja, nota 75% e nota 125%: os dois
+vereditos batiam. O
 deck usa "42 de 39 permitidas" em vez da porcentagem porque a porcentagem não
 se lê de relance. → slide 25.
 
