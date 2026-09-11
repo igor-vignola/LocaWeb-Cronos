@@ -233,6 +233,27 @@ main{
    `fala` são os parágrafos. `chaves` são as âncoras para lembrar em pé, e cada
    uma é o que ele olharia de relance — nunca a frase inteira.
    ══════════════════════════════════════════════════════════════════════════ */
+/* ── ENCOMENDAS PARA QUANDO O RESTO FOR ESCRITO ─────────────────────────────
+   Pedidos do dono do projeto em 10/09/2026, que a FALA tem de cobrir porque o
+   slide de propósito não cobre:
+
+   slide 18 · dizer como cada baseline foi construído, em uma frase cada:
+     · baseline média-7   → a previsão de amanhã é a média dos últimos 7 dias.
+                            É o melhor baseline no P2 (4,9 contra 4,2 do Prophet).
+     · baseline sazonal-7 → a previsão de amanhã é o que aconteceu no mesmo dia
+                            da semana anterior. É o melhor no P3 (11,3 contra
+                            11,8 do Prophet), ou seja, ali ele ganha da gente.
+     Os dois nomes estão no cartão do slide e na legenda da figura.
+
+   slide 21 · resumir o que cada uma das três métricas mede:
+     · ROC AUC  → chance de o modelo dar nota maior para um caso que violou do
+                  que para um que não violou. 0,5 é moeda; 0,869 é o nosso.
+     · PR-AUC   → o mesmo, mas contando só os acertos entre os apontados. É a
+                  que vale quando o evento é raro: 1% da base viola.
+     · Calibração → se o modelo diz 5%, cinco em cem violam de fato. É o que
+                  permite somar as notas da fila e projetar o ano.
+   ─────────────────────────────────────────────────────────────────────────── */
+
 const FALAS = {
 
 1: {

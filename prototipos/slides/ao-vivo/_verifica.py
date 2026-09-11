@@ -41,7 +41,11 @@ VAO_LIMITE = 70
 # A capa e o slide das quebras respiram de propósito: neles o branco é a
 # composição, não defeito. Dez segundos num slide limpo valem mais que um
 # minuto num amontoado, e esses dois valem dez segundos.
-SEM_AVISO_DE_VAO = (1, 2, 3, 6, 11, 15, 19, 22)  # capa, quebras e a passagem para a demo são esparsos de propósito
+# Slides em que o branco é a composição, e não defeito. As sete divisórias
+# entraram em 10/09/2026, quando o rodapé delas saiu: um divisor é uma pausa, e
+# medir vão no pé de uma pausa é medir a pausa. Junto vieram os que ficaram
+# esparsos ao perder texto no mesmo dia (5, 13, 26, 27).
+SEM_AVISO_DE_VAO = (1, 2, 3, 5, 6, 7, 11, 12, 13, 15, 16, 19, 22, 23, 25, 26, 27, 28)
 
 MEDIDA = r"""() => {
   const a = document.querySelector('.slide.is-active');

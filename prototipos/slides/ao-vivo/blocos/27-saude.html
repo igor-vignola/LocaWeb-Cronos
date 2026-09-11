@@ -64,23 +64,26 @@
 .sdc .tt em{font-style:normal;color:var(--accent)}
 .sdc .sub{font-size:17px;line-height:1.45;color:var(--tx);margin-top:12px;max-width:98ch}
 
-.sdc .cena{flex:1;min-height:0;margin-top:24px;display:grid;
-  grid-template-columns:470px 1fr;gap:54px}
+.sdc .cena{flex:1;min-height:0;margin-top:22px;display:grid;
+  grid-template-columns:432px 1fr;gap:52px;align-items:start}
 
 /* ── os quinze, em barras ─────────────────────────────────────────────────── */
 .sdc .lado{display:flex;flex-direction:column;min-width:0}
 .sdc .lh{font-size:11.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
-  color:var(--tx2);margin-bottom:6px}
-.sdc .rw{flex:1;display:grid;grid-template-columns:66px 1fr 50px 12px;align-items:center;
-  gap:0 14px;padding:0 12px;border-radius:10px}
-.sdc .rw .cd{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--head);
+  color:var(--tx2);margin:0 12px 10px}
+/* altura própria, e não `flex:1`. Esticada até o pé da cena, a lista acompanhava
+   a altura do cartão ao lado e as oito linhas ficavam ou espremidas ou soltas,
+   dependendo do que o cartão carregasse naquele dia. */
+.sdc .rw{display:grid;grid-template-columns:64px 1fr 54px 12px;align-items:center;
+  gap:0 14px;padding:14px 12px;border-radius:10px}
+.sdc .rw .cd{font-family:var(--mono);font-size:16px;font-weight:700;color:var(--head);
   letter-spacing:-.3px}
-.sdc .rw .vl{font-size:15.5px;font-weight:700;text-align:right;letter-spacing:-.3px;
+.sdc .rw .vl{font-size:17px;font-weight:700;text-align:right;letter-spacing:-.3px;
   color:var(--head);font-variant-numeric:tabular-nums}
 .sdc .rw .cv{width:12px;height:12px;stroke:var(--head);stroke-width:2.8;fill:none;
   stroke-linecap:round;stroke-linejoin:round}
-.sdc .tk{height:12px;border-radius:6px;background:#E4E9F1}
-.sdc .tk i{display:block;height:100%;border-radius:6px;transform:scaleX(0);
+.sdc .tk{height:13px;border-radius:7px;background:#E4E9F1}
+.sdc .tk i{display:block;height:100%;border-radius:7px;transform:scaleX(0);
   transform-origin:left}
 .sdc.is-active .tk i{animation:corre .55s var(--out) calc(var(--d,0ms) + 180ms) forwards}
 /* as três faixas de cor do modal do produto, aplicadas a 100 − nota */
@@ -93,19 +96,22 @@
 .sdc .rw.on .vl{font-size:18px;font-weight:800}
 
 /* ── o produto aberto: o modal do produto, em tamanho de projeção ─────────── */
+/* o cartão tem a altura do que carrega. Esticado até o pé da cena, ele empurrava
+   os cinco componentes para longe uns dos outros e o vão entre linhas passava a
+   ser o elemento maior da tela. */
 .sdc .ab{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);
-  border-radius:22px;padding:26px 32px 24px;box-shadow:0 26px 60px -42px rgba(15,23,42,.55)}
+  border-radius:22px;padding:24px 30px 22px;box-shadow:0 26px 60px -42px rgba(15,23,42,.55)}
 .sdc .abh{display:flex;align-items:flex-end;justify-content:space-between;gap:30px}
 .sdc .abk{display:block;font-size:11.5px;font-weight:700;letter-spacing:1.7px;
   text-transform:uppercase;color:var(--tx2)}
-.sdc .abh .cd{display:block;font-family:var(--mono);font-size:40px;font-weight:800;
-  color:var(--head);letter-spacing:-1.5px;line-height:1.1;margin-top:6px}
+.sdc .abh .cd{display:block;font-family:var(--mono);font-size:34px;font-weight:800;
+  color:var(--head);letter-spacing:-1.3px;line-height:1.1;margin-top:5px}
 .sdc .sit{display:inline-block;margin-top:10px;font-size:11px;font-weight:700;
   letter-spacing:.9px;text-transform:uppercase;padding:5px 11px;border-radius:8px;
   color:#4C5870;background:#EDF1F7}
 .sdc .abn{text-align:right;flex-shrink:0}
-.sdc .abn .v{display:block;font-size:68px;font-weight:900;color:var(--head);
-  letter-spacing:-3.4px;line-height:.9;font-variant-numeric:tabular-nums}
+.sdc .abn .v{display:block;font-size:58px;font-weight:900;color:var(--head);
+  letter-spacing:-2.8px;line-height:.9;font-variant-numeric:tabular-nums}
 .sdc .abn .k{display:block;font-size:13px;color:var(--tx);margin-top:8px}
 
 /* as duas prioridades, com o mesmo peso: as duas entram na nota */
@@ -117,21 +123,24 @@
 .sdc .pri .v b{color:var(--head);font-weight:700;font-variant-numeric:tabular-nums}
 
 /* os cinco componentes que produzem a nota */
-.sdc .cp{display:grid;grid-template-columns:236px 138px 1fr 66px;align-items:center;
-  gap:0 20px}
-.sdc .cph{margin-top:24px;padding-top:15px;border-top:1px solid var(--line);
-  font-size:11.5px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;
+.sdc .cp{display:grid;grid-template-columns:206px 116px 1fr 62px;align-items:center;
+  gap:0 18px}
+/* a coluna da direita não podia ser um "1,000" solto: sem rótulo, o número mais
+   preciso da tela era o único sem nome. O cabeçalho batiza as duas colunas que
+   não são o nome do componente, e cabe em duas palavras cada. */
+.sdc .cph{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);
+  font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
   color:var(--tx2)}
-.sdc .cph > span:first-child{grid-column:1/3}
-.sdc .cph > span:last-child{grid-column:3/5;text-align:right;white-space:nowrap}
-.sdc .cps{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:2px}
-.sdc .cps .cp{flex:1}
+.sdc .cph > span:nth-child(1){grid-column:1/3}
+.sdc .cph > span:nth-child(2){grid-column:3/5;text-align:right;white-space:nowrap}
+.sdc .cps{display:flex;flex-direction:column;margin-top:2px}
+.sdc .cps .cp{padding:15px 0}
 .sdc .cps .cp + .cp{border-top:1px solid #EFF3F9}
 /* categorias em destaque: são elas que respondem o "por quê" */
-.sdc .cp .k{font-size:20px;font-weight:700;letter-spacing:-.3px;color:var(--head)}
-.sdc .cp .m{font-size:20px;font-weight:700;color:var(--head);
+.sdc .cp .k{font-size:18px;font-weight:700;letter-spacing:-.3px;color:var(--head)}
+.sdc .cp .m{font-size:18px;font-weight:700;color:var(--head);
   font-variant-numeric:tabular-nums}
-.sdc .cp .tr{height:14px;border-radius:7px;background:#E9EEF5}
+.sdc .cp .tr{height:13px;border-radius:7px;background:#E9EEF5}
 .sdc .cp .tr i{display:block;height:100%;border-radius:7px;background:#059669;
   transform:scaleX(0);transform-origin:left}
 .sdc.is-active .cp .tr i{animation:corre .6s var(--out) calc(var(--d,0ms) + 200ms) forwards}
@@ -140,9 +149,15 @@
 .sdc .cp .p{font-family:var(--mono);font-size:16px;font-weight:700;text-align:right;
   color:var(--head);font-variant-numeric:tabular-nums}
 
-.sdc .abf{margin-top:16px;padding-top:15px;border-top:1px solid var(--line);
-  font-family:var(--mono);font-size:13px;color:var(--head);font-weight:700;
+/* a conta que fecha o cartão: é o "e por quê" do título, e sem ela a coluna de
+   posição não leva a lugar nenhum */
+.sdc .abf{display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+  margin-top:18px;padding-top:15px;border-top:1px solid var(--line);
+  font-size:14px;color:var(--tx)}
+.sdc .abf b{font-family:var(--mono);font-weight:700;color:var(--head);
   font-variant-numeric:tabular-nums}
+.sdc .abf .r{font-size:15px;color:var(--head);font-weight:700}
+.sdc .abf .r b{font-size:19px;margin-left:6px}
 </style>
 
 <section class="slide light sdc" data-slide="27" data-var="a" data-quem="hygor">
@@ -198,6 +213,10 @@
             <span class="k">Nota</span>
           </div>
         </div>
+        <div class="cp cph rv" style="--d:1420ms">
+          <span>Componente e valor medido</span>
+          <span>Posição no conjunto, de 0 a 1</span>
+        </div>
         <div class="cps">
           <div class="cp r rv" style="--d:1480ms">
             <span class="k">Taxa de violação</span>
@@ -230,6 +249,10 @@
             <span class="p">1,000</span>
           </div>
         </div>
+        <p class="abf rv" style="--d:1820ms">
+          <span>Média das cinco posições <b>0,787</b></span>
+          <span class="r">Nota<b>21,3</b></span>
+        </p>
       </div>
     </div>
   </div>
