@@ -42,7 +42,7 @@ BLOCOS = SAIDA / "blocos"
 BUILD = SAIDA / "_build"
 PNG = SAIDA / "_png"
 VIEWER = SAIDA / "deck.html"
-PPTX = RAIZ / "sprints" / "EC_Sprint_4_2TSCOA_SolucaoFinal_Cronos_SuperDataBros.pptx"
+PPTX = RAIZ / "sprints" / "EC_Sprint_4_2TSCOA_solucaofinal_Cronos_SuperDataBros.pptx"
 PRINTS_DIR = RAIZ / "sprints" / "sprint-3" / "prints"
 CHROME = (r"C:\Users\igor.vignola\AppData\Local\ms-playwright"
           r"\chromium-1217\chrome-win64\chrome.exe")
