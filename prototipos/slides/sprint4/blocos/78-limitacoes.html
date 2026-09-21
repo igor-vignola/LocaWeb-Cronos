@@ -1,0 +1,85 @@
+<style>
+/* ═══ bloco 7 · limitações enfrentadas ═══════════════════════════════════════
+   Cinco limites que continuam de pé, cada um com a medida que o dimensiona.
+   Grade de 3 em cima e 2 embaixo, com o primeiro ocupando duas colunas: o da
+   cobertura do intervalo é o mais forte, e é o que a banca pergunta primeiro.
+
+   Tom âmbar contido, não vermelho: são limites declarados, não defeitos. O
+   slide seguinte responde a cada um deles.
+   ══════════════════════════════════════════════════════════════════════════ */
+.lim .body{padding-top:14px}
+.lim .tt{font-size:48px;letter-spacing:-1.8px}
+.lim .lead{font-size:17px;line-height:1.5;color:var(--tx);margin-top:12px;max-width:88ch}
+.lim .lead b{color:var(--head);font-weight:700}
+.lim .grade{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);
+  grid-template-rows:auto auto;gap:14px;margin-top:22px;align-content:center}
+.lim .cx{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px;
+  display:flex;flex-direction:column;box-shadow:0 18px 40px -34px rgba(15,23,42,.3)}
+.lim .cx.larga{grid-column:span 2;background:linear-gradient(160deg,#fff,#FDF8EE);
+  border-color:#F0DFBE}
+.lim .cx .cab{display:flex;align-items:center;gap:10px}
+.lim .cx .n{font-family:var(--mono);font-size:11.5px;font-weight:600;color:var(--warn);
+  background:var(--warn-l);border-radius:7px;padding:4px 9px}
+.lim .cx .med{margin-left:auto;font-size:26px;font-weight:900;letter-spacing:-1px;
+  color:var(--warn);line-height:1;font-variant-numeric:tabular-nums}
+.lim .cx .med small{font-size:13px;font-weight:600;letter-spacing:0;color:var(--tx2);margin-left:3px}
+.lim .cx b{display:block;font-size:17.5px;font-weight:800;letter-spacing:-.35px;color:var(--head);
+  margin-top:12px;line-height:1.25}
+.lim .cx p{font-size:14px;line-height:1.5;color:var(--tx);margin-top:8px}
+.lim .cx p b{display:inline;font-size:inherit;font-weight:700}
+.lim .cx.larga .med{font-size:40px}
+.lim .cx.larga b{font-size:20px}
+.lim .cx.larga p{font-size:15px}
+.lim .fecho{display:flex;align-items:flex-start;gap:12px;margin-top:18px;padding-top:16px;
+  border-top:1px solid #DCE4EF;font-size:16px;line-height:1.45;color:var(--tx)}
+.lim .fecho .ic{width:20px;height:20px;color:var(--accent);margin-top:2px;flex-shrink:0}
+.lim .fecho b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light lim" data-slide="0" data-var="a">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div>
+    <div class="tag">Cinco limites medidos e declarados</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">7 &middot; Conclusão</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Limitações enfrentadas</span></span></h1>
+    <p class="lead rv" style="--d:620ms">Cada um está medido, e nenhum impede a operação de usar o que já está no ar. <b>O slide seguinte responde a todos eles.</b></p>
+
+    <div class="grade">
+      <div class="cx larga rv" style="--d:800ms">
+        <div class="cab"><span class="n">Limite 01 · previsão</span><span class="med">59 a 61<small>% no P3</small></span></div>
+        <b>O intervalo do P3 cobre menos dias do que promete</b>
+        <p>A faixa de 80% cobriu entre 59% e 61% dos dias do período de teste no P3, contra <b>86% a 88% no P2</b>. A causa é a queda de patamar de novembro e dezembro, que o treino de janeiro a setembro não tinha como prever.</p>
+      </div>
+      <div class="cx rv" style="--d:920ms">
+        <div class="cab"><span class="n">Limite 02 · dado</span></div>
+        <b>O rótulo só existe depois do fechamento</b>
+        <p>O campo <b>Entrou para KPI?</b> é preenchido quando o incidente encerra, então em operação real os últimos dias da série ficam incompletos.</p>
+      </div>
+      <div class="cx rv" style="--d:1020ms">
+        <div class="cab"><span class="n">Limite 03 · histórico</span><span class="med">98<small>% em 2025</small></span></div>
+        <b>Um ano de dado denso, não três</b>
+        <p>Há dado para aprender o padrão de semana e de feriado, não o padrão de ano. A sazonalidade anual ficou desligada de propósito.</p>
+      </div>
+      <div class="cx rv" style="--d:1120ms">
+        <div class="cab"><span class="n">Limite 04 · valor</span></div>
+        <b>Não há número financeiro no dataset</b>
+        <p>Sem custo por violação, o ganho está medido em <b>violações e em posição na meta</b>, nunca em moeda, e assim ficou declarado em todo o material.</p>
+      </div>
+      <div class="cx rv" style="--d:1220ms">
+        <div class="cab"><span class="n">Limite 05 · produto</span></div>
+        <b>O resumo do dia ainda não usa modelo de linguagem</b>
+        <p>A frase de abertura é montada por regra sobre a saída dos modelos, dentro do contêiner. <b>Nenhum número passa por geração de texto.</b></p>
+      </div>
+    </div>
+
+    <div class="fecho rv" style="--d:1400ms">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.4"/><path d="M12 7.6v5.2M12 16.2v.2"/></svg>
+      <span>Declarar o limite com a medida ao lado é o que separa <b>o que o modelo faz do que ele ainda não faz</b>.</span>
+    </div>
+  </div>
+  <div class="ft"><span>Medições em notebooks/03_previsao_volume e 04_risco_ola</span></div>
+</section>

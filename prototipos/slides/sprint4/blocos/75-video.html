@@ -1,0 +1,81 @@
+<style>
+/* ═══ bloco 6 · o vídeo pitch ════════════════════════════════════════════════
+   O bloco tem um slide só, então ele é escuro: serve de respiro entre a
+   demonstração e a conclusão. O endereço é o objeto dominante e o QR está ao
+   lado, para quem estiver assistindo poder abrir na hora.
+
+   O QR aponta para o mesmo endereço escrito ao lado, gerado por
+   scripts/ (biblioteca qrcode) em figs/qr_video.png.
+   ══════════════════════════════════════════════════════════════════════════ */
+.vid .body{padding-top:14px;justify-content:center}
+.vid .cena{display:flex;gap:64px;align-items:center}
+.vid .lado{flex:1;min-width:0}
+.vid .tt{font-size:74px;font-weight:900;letter-spacing:-3px;line-height:1.02;color:#fff}
+.vid .tt .mask > span{background:linear-gradient(135deg,#fff 0%,#93C5FD 62%,#60A5FA 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.vid .url{display:inline-flex;align-items:center;gap:14px;margin-top:30px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:16px;
+  padding:18px 26px}
+.vid .url .ic{width:26px;height:26px;color:#60A5FA;flex-shrink:0}
+.vid .url span{font-family:var(--mono);font-size:30px;font-weight:600;letter-spacing:-.8px;
+  color:#fff}
+.vid .selo{display:inline-flex;align-items:center;gap:9px;margin-top:20px;font-size:14px;
+  font-weight:700;color:#5BD99A;background:rgba(21,160,91,.16);border-radius:999px;
+  padding:9px 18px}
+.vid .selo i{width:7px;height:7px;border-radius:50%;background:#5BD99A;
+  box-shadow:0 0 10px #5BD99A;font-style:normal}
+.vid.is-active .selo i{animation:pulsaVid 2.4s ease-in-out 1.6s infinite}
+@keyframes pulsaVid{0%,100%{box-shadow:0 0 10px #5BD99A}50%{box-shadow:0 0 18px #5BD99A}}
+
+.vid .fatos{display:flex;gap:0;margin-top:38px;border-top:1px solid rgba(255,255,255,.14)}
+.vid .ft2{flex:1;padding:20px 26px 0;border-right:1px solid rgba(255,255,255,.14)}
+.vid .ft2:first-child{padding-left:0}
+.vid .ft2:last-child{border-right:none}
+.vid .ft2 .k{font-size:11px;font-weight:700;letter-spacing:1.9px;text-transform:uppercase;
+  color:#8E99A8}
+.vid .ft2 .v{font-size:23px;font-weight:800;letter-spacing:-.6px;color:#fff;margin-top:8px}
+.vid .ft2 p{font-size:13.5px;line-height:1.45;color:#A6B0BD;margin-top:8px}
+
+.vid .qrw{flex-shrink:0;background:#fff;border-radius:22px;padding:20px;
+  box-shadow:0 40px 90px -40px rgba(0,0,0,.8)}
+.vid .qrw img{display:block;width:250px;height:250px}
+.vid .qrc{text-align:center;font-size:12.5px;font-weight:600;letter-spacing:1.4px;
+  text-transform:uppercase;color:#A6B0BD;margin-top:16px}
+</style>
+
+<section class="slide dark vid" data-slide="0" data-var="a">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#0A0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#2563EB" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#2563EB"/></svg></div>
+    <div class="bn">Cronos</div>
+    <div class="tag">Bloco 6 &middot; Link do vídeo pitch</div>
+  </div>
+  <div class="body">
+    <div class="cena">
+      <div class="lado">
+        <span class="eb"><span class="rv" style="--d:240ms">Vídeo pitch</span></span>
+        <h1 class="tt"><span class="mask" style="--d:380ms"><span>Cinco minutos</span></span><span class="mask" style="--d:480ms"><span>com a solução no ar</span></span></h1>
+        <div class="url rv3" style="--d:800ms">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.4" y="4.8" width="19.2" height="14.4" rx="3.4"/><path d="M10.2 9.4l5.2 2.6-5.2 2.6z"/></svg>
+          <span>youtu.be/IeWLVBD0Jas</span>
+        </div>
+        <div><span class="selo rv" style="--d:1000ms"><i></i>No ar no YouTube, com acesso público</span></div>
+
+        <div class="fatos">
+          <div class="ft2 rv" style="--d:1160ms"><div class="k">Duração</div><div class="v">5 minutos</div>
+            <p>O limite do enunciado, medido em ritmo de leitura calma.</p></div>
+          <div class="ft2 rv" style="--d:1250ms"><div class="k">Formato</div><div class="v">Hands on</div>
+            <p>A aplicação navegada ao vivo, nas seis abas e nas folhas de detalhe.</p></div>
+          <div class="ft2 rv" style="--d:1340ms"><div class="k">Acesso</div><div class="v">Público</div>
+            <p>Fora do portal, porque o arquivo não caberia no envio direto.</p></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="qrw rv3" style="--d:900ms"><img src="../figs/qr_video.png" alt="QR do vídeo pitch"></div>
+        <div class="qrc rv" style="--d:1100ms">Aponte a câmera</div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Challenge FIAP 2026 com Locaweb</span><span>Super Data Bros &middot; Turma 2TSCOA</span></div>
+</section>

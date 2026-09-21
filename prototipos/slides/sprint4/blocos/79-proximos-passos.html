@@ -1,0 +1,93 @@
+<style>
+/* ═══ bloco 7 · próximos passos ══════════════════════════════════════════════
+   Cada passo é a resposta a um limite do slide anterior, e o slide mostra isso
+   na forma: limite à esquerda, em cinza, a seta no meio, e o passo à direita,
+   em azul. A ligação entre os dois slides fica visível sem que ninguém precise
+   dizer que existe.
+   ══════════════════════════════════════════════════════════════════════════ */
+.pxm .body{padding-top:14px;justify-content:center}
+.pxm .tt{font-size:48px;letter-spacing:-1.8px}
+.pxm .lead{font-size:17px;line-height:1.5;color:var(--tx);margin-top:12px;max-width:88ch}
+.pxm .lead b{color:var(--head);font-weight:700}
+
+.pxm .cols{display:grid;grid-template-columns:330px 34px 1fr;gap:0 18px;margin-top:24px;
+  align-items:center}
+.pxm .th{font-size:11px;font-weight:700;letter-spacing:1.9px;text-transform:uppercase;
+  padding-bottom:10px;border-bottom:1px solid #DCE4EF}
+.pxm .th.a{color:var(--tx2)} .pxm .th.b{color:var(--accent)}
+.pxm .de{font-size:15px;line-height:1.4;color:var(--tx2);padding:15px 0}
+.pxm .de b{display:block;color:var(--head);font-weight:700;font-size:15.5px;margin-bottom:3px}
+.pxm .ar{display:flex;align-items:center;justify-content:center;color:#C2CCDB}
+.pxm .ar svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.pxm .pa{display:flex;align-items:flex-start;gap:14px;padding:15px 0}
+.pxm .pa .chip{width:38px;height:38px;border-radius:11px;background:var(--accent-l);
+  border:1px solid #BFDBFE;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pxm .pa .chip svg{width:19px;height:19px;color:var(--accent);stroke:currentColor;fill:none;
+  stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.pxm .pa b{display:block;font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--head)}
+.pxm .pa p{font-size:14px;line-height:1.45;color:var(--tx);margin-top:4px}
+.pxm .pa p b{display:inline;font-size:inherit;font-weight:700}
+/* o fio corre nas três colunas, então a linha lê como uma só */
+.pxm .fio{grid-column:1 / -1;height:1px;background:#DCE4EF}
+</style>
+
+<section class="slide light pxm" data-slide="0" data-var="a">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div>
+    <div class="tag">Cada passo responde a um limite</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">7 &middot; Conclusão</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Próximos passos</span></span></h1>
+    <p class="lead rv" style="--d:620ms">A lista da esquerda é a do slide anterior. <b>Nenhuma frente aqui é ideia solta: cada uma fecha um limite declarado.</b></p>
+
+    <div class="cols">
+      <div class="th a rv" style="--d:760ms">O limite que assumimos</div>
+      <div></div>
+      <div class="th b rv" style="--d:760ms">O que vem em seguida</div>
+
+      <div class="de rv" style="--d:860ms"><b>Limite 01</b>O intervalo cobre 59% a 61% dos dias no P3, contra 86% a 88% no P2</div>
+      <div class="ar rv" style="--d:880ms"><svg viewBox="0 0 24 24"><path d="M4 12h15"/><path d="M13.5 6.5L20 12l-6.5 5.5"/></svg></div>
+      <div class="pa rv" style="--d:900ms">
+        <span class="chip"><svg viewBox="0 0 24 24"><path d="M20.5 12a8.5 8.5 0 1 1-2.6-6.1"/><path d="M20.5 4.5V10h-5.5"/></svg></span>
+        <div><b>Reajuste semanal em janela consolidada</b><p>Re-treino a cada origem, descartando os últimos dias. É o modo de operação real, e o backtest já foi construído nesse formato.</p></div>
+      </div>
+      <div class="fio"></div>
+
+      <div class="de rv" style="--d:980ms"><b>Limite 02</b>O rótulo só existe depois do fechamento</div>
+      <div class="ar rv" style="--d:1000ms"><svg viewBox="0 0 24 24"><path d="M4 12h15"/><path d="M13.5 6.5L20 12l-6.5 5.5"/></svg></div>
+      <div class="pa rv" style="--d:1020ms">
+        <span class="chip"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5.6" rx="7.4" ry="2.8"/><path d="M4.6 5.6v12.2c0 1.5 3.3 2.8 7.4 2.8s7.4-1.3 7.4-2.8V5.6"/><path d="M4.6 11.7c0 1.5 3.3 2.8 7.4 2.8s7.4-1.3 7.4-2.8"/></svg></span>
+        <div><b>Ler direto da base interna da Locaweb</b><p>No lugar da planilha. É o nó tracejado do fluxograma da arquitetura, e troca a carga manual por dado quase em tempo real.</p></div>
+      </div>
+      <div class="fio"></div>
+
+      <div class="de rv" style="--d:1100ms"><b>Limite 03</b>Um ano de dado denso, não três</div>
+      <div class="ar rv" style="--d:1120ms"><svg viewBox="0 0 24 24"><path d="M4 12h15"/><path d="M13.5 6.5L20 12l-6.5 5.5"/></svg></div>
+      <div class="pa rv" style="--d:1140ms">
+        <span class="chip"><svg viewBox="0 0 24 24"><rect x="3.4" y="5" width="17.2" height="15.6" rx="2.4"/><path d="M3.4 9.8h17.2M8.4 3v4M15.6 3v4"/></svg></span>
+        <div><b>Religar a sazonalidade anual quando houver histórico</b><p>Com dois ou três anos de registro denso o padrão de ano passa a ser aprendível, e entra em teste pelo mesmo protocolo de backtest.</p></div>
+      </div>
+      <div class="fio"></div>
+
+      <div class="de rv" style="--d:1220ms"><b>Limite 04</b>Não há número financeiro no dataset</div>
+      <div class="ar rv" style="--d:1240ms"><svg viewBox="0 0 24 24"><path d="M4 12h15"/><path d="M13.5 6.5L20 12l-6.5 5.5"/></svg></div>
+      <div class="pa rv" style="--d:1260ms">
+        <span class="chip"><svg viewBox="0 0 24 24"><path d="M12 3.4v17.2M6 20.6h12M4 8.6h16"/><path d="M4 8.6l-2.4 5.2a3.4 3.4 0 0 0 4.8 0z"/><path d="M20 8.6l2.4 5.2a3.4 3.4 0 0 1-4.8 0z"/></svg></span>
+        <div><b>Levantar o custo por violação com a Locaweb</b><p>Para o ganho sair em moeda e não só em posição na meta. Hoje o que sustentamos é a ordenação da fila, não a redução de volume.</p></div>
+      </div>
+      <div class="fio"></div>
+
+      <div class="de rv" style="--d:1340ms"><b>Limite 05</b>O resumo ainda não usa modelo de linguagem</div>
+      <div class="ar rv" style="--d:1360ms"><svg viewBox="0 0 24 24"><path d="M4 12h15"/><path d="M13.5 6.5L20 12l-6.5 5.5"/></svg></div>
+      <div class="pa rv" style="--d:1380ms">
+        <span class="chip"><svg viewBox="0 0 24 24"><path d="M12 3.2l2.2 4.8 5.2.6-3.9 3.6.9 5.2-4.4-2.4-4.4 2.4.9-5.2L4.6 8.6l5.2-.6z"/></svg></span>
+        <div><b>Gerar a frase de abertura pela Claude API</b><p>Nos bastidores, para o resumo mudar de tom conforme o dia. <b>Sem interface de conversa com quem opera</b>, e sem número passando por geração de texto.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Cinco frentes &middot; uma para cada limite do slide anterior</span></div>
+</section>

@@ -1,0 +1,68 @@
+<style>
+/* ═══ bloco 7 · aprendizados-chave ═══════════════════════════════════════════
+   Quatro aprendizados, cada um com o número que o produziu à esquerda, em corpo
+   grande, e a lição à direita. O número vem primeiro de propósito: nenhum dos
+   quatro é opinião, todos saíram de uma medição que mudou uma decisão.
+
+   Fonte dos números, CONTRATO §5 e adendos: R² de 0,025 no volume contra
+   quebra; uma quebra a cada 103 incidentes; 0,296 contra 0,253 de PR-AUC;
+   25.600 elegíveis contra 107.416 da regra reescrita.
+   ══════════════════════════════════════════════════════════════════════════ */
+.apr .body{padding-top:14px;justify-content:center}
+.apr .tt{font-size:48px;letter-spacing:-1.8px}
+.apr .lead{font-size:17px;line-height:1.5;color:var(--tx);margin-top:12px;max-width:88ch}
+.apr .lista{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:20px}
+.apr .it{flex:1;display:flex;align-items:center;gap:30px;padding:18px 0}
+.apr .it + .it{border-top:1px solid #DCE4EF}
+.apr .it .mk{width:232px;flex-shrink:0}
+.apr .it .mk .v{font-size:46px;font-weight:900;letter-spacing:-2px;line-height:1;
+  color:var(--accent);font-variant-numeric:tabular-nums}
+.apr .it .mk .v small{font-size:18px;font-weight:700;letter-spacing:0;color:var(--tx2);
+  margin-left:4px}
+.apr .it .mk .l{font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  color:var(--tx2);margin-top:8px;line-height:1.35}
+.apr .it .tx b{display:block;font-size:20px;font-weight:800;letter-spacing:-.4px;color:var(--head)}
+.apr .it .tx p{font-size:15px;line-height:1.5;color:var(--tx);margin-top:7px;max-width:92ch}
+.apr .it .tx p b{display:inline;font-size:inherit;color:var(--head);font-weight:700}
+/* o que caiu no teste recebe o tom de alerta; o que se confirmou, o de acerto */
+.apr .it.caiu .mk .v{color:var(--bad)}
+.apr .it.ok .mk .v{color:var(--good)}
+</style>
+
+<section class="slide light apr" data-slide="0" data-var="a">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div>
+    <div class="tag">Quatro medições que mudaram o projeto</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">7 &middot; Conclusão</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Aprendizados-chave</span></span></h1>
+    <p class="lead rv" style="--d:620ms">Nenhum dos quatro é opinião da equipe. Cada um saiu de uma medição no dado, e cada um mudou uma decisão do projeto.</p>
+
+    <div class="lista">
+      <div class="it caiu rv" style="--d:800ms">
+        <div class="mk"><div class="v">2,5<small>%</small></div><div class="l">o quanto o volume<br>explica das quebras</div></div>
+        <div class="tx"><b>Testar a hipótese óbvia antes de construir sobre ela</b>
+          <p>A suposição de que dia movimentado quebra mais prazo caiu na medição, em dias úteis de 2025. Publicar isso reduziu o alcance prometido e dividiu a solução: <b>prever volume dimensiona a carga, e o risco por incidente aponta o caso</b>.</p></div>
+      </div>
+      <div class="it caiu rv" style="--d:940ms">
+        <div class="mk"><div class="v">1 <small>em 103</small></div><div class="l">incidentes<br>passam do prazo</div></div>
+        <div class="tx"><b>Com evento raro, a acurácia premia quem não avisa</b>
+          <p>Não sinalizar nada acerta <b>99,04%</b> dos casos e encontra zero violações. Trocamos a métrica: o que medimos é quantas violações aparecem nas primeiras posições da fila.</p></div>
+      </div>
+      <div class="it ok rv" style="--d:1080ms">
+        <div class="mk"><div class="v">0,296</div><div class="l">PR-AUC da logística<br>contra 0,253 do boosting</div></div>
+        <div class="tx"><b>Modelo interpretável não custou desempenho</b>
+          <p>Regressão logística e gradient boosting empatam na ordenação, com ROC AUC de 0,869 e 0,868. A logística vence no evento raro e fica calibrada, e a explicabilidade saiu <b>dos próprios pesos</b>, sem ferramenta intermediária.</p></div>
+      </div>
+      <div class="it rv" style="--d:1220ms">
+        <div class="mk"><div class="v">25.600</div><div class="l">elegíveis, contra 107.416<br>da regra reescrita</div></div>
+        <div class="tx"><b>O campo oficial do cliente vale mais que a regra reimplementada</b>
+          <p>Filtrar pelo campo <b>Entrou para KPI?</b> devolve o recorte certo. Refazer a regra apenas pelo incidente sem pai devolveria 88% da base, e todo número seguinte estaria errado.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Medições em data/interim/incidentes_kpi.parquet</span></div>
+</section>

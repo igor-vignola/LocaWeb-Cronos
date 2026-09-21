@@ -270,6 +270,51 @@ NOTAS.update({
         "aplicação; Docker na entrega. Nenhum serviço proprietário de nuvem no caminho, então a "
         "mesma imagem roda na Locaweb ou em qualquer provedor."),
 })
+NOTAS.update({
+    "mapa-abas": (
+        "Seis abas e quatro folhas de detalhe. Panorama mostra como está o dia em P3 e P2 e onde "
+        "agir primeiro; Previsão, quantos incidentes chegam nos próximos sete dias; Projeção, em "
+        "que degrau a meta do ano fecha; Fila de risco, qual incidente aberto tem mais chance de "
+        "estourar o prazo; Saúde por produto, qual dos quinze precisa de atenção; Causas, qual "
+        "código de fechamento compensa prevenir. As folhas são o resumo do dia, a régua da meta, "
+        "a explicabilidade do escore e o detalhe do produto. As páginas seguintes mostram uma "
+        "tela por vez, com o recorte de cada parte."),
+    "video": (
+        "O vídeo pitch tem cinco minutos, em formato hands on, com a aplicação navegada ao vivo "
+        "nas seis abas e nas folhas de detalhe. Está público no YouTube, em youtu.be/IeWLVBD0Jas, "
+        "e o QR do slide aponta para o mesmo endereço."),
+    "sintese": (
+        "Quatro medidas, todas na janela de avaliação fora do período de treino. A fila de risco "
+        "encontra 13 das 50 violações nos 50 primeiros de 5.183 incidentes, contra nenhuma quando "
+        "a fila é ordenada por prioridade, que é o que se faz hoje. A previsão de volume erra 4,2 "
+        "incidentes por dia no P2 e 11,8 no P3, contra 4,9 e 11,3 do melhor baseline. A projeção "
+        "da meta deu a chamada certa nas duas prioridades com dois meses de antecedência. O modelo "
+        "de risco tem área sob a curva de 0,869 e fica calibrado, prevendo 48,1 quebras onde houve "
+        "50. E a aplicação está no ar em seis abas, num contêiner, sem provedor de nuvem amarrado."),
+    "aprendizados": (
+        "Quatro medições que mudaram decisões. O volume do dia explica só 2,5% da variação das "
+        "quebras, o que dividiu a solução entre prever volume e apontar o caso. Com uma violação a "
+        "cada 103 incidentes, a acurácia premia quem não avisa, então medimos quantas violações "
+        "aparecem nas primeiras posições da fila. A regressão logística empata com o gradient "
+        "boosting na ordenação e vence no evento raro, com PR-AUC de 0,296 contra 0,253, então "
+        "interpretabilidade não custou desempenho. E o campo oficial Entrou para KPI? devolve "
+        "25.600 elegíveis, enquanto refazer a regra à mão devolveria 107.416."),
+    "limitacoes": (
+        "Cinco limites, todos medidos. A faixa de 80% da previsão cobre entre 59% e 61% dos dias "
+        "no P3, contra 86% a 88% no P2, por causa da queda de patamar de novembro e dezembro. O "
+        "rótulo de elegibilidade só existe depois do fechamento do incidente, então em produção os "
+        "últimos dias ficam incompletos. 98% dos elegíveis estão em 2025, então a sazonalidade "
+        "anual ficou desligada. O dataset não traz custo por violação, então o ganho está medido "
+        "em violações e em posição na meta. E a frase de abertura do resumo é montada por regra, "
+        "não por modelo de linguagem."),
+    "proximos-passos": (
+        "Cinco frentes, uma para cada limite do slide anterior. Reajuste semanal em janela "
+        "consolidada, que resolve a cauda incompleta do rótulo e deve corrigir a cobertura do "
+        "intervalo. Leitura direta da base interna da Locaweb, que é o nó tracejado da "
+        "arquitetura. Religar a sazonalidade anual quando houver dois ou três anos de registro "
+        "denso. Levantar o custo por violação com a Locaweb, para o ganho sair em moeda. E gerar "
+        "a frase de abertura do resumo pela Claude API, nos bastidores, sem interface de conversa."),
+})
 for _n in (1, 2, 3, 4, 5, 7):
     NOTAS[f"div-bloco-{_n}"] = f"Bloco {_n} do template da FIAP, {BLOCO_NOME[_n]}. {DIV_LINHA[_n]}"
 
