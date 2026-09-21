@@ -25,7 +25,7 @@ TELAS = [
      "O gestor de operações, antes da primeira reunião.",
      "Lê o resumo já escrito e leva a leitura pronta para a reunião. Não precisa abrir "
      "aba, filtrar período nem pedir relatório a ninguém."),
-    ("02-previsao", "Aba Previsão", "Quanto entra nos próximos dias",
+    ("02-previsao", "Aba Previsão", "Quantos incidentes nos próximos dias?",
      "Saída do Prophet. Trinta dias medidos emendados em duas semanas previstas, cada dia "
      "como <b>intervalo</b>, e não como número único.",
      "Quem dimensiona a equipe da semana.",
@@ -543,7 +543,7 @@ DESTAQUES: dict[str, list[dict]] = {
                     "INC8552480, produto lsin, equipe Team10, item de configuração IC01977.",
                     "Fila às 15h"),
                  _p("alvo", "O risco estimado",
-                    "8,1% de chance de estourar o prazo, nove vezes a média da base.",
+                    "8,1% de chance de estourar o prazo, contra 0,94% do incidente médio da base.",
                     "Regressão logística"),
              ]),
         dict(x=.310, y=.376, w=.380, h=.080,
@@ -562,10 +562,10 @@ DESTAQUES: dict[str, list[dict]] = {
              fecho="Modelo linear é explicável por construção: a soma de todas as contribuições reconstrói o escore exato.",
              passos=[
                  _p("peso", "Cada sinal com o seu peso",
-                    "Produto lsin com 54,5%, subcategoria pouco frequente com 18,1%, equipe com 16,4%.",
+                    "Entre os seis sinais: produto lsin com 54,5%, subcategoria com 18,1%, equipe com 16,4%.",
                     "Explicabilidade do modelo"),
                  _p("lupa", "O que a lista cobre",
-                    "Os seis sinais mostrados explicam 48% da contribuição positiva.",
+                    "Juntos, esses seis são 48% de toda a contribuição positiva do modelo.",
                     "Explicabilidade do modelo"),
                  _p("seta", "Para onde a folha leva",
                     "Os outros casos abertos do mesmo item de configuração, e a fila da equipe.",
@@ -648,7 +648,7 @@ DESTAQUES: dict[str, list[dict]] = {
              fecho="A tela é de diagnóstico, não de previsão, e diz isso antes de mostrar o primeiro número.",
              passos=[
                  _p("lupa", "Códigos de fechamento, por taxa",
-                    "19.973 incidentes encerrados até 30 de setembro, agrupados pelo código.",
+                    "19.973 elegíveis abertos até 30 de setembro; os 19.745 com código formam a tabela.",
                     "Base elegível ao KPI"),
                  _p("relogio", "Preenchido só no encerramento",
                     "Por isso o campo não prevê o caso de hoje, e a tela avisa.",
@@ -768,7 +768,7 @@ def secao_tela_inteira(chave: str, url: str) -> tuple[str, str]:
       </div>
     </div>
   </div>
-  <div class="ft"><span>Captura da aplicação &middot; relógio do sistema em 01/10/2025, 15h &middot; {url}</span></div>
+  <div class="ft"></div>
 </section>""", CSS_INTEIRA
 
 
@@ -821,7 +821,7 @@ def secao_recorte(chave: str, idx: int, url: str) -> tuple[str, str]:
       <div class="palco4">{crop}</div>
     </div>
   </div>
-  <div class="ft"><span>Captura da aplicação &middot; relógio do sistema em 01/10/2025, 15h &middot; {url}</span></div>
+  <div class="ft"></div>
 </section>""", CSS_RECORTE
 
 
