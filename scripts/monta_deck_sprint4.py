@@ -133,6 +133,7 @@ def _telas_e_recortes() -> list[tuple[str, object, str]]:
 # três em 21/09/2026. A arquitetura volta completa, nos quatro slides da Sprint 3.
 ORDEM: list[tuple[str, object, str]] = (
     [("banca", 1, "capa"), ("banca", 2, "equipe"), ("banca", 3, "cronos"),
+     ("bloco", "descricao", "descricao"),
      ("banca", 4, "prazo"), ("banca", 5, "quebras"), ("banca", 6, "fila-ordem"),
      ("pitch", "objetivo", "objetivo")]
     + [("banca", n, NB[n]) for n in range(7, 31)]
@@ -143,6 +144,7 @@ ORDEM: list[tuple[str, object, str]] = (
        ("banca", 31, "aplicacao")]
     + _telas_e_recortes()
     + [("bloco", "acesso", "acesso"),
+       ("bloco", "conclusao", "conclusao"),
        ("banca", 32, "obrigado")]
 )
 # o bloco do template em que cada trecho começa, para a pastilha do slide de espera e o visualizador
@@ -197,6 +199,23 @@ NOTAS: dict[str, str] = {
     ),
 }
 NOTAS.update({
+    "descricao": (
+        "O Cronos lê o histórico de incidentes da Locaweb e diz, antes de o prazo estourar, onde "
+        "a operação precisa agir. Ele parte dos 122.543 incidentes registrados entre janeiro de "
+        "2023 e dezembro de 2025, recorta pelo campo oficial Entrou para KPI? os 25.600 que "
+        "contam para o indicador de OLA, e devolve três respostas: quantos incidentes entram nos "
+        "próximos sete dias, qual incidente aberto tem maior probabilidade de estourar o prazo, e "
+        "em que posição a meta anual de P2 e de P3 deve fechar. São dois modelos e dois cálculos, "
+        "publicados em uma aplicação Django de seis abas, em contêiner Docker e sem dependência "
+        "de provedor de nuvem."),
+    "conclusao": (
+        "Nos 50 primeiros casos da fila de risco, o Cronos encontra 13 das 50 violações de uma "
+        "base de avaliação com 5.183 incidentes, fora do período de treino. Ordenando por "
+        "prioridade, que é o comportamento padrão da ferramenta de atendimento hoje, essas mesmas "
+        "50 posições não trazem nenhuma. Além disso: três meses de antecedência na leitura da "
+        "meta do ano, com a chamada certa nas duas prioridades; e seis abas no ar em um "
+        "contêiner, sem provedor de nuvem amarrado. O limite que continua de pé é a cobertura da "
+        "faixa de 80%, que fica entre 59% e 61% dos dias no P3 contra 86% a 88% no P2."),
     "fontes-de-dados": (
         "Duas fontes. A planilha LW-DATASET.xlsx, com 122.543 incidentes em 19 campos, de janeiro "
         "de 2023 a dezembro de 2025, é a única fonte de incidentes. O calendário de feriados "

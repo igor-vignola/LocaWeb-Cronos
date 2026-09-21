@@ -743,8 +743,12 @@ def _fato(chave_icone: str, k: str, v: str) -> str:
             f'<div class="v">{v}</div></div></div>')
 
 
-def secao_tela_inteira(chave: str, url: str) -> tuple[str, str]:
-    """O print inteiro no visual da banca, com a explicação geral da página ao lado."""
+def secao_tela_inteira(chave: str, url: str = "") -> tuple[str, str]:
+    """O print inteiro no visual da banca, com a explicação geral da página ao lado.
+
+    `url` ficou sem uso quando o rodapé de procedência saiu, a pedido do Igor em
+    21/09. O endereço da aplicação aparece uma vez, no slide de acesso.
+    """
     arquivo, eyebrow, titulo, legenda, quem, _ = _tela(chave)
     meta = TELA_META.get(chave, dict(lead=legenda, quem=quem, quando="No dia", modelos=""))
     pos_aba = next((i for i, t in enumerate(ABAS, 1) if t[0] == chave), None)
@@ -772,8 +776,11 @@ def secao_tela_inteira(chave: str, url: str) -> tuple[str, str]:
 </section>""", CSS_INTEIRA
 
 
-def secao_recorte(chave: str, idx: int, url: str) -> tuple[str, str]:
-    """Um destaque: os passos à esquerda e o recorte ampliado à direita."""
+def secao_recorte(chave: str, idx: int, url: str = "") -> tuple[str, str]:
+    """Um destaque: os passos à esquerda e o recorte ampliado à direita.
+
+    `url` ficou sem uso junto com o rodapé de procedência.
+    """
     arquivo, eyebrow, *_ = _tela(chave)
     regs = DESTAQUES[chave]
     r = regs[idx - 1]
