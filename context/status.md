@@ -3,7 +3,7 @@
 > Primeiro arquivo a consultar para retomar o trabalho. Atualizar a cada bloco concluído.
 > O detalhamento técnico da sprint corrente fica em `docs/sprint-3-mvp.md`; a preparação para a banca, em `docs/dossie-banca.md`.
 
-**Atualizado em:** 08/09/2026
+**Atualizado em:** 21/09/2026
 
 ---
 
@@ -23,6 +23,25 @@ Sprints 1 a 3. Cronos está entre os seis.
 portal diz 21/09/2026 às 23h59. Em 08/09/2026 a sessão inteira rodou em modo
 emergência por causa dessa cópia. Antes de declarar urgência, pedir ao Igor o
 print do campo de prazo.
+
+---
+
+## Nota da Sprint 3 · 9,5 de 10 (avaliada em 20/09/2026)
+
+Feedback do professor, transcrito do portal:
+
+> A apresentação detalhou muito bem o contexto e o problema, apresentando
+> arquitetura clara, análise exploratória dos dados e tecnologia utilizada, como
+> Django e Prophet. O ponto forte é a visualização do pipeline de dados e
+> evidências reais de execução dos notebooks. Faltou detalhar melhor o
+> funcionamento visual ou prints funcionais do MVP em si (telas, resultados
+> visíveis ao usuário final).
+
+A única crítica é o que o bloco 5 da Sprint 4 tem que resolver: prints da
+aplicação com balões apontando onde está cada funcionalidade (previsão, risco,
+projeção, saúde, causas, resumo), legenda que liga a tela ao modelo que a
+alimenta, e um mapa das seis abas e quatro folhas antes das capturas. O deck da
+Sprint 3 tinha os dez prints, mas sem marcação sobre a imagem.
 
 ---
 
@@ -100,8 +119,8 @@ decisão foi gravar no outro computador do Igor, depois de um `git pull`.
 |---|---|---|---|
 | 1 | Ideação | 27/04/2026 | Entregue · nota 5,00/5,00 |
 | 2 | Arquitetura | 24/05/2026 | Entregue · nota 5,00/5,00 |
-| 3 | MVP Preliminar | 23/08/2026 | **Em andamento** |
-| 4 | Solução Final | 21/09/2026 | Futuro |
+| 3 | MVP Preliminar | 23/08/2026 | Entregue · **nota 9,5/10** |
+| 4 | Solução Final | 21/09/2026 | **Em andamento** |
 
 Único ajuste pedido pelo professor na Sprint 2: slide explícito de gestão ágil. O template da Sprint 3 já tem dois slides dedicados a Kanban e gestão, então isso se resolve na montagem do PPT.
 
