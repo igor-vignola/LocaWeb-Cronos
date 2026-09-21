@@ -103,3 +103,8 @@ prototipos/**/_chk/
 # Pacote .zip da entrega: é o .pptx ao lado mais os sete notebooks, e sai de
 # scripts/monta_zip_entrega.py em dois segundos. 44 MB que não precisam de histórico.
 sprints/*.zip
+
+# HTML autônomo por slide da Sprint 4, regerado pelo builder
+prototipos/slides/sprint4/_build/
+prototipos/slides/sprint4/_png/
+prototipos/slides/sprint4/deck.html
