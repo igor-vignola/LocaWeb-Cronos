@@ -27,6 +27,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+from deck_sprint4_pptx import monta as monta_pptx  # noqa: E402
 from deck_sprint4_telas import (  # noqa: E402
     RECORTES, TELAS, html_tela, nota_recorte, nota_tela, secao_recorte, secao_tela_inteira,
 )
@@ -42,6 +43,7 @@ BUILD = SAIDA / "_build"
 PNG = SAIDA / "_png"
 VIEWER = SAIDA / "deck.html"
 PPTX = RAIZ / "sprints" / "EC_Sprint_4_2TSCOA_SolucaoFinal_Cronos_SuperDataBros.pptx"
+PRINTS_DIR = RAIZ / "sprints" / "sprint-3" / "prints"
 CHROME = (r"C:\Users\igor.vignola\AppData\Local\ms-playwright"
           r"\chromium-1217\chrome-win64\chrome.exe")
 
@@ -443,26 +445,76 @@ MEDIDA = """() => {
 }"""
 
 
-def render(itens: list[tuple[int, str, Path, int]], so: set[int] | None) -> list[Path]:
+# onde está a captura no slide, para a transição Transformar do .pptx casar os dois
+# slides. Devolve a caixa em px do palco e o recorte em fração da imagem.
+ONDE_ESTA_A_CAPTURA = """() => {
+  const el = document.querySelector('[data-morph]');
+  if (!el) return null;
+  const r = el.getBoundingClientRect();
+  const c = el.getAttribute('data-crop').split(' ').map(Number);
+  return {arquivo: el.getAttribute('data-morph'),
+          caixa: [r.left, r.top, r.width, r.height], crop: c};
+}"""
+
+# esconde só o preenchimento da captura, mantendo o cartão, a borda e a sombra: é
+# sobre esse fundo que o .pptx cola a captura como objeto próprio
+SEM_A_CAPTURA = """() => {
+  document.querySelectorAll('[data-morph]').forEach(el => {
+    el.style.backgroundImage = 'none';
+    el.querySelectorAll('img').forEach(i => { i.style.visibility = 'hidden'; });
+  });
+}"""
+
+
+def render(itens: list[tuple[int, str, Path, int]],
+           so: set[int] | None) -> tuple[list[Path], dict[int, dict]]:
+    """Fotografa cada slide e, onde há captura, também a versão sem ela.
+
+    A versão cheia é a que o visualizador mostra. A versão sem a captura vira o
+    fundo do .pptx, que recebe a captura por cima como objeto solto: é o que
+    permite a transição Transformar animar o mesmo objeto entre dois slides.
+    """
     from playwright.sync_api import sync_playwright
+
     PNG.mkdir(parents=True, exist_ok=True)
-    pngs = []
+    pngs: list[Path] = []
+    morph: dict[int, dict] = {}
     with sync_playwright() as pw:
         nav = pw.chromium.launch(executable_path=CHROME)
         pg = nav.new_context(viewport={"width": 1600, "height": 900}, device_scale_factor=2).new_page()
         for pos, nome, caminho, _ in itens:
             destino = PNG / f"{pos:02d}-{nome}.png"
+            fundo = PNG / f"{pos:02d}-{nome}_fundo.png"
             pngs.append(destino)
-            if so and pos not in so and destino.exists():
-                continue
-            pg.goto(caminho.resolve().as_uri(), wait_until="networkidle")
-            pg.evaluate("document.fonts.ready")
-            pg.wait_for_timeout(450)
-            pg.locator(".slide").first.screenshot(path=str(destino))
-            avisos = pg.evaluate(MEDIDA)
-            print(f"  {pos:02d} {nome:<28}" + ("  " + " | ".join(avisos) if avisos else ""))
+            pular = bool(so) and pos not in so and destino.exists()
+            if not pular:
+                pg.goto(caminho.resolve().as_uri(), wait_until="networkidle")
+                pg.evaluate("document.fonts.ready")
+                pg.wait_for_timeout(450)
+                pg.locator(".slide").first.screenshot(path=str(destino))
+                avisos = pg.evaluate(MEDIDA)
+                print(f"  {pos:02d} {nome:<28}" + ("  " + " | ".join(avisos) if avisos else ""))
+            else:
+                pg.goto(caminho.resolve().as_uri(), wait_until="networkidle")
+                pg.wait_for_timeout(120)
+
+            achado = pg.evaluate(ONDE_ESTA_A_CAPTURA)
+            if achado:
+                if not pular or not fundo.exists():
+                    pg.evaluate(SEM_A_CAPTURA)
+                    pg.wait_for_timeout(80)
+                    pg.locator(".slide").first.screenshot(path=str(fundo))
+                morph[pos] = dict(
+                    png_fundo=fundo,
+                    imagem=PRINTS_DIR / f"{achado['arquivo']}.png",
+                    caixa=tuple(achado["caixa"]),
+                    crop=tuple(achado["crop"]),
+                    grupo=achado["arquivo"],
+                )
+            elif fundo.exists():
+                fundo.unlink()
         nav.close()
-    return pngs
+    return pngs, morph
 
 
 def falas_da_banca() -> dict[int, str]:
@@ -498,19 +550,6 @@ def notas(itens) -> dict[int, str]:
         else:
             saida[pos] = NOTAS.get(nome, "Em construção.")
     return saida
-
-
-def monta_pptx(pngs: list[Path], notas_por_pos: dict[int, str]) -> None:
-    from pptx import Presentation
-    from pptx.util import Emu
-    prs = Presentation()
-    prs.slide_width, prs.slide_height = Emu(12192000), Emu(6858000)
-    branco = prs.slide_layouts[6]
-    for pos, png in enumerate(pngs, 1):
-        s = prs.slides.add_slide(branco)
-        s.shapes.add_picture(str(png), 0, 0, width=prs.slide_width, height=prs.slide_height)
-        s.notes_slide.notes_text_frame.text = notas_por_pos.get(pos, "")
-    prs.save(PPTX)
 
 
 def escreve_viewer(itens, pngs: list[Path], notas_por_pos: dict[int, str]) -> None:
@@ -586,14 +625,15 @@ def main() -> int:
                   if c.parent == BUILD and 'class="is-active slide light esp"' in c.read_text(encoding="utf-8"))
     print(f"     {len(itens)} slides, {esperas} de espera")
     print("2/4 · render")
-    pngs = render(itens, so)
+    pngs, morph = render(itens, so)
     print("3/4 · varredura de texto")
     if not varredura(itens):
         print("     limpa")
     print("4/4 · notas, pptx e visualizador")
     ns = notas(itens)
-    monta_pptx(pngs, ns)
+    contagem = monta_pptx(pngs, ns, morph, PPTX)
     escreve_viewer(itens, pngs, ns)
+    print(f"     transição: {contagem['morph']} transformar, {contagem['fade']} esmaecer")
     print(f"Pronto: {PPTX.name} ({len(pngs)} slides) · {VIEWER}")
     return 0
 

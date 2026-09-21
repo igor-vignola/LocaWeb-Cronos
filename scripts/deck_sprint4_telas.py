@@ -703,11 +703,9 @@ CSS_INTEIRA = """
 .tli .fato .k{font-size:10.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
   color:var(--tx2)}
 .tli .fato .v{font-size:15px;font-weight:600;color:var(--head);margin-top:2px}
-.tli .palco3{flex:1;min-width:0;display:flex;justify-content:flex-end;align-items:center;
-  perspective:2600px;perspective-origin:20% 50%}
+.tli .palco3{flex:1;min-width:0;display:flex;justify-content:flex-end;align-items:center}
 .tli .tela{width:980px;border-radius:14px;overflow:hidden;border:1px solid #D6DEE9;background:#fff;
-  box-shadow:0 60px 120px -50px rgba(15,23,42,.55),0 0 0 1px rgba(15,23,42,.03);
-  transform:rotateY(-6deg) rotateX(1deg)}
+  box-shadow:0 60px 120px -50px rgba(15,23,42,.55),0 0 0 1px rgba(15,23,42,.03)}
 .tli .tela img{display:block;width:100%}
 """
 
@@ -766,7 +764,7 @@ def secao_tela_inteira(chave: str, url: str) -> tuple[str, str]:
         <div class="fatos rv" style="--d:900ms">{fatos}</div>
       </div>
       <div class="palco3">
-        <div class="tela rv3" style="--d:500ms"><img src="{PRINTS}/{arquivo}.png" alt="{eyebrow}"></div>
+        <div class="tela rv3" style="--d:500ms" data-morph="{arquivo}" data-crop="0 0 1 1"><img src="{PRINTS}/{arquivo}.png" alt="{eyebrow}"></div>
       </div>
     </div>
   </div>
@@ -798,7 +796,9 @@ def secao_recorte(chave: str, idx: int, url: str) -> tuple[str, str]:
     altura = largura * razao
     bx = 0 if rw >= 1 else r["x"] / (1 - rw) * 100
     by = 0 if rh >= 1 else ry / (1 - rh) * 100
-    crop = (f'<div class="crop rv3" style="--d:500ms;width:{largura:.0f}px;height:{altura:.0f}px;'
+    crop = (f'<div class="crop rv3" data-morph="{arquivo}" '
+            f'data-crop="{r["x"]:.5f} {ry:.5f} {rw:.5f} {rh:.5f}" '
+            f'style="--d:500ms;width:{largura:.0f}px;height:{altura:.0f}px;'
             f'background-image:url({PRINTS}/{arquivo}.png);'
             f'background-size:{100 / rw:.3f}% {100 / rh:.3f}%;'
             f'background-position:{bx:.3f}% {by:.3f}%"></div>')

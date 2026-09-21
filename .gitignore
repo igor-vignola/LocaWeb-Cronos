@@ -108,3 +108,6 @@ sprints/*.zip
 prototipos/slides/sprint4/_build/
 prototipos/slides/sprint4/_png/
 prototipos/slides/sprint4/deck.html
+
+# fundo sem a captura, regerado a cada build
+prototipos/slides/sprint4/_png/*_fundo.png
