@@ -27,7 +27,9 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from deck_sprint4_telas import TELAS, html_tela, nota_tela  # noqa: E402
+from deck_sprint4_telas import (  # noqa: E402
+    RECORTES, TELAS, html_tela, nota_recorte, nota_tela, secao_recorte, secao_tela_inteira,
+)
 
 RAIZ = Path(__file__).resolve().parents[1]
 SLIDES = RAIZ / "prototipos" / "slides"
@@ -115,23 +117,37 @@ def _nomes_banca() -> dict[int, str]:
 
 NB = _nomes_banca()
 
+def _telas_e_recortes() -> list[tuple[str, object, str]]:
+    """Cada tela inteira seguida dos seus recortes, quando ela tem recortes definidos."""
+    itens: list[tuple[str, object, str]] = []
+    for i, t in enumerate(TELAS, 1):
+        itens.append(("tela", t[0], f"tela-{i:02d}-{t[0]}"))
+        for k in range(1, len(RECORTES.get(t[0], [])) + 1):
+            itens.append(("recorte", (t[0], k), f"recorte-{i:02d}-{k}-{t[0]}"))
+    return itens
+
+
+# Sem divisória de bloco, sem descrição resumida e sem slide de abordagem: o Igor tirou os
+# três em 21/09/2026. A arquitetura volta completa, nos quatro slides da Sprint 3.
 ORDEM: list[tuple[str, object, str]] = (
-    [("banca", 1, "capa"), ("div", 1, "div-bloco-1"), ("banca", 2, "equipe"), ("banca", 3, "cronos"),
-     ("bloco", "descricao", "descricao"),
-     ("div", 2, "div-bloco-2"), ("banca", 4, "prazo"), ("banca", 5, "quebras"), ("banca", 6, "fila-ordem"),
-     ("div", 3, "div-bloco-3"), ("pitch", "objetivo", "objetivo"),
-     ("div", 4, "div-bloco-4"), ("bloco", "abordagem", "abordagem")]
+    [("banca", 1, "capa"), ("banca", 2, "equipe"), ("banca", 3, "cronos"),
+     ("banca", 4, "prazo"), ("banca", 5, "quebras"), ("banca", 6, "fila-ordem"),
+     ("pitch", "objetivo", "objetivo")]
     + [("banca", n, NB[n]) for n in range(7, 31)]
-    + [("arquivo", ABERTURA / "12-codigo-C.html", "codigo-fonte"),
-       ("div", 5, "div-bloco-5"), ("banca", 31, "aplicacao"), ("bloco", "mapa-abas", "mapa-abas")]
-    + [("tela", t[0], f"tela-{i:02d}-{t[0]}") for i, t in enumerate(TELAS, 1)]
+    + [("arquivo", ABERTURA / "08-arquitetura-D.html", "fontes-de-dados"),
+       ("arquivo", ABERTURA / "09-desenho-D.html", "arquitetura-desenho"),
+       ("arquivo", ABERTURA / "10-descricao-A.html", "arquitetura-descricao"),
+       ("arquivo", ABERTURA / "11-tecnologias-A.html", "arquitetura-tecnologias"),
+       ("banca", 31, "aplicacao"), ("bloco", "mapa-abas", "mapa-abas")]
+    + _telas_e_recortes()
     + [("banca", 33, "acesso"),
        ("bloco", "video", "video"),
-       ("div", 7, "div-bloco-7"), ("bloco", "sintese", "sintese"), ("bloco", "aprendizados", "aprendizados"),
+       ("bloco", "sintese", "sintese"), ("bloco", "aprendizados", "aprendizados"),
        ("bloco", "limitacoes", "limitacoes"), ("bloco", "proximos-passos", "proximos-passos"),
        ("banca", 32, "obrigado")]
 )
-assert len(ORDEM) == 59, len(ORDEM)
+# o bloco do template em que cada trecho começa, para a pastilha do slide de espera e o visualizador
+BLOCO_INICIO = {"capa": 1, "prazo": 2, "objetivo": 3, "div-analise": 4, "aplicacao": 5, "video": 6, "sintese": 7}
 
 # ── o que cada posição nova vai ter, para o slide de espera ───────────────────
 # nome -> (título curto, o que o slide traz, origem do material)
@@ -232,6 +248,26 @@ NOTAS: dict[str, str] = {
         "holidays, que entra como regressor do Prophet."
     ),
 }
+NOTAS.update({
+    "fontes-de-dados": (
+        "Duas fontes. A planilha LW-DATASET.xlsx, com 122.543 incidentes em 19 campos, de janeiro "
+        "de 2023 a dezembro de 2025, é a única fonte de incidentes. O calendário de feriados "
+        "nacionais entra pela biblioteca holidays, porque o dataset não traz feriado, e vira "
+        "regressor do Prophet."),
+    "arquitetura-desenho": (
+        "O caminho do dado, da planilha ao painel do gestor: carga e tipagem, o filtro de "
+        "elegibilidade pelo campo oficial, os notebooks que treinam e gravam Parquet, e a "
+        "aplicação Django que apenas lê. O nó tracejado é a leitura direta da base interna da "
+        "Locaweb, que é próximo passo."),
+    "arquitetura-descricao": (
+        "Cada elemento do desenho com o papel que cumpre: a base recortada, os quatro modelos e "
+        "cálculos, os artefatos em Parquet e a camada de apresentação. Nada é calculado em tempo "
+        "de tela."),
+    "arquitetura-tecnologias": (
+        "Python, pandas e scikit-learn na análise; Prophet na previsão de volume; Django na "
+        "aplicação; Docker na entrega. Nenhum serviço proprietário de nuvem no caminho, então a "
+        "mesma imagem roda na Locaweb ou em qualquer provedor."),
+})
 for _n in (1, 2, 3, 4, 5, 7):
     NOTAS[f"div-bloco-{_n}"] = f"Bloco {_n} do template da FIAP, {BLOCO_NOME[_n]}. {DIV_LINHA[_n]}"
 
@@ -346,10 +382,7 @@ def escreve_build() -> list[tuple[int, str, Path, int]]:
         velho.unlink()
     itens, bloco = [], 1
     for pos, (tipo, ref, nome) in enumerate(ORDEM, 1):
-        if tipo == "div":
-            bloco = int(ref)
-        if nome == "video":
-            bloco = 6
+        bloco = BLOCO_INICIO.get(nome, bloco)
         if tipo == "banca":
             secao, css = slide_banca(int(ref))
             html = pagina(css, secao)
@@ -362,9 +395,18 @@ def escreve_build() -> list[tuple[int, str, Path, int]]:
         elif tipo == "div":
             secao, css = slide_div(int(ref))
             html = pagina(css, secao)
+        elif tipo == "tela" and str(ref) in RECORTES:
+            # tela no visual da banca, com marcadores; os recortes vêm nos slides seguintes
+            secao, css = secao_tela_inteira(str(ref), URL_APP)
+            html = pagina(css, secao)
         elif tipo == "tela":
+            # forma A da Sprint 3, enquanto a tela não ganha recortes
             pos_tela = int(nome.split("-")[1])
             html = html_tela(str(ref), pos_tela, len(TELAS), URL_APP)
+        elif tipo == "recorte":
+            chave, k = ref  # type: ignore[misc]
+            secao, css = secao_recorte(str(chave), int(k), URL_APP)
+            html = pagina(css, secao)
         elif tipo == "arquivo":
             caminho = Path(ref)
             if not caminho.exists():
@@ -450,6 +492,9 @@ def notas(itens) -> dict[int, str]:
             saida[pos] = banca.get(int(ref), "")
         elif tipo == "tela":
             saida[pos] = nota_tela(str(ref))
+        elif tipo == "recorte":
+            chave, k = ref  # type: ignore[misc]
+            saida[pos] = nota_recorte(str(chave), int(k))
         else:
             saida[pos] = NOTAS.get(nome, "Em construção.")
     return saida
