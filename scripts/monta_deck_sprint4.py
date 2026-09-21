@@ -76,6 +76,36 @@ DIV_LINHA = {
     5: "O endereço da aplicação, as seis abas e as quatro folhas, cada uma com quem usa e como.",
     7: "O que ficou pronto, o que a equipe aprendeu, os limites que continuam de pé e o que vem em seguida.",
 }
+# o título da divisória: mais curto que o nome oficial, que fica na pastilha do topo
+BLOCO_TITULO = {
+    1: "Equipe e projeto",
+    2: "Compreendendo o desafio",
+    3: "Objetivo do projeto",
+    4: "Detalhes do projeto realizado",
+    5: "Demonstração da solução",
+    7: "Conclusão e próximos passos",
+}
+# a fila dos sete blocos no pé da divisória
+BLOCO_CURTO = {1: "Equipe e projeto", 2: "O desafio", 3: "Objetivo", 4: "Projeto realizado",
+               5: "Demonstração", 6: "Vídeo pitch", 7: "Conclusão"}
+
+
+def lista_blocos(atual: int) -> str:
+    partes = []
+    for n in range(1, 8):
+        cls = "on" if n == atual else ("ok" if n < atual else "")
+        partes.append(f'<span class="{cls}"><b>{n:02d}</b>{BLOCO_CURTO[n]}</span>')
+    return "".join(partes)
+
+
+def render_div(molde: Path, n_bloco: int) -> tuple[str, str]:
+    """Troca {N}, {NOME}, {LINHA} e {LISTA} no molde da divisória de bloco."""
+    secao, css = secao_e_css(molde)
+    secao = (secao.replace("{N}", f"{n_bloco:02d}")
+             .replace("{NOME}", BLOCO_TITULO[n_bloco])
+             .replace("{LINHA}", DIV_LINHA[n_bloco])
+             .replace("{LISTA}", lista_blocos(n_bloco)))
+    return secao, css
 
 
 def _nomes_banca() -> dict[int, str]:
@@ -149,11 +179,61 @@ AJUSTES: dict[int, list[tuple[str, str]]] = {
 }
 # linha de apoio abaixo do título, só onde o título sozinho não fecha a mensagem.
 # Proposta ao Igor no lote 2; entra aqui depois de aprovada.
-APOIO: dict[int, str] = {}
-APOIO_PITCH: dict[str, str] = {}
+APOIO: dict[int, str] = {
+    8: "O total registrado saltou <b>5,4 vezes</b> de agosto para setembro; a série que conta para a meta ficou em 2.330 e 2.324.",
+    9: "<b>98,3%</b> dos incidentes elegíveis estão em 2025, então o treino usa só 2025 e a sazonalidade anual fica desligada.",
+    10: "No <b>P2</b> o efeito do fim de semana some: 0,75% contra 0,83% no dia útil. O de quem abre vale nas duas prioridades.",
+    13: "<b>116 das 238</b> quebras de 2025 foram em item de configuração que já tinha quebrado antes no ano.",
+    15: "A causa mais frequente tem taxa de violação abaixo da média da base; a ordenação certa é por taxa, não por volume.",
+    17: "<b>13 dos 14</b> dias da semana seguinte caíram dentro da faixa prevista em 1º de outubro, nas duas prioridades.",
+    18: "Erro médio de <b>4,2</b> por dia no P2 e <b>11,8</b> no P3, contra 4,9 e 11,3 do melhor baseline de cada série.",
+    20: "<b>13 quebras</b> nos 50 primeiros da fila de risco; ordenando por prioridade, como se faz hoje, nenhuma.",
+    21: "A regressão logística empata com o XGBoost em ROC AUC, vence em PR-AUC e prevê <b>48,1</b> quebras onde houve 50.",
+    26: "Em 1º de outubro a projeção já dizia <b>P2 acima</b> do limite e <b>P3 dentro</b>; o ano fechou em 42 e 196.",
+    27: "A nota junta cinco medidas de <b>P2 e P3</b>; a posição diz o tamanho do problema e a cor diz o tipo.",
+    # 29 e 30 ficam sem linha: o 29 já traz a mesma frase no corpo, e no 30 a linha encostava
+    # no rótulo da caixa da imagem Docker.
+}
+# o template pede que o objetivo comece por um verbo de ação
+APOIO_PITCH: dict[str, str] = {
+    "objetivo": "<b>Desenvolver</b> um sistema que antecipe a violação de OLA e a projeção da meta anual da "
+                "Locaweb, entregando a leitura do ano antes da apuração de dezembro, nas prioridades "
+                "<b>P2</b> e <b>P3</b>.",
+}
 
 # notas dos slides novos; os da banca vêm do roteiro, as telas do texto de uso real
-NOTAS: dict[str, str] = {}
+NOTAS: dict[str, str] = {
+    "descricao": (
+        "O Cronos é um sistema de previsão de incidentes operacionais construído sobre o histórico da "
+        "Locaweb. Ele lê os 122.543 incidentes registrados entre janeiro de 2023 e dezembro de 2025, "
+        "recorta pelo campo oficial Entrou para KPI? os 25.600 que contam para o indicador de OLA, e "
+        "devolve três respostas que hoje só existem na apuração de fim de ano: quantos incidentes entram "
+        "nos próximos sete dias, qual incidente aberto tem maior probabilidade de estourar o prazo, e em "
+        "que posição a meta anual de P2 e de P3 deve fechar. São dois modelos, dois cálculos e uma "
+        "aplicação. O Prophet prevê o volume diário de cada prioridade; uma regressão logística estima o "
+        "risco de violação de cada incidente aberto; a projeção soma realizado, fila aberta e volume que "
+        "ainda entra; e a nota de saúde ordena os produtos. A saída é publicada em uma aplicação Django "
+        "de seis abas, em contêiner Docker e sem dependência de provedor de nuvem, com um resumo escrito "
+        "no início do dia que chega ao gestor sem que ele precise consultar nada."
+    ),
+    "objetivo": (
+        "Desenvolver um sistema que antecipe a violação de OLA e a projeção da meta anual da Locaweb, "
+        "entregando a leitura do ano antes da apuração de dezembro, nas prioridades P2 e P3. O Cronos lê "
+        "os 122.543 incidentes do histórico, dos quais 25.600 entram no indicador, e devolve duas "
+        "respostas: quais incidentes vão estourar o prazo, pela regressão logística, e quantos incidentes "
+        "chegam nos próximos sete dias, pelo Prophet."
+    ),
+    "abordagem": (
+        "Quatro entregas nas datas da FIAP: ideação em 27/04 e arquitetura em 24/05, as duas com nota "
+        "5,00; MVP preliminar em 23/08, nota 9,5; e a solução final em 21/09. O escopo fechou por sprint, "
+        "toda hipótese passou por medição no dado antes de virar tela, e os sete notebooks analisam e "
+        "gravam Parquet enquanto a aplicação Django só lê. Duas fontes de dados: a planilha LW-DATASET.xlsx, "
+        "com 122.543 incidentes em 19 campos, e o calendário de feriados nacionais pela biblioteca "
+        "holidays, que entra como regressor do Prophet."
+    ),
+}
+for _n in (1, 2, 3, 4, 5, 7):
+    NOTAS[f"div-bloco-{_n}"] = f"Bloco {_n} do template da FIAP, {BLOCO_NOME[_n]}. {DIV_LINHA[_n]}"
 
 # ── CSS do builder: congelamento, linha de apoio, slide de espera ─────────────
 CSS_BUILDER = """
@@ -256,11 +336,7 @@ def slide_div(n_bloco: int) -> tuple[str, str]:
     molde = BLOCOS / "00-div-bloco.html"
     if not molde.exists():
         return slide_espera(f"div-bloco-{n_bloco}", n_bloco)
-    secao, css = secao_e_css(molde)
-    secao = (secao.replace("{N}", f"{n_bloco:02d}")
-             .replace("{NOME}", BLOCO_NOME[n_bloco])
-             .replace("{LINHA}", DIV_LINHA[n_bloco]))
-    return secao, css
+    return render_div(molde, n_bloco)
 
 
 def escreve_build() -> list[tuple[int, str, Path, int]]:

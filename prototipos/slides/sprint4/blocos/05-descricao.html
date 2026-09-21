@@ -1,0 +1,56 @@
+<style>
+/* ═══ bloco 1 · descrição resumida da solução ════════════════════════════════
+   O template pede "descrição resumida em no máximo 2 parágrafos". Os dois
+   parágrafos ficam à esquerda, em corpo de leitura; à direita, uma coluna
+   estreita com quatro números rotulados empilhados com fio de 1px, e não três
+   cartões iguais em fileira.
+
+   Números: 122.543 e 25.600 (21%) do CONTRATO §5; 4,2 e 11,8 do slide 18 da
+   banca; seis abas do slide 30. "Dois modelos, dois cálculos": adendo 7.11.
+   ══════════════════════════════════════════════════════════════════════════ */
+.dsc .body{padding-top:14px}
+.dsc .tt{font-size:52px;letter-spacing:-1.9px}
+.dsc .cena{flex:1;display:flex;gap:64px;margin-top:26px;min-height:0;align-items:flex-start}
+.dsc .txt{flex:1;min-width:0;max-width:930px}
+.dsc .txt p{font-size:18.5px;line-height:1.62;color:var(--tx)}
+.dsc .txt p + p{margin-top:22px}
+.dsc .txt p b{color:var(--head);font-weight:700}
+.dsc .col{width:360px;flex-shrink:0}
+.dsc .st{padding:18px 0}
+.dsc .st + .st{border-top:1px solid #DCE4EF}
+.dsc .st .k{font-size:11.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--tx2)}
+.dsc .st .v{font-size:40px;font-weight:900;letter-spacing:-1.8px;line-height:1;color:var(--head);
+  margin-top:8px;font-variant-numeric:tabular-nums}
+.dsc .st .v.ac{color:var(--accent)}
+.dsc .st .v small{font-size:16px;font-weight:600;letter-spacing:0;color:var(--tx2);margin-left:6px}
+.dsc .st .s{font-size:13.5px;line-height:1.4;color:var(--tx2);margin-top:7px}
+.dsc .st .s b{color:var(--head);font-weight:700}
+</style>
+
+<section class="slide light dsc" data-slide="0" data-var="a">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div>
+    <div class="tag">Solução final &middot; descrição resumida</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:240ms">A solução</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>O que o Cronos entrega</span></span></h1>
+
+    <div class="cena">
+      <div class="txt">
+        <p class="rv" style="--d:640ms">O Cronos é um sistema de previsão de incidentes operacionais construído sobre o histórico da Locaweb. Ele lê os <b>122.543 incidentes</b> registrados entre janeiro de 2023 e dezembro de 2025, recorta pelo campo oficial <b>Entrou para KPI?</b> os <b>25.600</b> que contam para o indicador de OLA, e devolve três respostas que hoje só existem na apuração de fim de ano: quantos incidentes entram nos próximos sete dias, qual incidente aberto tem maior probabilidade de estourar o prazo, e em que posição a meta anual de <b>P2 e de P3</b> deve fechar.</p>
+        <p class="rv" style="--d:820ms">São dois modelos, dois cálculos e uma aplicação. O Prophet prevê o volume diário de cada prioridade; uma regressão logística estima o risco de violação de cada incidente aberto; a projeção soma realizado, fila aberta e volume que ainda entra; e a nota de saúde ordena os produtos. A saída é publicada em uma aplicação <b>Django de seis abas</b>, em contêiner Docker e sem dependência de provedor de nuvem, com um resumo escrito no início do dia que chega ao gestor sem que ele precise consultar nada.</p>
+      </div>
+      <div class="col">
+        <div class="st rv" style="--d:1000ms"><div class="k">Base analisada</div><div class="v">122.543</div><div class="s">incidentes registrados, 2023 a 2025</div></div>
+        <div class="st rv" style="--d:1120ms"><div class="k">Recorte do indicador</div><div class="v ac">25.600<small>21%</small></div><div class="s">elegíveis pelo campo oficial <b>Entrou para KPI?</b></div></div>
+        <div class="st rv" style="--d:1240ms"><div class="k">Erro da previsão de volume</div><div class="v">4,2 <small>P2</small> &middot; 11,8 <small>P3</small></div><div class="s">incidentes por dia, de D+1 a D+7</div></div>
+        <div class="st rv" style="--d:1360ms"><div class="k">Aplicação</div><div class="v">6 <small>abas</small></div><div class="s">em um contêiner, sem provedor de nuvem amarrado</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Base elegível ao KPI &middot; 2023 a 2025</span></div>
+</section>

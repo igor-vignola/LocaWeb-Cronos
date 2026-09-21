@@ -1,0 +1,51 @@
+<style>
+/* ═══ divisória de bloco do template da Sprint 4 · molde · proposta CLARA ═══
+   {N}, {NOME}, {LINHA} e {LISTA} são trocados pelo builder (render_div).
+
+   O que a separa da divisória de seção da banca, que é escura, à esquerda e
+   com painel de números à direita: fundo claro, nenhum painel, e o número do
+   bloco como objeto dominante atrás do título. No pé, os sete blocos do
+   template em fila, com o atual em azul, para o avaliador saber onde está.
+   ══════════════════════════════════════════════════════════════════════════ */
+.dvb .body{position:relative}
+.dvb .grupo{margin:auto 0;position:relative;padding-top:40px}
+.dvb .num{position:absolute;left:-12px;top:-70px;font-size:300px;font-weight:900;
+  letter-spacing:-16px;line-height:1;color:var(--accent);opacity:.10;
+  font-variant-numeric:tabular-nums;user-select:none}
+.dvb .bl{font-size:13px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--tx2);position:relative}
+.dvb .bl b{color:var(--accent);font-weight:800}
+.dvb .tt{font-size:88px;font-weight:900;letter-spacing:-3.6px;line-height:1.02;
+  margin-top:22px;max-width:15ch;position:relative}
+.dvb .lead{font-size:20px;line-height:1.5;color:var(--tx);max-width:62ch;margin-top:26px;
+  position:relative}
+/* a fila dos sete blocos, no pé */
+.dvb .fila{display:flex;gap:0;margin-top:auto;padding-top:26px;border-top:1px solid #DCE4EF;
+  position:relative}
+.dvb .fila span{flex:1;font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;
+  color:#9AA6B6;padding:0 14px 0 0;line-height:1.35}
+.dvb .fila span b{display:block;font-family:var(--mono);font-size:11.5px;font-weight:600;
+  color:#B3BDCB;margin-bottom:5px}
+.dvb .fila span.on{color:var(--head)}
+.dvb .fila span.on b{color:var(--accent)}
+.dvb .fila span.ok{color:#6B7688} .dvb .fila span.ok b{color:#8C97A8}
+</style>
+
+<section class="slide light dvb" data-slide="0" data-var="a">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div>
+    <div class="tag">Bloco {N} &middot; Template FIAP</div>
+  </div>
+  <div class="body">
+    <div class="grupo">
+      <div class="num">{N}</div>
+      <div class="bl rv" style="--d:200ms"><b>Bloco {N}</b> &middot; de 07</div>
+      <h1 class="tt"><span class="mask" style="--d:380ms"><span>{NOME}</span></span></h1>
+      <p class="lead rv" style="--d:760ms">{LINHA}</p>
+    </div>
+    <div class="fila rv" style="--d:1000ms">{LISTA}</div>
+  </div>
+  <div class="ft"><span>Template oficial da Sprint 4 &middot; sete blocos</span></div>
+</section>
