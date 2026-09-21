@@ -46,11 +46,11 @@ import zipfile
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
-DESTINO = RAIZ / "sprints" / "EC_Sprint_4_2TSCOA_SolucaoFinal_Cronos_SuperDataBros.zip"
+DESTINO = RAIZ / "sprints" / "EC_Sprint_4_2TSCOA_solucaofinal_Cronos_SuperDataBros.zip"
 PLANILHA = RAIZ / "sprints" / "Informacoes_Finais_Projeto_Integrantes_Cronos_SuperDataBros.xlsx"
 
 # Preencher antes de rodar: URL pública do vídeo pitch no YouTube.
-LINK_VIDEO = ""
+LINK_VIDEO = "https://youtu.be/IeWLVBD0Jas"
 
 EQUIPE = "Super Data Bros"
 TURMA = "2TSCOA"

@@ -144,12 +144,11 @@ ORDEM: list[tuple[str, object, str]] = (
        ("banca", 31, "aplicacao")]
     + _telas_e_recortes()
     + [("bloco", "acesso", "acesso"),
-       ("bloco", "conclusao", "conclusao"),
        ("banca", 32, "obrigado")]
 )
 # o bloco do template em que cada trecho começa, para a pastilha do slide de espera e o visualizador
 BLOCO_INICIO = {"capa": 1, "prazo": 2, "objetivo": 3, "div-analise": 4, "aplicacao": 5,
-                "acesso": 6, "conclusao": 7}
+                "acesso": 6}
 
 # ── o que cada posição nova vai ter, para o slide de espera ───────────────────
 # nome -> (título curto, o que o slide traz, origem do material)
@@ -208,14 +207,6 @@ NOTAS.update({
         "em que posição a meta anual de P2 e de P3 deve fechar. São dois modelos e dois cálculos, "
         "publicados em uma aplicação Django de seis abas, em contêiner Docker e sem dependência "
         "de provedor de nuvem."),
-    "conclusao": (
-        "Nos 50 primeiros casos da fila de risco, o Cronos encontra 13 das 50 violações de uma "
-        "base de avaliação com 5.183 incidentes, fora do período de treino. Ordenando por "
-        "prioridade, que é o comportamento padrão da ferramenta de atendimento hoje, essas mesmas "
-        "50 posições não trazem nenhuma. Além disso: três meses de antecedência na leitura da "
-        "meta do ano, com a chamada certa nas duas prioridades; e seis abas no ar em um "
-        "contêiner, sem provedor de nuvem amarrado. O limite que continua de pé é a cobertura da "
-        "faixa de 80%, que fica entre 59% e 61% dos dias no P3 contra 86% a 88% no P2."),
     "fontes-de-dados": (
         "Duas fontes. A planilha LW-DATASET.xlsx, com 122.543 incidentes em 19 campos, de janeiro "
         "de 2023 a dezembro de 2025, é a única fonte de incidentes. O calendário de feriados "
