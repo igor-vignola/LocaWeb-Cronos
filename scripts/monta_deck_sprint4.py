@@ -143,7 +143,6 @@ ORDEM: list[tuple[str, object, str]] = (
        ("banca", 31, "aplicacao")]
     + _telas_e_recortes()
     + [("bloco", "acesso", "acesso"),
-       ("bloco", "conclusao", "conclusao"), ("bloco", "proximos-passos", "proximos-passos"),
        ("banca", 32, "obrigado")]
 )
 # o bloco do template em que cada trecho começa, para a pastilha do slide de espera e o visualizador
@@ -225,28 +224,6 @@ NOTAS.update({
         "youtu.be/IeWLVBD0Jas, público no YouTube, com cinco minutos em formato hands on. O "
         "código-fonte está em github.com/igor-vignola/LocaWeb-Cronos. Cada código na tela leva "
         "ao endereço escrito ao lado dele."),
-    "conclusao": (
-        "O que ficou pronto: a fila de risco encontra 13 das 50 violações nos 50 primeiros de "
-        "5.183 incidentes avaliados fora do treino, contra nenhuma quando a fila é ordenada por "
-        "prioridade, que é o que se faz hoje. A previsão de volume erra 4,2 incidentes por dia "
-        "no P2 e 11,8 no P3: ganha do melhor baseline por 15% no P2, e no P3 o baseline fica "
-        "4,5% à frente. A projeção da meta deu a chamada certa nas duas prioridades com três "
-        "meses de antecedência, em 1º de outubro, antes da apuração de dezembro. O modelo de risco "
-        "tem área sob a curva de 0,869 e fica calibrado, prevendo 48,1 quebras onde houve 50. "
-        "O que o dado ensinou: o volume do dia explica só 2,5% da variação das quebras, o que "
-        "separou prever carga de apontar o caso; e a regressão logística venceu o gradient "
-        "boosting no evento raro, com PR-AUC de 0,296 contra 0,253, sem perder ordenação. O que "
-        "continua de pé: a faixa de 80% cobre entre 59% e 61% dos dias no P3, contra 86% a 88% "
-        "no P2; e o dataset não traz custo por violação, então o ganho está medido em violações "
-        "e em posição na meta, nunca em moeda."),
-    "proximos-passos": (
-        "Três frentes. Ler direto da base interna da Locaweb, no lugar da planilha, que é o nó "
-        "tracejado do fluxograma da arquitetura, junto com o reajuste semanal dos modelos em "
-        "janela consolidada, que resolve a cauda incompleta do rótulo e a cobertura estreita do "
-        "intervalo no P3. Gerar a frase de abertura do resumo do dia pela Claude API, nos "
-        "bastidores, sem interface de conversa e sem número passando por geração de texto. E "
-        "levantar o custo por violação com a Locaweb, para o ganho passar a ser defendido em "
-        "moeda; hoje o que se sustenta é a ordenação da fila, não a redução de volume."),
 })
 
 # ── CSS do builder: congelamento, linha de apoio, slide de espera ─────────────
