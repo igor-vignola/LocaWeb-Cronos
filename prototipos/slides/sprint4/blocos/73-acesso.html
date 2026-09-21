@@ -1,0 +1,107 @@
+<style>
+/* ═══ blocos 5 e 6 · o acesso à aplicação e ao vídeo ═════════════════════════
+   Herda o pôster centrado do slide de acesso da banca
+   (ao-vivo/blocos/33-acesso.html), mas passa a carregar os dois endereços que
+   o template exige por escrito: a aplicação, do bloco 5, e o vídeo pitch, do
+   bloco 6. Um slide no lugar de dois, que era o pedido do Igor em 21/09.
+
+   Cada QR vem com o endereço escrito por extenso ao lado, porque nem toda
+   câmera lê de longe, e as seis rotas ficam no pé para o avaliador saber o que
+   vai encontrar antes de abrir.
+   ══════════════════════════════════════════════════════════════════════════ */
+.ac2 .body{align-items:center;justify-content:center;text-align:center;padding:96px 64px 56px}
+.ac2 .tt{font-size:78px;letter-spacing:-3px;line-height:1.02;margin-top:14px}
+.ac2 .kick{font-size:17px;line-height:1.5;color:var(--tx);max-width:820px;margin-top:18px}
+.ac2 .kick b{color:var(--head);font-weight:600}
+
+.ac2 .duo{display:flex;align-items:stretch;justify-content:center;gap:26px;margin-top:44px}
+.ac2 .via{display:flex;align-items:center;gap:26px;padding:26px 30px;text-align:left;
+  background:rgba(255,255,255,.86);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.95);border-radius:20px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 18px 44px -18px rgba(0,30,80,.2)}
+
+/* o QR num quadro branco, com a moldura de gradiente saindo 3px por baixo. A
+   entrada vai no invólucro e não no quadro: transform cria contexto de
+   empilhamento, e a pseudo de z-index -1 subiria por cima do fundo. */
+.ac2 .qrw{flex-shrink:0}
+.ac2 .qrf{position:relative;padding:15px;background:#fff;border-radius:18px;
+  border:1px solid rgba(255,255,255,.95);
+  box-shadow:inset 0 1px 0 #fff,0 1px 2px rgba(0,30,80,.04),0 24px 60px -18px rgba(0,30,80,.26)}
+.ac2 .qrf::before{content:"";position:absolute;inset:-3px;border-radius:21px;
+  background:linear-gradient(135deg,#2563EB,#60A5FA,#2563EB);z-index:-1;opacity:.85}
+.ac2 .qrf img{display:block;width:168px;height:168px;image-rendering:pixelated}
+
+.ac2 .via .tx{width:352px}
+.ac2 .via .lb{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;
+  letter-spacing:1.8px;text-transform:uppercase;color:var(--accent)}
+.ac2 .via .lb svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round}
+.ac2 .via .nm{font-size:23px;font-weight:800;letter-spacing:-.6px;color:var(--head);margin-top:9px}
+.ac2 .via .url{font-family:var(--mono);font-size:15px;font-weight:600;letter-spacing:-.3px;
+  color:var(--accent);margin-top:9px;word-break:break-all;line-height:1.35}
+.ac2 .via .dz{font-size:13px;line-height:1.5;color:rgba(15,23,42,.72);margin-top:11px}
+.ac2 .via .dz b{color:var(--head);font-weight:600}
+
+/* o repositório, que serve aos dois, numa faixa só */
+.ac2 .rep{display:inline-flex;align-items:baseline;gap:11px;margin-top:30px;padding:11px 22px;
+  border-radius:999px;background:rgba(255,255,255,.7);border:1px solid var(--line);
+  box-shadow:0 1px 2px rgba(0,30,80,.04)}
+.ac2 .rep .rl{font-size:11px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;
+  color:rgba(15,23,42,.66)}
+.ac2 .rep .gh{font-family:var(--mono);font-size:13.5px;color:var(--head);letter-spacing:-.3px}
+
+.ac2 .pil{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:30px}
+.ac2 .pil > span{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;
+  background:rgba(255,255,255,.7);border:1px solid var(--line);font-size:12.5px;font-weight:700;
+  color:var(--head);box-shadow:0 1px 2px rgba(0,30,80,.04)}
+.ac2 .pil i{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.ac2 .pil em{font-style:normal;font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--tx)}
+</style>
+
+<section class="slide light ac2" data-slide="0" data-var="a">
+  <div class="mesh"></div><div class="grid-bg"></div>
+  <div class="hd">
+    <div class="bi"><svg viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></div>
+    <div class="bn">Cronos</div>
+    <div class="tag">Blocos 5 e 6 &middot; Aplicação e vídeo pitch</div>
+  </div>
+  <div class="body">
+    <span class="eb"><span class="rv" style="--d:200ms">Publicado e no ar</span></span>
+    <h1 class="tt"><span class="mask" style="--d:340ms"><span>Abra o <span class="hl">Cronos</span></span></span></h1>
+    <p class="kick rv" style="--d:700ms">A aplicação e o vídeo estão públicos. <b>Aponte a câmera</b> para o código ao lado de cada um, ou digite o endereço.</p>
+
+    <div class="duo">
+      <div class="via rv3" style="--d:1000ms">
+        <div class="qrw"><div class="qrf"><img src="../../ao-vivo/figs/13_qr_app.png" alt="QR do endereço da aplicação"></div></div>
+        <div class="tx">
+          <span class="lb"><svg viewBox="0 0 24 24"><rect x="2.6" y="4" width="18.8" height="14" rx="2.4"/><path d="M8.4 21h7.2M12 18v3"/></svg>A aplicação</span>
+          <div class="nm">Painel operacional</div>
+          <div class="url">igor-vignola.github.io/LocaWeb-Cronos</div>
+          <p class="dz">Abre direto no painel, sem cadastro. São as páginas <b>geradas pela própria aplicação Django</b>, com os mesmos dados da demonstração.</p>
+        </div>
+      </div>
+
+      <div class="via rv3" style="--d:1160ms">
+        <div class="qrw"><div class="qrf"><img src="../figs/qr_video.png" alt="QR do vídeo pitch"></div></div>
+        <div class="tx">
+          <span class="lb"><svg viewBox="0 0 24 24"><rect x="2.4" y="4.8" width="19.2" height="14.4" rx="3.4"/><path d="M10.2 9.4l5.2 2.6-5.2 2.6z"/></svg>O vídeo pitch</span>
+          <div class="nm">Cinco minutos, hands on</div>
+          <div class="url">youtu.be/IeWLVBD0Jas</div>
+          <p class="dz">A solução navegada ao vivo nas seis abas e nas folhas de detalhe. <b>Público no YouTube</b>, sem restrição de acesso.</p>
+        </div>
+      </div>
+    </div>
+
+    <div><span class="rep rv" style="--d:1420ms"><span class="rl">Código-fonte</span><span class="gh">github.com/igor-vignola/LocaWeb-Cronos</span></span></div>
+
+    <div class="pil">
+      <span class="rv" style="--d:1560ms"><i></i>Painel<em>/</em></span>
+      <span class="rv" style="--d:1610ms"><i></i>Previsão<em>/previsao</em></span>
+      <span class="rv" style="--d:1660ms"><i></i>Projeção<em>/projecao</em></span>
+      <span class="rv" style="--d:1710ms"><i></i>Fila de risco<em>/fila</em></span>
+      <span class="rv" style="--d:1760ms"><i></i>Saúde por produto<em>/saude</em></span>
+      <span class="rv" style="--d:1810ms"><i></i>Causas<em>/causas</em></span>
+    </div>
+  </div>
+  <div class="ft"><span>Base elegível: 25.600 incidentes &middot; relógio parado em 01/10/2025, às 15h</span></div>
+</section>

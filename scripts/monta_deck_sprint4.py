@@ -140,55 +140,23 @@ ORDEM: list[tuple[str, object, str]] = (
        ("arquivo", ABERTURA / "09-desenho-D.html", "arquitetura-desenho"),
        ("arquivo", ABERTURA / "10-descricao-A.html", "arquitetura-descricao"),
        ("arquivo", ABERTURA / "11-tecnologias-A.html", "arquitetura-tecnologias"),
-       ("banca", 31, "aplicacao"), ("bloco", "mapa-abas", "mapa-abas")]
+       ("banca", 31, "aplicacao")]
     + _telas_e_recortes()
-    + [("banca", 33, "acesso"),
-       ("bloco", "video", "video"),
-       ("bloco", "sintese", "sintese"), ("bloco", "aprendizados", "aprendizados"),
-       ("bloco", "limitacoes", "limitacoes"), ("bloco", "proximos-passos", "proximos-passos"),
+    + [("bloco", "acesso", "acesso"),
+       ("bloco", "conclusao", "conclusao"), ("bloco", "proximos-passos", "proximos-passos"),
        ("banca", 32, "obrigado")]
 )
 # o bloco do template em que cada trecho começa, para a pastilha do slide de espera e o visualizador
-BLOCO_INICIO = {"capa": 1, "prazo": 2, "objetivo": 3, "div-analise": 4, "aplicacao": 5, "video": 6, "sintese": 7}
+BLOCO_INICIO = {"capa": 1, "prazo": 2, "objetivo": 3, "div-analise": 4, "aplicacao": 5,
+                "acesso": 6, "conclusao": 7}
 
 # ── o que cada posição nova vai ter, para o slide de espera ───────────────────
 # nome -> (título curto, o que o slide traz, origem do material)
 ESPERA: dict[str, tuple[str, str, str]] = {
-    "descricao": ("Descrição resumida da solução",
-                  "Dois parágrafos: o que o Cronos lê, as três respostas que devolve, e como isso é publicado.",
-                  "novo, texto do rascunho conferido no CONTRATO"),
-    "abordagem": ("A abordagem de trabalho",
-                  "Quatro entregas nas datas da FIAP, hipótese só vira produto com teste no dado, e as duas "
-                  "fontes de dados: a planilha da Locaweb e o calendário de feriados.",
-                  "novo"),
-    "mapa-abas": ("Mapa da aplicação",
-                  "As seis abas e as quatro folhas de detalhe, o que cada uma responde e qual modelo a alimenta.",
-                  "novo"),
-    "video": ("Link do vídeo pitch",
-              f"O endereço {URL_VIDEO}, cinco minutos, hands on, acesso público.",
-              "novo"),
-    "sintese": ("Síntese dos resultados",
-                "O erro da previsão, a fila de risco, a projeção da meta e a aplicação, com os números da banca.",
-                "novo"),
-    "aprendizados": ("Aprendizados-chave",
-                     "Volume não prevê quebra, o alvo é raro, modelo interpretável sem perda, o campo oficial "
-                     "vale mais que a regra reescrita.",
-                     "novo"),
-    "limitacoes": ("Limitações enfrentadas",
-                   "Cobertura do intervalo no P3 abaixo da do P2, rótulo que só existe após o fechamento, um ano de dado denso, "
-                   "sem custo por violação, resumo ainda sem modelo de linguagem.",
-                   "novo"),
-    "proximos-passos": ("Próximos passos",
-                        "Ler da base interna, reajuste semanal, alarme de calibração, texto do resumo pela "
-                        "Claude API, custo por violação com a Locaweb.",
-                        "novo"),
+    # Posição cujo bloco ainda não existe vira um slide tracejado com o que vai ter ali.
+    # Hoje todos existem, e o dicionário fica como rede de segurança para o próximo que
+    # entrar na ORDEM antes de ser desenhado.
 }
-for _n in (1, 2, 3, 4, 5, 7):
-    ESPERA[f"div-bloco-{_n}"] = (
-        f"Divisória do bloco {_n}",
-        f"Abre o bloco «{BLOCO_NOME[_n]}» do template. Desenho próprio, diferente da divisória de seção da banca.",
-        "novo, desenho escolhido no lote 1",
-    )
 
 # ── ajustes de texto nos slides da banca ──────────────────────────────────────
 AJUSTES: dict[int, list[tuple[str, str]]] = {
@@ -221,33 +189,12 @@ APOIO_PITCH: dict[str, str] = {
 
 # notas dos slides novos; os da banca vêm do roteiro, as telas do texto de uso real
 NOTAS: dict[str, str] = {
-    "descricao": (
-        "O Cronos é um sistema de previsão de incidentes operacionais construído sobre o histórico da "
-        "Locaweb. Ele lê os 122.543 incidentes registrados entre janeiro de 2023 e dezembro de 2025, "
-        "recorta pelo campo oficial Entrou para KPI? os 25.600 que contam para o indicador de OLA, e "
-        "devolve três respostas que hoje só existem na apuração de fim de ano: quantos incidentes entram "
-        "nos próximos sete dias, qual incidente aberto tem maior probabilidade de estourar o prazo, e em "
-        "que posição a meta anual de P2 e de P3 deve fechar. São dois modelos, dois cálculos e uma "
-        "aplicação. O Prophet prevê o volume diário de cada prioridade; uma regressão logística estima o "
-        "risco de violação de cada incidente aberto; a projeção soma realizado, fila aberta e volume que "
-        "ainda entra; e a nota de saúde ordena os produtos. A saída é publicada em uma aplicação Django "
-        "de seis abas, em contêiner Docker e sem dependência de provedor de nuvem, com um resumo escrito "
-        "no início do dia que chega ao gestor sem que ele precise consultar nada."
-    ),
     "objetivo": (
         "Desenvolver um sistema que antecipe a violação de OLA e a projeção da meta anual da Locaweb, "
         "entregando a leitura do ano antes da apuração de dezembro, nas prioridades P2 e P3. O Cronos lê "
         "os 122.543 incidentes do histórico, dos quais 25.600 entram no indicador, e devolve duas "
         "respostas: quais incidentes vão estourar o prazo, pela regressão logística, e quantos incidentes "
         "chegam nos próximos sete dias, pelo Prophet."
-    ),
-    "abordagem": (
-        "Quatro entregas nas datas da FIAP: ideação em 27/04 e arquitetura em 24/05, as duas com nota "
-        "5,00; MVP preliminar em 23/08, nota 9,5; e a solução final em 21/09. O escopo fechou por sprint, "
-        "toda hipótese passou por medição no dado antes de virar tela, e os sete notebooks analisam e "
-        "gravam Parquet enquanto a aplicação Django só lê. Duas fontes de dados: a planilha LW-DATASET.xlsx, "
-        "com 122.543 incidentes em 19 campos, e o calendário de feriados nacionais pela biblioteca "
-        "holidays, que entra como regressor do Prophet."
     ),
 }
 NOTAS.update({
@@ -271,52 +218,35 @@ NOTAS.update({
         "mesma imagem roda na Locaweb ou em qualquer provedor."),
 })
 NOTAS.update({
-    "mapa-abas": (
-        "Seis abas e quatro folhas de detalhe. Panorama mostra como está o dia em P3 e P2 e onde "
-        "agir primeiro; Previsão, quantos incidentes chegam nos próximos sete dias; Projeção, em "
-        "que degrau a meta do ano fecha; Fila de risco, qual incidente aberto tem mais chance de "
-        "estourar o prazo; Saúde por produto, qual dos quinze precisa de atenção; Causas, qual "
-        "código de fechamento compensa prevenir. As folhas são o resumo do dia, a régua da meta, "
-        "a explicabilidade do escore e o detalhe do produto. As páginas seguintes mostram uma "
-        "tela por vez, com o recorte de cada parte."),
-    "video": (
-        "O vídeo pitch tem cinco minutos, em formato hands on, com a aplicação navegada ao vivo "
-        "nas seis abas e nas folhas de detalhe. Está público no YouTube, em youtu.be/IeWLVBD0Jas, "
-        "e o QR do slide aponta para o mesmo endereço."),
-    "sintese": (
-        "Quatro medidas, todas na janela de avaliação fora do período de treino. A fila de risco "
-        "encontra 13 das 50 violações nos 50 primeiros de 5.183 incidentes, contra nenhuma quando "
-        "a fila é ordenada por prioridade, que é o que se faz hoje. A previsão de volume erra 4,2 "
-        "incidentes por dia no P2 e 11,8 no P3, contra 4,9 e 11,3 do melhor baseline. A projeção "
-        "da meta deu a chamada certa nas duas prioridades com dois meses de antecedência. O modelo "
-        "de risco tem área sob a curva de 0,869 e fica calibrado, prevendo 48,1 quebras onde houve "
-        "50. E a aplicação está no ar em seis abas, num contêiner, sem provedor de nuvem amarrado."),
-    "aprendizados": (
-        "Quatro medições que mudaram decisões. O volume do dia explica só 2,5% da variação das "
-        "quebras, o que dividiu a solução entre prever volume e apontar o caso. Com uma violação a "
-        "cada 103 incidentes, a acurácia premia quem não avisa, então medimos quantas violações "
-        "aparecem nas primeiras posições da fila. A regressão logística empata com o gradient "
-        "boosting na ordenação e vence no evento raro, com PR-AUC de 0,296 contra 0,253, então "
-        "interpretabilidade não custou desempenho. E o campo oficial Entrou para KPI? devolve "
-        "25.600 elegíveis, enquanto refazer a regra à mão devolveria 107.416."),
-    "limitacoes": (
-        "Cinco limites, todos medidos. A faixa de 80% da previsão cobre entre 59% e 61% dos dias "
-        "no P3, contra 86% a 88% no P2, por causa da queda de patamar de novembro e dezembro. O "
-        "rótulo de elegibilidade só existe depois do fechamento do incidente, então em produção os "
-        "últimos dias ficam incompletos. 98% dos elegíveis estão em 2025, então a sazonalidade "
-        "anual ficou desligada. O dataset não traz custo por violação, então o ganho está medido "
-        "em violações e em posição na meta. E a frase de abertura do resumo é montada por regra, "
-        "não por modelo de linguagem."),
+    "acesso": (
+        "Os dois endereços que a entrega exige. A aplicação está em "
+        "igor-vignola.github.io/LocaWeb-Cronos, que abre direto no painel operacional, sem "
+        "cadastro, com os mesmos dados da demonstração. O vídeo pitch está em "
+        "youtu.be/IeWLVBD0Jas, público no YouTube, com cinco minutos em formato hands on. O "
+        "código-fonte está em github.com/igor-vignola/LocaWeb-Cronos. Cada código na tela leva "
+        "ao endereço escrito ao lado dele."),
+    "conclusao": (
+        "O que ficou pronto: a fila de risco encontra 13 das 50 violações nos 50 primeiros de "
+        "5.183 incidentes avaliados fora do treino, contra nenhuma quando a fila é ordenada por "
+        "prioridade, que é o que se faz hoje. A previsão de volume erra 4,2 incidentes por dia "
+        "no P2 e 11,8 no P3, contra 4,9 e 11,3 do melhor baseline. A projeção da meta deu a "
+        "chamada certa nas duas prioridades com dois meses de antecedência. O modelo de risco "
+        "tem área sob a curva de 0,869 e fica calibrado, prevendo 48,1 quebras onde houve 50. "
+        "O que o dado ensinou: o volume do dia explica só 2,5% da variação das quebras, o que "
+        "separou prever carga de apontar o caso; e a regressão logística venceu o gradient "
+        "boosting no evento raro, com PR-AUC de 0,296 contra 0,253, sem perder ordenação. O que "
+        "continua de pé: a faixa de 80% cobre entre 59% e 61% dos dias no P3, contra 86% a 88% "
+        "no P2; e o dataset não traz custo por violação, então o ganho está medido em violações "
+        "e em posição na meta, nunca em moeda."),
     "proximos-passos": (
-        "Cinco frentes, uma para cada limite do slide anterior. Reajuste semanal em janela "
-        "consolidada, que resolve a cauda incompleta do rótulo e deve corrigir a cobertura do "
-        "intervalo. Leitura direta da base interna da Locaweb, que é o nó tracejado da "
-        "arquitetura. Religar a sazonalidade anual quando houver dois ou três anos de registro "
-        "denso. Levantar o custo por violação com a Locaweb, para o ganho sair em moeda. E gerar "
-        "a frase de abertura do resumo pela Claude API, nos bastidores, sem interface de conversa."),
+        "Três frentes. Ler direto da base interna da Locaweb, no lugar da planilha, que é o nó "
+        "tracejado do fluxograma da arquitetura, junto com o reajuste semanal dos modelos em "
+        "janela consolidada, que resolve a cauda incompleta do rótulo e a cobertura estreita do "
+        "intervalo no P3. Gerar a frase de abertura do resumo do dia pela Claude API, nos "
+        "bastidores, sem interface de conversa e sem número passando por geração de texto. E "
+        "levantar o custo por violação com a Locaweb, para o ganho passar a ser defendido em "
+        "moeda; hoje o que se sustenta é a ordenação da fila, não a redução de volume."),
 })
-for _n in (1, 2, 3, 4, 5, 7):
-    NOTAS[f"div-bloco-{_n}"] = f"Bloco {_n} do template da FIAP, {BLOCO_NOME[_n]}. {DIV_LINHA[_n]}"
 
 # ── CSS do builder: congelamento, linha de apoio, slide de espera ─────────────
 CSS_BUILDER = """
@@ -660,6 +590,21 @@ def varredura(itens) -> int:
     return problemas
 
 
+def limpa_orfaos(itens) -> int:
+    """Apaga PNG de numeração antiga.
+
+    O nome de cada arquivo começa pela posição no deck, então tirar um slide do meio
+    renumera tudo o que vem depois e deixaria a versão anterior na pasta, aparecendo
+    primeiro para quem abre a pasta para conferir.
+    """
+    vivos = {f"{p:02d}-{n}.png" for p, n, _, _ in itens}
+    vivos |= {f"{p:02d}-{n}_fundo.png" for p, n, _, _ in itens}
+    mortos = [x for x in PNG.glob("*.png") if x.name not in vivos]
+    for x in mortos:
+        x.unlink()
+    return len(mortos)
+
+
 def main() -> int:
     so = None
     if "--so" in sys.argv:
@@ -671,6 +616,9 @@ def main() -> int:
     print(f"     {len(itens)} slides, {esperas} de espera")
     print("2/4 · render")
     pngs, morph = render(itens, so)
+    orfaos = limpa_orfaos(itens)
+    if orfaos:
+        print(f"     {orfaos} arquivos de numeração antiga removidos")
     print("3/4 · varredura de texto")
     if not varredura(itens):
         print("     limpa")
