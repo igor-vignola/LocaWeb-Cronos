@@ -242,7 +242,12 @@ html,body{margin:0;padding:0;background:#fff;overflow:hidden}
 #palco{width:1600px;height:900px;position:relative;overflow:hidden}
 .slide{animation:none !important}
 .mesh{animation:none !important;transform:none !important}
-.is-active *:not(.mesh){animation-duration:.01ms !important;animation-delay:0ms !important}
+/* O congelamento precisa ENCERRAR a animação, e não só acelerá-la: quem roda em
+   laço infinito, como o ponteiro do relógio, continuava girando em 0,01ms e a
+   captura pegava um instante qualquer. Com uma repetição só e o estado retido,
+   todo slide sai sempre igual. */
+.is-active *:not(.mesh){animation-duration:.01ms !important;animation-delay:0ms !important;
+  animation-iteration-count:1 !important;animation-fill-mode:forwards !important}
 /* linha de apoio abaixo do título, para o slide lido sem apresentador */
 .apoio{font-size:19px;line-height:1.5;color:var(--tx);margin-top:14px;max-width:64ch}
 .apoio b{color:var(--head);font-weight:700}

@@ -32,10 +32,14 @@
   transform:rotate(-90deg);transform-origin:250px 250px}
 .cr-a.is-active .rel .arco{animation:arcoEnche 3.4s var(--out) 1.1s forwards}
 @keyframes arcoEnche{to{stroke-dashoffset:377}}
-.cr-a .rel .pont{transform-origin:250px 250px;animation:relGira 20s linear infinite}
+/* A volta começa e termina em 68 graus, e não no topo. No deck ao vivo o giro
+   continua igual; no .pptx, que congela a animação no estado final, o ponteiro
+   passa a parar apontando para a direita, e não reto para cima. */
+.cr-a .rel .pont{transform-origin:250px 250px;transform:rotate(68deg);
+  animation:relGira 20s linear infinite}
 .cr-a .rel .pont line{stroke:#fff;stroke-width:2.4;opacity:.5;stroke-linecap:round}
 .cr-a .rel .miolo{fill:var(--accent3);opacity:.5}
-@keyframes relGira{to{transform:rotate(360deg)}}
+@keyframes relGira{from{transform:rotate(68deg)}to{transform:rotate(428deg)}}
 
 .cr-a .grego{display:block;font-family:var(--mono);font-size:18px;letter-spacing:5px;
   color:var(--accent3);opacity:0;transform:translate3d(0,10px,0)}
