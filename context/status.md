@@ -3,7 +3,50 @@
 > Primeiro arquivo a consultar para retomar o trabalho. Atualizar a cada bloco concluído.
 > O detalhamento técnico da sprint corrente fica em `docs/sprint-3-mvp.md`; a preparação para a banca, em `docs/dossie-banca.md`.
 
-**Atualizado em:** 21/09/2026
+**Atualizado em:** 21/09/2026 · Sprint 4 entregue
+
+---
+
+## Sprint 4 entregue · 21/09/2026
+
+Anexo único no portal: `sprints/EC_Sprint_4_2TSCOA_solucaofinal_Cronos_SuperDataBros.zip`,
+646 arquivos e 67,2 MB. Dentro dele o PPT de 75 slides, a planilha de catalogação, o
+`INFORMACOES_DA_ENTREGA.txt` com o link do vídeo e os RMs, os sete notebooks executados, a
+aplicação Django com Dockerfile, 37 scripts, nove bases em Parquet e 37 figuras.
+
+O enunciado escreve o nome dos dois arquivos em minúscula, `solucaofinal`, e não
+`SolucaoFinal`. Os dois foram renomeados na véspera da entrega. A planilha ficou como
+`Informacoes_Finais_Projeto_Integrantes_Cronos_SuperDataBros.xlsx`; o enunciado só cita o
+nome do template e não define renomeação.
+
+**O deck, 75 slides.** Nasceu do deck da banca de 15/09, e não do rascunho da Sprint 3: o
+`scripts/monta_deck_sprint4.py` lê os 33 slides da banca, o slide de objetivo do deck do
+pitch, os quatro de arquitetura da Sprint 3 e os blocos próprios em
+`prototipos/slides/sprint4/blocos/`. Cada slide vira um HTML autônomo, é fotografado em
+1600x900 a 2x com a animação congelada, e entra no `.pptx` com a fala do `ROTEIRO.html` nas
+notas do apresentador.
+
+Duas coisas valem lembrar do caminho:
+
+- **A transição Transformar do PowerPoint.** Nos trechos de aplicação o slide deixou de ser
+  um PNG achatado: o fundo é renderizado sem a captura e a imagem entra como objeto próprio,
+  com recorte e nome `!!tela`. Assim a captura cresce e desliza da tela cheia para o
+  destaque, em vez de trocar de imagem. São 26 transições Transformar e 49 de esmaecimento.
+- **Congelar animação não é acelerá-la.** O congelamento usava
+  `animation-duration:.01ms`, e quem rodava em laço infinito continuava girando durante a
+  captura: o ponteiro do relógio do slide 3 saía numa posição diferente a cada build. Agora
+  o congelamento também força `animation-iteration-count:1` e `animation-fill-mode:forwards`.
+
+**As dez capturas ganharam destaques.** Foi a resposta ao único ponto negativo da Sprint 3,
+que foi a falta de prints funcionais do MVP. Cada tela tem um slide com a página inteira e a
+explicação geral, seguido de dois ou três slides de destaque, com o recorte ampliado à
+direita e os passos à esquerda. Sem fio puxado e sem contorno sobre a imagem, que o Igor
+reprovou: a ordem dos passos e o próprio recorte fazem a ligação.
+
+**O que ficou de fora, por decisão do Igor:** o mapa das abas, o slide só do vídeo, o slide
+de abordagem do bloco 4 e os slides de próximos passos. O de abordagem era o único que
+respondia a pergunta do template sobre método de trabalho e gestão ágil; os arquivos dos
+quatro continuam no histórico do git.
 
 ---
 

@@ -33,7 +33,7 @@ Domínio: **AIOps** — previsão de incidentes e tendências operacionais usand
 | 1 | Ideação | 27/04/2026 | ✅ Entregue · **nota 5.00/5.00** |
 | 2 | Arquitetura | 24/05/2026 | ✅ Entregue · **nota 5.00/5.00** |
 | 3 | MVP Preliminar | 23/08/2026 | ✅ Entregue · **nota 9,5/10** |
-| 4 | Solução Final | **21/09/2026** | 🚧 **EM ANDAMENTO** (pptx final) |
+| 4 | Solução Final | 21/09/2026 | ✅ **ENTREGUE** · aguardando avaliação |
 
 Detalhes em `context/sprints/` e `context/status.md`.
 
@@ -199,4 +199,4 @@ Quando precisar de algo além desta visão geral:
 
 ---
 
-*Última atualização: 21/07/2026*
+*Última atualização: 21/09/2026*
