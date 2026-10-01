@@ -29,7 +29,7 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
 WEBAPP = RAIZ / "webapp"
-ROTAS_INICIAIS = ["/", "/previsao/", "/projecao/", "/fila/", "/saude/", "/causas/"]
+ROTAS_INICIAIS = ["/", "/previsao/", "/projecao/", "/fila/", "/saude/", "/causas/", "/tendencias/"]
 # href e src que apontam para a raiz do site
 ABSOLUTO = re.compile(r'((?:href|src|action)=")(/[^"]*)"')
 # STATIC_URL do projeto é 'estatico/', relativo. Numa página em subdiretório isso

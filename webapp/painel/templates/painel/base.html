@@ -15,6 +15,7 @@ esquecesse de definir o título abria uma aba chamada "Cronos · Cronos".{% endc
 <link rel="stylesheet" href="{% folha 'painel/topo.css' %}">
 <link rel="stylesheet" href="{% folha 'painel/panorama.css' %}">
 <link rel="stylesheet" href="{% folha 'painel/previsao.css' %}">
+<link rel="stylesheet" href="{% folha 'painel/tendencias.css' %}">
 </head>
 <body data-dia="{{ hoje.dia }}">
 {% include 'painel/_campo.html' %}
@@ -47,6 +48,7 @@ esquecesse de definir o título abria uma aba chamada "Cronos · Cronos".{% endc
       <span class="pil-d"></span>
       <a href="{% url 'saude' %}" class="{% if aba == 'saude' %}on{% endif %}"{% if aba == 'saude' %} aria-current="page"{% endif %}>{% icone 'coracao' 15 %}Saúde</a>
       <a href="{% url 'causas' %}" class="{% if aba == 'causas' %}on{% endif %}"{% if aba == 'causas' %} aria-current="page"{% endif %}>{% icone 'lupa' 15 %}Causas</a>
+      <a href="{% url 'tendencias' %}" class="{% if aba == 'tendencias' %}on{% endif %}"{% if aba == 'tendencias' %} aria-current="page"{% endif %}>{% icone 'tendencia' 15 %}Tendências</a>
     </nav>
 
     <div class="tp-r">

@@ -1,0 +1,142 @@
+{% extends 'painel/base.html' %}{% load br %}
+{% block titulo %}Tendências{% endblock %}
+
+{% comment %}
+TENDÊNCIAS — objetivo 02 do enunciado: "por categoria, produto ou item de configuração".
+
+A pergunta da aba é uma só: quantos valores existem em cada dimensão, e quanto das violações um
+punhado deles reúne. A frase grande responde isso ("10 dos 45 produtos reúnem 86,2% das
+violações"), os 100 quadrados mostram a proporção (cada um vale 1% das violações) e a lista curta
+dá o nome dos 10. As séries mensais e a variação de volume saíram: o centro da tela é a
+concentração, e não o comportamento de cada valor. As três dimensões usam o mesmo desenho, com um
+seletor, porque respondem à mesma pergunta. Tudo até 30/09/2025, o corte da aplicação.
+{% endcomment %}
+
+{% block conteudo %}
+<div class="td">
+
+  <header class="td-h noite">
+    <span class="td-ey">{% icone 'tendencia' 14 %}Tendências · categoria, produto e item de configuração</span>
+    <h1>Poucos concentram a maior parte das violações</h1>
+  </header>
+
+  <div class="td-seg" role="tablist" aria-label="Dimensão da análise">
+    {% for d in dims %}
+      <button type="button" role="tab" class="td-tab{% if forloop.first %} on{% endif %}"
+        id="td-tab-{{ d.chave }}" data-dim="{{ d.chave }}" aria-controls="td-p-{{ d.chave }}"
+        aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+        tabindex="{% if forloop.first %}0{% else %}-1{% endif %}">
+        <b>{{ d.rotulo }}</b><em>{{ d.valores|mil }} {{ d.plural }}</em>
+      </button>
+    {% endfor %}
+  </div>
+
+  {% for d in dims %}
+  <section class="td-p" id="td-p-{{ d.chave }}" role="tabpanel" aria-labelledby="td-tab-{{ d.chave }}"
+    {% if not forloop.first %}hidden{% endif %}>
+
+    <div class="pn-v td-hero">
+      <div class="td-tx">
+        <p class="td-k">{{ d.rotulo }} · violações de OLA até {{ janela_fim }}</p>
+        <p class="td-f1"><b>{{ d.topo }}</b> dos <b>{{ d.valores|mil }}</b> {{ d.plural_longo }}</p>
+        <p class="td-f2">reúnem <b>{{ d.topo_pct|num:1 }}%</b> das violações</p>
+
+
+        <div class="td-ct">
+          <div><b>{{ d.valores|mil }}</b><span>{{ d.plural_longo }} na base</span></div>
+          <div><b>{{ d.com_violacao|mil }}</b><span>com alguma violação</span></div>
+          <div><b>{{ d.sem_violacao|mil }}</b><span>sem nenhuma</span></div>
+        </div>
+        <p class="td-p23">{{ violacoes }} violações no total, somando P3 ({{ viol_p3 }}) e P2 ({{ viol_p2 }}).</p>
+      </div>
+
+      <div class="td-wf-w">
+        <div class="td-wf" role="img"
+          aria-label="De cada 100 violações, {{ d.topo_pct|num:0 }} estão nos {{ d.topo }} {{ d.plural_longo }} do topo">
+          {% for q in d.quadrados %}<i class="{{ q }}" style="--q:{{ forloop.counter0 }}"></i>{% endfor %}
+        </div>
+        <ul class="td-lg">
+          <li><i class="a"></i><span><b>{{ d.topo_pct|num:1 }}%</b> nos {{ d.topo }} do topo</span></li>
+          <li><i class="c"></i><span><b>{{ d.resto_pct|num:1 }}%</b> nos outros {{ d.outros_que_violaram }} que violaram</span></li>
+        </ul>
+        <p class="td-lg-n">Cada quadrado vale 1% das violações.</p>
+      </div>
+    </div>
+
+    <div class="td-fx"><i>80/20</i><p>80% dos resultados são gerados por 20% das causas</p></div>
+
+    <div class="pn-v td-ls">
+      <div class="td-ls-h">
+        <h2>Os {{ d.topo }} {{ d.plural_longo }} do topo</h2>
+        <p>Ordenados pelo número de violações</p>
+      </div>
+      <div class="tbw">
+        <table class="td-t">
+          <thead>
+            <tr>
+              <th class="td-c">#</th>
+              <th>{{ d.rotulo }}</th>
+              <th class="td-w">Peso nas violações</th>
+              <th class="td-n"><span class="td-pri p3">P3</span></th>
+              <th class="td-n"><span class="td-pri p2">P2</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for x in d.itens %}
+            <tr style="--i:{{ forloop.counter0 }}">
+              <td class="td-c">{{ x.posicao }}</td>
+              <td class="td-v"><b class="id">{{ x.valor }}</b></td>
+              <td class="td-w">
+                <span class="td-bar"><i style="width:{{ x.barra }}%"></i></span>
+                <b>{{ x.pct|num:1 }}%</b>
+              </td>
+              <td class="td-n"><b>{{ x.p3.violacoes }}</b></td>
+              <td class="td-n"><b>{{ x.p2.violacoes }}</b></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </section>
+  {% endfor %}
+
+  <p class="td-rod">Até {{ janela_fim }}, elegíveis ao KPI, P2 e P3. Os nomes são os códigos da base, anonimizados.</p>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+/* Seletor de dimensão. O estado vai para o hash (#categoria), então o link leva direto à dimensão. */
+(function () {
+  const abas = [...document.querySelectorAll('.td-tab')];
+  const paineis = [...document.querySelectorAll('.td-p')];
+  function mostra(dim, foco) {
+    abas.forEach(function (a) {
+      const on = a.dataset.dim === dim;
+      a.classList.toggle('on', on);
+      a.setAttribute('aria-selected', on ? 'true' : 'false');
+      a.tabIndex = on ? 0 : -1;
+      if (on && foco) a.focus();
+    });
+    paineis.forEach(function (p) { p.hidden = p.id !== 'td-p-' + dim; });
+  }
+  abas.forEach(function (a, i) {
+    a.addEventListener('click', function () {
+      mostra(a.dataset.dim);
+      history.replaceState(null, '', '#' + a.dataset.dim);
+    });
+    a.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      const prox = abas[(i + (e.key === 'ArrowRight' ? 1 : abas.length - 1)) % abas.length];
+      mostra(prox.dataset.dim, true);
+      history.replaceState(null, '', '#' + prox.dataset.dim);
+    });
+  });
+  const inicial = location.hash.slice(1);
+  if (abas.some(function (a) { return a.dataset.dim === inicial; })) mostra(inicial);
+})();
+</script>
+{% endblock %}

@@ -11,6 +11,7 @@ from django.shortcuts import render
 
 from . import graficos as g
 from . import servicos as s
+from . import servicos_tendencias as st
 
 
 def _base(aba):
@@ -366,3 +367,15 @@ def det_produto(req, codigo):
 
 def busca(req):
     return JsonResponse({'itens': s.indice_busca()})
+
+
+def tendencias(req):
+    """Tendências por categoria, produto e item de configuração, até o corte de 30/09/2025.
+
+    Responde ao objetivo 02 do enunciado ("por categoria, produto ou item de configuração")
+    numa aba só, com um seletor entre as três dimensões: quantos valores existem e quanto das
+    violações os 10 do topo reúnem. Notebook 08.
+    """
+    ctx = _base('tendencias')
+    ctx.update(st.tendencias())
+    return render(req, 'painel/tendencias.html', ctx)

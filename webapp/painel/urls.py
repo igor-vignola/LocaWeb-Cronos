@@ -11,6 +11,7 @@ urlpatterns = [
     path('saude/', views.saude, name='saude'),
     path('causas/', views.causas, name='causas'),
     path('previsao/', views.previsao, name='previsao'),
+    path('tendencias/', views.tendencias, name='tendencias'),
     path('detalhe/incidente/<str:codigo>/', views.det_incidente, name='det_incidente'),
     path('detalhe/ativo/<str:codigo>/', views.det_ativo, name='det_ativo'),
     path('detalhe/produto/<str:codigo>/', views.det_produto, name='det_produto'),
