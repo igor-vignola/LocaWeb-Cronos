@@ -74,13 +74,11 @@ mora na Projeção; aqui ele aparece só como aviso no topo, quando uma priorida
         <div class="gx" data-pontos='{{ c.pj }}'>
           <svg viewBox="0 0 {{ c.w }} {{ c.h }}" aria-label="Incidentes {{ c.a.prioridade }} acumulados no dia, registrados até as {{ c.a.hora_agora }}h e previstos até as 23h">
             <defs>
-              <linearGradient id="ga{{ c.a.prioridade }}" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2563EB" stop-opacity=".28"/><stop offset="1" stop-color="#2563EB" stop-opacity="0"/></linearGradient>
               <linearGradient id="gl{{ c.a.prioridade }}" x1="0" x2="1"><stop offset="0" stop-color="#93C5FD"/><stop offset="1" stop-color="#2563EB"/></linearGradient>
             </defs>
             <path d="{{ c.grade }}" stroke="#E5EAF1" stroke-width="1"/>
             <path class="gx-bd" d="{{ c.banda }}" fill="#DBEAFE" opacity=".6"/>
             <path class="gx-pv" d="{{ c.previsto }}" fill="none" stroke="#93C5FD" stroke-width="2" stroke-dasharray="5 5" stroke-linecap="round"/>
-            <path class="gx-ar" d="{{ c.area }}" fill="url(#ga{{ c.a.prioridade }})"/>
             <path class="gx-ln" d="{{ c.linha }}" pathLength="1" fill="none" stroke="url(#gl{{ c.a.prioridade }})" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="1"/>
             <circle class="gx-ps" cx="{{ c.nx }}" cy="{{ c.ny }}" r="6" fill="#2563EB"/>
             <circle class="gx-ag" cx="{{ c.nx }}" cy="{{ c.ny }}" r="8" fill="#fff" stroke="#2563EB" stroke-width="2.5"/>
