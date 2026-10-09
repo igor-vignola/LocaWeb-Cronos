@@ -124,27 +124,34 @@ document.querySelectorAll('.gx[data-pontos]').forEach((gx) => {
   const cl = gx.querySelector('.gx-cl');
   const vw = gx.querySelector('svg').viewBox.baseVal.width;
   const num = (v) => Number(v).toLocaleString('pt-BR', { maximumFractionDigits: 1 });
-  const linha = (r, v) => `<span class="tt-l"><span>${r}</span><b>${v}</b></span>`;
+  const linha = (m, r, v, c = '') => `<span class="tt-l"><i class="${m}"></i><span>${r}</span><b class="${c}">${v}</b></span>`;
   const balao = (p) => {
     const hora = p.rot === undefined;
     const rot = hora ? String(p.h).padStart(2, '0') + 'h' : p.rot;
-    let h = `<span class="tt-h">${rot}</span>`;
+    // o selo do cabeçalho diz onde o registrado caiu contra a faixa; no futuro, que é previsão
+    let selo = '<span class="sl ac">Previsão</span>', nota = '';
+    if (p.real !== null && p.real !== undefined && p.esp !== undefined) {
+      const d = p.real - p.esp;
+      selo = p.real < p.bx ? '<span class="sl wn">Abaixo do intervalo</span>'
+        : p.real > p.at ? '<span class="sl no">Acima do intervalo</span>'
+        : '<span class="sl ok">Dentro do intervalo</span>';
+      nota = Math.abs(d) < .05 ? 'Em linha com a previsão'
+        : `${num(Math.abs(d))} ${d < 0 ? 'abaixo' : 'acima'} da previsão`;
+    } else if (p.real !== null && p.real !== undefined) {
+      selo = '<span class="sl">Registrado</span>';
+    } else if (hora) {
+      nota = 'Hora ainda não decorrida';
+    }
+    let h = `<span class="tt-h"><b>${rot}</b>${selo}</span>`;
     if (p.real !== null && p.real !== undefined) {
-      h += linha(hora ? `Registrados até ${rot}` : 'Registrados', p.real);
-      if (p.nah !== undefined && p.nah !== null) h += linha('Entraram nesta hora', p.nah > 0 ? `+${p.nah}` : '0');
+      h += linha('m-r', hora ? `Registrados até ${rot}` : 'Registrados', p.real);
+      if (p.nah !== undefined && p.nah !== null) h += linha('m-h', 'Entraram nesta hora', p.nah > 0 ? `+${p.nah}` : '0', p.nah > 0 ? 'ok' : '');
     }
     if (p.esp !== undefined) {
-      h += linha('Previsão do modelo', num(p.esp));
-      h += linha('Faixa de 80%', `${num(p.bx)} – ${num(p.at)}`);
+      h += linha('m-p', 'Previsão do modelo', num(p.esp));
+      h += linha('m-f', 'Faixa de 80%', `${num(p.bx)} a ${num(p.at)}`);
     }
-    if (p.real === null) {
-      h += `<span class="tt-v">${hora ? 'Hora ainda não decorrida' : 'Dia previsto'}</span>`;
-    } else if (p.esp !== undefined) {
-      const d = p.real - p.esp;
-      const lado = p.real < p.bx ? ['wn', 'Abaixo do intervalo'] : p.real > p.at ? ['no', 'Acima do intervalo'] : ['', 'Dentro do intervalo'];
-      const dist = Math.abs(d) < .05 ? ', em linha com a previsão' : ` · ${num(Math.abs(d))} ${d < 0 ? 'abaixo' : 'acima'} da previsão`;
-      h += `<span class="tt-v ${lado[0]}">${lado[1]}${dist}</span>`;
-    }
+    if (nota) h += `<span class="tt-v">${nota}</span>`;
     return h;
   };
   gx.addEventListener('mousemove', (e) => {
