@@ -148,7 +148,52 @@ def _entrada(aba):
         'pior': s.pior_produto(),
         'causa': s.pior_causa(),
     })
+    ctx.update(_v3_panorama(ctx))
     return ctx
+
+
+def _v3_panorama(ctx):
+    """O que o Panorama do redesenho de outubro/2026 acrescenta ao contexto da entrada."""
+    ac, ac2 = ctx['ac'], ctx['ac2']
+    agora = ac['hora_agora']
+    # os avisos do topo: o lado do intervalo em que o ritmo do dia cai, por prioridade, e a
+    # prioridade cuja projeção de dezembro passa do limite da faixa de 100%
+    avisos = []
+    for a in (ac, ac2):
+        if a['ritmo_fecha'] < a['baixo']:
+            avisos.append({'tom': 'ac', 'ic': 'down', 'href': 'previsao',
+                           'texto': f"{a['prioridade']} deve fechar abaixo do previsto"})
+        elif a['ritmo_fecha'] > a['alto']:
+            avisos.append({'tom': 'no', 'ic': 'up', 'href': 'previsao',
+                           'texto': f"{a['prioridade']} deve fechar acima do previsto"})
+    metas = [x['ola'] for x in ctx['reguas']]
+    for o in metas:
+        if not o['folga']:
+            avisos.append({'tom': 'no', 'ic': 'alert', 'href': 'projecao',
+                           'texto': f"{o['prioridade']} pode passar o limite do ano"})
+    prazos = [dict(f, **s.prazo(f['prioridade'], f['hora'], agora)) for f in ctx['fila']]
+    for f in prazos:
+        f['anel'] = g.anel(f['usado'], 32)
+    hh = []
+    for a in (ac, ac2):
+        x = g.hora_a_hora(a)
+        lado = ('abaixo' if a['ritmo_fecha'] < a['baixo'] else
+                'acima' if a['ritmo_fecha'] > a['alto'] else 'dentro')
+        hh.append(dict(x, a=a, lado=lado, pj=json.dumps(x['pontos'])))
+    return {
+        'hh': hh,
+        'palavras': ctx['titulo'].split(),
+        'dia_pc': g.cd(agora / 24 * 100),
+        'dia_pc_int': round(agora / 24 * 100),
+        'horas_frente': 24 - agora,
+        'avisos': avisos,
+        'n_atencao': len(avisos),
+        'prazos': prazos,
+        'metas': metas,
+        'mostrador': g.tracos(250, 222, 232, 24),
+        'arco_dia': g.anel(agora / 24, 240),
+        'tracos_anel': g.tracos(44, 40, 43, 12),
+    }
 
 
 def panorama(req):
@@ -174,6 +219,14 @@ def projecao(req):
         'projecao': [dict(_ola(x), escada=s.escada_tabela(x), marcas=s.escada_marcas(x))
                      for x in s.por_prioridade(p['projecao'])],
     })
+    for o in ctx['projecao']:
+        # a régua do cartão: realizado, faixa da projeção, ponto de dezembro e o limite de 100%
+        mx = max(o['meta'], o['alto']) * 1.12
+        q = lambda v: g.cd(v / mx * 100)
+        o.update(ja_pc=q(o['ja']), lo_pc=q(o['baixo']), fx_pc=q(o['alto'] - o['baixo']),
+                 proj_pc=q(o['projecao']), lim_pc=q(o['meta']),
+                 anel=g.anel(o['projecao'] / o['meta'], 31))
+    ctx['palavras'] = 'Onde o ano fecha'.split()
     return render(req, 'painel/projecao.html', ctx)
 
 
@@ -185,20 +238,30 @@ def fila(req):
     disso é a apresentação. A paginação também saiu: 49 casos em páginas de 40 deixavam nove
     numa segunda página.
     """
-    pri = req.GET.get('pri', '')
-    dados = s.fila_pagina(prioridade=pri, faixa=req.GET.get('faixa', ''),
-                          busca=req.GET.get('q', ''), pagina=1, por_pagina=500)
+    # A lista vem inteira e o filtro roda no navegador: a mesma tela serve o Django e o site
+    # estático, onde não há servidor para ler `?pri=` ou `?q=`.
+    dados = s.fila_pagina(por_pagina=500)
+    agora = s.painel()['acompanhamento']['hora_agora']
+    maior = max((r['risco'] for r in dados['linhas']), default=1) or 1
+    tons = {'crítica': 'no', 'alta': 'al', 'atenção': 'wn', 'rotina': 'ok'}
+    for r in dados['linhas']:
+        r.update(s.prazo(r['prioridade'], r['hora'], agora))
+        r['anel'] = g.anel(r['usado'], 9)
+        rot = s.faixa_de(r['risco'])[2]
+        r['grupo'], r['gtom'] = rot, tons[rot]
+        r['larg'] = g.cd(max(2, r['risco'] / maior * 100))
+        r['top'] = r['sinais'][0] if r['sinais'] else None
+        r['busca'] = ' '.join([r['incidente'], r['produto'], r['equipe'], r['ativo'] or '']).lower()
+    faixas = s.contagem_por_faixa('')
+    for f in faixas:
+        f['tom'] = tons[f['rot']]
     ctx = _base('fila')
     ctx.update({
         **dados,
-        # os chips leem o MESMO filtro de prioridade da tabela: sem isso, filtrar P2 dava uma
-        # lista de 9 linhas com chips que continuavam somando 49
-        'faixas': s.contagem_por_faixa(pri),
+        'faixas': faixas,
         'resumo_fila': s.resumo_fila(),
-        'n_ate_agora': len(s.fila_ate_agora()),
-        'hora_corte': s.painel()['acompanhamento']['hora_agora'],
-        'pri': pri, 'faixa_sel': req.GET.get('faixa', ''),
-        'q': req.GET.get('q', ''),
+        'hora_corte': agora,
+        'palavras': 'Quais incidentes podem estourar o prazo'.split(),
     })
     return render(req, 'painel/fila.html', ctx)
 
@@ -224,7 +287,39 @@ def saude(req):
         'volume': sum(x['incidentes'] for x in lista),
         'elegiveis': b['elegiveis'],
     })
+    media = sum(x['nota'] for x in lista) / len(lista) if lista else 0
+    for x in lista:
+        x['sit'] = SITUACOES.get(x['situacao'], SITUACOES['Estável'])
+        x['tom'] = 'no' if x['nota'] < 40 else ('wn' if x['nota'] < 48 else 'ok')
+    ctx.update({
+        'media': media,
+        'coracao': g.coracao(),
+        # nível do líquido no coração, em unidades do desenho (viewBox 200 × 186)
+        'nivel': g.cd(16 + (1 - media / 100) * 150),
+        'situacoes': [dict(v, nome=k, n=sum(1 for x in lista if x['situacao'] == k))
+                      for k, v in SITUACOES.items()],
+        'palavras': 'Qual produto precisa de cuidado'.split(),
+    })
     return render(req, 'painel/saude.html', ctx)
+
+
+# As quatro situações da nota de saúde, com o texto que o modal do produto mostra.
+SITUACOES = {
+    'Estável': {'cor': 'ok', 'ic': 'shield', 'curto': 'Sob controle', 'titulo': 'Estável',
+                'texto': 'Poucos problemas novos e pouca perda de prazo. Está sob controle.'},
+    'Recorrente': {'cor': 'vi', 'ic': 'refresh', 'curto': 'Mesma causa, prazo estourando',
+                   'titulo': 'Problema conhecido e recorrente',
+                   'texto': 'Os problemas já são conhecidos, mas continuam perdendo prazo. '
+                            'Atacar a causa que se repete resolve.'},
+    'Risco latente': {'cor': 'wn', 'ic': 'info', 'curto': 'Muito caso novo, ainda no prazo',
+                      'titulo': 'Risco latente',
+                      'texto': 'Muitos problemas novos, mas ainda pouca perda de prazo. '
+                               'Pode piorar sem aviso.'},
+    'Já materializado': {'cor': 'no', 'ic': 'bolt', 'curto': 'Caso novo já estourando prazo',
+                         'titulo': 'Problema já materializado',
+                         'texto': 'Muitos problemas novos que já estão perdendo prazo. '
+                                  'Pede ação agora.'},
+}
 
 
 def causas(req):
@@ -264,7 +359,47 @@ def causas(req):
         'rec_vol': vol,
         'elegiveis': p['base']['elegiveis'],
     })
+    media = p['base']['media_violacao']
+    maior = max((c['taxa de quebra %'] for c in tabela), default=1) or 1
+    for c in tabela:
+        t = c['taxa de quebra %']
+        c['tom'] = 'no' if t > media * 2 else ('wn' if t > media else 'ok')
+        c['ic'] = ICONE_CAUSA.get(c['Código de fechamento'], 'c_doc')
+        c['larg'] = g.cd(max(1, t / maior * 100))
+    rmax = max((r['incidentes'] for r in rec), default=1) or 1
+    for r in rec:
+        r['titulo'], r['ic'] = TITULO_PROBLEMA.get(r['problema'], (r['problema'], 'c_doc'))
+        r['larg'] = g.cd(r['incidentes'] / rmax * 100)
+    ctx.update({
+        'media_pos': g.cd(media / maior * 100),
+        'palavras': ['Por', 'que', 'o', 'prazo', 'estoura'],
+    })
     return render(req, 'painel/causas.html', ctx)
+
+
+ICONE_CAUSA = {
+    'Falha de Hardware': 'c_hw', 'Falha de Redes': 'c_net', 'Falha de Storage': 'c_disk',
+    'Outro': 'help', 'Falha de Banco de Dados': 'c_db', 'Sem retorno do solicitante': 'c_user',
+    'Falha de Monitoração': 'c_mon', 'Incidente causado por Change': 'c_chg',
+    'Falha de Cloud': 'c_cloud', 'Falha de Aplicação': 'c_app', 'Falha não reproduzida': 'refresh',
+    'Falha causada pelo cliente': 'c_user', 'Falha de Segurança': 'c_lock',
+    'Falha de Sistema Operacional': 'c_os', 'Falso Positivo': 'check', 'Carta de Risco': 'c_doc',
+}
+
+# Nome em português para os problemas recorrentes, com o texto original da base embaixo. Problema
+# fora desta lista aparece com o texto original.
+TITULO_PROBLEMA = {
+    'problem: error backup full bacula': ('Backup full com erro', 'c_disk'),
+    'problem: unavailable by icmp ping': ('Servidor sem resposta', 'c_net'),
+    'problem: error backup inc bacula': ('Backup incremental com erro', 'c_disk'),
+    'problem: check: http type: tcp on port: <n> not running': ('Porta HTTP parada', 'c_app'),
+    'problem: apache busy workers': ('Apache sobrecarregado', 'c_mon'),
+    'problem: hank instalation recipes::domains::domain::<ativo>::activate created_dmarc_entry':
+        ('DMARC na ativação de domínio', 'c_doc'),
+    'problem: hank instalation recipes::domains::domain::<ativo>::activate domain_reserved':
+        ('Domínio reservado na ativação', 'c_doc'),
+    'reativação': ('Reativação', 'refresh'),
+}
 
 
 def previsao(req):
@@ -321,7 +456,56 @@ def previsao(req):
         'max_prox': max(x['alto'] for x in prox3),
         'max_prox2': max(x['alto'] for x in prox2),
     })
+    ctx.update(_v3_previsao(ctx, t, p))
     return render(req, 'painel/previsao.html', ctx)
+
+
+NOMES_DIA = {'seg': 'Segunda', 'ter': 'Terça', 'qua': 'Quarta', 'qui': 'Quinta',
+             'sex': 'Sexta', 'sáb': 'Sábado', 'dom': 'Domingo'}
+
+
+def _v3_previsao(ctx, t, p):
+    """O que a Previsão do redesenho de outubro/2026 acrescenta.
+
+    O desenho alternava P3 e P2 num botão, uma prioridade por vez. Aqui as duas ficam lado a
+    lado em todos os blocos, cada uma na própria escala.
+    """
+    hoje_rot = ctx['prox3'][0]['rot']
+    pri = []
+    for nome, real, prev, prox, sem, ac in (
+            ('P3', t['realizado'], t['previsto'], ctx['prox3'], p['semana'], ctx['ac']),
+            ('P2', t['realizado_p2'], t['previsto_p2'], ctx['prox2'], p['semana_p2'], ctx['ac2'])):
+        x = g.serie_diaria(real, prev)
+        vmax = max(d['alto'] for d in prox) * 1.08
+        dias = []
+        for i, d in enumerate(prox):
+            rel = (d['valor'] - d['media_semana']) / d['media_semana'] if d['media_semana'] else 0
+            dias.append(dict(
+                d, hoje=i == 0, baixo_pc=g.cd(d['baixo'] / vmax * 100),
+                larg_pc=g.cd((d['alto'] - d['baixo']) / vmax * 100),
+                alto_pc=g.cd(d['alto'] / vmax * 100), val_pc=g.cd(d['valor'] / vmax * 100),
+                med_pc=g.cd(d['media_semana'] / vmax * 100),
+                dif='acima' if rel > .1 else ('abaixo' if rel < -.1 else 'normal')))
+        smax = max(s_['media'] for s_ in sem)
+        semana = [dict(s_, alt=g.cd(s_['media'] / smax * 100), hoje=s_['dia'] == hoje_rot)
+                  for s_ in sem]
+        pri.append({'pri': nome, 'g': x, 'pj': json.dumps(x['pontos']), 'dias': dias,
+                    'semana': semana, 'ac': ac, 'hoje': prox[0]})
+    # o que a previsão indica para a semana, somando as duas prioridades do KPI: é a leitura de
+    # escala de equipe, e quem monta a escala atende os dois
+    soma = {d['dia']: d['media'] for d in p['semana']}
+    for d in p['semana_p2']:
+        soma[d['dia']] += d['media']
+    uteis = sum(soma[k] for k in ('seg', 'ter', 'qua', 'qui', 'sex')) / 5
+    fds = (soma['sáb'] + soma['dom']) / 2
+    pico, vale = ctx['pico'], ctx['vale']
+    return {
+        'pri': pri,
+        'fds_pc': round((1 - fds / uteis) * 100) if uteis else 0,
+        'pico_nome': NOMES_DIA.get(pico['rot'], pico['rot']),
+        'vale_nome': NOMES_DIA.get(vale['rot'], vale['rot']),
+        'palavras': 'Quantos incidentes teremos nos próximos dias'.split(),
+    }
 
 
 # ── fragmentos que o modal busca ───────────────────────────────────────────
@@ -329,9 +513,15 @@ def det_incidente(req, codigo):
     inc = s.incidente(codigo)
     if not inc:
         raise Http404('incidente não encontrado')
+    pz = s.prazo(inc['prioridade'], inc['hora'], s.painel()['acompanhamento']['hora_agora'])
+    sinais = inc['sinais'] or []
+    topo = max((x['peso'] for x in sinais), default=0) or 1
     return render(req, 'painel/_det_incidente.html',
-                  {'c': inc, 'base': s.painel()['base'],
-                   'hist': g.barras_mes(inc['hist_ativo']), 'meses': s.painel()['meses']})
+                  {'c': inc, 'base': s.painel()['base'], 'pz': pz,
+                   'anel': g.anel(pz['usado'], 54),
+                   # cem pontos, os primeiros `em100` acesos: quantos casos parecidos violam
+                   'pontos': [i < round(inc['em100']) for i in range(100)],
+                   'sinais': [dict(x, w=g.cd(x['peso'] / topo * 100)) for x in sinais]})
 
 
 def det_ativo(req, codigo):
@@ -355,14 +545,40 @@ def det_meta(req, pri):
         raise Http404('prioridade não encontrada')
     o = dict(_ola(x), escada=s.escada_tabela(x), marcas=s.escada_marcas(x))
     return render(req, 'painel/_det_meta.html',
-                  {'o': o, 'regua': _variante_regua(req)})
+                  {'o': o, 'regua': _variante_regua(req), 'ola_h': s.OLA_HORAS[o['prioridade']]})
 
 
 def det_produto(req, codigo):
     p = s.produto(codigo)
     if not p:
         raise Http404('produto não encontrado')
-    return render(req, 'painel/_det_produto.html', {'p': p, 'total': len(s.painel()['saude'])})
+    total = len(s.painel()['saude'])
+    pos = int(p['posicao'])
+    cor = '#EF4444' if p['nota'] < 40 else ('#F59E0B' if p['nota'] < 48 else '#22C55E')
+    comps = []
+    for c, (ic, dica) in zip(p['componentes'], COMP_DICAS):
+        sev = 'no' if c['pos'] >= 80 else ('wn' if c['pos'] >= 50 else 'ok')
+        comps.append(dict(c, ic=ic, dica=dica, sev=sev, w=g.cd(max(3, c['pos']))))
+    pior = max((c['pos'] for c in comps), default=0)
+    for c in comps:
+        c['topo'] = c['pos'] == pior
+    return render(req, 'painel/_det_produto.html', {
+        'p': p, 'total': total, 'cor': cor, 'comps': comps,
+        'sit': SITUACOES.get(p.get('situacao') or next(
+            (x['situacao'] for x in s.saude_lista() if x['produto'] == p['produto']), ''),
+            SITUACOES['Estável']),
+        'anel': g.anel(p['nota'] / 100, 44),
+        'tom': 'no' if p['nota'] < 40 else ('wn' if p['nota'] < 48 else 'ok'),
+        # régua de posição: da pior (esquerda) para a melhor; o produto acende no lugar dele
+        'ranks': [{'h': 14 + k * 2, 'on': k == total - pos} for k in range(total)],
+    })
+
+
+COMP_DICAS = [('alert', 'Incidentes que estouraram o prazo'),
+              ('sun', 'Casos que nunca tinham aparecido'),
+              ('help', 'Encerrados sem explicar o motivo'),
+              ('clock', 'Tempo típico até resolver'),
+              ('up', 'Se a taxa está subindo ou caindo')]
 
 
 def busca(req):
@@ -377,5 +593,22 @@ def tendencias(req):
     violações os 10 do topo reúnem. Notebook 08.
     """
     ctx = _base('tendencias')
-    ctx.update(st.tendencias())
+    t = st.tendencias()
+    icones = {'produto': 'box', 'categoria': 'folder', 'ic': 'server'}
+    for d in t['dims']:
+        d['ic'] = icones.get(d['chave'], 'box')
+        # a fatia de valores que o topo representa: 10 de 45 produtos são 22,2% deles
+        d['ent_pct'] = d['topo'] / d['valores'] * 100 if d['valores'] else 0
+        acum, cruzou = 0, False
+        # só os produtos com nota de saúde (mais de 200 incidentes) abrem o modal do produto
+        com_nota = {y['produto'] for y in s.saude_lista()}
+        for x in d['itens']:
+            x['abre'] = d['chave'] == 'produto' and x['valor'] in com_nota
+            acum += x['pct']
+            x['acum'] = acum
+            x['cruza'] = acum >= 80 and not cruzou
+            x['acima'] = acum >= 80
+            cruzou = cruzou or acum >= 80
+    ctx.update(t)
+    ctx['palavras'] = 'Poucos concentram quase tudo'.split()
     return render(req, 'painel/tendencias.html', ctx)

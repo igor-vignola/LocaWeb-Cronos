@@ -271,3 +271,131 @@ def arco_meta(p, w=560):
             'meta_pc': cd(p['meta'] / esc * 100),
             'meta_faixa_pc': cd(corta),
             'proj_faixa_pc': cd(ponto)}
+
+
+def _passo(teto, linhas=4):
+    """Espaçamento das linhas de grade, em número redondo, para no máximo `linhas` intervalos."""
+    for p in (5, 10, 20, 25, 50, 100, 200, 250, 500):
+        if teto / p <= linhas:
+            return p
+    return 1000
+
+
+def hora_a_hora(ac, w=640, h=200):
+    """Acumulado do dia, hora a hora, no desenho do redesenho de outubro/2026.
+
+    Mesmo dado de `acompanhamento`, outra geometria: margem fixa à esquerda para os rótulos do
+    eixo e teto redondo, que é o que deixa o eixo terminar em 100 e não em 101,7. A faixa de 80%
+    é a do dia inteiro distribuída pela curva de chegada, como antes.
+    """
+    L, R, T, B = 30, 8, 10, 12
+    esperado, realizado = ac['esperado'], ac['realizado']
+    passo = _passo(ac['alto'] * 1.04)
+    teto = -(-ac['alto'] * 1.04 // passo) * passo
+    px = lambda i: L + i / 23 * (w - L - R)
+    py = lambda v: T + (1 - v / teto) * (h - T - B)
+    frac = [e / esperado[-1] if esperado[-1] else 0 for e in esperado]
+    altos = [(px(i), py(ac['alto'] * f)) for i, f in enumerate(frac)]
+    baixos = [(px(i), py(ac['baixo'] * f)) for i, f in enumerate(frac)]
+    banda = _suave(altos) + ' L' + _suave(list(reversed(baixos)))[1:] + ' Z'
+    p_real = [(px(i), py(v)) for i, v in enumerate(realizado)]
+    linha = _suave(p_real)
+    area = (linha + f' L{p_real[-1][0]:.1f} {h - B} L{L} {h - B} Z') if len(p_real) > 1 else ''
+    ag = len(realizado) - 1
+    marcas = list(range(0, int(teto) + 1, passo))
+    if len(marcas) > 4:
+        marcas = marcas[::2]
+    return {
+        'w': w, 'h': h, 'banda': banda, 'previsto': _suave([(px(i), py(v)) for i, v in enumerate(esperado)]),
+        'linha': linha, 'area': area,
+        'nx': cd(px(ag)), 'ny': cd(py(realizado[ag]) if realizado else py(0)),
+        'grade': ''.join(f'M{L} {py(t):.1f}H{w - R}' for t in marcas),
+        'marcas': [{'v': t, 'top': cd(py(t) / h * 100)} for t in marcas],
+        'horas': [{'rot': f'{hh:02d}h', 'left': cd(px(hh) / w * 100)} for hh in (0, 6, 12, 18, 23)],
+        # leitura do cursor: o realizado até o agora, o previsto depois. Nunca o realizado
+        # depois do corte, que é futuro para o relógio da tela.
+        'pontos': [{'h': i, 'x': cd(px(i) / w * 100),
+                    'y': cd((py(realizado[i]) if i < len(realizado) else py(esperado[i])) / h * 100),
+                    'v': (realizado[i] if i < len(realizado) else round(esperado[i], 1)),
+                    'real': i < len(realizado)} for i in range(24)],
+    }
+
+
+def anel(fr, r):
+    """`stroke-dasharray` de um anel preenchido na fração `fr` (0 a 1)."""
+    c = 2 * 3.141592653589793 * r
+    return f'{c * max(0.0, min(1.0, fr)):.1f} {c:.1f}'
+
+
+def tracos(cx, r1, r2, n):
+    """Marcas radiais de mostrador: `n` traços entre os raios `r1` e `r2`."""
+    import math
+    d = ''
+    for i in range(n):
+        a = i / n * 2 * math.pi
+        sn, cs = math.sin(a), math.cos(a)
+        d += f'M{cx + r1 * sn:.1f} {cx - r1 * cs:.1f}L{cx + r2 * sn:.1f} {cx - r2 * cs:.1f}'
+    return d
+
+
+DIAS_CURTOS = ['seg', 'ter', 'qua', 'qui', 'sex', 'sáb', 'dom']
+
+
+def serie_diaria(realizado, previsto, n_real=30, n_prev=14, w=640, h=260):
+    """Incidentes por dia: os últimos `n_real` dias medidos e os `n_prev` previstos.
+
+    Desenho do redesenho de outubro/2026: eixo começando em zero e teto redondo, faixa de 80%
+    só do lado previsto, e o campo do futuro tingido a partir de hoje.
+    """
+    import datetime as dt
+    L, R, T, B = 34, 10, 14, 26
+    real, fut = realizado[-n_real:], previsto[:n_prev]
+    n = len(real) + len(fut)
+    teto_v = max([r['valor'] for r in real] + [f['alto'] for f in fut]) * 1.04
+    passo = _passo(teto_v, 5)
+    teto = -(-teto_v // passo) * passo
+    px = lambda i: L + i / (n - 1) * (w - L - R)
+    py = lambda v: T + (1 - v / teto) * (h - T - B)
+    pr = [(px(i), py(r['valor'])) for i, r in enumerate(real)]
+    corte = pr[-1]
+    pf = [corte] + [(px(len(real) + i), py(f['valor'])) for i, f in enumerate(fut)]
+    altos = [corte] + [(px(len(real) + i), py(f['alto'])) for i, f in enumerate(fut)]
+    baixos = [corte] + [(px(len(real) + i), py(f['baixo'])) for i, f in enumerate(fut)]
+    banda = _suave(altos) + ' L' + _suave(list(reversed(baixos)))[1:] + ' Z'
+    marcas = list(range(0, int(teto) + 1, passo))
+    if len(marcas) > 4:
+        marcas = marcas[::2]
+    dm = lambda d: f'{d[8:10]}/{d[5:7]}'
+    sem = lambda d: DIAS_CURTOS[dt.date.fromisoformat(d[:10]).weekday()]
+    xh = px(len(real))
+    pontos = [{'x': cd(px(i) / w * 100), 'y': cd(py(r['valor']) / h * 100), 'v': round(r['valor']),
+               'real': True, 'rot': f"{sem(r['dia'])}, {dm(r['dia'])}"} for i, r in enumerate(real)]
+    pontos += [{'x': cd(px(len(real) + i) / w * 100), 'y': cd(py(f['valor']) / h * 100),
+                'v': round(f['valor'], 1), 'real': False,
+                'rot': f"{f['rot']}, {f['dm']}"} for i, f in enumerate(fut)]
+    idx = [0, 5, 10, 15, 20, 25] + [len(real), len(real) + 4, len(real) + 8, n - 1]
+    return {
+        'w': w, 'h': h, 'banda': banda, 'previsto': _suave(pf),
+        'linha': _suave(pr), 'area': _suave(pr) + f' L{corte[0]:.1f} {h - B} L{L} {h - B} Z',
+        'cx': cd(corte[0]), 'cy': cd(corte[1]),
+        'hx': cd(xh), 'hy': cd(pf[1][1]) if len(pf) > 1 else cd(corte[1]),
+        'hx_pc': cd(xh / w * 100), 'fut_w': cd(w - R - xh), 'base': h - B,
+        'grade': ''.join(f'M{L} {py(t):.1f}H{w - R}' for t in marcas),
+        'marcas': [{'v': t, 'top': cd(py(t) / h * 100)} for t in marcas],
+        'datas': [{'rot': (dm(real[i]['dia']) if i < len(real) else fut[i - len(real)]['dm']),
+                   'left': cd(px(i) / w * 100), 'fut': i >= len(real)}
+                  for i in sorted(set(idx)) if i < n],
+        'pontos': pontos,
+    }
+
+
+def coracao():
+    """Contorno de coração na caixa 200 × 186, pela curva paramétrica clássica."""
+    import math
+    pts = []
+    for i in range(161):
+        t = i / 160 * 2 * math.pi
+        x = 16 * math.sin(t) ** 3
+        y = 13 * math.cos(t) - 5 * math.cos(2 * t) - 2 * math.cos(3 * t) - math.cos(4 * t)
+        pts.append(f'{100 + x * 5.8:.1f} {84 - y * 5.8:.1f}')
+    return 'M' + ' L'.join(pts) + ' Z'

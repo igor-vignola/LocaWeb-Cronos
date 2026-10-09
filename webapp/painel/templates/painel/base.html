@@ -3,86 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-{% comment %}O bloco não tem mais conteúdo padrão: com "Cronos" dentro dele, qualquer tela que
+{% comment %}O bloco não tem conteúdo padrão: com "Cronos" dentro dele, qualquer tela que
 esquecesse de definir o título abria uma aba chamada "Cronos · Cronos".{% endcomment %}
 <title>{% block titulo %}{% endblock %} · Cronos</title>
 <meta name="description" content="Inteligência preditiva de incidentes operacionais.">
-{# a marca do topo também na aba do navegador; era o único 404 do sistema #}
 <link rel="icon" href="{% folha 'painel/favicon.svg' %}" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{% folha 'painel/cronos.css' %}">
-<link rel="stylesheet" href="{% folha 'painel/topo.css' %}">
-<link rel="stylesheet" href="{% folha 'painel/panorama.css' %}">
-<link rel="stylesheet" href="{% folha 'painel/previsao.css' %}">
-<link rel="stylesheet" href="{% folha 'painel/tendencias.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% folha 'painel/v3.css' %}">
 </head>
 <body data-dia="{{ hoje.dia }}">
-{% include 'painel/_campo.html' %}
+<div class="fd" aria-hidden="true"><i></i><i></i><i></i><u></u></div>
 
 <div class="sh">
   <header class="tp">
-    <div class="br">
-      <div class="br-m"><svg viewBox="0 0 28 28" width="18" height="18" fill="none">
-        <path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"
-          stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#6EA0FF" stroke-width="1.9"/>
-        <circle cx="22" cy="8" r="1.3" fill="#6EA0FF"/></svg></div>
-      <div><b>Cronos</b><em>VEJA ANTES · AJA ANTES</em></div>
-    </div>
+    <a class="tp-m" href="{% url 'panorama' %}" aria-label="Cronos, ir para o Panorama">
+      <span><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M6 22L12 14L16 17L22 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="8" r="3" stroke="#3B82F6" stroke-width="1.5"/><circle cx="22" cy="8" r="1.2" fill="#3B82F6"/></svg></span>
+      <b>Cronos</b>
+    </a>
 
-    {% comment %}
-      Rótulo curto e substantivo — o rótulo longo ("Saúde por produto") empurrava a
-      navegação para 5 blocos de texto e competia com o conteúdo. As divisórias agrupam
-      em zonas: onde estamos · o que vem · onde agir · onde o problema mora.
-    {% endcomment %}
-    {% comment %}`aria-current="page"` na aba ativa: sem ele, o leitor de tela anuncia seis
-    links iguais e não diz em qual seção a pessoa está — a informação existia só na cor de
-    fundo.{% endcomment %}
-    <nav class="pil" aria-label="Seções">
-      <a href="{% url 'panorama' %}" class="{% if aba == 'panorama' %}on{% endif %}"{% if aba == 'panorama' %} aria-current="page"{% endif %}>{% icone 'agora' 15 %}Panorama</a>
-      <span class="pil-d"></span>
-      <a href="{% url 'previsao' %}" class="{% if aba == 'previsao' %}on{% endif %}"{% if aba == 'previsao' %} aria-current="page"{% endif %}>{% icone 'previsao' 15 %}Previsão</a>
-      <a href="{% url 'projecao' %}" class="{% if aba == 'projecao' %}on{% endif %}"{% if aba == 'projecao' %} aria-current="page"{% endif %}>{% icone 'alvo' 15 %}Projeção</a>
-      <span class="pil-d"></span>
-      <a href="{% url 'fila' %}" class="{% if aba == 'fila' %}on{% endif %}"{% if aba == 'fila' %} aria-current="page"{% endif %}>{% icone 'fila' 15 %}Fila</a>
-      <span class="pil-d"></span>
-      <a href="{% url 'saude' %}" class="{% if aba == 'saude' %}on{% endif %}"{% if aba == 'saude' %} aria-current="page"{% endif %}>{% icone 'coracao' 15 %}Saúde</a>
-      <a href="{% url 'causas' %}" class="{% if aba == 'causas' %}on{% endif %}"{% if aba == 'causas' %} aria-current="page"{% endif %}>{% icone 'lupa' 15 %}Causas</a>
-      <a href="{% url 'tendencias' %}" class="{% if aba == 'tendencias' %}on{% endif %}"{% if aba == 'tendencias' %} aria-current="page"{% endif %}>{% icone 'tendencia' 15 %}Tendências</a>
+    {% comment %}`aria-current="page"` na aba ativa: sem ele, o leitor de tela anuncia sete
+    links iguais e não diz em qual seção a pessoa está.{% endcomment %}
+    <nav class="tp-n" aria-label="Seções">
+      <a href="{% url 'panorama' %}"{% if aba == 'panorama' %} class="on" aria-current="page"{% endif %}>{% ic 'grid' 15 1.6 %}Panorama</a>
+      <a href="{% url 'previsao' %}"{% if aba == 'previsao' %} class="on" aria-current="page"{% endif %}>{% ic 'trend' 15 1.6 %}Previsão</a>
+      <a href="{% url 'projecao' %}"{% if aba == 'projecao' %} class="on" aria-current="page"{% endif %}>{% ic 'target' 15 1.6 %}Projeção</a>
+      <a href="{% url 'fila' %}"{% if aba == 'fila' %} class="on" aria-current="page"{% endif %}>{% ic 'list' 15 1.6 %}Fila</a>
+      <a href="{% url 'saude' %}"{% if aba == 'saude' %} class="on" aria-current="page"{% endif %}>{% ic 'heart' 15 1.6 %}Saúde</a>
+      <a href="{% url 'causas' %}"{% if aba == 'causas' %} class="on" aria-current="page"{% endif %}>{% ic 'search' 15 1.6 %}Causas</a>
+      <a href="{% url 'tendencias' %}"{% if aba == 'tendencias' %} class="on" aria-current="page"{% endif %}>{% ic 'up' 15 1.6 %}Tendências</a>
     </nav>
 
     <div class="tp-r">
-      {% comment %}
-        Controle de tempo. Ocupa o lugar que era da busca. Ele nao mexe em nada da tela:
-        so publica o evento 'cronos:tempo' no document e escuta o mesmo evento para
-        acompanhar quem mudar o tempo por outro caminho (o player do modo tempo).
-        Fica escondido nas abas que nao trazem a constante DIAS.
-      {% endcomment %}
-      <div class="tc" id="tc" role="group" aria-label="Tempo" hidden>
-        <button class="tc-s ant" id="tc-ant" type="button" title="Dia anterior"
-          aria-label="Dia anterior">{% icone 'seta' 14 %}</button>
-        <span class="tc-d" id="tc-dia" aria-live="polite">—</span>
-        <button class="tc-s" id="tc-pro" type="button" title="Dia seguinte"
-          aria-label="Dia seguinte">{% icone 'seta' 14 %}</button>
-      </div>
-      {% comment %}A barra do topo dizia "carga de 30/09 · 23h59", que é hora de pipeline: não muda
-      decisão nenhuma e obrigava a fazer a conta de que dia é hoje. Agora diz o dia, por extenso. O
-      ponto verde continua sendo o sinal de que o pacote está carregado.{% endcomment %}
-      <span class="stl"><i></i>{{ hoje.dia_semana }}, {{ hoje.dia_mes }}</span>
-      {% if aba == 'panorama' %}<button class="bl" id="sino" title="Reabrir o resumo do dia">{% icone 'sol' 17 %}<b>1</b></button>{% else %}<a class="bl" href="{% url 'panorama' %}" title="Ver o resumo do dia">{% icone 'sol' 17 %}</a>{% endif %}
+      <span class="tp-d">{% ic 'cal' 15 1.7 %}{{ hoje.dia_mes }}</span>
+      {% comment %}O sino reabre o resumo do dia. Fora do Panorama ele leva até lá, porque o
+      resumo só existe naquela tela.{% endcomment %}
+      {% if aba == 'panorama' %}
+        <button class="tp-b" id="sino" type="button" title="Reabrir o resumo do dia" aria-label="Reabrir o resumo do dia">{% ic 'bell' 17 1.6 %}{% if n_atencao %}<em>{{ n_atencao }}</em>{% endif %}</button>
+      {% else %}
+        <a class="tp-b" href="{% url 'panorama' %}" title="Ver o resumo do dia" aria-label="Ver o resumo do dia">{% ic 'bell' 17 1.6 %}</a>
+      {% endif %}
     </div>
   </header>
 
   <main>{% block conteudo %}{% endblock %}</main>
 
-  {% comment %}O rodapé dizia "os números vêm dos parquets gerados pelos notebooks 02 a 07; o
-  contêiner apenas lê", em todas as seis páginas. É uma nota de proveniência excelente — e é
-  vocabulário de quem construiu, não de quem usa. A informação que serve à operação é uma só: até
-  quando o dado vai. A procedência técnica continua no README e no deck, onde a banca a
-  procura.{% endcomment %}
   <footer class="rod">
     <span>Protótipo do MVP · Dados até {{ hoje.completo }}</span>
-    <span>Cronos · Super Data Bros · Challenge FIAP 2026 com Locaweb</span>
+    <b>VEJA ANTES. AJA ANTES.</b>
+    <span>Super Data Bros · Challenge FIAP 2026 com Locaweb</span>
   </footer>
 </div>
 
@@ -90,7 +60,11 @@ esquecesse de definir o título abria uma aba chamada "Cronos · Cronos".{% endc
 
 <div class="ov" id="ov" hidden>
   <div class="md" role="dialog" aria-modal="true" aria-label="Detalhe">
-    <button class="md-x" id="mx" aria-label="Fechar">{% icone 'fechar' 16 %}</button>
+    <div class="md-n">
+      <button id="mp" type="button" aria-label="Anterior">{% ic 'arrow' 14 1.8 'inv' %}</button>
+      <button id="mn" type="button" aria-label="Próximo">{% ic 'arrow' 14 1.8 %}</button>
+      <button id="mx" type="button" aria-label="Fechar">{% ic 'x' 13 1.8 %}</button>
+    </div>
     <div id="mc"><div class="md-carga">Carregando…</div></div>
   </div>
 </div>

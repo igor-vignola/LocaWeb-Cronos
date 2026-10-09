@@ -1,262 +1,162 @@
-{% extends 'painel/base.html' %}{% load br static %}
+{% extends 'painel/base.html' %}{% load br %}
 {% block titulo %}Panorama{% endblock %}
-
+{% block conteudo %}
 {% comment %}
-VERSÃO A DA ENTRADA — O PLANTÃO
+Panorama, no desenho do redesenho de outubro/2026 (Claude Design, versão v3). Ordem: como está
+o dia, a curva de hoje nas duas prioridades, os casos em que dá para agir, e o ano.
 
-Coluna única, na ordem em que a decisão acontece dentro de um dia:
-
-  1. como está o dia        → cabeça escura, com o veredito e os três números do momento
-  2. quando o volume sobe   → o dia hora a hora
-  3. o que pede ação agora  → a fila pontuada pelo modelo de risco
-  4. como fecha o ano       → a régua da meta, uma por prioridade
-  5. onde o problema mora   → o que não muda de um dia para o outro
-
-A fila vem ANTES do ano de propósito. O ano é o que se cobra em dezembro; a fila é o que muda
-o ano, e é a única coisa desta tela em que dá para agir dentro do dia.
-
-A cabeça escura carrega dois números que o projeto provou serem coisas diferentes: o volume
-previsto e o maior risco aberto. Volume dimensiona carga e não prevê quebra — a regressão do
-volume contra quebra deu R² de 0,025. Por isso os dois aparecem lado a lado e nunca somados.
-
-Nenhum número desta tela é escrito à mão: todos saem do painel.json pelas contas de
-views._entrada, e as duas versões da entrada leem o mesmo construtor.
+O bloco da meta do ano não estava na v3 do desenho. Voltou porque a tela de entrada mostrava o
+P2 passando do limite apenas como um aviso, sem o número; o desenho do cartão segue o resto da
+tela.
 {% endcomment %}
 
-{% block conteudo %}
-<div class="en">
-
-{% comment %}A cabeça. Mesmo par de superfícies do morning brief — escuro anuncia, claro
-informa — para quem viu o brief reconhecer a tela que abre atrás dele.{% endcomment %}
-<header class="en-h noite pn-en">
-  <svg class="en-h-cp" viewBox="0 0 1180 190" preserveAspectRatio="none" aria-hidden="true">
-    <g fill="none" stroke="#6EA0FF" stroke-width="1.3" opacity=".2">
-      <path d="M-20 150C120 142 250 106 396 114s236 38 382 20 190-56 452-44"/>
-      <path d="M-20 174C150 169 268 141 420 145s254 31 392 18 304-46 436-36"/>
-    </g>
-    <g fill="none" stroke="#F0B767" stroke-width="1.2" opacity=".15">
-      <path d="M-20 128C110 116 248 82 402 91s230 41 378 24 314-64 466-52"/>
-    </g>
+<section class="hr pn-hr">
+  <svg class="pn-dial" viewBox="0 0 500 500" aria-hidden="true">
+    <circle cx="250" cy="250" r="240" fill="none" stroke="#BFDBFE" stroke-width="1.4"/>
+    <circle cx="250" cy="250" r="196" fill="none" stroke="#BFDBFE" stroke-width="1.4"/>
+    <path d="{{ mostrador }}" stroke="#93C5FD" stroke-width="2" stroke-linecap="round"/>
+    <circle class="pn-arc" cx="250" cy="250" r="240" fill="none" stroke="url(#pnArc)" stroke-width="6" stroke-linecap="round" stroke-dasharray="{{ arco_dia }}" transform="rotate(-90 250 250)"/>
+    <defs><linearGradient id="pnArc" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#93C5FD"/><stop offset="1" stop-color="#2563EB"/></linearGradient></defs>
+    <g class="pn-pt"><line x1="250" y1="250" x2="250" y2="70" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" opacity=".7"/></g>
+    <circle cx="250" cy="250" r="6" fill="#2563EB"/>
   </svg>
 
-  {% comment %}Veredito à esquerda, números à direita, na mesma faixa. Empilhados, a cabeça
-  passava de 600px e empurrava o gráfico do dia para fora da primeira tela; lado a lado ela cabe
-  em 350 e o primeiro cartão entra sem rolagem.
+  <div class="hr-l">
+    <span class="ey ok"><span>{% ic 'check' 12 2.2 %}</span>{{ hoje.dia_semana|capfirst }}, {{ hoje.dia_mes }} · atualizado às {{ ac.hora_agora }}h</span>
+    <h1>{% for w in palavras %}<span><span style="--w:{{ forloop.counter0 }}">{{ w }}{% if forloop.last %}<i>.</i>{% endif %}</span></span>{% endfor %}</h1>
 
-  Os selos ficam DENTRO da coluna da esquerda, e não numa terceira linha embaixo de tudo. Fora
-  dela, a faixa dos números centrava só contra o texto e sobrava a altura dos selos livre
-  embaixo: o 77,4 nascia colado no topo do cartão, com um vão morto sob ele.{% endcomment %}
-  <div class="en-h-t">
-    <div class="en-h-l">
-      <div>
-        {% comment %}"· Incidentes elegíveis ao KPI" saiu da sobrancelha em 10/09/2026: o selo
-        logo abaixo repete "elegíveis ao KPI" e ainda traz o número.{% endcomment %}
-        <span class="en-ey"><span class="pn-bh-sol">{% icone 'sol' 15 %}</span>
-          {{ hoje.dia_semana }}, {{ hoje.extenso }} · {{ ac.hora_agora }}h</span>
-
-        <h1 class="en-t">{{ titulo }}</h1>
-        {% comment %}A linha de apoio saiu: a manchete dizia "Dia dentro do normal" e ela
-        respondia "Volume de uma quarta comum nas duas prioridades do KPI" — a mesma frase, com
-        os números que estão à direita. Continua no resumo das 07h, que é onde ela abre a
-        leitura em vez de repeti-la.{% endcomment %}
-      </div>
-
-      {% comment %}O selo "carga de 30/09 · 23h59" saiu. A sobrancelha já diz que dia é hoje, o
-      rodapé já diz o corte, e a hora da carga é detalhe de pipeline: não muda decisão
-      nenhuma.{% endcomment %}
-      <div class="en-chips">
-        {% comment %}O número é len(kpi[dia < CORTE]), tudo que abriu antes de 01/10 — nunca
-        escrever "em 2025" aqui, incluiria três meses que a conta não tem. O sufixo "até o
-        corte" saiu em 10/09/2026: a sobrancelha, dois centímetros acima, já diz o dia e a
-        hora em que a tela está parada.{% endcomment %}
-        <span class="pn-bh-c"><b>{{ base.elegiveis|mil }}</b> elegíveis ao KPI</span>
-        {% comment %}Não é link: os pontos de atenção moram em abas diferentes (o ano em Projeção,
-        a nota em Saúde), e um link só levaria para o lugar errado na metade dos casos. Eles
-        aparecem nomeados mais abaixo, cada um com o seu caminho.{% endcomment %}
-        {% if n_atencao %}
-          <span class="pn-bh-c wn"><i></i>{{ n_atencao }}
-            ponto{{ n_atencao|pluralize }} de atenção</span>
-        {% endif %}
-      </div>
+    <div class="pn-dia">
+      <div><span><b>{{ dia_pc_int }}%</b> do dia já passou</span><span><b>{{ horas_frente }}h</b> pela frente</span></div>
+      <div class="pn-dia-b"><span style="width:{{ dia_pc }}%"></span><i style="left:{{ dia_pc }}%"></i></div>
     </div>
 
-  {% comment %}As DUAS prioridades do KPI com o mesmo peso. O P3 é cerca de cinco vezes o P2
-  em volume, e é tentador dar a ele o número grande — mas as duas entram no KPI e as duas têm
-  meta própria, então uma tela que destaca só o P3 ensina o leitor a ignorar metade do
-  indicador. Mesmo tamanho, mesma faixa, badge em cada uma.
-
-  À direita, o KPI que já fechou: ontem e a sequência. Menores porque não há o que fazer com
-  eles — o previsto é o único número aqui em que ainda dá tempo de mexer.
-
-  O maior risco aberto ficou fora da cabeça: ele depende de quantos casos já entraram, então
-  cedo no dia diz "nada demais" e não sustenta a abertura de uma tela. Mora no bloco da fila,
-  onde cabe explicar que a pontuação acontece na entrada.{% endcomment %}
-    <div class="en-nums">
-      <div class="en-prev">
-        {% for g in reguas %}
-          <div class="en-pv">
-            <span class="esc {{ g.pri|lower }}">{{ g.pri }}</span>
-            <b>{{ g.previsto|num:1 }}</b>
-            <span>previstos hoje<em>Intervalo de {{ g.baixo|num:0 }} a
-              {{ g.alto|num:0 }}</em></span>
-          </div>
+    {% if avisos %}
+      <div class="pn-av">
+        {% for v in avisos %}
+          <a class="pn-avi {{ v.tom }}" href="{% url v.href %}"><span>{% ic v.ic 14 1.8 %}</span>{{ v.texto }}<u>›</u></a>
         {% endfor %}
       </div>
+    {% endif %}
+  </div>
 
-      <div class="en-fatos">
-        <div class="en-f">
-          <span class="en-n2-k">Violações ontem</span>
-          <b>{{ ontem.violou }}</b>
-          <em>Em {{ ontem.total }} registrados</em>
-        </div>
-        <div class="en-f">
-          <span class="en-n2-k">Sem violação</span>
-          <b>{{ base.sem_violacao_dias }}<u>dias úteis</u></b>
-          <em>Seguidos, até o corte</em>
-        </div>
+  <div class="hr-r">
+    {% for r in reguas %}
+      <div class="kp" style="--d:{% if forloop.first %}.35s{% else %}.42s{% endif %}">
+        <div class="kp-h"><span>{{ r.pri }} hoje</span><span class="kp-i {% if r.pri == 'P2' %}p2{% endif %}">{% ic 'trend' 15 %}</span></div>
+        <span class="kp-v">{{ r.previsto|num }}</span>
+        <span class="kp-s">previstos · {{ r.baixo|num:0 }} a {{ r.alto|num:0 }}</span>
       </div>
+    {% endfor %}
+    <div class="kp" style="--d:.49s">
+      <div class="kp-h"><span>Violações ontem</span><span class="kp-i {% if ontem.violou %}no{% else %}ok{% endif %}">{% ic 'shield' 15 %}</span></div>
+      <span class="kp-v">{{ ontem.violou }}<small> de {{ ontem.total }}</small></span>
+      <span class="kp-s">{% if ontem.violou == 1 %}1 prazo estourou{% elif ontem.violou %}{{ ontem.violou }} prazos estouraram{% else %}Nenhum prazo estourou{% endif %}</span>
     </div>
-  </div>
-</header>
-
-{% comment %}O dia por dentro, nas DUAS prioridades do KPI.
-
-A curva prevista foi fechada à meia-noite e não se move; a linha escura é o que de fato entrou.
-A forma diz o que é fato e o que é previsão — cheio contra tracejado.
-
-Eram uma placa só, do P3, ocupando a largura inteira. As duas prioridades entram no KPI, cada
-uma tem meta própria, e o P2 aparecia aqui apenas como um número previsto na cabeça, sem curva
-para comparar contra ele. Agora são duas placas do mesmo tamanho: nenhuma das duas é a
-principal.
-
-E a curva de chegada por hora passou a ser medida DENTRO de cada prioridade. Antes havia uma
-só, calculada sobre a base inteira, e este comentário afirmava que ela era do P3 — não era. O
-P2 chega mais cedo: às 06h ele já acumulou 23% do dia contra 11% do P3.
-{% endcomment %}
-<section class="en-bl pn-en" style="animation-delay:.05s">
-  {% comment %}Em 10/09/2026 a faixa escura e o gráfico do dia viraram um bloco só. Eram duas
-  camadas dizendo "quanto entra hoje" — a faixa com o número previsto, o gráfico com a chegada
-  hora a hora — separadas por um cabeçalho de seção inteiro: ícone, título "O dia hora a hora" e
-  a linha de método sobre a curva ter sido fechada à meia-noite. O cabeçalho saiu; sobrou a
-  fita com a legenda e o link, que são as duas coisas dele que não se repetiam.{% endcomment %}
-  <div class="en-fita">
-    <span class="leg en-g-leg">
-      <span><i class="l-r"></i>Registrados</span>
-      <span><i class="l-p"></i>Previsão do modelo</span>
-      <span><i class="l-b"></i>Intervalo de 80%</span>
-    </span>
-    {% comment %}Era "Ver o modelo dia a dia" — herança do modo dia-a-dia, que saiu quando a
-    máquina do tempo virou peça de apresentação. O link leva à Previsão, que é outra coisa.
-    Mesma fórmula do bloco da meta logo abaixo ("Abrir a projeção"), para os dois links da
-    página nomearem o destino do mesmo jeito.{% endcomment %}
-    <a class="pn-lk" href="{% url 'previsao' %}">Abrir a previsão{% icone 'seta' 14 %}</a>
-  </div>
-
-  <div class="en-duo">
-    {% include 'painel/_dia_placa.html' with acomp=acomp ac=ac pri='P3' pts='dia-pts-p3' %}
-    {% include 'painel/_dia_placa.html' with acomp=acomp2 ac=ac2 pri='P2' pts='dia-pts-p2' %}
+    <div class="kp dk" style="--d:.56s">
+      <div class="kp-h"><span>Sem violar</span><span class="kp-i">{% ic 'cal' 15 %}</span></div>
+      <span class="kp-v">{{ base.sem_violacao_dias }}<small> dias úteis</small></span>
+      <span class="kp-s">Seguidos</span>
+    </div>
   </div>
 </section>
 
-{% include 'painel/_agir.html' with atraso='.1s' %}
-
-{% comment %}A meta do ano.
-
-Esta era a parte ilegível da tela, e o defeito não estava no desenho: estava em nunca enunciar
-a regra. A tela mostrava "208 · quebras projetadas até dezembro · meta 200" e esperava que o
-leitor soubesse, por conta própria, que existe um teto anual de quebras de OLA, que 200 é esse
-teto e não uma expectativa, e que passar dele é o que se cobra. Nada disso estava escrito.
-
-Agora o bloco abre dizendo a regra com os dois números, e o cartão traz a comparação já feita:
-"208 de no máximo 200". Não é possível ler isso errado.
-
-O selo colorido de "estoura por 8,0" saiu. Ele era pílula genérica repetindo em cor o que a
-frase abaixo já diz em palavra, e pílula colorida gasta a única cor forte do cartão num dado
-que não é alarme — o estouro projetado é de 4%, com a faixa cobrindo a meta.
-{% endcomment %}
-<section class="en-bl pn-en" style="animation-delay:.15s">
-  <div class="en-bl-h">
-    <span class="chp {% if ola_ano.folga %}t-ok{% else %}t-wn{% endif %}">
-      {% icone 'alvo' 18 %}</span>
-    <div class="en-bl-t">
-      {% comment %}33 palavras para dizer uma coisa: o KPI é escada, não teto. O resto — "cada
-      faixa vale uma porcentagem", "o modelo projeta em qual delas" — o próprio cartão agora
-      mostra, com o 150% de hoje e o 125% projetado lado a lado.{% endcomment %}
-      <h2>A meta de violações do ano</h2>
-      {% comment %}A regra da escada saiu do Panorama em 10/09/2026. Aqui a pergunta é "o ano
-      fecha?", e quem responde é a projeção contra o teto da faixa, que a linha nova diz com os
-      dois números. A escada inteira — o que cada degrau vale, em qual deles o modelo projeta —
-      mora na aba Projeção, e o link para ela está ao lado.{% endcomment %}
-    </div>
-    <a class="pn-lk" href="{% url 'projecao' %}">Abrir a projeção{% icone 'seta' 14 %}</a>
+<section class="sc anim" style="--d:.25s">
+  <div class="sc-h">
+    <h2 class="sc-t"><span class="lad">{% ic 'trend' 16 1.8 %}</span>Hoje, hora a hora</h2>
+    <a class="sc-a" href="{% url 'previsao' %}">Previsão <span>→</span></a>
   </div>
-
-  <div class="pn-pri pn-par">
-    {% for g in reguas %}
-      {% comment %}O selo carrega o ATINGIMENTO projetado, e não "dentro ou fora do teto".
-
-      A tela media as duas prioridades contra o campo `meta` do notebook 06, que reduziu o KPI a
-      um teto por prioridade — e pegou degraus diferentes em cada uma: 200 no P3 é o teto dos
-      150%, 45 no P2 é o teto dos 75%. O resultado era inverter os dois vereditos ao mesmo
-      tempo: o P3 saía em âmbar valendo 125% de atingimento, e o P2 saía em verde valendo 75%,
-      que é o primeiro degrau de perda. A tela mandava correr atrás da prioridade que ia bem.
-      {% endcomment %}
-      <section class="pn-v pn-p">
-        <div class="pn-p-h">
-          <span class="esc {{ g.pri|lower }}">{{ g.pri }}</span>
-          <span class="pn-p-r">Violações de OLA no ano</span>
-          {% comment %}O selo do atingimento projetado saiu em 10/09/2026: o mesmo número
-          aparecia de novo, quinze linhas abaixo, no lado direito da comparação hoje →
-          dezembro.{% endcomment %}
+  <div class="pn-hh">
+    {% for c in hh %}
+      <div class="vd pn-hc">
+        <div class="pn-hc-h">
+          <span class="pn-hc-t"><span class="pri {% if c.a.prioridade == 'P2' %}p2{% endif %}">{{ c.a.prioridade }}</span><b>{{ c.a.previsto|num }}</b><span>previstos</span></span>
+          {% if c.lado == 'dentro' %}<span class="sl ok">{% ic 'check' 13 1.9 %}No intervalo</span>
+          {% elif c.lado == 'abaixo' %}<span class="sl wn">{% ic 'down' 13 1.9 %}Abaixo do previsto</span>
+          {% else %}<span class="sl no">{% ic 'up' 13 1.9 %}Acima do previsto</span>{% endif %}
         </div>
-
-        {% comment %}O número grande é o que JÁ aconteceu, e não a projeção: fato ocupa o lugar
-        de destaque, e a projeção vem na frase abaixo, onde cabe dizer que é aposta.{% endcomment %}
-        <div class="en-meta">
-          <b>{{ g.ola.ja|num:0 }}</b>
-          {% comment %}"Faixa de 100%: até 263" saiu daqui em 10/09/2026 — passou a ser a
-          segunda metade da linha logo abaixo, ao lado da projeção que ela qualifica.
-          {% endcomment %}
-          <span>já aconteceram</span>
+        <div class="gx" data-pontos='{{ c.pj }}'>
+          <svg viewBox="0 0 {{ c.w }} {{ c.h }}" aria-label="Incidentes {{ c.a.prioridade }} acumulados no dia, registrados até as {{ c.a.hora_agora }}h e previstos até as 23h">
+            <defs>
+              <linearGradient id="ga{{ c.a.prioridade }}" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2563EB" stop-opacity=".28"/><stop offset="1" stop-color="#2563EB" stop-opacity="0"/></linearGradient>
+              <linearGradient id="gl{{ c.a.prioridade }}" x1="0" x2="1"><stop offset="0" stop-color="#93C5FD"/><stop offset="1" stop-color="#2563EB"/></linearGradient>
+            </defs>
+            <path d="{{ c.grade }}" stroke="#E5EAF1" stroke-width="1"/>
+            <path class="gx-bd" d="{{ c.banda }}" fill="#DBEAFE" opacity=".6"/>
+            <path class="gx-pv" d="{{ c.previsto }}" fill="none" stroke="#93C5FD" stroke-width="2" stroke-dasharray="5 5" stroke-linecap="round"/>
+            <path class="gx-ar" d="{{ c.area }}" fill="url(#ga{{ c.a.prioridade }})"/>
+            <path class="gx-ln" d="{{ c.linha }}" pathLength="1" fill="none" stroke="url(#gl{{ c.a.prioridade }})" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="1"/>
+            <circle class="gx-ps" cx="{{ c.nx }}" cy="{{ c.ny }}" r="6" fill="#2563EB"/>
+            <circle class="gx-ag" cx="{{ c.nx }}" cy="{{ c.ny }}" r="8" fill="#fff" stroke="#2563EB" stroke-width="2.5"/>
+            <circle cx="{{ c.nx }}" cy="{{ c.ny }}" r="3.2" fill="#2563EB"/>
+            <line class="gx-cl" x1="0" x2="0" y1="8" y2="188" stroke="#0B1220" stroke-width="1" opacity="0"/>
+          </svg>
+          {% for t in c.marcas %}<span class="gx-y" style="top:{{ t.top }}%">{{ t.v }}</span>{% endfor %}
+          <span class="gx-pt" hidden></span>
+          <span class="gx-tt" hidden></span>
         </div>
-
-        {% comment %}A margem é a leitura que decide: não é "estourou ou não", é quantas quebras
-        ainda cabem antes de escorregar um degrau. No P2 são 1,5 — é o número mais apertado do
-        KPI inteiro, e a tela anterior o exibia como folga, em verde.{% endcomment %}
-        {% comment %}O par de porcentagens de atingimento — "Hoje 150% → Projeção de dezembro
-        125%" — saiu em 10/09/2026. Atingimento é a linguagem da aba Projeção, onde a escada
-        está desenhada e cada degrau tem nome; no Panorama ele obrigava o leitor a traduzir
-        duas vezes para chegar na única pergunta do bloco, que é se o ano fecha dentro da
-        faixa. A linha nova responde direto, nos números da própria régua abaixo.
-
-        "Ainda cabem 22,0 violações antes de cair para 125%" saiu junto: casa decimal em
-        contagem de violação, e a margem é a distância entre os dois números da linha.
-        {% endcomment %}
-        <p class="en-meta-l">
-          <span{% if not g.ola.folga %} class="fora"{% endif %}>Projeção de dezembro
-            <b>{{ g.ola.projecao|num:0 }}</b></span>
-          <span>Faixa de 100% até <b>{{ g.ola.at.teto_100 }}</b></span>
-        </p>
-
-        {% include 'painel/_regua_ano.html' with o=g.ola %}
-      </section>
+        <div class="gx-x">{% for t in c.horas %}<span style="left:{{ t.left }}%">{{ t.rot }}</span>{% endfor %}</div>
+        <div class="pn-nt {% if c.lado == 'abaixo' %}wn{% elif c.lado == 'acima' %}no{% endif %}">
+          <span class="pn-nt-i">{% ic 'trend_up' 14 1.8 %}</span>
+          <span>No ritmo atual fecha em <b>{{ c.a.ritmo_fecha|num:0 }} incidentes</b></span>
+          <span class="pn-nt-f">Faixa {{ c.a.baixo|num:0 }}–{{ c.a.alto|num:0 }}</span>
+        </div>
+      </div>
     {% endfor %}
   </div>
 </section>
 
-{% comment %}Uma fonte de pontos por placa. O dia.js liga cada `.en-g` à sua pelo data-pts.
-{% endcomment %}
-{{ acomp.pontos|json_script:"dia-pts-p3" }}
-{{ acomp2.pontos|json_script:"dia-pts-p2" }}
+<section class="sc anim" style="--d:.35s">
+  <div class="sc-h">
+    <h2 class="sc-t"><span class="lad no">{% ic 'timer' 16 1.8 %}</span>Prazo correndo</h2>
+    <a class="sc-a" href="{% url 'fila' %}">Todos os {{ n_hoje }} <span>→</span></a>
+  </div>
+  <div class="pn-pz">
+    {% for f in prazos %}
+      <div class="vd pn-pc t-{{ f.ptom }}" data-mod="incidente" data-k="{{ f.incidente }}" tabindex="0" role="button" aria-label="Abrir o incidente {{ f.incidente }}" style="--i:{{ forloop.counter0 }}">
+        <div class="pn-pc-a">
+          <svg viewBox="0 0 88 88">
+            <path d="{{ tracos_anel }}" stroke="#CBD5E1" stroke-width="1.4" stroke-linecap="round"/>
+            <circle cx="44" cy="44" r="32" fill="none" stroke="#EDF1F7" stroke-width="7"/>
+            <circle class="pn-pc-r" cx="44" cy="44" r="32" fill="none" stroke-width="7" stroke-linecap="round" stroke-dasharray="{{ f.anel }}" transform="rotate(-90 44 44)"/>
+          </svg>
+          <b>{% if f.esgotado %}{{ f.ola }}h+{% else %}{{ f.resta }}h{% endif %}</b>
+        </div>
+        <div class="pn-pc-c">
+          <span class="pn-pc-id">{{ f.incidente }}</span>
+          <span class="pn-pc-s">{% ic 'clock' 12 1.8 %}{% if f.esgotado %}Prazo de {{ f.ola }}h já decorrido{% else %}Para estourar o prazo{% endif %}</span>
+          <span class="sl {% if f.ftom == 'ok' %}ac{% elif f.risco >= 5 %}no{% else %}wn{% endif %}">{{ f.risco|num }}% de risco</span>
+        </div>
+        <span class="gt">›</span>
+      </div>
+    {% endfor %}
+  </div>
+</section>
 
-{% comment %}O bloco "Onde o problema mora" saiu do Panorama em 13/08. Ele carregava o pior
-produto e o código de fechamento que concentra quebra — assunto estrutural, que não se resolve
-no dia e que já tem página própria em Saúde e em Causas. Numa tela cuja ordem é a da decisão
-dentro do dia, ele era o único bloco sem ação possível, e fechava a leitura com dois links
-para outras abas. As duas análises seguem intactas nas abas delas e na navegação do topo.
-{% endcomment %}
-
-</div>
+<section class="sc anim" style="--d:.45s">
+  <div class="sc-h">
+    <h2 class="sc-t"><span class="lad dk">{% ic 'target' 16 1.8 %}</span>Meta do ano</h2>
+    <a class="sc-a" href="{% url 'projecao' %}">Projeção <span>→</span></a>
+  </div>
+  <div class="pn-hh">
+    {% for o in metas %}
+      <div class="vd pn-mt">
+        <div class="pn-hc-h">
+          <span class="pn-hc-t"><span class="pri {% if o.prioridade == 'P2' %}p2{% endif %}">{{ o.prioridade }}</span><span class="pn-mt-t">Violações de OLA</span></span>
+          {% if o.folga %}<span class="sl ok">{% ic 'shield' 13 1.9 %}Folga de {{ o.delta|num:0 }}</span>
+          {% else %}<span class="sl no">{% ic 'alert' 13 1.9 %}{{ o.delta|num }} acima do limite</span>{% endif %}
+        </div>
+        <div class="pn-mt-n">
+          <span class="kp-v">{{ o.ja|num:0 }}<small> até agora</small></span>
+          <span class="pn-mt-c"><small>Dezembro</small><b class="{% if not o.folga %}no{% endif %}">{{ o.projecao|num:0 }}</b></span>
+          <span class="pn-mt-c"><small>Limite</small><b>{{ o.meta }}</b></span>
+        </div>
+        <div class="pn-mt-b {% if not o.folga %}no{% endif %}">
+          <span class="ja" style="width:{{ o.regua.ja_w }}%"></span>
+          <span class="pj" style="left:{{ o.regua.ja_w }}%;width:calc({{ o.regua.proj_x }}% - {{ o.regua.ja_w }}%)"></span>
+          <i style="left:{{ o.regua.alvo_x }}%"></i>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
 {% endblock %}
-
-{% block js %}<script src="{% folha 'painel/dia.js' %}" defer></script>{% endblock %}

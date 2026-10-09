@@ -50,6 +50,25 @@ ACOES = {'crítica': 'Ação imediata', 'alta': 'Priorizar hoje',
 # inverter a convenção inteira, basta trocar esta linha.
 ORDEM_PRI = ('P3', 'P2')
 
+# Limite de OLA por prioridade, em horas, do dicionário de dados oficial.
+OLA_HORAS = {'P1': 4, 'P2': 4, 'P3': 12}
+
+
+def prazo(prioridade, hora_abertura, hora_agora):
+    """Quanto do prazo de OLA de um caso já correu no relógio da tela.
+
+    A base guarda a hora de abertura sem os minutos, então o tempo decorrido é a diferença de
+    horas cheias. Quando o decorrido passa do limite, a tela diz que o prazo já correu inteiro e
+    não diz que o caso violou: se ele violou ou não só se sabe no fechamento, que é futuro.
+    """
+    ola = OLA_HORAS.get(prioridade, 12)
+    decorrido = max(0, hora_agora - hora_abertura)
+    resta = ola - decorrido
+    fr = min(1.0, decorrido / ola)
+    tom = 'esg' if resta <= 0 else ('no' if resta <= ola * .25 else ('wn' if resta <= ola * .5 else 'ac'))
+    return {'ola': ola, 'resta': max(0, resta), 'esgotado': resta <= 0, 'usado': fr,
+            'usado_pc': _css(fr * 100), 'ptom': tom}
+
 
 def por_prioridade(itens, chave='prioridade'):
     """Ordena qualquer lista de dicionários pela ordem canônica das prioridades."""
@@ -653,7 +672,7 @@ def incidente(codigo):
     r['de'] = len(f)
     r['faixa'], r['ftom'] = faixa_de(r['risco'])[2], faixa_de(r['risco'])[3]
     r['em100'] = round(r['risco'])
-    r['vezes'] = round(r['risco'] / painel()['base']['media_violacao'])
+    r['vezes'] = round(r['risco'] / painel()['base']['media_violacao'], 1)
     r['hist_ativo'] = next((a['hist'] for a in painel()['ativos']
                             if a['ativo'] == r['ativo']), [])
     return r

@@ -1,168 +1,90 @@
 {% extends 'painel/base.html' %}{% load br %}
-{% block titulo %}Saúde por produto{% endblock %}
-
-{% comment %}
-SAÚDE POR PRODUTO — reconstruída em 14/08/2026.
-
-É o segundo diferencial declarado do produto, e a promessa é "ranking, tendência e
-explicabilidade". As duas primeiras estavam na tela; a terceira vivia atrás de um clique de
-mouse. A pergunta que se faz diante de um ranking é "por que este está mal?", e ela passou a ser
-respondida na própria linha, na coluna do componente que mais puxa a nota para baixo.
-
-O QUE SAIU:
-
-1. O FILTRO POR QUADRANTE. Cinco botões com recarga de página inteira para filtrar uma tabela de
-   15 linhas que cabe na tela. O estado vazio que ele existia para tratar era inalcançável: os
-   quatro quadrantes têm produto em todos.
-2. O CARTÃO "OS CINCO COMPONENTES". Glossário estático, sem um dado, que nunca muda e se lê uma
-   vez na vida. As definições foram para o modal, que é onde elas são úteis — no momento em que
-   as barras precisam de legenda.
-3. AS DUAS DIVISÓRIAS DE ATO. Liturgia de 42px cada numa página de uma tabela.
-4. O CARTÃO DE RISCO LATENTE. Repetia, num terceiro lugar, a mesma lista de produtos que a
-   tabela já marca e que o filtro também produzia. Virou uma linha abaixo da tabela.
-
-O QUE ENTROU: a janela e o escopo declarados antes do primeiro número, o veredito da aba, e as
-duas prioridades do KPI lado a lado — a nota mistura P2 e P3 num número só, e a mistura chega a
-inverter a leitura de produtos cujo problema está no P2.
-{% endcomment %}
-
+{% block titulo %}Saúde{% endblock %}
 {% block conteudo %}
-<div class="sa">
+{% comment %}
+A nota de saúde por produto (notebook 07), segundo diferencial do produto, no desenho de
+outubro/2026. O coração enche até a nota média dos produtos avaliados; a tabela traz P3 e P2 lado
+a lado, cada um com o volume e quantos violaram.
+{% endcomment %}
+<div data-lista class="fi">
 
-  <header class="sa-h noite">
-    {% comment %}"Nota", e não "Score": o h1, a coluna da tabela e o filtro `tom_nota` já dizem
-    nota, e a mesma tela usava as duas palavras para a mesma coisa. "Score de saúde por produto"
-    continua sendo o nome do diferencial no CLAUDE.md e nos slides — aqui vale a palavra que o
-    resto da tela usa.{% endcomment %}
-    <span class="sa-ey">{% icone 'coracao' 14 %}Nota de saúde · {{ total }} produtos acima de
-      200 incidentes</span>
-    {% comment %}Eram 38 palavras explicando como a nota é construída antes de o leitor ver um
-    número. A construção continua explicada — no modal do produto, onde ela é a resposta a uma
-    pergunta que o leitor acabou de fazer ao clicar. Aqui fica só o que a nota É.{% endcomment %}
-    <h1>Que produto está pior</h1>
-    {% comment %}A linha "Nota de 0 a 100, relativa ao conjunto: 100 é o melhor dos 15
-    em todos os cinco componentes, e não ausência de problemas" saiu em 10/09/2026. Eram 23
-    palavras explicando a escala antes de a tela mostrar um número, e a régua de cada linha
-    já traz a mediana marcada.{% endcomment %}
-
-    <div class="sa-h-n">
-      <div>
-        <b>{{ pior.produto }}</b>
-        <span>tem a pior nota<em>{{ pior.nota|num:1 }} de 100 · {{ pior.quadrante|capfirst }}</em></span>
-      </div>
-      <div>
-        <b>{{ abaixo_40|length }}</b>
-        <span>produtos abaixo de 40<em>De {{ total }} avaliados</em></span>
-      </div>
-      <div>
-        <b>{{ volume|mil }}</b>
-        <span>incidentes na base da nota<em>Elegíveis ao KPI abertos até 30/09/2025</em></span>
-      </div>
+<section class="hr">
+  <div class="hr-l">
+    <span class="ey no"><span>{% ic 'heart' 12 2 %}</span>Nota de saúde · {{ total }} produtos com mais de 200 incidentes</span>
+    <h1 class="pv-h1">{% for w in palavras %}<span><span style="--w:{{ forloop.counter0 }}">{{ w }}{% if forloop.last %}<i>?</i>{% endif %}</span></span>{% endfor %}</h1>
+    <p class="hr-p">Nota de 0 a 100 calculada sobre <b>{{ volume|mil }} incidentes</b> elegíveis ao KPI, abertos até 30/09.</p>
+  </div>
+  <div class="sd-co">
+    <span class="sd-hl"></span>
+    <svg class="sd-ecg" viewBox="0 0 600 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60 L170 60 L180 52 L190 60 L205 60 L212 18 L222 92 L230 60 L370 60 L378 30 L386 84 L394 60 L405 60 L412 54 L420 60 L600 60" pathLength="1" fill="none" stroke="#F87171" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray=".3 .7"/></svg>
+    <div class="sd-cr">
+      <svg viewBox="0 0 200 186" aria-hidden="true">
+        <defs>
+          <clipPath id="hc"><path d="{{ coracao }}"/></clipPath>
+          <linearGradient id="hl" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FCA5A5"/><stop offset="1" stop-color="#DC2626"/></linearGradient>
+          <linearGradient id="hg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#FEE2E2" stop-opacity=".7"/></linearGradient>
+        </defs>
+        <path d="{{ coracao }}" fill="url(#hg)"/>
+        <g clip-path="url(#hc)">
+          <g style="transform:translateY({{ nivel }}px)">
+            <path class="sd-w1" d="M-200 10 Q-175 0 -150 10 T-100 10 T-50 10 T0 10 T50 10 T100 10 T150 10 T200 10 T250 10 T300 10 T350 10 T400 10 V300 H-200 Z" fill="url(#hl)" opacity=".5"/>
+            <path class="sd-w2" d="M-200 14 Q-175 4 -150 14 T-100 14 T-50 14 T0 14 T50 14 T100 14 T150 14 T200 14 T250 14 T300 14 T350 14 T400 14 V300 H-200 Z" fill="url(#hl)"/>
+          </g>
+          <ellipse cx="62" cy="58" rx="26" ry="14" fill="#fff" opacity=".45" transform="rotate(-30 62 58)"/>
+        </g>
+        <path d="{{ coracao }}" fill="none" stroke="#F87171" stroke-width="6" opacity=".18" style="filter:blur(3px)"/>
+        <path d="{{ coracao }}" fill="none" stroke="#EF4444" stroke-width="2.2" stroke-linejoin="round" opacity=".65"/>
+      </svg>
+      <div class="sd-cn"><b>{{ media|num }}</b><span>Nota média dos {{ total }}</span></div>
     </div>
-  </header>
-
-  <section class="pn-v sa-tb">
-    <div class="sa-tb-h">
-      <div>
-        {% comment %}"Do melhor ao pior. Selecione um produto para ver o peso de cada
-        componente na nota" saiu: a ordem está nos próprios números e o clique se
-        descobre.{% endcomment %}
-        <h2>Ranking</h2>
-      </div>
-      {% comment %}"P2 e P3 somados na nota · Colunas separadas ao lado" saiu: as duas
-      colunas se chamam P3 e P2, e a nota não se soma a nada.{% endcomment %}
+    <button type="button" class="sd-fl sd-f1" data-mod="produto" data-k="{{ pior.produto }}">
+      <span class="kp-i no">{% ic 'down' 16 1.8 %}</span>
+      <span><small>Pior nota</small><b>{{ pior.produto|capfirst }} <i>{{ pior.nota|num }}</i></b></span>
+    </button>
+    <div class="sd-fl sd-f2">
+      <span class="kp-i fi-wn">{% ic 'alert' 16 1.8 %}</span>
+      <span><small>Abaixo de 40</small><b>{{ abaixo_40|length }} de {{ total }} produtos</b></span>
     </div>
+  </div>
+</section>
 
-    <div class="tbw">
-      <table class="sa-t">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Produto</th>
-            <th>Nota</th>
-            <th>Situação</th>
-            <th class="sa-t-x">Componente que mais penaliza</th>
-            <th class="sa-t-n"><span class="esc p3">P3</span></th>
-            <th class="sa-t-n"><span class="esc p2">P2</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for x in lista %}
-            <tr data-mod="produto" data-k="{{ x.produto }}" tabindex="0"
-              style="--i:{{ forloop.counter0 }}">
-              <td class="sa-t-p">{{ x.posicao|floatformat:0 }}</td>
+<section class="vd fl anim" style="--d:.2s">
+  <button type="button" class="ch sd-ch on" data-grupo-bt="">Todos <em>{{ total }}</em></button>
+  {% for x in situacoes %}
+    <button type="button" class="ch sd-ch" data-grupo-bt="{{ x.nome }}"><i class="sd-d {{ x.cor }}"></i>{{ x.nome }}<em data-conta="{{ x.nome }}">{{ x.n }}</em></button>
+  {% endfor %}
+  <button type="button" class="ch sd-or" data-inverte>{% ic 'sort' 14 1.7 %}<span data-rot-a>Pior nota primeiro</span><span data-rot-b hidden>Melhor nota primeiro</span></button>
+</section>
 
-              {% comment %}Quinze códigos de quatro letras, todos começando com `l`, e em
-              tipografia de tela o `l` minúsculo e o `I` maiúsculo são o mesmo traço. Não havia
-              nada separando uma linha da outra.
+<section class="sd-sc anim" style="--d:.25s">
+  {% for x in situacoes %}
+    <button type="button" class="sd-sk {{ x.cor }}" data-grupo-bt="{{ x.nome }}">
+      <span>{% ic x.ic 16 1.8 %}</span>
+      <span><b>{{ x.nome }} <small>{{ x.n }}</small></b><em>{{ x.curto }}</em></span>
+    </button>
+  {% endfor %}
+</section>
 
-              O selo é a EQUIPE que atende, com cor derivada do nome dela: dois produtos do
-              mesmo time ficam visivelmente parentes na lista. Era esse o ganho que o
-              agrupamento por família de produto prometia — mas família não existe no dado (os
-              51 códigos são opacos, e a coluna Categoria também é anonimizada), enquanto
-              "quem atende" é medido e responde uma pergunta do dia.{% endcomment %}
-              <td class="sa-t-pr">
-                <span class="sa-eq" style="--h:{{ x.equipe_h }}"
-                  title="{{ x.equipe }} atende {{ x.equipe_pc }}% dos casos deste produto">
-                  {{ x.equipe_curta }}</span>
-                <span class="sa-pr">
-                  <b class="id">{{ x.produto }}</b>
-                  {% if x.equipe %}<em>{{ x.equipe }} · {{ x.equipe_pc }}%</em>{% endif %}
-                </span>
-              </td>
-
-              {% comment %}A barra da nota tem a mediana marcada: sem ela, a barra compara o
-              produto com zero, e a nota é relativa ao conjunto — comparar com zero não
-              significa nada.{% endcomment %}
-              <td class="sa-t-nota">
-                <span class="sa-bar" title="Mediana do conjunto: {{ x.mediana|num:1 }}">
-                  <i style="width:{% widthratio x.nota 100 100 %}%"></i>
-                  <u style="left:{% widthratio x.mediana 100 100 %}%"></u></span>
-                <b>{{ x.nota|num:1 }}</b>
-              </td>
-
-              {% comment %}O selo de "Recorrente" era AZUL. No sistema de cor do projeto, azul
-              significa uma coisa só — o modelo falando, previsão, saída de modelo — e aqui ele
-              estava marcando história medida. Duas semânticas para a mesma cor na mesma tela.
-              Passa a cinza neutro: o estado existe, não é alarme e não é previsão.{% endcomment %}
-              <td><span class="tag {% if 'materializado' in x.quadrante %}no{% elif 'latente' in x.quadrante %}wn{% elif 'recorrente' in x.quadrante %}nt{% else %}ok{% endif %}">{{ x.situacao }}</span></td>
-
-              {% comment %}A explicabilidade na linha: o componente de pior posição relativa e o
-              valor dele. "Percentil 93" saiu — é a palavra do notebook, não a de quem opera, e o
-              número dizia a mesma coisa que `pior_faixa` agora diz em português.{% endcomment %}
-              <td class="sa-t-x">
-                <b>{{ x.pior_rot }}</b>
-                <em>{{ x.pior_val }} · {{ x.pior_faixa }}
-                  {% if x.duracao_longa and x.pior_rot == 'Duração mediana' %}
-                    · Encerramento automático infla a mediana{% endif %}</em>
-              </td>
-
-              <td class="sa-t-n">{{ x.incidentes_p3|mil }}
-                <em>{{ x.violacoes_p3 }} violaram</em></td>
-              <td class="sa-t-n">{{ x.incidentes_p2|mil }}
-                <em>{{ x.violacoes_p2 }} violaram</em></td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+<section class="vd tb anim" style="--d:.3s">
+  <div class="tb-h sd-g">
+    <span>#</span><span>{% ic 'box' 13 %}Produto</span><span>{% ic 'heart' 13 %}Nota</span><span>{% ic 'target' 13 %}Situação</span><span>{% ic 'bars' 13 %}O que mais penaliza</span><span class="sd-n">P3</span><span class="sd-n">P2</span><span></span>
+  </div>
+  <div data-corpo>
+  {% for x in lista reversed %}
+    <div class="tb-r sd-g" data-linha data-grupo="{{ x.situacao }}" data-mod="produto" data-k="{{ x.produto }}" tabindex="0" role="button" aria-label="Abrir o produto {{ x.produto }}" style="--i:{{ forloop.counter0 }}">
+      <span class="tb-n">{{ forloop.counter }}</span>
+      <span><span class="tb-b">{{ x.produto|capfirst }}</span><span class="tb-s">{% ic 'team' 12 %}{{ x.equipe }} · {{ x.equipe_pc }}%</span></span>
+      <span class="sd-nt {{ x.tom }}">{{ x.nota|num }}</span>
+      <span class="sd-st {{ x.sit.cor }}"><i class="sd-d {{ x.sit.cor }}"></i>{{ x.situacao }}</span>
+      <span class="sd-pn"><span>{{ x.pior_rot }}</span><small>{{ x.pior_val }} · {{ x.pior_faixa }}</small></span>
+      <span class="sd-n"><b>{{ x.incidentes_p3|mil }}</b><small class="{% if x.violacoes_p3 %}no{% endif %}">{{ x.violacoes_p3 }} violaram</small></span>
+      <span class="sd-n"><b>{{ x.incidentes_p2|mil }}</b><small class="{% if x.violacoes_p2 %}no{% endif %}">{{ x.violacoes_p2 }} violaram</small></span>
+      <span class="gt">›</span>
     </div>
+  {% endfor %}
+  </div>
+  <div class="vz" data-vazio hidden>Nenhum produto nesta situação.</div>
+</section>
 
-    {% comment %}A coluna Situação usava quatro termos e a tela definia UM deles, num parágrafo
-    de 45 palavras no rodapé. Os outros três — estável, recorrente, já materializado — o leitor
-    tinha de deduzir.
-
-    Agora os quatro são definidos no ponto de uso, numa linha cada, com o próprio selo à frente.
-    É legenda, e legenda se varre com o olho: não é o parágrafo que ninguém lia.
-
-    Os dois eixos são taxa de violação e proporção de problemas inéditos, cada um comparado à
-    mediana do conjunto. Os quatro cruzamentos são os quatro estados — por isso as definições
-    cabem em uma linha.{% endcomment %}
-    {% comment %}O glossário das quatro situações saiu em 10/09/2026. Eram 47 palavras
-    no pé da tela definindo Estável, Recorrente, Risco latente e Já materializado. As
-    etiquetas continuam em cada linha; a definição de cada uma é o que se fala.
-
-    Se voltar: o eixo é problema inédito contra violação acima da mediana, e os quatro
-    cruzamentos são os quatro estados.{% endcomment %}
-  </section>
 </div>
 {% endblock %}

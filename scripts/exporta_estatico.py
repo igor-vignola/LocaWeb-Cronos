@@ -73,14 +73,17 @@ def relativiza(html: str, profundidade: int) -> str:
         atributo, alvo = m.group(1), m.group(2)
         if alvo.startswith("//"):
             return m.group(0)
-        resto = alvo.lstrip("/")
+        resto, _, busca = alvo.lstrip("/").partition("?")
+        # a busca da fila (`/fila/?q=Team10`) viaja depois do index.html: o filtro é aplicado no
+        # navegador, e sem isto o "?q=" ia parar no meio do caminho do arquivo
+        busca = f"?{busca}" if busca else ""
         if not resto:
             destino = f"{prefixo}index.html" if prefixo else "index.html"
         elif resto.endswith((".json", ".css", ".js", ".svg", ".png", ".woff2")):
             destino = prefixo + resto
         else:
             destino = prefixo + resto.rstrip("/") + "/index.html"
-        return f'{atributo}{destino}"'
+        return f'{atributo}{destino}{busca}"'
 
     html = ABSOLUTO.sub(troca, html)
 
