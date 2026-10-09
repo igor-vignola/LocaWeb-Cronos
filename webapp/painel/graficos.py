@@ -314,10 +314,16 @@ def hora_a_hora(ac, w=640, h=200):
         'horas': [{'rot': f'{hh:02d}h', 'left': cd(px(hh) / w * 100)} for hh in (0, 6, 12, 18, 23)],
         # leitura do cursor: o realizado até o agora, o previsto depois. Nunca o realizado
         # depois do corte, que é futuro para o relógio da tela.
+        # o que o balão mostra: o registrado e o que entrou dentro da hora (só até o agora), a
+        # previsão do modelo e a faixa de 80% naquela altura do dia
         'pontos': [{'h': i, 'x': cd(px(i) / w * 100),
                     'y': cd((py(realizado[i]) if i < len(realizado) else py(esperado[i])) / h * 100),
-                    'v': (realizado[i] if i < len(realizado) else round(esperado[i], 1)),
-                    'real': i < len(realizado)} for i in range(24)],
+                    'real': realizado[i] if i < len(realizado) else None,
+                    'nah': ((realizado[i] - realizado[i - 1]) if i else realizado[i])
+                           if i < len(realizado) else None,
+                    'esp': round(esperado[i], 1),
+                    'bx': round(ac['baixo'] * frac[i], 1), 'at': round(ac['alto'] * frac[i], 1)}
+                   for i in range(24)],
     }
 
 
@@ -368,11 +374,13 @@ def serie_diaria(realizado, previsto, n_real=30, n_prev=14, w=640, h=260):
     dm = lambda d: f'{d[8:10]}/{d[5:7]}'
     sem = lambda d: DIAS_CURTOS[dt.date.fromisoformat(d[:10]).weekday()]
     xh = px(len(real))
-    pontos = [{'x': cd(px(i) / w * 100), 'y': cd(py(r['valor']) / h * 100), 'v': round(r['valor']),
-               'real': True, 'rot': f"{sem(r['dia'])}, {dm(r['dia'])}"} for i, r in enumerate(real)]
+    pontos = [{'x': cd(px(i) / w * 100), 'y': cd(py(r['valor']) / h * 100),
+               'real': round(r['valor']), 'rot': f"{sem(r['dia'])}, {dm(r['dia'])}"}
+              for i, r in enumerate(real)]
     pontos += [{'x': cd(px(len(real) + i) / w * 100), 'y': cd(py(f['valor']) / h * 100),
-                'v': round(f['valor'], 1), 'real': False,
-                'rot': f"{f['rot']}, {f['dm']}"} for i, f in enumerate(fut)]
+                'real': None, 'esp': round(f['valor'], 1), 'bx': round(f['baixo'], 1),
+                'at': round(f['alto'], 1), 'rot': f"{f['rot']}, {f['dm']}"}
+               for i, f in enumerate(fut)]
     idx = [0, 5, 10, 15, 20, 25] + [len(real), len(real) + 4, len(real) + 8, n - 1]
     return {
         'w': w, 'h': h, 'banda': banda, 'previsto': _suave(pf),

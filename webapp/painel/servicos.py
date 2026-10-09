@@ -54,20 +54,28 @@ ORDEM_PRI = ('P3', 'P2')
 OLA_HORAS = {'P1': 4, 'P2': 4, 'P3': 12}
 
 
-def prazo(prioridade, hora_abertura, hora_agora):
+def prazo(prioridade, hora_abertura, hora_agora, violou=None):
     """Quanto do prazo de OLA de um caso já correu no relógio da tela.
 
     A base guarda a hora de abertura sem os minutos, então o tempo decorrido é a diferença de
-    horas cheias. Quando o decorrido passa do limite, a tela diz que o prazo já correu inteiro e
-    não diz que o caso violou: se ele violou ou não só se sabe no fechamento, que é futuro.
+    horas cheias, e "0h" quer dizer menos de uma hora.
+
+    Quando o prazo inteiro já ficou para trás do relógio, o desfecho do OLA deixa de ser futuro:
+    se o caso tivesse ficado aberto além do limite, a violação teria acontecido antes das 15h. Só
+    nesse caso o `violou` da base pode ser lido. Antes disso ele é o futuro do caso e não entra.
     """
     ola = OLA_HORAS.get(prioridade, 12)
     decorrido = max(0, hora_agora - hora_abertura)
     resta = ola - decorrido
+    esgotado = resta < 0
     fr = min(1.0, decorrido / ola)
-    tom = 'esg' if resta <= 0 else ('no' if resta <= ola * .25 else ('wn' if resta <= ola * .5 else 'ac'))
-    return {'ola': ola, 'resta': max(0, resta), 'esgotado': resta <= 0, 'usado': fr,
-            'usado_pc': _css(fr * 100), 'ptom': tom}
+    if esgotado:
+        tom = 'no' if violou else 'fch'
+    else:
+        tom = 'no' if resta <= ola * .25 else ('wn' if resta <= ola * .5 else 'ac')
+    return {'ola': ola, 'resta': max(0, resta), 'esgotado': esgotado,
+            'estourou': bool(esgotado and violou), 'fechado': bool(esgotado and not violou),
+            'usado': fr, 'usado_pc': _css(fr * 100), 'ptom': tom}
 
 
 def por_prioridade(itens, chave='prioridade'):

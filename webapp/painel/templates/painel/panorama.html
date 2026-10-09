@@ -3,11 +3,8 @@
 {% block conteudo %}
 {% comment %}
 Panorama, no desenho do redesenho de outubro/2026 (Claude Design, versão v3). Ordem: como está
-o dia, a curva de hoje nas duas prioridades, os casos em que dá para agir, e o ano.
-
-O bloco da meta do ano não estava na v3 do desenho. Voltou porque a tela de entrada mostrava o
-P2 passando do limite apenas como um aviso, sem o número; o desenho do cartão segue o resto da
-tela.
+o dia, a curva de hoje nas duas prioridades e os casos em que dá para agir. O fechamento do ano
+mora na Projeção; aqui ele aparece só como aviso no topo, quando uma prioridade passa do limite.
 {% endcomment %}
 
 <section class="hr pn-hr">
@@ -62,7 +59,7 @@ tela.
 
 <section class="sc anim" style="--d:.25s">
   <div class="sc-h">
-    <h2 class="sc-t"><span class="lad">{% ic 'trend' 16 1.8 %}</span>Hoje, hora a hora</h2>
+    <h2 class="sc-t"><span class="lad">{% ic 'trend' 16 1.8 %}</span>Ritmo do dia</h2>
     <a class="sc-a" href="{% url 'previsao' %}">Previsão <span>→</span></a>
   </div>
   <div class="pn-hh">
@@ -119,11 +116,11 @@ tela.
             <circle cx="44" cy="44" r="32" fill="none" stroke="#EDF1F7" stroke-width="7"/>
             <circle class="pn-pc-r" cx="44" cy="44" r="32" fill="none" stroke-width="7" stroke-linecap="round" stroke-dasharray="{{ f.anel }}" transform="rotate(-90 44 44)"/>
           </svg>
-          <b>{% if f.esgotado %}{{ f.ola }}h+{% else %}{{ f.resta }}h{% endif %}</b>
+          <b>{% if f.esgotado %}{{ f.ola }}h{% elif f.resta %}{{ f.resta }}h{% else %}&lt;1h{% endif %}</b>
         </div>
         <div class="pn-pc-c">
           <span class="pn-pc-id">{{ f.incidente }}</span>
-          <span class="pn-pc-s">{% ic 'clock' 12 1.8 %}{% if f.esgotado %}Prazo de {{ f.ola }}h já decorrido{% else %}Para estourar o prazo{% endif %}</span>
+          <span class="pn-pc-s">{% ic 'clock' 12 1.8 %}{% if f.fechado %}Fechado no prazo{% elif f.estourou %}Prazo estourado{% else %}Para estourar o prazo{% endif %}</span>
           <span class="sl {% if f.ftom == 'ok' %}ac{% elif f.risco >= 5 %}no{% else %}wn{% endif %}">{{ f.risco|num }}% de risco</span>
         </div>
         <span class="gt">›</span>
@@ -132,31 +129,4 @@ tela.
   </div>
 </section>
 
-<section class="sc anim" style="--d:.45s">
-  <div class="sc-h">
-    <h2 class="sc-t"><span class="lad dk">{% ic 'target' 16 1.8 %}</span>Meta do ano</h2>
-    <a class="sc-a" href="{% url 'projecao' %}">Projeção <span>→</span></a>
-  </div>
-  <div class="pn-hh">
-    {% for o in metas %}
-      <div class="vd pn-mt">
-        <div class="pn-hc-h">
-          <span class="pn-hc-t"><span class="pri {% if o.prioridade == 'P2' %}p2{% endif %}">{{ o.prioridade }}</span><span class="pn-mt-t">Violações de OLA</span></span>
-          {% if o.folga %}<span class="sl ok">{% ic 'shield' 13 1.9 %}Folga de {{ o.delta|num:0 }}</span>
-          {% else %}<span class="sl no">{% ic 'alert' 13 1.9 %}{{ o.delta|num }} acima do limite</span>{% endif %}
-        </div>
-        <div class="pn-mt-n">
-          <span class="kp-v">{{ o.ja|num:0 }}<small> até agora</small></span>
-          <span class="pn-mt-c"><small>Dezembro</small><b class="{% if not o.folga %}no{% endif %}">{{ o.projecao|num:0 }}</b></span>
-          <span class="pn-mt-c"><small>Limite</small><b>{{ o.meta }}</b></span>
-        </div>
-        <div class="pn-mt-b {% if not o.folga %}no{% endif %}">
-          <span class="ja" style="width:{{ o.regua.ja_w }}%"></span>
-          <span class="pj" style="left:{{ o.regua.ja_w }}%;width:calc({{ o.regua.proj_x }}% - {{ o.regua.ja_w }}%)"></span>
-          <i style="left:{{ o.regua.alvo_x }}%"></i>
-        </div>
-      </div>
-    {% endfor %}
-  </div>
-</section>
 {% endblock %}

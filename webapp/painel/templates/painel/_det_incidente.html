@@ -3,7 +3,8 @@ Detalhe do incidente, no vidro do redesenho de outubro/2026. A decomposição ve
 contribuição de cada sinal é peso × (valor − média do treino), e a soma reconstrói o escore.
 
 O anel do desenho trazia uma contagem regressiva em segundos. O relógio da tela está parado às
-15h e a base guarda a hora de abertura sem minutos, então o anel mostra horas cheias.
+15h e a base guarda a hora de abertura sem minutos, então o anel mostra horas cheias. Quando o
+prazo inteiro já passou, o anel mostra o desfecho, que a essa altura já aconteceu.
 {% endcomment %}
 <div class="md-hd">
   <span class="md-k">{{ c.posicao }}º de {{ c.de }} na fila de hoje</span>
@@ -22,7 +23,7 @@ O anel do desenho trazia uma contagem regressiva em segundos. O relógio da tela
       <circle cx="66" cy="66" r="54" fill="none" stroke="#E2E8F0" stroke-width="10"/>
       <circle class="di-r" cx="66" cy="66" r="54" fill="none" stroke-width="10" stroke-linecap="round" stroke-dasharray="{{ anel }}" transform="rotate(-90 66 66)"/>
     </svg>
-    <div>{% if pz.esgotado %}<b>{{ pz.ola }}h+</b><small>desde a abertura</small>{% else %}<b>{{ pz.resta }}h</b><small>até o prazo</small>{% endif %}</div>
+    <div>{% if pz.fechado %}<b>{% ic 'check' 30 2.4 %}</b><small>Fechado no prazo</small>{% elif pz.estourou %}<b>{{ pz.ola }}h</b><small>Prazo estourado</small>{% elif pz.resta %}<b>{{ pz.resta }}h</b><small>até o prazo</small>{% else %}<b>&lt;1h</b><small>até o prazo</small>{% endif %}</div>
   </div>
   <div class="md-g">
     <div class="md-s {% if c.risco >= 5 %}no{% else %}wn{% endif %}"><em>Risco</em><b>{{ c.risco|num }}%</b></div>

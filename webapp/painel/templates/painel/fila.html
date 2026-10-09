@@ -6,8 +6,8 @@ A fila do dia, do maior risco para o menor (notebook 04, regressão logística),
 outubro/2026. Só entra caso aberto até a hora do relógio da tela.
 
 "Tempo restante" é o limite de OLA da prioridade (P2 4h, P3 12h) menos as horas desde a abertura.
-Quando o tempo já correu inteiro, a coluna diz isso e não diz "vencido": se o caso violou ou não
-só se sabe no fechamento, que para o relógio da tela ainda não aconteceu.
+Quando o prazo inteiro já ficou para trás do relógio, o desfecho já aconteceu e a coluna o diz:
+fechado no prazo ou prazo estourado.
 {% endcomment %}
 <div data-lista data-limite="15" data-unidade="incidentes" class="fi">
 
@@ -59,7 +59,7 @@ só se sabe no fechamento, que para o relógio da tela ainda não aconteceu.
       <span class="fi-tx">{{ r.equipe }}</span>
       <span class="fi-pz t-{{ r.ptom }}">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#EDF1F7" stroke-width="3.5"/><circle class="pg" cx="12" cy="12" r="9" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="{{ r.anel }}" transform="rotate(-90 12 12)"/></svg>
-        <b>{% if r.esgotado %}Prazo decorrido{% else %}{{ r.resta }}h{% endif %}</b>
+        <b>{% if r.fechado %}Fechado no prazo{% elif r.estourou %}Prazo estourado{% elif r.resta %}{{ r.resta }}h{% else %}Menos de 1h{% endif %}</b>
       </span>
       <span class="fi-ft">{% if r.top %}<span>{{ r.top.sinal|capfirst }}</span><small>· {{ r.top.peso|num:0 }}%</small>{% else %}<span>Média da base</span>{% endif %}</span>
       <span class="fi-rk {{ r.gtom }}"><b>{{ r.risco|num }}%</b><span class="br"><span style="width:{{ r.larg }}%"></span></span></span>

@@ -115,25 +115,52 @@ addEventListener('keydown', (e) => {
 });
 
 /* ── gráficos: leitura pelo cursor ──────────────────────────────────────── */
-// Cada `.gx` traz os pontos em `data-pontos`: posição em % da largura e da altura, valor, e se
-// a hora já aconteceu. O texto do balão vem de `data-fmt`: "h" para hora do dia, "d" para dia.
+// Cada `.gx` traz os pontos em `data-pontos`: posição em % da largura e da altura, o registrado
+// (null no que ainda não aconteceu), a previsão do modelo e a faixa de 80%. No gráfico do dia
+// também vem quanto entrou dentro da hora. O balão monta as linhas que o ponto tiver.
 document.querySelectorAll('.gx[data-pontos]').forEach((gx) => {
   const pts = JSON.parse(gx.dataset.pontos);
   const pt = gx.querySelector('.gx-pt'), tt = gx.querySelector('.gx-tt');
   const cl = gx.querySelector('.gx-cl');
-  const svg = gx.querySelector('svg');
-  const vw = svg.viewBox.baseVal.width;
+  const vw = gx.querySelector('svg').viewBox.baseVal.width;
   const num = (v) => Number(v).toLocaleString('pt-BR', { maximumFractionDigits: 1 });
+  const linha = (r, v) => `<span class="tt-l"><span>${r}</span><b>${v}</b></span>`;
+  const balao = (p) => {
+    const hora = p.rot === undefined;
+    const rot = hora ? String(p.h).padStart(2, '0') + 'h' : p.rot;
+    let h = `<span class="tt-h">${rot}</span>`;
+    if (p.real !== null && p.real !== undefined) {
+      h += linha(hora ? `Registrados até ${rot}` : 'Registrados', p.real);
+      if (p.nah !== undefined && p.nah !== null) h += linha('Entraram nesta hora', p.nah > 0 ? `+${p.nah}` : '0');
+    }
+    if (p.esp !== undefined) {
+      h += linha('Previsão do modelo', num(p.esp));
+      h += linha('Faixa de 80%', `${num(p.bx)} – ${num(p.at)}`);
+    }
+    if (p.real === null) {
+      h += `<span class="tt-v">${hora ? 'Hora ainda não decorrida' : 'Dia previsto'}</span>`;
+    } else if (p.esp !== undefined) {
+      const d = p.real - p.esp;
+      const lado = p.real < p.bx ? ['wn', 'Abaixo do intervalo'] : p.real > p.at ? ['no', 'Acima do intervalo'] : ['', 'Dentro do intervalo'];
+      const dist = Math.abs(d) < .05 ? ', em linha com a previsão' : ` · ${num(Math.abs(d))} ${d < 0 ? 'abaixo' : 'acima'} da previsão`;
+      h += `<span class="tt-v ${lado[0]}">${lado[1]}${dist}</span>`;
+    }
+    return h;
+  };
   gx.addEventListener('mousemove', (e) => {
     const r = gx.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width * 100;
     let p = pts[0];
     for (const c of pts) if (Math.abs(c.x - x) < Math.abs(p.x - x)) p = c;
     pt.hidden = tt.hidden = false;
-    pt.style.left = tt.style.left = p.x + '%';
-    pt.style.top = tt.style.top = p.y + '%';
-    const rot = p.rot || String(p.h).padStart(2, '0') + 'h';
-    tt.innerHTML = `<b>${rot}</b> · ${num(p.v)} ${p.real ? 'registrados' : 'previstos'}`;
+    pt.style.left = p.x + '%';
+    pt.style.top = p.y + '%';
+    tt.innerHTML = balao(p);
+    // o balão não pode sair do cartão: perto das bordas ele encosta no lado de dentro
+    const meia = tt.offsetWidth / 2 / r.width * 100;
+    tt.style.left = Math.min(100 - meia, Math.max(meia, p.x)) + '%';
+    tt.style.top = p.y + '%';
+    tt.classList.toggle('bx', p.y < 45);
     if (cl) {
       const xv = p.x / 100 * vw;
       cl.setAttribute('x1', xv); cl.setAttribute('x2', xv); cl.setAttribute('opacity', '.18');

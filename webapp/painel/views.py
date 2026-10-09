@@ -171,7 +171,8 @@ def _v3_panorama(ctx):
         if not o['folga']:
             avisos.append({'tom': 'no', 'ic': 'alert', 'href': 'projecao',
                            'texto': f"{o['prioridade']} pode passar o limite do ano"})
-    prazos = [dict(f, **s.prazo(f['prioridade'], f['hora'], agora)) for f in ctx['fila']]
+    prazos = [dict(f, **s.prazo(f['prioridade'], f['hora'], agora, f.get('violou')))
+              for f in ctx['fila']]
     for f in prazos:
         f['anel'] = g.anel(f['usado'], 32)
     hh = []
@@ -245,7 +246,7 @@ def fila(req):
     maior = max((r['risco'] for r in dados['linhas']), default=1) or 1
     tons = {'crítica': 'no', 'alta': 'al', 'atenção': 'wn', 'rotina': 'ok'}
     for r in dados['linhas']:
-        r.update(s.prazo(r['prioridade'], r['hora'], agora))
+        r.update(s.prazo(r['prioridade'], r['hora'], agora, r.get('violou')))
         r['anel'] = g.anel(r['usado'], 9)
         rot = s.faixa_de(r['risco'])[2]
         r['grupo'], r['gtom'] = rot, tons[rot]
@@ -513,7 +514,8 @@ def det_incidente(req, codigo):
     inc = s.incidente(codigo)
     if not inc:
         raise Http404('incidente não encontrado')
-    pz = s.prazo(inc['prioridade'], inc['hora'], s.painel()['acompanhamento']['hora_agora'])
+    pz = s.prazo(inc['prioridade'], inc['hora'], s.painel()['acompanhamento']['hora_agora'],
+                 inc.get('violou'))
     sinais = inc['sinais'] or []
     topo = max((x['peso'] for x in sinais), default=0) or 1
     return render(req, 'painel/_det_incidente.html',
